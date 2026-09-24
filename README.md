@@ -10,8 +10,9 @@
 ## 🌐 روابط المعاينة والتشغيل المباشر (Live Demo)
 يمكن تشغيل المنظومة مباشرة عبر **GitHub Pages**:
 - 🔗 **البوابة الإلكترونية الموحدة (Portal Landing):** [https://yellanefham.github.io/smile-kids-school-system/](https://yellanefham.github.io/smile-kids-school-system/)
-- 🏫 **نظام إدارة المدرسة (درجات، حضور، شهادات):** [Smile_Kids_School_Management_System.html](Smile_Kids_School_Management_System.html)
 - 📋 **كشوف وقوائم الطلاب والغياب والحضور (1 - 9):** [Student_Roster_Dashboard.html](Student_Roster_Dashboard.html)
+- 📅 **الجداول المدرسية الأسبوعية الشاملة:** [Interactive_Timetable_Dashboard.html](Interactive_Timetable_Dashboard.html)
+- 🏫 **نظام إدارة المدرسة (درجات، حضور، شهادات):** [Smile_Kids_School_Management_System.html](Smile_Kids_School_Management_System.html)
 
 ---
 
@@ -96,6 +97,7 @@ smile_kids_sis/
 ├── smile_kids_database.js                  # 🗄️ محرك قاعدة البيانات الموحدة والمزامنة اللحظية
 ├── smile_kids_database.json                # 📄 ملف قاعدة البيانات النظيفة بصيغة JSON
 ├── index.html                             # 🏠 بوابة النظام الإلكترونية الموحدة
+├── Interactive_Timetable_Dashboard.html   # 📅 الجداول المدرسية الأسبوعية الشاملة
 ├── Smile_Kids_School_Management_System.html# 🏫 لوحة التحكم في الدرجات والحضور والشهادات
 ├── Student_Roster_Dashboard.html          # 📋 كشوف وقوائم الفصول وتعديل الأسماء والغياب الشهري
 ├── smile_kids_logo.png                    # 🎨 شعار مدرسة سمايل كيدز عالي الدقة

@@ -79,60 +79,88 @@
         </div>
       </div>
 
-      <!-- Portal App Cards Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      <!-- Portal App Cards Grid (3 Columns) -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
         
-        <!-- App Card 1: School Management System -->
-        <div class="bg-slate-900/90 border border-slate-800 hover:border-indigo-500/50 rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 shadow-xl group">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="w-14 h-14 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-3xl">🏫</span>
-              <span class="bg-indigo-500/20 text-indigo-300 text-xs font-black px-3 py-1 rounded-full border border-indigo-500/30">النظام الشامل</span>
-            </div>
-            <h3 class="text-2xl font-black text-white group-hover:text-indigo-400 transition-colors">نظام إدارة المدرسة ورصد الدرجات والغياب</h3>
-            <p class="text-slate-400 text-xs sm:text-sm font-semibold mt-2.5 leading-relaxed">
-              إدارة رصد درجات الاختبارات الشهرية ونهاية الترم، تسجيل حضور وغياب الطلاب اليومي، طباعة الشيت اليدوي العريض، وتوليد شهادات التقدير والتفوق الأكاديمي الرسمية.
-            </p>
-
-            <div class="grid grid-cols-2 gap-2 mt-6 text-xs text-slate-300 font-bold">
-              <div class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> رصد درجات المعلمين</div>
-              <div class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> كشف الحضور والغياب اليومي</div>
-              <div class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> شيت الحضور اليدوي العريض</div>
-              <div class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> شهادات التقدير والتفوق</div>
-            </div>
-          </div>
-
-          <div class="mt-8 pt-6 border-t border-slate-800 flex items-center gap-3">
-            <a href="Smile_Kids_School_Management_System.html" class="flex-1 py-3.5 px-5 bg-indigo-600 hover:bg-indigo-500 text-white font-black text-sm rounded-xl text-center transition shadow-lg shadow-indigo-900/40 flex items-center justify-center gap-2">
-              <span>فتح نظام الإدارة المدرسية</span>
-              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </a>
-          </div>
-        </div>
-
-        <!-- App Card 2: Student Roster Dashboard -->
-        <div class="bg-slate-900/90 border border-slate-800 hover:border-emerald-500/50 rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 shadow-xl group">
+        <!-- App Card 1: Student Roster & Attendance Dashboard -->
+        <div class="bg-slate-900/90 border border-slate-800 hover:border-emerald-500/50 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 shadow-xl group">
           <div>
             <div class="flex items-center justify-between mb-4">
               <span class="w-14 h-14 rounded-2xl bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center text-3xl">📋</span>
               <span class="bg-emerald-500/20 text-emerald-300 text-xs font-black px-3 py-1 rounded-full border border-emerald-500/30">كشوف الفصول</span>
             </div>
-            <h3 class="text-2xl font-black text-white group-hover:text-emerald-400 transition-colors">كشوف وقوائم الطلاب (1 - 9)</h3>
+            <h3 class="text-xl sm:text-2xl font-black text-white group-hover:text-emerald-400 transition-colors">كشوف وقوائم الطلاب (1 - 9)</h3>
             <p class="text-slate-400 text-xs sm:text-sm font-semibold mt-2.5 leading-relaxed">
-              الفصول من الصف الأول حتى الصف التاسع مع إمكانية التبديل المباشر بين قسم اللغات وقسم العربي، وتعديل وتصحيح أسماء الطلاب، والطباعة، وتصدير الإكسيل.
+              الفصول من الصف الأول حتى الصف التاسع مع تصفية مستقلة لقسم اللغات وقسم العربي، تعديل وتصحيح الأسماء، وبحث فوري في الحضور والغياب اليومي والشهري.
             </p>
 
-            <div class="grid grid-cols-2 gap-2 mt-6 text-xs text-slate-300 font-bold">
-              <div class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> خانة مستقلة لقسم اللغات وقسم العربي</div>
-              <div class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> خانة تعديل وتصحيح أسماء وبيانات الطلاب</div>
-              <div class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> طباعة الكشف بجودة عالية A4 / PDF</div>
-              <div class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> تصدير ملفات Excel (CSV)</div>
+            <div class="space-y-1.5 mt-6 text-xs text-slate-300 font-bold">
+              <div class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> تصفية مستقلة لقسم العربي وقسم اللغات</div>
+              <div class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> تعديل وتصحيح أسماء الطلاب وحفظها مركزياً</div>
+              <div class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> تسجيل الغياب اليومي وشيت الشهر مع البحث بالاسم</div>
+              <div class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> طباعة الكشوف الرسمية وتصدير ملفات Excel</div>
             </div>
           </div>
 
           <div class="mt-8 pt-6 border-t border-slate-800 flex items-center gap-3">
-            <a href="Student_Roster_Dashboard.html" class="flex-1 py-3.5 px-5 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm rounded-xl text-center transition shadow-lg shadow-emerald-900/40 flex items-center justify-center gap-2">
+            <a href="Student_Roster_Dashboard.html" class="flex-1 py-3.5 px-4 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm rounded-xl text-center transition shadow-lg shadow-emerald-900/40 flex items-center justify-center gap-2">
               <span>فتح كشوف وقوائم الطلاب</span>
+              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- App Card 2: Interactive Timetable Dashboard -->
+        <div class="bg-slate-900/90 border border-slate-800 hover:border-amber-500/50 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 shadow-xl group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-3xl">📅</span>
+              <span class="bg-amber-500/20 text-amber-300 text-xs font-black px-3 py-1 rounded-full border border-amber-500/30">الجداول المدرسية</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-black text-white group-hover:text-amber-400 transition-colors">الجداول المدرسية الأسبوعية</h3>
+            <p class="text-slate-400 text-xs sm:text-sm font-semibold mt-2.5 leading-relaxed">
+              الجدول المدرسي العام لكافة أيام الأسبوع، جداول صفوف الطلاب (1 - 9)، جداول المعلمات المستقلة لـ 12 معلمة، ومصفوفة الأنصبة والتوزيع المعتمدة.
+            </p>
+
+            <div class="space-y-1.5 mt-6 text-xs text-slate-300 font-bold">
+              <div class="flex items-center gap-1.5"><span class="text-amber-400">✓</span> الجدول العام الشامل لكافة الأيام (5 أيام)</div>
+              <div class="flex items-center gap-1.5"><span class="text-amber-400">✓</span> جداول فصول الطلاب من Grade 1 حتى Grade 9</div>
+              <div class="flex items-center gap-1.5"><span class="text-amber-400">✓</span> جداول المعلمات المستقلة لـ 12 معلمة</div>
+              <div class="flex items-center gap-1.5"><span class="text-amber-400">✓</span> مصفوفة الأنصبة والطباعة المباشرة A4 لكل جدول</div>
+            </div>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-slate-800 flex items-center gap-3">
+            <a href="Interactive_Timetable_Dashboard.html" class="flex-1 py-3.5 px-4 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-black text-sm rounded-xl text-center transition shadow-lg shadow-orange-900/40 flex items-center justify-center gap-2">
+              <span>فتح الجداول المدرسية</span>
+              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- App Card 3: School Management System -->
+        <div class="bg-slate-900/90 border border-slate-800 hover:border-indigo-500/50 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 shadow-xl group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="w-14 h-14 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-3xl">🏫</span>
+              <span class="bg-indigo-500/20 text-indigo-300 text-xs font-black px-3 py-1 rounded-full border border-indigo-500/30">النظام الشامل</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-black text-white group-hover:text-indigo-400 transition-colors">نظام إدارة المدرسة ورصد الدرجات</h3>
+            <p class="text-slate-400 text-xs sm:text-sm font-semibold mt-2.5 leading-relaxed">
+              إدارة رصد درجات الاختبارات الشهرية ونهاية الترم، نموذج المعلم السريع، طباعة الشيت اليدوي العريض، وتوليد شهادات التقدير والتفوق الأكاديمي.
+            </p>
+
+            <div class="space-y-1.5 mt-6 text-xs text-slate-300 font-bold">
+              <div class="flex items-center gap-1.5"><span class="text-indigo-400">✓</span> رصد درجات المعلمين الشهرية ونهاية الترم</div>
+              <div class="flex items-center gap-1.5"><span class="text-indigo-400">✓</span> شيت الحضور اليدوي العريض المعتمد</div>
+              <div class="flex items-center gap-1.5"><span class="text-indigo-400">✓</span> استمارة تحديث بيانات أولياء الأمور</div>
+              <div class="flex items-center gap-1.5"><span class="text-indigo-400">✓</span> شهادات التقدير والتفوق بالختم المدرسي الذهبي</div>
+            </div>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-slate-800 flex items-center gap-3">
+            <a href="Smile_Kids_School_Management_System.html" class="flex-1 py-3.5 px-4 bg-indigo-600 hover:bg-indigo-500 text-white font-black text-sm rounded-xl text-center transition shadow-lg shadow-indigo-900/40 flex items-center justify-center gap-2">
+              <span>فتح نظام الإدارة المدرسية</span>
               <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
             </a>
           </div>
