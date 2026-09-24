@@ -153,6 +153,7 @@
     }
 
   </style>
+  <script src="smile_kids_database.js"></script>
 </head>
 <body class="bg-slate-100 text-slate-900 min-h-screen flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
 
@@ -200,6 +201,15 @@
           <button id="nav-btn-backup" onclick="openBackupModal()" class="p-1.5 text-indigo-300 hover:text-white rounded-xl hover:bg-white/10 transition" title="النسخ الاحتياطي والاستعادة">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
           </button>
+        </div>
+
+        <!-- Unified Master DB Live Badge -->
+        <div class="hidden lg:flex items-center gap-2 bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 px-3 py-1.5 rounded-full text-xs font-bold shadow-sm">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          </span>
+          <span>قاعدة البيانات: smile_kids_database.js (متزامنة 🟢)</span>
         </div>
 
         <!-- Quick Action Buttons -->
@@ -1028,17 +1038,27 @@ function initApp() {
   const pfLogo = document.getElementById('parent-form-logo');
   if (pfLogo) pfLogo.src = logo;
 
-  // Initialize students
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if (saved) {
-    try {
-      state.students = JSON.parse(saved);
-    } catch(e) {
-      state.students = initStudentScores(APP_DATA.defaultStudents);
-    }
+  // Initialize students from Unified Master Database (smile_kids_database.js)
+  if (window.SmileKidsDB) {
+    state.students = window.SmileKidsDB.getAllStudents();
+    window.SmileKidsDB.subscribe((updatedStudents) => {
+      state.students = updatedStudents;
+      renderGradePills();
+      if (state.currentMainView === 'grades') renderGradesView();
+      else if (state.currentMainView === 'attendance') renderAttendanceView();
+    });
   } else {
-    state.students = initStudentScores(APP_DATA.defaultStudents);
-    saveStudents();
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        state.students = JSON.parse(saved);
+      } catch(e) {
+        state.students = initStudentScores(APP_DATA.defaultStudents);
+      }
+    } else {
+      state.students = initStudentScores(APP_DATA.defaultStudents);
+      saveStudents();
+    }
   }
 
   // Populate teacher and subject dropdowns
@@ -1057,7 +1077,11 @@ function initApp() {
 }
 
 function saveStudents() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.students));
+  if (window.SmileKidsDB) {
+    window.SmileKidsDB.save();
+  } else {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.students));
+  }
 }
 
 function initStudentScores(rawList) {
@@ -1454,29 +1478,43 @@ function renderAttendanceView() {
 }
 
 function setDailyAttendance(studentId, status) {
-  const st = state.students.find(s => s.id === studentId);
-  if (!st) return;
-  if (!st.attendanceRecords) st.attendanceRecords = {};
-  st.attendanceRecords[state.attendanceDate] = status;
-  saveStudents();
+  if (window.SmileKidsDB) {
+    window.SmileKidsDB.setAttendance(studentId, state.attendanceDate, status);
+    state.students = window.SmileKidsDB.getAllStudents();
+  } else {
+    const st = state.students.find(s => s.id === studentId);
+    if (!st) return;
+    if (!st.attendanceRecords) st.attendanceRecords = {};
+    st.attendanceRecords[state.attendanceDate] = status;
+    saveStudents();
+  }
   renderAttendanceView();
 }
 
 function setDailyAttendanceNote(studentId, note) {
-  const st = state.students.find(s => s.id === studentId);
-  if (!st) return;
-  if (!st.attendanceNotes) st.attendanceNotes = {};
-  st.attendanceNotes[state.attendanceDate] = note;
-  saveStudents();
+  if (window.SmileKidsDB) {
+    window.SmileKidsDB.setAttendance(studentId, state.attendanceDate, undefined, note);
+  } else {
+    const st = state.students.find(s => s.id === studentId);
+    if (!st) return;
+    if (!st.attendanceNotes) st.attendanceNotes = {};
+    st.attendanceNotes[state.attendanceDate] = note;
+    saveStudents();
+  }
 }
 
 function markAllAttendance(status) {
   const filtered = state.students.filter(s => s.grade === state.currentGrade && s.track === state.currentTrack);
-  filtered.forEach(s => {
-    if (!s.attendanceRecords) s.attendanceRecords = {};
-    s.attendanceRecords[state.attendanceDate] = status;
-  });
-  saveStudents();
+  if (window.SmileKidsDB) {
+    window.SmileKidsDB.setBatchAttendance(filtered.map(s => s.id), state.attendanceDate, status);
+    state.students = window.SmileKidsDB.getAllStudents();
+  } else {
+    filtered.forEach(s => {
+      if (!s.attendanceRecords) s.attendanceRecords = {};
+      s.attendanceRecords[state.attendanceDate] = status;
+    });
+    saveStudents();
+  }
   renderAttendanceView();
 }
 
@@ -2025,33 +2063,52 @@ function handleSaveStudent(e) {
   const notes = document.getElementById('input-student-notes').value.trim();
 
   if (id) {
-    const st = state.students.find(s => s.id === id);
-    if (st) {
-      st.nameAr = nameAr;
-      st.nameEn = nameEn;
-      st.grade = grade;
-      st.track = track;
-      st.phone = phone;
-      st.gender = gender;
-      st.notes = notes;
+    if (window.SmileKidsDB) {
+      window.SmileKidsDB.updateStudent(id, { nameAr, nameEn, grade, track, phone, gender, notes });
+      state.students = window.SmileKidsDB.getAllStudents();
+    } else {
+      const st = state.students.find(s => s.id === id);
+      if (st) {
+        st.nameAr = nameAr;
+        st.nameEn = nameEn;
+        st.grade = grade;
+        st.track = track;
+        st.phone = phone;
+        st.gender = gender;
+        st.notes = notes;
+        saveStudents();
+      }
     }
   } else {
-    const newId = `SK-G${grade}-${track.substring(0,2).toUpperCase()}-${Date.now().toString().slice(-4)}`;
-    state.students.push({
-      id: newId,
-      grade: grade,
-      track: track,
-      nameAr: nameAr,
-      nameEn: nameEn,
-      phone: phone,
-      gender: gender,
-      notes: notes,
-      termsScores: { t1_m1: 20, t1_m2: 20, t1_exam: 30, t1_total: 98, t2_m1: 20, t2_m2: 20, t2_exam: 30, t2_total: 98, annual_total: 98 },
-      attendanceRecords: {}
-    });
+    if (window.SmileKidsDB) {
+      window.SmileKidsDB.addStudent({
+        grade: grade,
+        track: track,
+        nameAr: nameAr,
+        nameEn: nameEn,
+        phone: phone,
+        gender: gender,
+        notes: notes
+      });
+      state.students = window.SmileKidsDB.getAllStudents();
+    } else {
+      const newId = `SK-G${grade}-${track.substring(0,2).toUpperCase()}-${Date.now().toString().slice(-4)}`;
+      state.students.push({
+        id: newId,
+        grade: grade,
+        track: track,
+        nameAr: nameAr,
+        nameEn: nameEn,
+        phone: phone,
+        gender: gender,
+        notes: notes,
+        termsScores: { t1_m1: 20, t1_m2: 20, t1_exam: 30, t1_total: 98, t2_m1: 20, t2_m2: 20, t2_exam: 30, t2_total: 98, annual_total: 98 },
+        attendanceRecords: {}
+      });
+      saveStudents();
+    }
   }
 
-  saveStudents();
   closeModal('modal-student');
   renderGradePills();
   renderGradesView();
@@ -2061,8 +2118,13 @@ function deleteStudent(id) {
   const st = state.students.find(s => s.id === id);
   if (!st) return;
   if (confirm(`هل أنت متأكد من حذف الطالب:\n${st.nameAr} (${st.nameEn})؟`)) {
-    state.students = state.students.filter(s => s.id !== id);
-    saveStudents();
+    if (window.SmileKidsDB) {
+      window.SmileKidsDB.deleteStudent(id);
+      state.students = window.SmileKidsDB.getAllStudents();
+    } else {
+      state.students = state.students.filter(s => s.id !== id);
+      saveStudents();
+    }
     renderGradePills();
     renderGradesView();
   }
@@ -2089,13 +2151,17 @@ function openBackupModal() {
 }
 
 function exportJSONBackup() {
-  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state.students, null, 2));
-  const a = document.createElement('a');
-  a.href = dataStr;
-  a.download = `SmileKids_Backup_${new Date().toISOString().split('T')[0]}.json`;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
+  if (window.SmileKidsDB) {
+    window.SmileKidsDB.downloadJSONBackup();
+  } else {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state.students, null, 2));
+    const a = document.createElement('a');
+    a.href = dataStr;
+    a.download = `SmileKids_Backup_${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
 }
 
 function importJSONBackup(e) {
@@ -2103,18 +2169,31 @@ function importJSONBackup(e) {
   if (!file) return;
   const reader = new FileReader();
   reader.onload = function(evt) {
-    try {
-      const data = JSON.parse(evt.target.result);
-      if (Array.isArray(data)) {
-        state.students = data;
-        saveStudents();
+    if (window.SmileKidsDB) {
+      const res = window.SmileKidsDB.importJSON(evt.target.result);
+      if (res.success) {
+        state.students = window.SmileKidsDB.getAllStudents();
         renderGradePills();
         renderGradesView();
         closeModal('modal-backup');
-        alert(`تمت استعادة البيانات بنجاح! عدد الطلاب: ${data.length}`);
+        alert(`تمت استعادة البيانات بنجاح! عدد الطلاب: ${res.count}`);
+      } else {
+        alert('خطأ في استيراد ملف النسخة الاحتياطية: ' + res.error);
       }
-    } catch(err) {
-      alert('خطأ في قراءة ملف النسخة الاحتياطية.');
+    } else {
+      try {
+        const data = JSON.parse(evt.target.result);
+        if (Array.isArray(data)) {
+          state.students = data;
+          saveStudents();
+          renderGradePills();
+          renderGradesView();
+          closeModal('modal-backup');
+          alert(`تمت استعادة البيانات بنجاح! عدد الطلاب: ${data.length}`);
+        }
+      } catch(err) {
+        alert('خطأ في قراءة ملف النسخة الاحتياطية.');
+      }
     }
   };
   reader.readAsText(file);
@@ -2141,13 +2220,17 @@ function exportClassCSV() {
 }
 
 function resetToInitialData() {
-  if (confirm('هل أنت متأكد من استعادة البيانات الأصلية لجميع الفصول؟')) {
-    state.students = initStudentScores(APP_DATA.defaultStudents);
-    saveStudents();
+  if (confirm('هل أنت متأكد من استعادة قاعدة البيانات الأصلية الموحدة لجميع الفصول (131 طالب)؟')) {
+    if (window.SmileKidsDB) {
+      state.students = window.SmileKidsDB.resetToDefault();
+    } else {
+      state.students = initStudentScores(APP_DATA.defaultStudents);
+      saveStudents();
+    }
     renderGradePills();
     renderGradesView();
     closeModal('modal-backup');
-    alert('تمت استعادة البيانات الأصلية بنجاح!');
+    alert('تمت استعادة قاعدة البيانات الأصلية الموحدة بنجاح!');
   }
 }
 

@@ -15,6 +15,7 @@
       background: radial-gradient(circle at 50% 20%, rgba(99, 102, 241, 0.18) 0%, rgba(15, 23, 42, 0) 70%);
     }
   </style>
+  <script src="smile_kids_database.js"></script>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen selection:bg-indigo-500 selection:text-white flex flex-col">
 
@@ -34,7 +35,7 @@
 
       <div class="flex items-center gap-2.5">
         <span class="text-xs font-bold text-slate-400 hidden sm:inline">إجمالي الطلاب:</span>
-        <span class="bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-xl text-xs font-black">131 طالب وطالبة</span>
+        <span id="header-student-count" class="bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-xl text-xs font-black">131 طالب وطالبة</span>
       </div>
     </div>
   </header>
@@ -61,15 +62,15 @@
       <!-- Quick Metrics Bar -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto mb-14">
         <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 text-center">
-          <div class="text-2xl sm:text-3xl font-black text-white">131</div>
+          <div id="stat-total-students-kpi" class="text-2xl sm:text-3xl font-black text-white">131</div>
           <div class="text-xs font-bold text-slate-400 mt-1">إجمالي الطلاب</div>
         </div>
         <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 text-center">
-          <div class="text-2xl sm:text-3xl font-black text-blue-400">88</div>
+          <div id="stat-languages-kpi" class="text-2xl sm:text-3xl font-black text-blue-400">88</div>
           <div class="text-xs font-bold text-blue-300 mt-1">قسم اللغات (Languages)</div>
         </div>
         <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 text-center">
-          <div class="text-2xl sm:text-3xl font-black text-emerald-400">43</div>
+          <div id="stat-arabic-kpi" class="text-2xl sm:text-3xl font-black text-emerald-400">43</div>
           <div class="text-xs font-bold text-emerald-300 mt-1">قسم العربي (Arabic)</div>
         </div>
         <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 text-center">
@@ -139,6 +140,60 @@
 
       </div>
 
+      <!-- Master Database Architecture Showcase Card -->
+      <div class="mt-12 max-w-5xl mx-auto bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+          <div class="flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-2xl">
+              🗄️
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-xl font-black text-white">قاعدة البيانات الموحدة للمدرسة</h3>
+                <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-black px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  قاعدة واحدة متزامنة لحظياً
+                </span>
+              </div>
+              <p class="text-xs text-slate-400 font-semibold mt-1">
+                تخدم جميع صفحات ولوحات النظام — أي تعديل على أي اسم أو فصل أو غياب ينعكس فوراً على كافة الصفحات
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <button onclick="window.SmileKidsDB && window.SmileKidsDB.downloadJSONBackup()" class="flex-1 sm:flex-initial px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-amber-300 hover:text-white rounded-xl text-xs font-bold border border-slate-700 transition flex items-center justify-center gap-2 shadow">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>تحميل نسخة احتياطية (JSON)</span>
+            </button>
+            <a href="smile_kids_database.json" target="_blank" class="px-3.5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold border border-slate-700 transition" title="عرض ملف JSON المباشر">
+              استعراض الملف ↗
+            </a>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+          <div class="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-4">
+            <div class="text-xs font-bold text-slate-400 mb-1">اسم ملف قاعدة البيانات</div>
+            <code class="text-sm font-bold text-indigo-400 font-mono">smile_kids_database.js</code>
+            <div class="text-[11px] text-slate-500 mt-1">وقرينتها: <code class="text-slate-400">smile_kids_database.json</code></div>
+          </div>
+          <div class="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-4">
+            <div class="text-xs font-bold text-slate-400 mb-1">مكان وجود قاعدة البيانات</div>
+            <div class="text-sm font-bold text-slate-200">المجلد الرئيسي للمشروع (Root)</div>
+            <div class="text-[11px] text-slate-500 mt-1">مفتاح التخزين الموحد: <code class="text-slate-400">SMILE_KIDS_MASTER_DATABASE_2026</code></div>
+          </div>
+          <div class="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-4">
+            <div class="text-xs font-bold text-slate-400 mb-1">آلية المزامنة اللحظية (Real-time Sync)</div>
+            <div class="text-sm font-bold text-emerald-400 flex items-center gap-1.5">
+              <span>تزامن لحظي ثنائي الاتجاه</span>
+              <span>⚡</span>
+            </div>
+            <div class="text-[11px] text-slate-500 mt-1">بين جميع التبويبات والصفحات المفتوحة تلقائياً</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
 
@@ -150,5 +205,33 @@
     </div>
   </footer>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.SmileKidsDB) {
+        const updateMetrics = (students) => {
+          const totalEl = document.getElementById('stat-total-students-kpi');
+          const languagesEl = document.getElementById('stat-languages-kpi');
+          const arabicEl = document.getElementById('stat-arabic-kpi');
+          const headerCountEl = document.getElementById('header-student-count');
+          
+          const count = students.length;
+          const langCount = students.filter(s => s.track === 'languages').length;
+          const arCount = students.filter(s => s.track === 'arabic').length;
+
+          if (totalEl) totalEl.innerText = count;
+          if (languagesEl) languagesEl.innerText = langCount;
+          if (arabicEl) arabicEl.innerText = arCount;
+          if (headerCountEl) headerCountEl.innerText = `${count} طالب وطالبة`;
+        };
+
+        const initialStudents = window.SmileKidsDB.getAllStudents();
+        updateMetrics(initialStudents);
+
+        window.SmileKidsDB.subscribe((updatedStudents) => {
+          updateMetrics(updatedStudents);
+        });
+      }
+    });
+  </script>
 </body>
 </html>
