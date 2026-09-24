@@ -208,12 +208,12 @@
         </div>
 
         <!-- Unified Master DB Live Badge -->
-        <div class="hidden lg:flex items-center gap-2 bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 px-3 py-1.5 rounded-full text-xs font-bold shadow-sm">
+        <div id="cloud-sync-badge" class="cloud-sync-badge hidden lg:flex items-center gap-2 bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 px-3 py-1.5 rounded-full text-xs font-bold shadow-sm cursor-pointer hover:brightness-125 transition" onclick="if(window.SmileKidsDB) SmileKidsDB.syncFromCloud()" title="Google Drive: متزامن مع فولدر سمايل كيدز (اضغط للمزامنة الفورية)">
           <span class="relative flex h-2.5 w-2.5">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
           </span>
-          <span>قاعدة البيانات: smile_kids_database.js (متزامنة 🟢)</span>
+          <span>Google Drive: سمايل كيدز (متزامن لحظياً 🟢)</span>
         </div>
 
         <!-- Quick Action Buttons -->
@@ -2537,7 +2537,7 @@ function exportClassCSV() {
 }
 
 function resetToInitialData() {
-  if (confirm('هل أنت متأكد من استعادة قاعدة البيانات الأصلية الموحدة لجميع الفصول (131 طالب)؟')) {
+  if (confirm('هل أنت متأكد من استعادة قاعدة البيانات الأصلية الموحدة لجميع الفصول (136 طالب)؟')) {
     if (window.SmileKidsDB) {
       state.students = window.SmileKidsDB.resetToDefault();
     } else {

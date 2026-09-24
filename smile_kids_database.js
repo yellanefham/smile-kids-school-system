@@ -15,6 +15,7 @@
   const LEGACY_ATT_KEY = 'smile_kids_attendance_v7_data';
 
   // Master Initial Verified Students (131 Students across 9 Grades)
+  // Master Initial Verified Students (136 Students across 9 Grades)
   const MASTER_INITIAL_STUDENTS = [
   {
     "id": "SK-G1-AR-001",
@@ -29,10 +30,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -48,10 +62,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -67,10 +94,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -86,10 +126,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -100,16 +153,31 @@
     "track": "arabic",
     "trackNameAr": "عربي (حساب)",
     "trackNameEn": "Arabic Track",
-    "nameAr": "إيجى أحمد مصطفى",
+    "nameAr": "يحيى أحمد مصطفى",
     "nameEn": "Egy Ahmed Mostafa",
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
-    }
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    },
+    "phone": "",
+    "notes": ""
   },
   {
     "id": "SK-G1-AR-006",
@@ -124,10 +192,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -143,10 +224,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -162,10 +256,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -181,10 +288,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -200,10 +320,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -214,16 +347,31 @@
     "track": "languages",
     "trackNameAr": "لغات (Math)",
     "trackNameEn": "Languages Track",
-    "nameAr": "ليلي أحمد محمد يسرى",
-    "nameEn": "Laila Ahmed Mohamed Yousry",
+    "nameAr": "لي لي أحمد محمد يسرى",
+    "nameEn": "Lili Ahmed Mohamed Yousry",
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
-    }
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    },
+    "phone": "",
+    "notes": ""
   },
   {
     "id": "SK-G1-LN-005",
@@ -238,10 +386,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -257,10 +418,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -276,10 +450,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -295,10 +482,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -314,10 +514,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -333,10 +546,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -352,10 +578,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -371,10 +610,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -390,10 +642,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -409,10 +674,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -428,10 +706,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -443,15 +734,30 @@
     "trackNameAr": "عربي (حساب)",
     "trackNameEn": "Arabic Track",
     "nameAr": "لين مهند خضرو",
-    "nameEn": "Leen Mohannad Khadro",
+    "nameEn": "Leen Mohannad Khidro",
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
-    }
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    },
+    "phone": "",
+    "notes": ""
   },
   {
     "id": "SK-G2-AR-007",
@@ -466,10 +772,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -485,10 +804,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -504,10 +836,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -523,10 +868,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -542,10 +900,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -561,10 +932,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -580,10 +964,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -599,10 +996,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -618,10 +1028,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -637,10 +1060,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -656,10 +1092,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -667,7 +1116,7 @@
     "grade": 2,
     "gradeNameAr": "الصف الثاني الابتدائي",
     "gradeNameEn": "Grade 2",
-    "track": "languages",
+    "track": "arabic",
     "trackNameAr": "لغات (Math)",
     "trackNameEn": "Languages Track",
     "nameAr": "فيروز محمد النجار",
@@ -675,10 +1124,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -694,10 +1156,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -713,10 +1188,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -732,10 +1220,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -751,10 +1252,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -770,10 +1284,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -789,10 +1316,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -808,10 +1348,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -827,10 +1380,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -846,10 +1412,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -865,10 +1444,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -879,15 +1471,28 @@
     "track": "arabic",
     "trackNameAr": "عربي (حساب)",
     "trackNameEn": "Arabic Track",
-    "nameAr": "أرسين أشرف مجدى",
+    "nameAr": "أرين أشرف مجدى",
     "nameEn": "Arsen Ashraf Magdy",
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -903,10 +1508,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -922,10 +1540,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -941,10 +1572,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -960,10 +1604,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -979,10 +1636,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -998,10 +1668,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1017,10 +1700,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1036,10 +1732,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1055,10 +1764,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1074,10 +1796,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1093,10 +1828,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1112,10 +1860,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1131,10 +1892,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1150,10 +1924,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1169,10 +1956,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1188,10 +1988,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1207,10 +2020,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1226,10 +2052,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1245,10 +2084,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1264,10 +2116,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1283,10 +2148,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1302,10 +2180,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1321,10 +2212,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1340,10 +2244,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1359,10 +2276,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1378,10 +2308,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1397,10 +2340,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1416,10 +2372,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1435,10 +2404,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1454,10 +2436,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1473,10 +2468,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1492,10 +2500,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1511,10 +2532,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1530,10 +2564,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1549,10 +2596,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1568,10 +2628,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1587,10 +2660,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1606,10 +2692,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1625,10 +2724,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1644,10 +2756,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1663,10 +2788,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1682,10 +2820,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1701,10 +2852,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1720,10 +2884,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1739,10 +2916,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1758,10 +2948,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1769,7 +2972,7 @@
     "grade": 5,
     "gradeNameAr": "الصف الخامس الابتدائي",
     "gradeNameEn": "Grade 5",
-    "track": "languages",
+    "track": "arabic",
     "trackNameAr": "لغات (Math)",
     "trackNameEn": "Languages Track",
     "nameAr": "رفيدة خالد رجب",
@@ -1777,11 +2980,26 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
-    }
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    },
+    "phone": "",
+    "notes": ""
   },
   {
     "id": "SK-G5-LN-002",
@@ -1796,10 +3014,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1815,10 +3046,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1834,10 +3078,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1853,10 +3110,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1872,10 +3142,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1891,10 +3174,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1910,10 +3206,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1929,10 +3238,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1948,10 +3270,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1967,10 +3302,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1986,10 +3334,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2005,10 +3366,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2024,10 +3398,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2043,10 +3430,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2062,10 +3462,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2081,10 +3494,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2100,10 +3526,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2119,10 +3558,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2138,10 +3590,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2157,10 +3622,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2176,10 +3654,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2195,10 +3686,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2214,10 +3718,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2233,10 +3750,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2252,10 +3782,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2271,10 +3814,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2290,10 +3846,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2309,10 +3878,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2328,10 +3910,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2347,10 +3942,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2366,10 +3974,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2385,10 +4006,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2404,10 +4038,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2423,10 +4070,23 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2442,10 +4102,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2461,10 +4134,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2480,10 +4166,23 @@
     "gender": "male",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2499,10 +4198,138 @@
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
-      "month2": 20.0,
+      "month2": 20,
       "midterm": 29.5,
-      "final": 30.0,
+      "final": 30,
       "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "grade": 1,
+    "track": "languages",
+    "nameAr": "عبد الحميد محمد الجزار",
+    "nameEn": "Abdelhamid Mohamed Elgazar",
+    "phone": "",
+    "gender": "female",
+    "notes": "",
+    "id": "SK-G1-EN-5941",
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 20,
+      "t1_m2": 20,
+      "t1_exam": 30,
+      "t1_total": 100,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 100,
+      "annual_total": 100
+    }
+  },
+  {
+    "grade": 2,
+    "track": "arabic",
+    "nameAr": "فريد أحمد حمدي",
+    "nameEn": "Farid Ahmed Hamdy",
+    "phone": "",
+    "gender": "female",
+    "notes": "",
+    "id": "SK-G2-AR-6576",
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 20,
+      "t1_m2": 20,
+      "t1_exam": 30,
+      "t1_total": 100,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 100,
+      "annual_total": 100
+    }
+  },
+  {
+    "grade": 2,
+    "track": "arabic",
+    "nameAr": "ريتال محمد مجدي",
+    "nameEn": "Retal Mohamed Magdy",
+    "phone": "",
+    "gender": "female",
+    "notes": "",
+    "id": "SK-G2-AR-6446",
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 20,
+      "t1_m2": 20,
+      "t1_exam": 30,
+      "t1_total": 100,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 100,
+      "annual_total": 100
+    }
+  },
+  {
+    "grade": 5,
+    "track": "arabic",
+    "nameAr": "ملك محمد مجدي",
+    "nameEn": "Malak Mohamed Magdy",
+    "phone": "",
+    "gender": "female",
+    "notes": "",
+    "id": "SK-G5-AR-1570",
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 20,
+      "t1_m2": 20,
+      "t1_exam": 30,
+      "t1_total": 100,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 100,
+      "annual_total": 100
+    }
+  },
+  {
+    "grade": 5,
+    "track": "arabic",
+    "nameAr": "جودي مهند خضرو",
+    "nameEn": "Judi Mohannad Khidro",
+    "phone": "",
+    "gender": "female",
+    "notes": "",
+    "id": "SK-G5-AR-0468",
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 20,
+      "t1_m2": 20,
+      "t1_exam": 30,
+      "t1_total": 100,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 100,
+      "annual_total": 100
     }
   }
 ];
@@ -2549,7 +4376,123 @@
 
       this._ensureStudentFields();
       this._setupStorageListener();
+      this._setupCloudSync();
       return this;
+    },
+
+    
+    _setupCloudSync: function() {
+      if (typeof window === 'undefined') return;
+
+      // Initial cloud sync
+      setTimeout(() => {
+        this.syncFromCloud();
+      }, 200);
+
+      // Re-sync when returning to tab
+      if (window.addEventListener) {
+        window.addEventListener('focus', () => {
+          this.syncFromCloud();
+        });
+      }
+
+      // Background periodic sync every 40 seconds
+      setInterval(() => {
+        if (!this._isSyncingToCloud) {
+          this.syncFromCloud();
+        }
+      }, 40000);
+    },
+
+    _setSyncStatus: function(status, detail) {
+      this._syncStatus = status;
+      if (typeof document === 'undefined') return;
+
+      const badgeElements = document.querySelectorAll('.cloud-sync-badge, #cloud-sync-badge, #db-sync-status');
+      badgeElements.forEach(el => {
+        if (status === 'syncing') {
+          el.innerHTML = '<span class="inline-block animate-spin mr-1">🔄</span> جاري المزامنة مع Google Drive...';
+          el.className = el.className.replace(/bg-\S+|text-\S+|border-\S+/g, '') + ' bg-amber-950/70 border border-amber-500/50 text-amber-300';
+        } else if (status === 'online') {
+          el.innerHTML = '<span class="relative flex h-2 w-2 mr-1"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span> Google Drive (متزامن 🟢)';
+          el.className = el.className.replace(/bg-\S+|text-\S+|border-\S+/g, '') + ' bg-emerald-950/70 border border-emerald-500/50 text-emerald-300';
+          el.title = 'متصل بـ Google Drive: ' + (detail || 'سمايل كيدز');
+        } else if (status === 'error' || status === 'offline') {
+          el.innerHTML = '<span class="text-amber-400 mr-1">⚠️</span> محلي (غير متصل بالدرايف)';
+          el.className = el.className.replace(/bg-\S+|text-\S+|border-\S+/g, '') + ' bg-slate-900/80 border border-slate-700/60 text-slate-300';
+        }
+      });
+
+      if (typeof window !== 'undefined' && window.dispatchEvent) {
+        window.dispatchEvent(new CustomEvent('smilekids_sync_status', {
+          detail: { status: status, detail: detail }
+        }));
+      }
+    },
+
+    syncFromCloud: async function(callback) {
+      if (!this.CLOUD_API_URL || typeof fetch === 'undefined') return;
+      try {
+        this._setSyncStatus('syncing');
+        const resp = await fetch(this.CLOUD_API_URL);
+        if (resp.ok) {
+          const data = await resp.json();
+          let studentsList = null;
+          if (Array.isArray(data)) studentsList = data;
+          else if (data && Array.isArray(data.students)) studentsList = data.students;
+
+          if (studentsList && studentsList.length > 0) {
+            this._cache = studentsList;
+            this._ensureStudentFields();
+            if (typeof localStorage !== 'undefined') {
+              try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(this._cache));
+              } catch(e) {}
+            }
+            this._setSyncStatus('online', studentsList.length + ' طالب');
+            this._notifyListeners('cloud_pull');
+            if (callback) callback({ success: true, count: studentsList.length });
+            return;
+          }
+        }
+        this._setSyncStatus('offline', 'لم يتم استرجاع بيانات');
+      } catch(err) {
+        console.warn('Google Drive syncFromCloud error (working offline):', err);
+        this._setSyncStatus('offline', err.message);
+      }
+    },
+
+    syncToCloud: async function() {
+      if (!this.CLOUD_API_URL || typeof fetch === 'undefined') return;
+      this._isSyncingToCloud = true;
+      this._setSyncStatus('syncing');
+      try {
+        const payload = {
+          database_info: {
+            name: this.DATABASE_NAME,
+            version: this.VERSION,
+            exported_at: new Date().toISOString(),
+            total_students: this.getAllStudents().length
+          },
+          students: this.getAllStudents()
+        };
+        const resp = await fetch(this.CLOUD_API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+        const res = await resp.json();
+        if (res && res.success) {
+          this._setSyncStatus('online', 'تم الحفظ في Google Drive');
+        } else {
+          this._setSyncStatus('error', res ? res.error : 'خطأ حفظ');
+        }
+      } catch(err) {
+        console.warn('Google Drive syncToCloud error:', err);
+        this._setSyncStatus('offline', err.message);
+      } finally {
+        this._isSyncingToCloud = false;
+      }
     },
 
     _setupStorageListener: function() {
@@ -2605,6 +4548,11 @@
         }
       }
       this._notifyListeners('local_save');
+      // Trigger debounced cloud sync to Google Drive
+      if (this._syncDebounceTimer) clearTimeout(this._syncDebounceTimer);
+      this._syncDebounceTimer = setTimeout(() => {
+        this.syncToCloud();
+      }, 600);
     },
 
     getAllStudents: function() {
