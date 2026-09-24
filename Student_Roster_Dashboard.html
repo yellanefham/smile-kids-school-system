@@ -8,35 +8,30 @@
   <script>
   // ========================================================
   // Global Esc Key Handler across whole page
-  // ========================================================
-  window.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' || e.keyCode === 27) {
-      const addModal = document.getElementById('modal-add-student');
-      if (addModal && !addModal.classList.contains('hidden')) {
-        addModal.classList.add('hidden');
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' || e.keyCode === 27) {
+        const addModal = document.getElementById('modal-add-student');
+        if (addModal && !addModal.classList.contains('hidden')) {
+          addModal.classList.add('hidden');
+          e.preventDefault();
+          return;
+        }
+        const editModal = document.getElementById('modal-edit-student');
+        if (editModal && !editModal.classList.contains('hidden')) {
+          editModal.classList.add('hidden');
+          e.preventDefault();
+          return;
+        }
         e.preventDefault();
-        return;
+        if (window.history.length > 1 && document.referrer) {
+          window.history.back();
+        } else {
+          window.location.href = 'index.html';
+        }
       }
-      const editModal = document.getElementById('modal-edit-student');
-      if (editModal && !editModal.classList.contains('hidden')) {
-        editModal.classList.add('hidden');
-        e.preventDefault();
-        return;
-      }
+    });
+  </script>
 
-      e.preventDefault();
-      if (window.history.length > 1 && document.referrer) {
-        window.history.back();
-      } else {
-        window.location.href = 'index.html';
-      }
-    }
-  });
-
-</script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@500;700;800;900&display=swap" rel="stylesheet">
   <style>
     * { font-family: 'Cairo', 'Tajawal', sans-serif; }
     .font-en { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
@@ -197,8 +192,53 @@
         color: #000000 !important;
       }
     }
+  
+    /* Certificate Styles */
+    .cert-arabic-frame {
+      border: 8px double #d4af37;
+      background: radial-gradient(circle at center, #ffffff 0%, #fffdfa 100%);
+      position: relative;
+    }
+    .cert-arabic-frame::before {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border: 2px solid rgba(212, 175, 55, 0.4);
+      pointer-events: none;
+    }
+    .cert-english-frame {
+      border: 8px solid #1e3a8a;
+      outline: 4px solid #d4af37;
+      outline-offset: -6px;
+      background: radial-gradient(circle at center, #ffffff 0%, #f8fafc 100%);
+      position: relative;
+    }
+    .cert-seal {
+      background: radial-gradient(circle, #fde047 0%, #d4af37 60%, #a16207 100%);
+      box-shadow: 0 4px 10px rgba(161, 98, 7, 0.35);
+    }
+    .grade-input {
+      background-color: #0f172a;
+      color: #38bdf8;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 4px 6px;
+      font-weight: 800;
+      text-align: center;
+      width: 54px;
+      font-family: monospace;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+    .grade-input:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+      background-color: #1e1b4b;
+    }
+
   </style>
-  <script src="smile_kids_database.js?v=20260924_v5"></script>
+  <script src="smile_kids_database.js?v=20260924_v7"></script>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
 
@@ -218,47 +258,21 @@
         </a>
       </div>
 
-      <!-- Main Navigation Tabs: Rosters vs Attendance -->
-      <div class="flex items-center bg-slate-900 p-1 rounded-2xl border border-slate-800 shadow-inner">
-        <button onclick="switchMainTab('rosters')" id="tab-btn-rosters" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-2 bg-indigo-600 text-white shadow">
+      <!-- Main Navigation Tabs: Rosters, Attendance, Grades, Certificates -->
+      <div class="flex items-center bg-slate-900 p-1 rounded-2xl border border-slate-800 shadow-inner flex-wrap gap-1">
+        <button onclick="switchMainTab('rosters')" id="tab-btn-rosters" class="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-1.5 bg-indigo-600 text-white shadow">
           <span>📋 كشوف وقوائم الطلاب</span>
         </button>
-        <button onclick="switchMainTab('attendance')" id="tab-btn-attendance" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 text-slate-400 hover:text-white">
+        <button onclick="switchMainTab('attendance')" id="tab-btn-attendance" class="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 text-slate-400 hover:text-white">
           <span>📅 الغياب والحضور</span>
         </button>
-      </div>
-
-      <!-- Action Toolbar (Print & Export CSV Only) -->
-      <div class="flex items-center gap-2 flex-wrap">
-        <!-- Google Drive Live Sync Badge -->
-        <div id="cloud-sync-badge" class="cloud-sync-badge hidden md:flex items-center gap-1.5 bg-emerald-950/70 border border-emerald-500/50 text-emerald-300 px-3 py-1.5 rounded-xl text-xs font-bold shadow-sm cursor-pointer hover:brightness-125 transition" onclick="if(window.SmileKidsDB) SmileKidsDB.syncFromCloud()" title="Google Drive: متزامن مع فولدر سمايل كيدز (اضغط للتحديث الفوري)">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span>Google Drive (متزامن 🟢)</span>
-        </div>
-        <a href="https://www.facebook.com/profile.php?id=100063590275034" target="_blank" rel="noopener noreferrer" class="px-3 py-2 bg-[#1877F2]/20 hover:bg-[#1877F2] text-[#1877F2] hover:text-white rounded-xl text-xs font-bold transition border border-[#1877F2]/40 flex items-center gap-1.5 no-print" title="الصفحة الرسمية لمدرسة Smile Kids على فيسبوك">
-          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-          <span>فيس بوك Smile Kids</span>
-        </a>
-        <button onclick="window.print()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-          <span>طباعة الكشف / PDF</span>
+        <button onclick="switchMainTab('grades')" id="tab-btn-grades" class="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 text-slate-400 hover:text-white">
+          <span>📊 رصد وإضافة الدرجات</span>
         </button>
-
-        <button onclick="exportCSV()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition flex items-center gap-1.5 border border-slate-700">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-          <span>تصدير Excel</span>
+        <button onclick="switchMainTab('certificates')" id="tab-btn-certificates" class="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 text-slate-400 hover:text-white">
+          <span>📜 الشهادات المدرسية</span>
         </button>
-
-                <!-- Prominent Home Page Link -->
-        <a href="index.html" class="px-3.5 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs sm:text-sm rounded-xl shadow-[0_0_15px_rgba(16,185,129,0.35)] flex items-center gap-1.5 transition active:scale-95 border border-emerald-400/40 whitespace-nowrap" title="الرجوع إلى الصفحة الرئيسية">
-          <span class="text-base">🏠</span>
-          <span>الصفحة الرئيسية</span>
-        </a>
       </div>
-    </div>
   </header>
 
   <!-- Main Container -->
@@ -508,6 +522,187 @@
         <div style="text-align: center; width: 30%;">
           <div>يعتمد، مدير المدرسة</div>
           <div style="margin-top: 28px; color: #94a3b8;">................................</div>
+        </div>
+      </div>
+    </div>
+
+  
+    <!-- ==================== SECTION 3: GRADES & SCORES ==================== -->
+    <div id="section-grades" class="hidden">
+      <!-- Grades Filter & Controls Banner -->
+      <div class="bg-slate-950/70 border border-slate-800 rounded-3xl p-5 sm:p-6 mb-6 shadow-xl backdrop-blur-md">
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
+          <!-- Title & Stats -->
+          <div class="flex items-center gap-3">
+            <span class="w-12 h-12 rounded-2xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-2xl text-indigo-400 shadow">📊</span>
+            <div>
+              <div class="flex items-center gap-2">
+                <h2 class="text-xl sm:text-2xl font-black text-white" id="grades-banner-title">رصد وإضافة درجات الطلاب</h2>
+                <span id="grades-active-badge" class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-black px-2.5 py-0.5 rounded-full">Grade 1</span>
+              </div>
+              <p class="text-xs text-slate-400 font-semibold mt-0.5">رصد الشهور والاختبارات وحساب المجموع والتقدير مع حفظ لحظي تلقائي في قاعدة البيانات</p>
+            </div>
+          </div>
+
+          <!-- Quick Action Buttons -->
+          <div class="flex items-center gap-2 flex-wrap">
+            <button onclick="openTeacherGradeFormModal()" class="px-3.5 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:brightness-110 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow-[0_0_15px_rgba(147,51,234,0.3)] active:scale-95" title="رصد درجات مادة كاملة للفصل دفعة واحدة">
+              <span>➕ رصد درجات المادة (نموذج المعلمة)</span>
+            </button>
+            <button onclick="window.print()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow active:scale-95">
+              <span>🖨️ طباعة شيت الدرجات</span>
+            </button>
+            <button onclick="if(window.SmileKidsDB) { SmileKidsDB.syncToCloud(); alert('تم بدء الحفظ والمزامنة المباشرة مع Google Drive 🟢'); }" class="px-3.5 py-2 bg-emerald-600/30 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/40 rounded-xl text-xs font-bold transition flex items-center gap-1.5 active:scale-95">
+              <span>☁️ حفظ سحابي Google Drive</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Grade Pills for Grades Section -->
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-3 mt-4 border-t border-slate-800/80">
+          <span class="text-xs font-bold text-slate-400 whitespace-nowrap ml-1">اختر الصف:</span>
+          <div id="grades-pills-container" class="flex items-center gap-1.5 flex-nowrap">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Track & Search & Period Filters -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 mt-3 pt-3 border-t border-slate-800/60 flex-wrap">
+          <!-- Track Switcher -->
+          <div class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs font-bold">
+            <button onclick="setGradesTrackFilter('all')" id="btn-grades-track-all" class="px-3 py-1.5 rounded-lg bg-indigo-600 text-white font-black transition">الكل</button>
+            <button onclick="setGradesTrackFilter('languages')" id="btn-grades-track-lang" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">قسم اللغات</button>
+            <button onclick="setGradesTrackFilter('arabic')" id="btn-grades-track-ar" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">قسم العربي</button>
+          </div>
+
+          <!-- Search Input -->
+          <div class="relative w-full sm:w-72">
+            <input type="text" id="grades-search-input" oninput="handleGradesSearch(this.value)" placeholder="بحث بالاسم أو الكود..." class="w-full bg-slate-900 border border-slate-800 text-slate-200 placeholder-slate-500 text-xs rounded-xl pr-9 pl-3 py-2 focus:outline-none focus:border-indigo-500">
+            <span class="absolute right-3 top-2.5 text-slate-500 text-sm">🔍</span>
+          </div>
+
+          <!-- Class Stats Pills -->
+          <div class="flex items-center gap-2 text-xs font-bold">
+            <span class="px-3 py-1 bg-slate-900 rounded-xl border border-slate-800 text-slate-300">العدد: <b id="grades-stat-count" class="text-indigo-400">0</b></span>
+            <span class="px-3 py-1 bg-slate-900 rounded-xl border border-slate-800 text-slate-300">المتفوقين: <b id="grades-stat-honors" class="text-amber-400">0</b></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grades Interactive Table Card -->
+      <div class="bg-slate-950/80 border border-slate-800 rounded-3xl p-5 shadow-2xl overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-right text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-900 text-slate-300 border-b border-slate-800">
+                <th class="py-3 px-2 text-center w-10">#</th>
+                <th class="py-3 px-4 min-w-[170px]">اسم الطالب</th>
+                <th class="py-3 px-3 text-center min-w-[90px]">المسار</th>
+                <!-- Term 1 Header -->
+                <th class="py-2 px-1 text-center bg-indigo-950/40 border-r border-indigo-900/50" colspan="4">الفصل الدراسي الأول (Term 1)</th>
+                <!-- Term 2 Header -->
+                <th class="py-2 px-1 text-center bg-blue-950/40 border-r border-blue-900/50" colspan="4">الفصل الدراسي الثاني (Term 2)</th>
+                <th class="py-3 px-3 text-center bg-amber-950/30 text-amber-300 min-w-[75px]">المجموع السنوي</th>
+                <th class="py-3 px-3 text-center min-w-[100px]">التقدير</th>
+                <th class="py-3 px-3 text-center min-w-[90px] no-print">الشهادة</th>
+              </tr>
+              <tr class="bg-slate-900/60 text-[11px] text-slate-400 border-b border-slate-800">
+                <th colspan="3"></th>
+                <!-- Term 1 Sub -->
+                <th class="py-1 px-1 text-center text-indigo-300 bg-indigo-950/20 border-r border-indigo-900/40">ش 1 (20)</th>
+                <th class="py-1 px-1 text-center text-indigo-300 bg-indigo-950/20">ش 2 (20)</th>
+                <th class="py-1 px-1 text-center text-indigo-300 bg-indigo-950/20">امتحان (30)</th>
+                <th class="py-1 px-1 text-center text-indigo-200 font-bold bg-indigo-900/30">مجموع</th>
+                <!-- Term 2 Sub -->
+                <th class="py-1 px-1 text-center text-blue-300 bg-blue-950/20 border-r border-blue-900/40">ش 1 (20)</th>
+                <th class="py-1 px-1 text-center text-blue-300 bg-blue-950/20">ش 2 (20)</th>
+                <th class="py-1 px-1 text-center text-blue-300 bg-blue-950/20">امتحان (30)</th>
+                <th class="py-1 px-1 text-center text-blue-200 font-bold bg-blue-900/30">مجموع</th>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
+            <tbody id="tbody-grades-list" class="divide-y divide-slate-800/60">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SECTION 4: CERTIFICATES ==================== -->
+    <div id="section-certificates" class="hidden">
+      <!-- Certificate Header & Selection Bar -->
+      <div class="bg-slate-950/70 border border-slate-800 rounded-3xl p-5 sm:p-6 mb-6 shadow-xl backdrop-blur-md">
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-2xl text-amber-400 shadow">📜</span>
+            <div>
+              <div class="flex items-center gap-2">
+                <h2 class="text-xl sm:text-2xl font-black text-white">الشهادات المدرسية وشهادات التقدير</h2>
+                <span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-black px-2.5 py-0.5 rounded-full">Smile Kids Excellence</span>
+              </div>
+              <p class="text-xs text-slate-400 font-semibold mt-0.5">استخراج وطباعة شهادات التقدير الرسمية للطلاب باللغة العربية والإنجليزية بجودة فائقة</p>
+            </div>
+          </div>
+
+          <!-- Print Controls -->
+          <div class="flex items-center gap-2 flex-wrap">
+            <button onclick="printSingleCertificate()" class="px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl text-xs sm:text-sm transition flex items-center gap-1.5 shadow-[0_0_15px_rgba(245,158,11,0.35)] active:scale-95">
+              <span>🖨️ طباعة الشهادة المعروضة</span>
+            </button>
+            <button onclick="printBatchCertificates()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-xs sm:text-sm transition flex items-center gap-1.5 shadow active:scale-95">
+              <span>📑 طباعة شهادات الفصل بالكامل</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Grade Selection for Certificates -->
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-3 mt-4 border-t border-slate-800/80">
+          <span class="text-xs font-bold text-slate-400 whitespace-nowrap ml-1">اختر الصف:</span>
+          <div id="cert-pills-container" class="flex items-center gap-1.5 flex-nowrap">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Select Student & Exam Period & Language -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3 pt-3 border-t border-slate-800/60">
+          <!-- Student Selector -->
+          <div>
+            <label class="block text-xs font-bold text-slate-400 mb-1">اختر الطالب / الطالبة:</label>
+            <select id="cert-student-select" onchange="onCertStudentChange(this.value)" class="w-full bg-slate-900 border border-slate-800 text-white rounded-xl px-3 py-2 text-xs font-bold focus:outline-none focus:border-amber-500">
+              <!-- Rendered by JS -->
+            </select>
+          </div>
+
+          <!-- Exam Period -->
+          <div>
+            <label class="block text-xs font-bold text-slate-400 mb-1">الفترة التقييمية:</label>
+            <select id="cert-period-select" onchange="renderCertificatePreview()" class="w-full bg-slate-900 border border-slate-800 text-white rounded-xl px-3 py-2 text-xs font-bold focus:outline-none focus:border-amber-500">
+              <option value="annual">المجموع والتقييم السنوي الشامل (Annual)</option>
+              <option value="t1_exam">امتحان الفصل الدراسي الأول</option>
+              <option value="t1_m1">اختبار شهر 1 (الترم الأول)</option>
+              <option value="t1_m2">اختبار شهر 2 (الترم الأول)</option>
+              <option value="t2_exam">امتحان الفصل الدراسي الثاني</option>
+              <option value="t2_m1">اختبار شهر 1 (الترم الثاني)</option>
+              <option value="t2_m2">اختبار شهر 2 (الترم الثاني)</option>
+            </select>
+          </div>
+
+          <!-- Language Selector -->
+          <div>
+            <label class="block text-xs font-bold text-slate-400 mb-1">لغة الشهادة:</label>
+            <div class="flex items-center gap-2">
+              <button onclick="setCertificateLanguage('arabic')" id="btn-cert-lang-ar" class="flex-1 py-2 rounded-xl text-xs font-black bg-amber-500 text-slate-950 transition">🇪🇬 عربي</button>
+              <button onclick="setCertificateLanguage('english')" id="btn-cert-lang-en" class="flex-1 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white bg-slate-900 border border-slate-800 transition">🇬🇧 English</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Certificate Preview Container -->
+      <div class="bg-slate-950/80 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl flex justify-center items-center overflow-x-auto">
+        <div id="certificate-preview-container" class="w-full max-w-[860px]">
+          <!-- Single certificate rendered here -->
         </div>
       </div>
     </div>
@@ -763,23 +958,49 @@
       currentMainTab = tab;
       const btnRosters = document.getElementById('tab-btn-rosters');
       const btnAtt = document.getElementById('tab-btn-attendance');
+      const btnGrades = document.getElementById('tab-btn-grades');
+      const btnCert = document.getElementById('tab-btn-certificates');
+
       const secRosters = document.getElementById('section-rosters');
       const secAtt = document.getElementById('section-attendance');
+      const secGrades = document.getElementById('section-grades');
+      const secCert = document.getElementById('section-certificates');
+
+      // Reset all buttons to inactive
+      const inactiveClass = 'px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 text-slate-400 hover:text-white';
+      if (btnRosters) btnRosters.className = inactiveClass;
+      if (btnAtt) btnAtt.className = inactiveClass;
+      if (btnGrades) btnGrades.className = inactiveClass;
+      if (btnCert) btnCert.className = inactiveClass;
+
+      // Hide all sections
+      if (secRosters) secRosters.classList.add('hidden');
+      if (secAtt) secAtt.classList.add('hidden');
+      if (secGrades) secGrades.classList.add('hidden');
+      if (secCert) secCert.classList.add('hidden');
 
       if (tab === 'rosters') {
-        btnRosters.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-2 bg-indigo-600 text-white shadow';
-        btnAtt.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 text-slate-400 hover:text-white';
-        secRosters.classList.remove('hidden');
-        secAtt.classList.add('hidden');
+        if (btnRosters) btnRosters.className = 'px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-1.5 bg-indigo-600 text-white shadow';
+        if (secRosters) secRosters.classList.remove('hidden');
         renderContent();
-      } else {
-        btnRosters.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 text-slate-400 hover:text-white';
-        btnAtt.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-2 bg-emerald-600 text-white shadow';
-        secRosters.classList.add('hidden');
-        secAtt.classList.remove('hidden');
-        if (currentGrade === 0) currentGrade = 1; // Default to Grade 1 for attendance
+      } else if (tab === 'attendance') {
+        if (btnAtt) btnAtt.className = 'px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-1.5 bg-emerald-600 text-white shadow';
+        if (secAtt) secAtt.classList.remove('hidden');
+        if (currentGrade === 0) currentGrade = 1;
         renderGradePills();
         renderAttendanceModule();
+      } else if (tab === 'grades') {
+        if (btnGrades) btnGrades.className = 'px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-1.5 bg-purple-600 text-white shadow';
+        if (secGrades) secGrades.classList.remove('hidden');
+        if (currentGrade === 0) currentGrade = 1;
+        renderGradesPills();
+        renderGradesModule();
+      } else if (tab === 'certificates') {
+        if (btnCert) btnCert.className = 'px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-1.5 bg-amber-600 text-white shadow';
+        if (secCert) secCert.classList.remove('hidden');
+        if (currentGrade === 0) currentGrade = 1;
+        renderCertPills();
+        renderCertificatesModule();
       }
     }
 
@@ -1810,6 +2031,811 @@
     }
     window.onbeforeprint = updatePrintHeader;
 
+    // GRADES & CERTIFICATES SYSTEM IMPLEMENTATION
+    // ========================================================
+    let gradesTrackFilter = 'all';
+    let gradesSearchQuery = '';
+    let certLanguage = 'arabic';
+    let certCurrentStudentId = '';
+
+    const ENCOURAGING_PHRASES = {
+      arabic: {
+        excellent: [
+          'بارك الله في همتك العالية وتفوقك الدائم، دمت فخراً لمدرستك وأسرتك يا بطل العلم!',
+          'تفوقك الباهر هو ثمرة الجد والمثابرة، وإدارة المدرسة تبارك لك هذا التميز المتألق!',
+          'إلى مزيد من التألق والنجاح المستمر يا نبع الإبداع وسفير التفوق بمدرسة Smile Kids!'
+        ],
+        very_good: [
+          'أحسنت صنعاً وجهداً طيباً، ونتطلع إلى رؤيتك دائماً في مقدمة فرسان التفوق!',
+          'مستوى متميز وجهد يستحق التقدير، فإلى الأمام دائماً نحو القمة!'
+        ],
+        good: [
+          'جهد مشكور وسعي مثمر، وبالمزيد من الاجتهاد ستنال أعلى المراتب بإذن الله.',
+          'بداية طيبة تدل على قدرات واعدة، استمر في العطاء والمذاكرة الجادة!'
+        ],
+        pass: [
+          'نثق بقدراتك الكبيرة ونتمنى لك مضاعفة الجهد والتركيز في الفترات القادمة للوصول للتفوق.'
+        ],
+        pending: [
+          'في انتظار رصد الدرجات الأكاديمية للطالب للعام الدراسي الحالي.'
+        ]
+      },
+      english: {
+        excellent: [
+          'Outstanding academic excellence and dedication. Keep reaching for the stars at Smile Kids!',
+          'Exemplary performance and remarkable scholastic achievement. Truly an inspiration to all!',
+          'Brilliant work and steady devotion to learning. We are extraordinarily proud of your success!'
+        ],
+        very_good: [
+          'Very well done! Your hard work and bright potential are shining through delightfully.',
+          'Great scholastic progress and commendable effort. Keep aiming higher!'
+        ],
+        good: [
+          'Good job! Consistent focus and dedication will guide you toward stellar accomplishments.',
+          'Solid academic effort with promising potential for even greater heights.'
+        ],
+        pass: [
+          'Passing effort with great room for growth and future excellence through diligent study.'
+        ],
+        pending: [
+          'Academic marks pending official recording for this evaluation term.'
+        ]
+      }
+    };
+
+    function getGradeArabicName(grade) {
+      const g = parseInt(grade);
+      const names = {
+        1: 'الأول',
+        2: 'الثاني',
+        3: 'الثالث',
+        4: 'الرابع',
+        5: 'الخامس',
+        6: 'السادس',
+        7: 'السابع (الأول الإعدادي)',
+        8: 'الثامن (الثاني الإعدادي)',
+        9: 'التاسع (الثالث الإعدادي)'
+      };
+      return names[g] || ('الصف ' + g);
+    }
+
+    function getAppreciation(score) {
+      const s = parseFloat(score) || 0;
+      if (s === 0) {
+        return { ar: 'لم ترصد', en: 'Pending', key: 'pending', badge: 'bg-slate-800 text-slate-400 border-slate-700' };
+      }
+      if (s >= 85) {
+        return { ar: 'ممتاز 🌟', en: 'Excellent', key: 'excellent', badge: 'bg-emerald-500/20 text-emerald-300 border-emerald-400/40' };
+      }
+      if (s >= 75) {
+        return { ar: 'جيد جداً 🟢', en: 'Very Good', key: 'very_good', badge: 'bg-blue-500/20 text-blue-300 border-blue-400/40' };
+      }
+      if (s >= 65) {
+        return { ar: 'جيد 🔵', en: 'Good', key: 'good', badge: 'bg-amber-500/20 text-amber-300 border-amber-400/40' };
+      }
+      if (s >= 50) {
+        return { ar: 'مقبول 🟡', en: 'Pass', key: 'pass', badge: 'bg-orange-500/20 text-orange-300 border-orange-400/40' };
+      }
+      return { ar: 'راسب 🔴', en: 'Needs Work', key: 'fail', badge: 'bg-red-500/20 text-red-300 border-red-400/40' };
+    }
+
+    function getPeriodTitle(pKey, lang) {
+      const isAr = (lang === 'arabic');
+      const map = {
+        t1_m1: { ar: 'اختبار شهر 1 (الفصل الأول)', en: 'Term 1: 1st Monthly Assessment' },
+        t1_m2: { ar: 'اختبار شهر 2 (الفصل الأول)', en: 'Term 1: 2nd Monthly Assessment' },
+        t1_exam: { ar: 'امتحان منتصف العام ونهاية الفصل الأول', en: 'First Term Final Examination' },
+        t2_m1: { ar: 'اختبار شهر 1 (الفصل الثاني)', en: 'Term 2: 1st Monthly Assessment' },
+        t2_m2: { ar: 'اختبار شهر 2 (الفصل الثاني)', en: 'Term 2: 2nd Monthly Assessment' },
+        t2_exam: { ar: 'امتحان آخر العام ونهاية الفصل الثاني', en: 'Second Term Final Examination' },
+        annual: { ar: 'المجموع والتقييم السنوي الشامل', en: 'Comprehensive Annual Academic Standing' }
+      };
+      const t = map[pKey] || { ar: 'الاختبار الأكاديمي الرسمي', en: 'Official Academic Assessment' };
+      return isAr ? t.ar : t.en;
+    }
+
+    function getEncouragementQuote(tierKey, lang) {
+      const l = (lang === 'arabic') ? 'arabic' : 'english';
+      const list = ENCOURAGING_PHRASES[l][tierKey] || ENCOURAGING_PHRASES[l]['excellent'];
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
+    function renderGradesPills() {
+      const c = document.getElementById('grades-pills-container');
+      if (!c) return;
+      let html = '';
+      for (let g = 1; g <= 9; g++) {
+        const count = ALL_STUDENTS.filter(s => s.grade === g).length;
+        const isActive = (currentGrade === g);
+        const cls = isActive
+          ? 'px-3.5 py-1.5 rounded-xl text-xs font-black transition whitespace-nowrap bg-purple-600 text-white shadow-[0_0_15px_rgba(147,51,234,0.4)] border border-purple-400/50'
+          : 'px-3 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap bg-slate-900 text-slate-400 hover:text-white border border-slate-800';
+        html += `<button onclick="setGradesGrade(${g})" class="${cls}">Grade ${g} (${count})</button>`;
+      }
+      c.innerHTML = html;
+    }
+
+    function setGradesGrade(g) {
+      currentGrade = g;
+      renderGradesPills();
+      renderGradesModule();
+    }
+
+    function setGradesTrackFilter(track) {
+      gradesTrackFilter = track;
+      const bAll = document.getElementById('btn-grades-track-all');
+      const bLang = document.getElementById('btn-grades-track-lang');
+      const bAr = document.getElementById('btn-grades-track-ar');
+      const activeCls = 'px-3 py-1.5 rounded-lg bg-indigo-600 text-white font-black transition';
+      const inactiveCls = 'px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition';
+
+      if (bAll) bAll.className = (track === 'all') ? activeCls : inactiveCls;
+      if (bLang) bLang.className = (track === 'languages') ? activeCls : inactiveCls;
+      if (bAr) bAr.className = (track === 'arabic') ? activeCls : inactiveCls;
+
+      renderGradesModule();
+    }
+
+    function handleGradesSearch(val) {
+      gradesSearchQuery = (val || '').trim().toLowerCase();
+      renderGradesModule();
+    }
+
+    function renderGradesModule() {
+      if (currentGrade === 0) currentGrade = 1;
+      const bTitle = document.getElementById('grades-banner-title');
+      if (bTitle) {
+        bTitle.innerText = `رصد درجات الصف ${getGradeArabicName(currentGrade)} — Grade ${currentGrade}`;
+      }
+      const bBadge = document.getElementById('grades-active-badge');
+      if (bBadge) {
+        bBadge.innerText = `Grade ${currentGrade} • ${gradesTrackFilter === 'all' ? 'جميع المسارات' : (gradesTrackFilter === 'languages' ? 'لغات' : 'عربي')}`;
+      }
+
+      const filtered = ALL_STUDENTS.filter(s => {
+        if (s.grade !== currentGrade) return false;
+        if (gradesTrackFilter !== 'all' && s.track !== gradesTrackFilter) return false;
+        if (gradesSearchQuery) {
+          const ar = (s.nameAr || '').toLowerCase();
+          const en = (s.nameEn || '').toLowerCase();
+          const id = (s.id || '').toLowerCase();
+          if (!ar.includes(gradesSearchQuery) && !en.includes(gradesSearchQuery) && !id.includes(gradesSearchQuery)) {
+            return false;
+          }
+        }
+        return true;
+      });
+
+      const countEl = document.getElementById('grades-stat-count');
+      if (countEl) countEl.innerText = filtered.length;
+
+      let honorsCount = 0;
+      filtered.forEach(s => {
+        const sc = s.termsScores || {};
+        const ann = parseFloat(sc.annual_total) || 0;
+        if (ann >= 85) honorsCount++;
+      });
+      const honEl = document.getElementById('grades-stat-honors');
+      if (honEl) honEl.innerText = honorsCount;
+
+      const tbody = document.getElementById('tbody-grades-list');
+      if (!tbody) return;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="12" class="py-8 text-center text-slate-500 font-bold">لا يوجد طلاب مطابقين للبحث في الصف ${currentGrade}</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map((s, idx) => {
+        const sc = s.termsScores || { t1_m1: 0, t1_m2: 0, t1_exam: 0, t1_total: 0, t2_m1: 0, t2_m2: 0, t2_exam: 0, t2_total: 0, annual_total: 0 };
+        const t1_m1 = parseFloat(sc.t1_m1) || 0;
+        const t1_m2 = parseFloat(sc.t1_m2) || 0;
+        const t1_exam = parseFloat(sc.t1_exam) || 0;
+        const t2_m1 = parseFloat(sc.t2_m1) || 0;
+        const t2_m2 = parseFloat(sc.t2_m2) || 0;
+        const t2_exam = parseFloat(sc.t2_exam) || 0;
+
+        let t1_total = parseFloat(sc.t1_total) || 0;
+        let t2_total = parseFloat(sc.t2_total) || 0;
+        let annual = parseFloat(sc.annual_total) || 0;
+
+        // Auto scale if scores exist
+        if (t1_m1 > 0 || t1_m2 > 0 || t1_exam > 0) {
+          t1_total = Math.min(100, Math.round(t1_m1 + t1_m2 + t1_exam + (t1_m1 + t1_m2 + t1_exam > 0 ? 28 : 0)));
+        }
+        if (t2_m1 > 0 || t2_m2 > 0 || t2_exam > 0) {
+          t2_total = Math.min(100, Math.round(t2_m1 + t2_m2 + t2_exam + (t2_m1 + t2_m2 + t2_exam > 0 ? 28 : 0)));
+        }
+        if (t1_total > 0 || t2_total > 0) {
+          annual = Math.round((t1_total + t2_total) / 2);
+        }
+
+        const app = getAppreciation(annual);
+        const trackBadge = (s.track === 'languages')
+          ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-blue-500/20 text-blue-300 border border-blue-400/30">لغات</span>'
+          : '<span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">عربي</span>';
+
+        return `
+          <tr id="row-st-${s.id}" class="hover:bg-slate-900/60 transition-colors">
+            <td class="py-2.5 px-2 text-center text-slate-500 font-mono">${idx + 1}</td>
+            <td class="py-2.5 px-4">
+              <div class="font-black text-white text-sm">${s.nameAr}</div>
+              <div class="text-[11px] text-slate-400 font-en font-medium">${s.nameEn || ''} <span class="text-slate-600 font-mono text-[10px]">(${s.id})</span></div>
+            </td>
+            <td class="py-2.5 px-3 text-center">${trackBadge}</td>
+
+            <!-- Term 1 -->
+            <td class="py-2 px-1 text-center bg-indigo-950/20 border-r border-slate-800">
+              <input type="number" min="0" max="20" step="0.5" value="${t1_m1}" onchange="onStudentGradeChange('${s.id}', 't1_m1', this.value)" class="grade-input text-indigo-300">
+            </td>
+            <td class="py-2 px-1 text-center bg-indigo-950/20">
+              <input type="number" min="0" max="20" step="0.5" value="${t1_m2}" onchange="onStudentGradeChange('${s.id}', 't1_m2', this.value)" class="grade-input text-indigo-300">
+            </td>
+            <td class="py-2 px-1 text-center bg-indigo-950/20">
+              <input type="number" min="0" max="30" step="0.5" value="${t1_exam}" onchange="onStudentGradeChange('${s.id}', 't1_exam', this.value)" class="grade-input text-indigo-300">
+            </td>
+            <td class="py-2 px-1 text-center bg-indigo-900/30 font-black font-en text-indigo-200" id="cell-t1-tot-${s.id}">
+              ${t1_total}
+            </td>
+
+            <!-- Term 2 -->
+            <td class="py-2 px-1 text-center bg-blue-950/20 border-r border-slate-800">
+              <input type="number" min="0" max="20" step="0.5" value="${t2_m1}" onchange="onStudentGradeChange('${s.id}', 't2_m1', this.value)" class="grade-input text-blue-300">
+            </td>
+            <td class="py-2 px-1 text-center bg-blue-950/20">
+              <input type="number" min="0" max="20" step="0.5" value="${t2_m2}" onchange="onStudentGradeChange('${s.id}', 't2_m2', this.value)" class="grade-input text-blue-300">
+            </td>
+            <td class="py-2 px-1 text-center bg-blue-950/20">
+              <input type="number" min="0" max="30" step="0.5" value="${t2_exam}" onchange="onStudentGradeChange('${s.id}', 't2_exam', this.value)" class="grade-input text-blue-300">
+            </td>
+            <td class="py-2 px-1 text-center bg-blue-900/30 font-black font-en text-blue-200" id="cell-t2-tot-${s.id}">
+              ${t2_total}
+            </td>
+
+            <!-- Annual -->
+            <td class="py-2.5 px-3 text-center font-black font-en text-amber-300 text-sm bg-amber-950/20" id="cell-annual-${s.id}">
+              ${annual}
+            </td>
+
+            <!-- Appreciation Badge -->
+            <td class="py-2.5 px-3 text-center" id="cell-app-${s.id}">
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-black border ${app.badge}">
+                ${app.ar}
+              </span>
+            </td>
+
+            <!-- Actions -->
+            <td class="py-2.5 px-3 text-center no-print">
+              <button onclick="openCertificateForStudent('${s.id}')" class="px-2.5 py-1 bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 font-black rounded-lg text-[11px] border border-amber-400/40 transition active:scale-95 flex items-center justify-center gap-1 mx-auto" title="عرض واستخراج الشهادة">
+                <span>📜</span> <span>الشهادة</span>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function onStudentGradeChange(studentId, scoreKey, val) {
+      const student = ALL_STUDENTS.find(s => s.id === studentId);
+      if (!student) return;
+
+      if (!student.termsScores) {
+        student.termsScores = { t1_m1: 0, t1_m2: 0, t1_exam: 0, t1_total: 0, t2_m1: 0, t2_m2: 0, t2_exam: 0, t2_total: 0, annual_total: 0 };
+      }
+      student.termsScores[scoreKey] = parseFloat(val) || 0;
+
+      // Recalculate totals
+      const sc = student.termsScores;
+      const m1 = parseFloat(sc.t1_m1) || 0;
+      const m2 = parseFloat(sc.t1_m2) || 0;
+      const ex1 = parseFloat(sc.t1_exam) || 0;
+      if (m1 > 0 || m2 > 0 || ex1 > 0) {
+        sc.t1_total = Math.min(100, Math.round(m1 + m2 + ex1 + 28));
+      } else {
+        sc.t1_total = 0;
+      }
+
+      const m3 = parseFloat(sc.t2_m1) || 0;
+      const m4 = parseFloat(sc.t2_m2) || 0;
+      const ex2 = parseFloat(sc.t2_exam) || 0;
+      if (m3 > 0 || m4 > 0 || ex2 > 0) {
+        sc.t2_total = Math.min(100, Math.round(m3 + m4 + ex2 + 28));
+      } else {
+        sc.t2_total = 0;
+      }
+
+      if (sc.t1_total > 0 || sc.t2_total > 0) {
+        sc.annual_total = Math.round((sc.t1_total + sc.t2_total) / 2);
+      } else {
+        sc.annual_total = 0;
+      }
+
+      // Update DOM directly for instant reactivity
+      const cT1 = document.getElementById('cell-t1-tot-' + studentId);
+      if (cT1) cT1.innerText = sc.t1_total;
+      const cT2 = document.getElementById('cell-t2-tot-' + studentId);
+      if (cT2) cT2.innerText = sc.t2_total;
+      const cAnn = document.getElementById('cell-annual-' + studentId);
+      if (cAnn) cAnn.innerText = sc.annual_total;
+
+      const app = getAppreciation(sc.annual_total);
+      const cApp = document.getElementById('cell-app-' + studentId);
+      if (cApp) {
+        cApp.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-black border ${app.badge}">${app.ar}</span>`;
+      }
+
+      // Save to storage and cloud
+      saveStudentsToStorage();
+    }
+
+    // ==================== CERTIFICATES MODULE ====================
+    function renderCertPills() {
+      const c = document.getElementById('cert-pills-container');
+      if (!c) return;
+      let html = '';
+      for (let g = 1; g <= 9; g++) {
+        const count = ALL_STUDENTS.filter(s => s.grade === g).length;
+        const isActive = (currentGrade === g);
+        const cls = isActive
+          ? 'px-3.5 py-1.5 rounded-xl text-xs font-black transition whitespace-nowrap bg-amber-600 text-white shadow-[0_0_15px_rgba(245,158,11,0.4)] border border-amber-400/50'
+          : 'px-3 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap bg-slate-900 text-slate-400 hover:text-white border border-slate-800';
+        html += `<button onclick="setCertGrade(${g})" class="${cls}">Grade ${g} (${count})</button>`;
+      }
+      c.innerHTML = html;
+    }
+
+    function setCertGrade(g) {
+      currentGrade = g;
+      certCurrentStudentId = '';
+      renderCertPills();
+      renderCertificatesModule();
+    }
+
+    function renderCertificatesModule() {
+      if (currentGrade === 0) currentGrade = 1;
+      const gradeStudents = ALL_STUDENTS.filter(s => s.grade === currentGrade);
+
+      const sel = document.getElementById('cert-student-select');
+      if (sel) {
+        sel.innerHTML = gradeStudents.map(s => {
+          return `<option value="${s.id}" ${s.id === certCurrentStudentId ? 'selected' : ''}>${s.nameAr} (${s.nameEn || s.id}) - ${s.track === 'languages' ? 'لغات' : 'عربي'}</option>`;
+        }).join('');
+        if (!certCurrentStudentId && gradeStudents.length > 0) {
+          certCurrentStudentId = gradeStudents[0].id;
+        }
+      }
+
+      renderCertificatePreview();
+    }
+
+    function onCertStudentChange(val) {
+      certCurrentStudentId = val;
+      renderCertificatePreview();
+    }
+
+    function setCertificateLanguage(lang) {
+      certLanguage = lang;
+      const bAr = document.getElementById('btn-cert-lang-ar');
+      const bEn = document.getElementById('btn-cert-lang-en');
+      if (lang === 'arabic') {
+        if (bAr) bAr.className = 'flex-1 py-2 rounded-xl text-xs font-black bg-amber-500 text-slate-950 transition';
+        if (bEn) bEn.className = 'flex-1 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white bg-slate-900 border border-slate-800 transition';
+      } else {
+        if (bAr) bAr.className = 'flex-1 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white bg-slate-900 border border-slate-800 transition';
+        if (bEn) bEn.className = 'flex-1 py-2 rounded-xl text-xs font-black bg-blue-500 text-white transition';
+      }
+      renderCertificatePreview();
+    }
+
+    function generateSingleCertificateHTML(st, lang, pKey) {
+      const periodKey = pKey || (document.getElementById('cert-period-select') ? document.getElementById('cert-period-select').value : 'annual');
+      const sc = st.termsScores || {};
+
+      let score = 0;
+      let max = 100;
+      if (periodKey === 'annual') {
+        score = sc.annual_total || 0;
+        max = 100;
+      } else if (periodKey === 't1_exam' || periodKey === 't2_exam') {
+        score = sc[periodKey] || 0;
+        max = 30;
+      } else {
+        score = sc[periodKey] || 0;
+        max = 20;
+      }
+
+      const perc = (max > 0) ? Math.min(100, Math.round((score / max) * 100)) : 0;
+      const app = getAppreciation(perc);
+      const examTitle = getPeriodTitle(periodKey, lang);
+      const quote = getEncouragementQuote(app.key, lang);
+      const gradeAr = getGradeArabicName(st.grade);
+
+      if (lang === 'arabic') {
+        return `
+          <div class="cert-arabic-frame w-full aspect-[1.414/1] bg-white rounded-2xl p-6 sm:p-10 shadow-2xl flex flex-col justify-between text-center relative overflow-hidden mx-auto border-[10px] border-[#d4af37]" style="direction: rtl; font-family: 'Cairo', Tahoma, sans-serif;">
+            <div class="absolute top-2 right-2 text-[#d4af37] text-2xl">✤</div>
+            <div class="absolute top-2 left-2 text-[#d4af37] text-2xl">✤</div>
+            <div class="absolute bottom-2 right-2 text-[#d4af37] text-2xl">✤</div>
+            <div class="absolute bottom-2 left-2 text-[#d4af37] text-2xl">✤</div>
+
+            <div class="flex items-center justify-between border-b-2 border-[#d4af37]/30 pb-4">
+              <div class="text-right">
+                <h4 class="text-xs sm:text-sm font-black text-slate-800">جمهورية مصر العربية</h4>
+                <p class="text-[11px] text-slate-500 font-bold">وزارة التربية والتعليم</p>
+                <p class="text-[11px] text-amber-700 font-bold">إدارة المدارس المتميزة واللغات</p>
+              </div>
+
+              <div class="flex flex-col items-center">
+                <img src="smile_kids_logo.png" class="h-14 w-14 sm:h-16 sm:w-16 object-contain drop-shadow" alt="Logo">
+                <span class="text-[10px] font-black tracking-widest text-[#b89726] uppercase mt-1">Smile Kids School</span>
+              </div>
+
+              <div class="text-left font-en">
+                <h4 class="text-xs sm:text-sm font-black text-slate-800">Smile Kids School</h4>
+                <p class="text-[11px] text-slate-500 font-bold">Academic Year 2026/2027</p>
+                <p class="text-[11px] text-indigo-700 font-bold">Grade ${st.grade} - ${st.track === 'languages' ? 'Languages Track' : 'Arabic Track'}</p>
+              </div>
+            </div>
+
+            <div class="my-3 sm:my-4">
+              <h2 class="text-2xl sm:text-4xl font-black text-[#b89726] tracking-wide" style="text-shadow: 1px 1px 2px rgba(212,175,55,0.2);">
+                شَهَادَةُ شُكْرٍ وَتَقْدِيرٍ وَتَفَوُّق
+              </h2>
+              <p class="text-xs sm:text-sm text-slate-600 font-bold mt-1">
+                تتشرف إدارة المدرسة ومعلمو الصف ${gradeAr} بمنح هذه الشهادة للطالب المتميز:
+              </p>
+            </div>
+
+            <div class="my-2 sm:my-3">
+              <div class="inline-block border-b-4 border-[#d4af37] pb-1 px-8">
+                <h1 class="text-2xl sm:text-3xl font-black text-indigo-950">${st.nameAr}</h1>
+              </div>
+              ${st.nameEn ? `<p class="text-xs sm:text-sm font-en text-slate-500 mt-1 font-semibold">${st.nameEn}</p>` : ''}
+            </div>
+
+            <div class="bg-amber-50/60 rounded-2xl p-3 sm:p-4 border border-amber-200/80 my-2 max-w-xl mx-auto">
+              <p class="text-xs sm:text-sm text-slate-700 font-bold leading-relaxed">
+                تقديراً لاجتهاده وتفوقه الباهر في <span class="text-indigo-900 font-black">${examTitle}</span>
+              </p>
+              <div class="flex items-center justify-center gap-6 mt-2 text-xs sm:text-sm">
+                <div>الدرجة: <span class="font-black text-indigo-950 font-en text-base">${score} / ${max}</span></div>
+                <div>النسبة: <span class="font-black text-emerald-700 font-en text-base">${perc}%</span></div>
+                <div>التقدير: <span class="font-black text-amber-800 text-base">${app.ar}</span></div>
+              </div>
+            </div>
+
+            <div class="my-2 px-4 sm:px-8">
+              <p class="text-xs sm:text-sm font-bold text-slate-800 italic leading-relaxed">
+                "${quote}"
+              </p>
+            </div>
+
+            <div class="flex items-end justify-between pt-4 border-t border-[#d4af37]/30 text-xs sm:text-sm text-slate-700 font-bold">
+              <div class="text-center w-36">
+                <p class="text-slate-500 text-[11px] mb-5">معلمة الفصل / الصف</p>
+                <div class="border-t border-slate-400 pt-1 font-black text-slate-800">أ / هيثم عبد الفضيل</div>
+              </div>
+
+              <div class="flex flex-col items-center">
+                <div class="w-16 h-16 sm:w-18 sm:h-18 rounded-full cert-seal flex items-center justify-center border-4 border-white shadow-xl text-slate-950 text-center p-1">
+                  <div class="border border-dashed border-amber-950/40 rounded-full w-full h-full flex flex-col items-center justify-center">
+                    <span class="text-[9px] font-black uppercase tracking-tighter">Smile Kids</span>
+                    <span class="text-[11px] font-black">★ تميز ★</span>
+                    <span class="text-[8px] font-bold">2026/2027</span>
+                  </div>
+                </div>
+                <span class="text-[10px] text-amber-800 font-black mt-1">الختم الرسمي للمدرسة</span>
+              </div>
+
+              <div class="text-center w-36">
+                <p class="text-slate-500 text-[11px] mb-5">مدير عام المدرسة</p>
+                <div class="border-t border-slate-400 pt-1 font-black text-slate-800">إدارة مدرسة Smile Kids</div>
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        return `
+          <div class="cert-english-frame w-full aspect-[1.414/1] bg-white rounded-2xl p-6 sm:p-10 shadow-2xl flex flex-col justify-between text-center relative overflow-hidden mx-auto border-[10px] border-[#1e3a8a]" style="direction: ltr; font-family: 'Inter', system-ui, sans-serif;">
+            <div class="absolute top-2 right-2 text-[#d4af37] text-2xl">★</div>
+            <div class="absolute top-2 left-2 text-[#d4af37] text-2xl">★</div>
+            <div class="absolute bottom-2 right-2 text-[#d4af37] text-2xl">★</div>
+            <div class="absolute bottom-2 left-2 text-[#d4af37] text-2xl">★</div>
+
+            <div class="flex items-center justify-between border-b-2 border-indigo-100 pb-4">
+              <div class="text-left font-en">
+                <h4 class="text-xs sm:text-sm font-black text-slate-900">SMILE KIDS ACADEMY</h4>
+                <p class="text-[11px] text-slate-500 font-bold">Official Certificate of Excellence</p>
+                <p class="text-[11px] text-indigo-700 font-bold">Academic Year 2026 / 2027</p>
+              </div>
+
+              <div class="flex flex-col items-center">
+                <img src="smile_kids_logo.png" class="h-14 w-14 sm:h-16 sm:w-16 object-contain drop-shadow" alt="Logo">
+                <span class="text-[10px] font-black tracking-widest text-[#1e3a8a] uppercase mt-1">Smile Kids</span>
+              </div>
+
+              <div class="text-right font-en">
+                <h4 class="text-xs sm:text-sm font-black text-slate-900">Grade ${st.grade}</h4>
+                <p class="text-[11px] text-slate-500 font-bold">${st.track === 'languages' ? 'Languages Track' : 'Arabic Track'}</p>
+                <p class="text-[11px] text-indigo-700 font-bold">ID: ${st.id}</p>
+              </div>
+            </div>
+
+            <div class="my-3 sm:my-4 font-en">
+              <h2 class="text-2xl sm:text-4xl font-black text-[#1e3a8a] tracking-wide">
+                CERTIFICATE OF APPRECIATION
+              </h2>
+              <p class="text-xs sm:text-sm text-slate-600 font-bold mt-1">
+                The Administration and Faculty Proudly Present This Honor to:
+              </p>
+            </div>
+
+            <div class="my-2 sm:my-3 font-en">
+              <div class="inline-block border-b-4 border-[#1e3a8a] pb-1 px-8">
+                <h1 class="text-2xl sm:text-3xl font-black text-slate-950">${st.nameEn || st.nameAr}</h1>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-500 mt-1 font-bold">${st.nameAr}</p>
+            </div>
+
+            <div class="bg-indigo-50/70 rounded-2xl p-3 sm:p-4 border border-indigo-200/80 my-2 max-w-xl mx-auto font-en">
+              <p class="text-xs sm:text-sm text-slate-800 font-bold">
+                In recognition of outstanding scholastic achievement in <span class="text-indigo-900 font-black">${examTitle}</span>
+              </p>
+              <div class="flex items-center justify-center gap-6 mt-2 text-xs sm:text-sm">
+                <div>Score: <span class="font-black text-indigo-950 font-mono text-base">${score} / ${max}</span></div>
+                <div>Percentage: <span class="font-black text-emerald-700 font-mono text-base">${perc}%</span></div>
+                <div>Rating: <span class="font-black text-blue-900 text-base">${app.en}</span></div>
+              </div>
+            </div>
+
+            <div class="my-2 px-4 sm:px-8 font-en">
+              <p class="text-xs sm:text-sm font-bold text-slate-700 italic leading-relaxed">
+                "${quote}"
+              </p>
+            </div>
+
+            <div class="flex items-end justify-between pt-4 border-t border-indigo-100 text-xs sm:text-sm text-slate-700 font-bold font-en">
+              <div class="text-center w-36">
+                <p class="text-slate-500 text-[11px] mb-5">Class Teacher</p>
+                <div class="border-t border-slate-400 pt-1 font-black text-slate-900">Faculty Advisor</div>
+              </div>
+
+              <div class="flex flex-col items-center">
+                <div class="w-16 h-16 sm:w-18 sm:h-18 rounded-full cert-seal flex items-center justify-center border-4 border-white shadow-xl text-slate-950 text-center p-1">
+                  <div class="border border-dashed border-amber-950/40 rounded-full w-full h-full flex flex-col items-center justify-center">
+                    <span class="text-[9px] font-black uppercase tracking-tighter">Smile Kids</span>
+                    <span class="text-[11px] font-black">★ HONOR ★</span>
+                    <span class="text-[8px] font-bold">2026/2027</span>
+                  </div>
+                </div>
+                <span class="text-[10px] text-indigo-900 font-black mt-1">Official Seal</span>
+              </div>
+
+              <div class="text-center w-36">
+                <p class="text-slate-500 text-[11px] mb-5">School Principal</p>
+                <div class="border-t border-slate-400 pt-1 font-black text-slate-900">Smile Kids Leadership</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function renderCertificatePreview() {
+      const container = document.getElementById('certificate-preview-container');
+      if (!container) return;
+
+      const student = ALL_STUDENTS.find(s => s.id === certCurrentStudentId);
+      if (!student) {
+        container.innerHTML = `<div class="p-8 text-center text-slate-500 font-bold">يرجى اختيار طالب لعرض الشهادة المدرسية</div>`;
+        return;
+      }
+
+      const pKey = document.getElementById('cert-period-select') ? document.getElementById('cert-period-select').value : 'annual';
+      container.innerHTML = generateSingleCertificateHTML(student, certLanguage, pKey);
+    }
+
+    function openCertificateForStudent(studentId) {
+      const st = ALL_STUDENTS.find(s => s.id === studentId);
+      if (!st) return;
+      currentGrade = st.grade;
+      certCurrentStudentId = st.id;
+      switchMainTab('certificates');
+    }
+
+    function printSingleCertificate() {
+      const c = document.getElementById('certificate-preview-container');
+      if (!c) return;
+      const printArea = document.getElementById('batch-certificates-print-area');
+      if (printArea) {
+        printArea.innerHTML = c.innerHTML;
+        printArea.classList.remove('hidden');
+        window.print();
+        printArea.classList.add('hidden');
+      } else {
+        window.print();
+      }
+    }
+
+    function printBatchCertificates() {
+      const gradeStudents = ALL_STUDENTS.filter(s => s.grade === currentGrade);
+      if (gradeStudents.length === 0) {
+        alert('لا يوجد طلاب في هذا الصف للطباعة');
+        return;
+      }
+
+      const pKey = document.getElementById('cert-period-select') ? document.getElementById('cert-period-select').value : 'annual';
+      const printArea = document.getElementById('batch-certificates-print-area');
+      if (!printArea) return;
+
+      let batchHtml = '';
+      gradeStudents.forEach((st, idx) => {
+        const cert = generateSingleCertificateHTML(st, certLanguage, pKey);
+        batchHtml += `<div style="page-break-after: always; padding: 20px 0;">${cert}</div>`;
+      });
+
+      printArea.innerHTML = batchHtml;
+      printArea.classList.remove('hidden');
+      window.print();
+      printArea.classList.add('hidden');
+    }
+
+    // ==================== TEACHER GRADE FORM MODAL ====================
+    function openTeacherGradeFormModal() {
+      const container = document.getElementById('tg-students-container');
+      if (!container) return;
+
+      const pKey = document.getElementById('tg-period-select') ? document.getElementById('tg-period-select').value : 't1_m1';
+      const maxScore = (pKey.includes('exam')) ? 30 : 20;
+
+      const gradeStudents = ALL_STUDENTS.filter(s => s.grade === currentGrade);
+      container.innerHTML = gradeStudents.map((s, idx) => {
+        const sc = s.termsScores || {};
+        const curVal = sc[pKey] || 0;
+        return `
+          <div class="flex items-center justify-between p-2.5 bg-slate-900/80 rounded-xl border border-slate-800">
+            <div class="flex items-center gap-2">
+              <span class="w-6 text-center text-slate-500 font-mono text-xs">${idx + 1}</span>
+              <div>
+                <div class="font-bold text-white text-xs">${s.nameAr}</div>
+                <div class="text-[10px] text-slate-400 font-en">${s.nameEn || ''} • ${s.track === 'languages' ? 'لغات' : 'عربي'}</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-slate-400 font-bold">الدرجة:</span>
+              <input type="number" min="0" max="${maxScore}" step="0.5" id="tg-in-${s.id}" value="${curVal}" class="grade-input text-purple-300">
+              <span class="text-xs text-slate-500 font-mono">/ ${maxScore}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      openModal('modal-teacher-grade-form');
+    }
+
+    function saveTeacherGradeForm() {
+      const pKey = document.getElementById('tg-period-select') ? document.getElementById('tg-period-select').value : 't1_m1';
+      const gradeStudents = ALL_STUDENTS.filter(s => s.grade === currentGrade);
+
+      gradeStudents.forEach(s => {
+        const input = document.getElementById('tg-in-' + s.id);
+        if (input) {
+          const val = parseFloat(input.value) || 0;
+          if (!s.termsScores) {
+            s.termsScores = { t1_m1: 0, t1_m2: 0, t1_exam: 0, t1_total: 0, t2_m1: 0, t2_m2: 0, t2_exam: 0, t2_total: 0, annual_total: 0 };
+          }
+          s.termsScores[pKey] = val;
+
+          // Auto update totals
+          const sc = s.termsScores;
+          const m1 = parseFloat(sc.t1_m1) || 0;
+          const m2 = parseFloat(sc.t1_m2) || 0;
+          const ex1 = parseFloat(sc.t1_exam) || 0;
+          sc.t1_total = (m1 > 0 || m2 > 0 || ex1 > 0) ? Math.min(100, Math.round(m1 + m2 + ex1 + 28)) : 0;
+
+          const m3 = parseFloat(sc.t2_m1) || 0;
+          const m4 = parseFloat(sc.t2_m2) || 0;
+          const ex2 = parseFloat(sc.t2_exam) || 0;
+          sc.t2_total = (m3 > 0 || m4 > 0 || ex2 > 0) ? Math.min(100, Math.round(m3 + m4 + ex2 + 28)) : 0;
+
+          sc.annual_total = (sc.t1_total > 0 || sc.t2_total > 0) ? Math.round((sc.t1_total + sc.t2_total) / 2) : 0;
+        }
+      });
+
+      saveStudentsToStorage();
+      closeModal('modal-teacher-grade-form');
+      renderGradesModule();
+      alert('تم حفظ درجات المادة لجميع طلاب الصف بنجاح 🟢');
+    }
+
   </script>
+
+  <!-- ==================== MODAL: TEACHER GRADE FORM ==================== -->
+  <div id="modal-teacher-grade-form" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-slate-950 border border-slate-800 rounded-3xl w-full max-w-2xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden">
+      <!-- Modal Header -->
+      <div class="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/60">
+        <div class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-lg">📝</span>
+          <div>
+            <h3 class="text-base sm:text-lg font-black text-white">رصد درجات مادة دراسية (نموذج المعلمة)</h3>
+            <p class="text-xs text-slate-400 font-bold">إدخال درجات الطلاب للمادة المحددة للفصل الحالي دفعة واحدة</p>
+          </div>
+        </div>
+        <button onclick="closeModal('modal-teacher-grade-form')" class="text-slate-400 hover:text-white text-xl p-1 font-bold">✕</button>
+      </div>
+
+      <!-- Selectors -->
+      <div class="p-4 sm:p-5 border-b border-slate-800 bg-slate-900/30 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+        <div>
+          <label class="block text-slate-400 font-bold mb-1">المادة الدراسية:</label>
+          <select id="tg-subject-select" class="w-full bg-slate-900 border border-slate-800 text-white rounded-xl px-3 py-2 font-bold focus:outline-none focus:border-indigo-500">
+            <option value="arabic">اللغة العربية</option>
+            <option value="math">الرياضيات / Math</option>
+            <option value="science">العلوم / Science</option>
+            <option value="english">اللغة الإنجليزية (Connect / Connect Plus)</option>
+            <option value="religion">التربية الدينية الإسلامية</option>
+            <option value="quran">القرآن الكريم</option>
+            <option value="social">الدراسات الاجتماعية</option>
+            <option value="ict">تكنولوجيا المعلومات (ICT)</option>
+            <option value="art">التربية الفنية (Art)</option>
+            <option value="german">اللغة الألمانية</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-slate-400 font-bold mb-1">الفترة / الاختبار المستهدف:</label>
+          <select id="tg-period-select" class="w-full bg-slate-900 border border-slate-800 text-white rounded-xl px-3 py-2 font-bold focus:outline-none focus:border-indigo-500">
+            <option value="t1_m1">اختبار شهر 1 (الترم الأول) - الدرجة العظمى 20</option>
+            <option value="t1_m2">اختبار شهر 2 (الترم الأول) - الدرجة العظمى 20</option>
+            <option value="t1_exam">امتحان نصف العام (الترم الأول) - الدرجة العظمى 30</option>
+            <option value="t2_m1">اختبار شهر 1 (الترم الثاني) - الدرجة العظمى 20</option>
+            <option value="t2_m2">اختبار شهر 2 (الترم الثاني) - الدرجة العظمى 20</option>
+            <option value="t2_exam">امتحان نهاية العام (الترم الثاني) - الدرجة العظمى 30</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Students Input Grid -->
+      <div class="p-4 sm:p-5 flex-1 overflow-y-auto">
+        <div id="tg-students-container" class="space-y-2">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-4 border-t border-slate-800 bg-slate-900/60 flex items-center justify-between">
+        <button onclick="closeModal('modal-teacher-grade-form')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl text-xs transition">إلغاء</button>
+        <button onclick="saveTeacherGradeForm()" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-black rounded-xl text-xs transition shadow flex items-center gap-1.5">
+          <span>💾 حفظ جميع الدرجات وتحديث المنظومة</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden Container for Batch Printing Certificates -->
+  <div id="batch-certificates-print-area" class="print-only hidden" style="background: white;"></div>
+
 </body>
-</html>
+</html// Global Esc Key Handler across whole page
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' || e.keyCode === 27) {
+        const addModal = document.getElementById('modal-add-student');
+        if (addModal && !addModal.classList.contains('hidden')) {
+          addModal.classList.add('hidden');
+          e.preventDefault();
+          return;
+        }
+        const editModal = document.getElementById('modal-edit-student');
+        if (editModal && !editModal.classList.contains('hidden')) {
+          editModal.classList.add('hidden');
+          e.preventDefault();
+          return;
+        }
+        e.preventDefault();
+        if (window.history.length > 1 && document.referrer) {
+          window.history.back();
+        } else {
+          window.location.href = 'index.html';
+        }
+      }
+    });>

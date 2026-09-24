@@ -29,24 +29,24 @@
     "nameEn": "Talia Adel Khattab",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -61,24 +61,24 @@
     "nameEn": "Elaf Essam Abdullah",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -93,24 +93,24 @@
     "nameEn": "Mawaddah Ahmed Kamal",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -125,24 +125,24 @@
     "nameEn": "Fayrouz Ashraf Magdy",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -157,24 +157,24 @@
     "nameEn": "Yahia Ahmed Mostafa",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     },
     "phone": "",
     "notes": ""
@@ -191,24 +191,24 @@
     "nameEn": "Amir Mostafa Abdel Latif",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -223,24 +223,24 @@
     "nameEn": "Yamen Islam Ahmed",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -255,24 +255,24 @@
     "nameEn": "Sara Reda Abdel Maksoud",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -287,24 +287,24 @@
     "nameEn": "Kenda Elsayed Ali",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -319,24 +319,24 @@
     "nameEn": "Rihana Abdel Rahman Atef",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -351,24 +351,24 @@
     "nameEn": "Lili Ahmed Mohamed Yousry",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     },
     "phone": "",
     "notes": ""
@@ -385,24 +385,24 @@
     "nameEn": "Hamza Ibrahim Zeidan",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -417,24 +417,24 @@
     "nameEn": "Hamza Mohamed Elbanna",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -449,24 +449,24 @@
     "nameEn": "Marwan Ashraf Ramadan",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -481,24 +481,24 @@
     "nameEn": "Youssef Amr Mohamed",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -513,24 +513,24 @@
     "nameEn": "Ali Mohamed Alaa El-Din",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -545,24 +545,24 @@
     "nameEn": "Zein El-Din Mahmoud Abdel Hamid",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -577,24 +577,24 @@
     "nameEn": "Mahdi Ahmed Mohamed",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -609,24 +609,24 @@
     "nameEn": "Seif Hassan Mohamed",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -641,24 +641,24 @@
     "nameEn": "Adam Ahmed Shawky",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -673,24 +673,24 @@
     "nameEn": "Farida Sherif Ali",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -705,24 +705,24 @@
     "nameEn": "Malek Mohamed El-Khoshen",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -737,24 +737,24 @@
     "nameEn": "Leen Mohannad Khidro",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     },
     "phone": "",
     "notes": ""
@@ -771,24 +771,24 @@
     "nameEn": "Ellen Ahmed Zayran",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -803,24 +803,24 @@
     "nameEn": "Bisan Mohamed Ahmed",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -835,24 +835,24 @@
     "nameEn": "Noah Abdel Hamid Samir",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -867,24 +867,24 @@
     "nameEn": "Tarek Elsayed Abdel Ghani",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -899,24 +899,24 @@
     "nameEn": "Selim Mohamed El-Saeed",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -931,24 +931,24 @@
     "nameEn": "Moataz Mohamed Ataha",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -963,24 +963,24 @@
     "nameEn": "Rashed Abdel Karim Basheer",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -995,24 +995,24 @@
     "nameEn": "Anas Ahmed Mohamed",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1027,24 +1027,24 @@
     "nameEn": "Essam Mohamed Essam",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1059,24 +1059,24 @@
     "nameEn": "Malek Ahmed Abdel Moemen",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1091,24 +1091,24 @@
     "nameEn": "Fayrouz Mohamed El-Naggar",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1123,24 +1123,24 @@
     "nameEn": "Lia Haitham Rashwan",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1155,24 +1155,24 @@
     "nameEn": "Layan Mohamed Amin",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1187,24 +1187,24 @@
     "nameEn": "Habiba Ahmed Hussein",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1219,24 +1219,24 @@
     "nameEn": "Tala Hesham Mohamed",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1251,24 +1251,24 @@
     "nameEn": "Zeina Abdullah Sayed",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1283,24 +1283,24 @@
     "nameEn": "Saja Gamal Ismail",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1315,24 +1315,24 @@
     "nameEn": "Jad Mohamed Abbas",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1347,24 +1347,24 @@
     "nameEn": "Ellen Ahmed Mahmoud",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1379,24 +1379,24 @@
     "nameEn": "Malika Mohamed Adel",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1411,24 +1411,24 @@
     "nameEn": "Areen Ashraf Magdy",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1443,24 +1443,24 @@
     "nameEn": "Al-Fateh Abdel Qader Mohamed",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1475,24 +1475,24 @@
     "nameEn": "Omar Mahmoud Abdel Wahab",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1507,24 +1507,24 @@
     "nameEn": "Abdel Rahman Taha Hussein",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1539,24 +1539,24 @@
     "nameEn": "Leen Mohamed Abdel Halim",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1571,24 +1571,24 @@
     "nameEn": "Asiya Ahmed Mostafa",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1603,24 +1603,24 @@
     "nameEn": "Aryam Ahmed Hassan",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1635,24 +1635,24 @@
     "nameEn": "Layan Sameh Basiouny",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1667,24 +1667,24 @@
     "nameEn": "Maria Khaled Fahmy",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1699,24 +1699,24 @@
     "nameEn": "Adam Mohamed Sobhy",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1731,24 +1731,24 @@
     "nameEn": "Zein Soliman Mohamed",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1763,24 +1763,24 @@
     "nameEn": "Adam Khaled Abdullah",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1795,24 +1795,24 @@
     "nameEn": "Adham Mostafa Waheed",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1827,24 +1827,24 @@
     "nameEn": "Youssef Mohamed Abdel Latif",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1859,24 +1859,24 @@
     "nameEn": "Abdel Rahman Khaled Ragab",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1891,24 +1891,24 @@
     "nameEn": "Shahm Mohamed Anwar Harb",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1923,24 +1923,24 @@
     "nameEn": "Zein Mohamed Nabil Nawar",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1955,24 +1955,24 @@
     "nameEn": "Raed Abdel Karim Basheer",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -1987,24 +1987,24 @@
     "nameEn": "Amin Elsayed Ahmed",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2019,24 +2019,24 @@
     "nameEn": "Nour Ahmed Essam",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2051,24 +2051,24 @@
     "nameEn": "Reman Gamal El-Hussein",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2083,24 +2083,24 @@
     "nameEn": "Mostafa Abdel Salam Mostafa",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2115,24 +2115,24 @@
     "nameEn": "Maha Radwan Tsoun",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2147,24 +2147,24 @@
     "nameEn": "Karma Ahmed Attia",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2179,24 +2179,24 @@
     "nameEn": "Janti Elsayed Abdel Ghani",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2211,24 +2211,24 @@
     "nameEn": "Ali Sherif Ali",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2243,24 +2243,24 @@
     "nameEn": "Mohamed Mahmoud El-Sayad",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2275,24 +2275,24 @@
     "nameEn": "Abdullah Marwan El-Sheikh",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2307,24 +2307,24 @@
     "nameEn": "Hamza Ahmed Abdel Hamid",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2339,24 +2339,24 @@
     "nameEn": "Moheb Gamal Fathallah",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2371,24 +2371,24 @@
     "nameEn": "Adam Amr Osama",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2403,24 +2403,24 @@
     "nameEn": "Youssef Kamal Mohamed",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2435,24 +2435,24 @@
     "nameEn": "Omar Ahmed El-Gezeiry",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2467,24 +2467,24 @@
     "nameEn": "Yahia Mohamed Farouk",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2499,24 +2499,24 @@
     "nameEn": "Rayan Abdel Rahman",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2531,24 +2531,24 @@
     "nameEn": "Dana Elsayed Ali",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2563,24 +2563,24 @@
     "nameEn": "Karma Mohamed Hossam",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2595,24 +2595,24 @@
     "nameEn": "Mira Mohamed Ataha",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2627,24 +2627,24 @@
     "nameEn": "Fayrouz Hesham Mohamed",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2659,24 +2659,24 @@
     "nameEn": "Lojain Walid Mohamed",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2691,24 +2691,24 @@
     "nameEn": "Janna Amr Abo El-Makarim",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2723,24 +2723,24 @@
     "nameEn": "Linda Hesham Ahmed",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2755,24 +2755,24 @@
     "nameEn": "Jowairia Ahmed Attia",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2787,24 +2787,24 @@
     "nameEn": "Abdullah Mahmoud El-Sayad",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2819,24 +2819,24 @@
     "nameEn": "Sameh Taha Hussein",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2851,24 +2851,24 @@
     "nameEn": "Mostafa Ahmed Mostafa",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2883,24 +2883,24 @@
     "nameEn": "Ziad Mostafa Farag",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2915,24 +2915,24 @@
     "nameEn": "Rofayda Khaled Ragab",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     },
     "phone": "",
     "notes": ""
@@ -2949,24 +2949,24 @@
     "nameEn": "Aisha Mohamed Alaa",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -2981,24 +2981,24 @@
     "nameEn": "Malika Mohamed Nabil Nawar",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3013,24 +3013,24 @@
     "nameEn": "Rodaina Abdullah Sayed",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3045,24 +3045,24 @@
     "nameEn": "Mariam Hamdy Ahmed",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3077,24 +3077,24 @@
     "nameEn": "Aysel Mohamed El-Saeed",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3109,24 +3109,24 @@
     "nameEn": "Roqaya Reda Shousha",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3141,24 +3141,24 @@
     "nameEn": "Lina Ahmed Shawky",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3173,24 +3173,24 @@
     "nameEn": "Mohamed Adham Harby",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3205,24 +3205,24 @@
     "nameEn": "Mohamed Amr Mohamed",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3237,24 +3237,24 @@
     "nameEn": "Yaseen Islam Mohamed",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3269,24 +3269,24 @@
     "nameEn": "Bassem Hassan El-Omari",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3301,24 +3301,24 @@
     "nameEn": "Malek Mahmoud Abdel Hamid",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3333,24 +3333,24 @@
     "nameEn": "Seif Gamal Ismail",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3365,24 +3365,24 @@
     "nameEn": "Mohamed Mostafa Waheed",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3397,24 +3397,24 @@
     "nameEn": "Arwa Mohamed Ahmed",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3429,24 +3429,24 @@
     "nameEn": "Layan Elsayed Ali",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3461,24 +3461,24 @@
     "nameEn": "Loreen Walid Mohamed",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3493,24 +3493,24 @@
     "nameEn": "Massa Mohamed Anwar Harb",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3525,24 +3525,24 @@
     "nameEn": "Afnan Ahmed Hassan",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3557,24 +3557,24 @@
     "nameEn": "Noursan Islam",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3589,24 +3589,24 @@
     "nameEn": "Layan Mahmoud",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3621,24 +3621,24 @@
     "nameEn": "Sara Ahmed",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3653,24 +3653,24 @@
     "nameEn": "Belal Mohamed Adel",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3685,24 +3685,24 @@
     "nameEn": "Mariam Adham Harby",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3717,24 +3717,24 @@
     "nameEn": "Maya Haitham",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3749,24 +3749,24 @@
     "nameEn": "Judy Khaled",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3781,24 +3781,24 @@
     "nameEn": "Adam Abdel Hamid",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3813,24 +3813,24 @@
     "nameEn": "Yaseen Soliman",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3845,24 +3845,24 @@
     "nameEn": "Malek Adham Harby",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3877,24 +3877,24 @@
     "nameEn": "Mohamed Hassan",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3909,24 +3909,24 @@
     "nameEn": "Abdel Ghany Essam",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3941,24 +3941,24 @@
     "nameEn": "Anas Ahmed Hassan",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -3973,24 +3973,24 @@
     "nameEn": "Basmala Abdullah Sayed",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -4005,24 +4005,24 @@
     "nameEn": "Sara Mohamed Ataha",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -4037,24 +4037,24 @@
     "nameEn": "Ayman Essam El-Kady",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -4069,24 +4069,24 @@
     "nameEn": "Mohamed Abdullah El-Nakkash",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -4101,24 +4101,24 @@
     "nameEn": "Ahmed Reda Shousha",
     "gender": "male",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -4133,24 +4133,24 @@
     "nameEn": "Judy Haitham Rashwan",
     "gender": "female",
     "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     }
   },
   {
@@ -4165,18 +4165,25 @@
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 20,
-      "t1_m2": 20,
-      "t1_exam": 30,
-      "t1_total": 100,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 100,
-      "annual_total": 100
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
     },
     "trackNameAr": "لغات (Math & Science)",
-    "trackNameEn": "Languages Track"
+    "trackNameEn": "Languages Track",
+    "sampleScores": {
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
+    }
   },
   {
     "grade": 2,
@@ -4190,15 +4197,22 @@
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 20,
-      "t1_m2": 20,
-      "t1_exam": 30,
-      "t1_total": 100,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 100,
-      "annual_total": 100
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
+    },
+    "sampleScores": {
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     }
   },
   {
@@ -4213,15 +4227,22 @@
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 20,
-      "t1_m2": 20,
-      "t1_exam": 30,
-      "t1_total": 100,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 100,
-      "annual_total": 100
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
+    },
+    "sampleScores": {
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     }
   },
   {
@@ -4236,15 +4257,22 @@
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 20,
-      "t1_m2": 20,
-      "t1_exam": 30,
-      "t1_total": 100,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 100,
-      "annual_total": 100
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
+    },
+    "sampleScores": {
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     }
   },
   {
@@ -4259,15 +4287,22 @@
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 20,
-      "t1_m2": 20,
-      "t1_exam": 30,
-      "t1_total": 100,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 100,
-      "annual_total": 100
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
+    },
+    "sampleScores": {
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     }
   },
   {
@@ -4282,15 +4317,22 @@
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 20,
-      "t1_m2": 20,
-      "t1_exam": 30,
-      "t1_total": 100,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 100,
-      "annual_total": 100
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
+    },
+    "sampleScores": {
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     }
   },
   {
@@ -4305,15 +4347,22 @@
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 20,
-      "t1_m2": 20,
-      "t1_exam": 30,
-      "t1_total": 100,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 100,
-      "annual_total": 100
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
+    },
+    "sampleScores": {
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     }
   },
   {
@@ -4332,18 +4381,26 @@
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 20,
-      "t1_m2": 20,
-      "t1_exam": 30,
-      "t1_total": 100,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 100,
-      "annual_total": 100
+      "t1_m1": 0,
+      "t1_m2": 0,
+      "t1_exam": 0,
+      "t1_total": 0,
+      "t2_m1": 0,
+      "t2_m2": 0,
+      "t2_exam": 0,
+      "t2_total": 0,
+      "annual_total": 0
+    },
+    "sampleScores": {
+      "month1": 0,
+      "month2": 0,
+      "midterm": 0,
+      "final": 0,
+      "attendance": 0
     }
   }
 ];
+
   const SmileKidsDB = {
     DATABASE_NAME: 'قاعدة بيانات مدرسة Smile Kids الموحدة 2025/2026',
     DATABASE_CODE: 'SMILE_KIDS_MASTER_DB',
@@ -4424,7 +4481,7 @@
         if (!this._isSyncingToCloud) {
           this.syncFromCloud();
         }
-      }, 40000);
+      }, 20000);
     },
 
     _setSyncStatus: function(status, detail) {
@@ -4781,15 +4838,15 @@
         if (!s.attendanceNotes) s.attendanceNotes = {};
         if (!s.termsScores) {
           s.termsScores = {
-            t1_m1: (s.sampleScores && s.sampleScores.month1) || 20,
-            t1_m2: (s.sampleScores && s.sampleScores.month2) || 20,
-            t1_exam: (s.sampleScores && s.sampleScores.midterm) || 30,
-            t1_total: 98,
-            t2_m1: 20,
-            t2_m2: 20,
-            t2_exam: 30,
-            t2_total: 98,
-            annual_total: 98
+            t1_m1: (s.sampleScores && s.sampleScores.month1) || 0,
+            t1_m2: (s.sampleScores && s.sampleScores.month2) || 0,
+            t1_exam: (s.sampleScores && s.sampleScores.midterm) || 0,
+            t1_total: 0,
+            t2_m1: 0,
+            t2_m2: 0,
+            t2_exam: 0,
+            t2_total: 0,
+            annual_total: 0
           };
         }
       });
