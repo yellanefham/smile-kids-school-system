@@ -874,7 +874,7 @@
       <div class="flex items-center gap-3">
         <button onclick="resetCustomStudents()" class="text-slate-500 hover:text-amber-400 transition text-[11px]">إعادة تعيين القوائم للأصل</button>
         <span>•</span>
-        <span>إعداد وتدقيق: أ / هيثم عبد الفضيل</span>
+        <span class="text-amber-400/90 font-bold">إعداد وتوثيق: المهندسة نبيلة فخري</span>
       </div>
     </div>
   </footer>
@@ -2513,7 +2513,7 @@
             <div class="flex items-end justify-between pt-4 border-t border-[#d4af37]/30 text-xs sm:text-sm text-slate-700 font-bold">
               <div class="text-center w-36">
                 <p class="text-slate-500 text-[11px] mb-5">معلمة الفصل / الصف</p>
-                <div class="border-t border-slate-400 pt-1 font-black text-slate-800">أ / هيثم عبد الفضيل</div>
+                <div class="border-t border-slate-400 pt-1 font-black text-slate-800">المهندسة نبيلة فخري</div>
               </div>
 
               <div class="flex flex-col items-center">
@@ -2816,7 +2816,8 @@
   <div id="batch-certificates-print-area" class="print-only hidden" style="background: white;"></div>
 
 </body>
-</html// Global Esc Key Handler across whole page
+<script>
+// Global Esc Key Handler across whole page
     window.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' || e.keyCode === 27) {
         const addModal = document.getElementById('modal-add-student');
@@ -2838,4 +2839,6 @@
           window.location.href = 'index.html';
         }
       }
-    });>
+    });
+</script>
+</html>
