@@ -10,7 +10,7 @@
 (function(window) {
   'use strict';
 
-  const STORAGE_KEY = 'SMILE_KIDS_MASTER_DATABASE_2026';
+  const STORAGE_KEY = 'SMILE_KIDS_MASTER_DATABASE_2026_V2';
   const LEGACY_STUDENT_KEYS = ['smile_kids_students_v7_custom', 'smilekids_school_v6'];
   const LEGACY_ATT_KEY = 'smile_kids_attendance_v7_data';
 
@@ -4358,6 +4358,11 @@
       if (raw) {
         try {
           this._cache = JSON.parse(raw);
+          // If stored cache is older or smaller than master initial list, upgrade immediately
+          if (!Array.isArray(this._cache) || this._cache.length < MASTER_INITIAL_STUDENTS.length) {
+            this._cache = this._clone(MASTER_INITIAL_STUDENTS);
+            this.save();
+          }
         } catch(e) {
           console.error('Master DB parse error, restoring defaults:', e);
           this._cache = this._clone(MASTER_INITIAL_STUDENTS);
