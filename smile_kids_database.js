@@ -4341,6 +4341,11 @@
     STORAGE_KEY: STORAGE_KEY,
     FILE_NAME_JS: 'smile_kids_database.js',
     FILE_NAME_JSON: 'smile_kids_database.json',
+    CLOUD_API_URL: 'https://script.google.com/macros/s/AKfycbw3NIQ9nrVF3CHVQ7wChc0QYElIAQx2SHRnGs236x-yuIrBBuFiMqKiDDv3to0g1rnu/exec',
+    _isSyncingToCloud: false,
+    _syncDebounceTimer: null,
+    _syncStatus: 'idle',
+    _lastModified: 0,
 
     _cache: null,
     _listeners: [],
@@ -4350,6 +4355,8 @@
       if (typeof localStorage !== 'undefined') {
         try {
           raw = localStorage.getItem(STORAGE_KEY);
+          const lm = localStorage.getItem(STORAGE_KEY + '_LAST_MODIFIED');
+          if (lm) this._lastModified = parseInt(lm) || 0;
         } catch(e) {
           console.warn('localStorage read error:', e);
         }
@@ -4357,9 +4364,10 @@
 
       if (raw) {
         try {
-          this._cache = JSON.parse(raw);
-          // If stored cache is older or smaller than master initial list, upgrade immediately
-          if (!Array.isArray(this._cache) || this._cache.length < MASTER_INITIAL_STUDENTS.length) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            this._cache = parsed;
+          } else {
             this._cache = this._clone(MASTER_INITIAL_STUDENTS);
             this.save();
           }
@@ -4437,21 +4445,46 @@
 
     syncFromCloud: async function(callback) {
       if (!this.CLOUD_API_URL || typeof fetch === 'undefined') return;
+      // Do not pull from cloud if a local edit is pending cloud push
+      if (this._isSyncingToCloud) return;
+
       try {
         this._setSyncStatus('syncing');
         const resp = await fetch(this.CLOUD_API_URL);
         if (resp.ok) {
           const data = await resp.json();
           let studentsList = null;
-          if (Array.isArray(data)) studentsList = data;
-          else if (data && Array.isArray(data.students)) studentsList = data.students;
+          let cloudTimestamp = 0;
+          if (Array.isArray(data)) {
+            studentsList = data;
+          } else if (data && typeof data === 'object') {
+            if (Array.isArray(data.students)) studentsList = data.students;
+            if (data.database_info && data.database_info.last_modified) {
+              cloudTimestamp = parseInt(data.database_info.last_modified) || 0;
+            } else if (data.database_info && data.database_info.exported_at) {
+              cloudTimestamp = new Date(data.database_info.exported_at).getTime() || 0;
+            }
+          }
 
           if (studentsList && studentsList.length > 0) {
+            // Guard: If local edits were made more recently than cloud timestamp, push local to cloud instead
+            if (this._lastModified > 0 && cloudTimestamp > 0 && this._lastModified > cloudTimestamp + 1000) {
+              console.log('Local data is newer than cloud. Syncing local changes to cloud...');
+              this.syncToCloud();
+              return;
+            }
+
             this._cache = studentsList;
+            if (cloudTimestamp > 0) {
+              this._lastModified = cloudTimestamp;
+            }
             this._ensureStudentFields();
             if (typeof localStorage !== 'undefined') {
               try {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(this._cache));
+                localStorage.setItem(STORAGE_KEY + '_LAST_MODIFIED', String(this._lastModified));
+                localStorage.setItem('smilekids_school_v6', JSON.stringify(this._cache));
+                localStorage.setItem('smile_kids_students_v7_custom', JSON.stringify(this._cache));
               } catch(e) {}
             }
             this._setSyncStatus('online', studentsList.length + ' طالب');
@@ -4472,11 +4505,16 @@
       this._isSyncingToCloud = true;
       this._setSyncStatus('syncing');
       try {
+        const now = Date.now();
+        if (!this._lastModified || this._lastModified < now) {
+          this._lastModified = now;
+        }
         const payload = {
           database_info: {
             name: this.DATABASE_NAME,
             version: this.VERSION,
-            exported_at: new Date().toISOString(),
+            last_modified: this._lastModified,
+            exported_at: new Date(this._lastModified).toISOString(),
             total_students: this.getAllStudents().length
           },
           students: this.getAllStudents()
@@ -4542,9 +4580,11 @@
 
     save: function() {
       if (!this._cache) return;
+      this._lastModified = Date.now();
       if (typeof localStorage !== 'undefined') {
         try {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(this._cache));
+          localStorage.setItem(STORAGE_KEY + '_LAST_MODIFIED', String(this._lastModified));
           // Keep legacy storage keys synchronized for backward safety
           localStorage.setItem('smilekids_school_v6', JSON.stringify(this._cache));
           localStorage.setItem('smile_kids_students_v7_custom', JSON.stringify(this._cache));
@@ -4557,7 +4597,7 @@
       if (this._syncDebounceTimer) clearTimeout(this._syncDebounceTimer);
       this._syncDebounceTimer = setTimeout(() => {
         this.syncToCloud();
-      }, 600);
+      }, 350);
     },
 
     getAllStudents: function() {
@@ -4586,6 +4626,16 @@
       if (!st) return null;
 
       Object.assign(st, patch);
+      if (patch.track) {
+        st.track = patch.track;
+        st.trackNameAr = patch.track === 'languages' ? 'لغات (Math & Science)' : 'عربي (حساب)';
+        st.trackNameEn = patch.track === 'languages' ? 'Languages Track' : 'Arabic Track';
+      }
+      if (patch.grade) {
+        st.grade = parseInt(patch.grade);
+        st.gradeNameAr = `الصف ${st.grade}`;
+        st.gradeNameEn = `Grade ${st.grade}`;
+      }
       this._ensureStudentFields();
       this.save();
       return st;
