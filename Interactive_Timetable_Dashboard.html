@@ -973,15 +973,24 @@ html, body {
 </div>
 </div>
 <div class="header-actions">
-<a href="https://www.facebook.com/profile.php?id=100063590275034" target="_blank" rel="noopener noreferrer" class="global-print-btn" style="background: #1877F2; text-decoration: none;" title="الصفحة الرسمية لمدرسة Smile Kids على فيسبوك">
+<!-- Prominent Home Page Link -->
+<a href="index.html" class="global-print-btn" style="background: linear-gradient(135deg, #059669 0%, #10B981 100%); color: #FFFFFF; font-weight: 900; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); border: 1.5px solid rgba(16, 185, 129, 0.5); text-decoration: none; padding: 7px 14px; border-radius: 10px; transition: all 0.2s;" title="الرجوع إلى الصفحة الرئيسية">
+  <span style="font-size: 16px;">🏠</span>
+  <span>الصفحة الرئيسية</span>
+</a>
+
+<!-- Esc Key Hint Badge -->
+<div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(148, 163, 184, 0.3); border-radius: 8px; padding: 4px 8px; display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: #cbd5e1;" title="اضغط زر Esc في أي وقت للرجوع خطوة للوراء">
+  <kbd style="background: #1e293b; border: 1px solid #475569; border-radius: 4px; padding: 2px 5px; font-size: 10px; color: #fbbf24; font-family: monospace;">Esc</kbd>
+  <span>رجوع</span>
+</div>
+
+<a href="https://www.facebook.com/profile.php?id=100063590275034" target="_blank" rel="noopener noreferrer" class="global-print-btn" style="background: linear-gradient(135deg, #1877F2 0%, #0C63D4 100%); color: #FFFFFF; font-weight: 800; font-size: 12px; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 0 15px rgba(24, 119, 242, 0.35); border: 1px solid rgba(24, 119, 242, 0.5); text-decoration: none; padding: 7px 12px; border-radius: 10px;" title="صفحة فيس بوك Smile Kids الرسمية">
   <svg style="width: 15px; height: 15px; fill: white;" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
   <span>فيس بوك Smile Kids</span>
 </a>
 
-<div class="version-pill">📅 2026-09-15_17-41  <a href="index.html" style="background: rgba(255,255,255,0.15); color: #FFFFFF; border: 1.5px solid rgba(255,255,255,0.35); padding: 8px 16px; border-radius: 8px; font-family: inherit; font-size: 13px; font-weight: 900; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: all 0.2s;">
-  <span>🏠 البوابة الرئيسية</span>
-</a>
-</div>
+<div class="version-pill">📅 2026-09-15_17-41</div>
 <button class="global-print-btn" onclick="printBatch('days')">🖨️ طباعة الأيام كاملة (5 صفحات)</button>
 <button class="global-print-btn" onclick="printBatch('grades')" style="background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);">🖨️ طباعة جداول الصفوف (9 صفحات)</button>
 <button class="global-print-btn" onclick="printBatch('teachers')" style="background: linear-gradient(135deg, #EC4899 0%, #DB2777 100%);">🖨️ طباعة جداول المعلمات (12 صفحة)</button>
@@ -9356,6 +9365,21 @@ function printBatch(type) {
 window.addEventListener('DOMContentLoaded', () => {
   switchMainTab('master');
 });
+
+// ========================================================
+// Global Esc Key Handler across Timetable Dashboard
+// ========================================================
+window.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' || e.keyCode === 27) {
+    e.preventDefault();
+    if (window.history.length > 1 && document.referrer) {
+      window.history.back();
+    } else {
+      window.location.href = 'index.html';
+    }
+  }
+});
+
 </script>
 </body>
 </html>

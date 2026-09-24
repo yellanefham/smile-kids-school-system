@@ -4,7 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>كشوف وقوائم الطلاب والغياب والحضور — الفصول من الصف الأول حتى الصف التاسع | مدرسة Smile Kids للغات</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com">
+  // ========================================================
+  // Global Esc Key Handler across whole page
+  // ========================================================
+  window.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' || e.keyCode === 27) {
+      const editModal = document.getElementById('modal-edit-student');
+      if (editModal && !editModal.classList.contains('hidden')) {
+        editModal.classList.add('hidden');
+        e.preventDefault();
+        return;
+      }
+
+      e.preventDefault();
+      if (window.history.length > 1 && document.referrer) {
+        window.history.back();
+      } else {
+        window.location.href = 'index.html';
+      }
+    }
+  });
+
+</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@500;700;800;900&display=swap" rel="stylesheet">
@@ -216,9 +238,17 @@
           <span>تصدير Excel</span>
         </button>
 
-        <a href="index.html" class="px-3 py-2 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-xl text-xs font-bold transition border border-slate-800">
-          البوابة 🏠
+                <!-- Prominent Home Page Link -->
+        <a href="index.html" class="px-3.5 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs sm:text-sm rounded-xl shadow-[0_0_15px_rgba(16,185,129,0.35)] flex items-center gap-1.5 transition active:scale-95 border border-emerald-400/40 whitespace-nowrap" title="الرجوع إلى الصفحة الرئيسية">
+          <span class="text-base">🏠</span>
+          <span>الصفحة الرئيسية</span>
         </a>
+
+        <!-- Esc Key Hint Badge -->
+        <div class="hidden sm:flex items-center gap-1 bg-slate-900/80 border border-slate-700/80 px-2 py-1.5 rounded-xl text-[10px] text-slate-300" title="اضغط زر Esc في أي وقت للرجوع خطوة للوراء أو إغلاق النوافذ">
+          <kbd class="px-1.5 py-0.5 bg-slate-800 border border-slate-600 rounded text-amber-400 font-mono text-[9px] font-bold">Esc</kbd>
+          <span>رجوع</span>
+        </div>
       </div>
     </div>
   </header>
