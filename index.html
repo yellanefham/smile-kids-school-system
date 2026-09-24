@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>نظام مدرسة Smile Kids الخاصة للغات — الفصول من الصف الأول حتى الصف التاسع</title>
+  <title>مدرسة Smile Kids الخاصة للغات — الفصول من الصف الأول حتى الصف التاسع</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,203 +33,113 @@
         </div>
       </div>
 
-      <div class="flex items-center gap-2.5">
-        <span class="text-xs font-bold text-slate-400 hidden sm:inline">إجمالي الطلاب:</span>
+      <div class="flex items-center gap-3">
+        <!-- Facebook Link in Header -->
+        <a href="https://www.facebook.com/profile.php?id=100063590275034" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-[#1877F2]/20 hover:bg-[#1877F2] text-[#1877F2] hover:text-white border border-[#1877F2]/40 rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow-sm group" title="الصفحة الرسمية لمدرسة Smile Kids على فيسبوك">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          <span class="hidden sm:inline">فيسبوك المدرسة</span>
+        </a>
+
+        <span class="text-xs font-bold text-slate-400 hidden md:inline">إجمالي الطلاب:</span>
         <span id="header-student-count" class="bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-xl text-xs font-black">131 طالب وطالبة</span>
       </div>
     </div>
   </header>
 
   <!-- Hero Section -->
-  <main class="flex-1 hero-glow">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+  <main class="flex-1 hero-glow flex flex-col justify-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-16 w-full">
       
-      <!-- Welcome Headline -->
-      <div class="text-center max-w-3xl mx-auto mb-12">
-        <div class="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/30 px-3.5 py-1 rounded-full text-indigo-300 text-xs font-extrabold mb-4">
-          <span>✨</span>
-          <span>منظومة متكاملة لإدارة الدرجات والحضور وكشوف الفصول</span>
-        </div>
+      <!-- Welcome Headline: Titles Only -->
+      <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
         <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
-          منظومة الإدارة المدرسية الموحدة<br>
-          <span class="bg-gradient-to-r from-amber-400 via-orange-300 to-amber-500 bg-clip-text text-transparent">لمدرسة Smile Kids للغات</span>
+          مدرسة Smile Kids الخاصة للغات<br>
+          <span class="bg-gradient-to-r from-amber-400 via-orange-300 to-amber-500 bg-clip-text text-transparent">منظومة الإدارة المدرسية الموحدة</span>
         </h2>
-        <p class="text-slate-400 text-sm sm:text-base mt-4 font-semibold leading-relaxed">
-          الفصول من الصف الأول حتى الصف التاسع • نظام الدرجات والشهادات، وقوائم الطلاب مع الفرز المستقل لقسم العربي وقسم اللغات، وتعديل الأسماء، والطباعة، وتصدير الإكسيل.
+        <p class="text-slate-400 text-sm sm:text-base mt-3 font-bold">
+          الفصول من الصف الأول حتى الصف التاسع • 2026 / 2027
         </p>
       </div>
 
-      <!-- Quick Metrics Bar -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto mb-14">
-        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 text-center">
-          <div id="stat-total-students-kpi" class="text-2xl sm:text-3xl font-black text-white">131</div>
-          <div class="text-xs font-bold text-slate-400 mt-1">إجمالي الطلاب</div>
-        </div>
-        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 text-center">
-          <div id="stat-languages-kpi" class="text-2xl sm:text-3xl font-black text-blue-400">88</div>
-          <div class="text-xs font-bold text-blue-300 mt-1">قسم اللغات (Languages)</div>
-        </div>
-        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 text-center">
-          <div id="stat-arabic-kpi" class="text-2xl sm:text-3xl font-black text-emerald-400">43</div>
-          <div class="text-xs font-bold text-emerald-300 mt-1">قسم العربي (Arabic)</div>
-        </div>
-        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 text-center">
-          <div class="text-2xl sm:text-3xl font-black text-amber-400">9</div>
-          <div class="text-xs font-bold text-amber-300 mt-1">صفوف دراسية (1 - 9)</div>
-        </div>
-      </div>
-
-      <!-- Portal App Cards Grid (3 Columns) -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+      <!-- Portal App Cards Grid: Titles & Tabs Only -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
         
-        <!-- App Card 1: Student Roster & Attendance Dashboard -->
-        <div class="bg-slate-900/90 border border-slate-800 hover:border-emerald-500/50 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 shadow-xl group">
+        <!-- Tab Card 1: Student Roster & Attendance Dashboard -->
+        <a href="Student_Roster_Dashboard.html" class="bg-slate-900/90 border border-slate-800 hover:border-emerald-500/60 rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 shadow-xl hover:shadow-emerald-900/20 group hover:-translate-y-1">
           <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="w-14 h-14 rounded-2xl bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center text-3xl">📋</span>
+            <div class="flex items-center justify-between mb-5">
+              <span class="w-14 h-14 rounded-2xl bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">📋</span>
               <span class="bg-emerald-500/20 text-emerald-300 text-xs font-black px-3 py-1 rounded-full border border-emerald-500/30">كشوف الفصول</span>
             </div>
-            <h3 class="text-xl sm:text-2xl font-black text-white group-hover:text-emerald-400 transition-colors">كشوف وقوائم الطلاب (1 - 9)</h3>
-            <p class="text-slate-400 text-xs sm:text-sm font-semibold mt-2.5 leading-relaxed">
-              الفصول من الصف الأول حتى الصف التاسع مع تصفية مستقلة لقسم اللغات وقسم العربي، تعديل وتصحيح الأسماء، وبحث فوري في الحضور والغياب اليومي والشهري.
-            </p>
-
-            <div class="space-y-1.5 mt-6 text-xs text-slate-300 font-bold">
-              <div class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> تصفية مستقلة لقسم العربي وقسم اللغات</div>
-              <div class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> تعديل وتصحيح أسماء الطلاب وحفظها مركزياً</div>
-              <div class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> تسجيل الغياب اليومي وشيت الشهر مع البحث بالاسم</div>
-              <div class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> طباعة الكشوف الرسمية وتصدير ملفات Excel</div>
-            </div>
+            <h3 class="text-xl sm:text-2xl font-black text-white group-hover:text-emerald-400 transition-colors">
+              كشوف وقوائم الطلاب والغياب والحضور
+            </h3>
+            <p class="text-xs text-slate-400 font-bold mt-2">الفصول من 1 حتى 9 • قسم اللغات وقسم العربي</p>
           </div>
 
-          <div class="mt-8 pt-6 border-t border-slate-800 flex items-center gap-3">
-            <a href="Student_Roster_Dashboard.html" class="flex-1 py-3.5 px-4 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm rounded-xl text-center transition shadow-lg shadow-emerald-900/40 flex items-center justify-center gap-2">
-              <span>فتح كشوف وقوائم الطلاب</span>
-              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </a>
+          <div class="mt-8 pt-6 border-t border-slate-800/80 flex items-center justify-between text-emerald-400 font-black text-sm">
+            <span>فتح كشوف الطلاب والغياب</span>
+            <span class="w-8 h-8 rounded-xl bg-emerald-600/20 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition">
+              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </span>
           </div>
-        </div>
+        </a>
 
-        <!-- App Card 2: Interactive Timetable Dashboard -->
-        <div class="bg-slate-900/90 border border-slate-800 hover:border-amber-500/50 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 shadow-xl group">
+        <!-- Tab Card 2: Interactive Timetable Dashboard -->
+        <a href="Interactive_Timetable_Dashboard.html" class="bg-slate-900/90 border border-slate-800 hover:border-amber-500/60 rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 shadow-xl hover:shadow-amber-900/20 group hover:-translate-y-1">
           <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-3xl">📅</span>
-              <span class="bg-amber-500/20 text-amber-300 text-xs font-black px-3 py-1 rounded-full border border-amber-500/30">الجداول المدرسية</span>
+            <div class="flex items-center justify-between mb-5">
+              <span class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">📅</span>
+              <span class="bg-amber-500/20 text-amber-300 text-xs font-black px-3 py-1 rounded-full border border-amber-500/30">الجدول المدرسي</span>
             </div>
-            <h3 class="text-xl sm:text-2xl font-black text-white group-hover:text-amber-400 transition-colors">الجداول المدرسية الأسبوعية</h3>
-            <p class="text-slate-400 text-xs sm:text-sm font-semibold mt-2.5 leading-relaxed">
-              الجدول المدرسي العام لكافة أيام الأسبوع، جداول صفوف الطلاب (1 - 9)، جداول المعلمات المستقلة لـ 12 معلمة، ومصفوفة الأنصبة والتوزيع المعتمدة.
-            </p>
-
-            <div class="space-y-1.5 mt-6 text-xs text-slate-300 font-bold">
-              <div class="flex items-center gap-1.5"><span class="text-amber-400">✓</span> الجدول العام الشامل لكافة الأيام (5 أيام)</div>
-              <div class="flex items-center gap-1.5"><span class="text-amber-400">✓</span> جداول فصول الطلاب من Grade 1 حتى Grade 9</div>
-              <div class="flex items-center gap-1.5"><span class="text-amber-400">✓</span> جداول المعلمات المستقلة لـ 12 معلمة</div>
-              <div class="flex items-center gap-1.5"><span class="text-amber-400">✓</span> مصفوفة الأنصبة والطباعة المباشرة A4 لكل جدول</div>
-            </div>
+            <h3 class="text-xl sm:text-2xl font-black text-white group-hover:text-amber-400 transition-colors">
+              الجداول المدرسية الأسبوعية
+            </h3>
+            <p class="text-xs text-slate-400 font-bold mt-2">الأيام • الصفوف • المعلمات • مصفوفة الأنصبة</p>
           </div>
 
-          <div class="mt-8 pt-6 border-t border-slate-800 flex items-center gap-3">
-            <a href="Interactive_Timetable_Dashboard.html" class="flex-1 py-3.5 px-4 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-black text-sm rounded-xl text-center transition shadow-lg shadow-orange-900/40 flex items-center justify-center gap-2">
-              <span>فتح الجداول المدرسية</span>
-              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </a>
+          <div class="mt-8 pt-6 border-t border-slate-800/80 flex items-center justify-between text-amber-400 font-black text-sm">
+            <span>فتح الجداول المدرسية</span>
+            <span class="w-8 h-8 rounded-xl bg-amber-500/20 flex items-center justify-center group-hover:bg-amber-600 group-hover:text-white transition">
+              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </span>
           </div>
-        </div>
+        </a>
 
-        <!-- App Card 3: School Management System -->
-        <div class="bg-slate-900/90 border border-slate-800 hover:border-indigo-500/50 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 shadow-xl group">
+        <!-- Tab Card 3: School Management System -->
+        <a href="Smile_Kids_School_Management_System.html" class="bg-slate-900/90 border border-slate-800 hover:border-indigo-500/60 rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 shadow-xl hover:shadow-indigo-900/20 group hover:-translate-y-1">
           <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="w-14 h-14 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-3xl">🏫</span>
-              <span class="bg-indigo-500/20 text-indigo-300 text-xs font-black px-3 py-1 rounded-full border border-indigo-500/30">النظام الشامل</span>
+            <div class="flex items-center justify-between mb-5">
+              <span class="w-14 h-14 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">🏫</span>
+              <span class="bg-indigo-500/20 text-indigo-300 text-xs font-black px-3 py-1 rounded-full border border-indigo-500/30">الإدارة ورصد الدرجات</span>
             </div>
-            <h3 class="text-xl sm:text-2xl font-black text-white group-hover:text-indigo-400 transition-colors">نظام إدارة المدرسة ورصد الدرجات</h3>
-            <p class="text-slate-400 text-xs sm:text-sm font-semibold mt-2.5 leading-relaxed">
-              إدارة رصد درجات الاختبارات الشهرية ونهاية الترم، نموذج المعلم السريع، طباعة الشيت اليدوي العريض، وتوليد شهادات التقدير والتفوق الأكاديمي.
-            </p>
-
-            <div class="space-y-1.5 mt-6 text-xs text-slate-300 font-bold">
-              <div class="flex items-center gap-1.5"><span class="text-indigo-400">✓</span> رصد درجات المعلمين الشهرية ونهاية الترم</div>
-              <div class="flex items-center gap-1.5"><span class="text-indigo-400">✓</span> شيت الحضور اليدوي العريض المعتمد</div>
-              <div class="flex items-center gap-1.5"><span class="text-indigo-400">✓</span> استمارة تحديث بيانات أولياء الأمور</div>
-              <div class="flex items-center gap-1.5"><span class="text-indigo-400">✓</span> شهادات التقدير والتفوق بالختم المدرسي الذهبي</div>
-            </div>
+            <h3 class="text-xl sm:text-2xl font-black text-white group-hover:text-indigo-400 transition-colors">
+              نظام إدارة المدرسة والشهادات
+            </h3>
+            <p class="text-xs text-slate-400 font-bold mt-2">رصد الدرجات • شيت الغياب • الشهادات التقديرية</p>
           </div>
 
-          <div class="mt-8 pt-6 border-t border-slate-800 flex items-center gap-3">
-            <a href="Smile_Kids_School_Management_System.html" class="flex-1 py-3.5 px-4 bg-indigo-600 hover:bg-indigo-500 text-white font-black text-sm rounded-xl text-center transition shadow-lg shadow-indigo-900/40 flex items-center justify-center gap-2">
-              <span>فتح نظام الإدارة المدرسية</span>
-              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </a>
+          <div class="mt-8 pt-6 border-t border-slate-800/80 flex items-center justify-between text-indigo-400 font-black text-sm">
+            <span>فتح نظام إدارة المدرسة</span>
+            <span class="w-8 h-8 rounded-xl bg-indigo-600/20 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition">
+              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </span>
           </div>
-        </div>
+        </a>
 
-      </div>
-
-      <!-- Master Database Architecture Showcase Card -->
-      <div class="mt-12 max-w-5xl mx-auto bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
-          <div class="flex items-center gap-3.5">
-            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-2xl">
-              🗄️
-            </div>
-            <div>
-              <div class="flex items-center gap-2">
-                <h3 class="text-xl font-black text-white">قاعدة البيانات الموحدة للمدرسة</h3>
-                <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-black px-2.5 py-0.5 rounded-full flex items-center gap-1">
-                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  قاعدة واحدة متزامنة لحظياً
-                </span>
-              </div>
-              <p class="text-xs text-slate-400 font-semibold mt-1">
-                تخدم جميع صفحات ولوحات النظام — أي تعديل على أي اسم أو فصل أو غياب ينعكس فوراً على كافة الصفحات
-              </p>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-2 w-full sm:w-auto">
-            <button onclick="window.SmileKidsDB && window.SmileKidsDB.downloadJSONBackup()" class="flex-1 sm:flex-initial px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-amber-300 hover:text-white rounded-xl text-xs font-bold border border-slate-700 transition flex items-center justify-center gap-2 shadow">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-              <span>تحميل نسخة احتياطية (JSON)</span>
-            </button>
-            <a href="smile_kids_database.json" target="_blank" class="px-3.5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold border border-slate-700 transition" title="عرض ملف JSON المباشر">
-              استعراض الملف ↗
-            </a>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
-          <div class="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-4">
-            <div class="text-xs font-bold text-slate-400 mb-1">اسم ملف قاعدة البيانات</div>
-            <code class="text-sm font-bold text-indigo-400 font-mono">smile_kids_database.js</code>
-            <div class="text-[11px] text-slate-500 mt-1">وقرينتها: <code class="text-slate-400">smile_kids_database.json</code></div>
-          </div>
-          <div class="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-4">
-            <div class="text-xs font-bold text-slate-400 mb-1">مكان وجود قاعدة البيانات</div>
-            <div class="text-sm font-bold text-slate-200">المجلد الرئيسي للمشروع (Root)</div>
-            <div class="text-[11px] text-slate-500 mt-1">مفتاح التخزين الموحد: <code class="text-slate-400">SMILE_KIDS_MASTER_DATABASE_2026</code></div>
-          </div>
-          <div class="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-4">
-            <div class="text-xs font-bold text-slate-400 mb-1">آلية المزامنة اللحظية (Real-time Sync)</div>
-            <div class="text-sm font-bold text-emerald-400 flex items-center gap-1.5">
-              <span>تزامن لحظي ثنائي الاتجاه</span>
-              <span>⚡</span>
-            </div>
-            <div class="text-[11px] text-slate-500 mt-1">بين جميع التبويبات والصفحات المفتوحة تلقائياً</div>
-          </div>
-        </div>
       </div>
 
     </div>
   </main>
 
   <!-- Footer -->
-  <footer class="border-t border-slate-800/80 bg-slate-950 py-6 text-center text-xs text-slate-500 font-semibold">
-    <div class="max-w-7xl mx-auto px-4">
+  <footer class="border-t border-slate-800/80 bg-slate-950 py-5 text-center text-xs text-slate-500 font-semibold">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
       <p>مدرسة Smile Kids الخاصة للغات • الفصول من الصف الأول حتى الصف التاسع • العام الدراسي 2026 / 2027</p>
-      <p class="mt-1 text-slate-600">إعداد وتدقيق: أ / هيثم عبد الفضيل • نظام إدارة مدرسي مستقل يعمل 100% Client-Side</p>
+      <a href="https://www.facebook.com/profile.php?id=100063590275034" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 font-bold flex items-center gap-1.5 transition">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        <span>صفحة مدرسة Smile Kids على Facebook</span>
+      </a>
     </div>
   </footer>
 
@@ -237,19 +147,8 @@
     document.addEventListener('DOMContentLoaded', () => {
       if (window.SmileKidsDB) {
         const updateMetrics = (students) => {
-          const totalEl = document.getElementById('stat-total-students-kpi');
-          const languagesEl = document.getElementById('stat-languages-kpi');
-          const arabicEl = document.getElementById('stat-arabic-kpi');
           const headerCountEl = document.getElementById('header-student-count');
-          
-          const count = students.length;
-          const langCount = students.filter(s => s.track === 'languages').length;
-          const arCount = students.filter(s => s.track === 'arabic').length;
-
-          if (totalEl) totalEl.innerText = count;
-          if (languagesEl) languagesEl.innerText = langCount;
-          if (arabicEl) arabicEl.innerText = arCount;
-          if (headerCountEl) headerCountEl.innerText = `${count} طالب وطالبة`;
+          if (headerCountEl) headerCountEl.innerText = `${students.length} طالب وطالبة`;
         };
 
         const initialStudents = window.SmileKidsDB.getAllStudents();

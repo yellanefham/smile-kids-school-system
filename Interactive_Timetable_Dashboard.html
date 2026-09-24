@@ -744,6 +744,221 @@ body {
     font-weight: 900 !important;
   }
 }
+
+/* ========================================================= */
+/* MOBILE & RESPONSIVE ENGINE                                */
+/* ========================================================= */
+html, body {
+  overflow-x: hidden !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.table-scroll-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  position: relative !important;
+  background: #ffffff !important;
+}
+
+.mobile-swipe-hint {
+  display: none;
+  background: #EFF6FF;
+  color: #1E40AF;
+  font-size: 11px;
+  font-weight: 800;
+  text-align: center;
+  padding: 5px 8px;
+  border-bottom: 1.5px solid #BFDBFE;
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 8px 10px !important;
+    position: static !important;
+  }
+
+  .header-top {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
+  .brand-section {
+    gap: 8px !important;
+    width: 100% !important;
+    justify-content: flex-start !important;
+  }
+
+  .header-logo {
+    height: 38px !important;
+    padding: 2px 5px !important;
+  }
+
+  .brand-title {
+    font-size: 15px !important;
+    line-height: 1.2 !important;
+  }
+
+  .brand-sub {
+    font-size: 10.5px !important;
+  }
+
+  .header-actions {
+    width: 100% !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 6px !important;
+    padding-bottom: 4px !important;
+    scrollbar-width: none !important;
+  }
+
+  .header-actions::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .global-print-btn, .version-pill, .header-actions a {
+    flex-shrink: 0 !important;
+    padding: 5px 10px !important;
+    font-size: 11px !important;
+    white-space: nowrap !important;
+  }
+
+  .tabs-container {
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    gap: 6px !important;
+    padding-bottom: 4px !important;
+    margin-top: 8px !important;
+  }
+
+  .tabs-container::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .main-tab-btn {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    padding: 7px 12px !important;
+    font-size: 12px !important;
+  }
+
+  .subtabs-bar {
+    padding: 6px 8px !important;
+  }
+
+  .subtabs-inner {
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    gap: 5px !important;
+  }
+
+  .subtabs-inner::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .subtab-btn {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    padding: 5px 10px !important;
+    font-size: 11.5px !important;
+  }
+
+  .main-wrapper {
+    padding: 8px 6px 25px !important;
+    margin: 8px auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  .printable-schedule-card {
+    margin-bottom: 14px !important;
+    border-radius: 8px !important;
+    border-width: 1.5px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .card-header-banner {
+    flex-direction: column !important;
+    gap: 6px !important;
+    text-align: center !important;
+    padding: 8px 8px !important;
+  }
+
+  .banner-right {
+    justify-content: center !important;
+    gap: 6px !important;
+  }
+
+  .banner-logo {
+    height: 30px !important;
+  }
+
+  .banner-school-ar {
+    font-size: 12px !important;
+  }
+
+  .banner-school-en {
+    font-size: 9px !important;
+  }
+
+  .banner-center {
+    padding: 0 !important;
+  }
+
+  .banner-title-text {
+    font-size: 14px !important;
+  }
+
+  .banner-sub-text {
+    font-size: 10.5px !important;
+  }
+
+  .banner-left {
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 6px !important;
+    width: 100% !important;
+  }
+
+  .banner-badge {
+    font-size: 9.5px !important;
+    padding: 2px 6px !important;
+  }
+
+  .print-card-btn {
+    font-size: 10.5px !important;
+    padding: 4px 8px !important;
+  }
+
+  .mobile-swipe-hint {
+    display: block !important;
+  }
+
+  .schedule-table {
+    min-width: 780px !important;
+    width: 100% !important;
+    font-size: 11px !important;
+    table-layout: auto !important;
+  }
+
+  .schedule-table th, 
+  .schedule-table td {
+    padding: 3px 2px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -758,6 +973,11 @@ body {
 </div>
 </div>
 <div class="header-actions">
+<a href="https://www.facebook.com/profile.php?id=100063590275034" target="_blank" rel="noopener noreferrer" class="global-print-btn" style="background: #1877F2; text-decoration: none;" title="الصفحة الرسمية لمدرسة Smile Kids على فيسبوك">
+  <svg style="width: 15px; height: 15px; fill: white;" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+  <span>فيسبوك</span>
+</a>
+
 <div class="version-pill">📅 2026-09-15_17-41  <a href="index.html" style="background: rgba(255,255,255,0.15); color: #FFFFFF; border: 1.5px solid rgba(255,255,255,0.35); padding: 8px 16px; border-radius: 8px; font-family: inherit; font-size: 13px; font-weight: 900; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: all 0.2s;">
   <span>🏠 البوابة الرئيسية</span>
 </a>
@@ -920,7 +1140,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-master-Sun')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table master-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table master-table">
 <thead>
 <tr>
 <th style="width:13mm;">اليوم</th>
@@ -1295,7 +1515,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>مدرسة سمايل كيدز للغات | Smile Kids Language School</span>
 <span>العام الدراسي 2026 - 2027 | يعتمد، إدارة المدرسة</span>
@@ -1319,7 +1539,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-master-Mon')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table master-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table master-table">
 <thead>
 <tr>
 <th style="width:13mm;">اليوم</th>
@@ -1682,7 +1902,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>مدرسة سمايل كيدز للغات | Smile Kids Language School</span>
 <span>العام الدراسي 2026 - 2027 | يعتمد، إدارة المدرسة</span>
@@ -1706,7 +1926,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-master-Tue')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table master-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table master-table">
 <thead>
 <tr>
 <th style="width:13mm;">اليوم</th>
@@ -2085,7 +2305,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>مدرسة سمايل كيدز للغات | Smile Kids Language School</span>
 <span>العام الدراسي 2026 - 2027 | يعتمد، إدارة المدرسة</span>
@@ -2109,7 +2329,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-master-Wed')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table master-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table master-table">
 <thead>
 <tr>
 <th style="width:13mm;">اليوم</th>
@@ -2472,7 +2692,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>مدرسة سمايل كيدز للغات | Smile Kids Language School</span>
 <span>العام الدراسي 2026 - 2027 | يعتمد، إدارة المدرسة</span>
@@ -2496,7 +2716,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-master-Thu')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table master-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table master-table">
 <thead>
 <tr>
 <th style="width:13mm;">اليوم</th>
@@ -2871,7 +3091,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>مدرسة سمايل كيدز للغات | Smile Kids Language School</span>
 <span>العام الدراسي 2026 - 2027 | يعتمد، إدارة المدرسة</span>
@@ -2898,7 +3118,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-grade-G1')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table grade-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table grade-table">
 <thead>
 <tr>
 <th style="width:18mm;">اليوم</th>
@@ -3116,7 +3336,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول الصف الأول الابتدائي (Grade 1) | مدرسة Smile Kids للغات</span>
 <span>العام الدراسي 2026 - 2027 | يعتمد، إدارة المدرسة</span>
@@ -3140,7 +3360,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-grade-G2')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table grade-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table grade-table">
 <thead>
 <tr>
 <th style="width:18mm;">اليوم</th>
@@ -3354,7 +3574,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول الصف الثاني الابتدائي (Grade 2) | مدرسة Smile Kids للغات</span>
 <span>العام الدراسي 2026 - 2027 | يعتمد، إدارة المدرسة</span>
@@ -3378,7 +3598,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-grade-G3')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table grade-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table grade-table">
 <thead>
 <tr>
 <th style="width:18mm;">اليوم</th>
@@ -3592,7 +3812,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول الصف الثالث الابتدائي (Grade 3) | مدرسة Smile Kids للغات</span>
 <span>العام الدراسي 2026 - 2027 | يعتمد، إدارة المدرسة</span>
@@ -3616,7 +3836,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-grade-G4')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table grade-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table grade-table">
 <thead>
 <tr>
 <th style="width:18mm;">اليوم</th>
@@ -3830,7 +4050,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول الصف الرابع الابتدائي (Grade 4) | مدرسة Smile Kids للغات</span>
 <span>العام الدراسي 2026 - 2027 | يعتمد، إدارة المدرسة</span>
@@ -3854,7 +4074,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-grade-G5')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table grade-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table grade-table">
 <thead>
 <tr>
 <th style="width:18mm;">اليوم</th>
@@ -4072,7 +4292,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول الصف الخامس الابتدائي (Grade 5) | مدرسة Smile Kids للغات</span>
 <span>العام الدراسي 2026 - 2027 | يعتمد، إدارة المدرسة</span>
@@ -4096,7 +4316,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-grade-G6')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table grade-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table grade-table">
 <thead>
 <tr>
 <th style="width:18mm;">اليوم</th>
@@ -4306,7 +4526,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول الصف السادس الابتدائي (Grade 6) | مدرسة Smile Kids للغات</span>
 <span>العام الدراسي 2026 - 2027 | يعتمد، إدارة المدرسة</span>
@@ -4330,7 +4550,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-grade-G7')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table grade-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table grade-table">
 <thead>
 <tr>
 <th style="width:18mm;">اليوم</th>
@@ -4540,7 +4760,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول الصف الأول الإعدادي (Grade 7) | مدرسة Smile Kids للغات</span>
 <span>العام الدراسي 2026 - 2027 | يعتمد، إدارة المدرسة</span>
@@ -4564,7 +4784,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-grade-G8')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table grade-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table grade-table">
 <thead>
 <tr>
 <th style="width:18mm;">اليوم</th>
@@ -4779,7 +4999,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول الصف الثاني الإعدادي (Grade 8) | مدرسة Smile Kids للغات</span>
 <span>العام الدراسي 2026 - 2027 | يعتمد، إدارة المدرسة</span>
@@ -4803,7 +5023,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-grade-G9')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table grade-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table grade-table">
 <thead>
 <tr>
 <th style="width:18mm;">اليوم</th>
@@ -5026,7 +5246,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول الصف الثالث الإعدادي (Grade 9) | مدرسة Smile Kids للغات</span>
 <span>العام الدراسي 2026 - 2027 | يعتمد، إدارة المدرسة</span>
@@ -5053,7 +5273,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-teacher-Marwa')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table teacher-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table teacher-table">
 <thead>
 <tr>
 <th style="width:16mm;">اليوم</th>
@@ -5267,7 +5487,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول مس مروة (Marwa) | مدرسة Smile Kids للغات</span>
 <span style="font-weight:700;">إجمالي النصاب الأسبوعي: 23 حصة أسبوعياً (+ KG3) | يعتمد، إدارة المدرسة</span>
@@ -5291,7 +5511,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-teacher-Basma')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table teacher-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table teacher-table">
 <thead>
 <tr>
 <th style="width:16mm;">اليوم</th>
@@ -5529,7 +5749,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول مس بسمة (Basma) | مدرسة Smile Kids للغات</span>
 <span style="font-weight:700;">إجمالي النصاب الأسبوعي: 28 حصة أسبوعياً | يعتمد، إدارة المدرسة</span>
@@ -5553,7 +5773,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-teacher-Asmaa')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table teacher-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table teacher-table">
 <thead>
 <tr>
 <th style="width:16mm;">اليوم</th>
@@ -5791,7 +6011,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول مس أسماء (Asmaa) | مدرسة Smile Kids للغات</span>
 <span style="font-weight:700;">إجمالي النصاب الأسبوعي: 35 حصة أسبوعياً | يعتمد، إدارة المدرسة</span>
@@ -5815,7 +6035,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-teacher-Yara')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table teacher-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table teacher-table">
 <thead>
 <tr>
 <th style="width:16mm;">اليوم</th>
@@ -6053,7 +6273,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول مس يارا (Yara) | مدرسة Smile Kids للغات</span>
 <span style="font-weight:700;">إجمالي النصاب الأسبوعي: 35 حصة أسبوعياً | يعتمد، إدارة المدرسة</span>
@@ -6077,7 +6297,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-teacher-Nabila')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table teacher-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table teacher-table">
 <thead>
 <tr>
 <th style="width:16mm;">اليوم</th>
@@ -6315,7 +6535,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول مس نبيلة (Nabila) | مدرسة Smile Kids للغات</span>
 <span style="font-weight:700;">إجمالي النصاب الأسبوعي: 35 حصة أسبوعياً | يعتمد، إدارة المدرسة</span>
@@ -6339,7 +6559,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-teacher-Hend')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table teacher-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table teacher-table">
 <thead>
 <tr>
 <th style="width:16mm;">اليوم</th>
@@ -6597,7 +6817,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول مس هند (Hend) | مدرسة Smile Kids للغات</span>
 <span style="font-weight:700;">إجمالي النصاب الأسبوعي: 39 حصة أسبوعياً | يعتمد، إدارة المدرسة</span>
@@ -6621,7 +6841,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-teacher-Samar')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table teacher-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table teacher-table">
 <thead>
 <tr>
 <th style="width:16mm;">اليوم</th>
@@ -6879,7 +7099,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول مس سمر (Samar) | مدرسة Smile Kids للغات</span>
 <span style="font-weight:700;">إجمالي النصاب الأسبوعي: 39 حصة (35 أساسي + 4 ثامنة) | يعتمد، إدارة المدرسة</span>
@@ -6903,7 +7123,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-teacher-Amira')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table teacher-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table teacher-table">
 <thead>
 <tr>
 <th style="width:16mm;">اليوم</th>
@@ -7141,7 +7361,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول مس أميرة (Amira) | مدرسة Smile Kids للغات</span>
 <span style="font-weight:700;">إجمالي النصاب الأسبوعي: 35 حصة أسبوعياً | يعتمد، إدارة المدرسة</span>
@@ -7165,7 +7385,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-teacher-Ola')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table teacher-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table teacher-table">
 <thead>
 <tr>
 <th style="width:16mm;">اليوم</th>
@@ -7403,7 +7623,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول مس علا (Ola) | مدرسة Smile Kids للغات</span>
 <span style="font-weight:700;">إجمالي النصاب الأسبوعي: 35 حصة أسبوعياً (24 عربي + 11 دين) | يعتمد، إدارة المدرسة</span>
@@ -7427,7 +7647,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-teacher-Kariman')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table teacher-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table teacher-table">
 <thead>
 <tr>
 <th style="width:16mm;">اليوم</th>
@@ -7665,7 +7885,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول مس كاريمان (Kariman) | مدرسة Smile Kids للغات</span>
 <span style="font-weight:700;">إجمالي النصاب الأسبوعي: 35 حصة أسبوعياً | يعتمد، إدارة المدرسة</span>
@@ -7689,7 +7909,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-teacher-Abeer')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table teacher-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table teacher-table">
 <thead>
 <tr>
 <th style="width:16mm;">اليوم</th>
@@ -7892,7 +8112,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول مس عبير (Abeer) | مدرسة Smile Kids للغات</span>
 <span style="font-weight:700;">إجمالي النصاب الأسبوعي: 28 حصة أسبوعياً (الخميس إجازة) | يعتمد، إدارة المدرسة</span>
@@ -7916,7 +8136,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-teacher-German')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table teacher-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table teacher-table">
 <thead>
 <tr>
 <th style="width:16mm;">اليوم</th>
@@ -8014,7 +8234,7 @@ body {
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>جدول Frau Nancy | مدرسة Smile Kids للغات</span>
 <span style="font-weight:700;">إجمالي النصاب الأسبوعي: 7 حصص أسبوعياً | يعتمد، إدارة المدرسة</span>
@@ -8041,7 +8261,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-matrix')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table matrix-table">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table matrix-table">
 <thead>
 <tr>
 <th style="width:8mm;">م</th>
@@ -8206,7 +8426,7 @@ body {
 <td class="td-matrix-note">لغة ألمانية لصفوف G3 إلى G9 (يوم الخميس الكامل)</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-footer-bar">
 <span>مصفوفة توزيع الأنصبة والمواد | مدرسة Smile Kids للغات</span>
 <span style="font-weight:700;">إجمالي حصص الخطة الدراسية: 323 حصة أسبوعياً | يعتمد، إدارة المدرسة</span>
@@ -8233,7 +8453,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-breakdown')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table breakdown-table" style="width:100%; border-collapse:collapse; text-align:center;">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table breakdown-table" style="width:100%; border-collapse:collapse; text-align:center;">
 <thead>
 <tr style="background:#0F172A; color:white; font-size:12px;">
 <th rowspan="2" style="width:12mm; border:2px solid #000; padding:3px;">الصف</th>
@@ -8429,7 +8649,7 @@ body {
 <td style="border:2px solid #000; background:#4338CA; color:#FFFFFF; font-size:15px;">180</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; padding:8px 12px; background:#F8FAFC; border-top:2px solid #000;">
 <div style="background:white; border:2px solid #CA8A04; border-radius:8px; padding:6px 10px; font-size:11px;">
 <div style="color:#854D0E; font-weight:900; font-size:12.5px; border-bottom:1.5px solid #FDE047; padding-bottom:3px; margin-bottom:4px; display:flex; justify-content:space-between;">
@@ -8479,7 +8699,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-breakdown-activities')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table breakdown-table" style="width:100%; border-collapse:collapse; text-align:center;">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table breakdown-table" style="width:100%; border-collapse:collapse; text-align:center;">
 <thead>
 <tr style="background:#0F172A; color:white; font-size:11.5px;">
 <th rowspan="2" style="width:10mm; border:2px solid #000; padding:3px;">الصف</th>
@@ -8743,7 +8963,7 @@ body {
 <td style="border:2px solid #000; background:#4338CA; color:#FFFFFF; font-size:14.5px;">171</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; padding:6px 12px; background:#F8FAFC; border-top:2px solid #000;">
 <div style="background:white; border:2px solid #7C3AED; border-radius:8px; padding:5px 8px; font-size:10.5px;">
 <div style="color:#6D28D9; font-weight:900; font-size:12px; border-bottom:1.5px solid #DDD6FE; padding-bottom:2px; margin-bottom:3px; display:flex; justify-content:space-between;">
@@ -8796,7 +9016,7 @@ body {
 <button class="print-card-btn" onclick="printSchedule('card-breakdown-master')">🖨️ طباعة الجدول</button>
 </div>
 </div>
-<table class="schedule-table breakdown-table" style="width:100%; border-collapse:collapse; text-align:center;">
+<div class="table-scroll-wrapper"><div class="mobile-swipe-hint">👉 اسحب الجدول أفقياً لمشاهدة كافة الحصص 👈</div><table class="schedule-table breakdown-table" style="width:100%; border-collapse:collapse; text-align:center;">
 <thead>
 <tr style="background:#0F172A; color:white; font-size:11px;">
 <th style="width:10mm; border:2px solid #000; padding:4px 2px;">الصف</th>
@@ -9009,7 +9229,7 @@ body {
 <td style="border:2px solid #000; background:#EAB308; color:#000; font-size:14px;">325</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; padding:6px 12px; background:#F8FAFC; border-top:2px solid #000;">
 <div style="background:white; border:2px solid #1E3A8A; border-radius:8px; padding:5px 8px; font-size:10.5px;">
 <div style="color:#1E3A8A; font-weight:900; font-size:12px; border-bottom:1.5px solid #BFDBFE; padding-bottom:2px; margin-bottom:3px; display:flex; justify-content:space-between;">

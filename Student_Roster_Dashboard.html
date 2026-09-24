@@ -14,12 +14,159 @@
     .scrollbar-none::-webkit-scrollbar { display: none; }
     .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
     
+    @media screen {
+      .print-only { display: none !important; }
+    }
+
     @media print {
-      .no-print { display: none !important; }
-      body { background: white !important; color: black !important; padding: 0 !important; }
-      .print-card { box-shadow: none !important; border: 1px solid #94a3b8 !important; width: 100% !important; }
-      table { border-collapse: collapse !important; width: 100% !important; font-size: 11px !important; }
-      th, td { border: 1px solid #cbd5e1 !important; color: black !important; padding: 4px 6px !important; }
+      @page {
+        size: auto;
+        margin: 10mm 12mm 10mm 12mm;
+      }
+      
+      * {
+        font-family: 'Cairo', 'Tajawal', 'Segoe UI', Tahoma, sans-serif !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+      }
+      
+      html, body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        min-height: auto !important;
+        width: 100% !important;
+      }
+
+      /* Hide screen-only interactive elements */
+      .no-print, 
+      header, 
+      #grade-pills-container, 
+      #active-grade-banner, 
+      .kpi-banner, 
+      #att-daily-controls, 
+      #att-monthly-controls, 
+      #modal-edit-student, 
+      button, 
+      input, 
+      select, 
+      a {
+        display: none !important;
+      }
+
+      /* Show print-only elements */
+      .print-only {
+        display: block !important;
+      }
+      span.print-only, b.print-only, strong.print-only {
+        display: inline-block !important;
+      }
+      th.print-only, td.print-only {
+        display: table-cell !important;
+      }
+
+      /* Container adjustments */
+      main {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+      }
+
+      /* Section grid layout in print: side-by-side */
+      .grid.grid-cols-1.lg\:grid-cols-12 {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 16px !important;
+        align-items: start !important;
+      }
+      .lg\:col-span-6 {
+        grid-column: span 1 / span 1 !important;
+        width: 100% !important;
+      }
+
+      /* Section cards */
+      .section-card,
+      .single-track-card,
+      div[class*="rounded-3xl"] {
+        background: #ffffff !important;
+        border: 1.5px solid #0f172a !important;
+        border-radius: 4px !important;
+        box-shadow: none !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        margin-bottom: 15px !important;
+      }
+
+      /* Clean section title bar */
+      .print-section-header, 
+      div[class*="from-emerald-800"], 
+      div[class*="from-blue-800"], 
+      div[class*="from-slate-950"] {
+        background: #f1f5f9 !important;
+        color: #0f172a !important;
+        border-bottom: 2px solid #0f172a !important;
+        padding: 8px 14px !important;
+      }
+      .print-section-header *, 
+      div[class*="from-emerald-800"] *, 
+      div[class*="from-blue-800"] * {
+        color: #0f172a !important;
+      }
+
+      /* Professional Table Styling for Print */
+      table {
+        border-collapse: collapse !important;
+        width: 100% !important;
+        font-size: 13px !important;
+        color: #000000 !important;
+      }
+
+      thead tr {
+        background-color: #e2e8f0 !important;
+        border-bottom: 2px solid #0f172a !important;
+      }
+
+      th {
+        border: 1px solid #334155 !important;
+        color: #0f172a !important;
+        padding: 6px 8px !important;
+        font-weight: 800 !important;
+        font-size: 13px !important;
+        text-align: center !important;
+      }
+
+      th:nth-child(2) {
+        text-align: right !important;
+      }
+
+      td {
+        border: 1px solid #cbd5e1 !important;
+        color: #000000 !important;
+        padding: 5px 8px !important;
+        font-size: 12.5px !important;
+        line-height: 1.4 !important;
+      }
+
+      tbody tr:nth-child(even) {
+        background-color: #f8fafc !important;
+      }
+      tbody tr:nth-child(odd) {
+        background-color: #ffffff !important;
+      }
+
+      tbody tr {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      /* Text color force black */
+      .text-white, .text-slate-400, .text-slate-300, .text-slate-200 {
+        color: #000000 !important;
+      }
     }
   </style>
   <script src="smile_kids_database.js"></script>
@@ -54,6 +201,11 @@
 
       <!-- Action Toolbar (Print & Export CSV Only) -->
       <div class="flex items-center gap-2 flex-wrap">
+        <a href="https://www.facebook.com/profile.php?id=100063590275034" target="_blank" rel="noopener noreferrer" class="px-3 py-2 bg-[#1877F2]/20 hover:bg-[#1877F2] text-[#1877F2] hover:text-white rounded-xl text-xs font-bold transition border border-[#1877F2]/40 flex items-center gap-1.5 no-print" title="الصفحة الرسمية لمدرسة Smile Kids على فيسبوك">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          <span class="hidden sm:inline">فيسبوك</span>
+        </a>
+
         <button onclick="window.print()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
           <span>طباعة الكشف / PDF</span>
@@ -73,6 +225,28 @@
 
   <!-- Main Container -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex-1 w-full">
+
+    <!-- Official Print Header (Only visible on print) -->
+    <div id="print-official-header" class="print-only" style="margin-bottom: 18px; border-bottom: 2px solid #0f172a; padding-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <div style="text-align: right;">
+          <div style="font-size: 17px; font-weight: 900; color: #0f172a;">مدرسة Smile Kids للغات</div>
+          <div style="font-size: 11px; font-weight: 700; color: #475569;">Smile Kids Language School</div>
+          <div style="font-size: 11px; font-weight: 700; color: #475569;">شؤون الطلاب والامتحانات</div>
+        </div>
+        <div style="text-align: center;">
+          <div id="print-report-title" style="font-size: 19px; font-weight: 900; color: #0f172a; margin-bottom: 3px;">كشف أسماء الطلاب الرسمي</div>
+          <div id="print-grade-title" style="font-size: 16px; font-weight: 900; color: #1e3a8a; background: #e0e7ff; padding: 2px 16px; border-radius: 9999px; display: inline-block;">الصف الثاني الابتدائي</div>
+          <div id="print-track-subtitle" style="font-size: 11.5px; font-weight: 700; color: #475569; margin-top: 3px;">العام الدراسي 2026 / 2027</div>
+        </div>
+        <div style="text-align: left;">
+          <div id="print-date-display" style="font-size: 11px; font-weight: 700; color: #0f172a;">التاريخ: 2026/09/24</div>
+          <div id="print-total-students-count" style="font-size: 12px; font-weight: 800; color: #0f172a; margin-top: 2px;">إجمالي الطلاب: 29 طالب</div>
+          <div id="print-stage-info" style="font-size: 10px; font-weight: 600; color: #64748b;">كشف إداري رسمي معتمد</div>
+        </div>
+      </div>
+    </div>
+
 
 
 
@@ -193,7 +367,7 @@
     <div id="section-attendance" class="hidden">
       
       <!-- Attendance Header & Date Bar -->
-      <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-indigo-900/60 rounded-3xl p-5 mb-6 shadow-xl">
+      <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-indigo-900/60 rounded-3xl p-5 mb-6 shadow-xl no-print">
         <div class="flex flex-wrap items-center justify-between gap-4">
           <div>
             <div class="flex items-center gap-2">
@@ -279,6 +453,25 @@
         <!-- Injected via JavaScript -->
       </div>
 
+    </div>
+
+  
+    <!-- Official Print Footer (Only visible on print) -->
+    <div id="print-official-footer" class="print-only" style="margin-top: 24px; padding-top: 14px; border-top: 1.5px dashed #64748b; page-break-inside: avoid;">
+      <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 800; color: #1e293b;">
+        <div style="text-align: center; width: 30%;">
+          <div>مسؤول شؤون الطلاب</div>
+          <div style="margin-top: 28px; color: #94a3b8;">................................</div>
+        </div>
+        <div style="text-align: center; width: 30%;">
+          <div>خاتم المدرسة</div>
+          <div style="margin-top: 28px; color: #94a3b8;">[ ................................ ]</div>
+        </div>
+        <div style="text-align: center; width: 30%;">
+          <div>يعتمد، مدير المدرسة</div>
+          <div style="margin-top: 28px; color: #94a3b8;">................................</div>
+        </div>
+      </div>
     </div>
 
   </main>
@@ -441,6 +634,7 @@
     }
 
     function switchMainTab(tab) {
+      setTimeout(updatePrintHeader, 50);
       currentMainTab = tab;
       const btnRosters = document.getElementById('tab-btn-rosters');
       const btnAtt = document.getElementById('tab-btn-attendance');
@@ -519,6 +713,7 @@
     }
 
     function setTrackFilter(track) {
+      setTimeout(updatePrintHeader, 50);
       currentTrackFilter = track;
       updateTrackButtonsUI();
       renderContent();
@@ -703,13 +898,13 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           <!-- Arabic Section -->
-          <div class="lg:col-span-6 bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl">
-            <div class="bg-gradient-to-r from-emerald-800 to-emerald-700 px-5 py-3.5 flex items-center justify-between text-white">
+          <div class="lg:col-span-6 bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl section-card">
+            <div class="bg-gradient-to-r from-emerald-800 to-emerald-700 px-5 py-3.5 flex items-center justify-between text-white print-section-header">
               <div class="flex items-center gap-2.5">
-                <span class="text-xl">📖</span>
+                <span class="text-xl no-print">📖</span>
                 <div>
                   <h3 class="font-black text-base">قسم العربي (Arabic Section)</h3>
-                  <p class="text-[11px] text-emerald-200 font-semibold">كشف الأسماء الرسمي</p>
+                  <p class="text-[11px] text-emerald-200 font-semibold no-print">كشف الأسماء الرسمي</p>
                 </div>
               </div>
               <span class="bg-white/20 text-white text-xs font-black px-2.5 py-1 rounded-full border border-white/30">${arStudents.length} طالب</span>
@@ -721,27 +916,31 @@
                   <tr class="bg-slate-900/60 text-slate-400 border-b border-slate-700">
                     <th class="py-2.5 px-3 text-center w-12 font-black">م</th>
                     <th class="py-2.5 px-4 font-black">اسم الطالب رباعي</th>
-                    <th class="py-2.5 px-3 text-center w-24 font-black">النوع</th>
+                    <th class="py-2.5 px-3 text-center w-20 font-black">النوع</th>
                     <th class="py-2.5 px-3 text-center w-24 font-black no-print">إجراءات</th>
+                    <th class="py-2.5 px-3 text-center w-24 font-black print-only">ملاحظات</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-700/60">
-                  ${arStudents.length === 0 ? '<tr><td colspan="4" class="py-8 text-center text-slate-500 font-bold">لا يوجد طلاب مطابقين للبحث</td></tr>' : ''}
+                  ${arStudents.length === 0 ? '<tr><td colspan="5" class="py-8 text-center text-slate-500 font-bold">لا يوجد طلاب مطابقين للبحث</td></tr>' : ''}
                   ${arStudents.map((s, idx) => `
                     <tr class="hover:bg-slate-700/40 transition">
-                      <td class="py-3 px-3 text-center text-slate-400 font-bold">${idx + 1}</td>
-                      <td class="py-3 px-4 font-bold text-white">
-                        <div>${s.nameAr}</div>
-                        <div class="text-[10px] text-slate-500 font-mono">${s.id}</div>
+                      <td class="py-2.5 px-3 text-center text-slate-400 font-bold">${idx + 1}</td>
+                      <td class="py-2.5 px-4 font-bold text-white">
+                        <div class="text-sm">${s.nameAr}</div>
+                        <div class="text-[10px] text-slate-500 font-mono no-print">${s.id}</div>
                       </td>
-                      <td class="py-3 px-3 text-center">
-                        <span class="text-xs font-bold px-2 py-0.5 rounded-full ${
+                      <td class="py-2.5 px-3 text-center">
+                        <span class="no-print text-xs font-bold px-2 py-0.5 rounded-full ${
                           s.gender === 'male' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30' : 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
                         }">
                           ${s.gender === 'male' ? '👦 بنين' : '👧 بنات'}
                         </span>
+                        <span class="print-only text-xs font-bold">
+                          ${s.gender === 'male' ? 'بنين' : 'بنات'}
+                        </span>
                       </td>
-                      <td class="py-3 px-2 text-center no-print whitespace-nowrap">
+                      <td class="py-2.5 px-2 text-center no-print whitespace-nowrap">
                         <div class="inline-flex items-center gap-1.5 justify-center">
                           <button onclick="openEditStudentModal('${s.id}')" class="p-1.5 bg-slate-700/80 hover:bg-indigo-600 text-slate-200 hover:text-white rounded-lg transition" title="تعديل اسم وبيانات الطالب">
                             ✏️
@@ -751,6 +950,7 @@
                           </button>
                         </div>
                       </td>
+                      <td class="py-2.5 px-3 text-center print-only"></td>
                     </tr>
                   `).join('')}
                 </tbody>
@@ -759,13 +959,13 @@
           </div>
 
           <!-- Languages Section -->
-          <div class="lg:col-span-6 bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl">
-            <div class="bg-gradient-to-r from-blue-800 to-blue-700 px-5 py-3.5 flex items-center justify-between text-white">
+          <div class="lg:col-span-6 bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl section-card">
+            <div class="bg-gradient-to-r from-blue-800 to-blue-700 px-5 py-3.5 flex items-center justify-between text-white print-section-header">
               <div class="flex items-center gap-2.5">
-                <span class="text-xl">🌐</span>
+                <span class="text-xl no-print">🌐</span>
                 <div>
                   <h3 class="font-black text-base">قسم اللغات (Languages Section)</h3>
-                  <p class="text-[11px] text-blue-200 font-semibold">كشف الأسماء الرسمي</p>
+                  <p class="text-[11px] text-blue-200 font-semibold no-print">كشف الأسماء الرسمي</p>
                 </div>
               </div>
               <span class="bg-white/20 text-white text-xs font-black px-2.5 py-1 rounded-full border border-white/30">${lnStudents.length} طالب وطالبة</span>
@@ -777,27 +977,31 @@
                   <tr class="bg-slate-900/60 text-slate-400 border-b border-slate-700">
                     <th class="py-2.5 px-3 text-center w-12 font-black">م</th>
                     <th class="py-2.5 px-4 font-black">اسم الطالب رباعي</th>
-                    <th class="py-2.5 px-3 text-center w-24 font-black">النوع</th>
+                    <th class="py-2.5 px-3 text-center w-20 font-black">النوع</th>
                     <th class="py-2.5 px-3 text-center w-24 font-black no-print">إجراءات</th>
+                    <th class="py-2.5 px-3 text-center w-24 font-black print-only">ملاحظات</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-700/60">
-                  ${lnStudents.length === 0 ? '<tr><td colspan="4" class="py-8 text-center text-slate-500 font-bold">لا يوجد طلاب مطابقين للبحث</td></tr>' : ''}
+                  ${lnStudents.length === 0 ? '<tr><td colspan="5" class="py-8 text-center text-slate-500 font-bold">لا يوجد طلاب مطابقين للبحث</td></tr>' : ''}
                   ${lnStudents.map((s, idx) => `
                     <tr class="hover:bg-slate-700/40 transition">
-                      <td class="py-3 px-3 text-center text-slate-400 font-bold">${idx + 1}</td>
-                      <td class="py-3 px-4 font-bold text-white">
-                        <div>${s.nameAr}</div>
-                        <div class="text-[10px] text-slate-500 font-mono">${s.id}</div>
+                      <td class="py-2.5 px-3 text-center text-slate-400 font-bold">${idx + 1}</td>
+                      <td class="py-2.5 px-4 font-bold text-white">
+                        <div class="text-sm">${s.nameAr}</div>
+                        <div class="text-[10px] text-slate-500 font-mono no-print">${s.id}</div>
                       </td>
-                      <td class="py-3 px-3 text-center">
-                        <span class="text-xs font-bold px-2 py-0.5 rounded-full ${
+                      <td class="py-2.5 px-3 text-center">
+                        <span class="no-print text-xs font-bold px-2 py-0.5 rounded-full ${
                           s.gender === 'male' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30' : 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
                         }">
                           ${s.gender === 'male' ? '👦 بنين' : '👧 بنات'}
                         </span>
+                        <span class="print-only text-xs font-bold">
+                          ${s.gender === 'male' ? 'بنين' : 'بنات'}
+                        </span>
                       </td>
-                      <td class="py-3 px-2 text-center no-print whitespace-nowrap">
+                      <td class="py-2.5 px-2 text-center no-print whitespace-nowrap">
                         <div class="inline-flex items-center gap-1.5 justify-center">
                           <button onclick="openEditStudentModal('${s.id}')" class="p-1.5 bg-slate-700/80 hover:bg-indigo-600 text-slate-200 hover:text-white rounded-lg transition" title="تعديل اسم وبيانات الطالب">
                             ✏️
@@ -807,6 +1011,7 @@
                           </button>
                         </div>
                       </td>
+                      <td class="py-2.5 px-3 text-center print-only"></td>
                     </tr>
                   `).join('')}
                 </tbody>
@@ -825,16 +1030,16 @@
       const icon = isAr ? '📖' : '🌐';
 
       container.innerHTML = `
-        <div class="bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl max-w-5xl mx-auto">
-          <div class="bg-gradient-to-r ${headerGrad} px-6 py-4 flex items-center justify-between text-white">
+        <div class="bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl max-w-5xl mx-auto single-track-card">
+          <div class="bg-gradient-to-r ${headerGrad} px-6 py-4 flex items-center justify-between text-white print-section-header">
             <div class="flex items-center gap-3">
-              <span class="text-2xl">${icon}</span>
+              <span class="text-2xl no-print">${icon}</span>
               <div>
                 <h3 class="font-black text-lg">${title}</h3>
                 <p class="text-xs font-semibold opacity-90">${GRADE_CONFIG[currentGrade].ar} — ${students.length} طالب مسجل</p>
               </div>
             </div>
-            <button onclick="window.print()" class="px-3.5 py-1.5 bg-white/20 hover:bg-white/30 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+            <button onclick="window.print()" class="px-3.5 py-1.5 bg-white/20 hover:bg-white/30 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 no-print">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
               <span>طباعة هذا القسم</span>
             </button>
@@ -845,38 +1050,41 @@
               <thead>
                 <tr class="bg-slate-900/60 text-slate-400 border-b border-slate-700">
                   <th class="py-3 px-3 text-center w-12 font-black">م</th>
-                  <th class="py-3 px-3 text-center w-28 font-black">كود الطالب</th>
+                  <th class="py-3 px-3 text-center w-28 font-black no-print">كود الطالب</th>
                   <th class="py-3 px-4 font-black">اسم الطالب رباعي</th>
                   <th class="py-3 px-3 text-center w-24 font-black">النوع</th>
                   <th class="py-3 px-3 text-center w-28 font-black no-print">إجراءات</th>
+                  <th class="py-3 px-4 text-center w-28 font-black print-only">ملاحظات</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-700/60">
-                ${students.length === 0 ? `<tr><td colspan="5" class="py-10 text-center text-slate-500 font-bold">لا يوجد طلاب مسجلين في هذا القسم</td></tr>` : ''}
+                ${students.length === 0 ? '<tr><td colspan="6" class="py-10 text-center text-slate-500 font-bold">لا يوجد طلاب مسجلين في هذا القسم</td></tr>' : ''}
                 ${students.map((s, idx) => `
                   <tr class="hover:bg-slate-700/40 transition">
                     <td class="py-3 px-3 text-center text-slate-400 font-bold">${idx + 1}</td>
-                    <td class="py-3 px-3 text-center font-mono text-slate-400 text-xs">${s.id}</td>
+                    <td class="py-3 px-3 text-center font-mono text-slate-400 text-xs no-print">${s.id}</td>
                     <td class="py-3 px-4 font-bold text-white text-base">${s.nameAr}</td>
                     <td class="py-3 px-3 text-center">
-                      <span class="text-xs font-bold px-2.5 py-0.5 rounded-full ${
+                      <span class="no-print text-xs font-bold px-2 py-0.5 rounded-full ${
                         s.gender === 'male' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30' : 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
                       }">
                         ${s.gender === 'male' ? '👦 بنين' : '👧 بنات'}
                       </span>
+                      <span class="print-only text-xs font-bold">
+                        ${s.gender === 'male' ? 'بنين' : 'بنات'}
+                      </span>
                     </td>
                     <td class="py-3 px-2 text-center no-print whitespace-nowrap">
                       <div class="inline-flex items-center gap-1.5 justify-center">
-                        <button onclick="openEditStudentModal('${s.id}')" class="px-2 py-1.5 bg-slate-700/90 hover:bg-indigo-600 text-slate-200 hover:text-white rounded-lg transition text-xs font-bold flex items-center gap-1" title="تعديل اسم وبيانات الطالب">
-                          <span>تعديل</span>
-                          <span>✏️</span>
+                        <button onclick="openEditStudentModal('${s.id}')" class="p-1.5 bg-slate-700/80 hover:bg-indigo-600 text-slate-200 hover:text-white rounded-lg transition" title="تعديل اسم وبيانات الطالب">
+                          ✏️
                         </button>
-                        <button onclick="handleDeleteStudent('${s.id}')" class="px-2 py-1.5 bg-slate-700/90 hover:bg-rose-600 text-slate-300 hover:text-white rounded-lg transition text-xs font-bold flex items-center gap-1" title="حذف الطالب نهائياً">
-                          <span>حذف</span>
-                          <span>🗑️</span>
+                        <button onclick="handleDeleteStudent('${s.id}')" class="p-1.5 bg-slate-700/80 hover:bg-rose-600 text-slate-300 hover:text-white rounded-lg transition" title="حذف الطالب نهائياً">
+                          🗑️
                         </button>
                       </div>
                     </td>
+                    <td class="py-3 px-4 text-center print-only"></td>
                   </tr>
                 `).join('')}
               </tbody>
@@ -886,9 +1094,6 @@
       `;
     }
 
-    // =========================================================
-    // ATTENDANCE ENGINE (Daily recording + Monthly summary by date)
-    // =========================================================
 
     function handleAttSearch(val) {
       attSearchQuery = (val || '').trim();
@@ -921,23 +1126,26 @@
         monthlyControls.classList.remove('hidden');
         monthlyControls.classList.add('flex');
       }
+      setTimeout(updatePrintHeader, 50);
       renderAttendanceModule();
     }
 
     function handleAttendanceDateChange(val) {
       currentAttDate = val;
+      setTimeout(updatePrintHeader, 50);
       renderAttendanceModule();
     }
 
     function handleMonthChange(val) {
       currentAttMonth = val;
+      setTimeout(updatePrintHeader, 50);
       renderAttendanceModule();
     }
 
     function setAttTrackFilter(track) {
       currentAttTrackFilter = track;
       ['all', 'languages', 'arabic'].forEach(t => {
-        const btn = document.getElementById(`btn-att-track-${t}`);
+        const btn = document.getElementById('btn-att-track-' + t);
         if (btn) {
           btn.className = (t === track) ? 'px-3 py-1 rounded-lg font-black bg-indigo-600 text-white' : 'px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white';
         }
@@ -1028,13 +1236,13 @@
       document.getElementById('att-rate-daily').innerText = `${rate}%`;
 
       container.innerHTML = `
-        <div class="bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl max-w-5xl mx-auto">
-          <div class="bg-gradient-to-r from-slate-950 to-indigo-950 px-6 py-4 border-b border-slate-800 flex items-center justify-between">
+        <div class="bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl max-w-5xl mx-auto section-card">
+          <div class="bg-gradient-to-r from-slate-950 to-indigo-950 px-6 py-4 border-b border-slate-800 flex items-center justify-between print-section-header">
             <div>
-              <h3 class="font-black text-white text-base">كشف تسجيل الحضور اليومي: ${GRADE_CONFIG[gradeNum].ar}</h3>
-              <p class="text-xs text-indigo-300 font-bold mt-0.5">التاريخ: ${currentAttDate} • إجمالي الطلاب: ${students.length}</p>
+              <h3 class="font-black text-white text-base">كشف تسجيل الحضور والغياب اليومي: ${GRADE_CONFIG[gradeNum].ar}</h3>
+              <p class="text-xs text-indigo-300 font-bold mt-0.5">التاريخ: ${currentAttDate} • إجمالي الطلاب: ${students.length} (حضور: ${presentCount} • غياب: ${absentCount} • بعذر: ${excusedCount})</p>
             </div>
-            <span class="text-xs font-bold text-slate-400">انقر على الزر لتحديد حالة الطالب فوراً</span>
+            <span class="text-xs font-bold text-slate-400 no-print">انقر على الزر لتحديد حالة الطالب فوراً</span>
           </div>
 
           <div class="overflow-x-auto">
@@ -1045,11 +1253,13 @@
                   <th class="py-3 px-4 font-black">اسم الطالب رباعي</th>
                   <th class="py-3 px-3 text-center font-black">القسم</th>
                   <th class="py-3 px-3 text-center font-black">النوع</th>
-                  <th class="py-3 px-6 text-center font-black">تحديد حالة الحضور / الغياب</th>
+                  <th class="py-3 px-6 text-center font-black no-print">تحديد حالة الحضور / الغياب</th>
+                  <th class="py-3 px-4 text-center font-black print-only">حالة الحضور اليوم</th>
+                  <th class="py-3 px-4 text-center font-black print-only">ملاحظات</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-700/60">
-                ${students.length === 0 ? '<tr><td colspan="5" class="py-10 text-center text-slate-500 font-bold">لا يوجد طلاب مطابقين للبحث في هذا الفصل</td></tr>' : ''}
+                ${students.length === 0 ? '<tr><td colspan="7" class="py-10 text-center text-slate-500 font-bold">لا يوجد طلاب مطابقين للبحث في هذا الفصل</td></tr>' : ''}
                 ${students.map((s, idx) => {
                   const curStatus = getStudentAttendance(s.id, currentAttDate);
                   return `
@@ -1057,21 +1267,25 @@
                       <td class="py-3 px-3 text-center text-slate-400 font-bold">${idx + 1}</td>
                       <td class="py-3 px-4 font-bold text-white">
                         <div class="text-sm">${s.nameAr}</div>
-                        <div class="text-[10px] text-slate-400 font-mono">${s.id}</div>
+                        <div class="text-[10px] text-slate-400 font-mono no-print">${s.id}</div>
                       </td>
                       <td class="py-3 px-3 text-center">
-                        <span class="text-xs font-bold px-2 py-0.5 rounded-full ${
+                        <span class="no-print text-xs font-bold px-2 py-0.5 rounded-full ${
                           s.track === 'arabic' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
                         }">
                           ${s.track === 'arabic' ? 'عربي' : 'لغات'}
                         </span>
+                        <span class="print-only text-xs font-bold">
+                          ${s.track === 'arabic' ? 'عربي' : 'لغات'}
+                        </span>
                       </td>
                       <td class="py-3 px-3 text-center text-xs font-bold text-slate-400">
-                        ${s.gender === 'male' ? '👦 بنين' : '👧 بنات'}
+                        <span class="no-print">${s.gender === 'male' ? '👦 بنين' : '👧 بنات'}</span>
+                        <span class="print-only">${s.gender === 'male' ? 'بنين' : 'بنات'}</span>
                       </td>
                       
-                      <!-- Interactive Status Buttons -->
-                      <td class="py-3 px-6 text-center">
+                      <!-- Interactive Status Buttons (Screen Only) -->
+                      <td class="py-3 px-6 text-center no-print">
                         <div class="inline-flex items-center gap-1.5 bg-slate-950 p-1 rounded-2xl border border-slate-800 shadow-inner">
                           <button onclick="setStudentAttendance('${s.id}', '${currentAttDate}', 'present')" class="px-3 py-1 rounded-xl text-xs font-black transition ${
                             curStatus === 'present' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-400 hover:text-emerald-400'
@@ -1092,6 +1306,12 @@
                           </button>
                         </div>
                       </td>
+
+                      <!-- Official Print Status (Print Only) -->
+                      <td class="py-3 px-4 text-center print-only font-black text-xs">
+                        ${curStatus === 'present' ? '<span style="color:#047857; font-weight:900;">[ حاضر ]</span>' : curStatus === 'absent' ? '<span style="color:#b91c1c; font-weight:900;">[ غائب ]</span>' : '<span style="color:#b45309; font-weight:900;">[ بعذر ]</span>'}
+                      </td>
+                      <td class="py-3 px-4 text-center print-only"></td>
                     </tr>
                   `;
                 }).join('')}
@@ -1329,6 +1549,64 @@
     }
 
     window.onload = init;
+
+    function updatePrintHeader() {
+      const headerElem = document.getElementById('print-official-header');
+      if (!headerElem) return;
+
+      const dateNow = new Date().toISOString().split('T')[0];
+      const dateDisplay = document.getElementById('print-date-display');
+      if (dateDisplay) dateDisplay.innerText = `التاريخ: ${dateNow}`;
+
+      const titleElem = document.getElementById('print-report-title');
+      const gradeElem = document.getElementById('print-grade-title');
+      const subElem = document.getElementById('print-track-subtitle');
+      const countElem = document.getElementById('print-total-students-count');
+
+      if (currentMainTab === 'rosters') {
+        if (currentGrade === 0) {
+          if (titleElem) titleElem.innerText = 'كشف إجمالي عام لكافة فصول المدرسة';
+          if (gradeElem) gradeElem.innerText = 'الفصول من الصف الأول حتى التاسع';
+          if (subElem) subElem.innerText = 'العام الدراسي 2026 / 2027';
+          if (countElem) countElem.innerText = `إجمالي طلاب المدرسة: ${ALL_STUDENTS.length} طالب وطالبة`;
+        } else {
+          const info = GRADE_CONFIG[currentGrade] || { ar: `الصف ${currentGrade}` };
+          const gStudents = ALL_STUDENTS.filter(s => s.grade === currentGrade);
+          const ar = gStudents.filter(s => s.track === 'arabic').length;
+          const ln = gStudents.filter(s => s.track === 'languages').length;
+
+          if (titleElem) titleElem.innerText = 'كشف أسماء الطلاب الرسمي';
+          if (gradeElem) gradeElem.innerText = info.ar;
+
+          if (currentTrackFilter === 'all') {
+            if (subElem) subElem.innerText = `العام الدراسي 2026 / 2027 • قسم العربي وقسم اللغات`;
+            if (countElem) countElem.innerText = `إجمالي الفصل: ${gStudents.length} (عربي: ${ar} • لغات: ${ln})`;
+          } else if (currentTrackFilter === 'arabic') {
+            if (subElem) subElem.innerText = `العام الدراسي 2026 / 2027 • قسم العربي فقط`;
+            if (countElem) countElem.innerText = `إجمالي طلاب القسم: ${ar} طالب`;
+          } else if (currentTrackFilter === 'languages') {
+            if (subElem) subElem.innerText = `العام الدراسي 2026 / 2027 • قسم اللغات فقط`;
+            if (countElem) countElem.innerText = `إجمالي طلاب القسم: ${ln} طالب وطالبة`;
+          }
+        }
+      } else if (currentMainTab === 'attendance') {
+        const info = GRADE_CONFIG[currentGrade] || { ar: `الصف ${currentGrade}` };
+        const gStudents = ALL_STUDENTS.filter(s => s.grade === currentGrade);
+        if (currentAttSubView === 'daily') {
+          if (titleElem) titleElem.innerText = 'كشف تسجيل الحضور والغياب اليومي';
+          if (gradeElem) gradeElem.innerText = info.ar;
+          if (subElem) subElem.innerText = `تاريخ اليوم: ${currentAttDate} • العام الدراسي 2026 / 2027`;
+          if (countElem) countElem.innerText = `إجمالي طلاب الفصل: ${gStudents.length} طالب وطالبة`;
+        } else {
+          if (titleElem) titleElem.innerText = 'كشف تجميعة الغياب والحضور الشهري';
+          if (gradeElem) gradeElem.innerText = info.ar;
+          if (subElem) subElem.innerText = `عن شهر: ${currentAttMonth} • العام الدراسي 2026 / 2027`;
+          if (countElem) countElem.innerText = `إجمالي طلاب الفصل: ${gStudents.length} طالب وطالبة`;
+        }
+      }
+    }
+    window.onbeforeprint = updatePrintHeader;
+
   </script>
 </body>
 </html>
