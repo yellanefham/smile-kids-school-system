@@ -1,7 +1,7 @@
 /**
  * =========================================================================
  * Smile Kids School - Unified Master Central Database Engine
- * اسم قاعدة البيانات: قاعدة بيانات مدرسة سمايل كيدز الموحدة
+ * اسم قاعدة البيانات: قاعدة بيانات مدرسة Smile Kids الموحدة
  * كود التخزين: SMILE_KIDS_MASTER_DATABASE_2026
  * الملف البرمجي: smile_kids_database.js
  * ملف التصدير العام: smile_kids_database.json
@@ -2508,7 +2508,7 @@
 ];
 
   const SmileKidsDB = {
-    DATABASE_NAME: 'قاعدة بيانات مدرسة سمايل كيدز الموحدة 2025/2026',
+    DATABASE_NAME: 'قاعدة بيانات مدرسة Smile Kids الموحدة 2025/2026',
     DATABASE_CODE: 'SMILE_KIDS_MASTER_DB',
     VERSION: '2.0.0',
     STORAGE_KEY: STORAGE_KEY,

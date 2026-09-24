@@ -1,6 +1,6 @@
 {
   "database_info": {
-    "name": "قاعدة بيانات مدرسة سمايل كيدز الموحدة 2025/2026",
+    "name": "قاعدة بيانات مدرسة Smile Kids الموحدة 2025/2026",
     "code": "SMILE_KIDS_MASTER_DB",
     "version": "2.0.0",
     "storage_key": "SMILE_KIDS_MASTER_DATABASE_2026",
@@ -12,7 +12,7 @@
       "languages"
     ],
     "last_updated": "2026-09-24T15:25:00Z",
-    "school_name_ar": "مدارس سمايل كيدز الخاصة للغات والعربي",
+    "school_name_ar": "مدارس Smile Kids الخاصة للغات والعربي",
     "school_name_en": "Smile Kids Private Language & Arabic Schools"
   },
   "grades_summary": [
