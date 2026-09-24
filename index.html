@@ -64,38 +64,40 @@
 
   <!-- Header: Floating Frosted Glass Navbar -->
   <header class="border-b border-white/10 bg-slate-950/70 sticky top-0 z-50 backdrop-blur-xl shadow-2xl">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 sm:py-3.5 flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-4">
       
       <!-- Brand & School Info -->
-      <div class="flex items-center gap-3.5">
-        <div class="relative group">
-          <div class="absolute -inset-1 bg-gradient-to-r from-amber-400 via-orange-500 to-emerald-400 rounded-2xl blur-sm opacity-70 group-hover:opacity-100 transition duration-300"></div>
-          <img src="smile_kids_logo.png" alt="Smile Kids Logo" class="relative w-12 h-12 rounded-2xl bg-white p-1 shadow-xl object-contain">
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <h1 class="text-lg sm:text-xl font-black text-white tracking-tight">مدرسة Smile Kids الخاصة للغات</h1>
-            <span class="bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-300 border border-amber-400/40 text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-[0_0_12px_rgba(251,191,36,0.2)]">2026 / 2027</span>
+      <div class="flex items-center justify-between w-full sm:w-auto gap-3">
+        <div class="flex items-center gap-3">
+          <div class="relative group shrink-0">
+            <div class="absolute -inset-1 bg-gradient-to-r from-amber-400 via-orange-500 to-emerald-400 rounded-2xl blur-sm opacity-70 group-hover:opacity-100 transition duration-300"></div>
+            <img src="smile_kids_logo.png" alt="Smile Kids Logo" class="relative w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white p-1 shadow-xl object-contain">
           </div>
-          <p class="text-xs text-slate-300 font-bold">الفصول من الصف الأول حتى الصف التاسع</p>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-base sm:text-xl font-black text-white tracking-tight">مدرسة Smile Kids الخاصة للغات</h1>
+              <span class="bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-300 border border-amber-400/40 text-[10px] font-black px-2 py-0.5 rounded-full shadow-[0_0_12px_rgba(251,191,36,0.2)] whitespace-nowrap">2026 / 2027</span>
+            </div>
+            <p class="text-[11px] sm:text-xs text-slate-300 font-bold">الفصول من الصف الأول حتى الصف التاسع</p>
+          </div>
         </div>
       </div>
 
       <!-- Action & Links Toolbar -->
-      <div class="flex items-center gap-3">
+      <div class="flex items-center justify-center sm:justify-end gap-2.5 w-full sm:w-auto">
         <!-- Facebook Link with Neon Glow -->
-        <a href="https://www.facebook.com/profile.php?id=100063590275034" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 bg-gradient-to-r from-[#1877F2] to-[#0C63D4] hover:brightness-110 text-white rounded-xl text-xs font-black transition-all flex items-center gap-1.5 shadow-[0_0_15px_rgba(24,119,242,0.35)] active:scale-95 group" title="الصفحة الرسمية لمدرسة Smile Kids على فيسبوك">
-          <svg class="w-4 h-4 fill-current group-hover:scale-110 transition-transform" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-          <span class="hidden sm:inline">فيسبوك المدرسة</span>
+        <a href="https://www.facebook.com/profile.php?id=100063590275034" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 bg-gradient-to-r from-[#1877F2] to-[#0C63D4] hover:brightness-110 text-white rounded-xl text-xs font-black transition-all flex items-center gap-1.5 shadow-[0_0_15px_rgba(24,119,242,0.35)] active:scale-95 group whitespace-nowrap" title="صفحة فيس بوك Smile Kids الرسمية">
+          <svg class="w-4 h-4 fill-current group-hover:scale-110 transition-transform shrink-0" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          <span class="whitespace-nowrap">فيس بوك Smile Kids</span>
         </a>
 
         <!-- Total Students Glowing Badge -->
-        <div class="flex items-center gap-2 bg-slate-900/90 border border-indigo-500/40 px-3.5 py-1.5 rounded-xl shadow-[0_0_15px_rgba(99,102,241,0.2)]">
+        <div class="flex items-center gap-2 bg-slate-900/90 border border-indigo-500/40 px-3 py-1.5 rounded-xl shadow-[0_0_15px_rgba(99,102,241,0.2)] whitespace-nowrap">
           <span class="relative flex h-2 w-2">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
-          <span class="text-xs font-bold text-slate-300 hidden md:inline">الطلاب:</span>
+          <span class="text-xs font-bold text-slate-300 hidden sm:inline">الطلاب:</span>
           <span id="header-student-count" class="text-xs font-black text-indigo-300">131 طالب وطالبة</span>
         </div>
       </div>
@@ -106,19 +108,60 @@
   <main class="flex-1 flex flex-col justify-center py-10 sm:py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
       
-      <!-- Welcome Headline: Bold & Pure Gold/Amber Gradient -->
-      <div class="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
-        <div class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/15 via-orange-500/15 to-amber-500/15 border border-amber-400/40 px-4 py-1.5 rounded-full text-amber-300 text-xs font-black mb-5 shadow-[0_0_20px_rgba(245,158,11,0.2)]">
-          <span>✨</span>
-          <span>البوابة الإدارية الرسمية المعتمدة للمدرسة</span>
+      <!-- School Hero Banner: Image/Banner + Logo + School Name ONLY -->
+      <div class="max-w-5xl mx-auto mb-10 sm:mb-14">
+        <div class="relative w-full rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.7)] border border-white/20 group">
+          
+          <!-- Banner Slides Container -->
+          <div class="relative h-64 sm:h-80 md:h-[340px] w-full overflow-hidden bg-slate-950">
+            <!-- Slide 1: Back to School Decor -->
+            <img 
+              id="hero-banner-img-1" 
+              src="smile_kids_banner.jpg" 
+              alt="مدرسة Smile Kids الخاصة للغات" 
+              class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out opacity-100 group-hover:scale-105 duration-700 brightness-[0.85]"
+            >
+            <!-- Slide 2: School Playground & Yard -->
+            <img 
+              id="hero-banner-img-2" 
+              src="smile_kids_yard.jpg" 
+              alt="مدرسة Smile Kids الخاصة للغات" 
+              class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out opacity-0 group-hover:scale-105 duration-700 brightness-[0.85]"
+            >
+
+            <!-- Cinematic Luxury Gradient Overlays -->
+            <div class="absolute inset-0 bg-gradient-to-t from-[#060913] via-[#060913]/35 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-[#060913]/60 via-transparent to-[#060913]/60"></div>
+            <div class="absolute inset-0 bg-radial-gradient from-transparent to-[#060913]/40"></div>
+
+            <!-- Subtle Photo Switcher Indicators in Corner -->
+            <div class="absolute top-4 left-4 z-20 flex items-center gap-2 bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10">
+              <button onclick="setHeroSlide(0)" id="slide-dot-0" class="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.8)] transition-all"></button>
+              <button onclick="setHeroSlide(1)" id="slide-dot-1" class="w-2.5 h-2.5 rounded-full bg-white/40 hover:bg-white/80 transition-all"></button>
+            </div>
+          </div>
+
+          <!-- Bottom Center Content: School Logo + Name ONLY -->
+          <div class="absolute bottom-0 inset-x-0 p-5 sm:p-7 flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-5 text-center sm:text-right z-10">
+            <!-- Glowing School Logo -->
+            <div class="relative shrink-0 group-hover:scale-105 transition-transform duration-300">
+              <div class="absolute -inset-1 bg-gradient-to-r from-amber-400 via-orange-500 to-indigo-500 rounded-2xl blur-md opacity-80 group-hover:opacity-100 transition duration-300"></div>
+              <img 
+                src="smile_kids_logo.png" 
+                alt="Smile Kids Logo" 
+                class="relative w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-white p-1 shadow-2xl object-contain border border-white/80"
+              >
+            </div>
+
+            <!-- School Name ONLY -->
+            <div>
+              <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]">
+                مدرسة <span class="bg-gradient-to-r from-amber-300 via-orange-400 to-amber-300 bg-clip-text text-transparent glow-gold">Smile Kids</span> الخاصة للغات
+              </h2>
+            </div>
+          </div>
+
         </div>
-        <h2 class="text-3xl sm:text-6xl font-black text-white tracking-tight leading-tight">
-          مدرسة Smile Kids الخاصة للغات<br>
-          <span class="bg-gradient-to-r from-amber-300 via-orange-400 to-amber-400 bg-clip-text text-transparent glow-gold">منظومة الإدارة المدرسية الموحدة</span>
-        </h2>
-        <p class="text-slate-300 text-sm sm:text-lg mt-4 font-bold tracking-wide">
-          الفصول من الصف الأول حتى الصف التاسع • العام الدراسي 2026 / 2027
-        </p>
       </div>
 
       <!-- Portal App Cards Grid: 3 Magnificent Gem-Themed Cards -->
@@ -233,7 +276,7 @@
       <p>مدرسة Smile Kids الخاصة للغات • الفصول من الصف الأول حتى الصف التاسع • العام الدراسي 2026 / 2027</p>
       <a href="https://www.facebook.com/profile.php?id=100063590275034" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 font-black flex items-center gap-1.5 transition">
         <svg class="w-4 h-4 fill-current text-[#1877F2]" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        <span>صفحة مدرسة Smile Kids على Facebook</span>
+        <span>صفحة فيس بوك Smile Kids</span>
       </a>
     </div>
   </footer>
@@ -254,6 +297,39 @@
         });
       }
     });
+      // Auto & Manual Banner Slider Script
+    let currentSlide = 0;
+    const slides = [
+      document.getElementById('hero-banner-img-1'),
+      document.getElementById('hero-banner-img-2')
+    ];
+    const dots = [
+      document.getElementById('slide-dot-0'),
+      document.getElementById('slide-dot-1')
+    ];
+
+    function setHeroSlide(idx) {
+      if (!slides[0] || !slides[1]) return;
+      currentSlide = idx;
+      slides.forEach((s, i) => {
+        if (s) s.style.opacity = (i === idx) ? '1' : '0';
+      });
+      dots.forEach((d, i) => {
+        if (d) {
+          if (i === idx) {
+            d.className = 'w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.8)] transition-all';
+          } else {
+            d.className = 'w-2.5 h-2.5 rounded-full bg-white/40 hover:bg-white/80 transition-all';
+          }
+        }
+      });
+    }
+
+    // Auto rotate every 5 seconds
+    setInterval(() => {
+      setHeroSlide((currentSlide + 1) % 2);
+    }, 5000);
+
   </script>
 </body>
 </html>
