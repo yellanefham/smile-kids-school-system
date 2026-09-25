@@ -3385,6 +3385,9 @@
         const totalScore = periodTotals.totalScore;
 
         const subjCells = subjects.map(sub => {
+          if (s.track === 'arabic' && sub.id === 'english_al') {
+            return `<td class="py-2.5 px-1.5 text-center border-r border-slate-800/80 text-slate-500 font-mono font-bold text-sm bg-slate-950/40" title="مادة Connect Plus لقسم اللغات فقط">—</td>`;
+          }
           const isReligion = (sub.id === 'religion');
           const scoreData = getStudentSubjectScore(s, sub.id, currentGradesPeriod);
           const val = scoreData ? scoreData.score : 0;
@@ -3615,6 +3618,11 @@
           { id: 'german', name: 'لغة ألمانية (German)', max: 20 },
           { id: 'religion', name: 'تربية دينية', max: 20 }
         ];
+      }
+
+      // Arabic track students do NOT study Connect Plus (english_al)
+      if (track === 'arabic') {
+        subs = subs.filter(s => s.id !== 'english_al');
       }
 
       // Dynamic override from CUSTOM_SUBJECT_MAX
@@ -3883,6 +3891,29 @@
         `;
       }).join('');
 
+      // Dynamic row height based on student count so the sheet ALWAYS fits on 1 A4 page
+      const count = students.length;
+      let rowHeight = 36;
+      let fontSize = 13;
+      let nameFontSize = 14;
+      if (count <= 11) {
+        rowHeight = 36;
+        fontSize = 13;
+        nameFontSize = 14;
+      } else if (count <= 16) {
+        rowHeight = 29;
+        fontSize = 12;
+        nameFontSize = 13;
+      } else if (count <= 22) {
+        rowHeight = 24;
+        fontSize = 11;
+        nameFontSize = 11.5;
+      } else {
+        rowHeight = 21;
+        fontSize = 10;
+        nameFontSize = 10.5;
+      }
+
       // Generate rows
       let rowsHtml = '';
       if (students.length > 0) {
@@ -3892,16 +3923,16 @@
             if (!isBlank) {
               const sc = getStudentSubjectScore(st, sub.id, currentGradesPeriod);
               if (sc && sc.isRecorded) {
-                cellContent = `<b style="font-size: 14px; font-family: monospace;">${sc.score}</b>`;
+                cellContent = `<b style="font-size: ${fontSize}px; font-family: monospace;">${sc.score}</b>`;
               }
             }
-            return `<td style="border: 1.5px solid #000000; padding: 4px 2px; text-align: center; vertical-align: middle; height: 38px; min-width: 55px; background: #ffffff;">${cellContent}</td>`;
+            return `<td style="border: 1.5px solid #000000; padding: 3px 2px; text-align: center; vertical-align: middle; height: ${rowHeight}px; min-width: 55px; background: #ffffff;">${cellContent}</td>`;
           }).join('');
 
           return `
-            <tr style="height: 38px;">
-              <td style="border: 1.5px solid #000000; padding: 4px; text-align: center; font-weight: 900; background: #f8fafc; width: 38px; font-size: 13px; font-family: monospace;">${idx + 1}</td>
-              <td style="border: 1.5px solid #000000; padding: 4px 12px; text-align: right; font-weight: 900; font-size: 14px; min-width: 250px; white-space: nowrap; color: #000000;">
+            <tr style="height: ${rowHeight}px;">
+              <td style="border: 1.5px solid #000000; padding: 2px; text-align: center; font-weight: 900; background: #f8fafc; width: 38px; font-size: ${fontSize}px; font-family: monospace;">${idx + 1}</td>
+              <td style="border: 1.5px solid #000000; padding: 2px 10px; text-align: right; font-weight: 900; font-size: ${nameFontSize}px; min-width: 250px; white-space: nowrap; color: #000000;">
                 ${st.nameAr}
               </td>
               ${subjCells}
@@ -3909,14 +3940,14 @@
           `;
         }).join('');
 
-        // Add 2 blank handwriting rows at the end for any handwritten additions
-        const extraCount = Math.min(2, Math.max(0, 14 - students.length));
+        // Add blank handwriting rows only if class is small (<= 12)
+        const extraCount = count <= 9 ? 2 : (count <= 12 ? 1 : 0);
         for (let b = 1; b <= extraCount; b++) {
-          const emptyCells = subjects.map(() => `<td style="border: 1.5px solid #000000; height: 38px; background: #ffffff;">&nbsp;</td>`).join('');
+          const emptyCells = subjects.map(() => `<td style="border: 1.5px solid #000000; height: ${rowHeight}px; background: #ffffff;">&nbsp;</td>`).join('');
           rowsHtml += `
-            <tr style="height: 38px;">
-              <td style="border: 1.5px solid #000000; padding: 4px; text-align: center; font-weight: 800; background: #f8fafc; color: #94a3b8; width: 38px; font-size: 12px; font-family: monospace;">${students.length + b}</td>
-              <td style="border: 1.5px solid #000000; padding: 4px 12px; background: #ffffff;">&nbsp;</td>
+            <tr style="height: ${rowHeight}px;">
+              <td style="border: 1.5px solid #000000; padding: 2px; text-align: center; font-weight: 800; background: #f8fafc; color: #94a3b8; width: 38px; font-size: ${fontSize}px; font-family: monospace;">${students.length + b}</td>
+              <td style="border: 1.5px solid #000000; padding: 2px 10px; background: #ffffff;">&nbsp;</td>
               ${emptyCells}
             </tr>
           `;
@@ -3924,11 +3955,11 @@
       } else {
         // If 0 students in track, provide 12 blank lines for handwriting
         for (let b = 1; b <= 12; b++) {
-          const emptyCells = subjects.map(() => `<td style="border: 1.5px solid #000000; height: 38px; background: #ffffff;">&nbsp;</td>`).join('');
+          const emptyCells = subjects.map(() => `<td style="border: 1.5px solid #000000; height: 32px; background: #ffffff;">&nbsp;</td>`).join('');
           rowsHtml += `
-            <tr style="height: 38px;">
-              <td style="border: 1.5px solid #000000; padding: 4px; text-align: center; font-weight: 800; background: #f8fafc; color: #64748b; width: 38px; font-size: 12px; font-family: monospace;">${b}</td>
-              <td style="border: 1.5px solid #000000; padding: 4px 12px; background: #ffffff;">&nbsp;</td>
+            <tr style="height: 32px;">
+              <td style="border: 1.5px solid #000000; padding: 2px; text-align: center; font-weight: 800; background: #f8fafc; color: #64748b; width: 38px; font-size: 12px; font-family: monospace;">${b}</td>
+              <td style="border: 1.5px solid #000000; padding: 2px 10px; background: #ffffff;">&nbsp;</td>
               ${emptyCells}
             </tr>
           `;
