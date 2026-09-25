@@ -649,9 +649,6 @@
             <button onclick="openPrintGradingSheetsModal()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow active:scale-95" title="طباعة شيت رصد الدرجات اليدوي A4 المنظم">
               <span>🖨️ طباعة شيت الدرجات (A4 للمعلمات)</span>
             </button>
-            <button onclick="if(window.SmileKidsDB) { SmileKidsDB.syncToCloud(); alert('تم بدء الحفظ والمزامنة المباشرة مع Google Drive 🟢'); }" class="px-3.5 py-2 bg-emerald-600/30 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/40 rounded-xl text-xs font-bold transition flex items-center gap-1.5 active:scale-95">
-              <span>☁️ حفظ سحابي Google Drive</span>
-            </button>
           </div>
         </div>
 
@@ -1149,7 +1146,7 @@
           <span class="text-2xl p-2 bg-indigo-500/20 text-indigo-300 rounded-xl border border-indigo-500/30">🖨️</span>
           <div>
             <h3 class="text-lg font-black text-white">طباعة شيت رصد الدرجات المنظم (A4 للمعلمات)</h3>
-            <p class="text-xs text-slate-400">شيت منظم ومحدد لكل صف في صفحة A4 مستقلة للرصد اليدوي بالقلم (لغات ثم عربي)</p>
+            <p class="text-xs text-slate-400">شيت منظم ومريح للرصد اليدوي بالقلم — ورقة مستقلة لقسم اللغات وورقة مستقلة لقسم العربي</p>
           </div>
         </div>
         <button onclick="closeModal('modal-print-grading-sheets')" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition">
@@ -1166,11 +1163,11 @@
             <div class="space-y-2">
               <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-indigo-500 transition">
                 <input type="radio" name="print-scope" value="current" checked onchange="updatePrintSheetsPreview()" class="text-indigo-600 focus:ring-0">
-                <span class="text-xs font-bold text-white" id="print-current-grade-label">الصف الحالي فقط (Grade 1)</span>
+                <span class="text-xs font-bold text-white" id="print-current-grade-label">الصف الحالي فقط (Grade 1 - ورقة لغات + ورقة عربي)</span>
               </label>
               <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-indigo-500 transition">
                 <input type="radio" name="print-scope" value="all" onchange="updatePrintSheetsPreview()" class="text-indigo-600 focus:ring-0">
-                <span class="text-xs font-bold text-white">جميع الصفوف (Grade 1 إلى Grade 9) — كل صف في ورقة A4 مستقلة</span>
+                <span class="text-xs font-bold text-white">جميع الصفوف (Grade 1 إلى Grade 9) — ورقة مستقلة لكل قسم (لغات / عربي)</span>
               </label>
             </div>
           </div>
@@ -3324,25 +3321,52 @@
       if (thead) {
         const subjCols = subjects.map(sub => {
           const isRel = (sub.id === 'religion');
-          const maxBadge = isRel ? `<span class="text-slate-400 text-[10px]">(${sub.max})</span>` : `<span class="text-red-400 text-[10px]">(${sub.max})</span>`;
-          return `<th class="py-2.5 px-2 text-center border-r border-slate-800 min-w-[85px]">${sub.name} ${maxBadge}</th>`;
+          let displayName = sub.name;
+          let subDetail = '';
+          if (sub.id === 'english_al') {
+            displayName = 'Connect Plus';
+            subDetail = 'لغة إنجليزية (AL)';
+          } else if (sub.id === 'english_ol') {
+            displayName = 'لغة إنجليزية';
+            subDetail = '(OL)';
+          } else if (sub.id === 'math') {
+            displayName = (gradesTrackFilter === 'arabic') ? 'رياضيات' : 'Math / رياضيات';
+          } else if (sub.id === 'science') {
+            displayName = (gradesTrackFilter === 'arabic') ? 'علوم' : 'Science / علوم';
+          } else if (sub.id === 'ict') {
+            displayName = 'تكنولوجيا (ICT)';
+          } else if (sub.id === 'social') {
+            displayName = 'دراسات اجتماعية';
+          } else if (sub.id === 'religion') {
+            displayName = 'تربية دينية';
+          } else if (sub.id === 'arabic') {
+            displayName = 'لغة عربية';
+          }
+
+          return `
+            <th class="py-3 px-2 text-center border-r border-slate-800 min-w-[95px] whitespace-nowrap">
+              <div class="font-black text-white text-xs sm:text-[13px] leading-tight">${displayName}</div>
+              ${subDetail ? `<div class="text-[10px] text-slate-400 font-medium leading-none mt-0.5">${subDetail}</div>` : ''}
+              <div class="text-[10px] font-black ${isRel ? 'text-slate-400' : 'text-amber-400'} mt-1 font-mono bg-slate-950/70 py-0.5 px-2 rounded-md inline-block">العظمى: ${sub.max}</div>
+            </th>
+          `;
         }).join('');
 
         thead.innerHTML = `
-          <tr class="bg-slate-900 text-slate-300 border-b border-slate-800">
+          <tr class="bg-slate-900 text-slate-200 border-b border-slate-800">
             <th class="py-3 px-2 text-center w-10">#</th>
-            <th class="py-3 px-4 min-w-[170px]">اسم الطالب</th>
-            <th class="py-3 px-3 text-center min-w-[80px]">المسار</th>
+            <th class="py-3 px-4 min-w-[200px] whitespace-nowrap text-right">اسم الطالب</th>
+            <th class="py-3 px-3 text-center min-w-[85px] whitespace-nowrap">المسار</th>
             ${subjCols}
-            <th class="py-3 px-3 text-center bg-indigo-950/40 text-indigo-300 min-w-[85px]">المجموع</th>
-            <th class="py-3 px-3 text-center min-w-[65px]">النسبة</th>
-            <th class="py-3 px-3 text-center min-w-[125px] cursor-pointer hover:bg-slate-800 transition" onclick="openConfigureRanksModal()" title="انقر لتعديل معايير المراكز بناءً على نقصان الدرجات">
-              <span class="flex items-center justify-center gap-1">
-                <span>الترتيب</span>
+            <th class="py-3 px-3 text-center bg-indigo-950/40 text-indigo-300 min-w-[90px] whitespace-nowrap">المجموع</th>
+            <th class="py-3 px-3 text-center min-w-[75px] whitespace-nowrap">النسبة</th>
+            <th class="py-3 px-3 text-center min-w-[145px] whitespace-nowrap cursor-pointer hover:bg-slate-800 transition" onclick="openConfigureRanksModal()" title="انقر لتعديل معايير المراكز بناءً على نقصان الدرجات">
+              <span class="flex items-center justify-center gap-1.5">
+                <span class="font-black text-amber-300">الترتيب</span>
                 <span class="text-amber-400 text-xs">⚙️</span>
               </span>
             </th>
-            <th class="py-3 px-3 text-center min-w-[90px] no-print">الشهادة</th>
+            <th class="py-3 px-3 text-center min-w-[90px] whitespace-nowrap no-print">الشهادة</th>
           </tr>
         `;
       }
@@ -3366,11 +3390,11 @@
           const val = scoreData ? scoreData.score : 0;
           const isRecorded = scoreData && scoreData.isRecorded && scoreData.score > 0;
           const cellBorder = isRecorded 
-            ? 'border-emerald-500/70 bg-emerald-950/30 text-emerald-200 font-black shadow-[inset_0_0_8px_rgba(16,185,129,0.15)]' 
-            : 'border-slate-800 bg-slate-900 text-slate-400 font-bold';
+            ? 'border-emerald-500/80 bg-emerald-950/40 text-emerald-200 font-black shadow-[inset_0_0_8px_rgba(16,185,129,0.2)]' 
+            : 'border-slate-700 bg-slate-900 text-slate-300 font-bold hover:border-slate-500';
 
           return `
-            <td class="py-2 px-1 text-center border-r border-slate-800">
+            <td class="py-2.5 px-1.5 text-center border-r border-slate-800/80">
               <input 
                 type="number" 
                 min="0" 
@@ -3378,7 +3402,9 @@
                 step="0.5" 
                 value="${val}" 
                 oninput="onStudentSubjectInput('${s.id}', '${sub.id}', this.value, ${sub.max})"
-                class="w-14 sm:w-16 text-center py-1 rounded-lg ${cellBorder} border focus:border-indigo-400 focus:outline-none text-xs transition"
+                onfocus="this.select()"
+                onclick="this.select()"
+                class="w-16 sm:w-20 text-center py-1.5 rounded-xl ${cellBorder} border text-sm sm:text-base font-black font-mono focus:border-amber-400 focus:bg-slate-800 focus:text-white focus:outline-none focus:ring-2 focus:ring-amber-400/50 transition-all shadow-sm"
               >
             </td>
           `;
@@ -3389,29 +3415,29 @@
         const rank = calculateStudentClassRank(s, currentGradesPeriod);
 
         const trackBadge = (s.track === 'languages')
-          ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-blue-500/20 text-blue-300 border border-blue-400/30">لغات</span>'
-          : '<span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">عربي</span>';
+          ? '<span class="px-2 py-0.5 rounded-full text-[11px] font-black bg-blue-500/20 text-blue-300 border border-blue-400/30 whitespace-nowrap">لغات</span>'
+          : '<span class="px-2 py-0.5 rounded-full text-[11px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 whitespace-nowrap">عربي</span>';
 
         return `
           <tr id="row-st-${s.id}" class="hover:bg-slate-900/60 transition-colors">
-            <td class="py-2.5 px-2 text-center text-slate-500 font-mono">${idx + 1}</td>
+            <td class="py-2.5 px-2 text-center text-slate-400 font-mono font-bold">${idx + 1}</td>
             <td class="py-2.5 px-4">
-              <div class="font-black text-white text-xs sm:text-sm">${s.nameAr}</div>
-              <div class="text-[11px] text-slate-400 font-en font-medium">${s.nameEn || ''} <span class="text-slate-600 font-mono text-[10px]">(${s.id})</span></div>
+              <div class="font-black text-white text-sm sm:text-[15px] leading-snug">${s.nameAr}</div>
+              <div class="text-[11px] text-slate-400 font-en font-medium mt-0.5">${s.nameEn || ''} <span class="text-slate-500 font-mono text-[10px]">(${s.id})</span></div>
             </td>
             <td class="py-2.5 px-3 text-center">${trackBadge}</td>
             ${subjCells}
-            <td class="py-2 px-2 text-center bg-indigo-950/40 font-black font-mono text-indigo-300 border-r border-slate-800" id="cell-tot-${s.id}">
-              ${totalScore} <span class="text-[10px] text-slate-500 font-normal">/ ${totalMax}</span>
+            <td class="py-2.5 px-2 text-center bg-indigo-950/40 font-black font-mono text-sm sm:text-base text-indigo-200 border-r border-slate-800 whitespace-nowrap" id="cell-tot-${s.id}">
+              ${totalScore} <span class="text-[11px] text-slate-400 font-normal">/ ${totalMax}</span>
             </td>
-            <td class="py-2 px-2 text-center font-black font-mono text-emerald-400" id="cell-perc-${s.id}">
+            <td class="py-2.5 px-2 text-center font-black font-mono text-sm sm:text-base text-emerald-400 whitespace-nowrap" id="cell-perc-${s.id}">
               ${perc}%
             </td>
-            <td class="py-2 px-2 text-center text-xs font-bold text-amber-300" id="cell-rank-${s.id}">
+            <td class="py-2.5 px-3 text-center text-xs sm:text-sm font-black text-amber-300 whitespace-nowrap" id="cell-rank-${s.id}">
               ${rank}
             </td>
-            <td class="py-2.5 px-3 text-center no-print">
-              <button onclick="openCertificateForStudent('${s.id}')" class="px-2.5 py-1 bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 font-black rounded-lg text-[11px] border border-amber-400/40 transition active:scale-95 flex items-center justify-center gap-1 mx-auto" title="عرض واستخراج الشهادة لهذا الاختبار">
+            <td class="py-2.5 px-3 text-center no-print whitespace-nowrap">
+              <button onclick="openCertificateForStudent('${s.id}')" class="px-3 py-1 bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 font-black rounded-lg text-xs border border-amber-400/40 transition active:scale-95 flex items-center justify-center gap-1 mx-auto shadow-sm" title="عرض واستخراج الشهادة لهذا الاختبار">
                 <span>📜</span> <span>الشهادة</span>
               </button>
             </td>
@@ -3816,108 +3842,177 @@
       container.innerHTML = generateManualGradingSheetHTML(g, examTitle, isBlank);
     }
 
-    function generateManualGradingSheetHTML(gradeNum, examTitle, isBlank) {
-      const g = parseInt(gradeNum) || 1;
-      const gradeAr = getGradeArabicName(g);
-      const subjects = getGradeSubjectsConfig(g, 'languages');
-      const gStudents = ALL_STUDENTS.filter(s => s.grade === g);
-      const langStudents = gStudents.filter(s => s.track === 'languages');
-      const arStudents = gStudents.filter(s => s.track === 'arabic');
+    function getCleanSubjectPrintName(sub, track) {
+      if (track === 'arabic') {
+        if (sub.id === 'arabic') return 'لغة عربية';
+        if (sub.id === 'english_ol') return 'لغة إنجليزية';
+        if (sub.id === 'english_al') return 'Connect Plus';
+        if (sub.id === 'math') return 'رياضيات';
+        if (sub.id === 'science') return 'علوم';
+        if (sub.id === 'social') return 'دراسات اجتماعية';
+        if (sub.id === 'ict') return 'تكنولوجيا';
+        if (sub.id === 'german') return 'لغة ألمانية';
+        if (sub.id === 'religion') return 'تربية دينية';
+        return sub.name;
+      } else {
+        if (sub.id === 'arabic') return 'لغة عربية';
+        if (sub.id === 'english_ol') return 'English (OL)';
+        if (sub.id === 'english_al') return 'Connect Plus';
+        if (sub.id === 'math') return 'Math';
+        if (sub.id === 'science') return 'Science';
+        if (sub.id === 'social') return 'دراسات اجتماعية';
+        if (sub.id === 'ict') return 'ICT';
+        if (sub.id === 'german') return 'German';
+        if (sub.id === 'religion') return 'تربية دينية';
+        return sub.name;
+      }
+    }
 
-      let totalMax = 0;
-      subjects.forEach(s => totalMax += s.max);
-
+    function renderSingleTrackA4Sheet(g, trackKey, trackTitleAr, trackColor, students, isBlank, examTitle) {
+      const subjects = getGradeSubjectsConfig(g, trackKey);
       const colCount = subjects.length + 2; // #, Name, [subjects]
 
-      // Build Subject Table Headers
-      const subjHeaders = subjects.map(s => `
-        <th style="border: 1.5px solid #000; padding: 6px 3px; text-align: center; vertical-align: middle; background: #f8fafc; font-size: 11.5px; font-weight: 900; line-height: 1.2;">
-          <div style="font-size: 12px; color: #000;">${s.name}</div>
-          <div style="font-size: 10.5px; font-weight: 900; color: #b91c1c; margin-top: 2px;">(العظمى: ${s.max})</div>
-        </th>
-      `).join('');
+      // Headers for subjects
+      const subjHeaders = subjects.map(s => {
+        const cleanName = getCleanSubjectPrintName(s, trackKey);
+        return `
+          <th style="border: 2px solid #000000; padding: 7px 4px; text-align: center; vertical-align: middle; background: #f8fafc; min-width: 58px;">
+            <div style="font-size: 13.5px; font-weight: 900; color: #000000; line-height: 1.2;">${cleanName}</div>
+            <div style="font-size: 11px; font-weight: 900; color: #b91c1c; margin-top: 3px; font-family: monospace;">(العظمى: ${s.max})</div>
+          </th>
+        `;
+      }).join('');
 
-      // Row generator helper
-      const renderRow = (st, idx) => {
-        const subjCells = subjects.map(sub => {
-          let cellContent = '&nbsp;';
-          if (!isBlank) {
-            const sc = getStudentSubjectScore(st, sub.id, currentGradesPeriod);
-            if (sc && sc.isRecorded) {
-              cellContent = `<b style="font-size: 12px;">${sc.score}</b>`;
+      // Generate rows
+      let rowsHtml = '';
+      if (students.length > 0) {
+        rowsHtml = students.map((st, idx) => {
+          const subjCells = subjects.map(sub => {
+            let cellContent = '&nbsp;';
+            if (!isBlank) {
+              const sc = getStudentSubjectScore(st, sub.id, currentGradesPeriod);
+              if (sc && sc.isRecorded) {
+                cellContent = `<b style="font-size: 14px; font-family: monospace;">${sc.score}</b>`;
+              }
             }
-          }
-          return `<td style="border: 1.5px solid #000000; padding: 4px 2px; text-align: center; vertical-align: middle; height: 28px; min-width: 48px; background: #ffffff;">${cellContent}</td>`;
+            return `<td style="border: 1.5px solid #000000; padding: 4px 2px; text-align: center; vertical-align: middle; height: 38px; min-width: 55px; background: #ffffff;">${cellContent}</td>`;
+          }).join('');
+
+          return `
+            <tr style="height: 38px;">
+              <td style="border: 1.5px solid #000000; padding: 4px; text-align: center; font-weight: 900; background: #f8fafc; width: 38px; font-size: 13px; font-family: monospace;">${idx + 1}</td>
+              <td style="border: 1.5px solid #000000; padding: 4px 12px; text-align: right; font-weight: 900; font-size: 14px; min-width: 250px; white-space: nowrap; color: #000000;">
+                ${st.nameAr}
+              </td>
+              ${subjCells}
+            </tr>
+          `;
         }).join('');
 
-        return `
-          <tr style="height: 28px; font-size: 12.5px;">
-            <td style="border: 1.5px solid #000000; padding: 4px; text-align: center; font-weight: 800; background: #f8fafc; width: 35px;">${idx + 1}</td>
-            <td style="border: 1.5px solid #000000; padding: 4px 10px; text-align: right; font-weight: 900; font-size: 13px; min-width: 240px; white-space: nowrap;">
-              ${st.nameAr}
-            </td>
-            ${subjCells}
-          </tr>
-        `;
-      };
-
-      const langRowsHtml = langStudents.length > 0
-        ? langStudents.map((s, idx) => renderRow(s, idx)).join('')
-        : `<tr><td colspan="${colCount}" style="border: 1.5px solid #000; text-align: center; padding: 6px; color: #64748b;">لا يوجد طلاب مسجلين في قسم اللغات</td></tr>`;
-
-      const arRowsHtml = arStudents.length > 0
-        ? arStudents.map((s, idx) => renderRow(s, idx)).join('')
-        : `<tr><td colspan="${colCount}" style="border: 1.5px solid #000; text-align: center; padding: 6px; color: #64748b;">لا يوجد طلاب مسجلين في قسم العربي</td></tr>`;
+        // Add 2 blank handwriting rows at the end for any handwritten additions
+        const extraCount = Math.min(2, Math.max(0, 14 - students.length));
+        for (let b = 1; b <= extraCount; b++) {
+          const emptyCells = subjects.map(() => `<td style="border: 1.5px solid #000000; height: 38px; background: #ffffff;">&nbsp;</td>`).join('');
+          rowsHtml += `
+            <tr style="height: 38px;">
+              <td style="border: 1.5px solid #000000; padding: 4px; text-align: center; font-weight: 800; background: #f8fafc; color: #94a3b8; width: 38px; font-size: 12px; font-family: monospace;">${students.length + b}</td>
+              <td style="border: 1.5px solid #000000; padding: 4px 12px; background: #ffffff;">&nbsp;</td>
+              ${emptyCells}
+            </tr>
+          `;
+        }
+      } else {
+        // If 0 students in track, provide 12 blank lines for handwriting
+        for (let b = 1; b <= 12; b++) {
+          const emptyCells = subjects.map(() => `<td style="border: 1.5px solid #000000; height: 38px; background: #ffffff;">&nbsp;</td>`).join('');
+          rowsHtml += `
+            <tr style="height: 38px;">
+              <td style="border: 1.5px solid #000000; padding: 4px; text-align: center; font-weight: 800; background: #f8fafc; color: #64748b; width: 38px; font-size: 12px; font-family: monospace;">${b}</td>
+              <td style="border: 1.5px solid #000000; padding: 4px 12px; background: #ffffff;">&nbsp;</td>
+              ${emptyCells}
+            </tr>
+          `;
+        }
+      }
 
       return `
-        <div class="grade-a4-sheet" style="width: 100%; max-width: 100%; box-sizing: border-box; page-break-after: always; break-after: page; background: #ffffff; color: #000000; padding: 5px; direction: rtl; font-family: 'Cairo', Arial, sans-serif;">
-          <!-- Simplified Minimalist Page Header -->
-          <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #000000; padding-bottom: 6px; margin-bottom: 8px;">
-            <div style="font-weight: 900; font-size: 14px; color: #000000;">
-              مدرسة Smile Kids الخاصة للغات
+        <div class="grade-a4-sheet" style="width: 100%; max-width: 100%; box-sizing: border-box; page-break-after: always; break-after: page; background: #ffffff; color: #000000; padding: 8px 12px; direction: rtl; font-family: 'Cairo', Arial, sans-serif; margin-bottom: 25px;">
+          <!-- Simplified Minimalist Header -->
+          <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2.5px solid #000000; padding-bottom: 8px; margin-bottom: 10px;">
+            <div style="text-align: right;">
+              <div style="font-weight: 900; font-size: 15px; color: #000000;">مدرسة Smile Kids الخاصة للغات</div>
+              <div style="font-size: 12px; font-weight: 800; color: #475569; margin-top: 2px;">العام الدراسي 2026 / 2027</div>
             </div>
-            <div style="font-size: 19px; font-weight: 900; color: #000000;">
-              كشف رصد درجات جريد ${g}
+
+            <div style="text-align: center;">
+              <div style="font-size: 20px; font-weight: 900; color: #000000; letter-spacing: -0.3px;">
+                كشف رصد درجات جريد ${g} — ${trackTitleAr}
+              </div>
+              <div style="font-size: 12.5px; font-weight: 800; color: ${trackColor}; margin-top: 3px;">
+                ${examTitle} • [ عدد الطلاب: ${students.length} ]
+              </div>
             </div>
-            <div style="font-size: 12px; font-weight: 800; color: #334155;">
-              العام الدراسي 2026 / 2027
+
+            <div style="text-align: left; font-size: 12px; font-weight: 800; color: #334155;">
+              <div style="border: 1.5px solid #000000; padding: 3px 10px; border-radius: 6px; background: #f8fafc; display: inline-block;">
+                ${trackKey === 'languages' ? '🌐 Languages Track' : '📖 Arabic Track'}
+              </div>
             </div>
           </div>
 
-          <!-- Main Grading Table -->
-          <table style="width: 100%; border-collapse: collapse; border: 2px solid #000000; font-size: 12px; margin-bottom: 6px;">
+          <!-- Main Table with generous height and readable font -->
+          <table style="width: 100%; border-collapse: collapse; border: 2.5px solid #000000; font-size: 13px; margin-bottom: 8px;">
             <thead>
-              <tr style="background: #f1f5f9; border-bottom: 2px solid #000000;">
-                <th style="border: 1.5px solid #000; padding: 6px 4px; text-align: center; width: 35px; font-weight: 900;">م</th>
-                <th style="border: 1.5px solid #000; padding: 6px 12px; text-align: right; min-width: 240px; font-weight: 900;">اسم الطالب</th>
+              <tr style="background: #f1f5f9; border-bottom: 2.5px solid #000000;">
+                <th style="border: 2px solid #000000; padding: 8px 4px; text-align: center; width: 38px; font-weight: 900; font-size: 13px;">م</th>
+                <th style="border: 2px solid #000000; padding: 8px 12px; text-align: right; min-width: 250px; font-weight: 900; font-size: 14px;">اسم الطالب</th>
                 ${subjHeaders}
               </tr>
             </thead>
             <tbody>
-              <!-- Languages Track Section -->
-              <tr style="background: #e0f2fe; border-top: 2px solid #0369a1; border-bottom: 1.5px solid #0369a1;">
-                <td colspan="${colCount}" style="padding: 4px 10px; font-weight: 900; font-size: 12px; color: #0369a1; text-align: right; border: 1.5px solid #0369a1;">
-                  🔷 أولاً: طلاب قسم اللغات (Languages Track) — [عدد الطلاب: ${langStudents.length}]
-                </td>
-              </tr>
-              ${langRowsHtml}
-
-              <!-- Arabic Track Section -->
-              <tr style="background: #fef3c7; border-top: 2px solid #d97706; border-bottom: 1.5px solid #d97706;">
-                <td colspan="${colCount}" style="padding: 4px 10px; font-weight: 900; font-size: 12px; color: #b45309; text-align: right; border: 1.5px solid #d97706;">
-                  🔶 ثانياً: طلاب قسم العربي (Arabic Track) — [عدد الطلاب: ${arStudents.length}]
-                </td>
-              </tr>
-              ${arRowsHtml}
+              ${rowsHtml}
             </tbody>
           </table>
 
           <!-- Simplified Minimalist Footer -->
-          <div style="margin-top: 10px; padding-top: 8px; border-top: 1.5px solid #000000; text-align: center; font-size: 13px; font-weight: 900; color: #000000; letter-spacing: 0.5px;">
+          <div style="margin-top: 12px; padding-top: 8px; border-top: 1.5px solid #000000; text-align: center; font-size: 13.5px; font-weight: 900; color: #000000; letter-spacing: 0.5px;">
             إدارة المدرسة Smile Kids
           </div>
         </div>
       `;
+    }
+
+    function generateManualGradingSheetHTML(gradeNum, examTitle, isBlank) {
+      const g = parseInt(gradeNum) || 1;
+      const gStudents = ALL_STUDENTS.filter(s => s.grade === g);
+      const langStudents = gStudents.filter(s => s.track === 'languages');
+      const arStudents = gStudents.filter(s => s.track === 'arabic');
+
+      let resultHtml = '';
+
+      // Sheet 1: Languages Track (ورقة قسم اللغات)
+      resultHtml += renderSingleTrackA4Sheet(
+        g, 
+        'languages', 
+        'قسم اللغات', 
+        '#0369a1', 
+        langStudents, 
+        isBlank, 
+        examTitle
+      );
+
+      // Sheet 2: Arabic Track (ورقة قسم العربي)
+      resultHtml += renderSingleTrackA4Sheet(
+        g, 
+        'arabic', 
+        'قسم العربي', 
+        '#b45309', 
+        arStudents, 
+        isBlank, 
+        examTitle
+      );
+
+      return resultHtml;
     }
 
     function executePrintGradingSheets() {
