@@ -153,7 +153,7 @@
     }
 
   </style>
-  <script src="smile_kids_database.js?v=20260924_v7"></script>
+  <script src="smile_kids_database.js?v=20260925_fix_v8"></script>
 </head>
 <body class="bg-slate-100 text-slate-900 min-h-screen flex flex-col font-sans selection:bg-indigo-500 selection:text-white overflow-x-hidden w-full max-w-full">
 
@@ -1099,6 +1099,10 @@ function initApp() {
       renderGradePills();
       if (state.currentMainView === 'grades') renderGradesView();
       else if (state.currentMainView === 'attendance') renderAttendanceView();
+      const certModal = document.getElementById('modal-certificate');
+      if (certModal && !certModal.classList.contains('hidden') && state.selectedStudentForCert) {
+        renderCertificatePreview();
+      }
     });
   } else {
     const saved = localStorage.getItem(STORAGE_KEY);

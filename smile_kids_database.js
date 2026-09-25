@@ -4413,6 +4413,7 @@
     _syncDebounceTimer: null,
     _syncStatus: 'idle',
     _lastModified: 0,
+    _bc: null,
 
     _cache: null,
     _listeners: [],
@@ -4464,24 +4465,14 @@
     _setupCloudSync: function() {
       if (typeof window === 'undefined') return;
 
-      // Initial cloud sync
+      // Safe, single initial cloud check after startup (non-destructive)
       setTimeout(() => {
         this.syncFromCloud();
-      }, 200);
+      }, 500);
 
-      // Re-sync when returning to tab
-      if (window.addEventListener) {
-        window.addEventListener('focus', () => {
-          this.syncFromCloud();
-        });
-      }
-
-      // Background periodic sync every 40 seconds
-      setInterval(() => {
-        if (!this._isSyncingToCloud) {
-          this.syncFromCloud();
-        }
-      }, 20000);
+      // NOTE: Destructive 20-second interval polling and window focus listeners
+      // have been permanently removed so newly recorded grades and attendance
+      // are never overwritten or erased.
     },
 
     _setSyncStatus: function(status, detail) {
@@ -4534,29 +4525,98 @@
           }
 
           if (studentsList && studentsList.length > 0) {
-            // Guard: If local edits were made more recently than cloud timestamp, push local to cloud instead
+            // Guard 1: If local edits were made more recently than cloud timestamp, push local to cloud instead
             if (this._lastModified > 0 && cloudTimestamp > 0 && this._lastModified > cloudTimestamp + 1000) {
               console.log('Local data is newer than cloud. Syncing local changes to cloud...');
               this.syncToCloud();
               return;
             }
 
-            this._cache = studentsList;
-            if (cloudTimestamp > 0) {
+            // Guard 2: Safe Non-Destructive Merge (never wipe local attendance or subjectScores with empty cloud objects)
+            let hasChanges = false;
+            if (!this._cache || this._cache.length === 0) {
+              this._cache = studentsList;
+              hasChanges = true;
+            } else {
+              const localMap = new Map();
+              this._cache.forEach(s => localMap.set(s.id, s));
+
+              studentsList.forEach(cloudSt => {
+                const localSt = localMap.get(cloudSt.id);
+                if (!localSt) {
+                  this._cache.push(cloudSt);
+                  hasChanges = true;
+                } else {
+                  // Merge attendance records without overwriting local marks
+                  if (cloudSt.attendanceRecords && typeof cloudSt.attendanceRecords === 'object') {
+                    localSt.attendanceRecords = localSt.attendanceRecords || {};
+                    Object.keys(cloudSt.attendanceRecords).forEach(date => {
+                      if (!localSt.attendanceRecords[date]) {
+                        localSt.attendanceRecords[date] = cloudSt.attendanceRecords[date];
+                        hasChanges = true;
+                      }
+                    });
+                  }
+                  if (cloudSt.attendanceNotes && typeof cloudSt.attendanceNotes === 'object') {
+                    localSt.attendanceNotes = localSt.attendanceNotes || {};
+                    Object.keys(cloudSt.attendanceNotes).forEach(date => {
+                      if (!localSt.attendanceNotes[date]) {
+                        localSt.attendanceNotes[date] = cloudSt.attendanceNotes[date];
+                        hasChanges = true;
+                      }
+                    });
+                  }
+                  // Merge subject scores: NEVER replace non-empty local scores with empty cloud
+                  if (cloudSt.subjectScores && typeof cloudSt.subjectScores === 'object' && Object.keys(cloudSt.subjectScores).length > 0) {
+                    localSt.subjectScores = localSt.subjectScores || {};
+                    Object.keys(cloudSt.subjectScores).forEach(subId => {
+                      if (!localSt.subjectScores[subId]) {
+                        localSt.subjectScores[subId] = cloudSt.subjectScores[subId];
+                        hasChanges = true;
+                      } else if (cloudSt.subjectScores[subId].scores) {
+                        localSt.subjectScores[subId].scores = localSt.subjectScores[subId].scores || {};
+                        Object.keys(cloudSt.subjectScores[subId].scores).forEach(period => {
+                          if (!localSt.subjectScores[subId].scores[period]) {
+                            localSt.subjectScores[subId].scores[period] = cloudSt.subjectScores[subId].scores[period];
+                            hasChanges = true;
+                          }
+                        });
+                      }
+                    });
+                  }
+                  // Merge terms scores: preserve non-zero local scores
+                  if (cloudSt.termsScores && typeof cloudSt.termsScores === 'object') {
+                    localSt.termsScores = localSt.termsScores || {};
+                    Object.keys(cloudSt.termsScores).forEach(k => {
+                      if ((!localSt.termsScores[k] || localSt.termsScores[k] === 0) && cloudSt.termsScores[k] > 0) {
+                        localSt.termsScores[k] = cloudSt.termsScores[k];
+                        hasChanges = true;
+                      }
+                    });
+                  }
+                }
+              });
+            }
+
+            if (cloudTimestamp > 0 && cloudTimestamp > this._lastModified) {
               this._lastModified = cloudTimestamp;
             }
             this._ensureStudentFields();
             if (typeof localStorage !== 'undefined') {
               try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(this._cache));
+                const serialized = JSON.stringify(this._cache);
+                localStorage.setItem(STORAGE_KEY, serialized);
                 localStorage.setItem(STORAGE_KEY + '_LAST_MODIFIED', String(this._lastModified));
-                localStorage.setItem('smilekids_school_v6', JSON.stringify(this._cache));
-                localStorage.setItem('smile_kids_students_v7_custom', JSON.stringify(this._cache));
+                localStorage.setItem('SMILE_KIDS_MASTER_DATABASE_2026', serialized);
+                localStorage.setItem('smilekids_school_v6', serialized);
+                localStorage.setItem('smile_kids_students_v7_custom', serialized);
               } catch(e) {}
             }
-            this._setSyncStatus('online', studentsList.length + ' طالب');
-            this._notifyListeners('cloud_pull');
-            if (callback) callback({ success: true, count: studentsList.length });
+            this._setSyncStatus('online', this._cache.length + ' طالب');
+            if (hasChanges) {
+              this._notifyListeners('cloud_pull');
+            }
+            if (callback) callback({ success: true, count: this._cache.length });
             return;
           }
         }
@@ -4606,18 +4666,42 @@
     },
 
     _setupStorageListener: function() {
-      if (typeof window === 'undefined' || !window.addEventListener) return;
-      window.addEventListener('storage', (e) => {
-        if (e.key === STORAGE_KEY && e.newValue) {
-          try {
-            this._cache = JSON.parse(e.newValue);
-            this._ensureStudentFields();
-            this._notifyListeners('remote_storage_sync');
-          } catch(err) {
-            console.error('Remote storage sync error:', err);
-          }
+      if (typeof window === 'undefined') return;
+
+      // 1. BroadcastChannel for instant real-time synchronization between open pages/tabs
+      if (typeof BroadcastChannel !== 'undefined') {
+        try {
+          this._bc = new BroadcastChannel('smile_kids_shared_channel');
+          this._bc.onmessage = (event) => {
+            if (event.data && event.data.type === 'DB_UPDATED' && Array.isArray(event.data.data)) {
+              this._cache = event.data.data;
+              this._lastModified = event.data.timestamp || Date.now();
+              this._ensureStudentFields();
+              this._notifyListeners('broadcast_sync');
+            }
+          };
+        } catch(e) {
+          console.warn('BroadcastChannel initialization error:', e);
         }
-      });
+      }
+
+      // 2. Storage event listener fallback (cross-origin / different window instances)
+      if (window.addEventListener) {
+        window.addEventListener('storage', (e) => {
+          if ((e.key === STORAGE_KEY || e.key === 'smilekids_school_v6' || e.key === 'SMILE_KIDS_MASTER_DATABASE_2026') && e.newValue) {
+            try {
+              const incoming = JSON.parse(e.newValue);
+              if (Array.isArray(incoming) && incoming.length > 0) {
+                this._cache = incoming;
+                this._ensureStudentFields();
+                this._notifyListeners('remote_storage_sync');
+              }
+            } catch(err) {
+              console.error('Remote storage sync error:', err);
+            }
+          }
+        });
+      }
     },
 
     subscribe: function(callback) {
@@ -4648,23 +4732,40 @@
     save: function() {
       if (!this._cache) return;
       this._lastModified = Date.now();
+      const serialized = JSON.stringify(this._cache);
       if (typeof localStorage !== 'undefined') {
         try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(this._cache));
+          localStorage.setItem(STORAGE_KEY, serialized);
           localStorage.setItem(STORAGE_KEY + '_LAST_MODIFIED', String(this._lastModified));
-          // Keep legacy storage keys synchronized for backward safety
-          localStorage.setItem('smilekids_school_v6', JSON.stringify(this._cache));
-          localStorage.setItem('smile_kids_students_v7_custom', JSON.stringify(this._cache));
+          // Keep all legacy and sister storage keys synchronized
+          localStorage.setItem('SMILE_KIDS_MASTER_DATABASE_2026', serialized);
+          localStorage.setItem('smilekids_school_v6', serialized);
+          localStorage.setItem('smile_kids_students_v7_custom', serialized);
         } catch(e) {
           console.warn('DB Save failed:', e);
         }
       }
+
+      // Instant cross-page notification via BroadcastChannel
+      if (this._bc) {
+        try {
+          this._bc.postMessage({
+            type: 'DB_UPDATED',
+            timestamp: this._lastModified,
+            data: this._cache
+          });
+        } catch(err) {
+          console.warn('BroadcastChannel postMessage error:', err);
+        }
+      }
+
       this._notifyListeners('local_save');
+
       // Trigger debounced cloud sync to Google Drive
       if (this._syncDebounceTimer) clearTimeout(this._syncDebounceTimer);
       this._syncDebounceTimer = setTimeout(() => {
         this.syncToCloud();
-      }, 350);
+      }, 500);
     },
 
     getAllStudents: function() {
