@@ -566,60 +566,81 @@
           </div>
         </div>
 
-        <!-- Track & Search & Period Filters -->
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 mt-3 pt-3 border-t border-slate-800/60 flex-wrap">
-          <!-- Track Switcher -->
-          <div class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs font-bold">
-            <button onclick="setGradesTrackFilter('all')" id="btn-grades-track-all" class="px-3 py-1.5 rounded-lg bg-indigo-600 text-white font-black transition">الكل</button>
-            <button onclick="setGradesTrackFilter('languages')" id="btn-grades-track-lang" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">قسم اللغات</button>
-            <button onclick="setGradesTrackFilter('arabic')" id="btn-grades-track-ar" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">قسم العربي</button>
+        <!-- Test Period Selection & Custom Exam Title Bar -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 mt-4 pt-4 border-t border-slate-800/80 items-end text-xs">
+          <!-- 1. Test Period Selector -->
+          <div class="lg:col-span-4">
+            <label class="block text-slate-300 font-black mb-1 flex items-center gap-1.5">
+              <span>📅 اختيار الاختبار / الشهر المراد رصده:</span>
+            </label>
+            <select id="grades-period-select" onchange="onGradesPeriodChange(this.value)" class="w-full bg-slate-900 border border-slate-700 text-white rounded-xl px-3 py-2 font-bold focus:outline-none focus:border-indigo-500">
+              <option value="t1_exam" selected>امتحان منتصف العام (الفصل الأول) - FIRST TERM REPORT</option>
+              <option value="t1_m1">اختبار شهر أكتوبر (شهر 1) - FIRST MONTH REPORT</option>
+              <option value="t1_m2">اختبار شهر نوفمبر (شهر 2) - SECOND MONTH REPORT</option>
+              <option value="t2_m1">اختبار شهر فبراير (شهر 1 ف2) - TERM 2 FIRST MONTH REPORT</option>
+              <option value="t2_m2">اختبار شهر مارس (شهر 2 ف2) - TERM 2 SECOND MONTH REPORT</option>
+              <option value="t2_exam">امتحان نهاية العام الدراسي (الفصل الثاني)</option>
+            </select>
           </div>
 
+          <!-- 2. Custom Title Input for Certificate & Report -->
+          <div class="lg:col-span-5">
+            <label class="block text-amber-300 font-black mb-1 flex items-center justify-between">
+              <span>✏️ عنوان الاختبار المطبوع على الشهادة:</span>
+              <span class="text-[10px] text-slate-400 font-normal">(حرية كتابة العنوان المخصص)</span>
+            </label>
+            <input 
+              type="text" 
+              id="grades-custom-title-input" 
+              value="FIRST TERM REPORT" 
+              placeholder="اكتب عنوان الاختبار (مثلاً: FIRST TERM REPORT أو اختبار شهر أكتوبر)..." 
+              oninput="onGradesCustomTitleChange(this.value)" 
+              class="w-full bg-slate-900 border border-amber-500/40 text-amber-300 rounded-xl px-3 py-2 font-black focus:outline-none focus:border-amber-400"
+            >
+          </div>
+
+          <!-- 3. Track Filter -->
+          <div class="lg:col-span-3">
+            <label class="block text-slate-300 font-black mb-1">القسم / المسار:</label>
+            <div class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs font-bold w-full justify-between">
+              <button onclick="setGradesTrackFilter('all')" id="btn-grades-track-all" class="px-2.5 py-1.5 rounded-lg bg-indigo-600 text-white font-black transition">الكل</button>
+              <button onclick="setGradesTrackFilter('languages')" id="btn-grades-track-lang" class="px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white transition">لغات</button>
+              <button onclick="setGradesTrackFilter('arabic')" id="btn-grades-track-ar" class="px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white transition">عربي</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search & Secondary Toolbar -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 mt-3 pt-3 border-t border-slate-800/60 flex-wrap text-xs">
           <!-- Search Input -->
           <div class="relative w-full sm:w-72">
             <input type="text" id="grades-search-input" oninput="handleGradesSearch(this.value)" placeholder="بحث بالاسم أو الكود..." class="w-full bg-slate-900 border border-slate-800 text-slate-200 placeholder-slate-500 text-xs rounded-xl pr-9 pl-3 py-2 focus:outline-none focus:border-indigo-500">
             <span class="absolute right-3 top-2.5 text-slate-500 text-sm">🔍</span>
           </div>
 
-          <!-- Class Stats Pills -->
-          <div class="flex items-center gap-2 text-xs font-bold">
-            <span class="px-3 py-1 bg-slate-900 rounded-xl border border-slate-800 text-slate-300">العدد: <b id="grades-stat-count" class="text-indigo-400">0</b></span>
-            <span class="px-3 py-1 bg-slate-900 rounded-xl border border-slate-800 text-slate-300">المتفوقين: <b id="grades-stat-honors" class="text-amber-400">0</b></span>
+          <!-- Info Badge -->
+          <div id="grades-period-badge-info" class="text-slate-400 font-medium">
+            <!-- Populated by JS -->
+          </div>
+
+          <!-- Quick Action Buttons for Current Test -->
+          <div class="flex items-center gap-2 flex-wrap">
+            <button onclick="printBatchCertificates()" class="px-3.5 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl text-xs transition flex items-center gap-1.5 shadow-[0_0_15px_rgba(245,158,11,0.35)] active:scale-95" title="طباعة شهادات هذا الاختبار لجميع طلاب الفصل دفعة واحدة بالشكل المعتمد">
+              <span>📜 طباعة جميع شهادات الاختبار للفصل</span>
+            </button>
+            <button onclick="applyUniformGradeForSubjectPrompt()" class="px-3 py-2 bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold border border-slate-700/80 rounded-xl text-xs transition">
+              ⚡ ملء سريع لمادة
+            </button>
           </div>
         </div>
       </div>
 
-      <!-- Grades Interactive Table Card -->
+      <!-- Grades Interactive Table Card (Realistic Subject-by-Subject Sheet for Single Test) -->
       <div class="bg-slate-950/80 border border-slate-800 rounded-3xl p-5 shadow-2xl overflow-hidden">
         <div class="overflow-x-auto">
-          <table class="w-full text-right text-xs border-collapse">
-            <thead>
-              <tr class="bg-slate-900 text-slate-300 border-b border-slate-800">
-                <th class="py-3 px-2 text-center w-10">#</th>
-                <th class="py-3 px-4 min-w-[170px]">اسم الطالب</th>
-                <th class="py-3 px-3 text-center min-w-[90px]">المسار</th>
-                <!-- Term 1 Header -->
-                <th class="py-2 px-1 text-center bg-indigo-950/40 border-r border-indigo-900/50" colspan="4">الفصل الدراسي الأول (Term 1)</th>
-                <!-- Term 2 Header -->
-                <th class="py-2 px-1 text-center bg-blue-950/40 border-r border-blue-900/50" colspan="4">الفصل الدراسي الثاني (Term 2)</th>
-                <th class="py-3 px-3 text-center bg-amber-950/30 text-amber-300 min-w-[75px]">المجموع السنوي</th>
-                <th class="py-3 px-3 text-center min-w-[100px]">التقدير</th>
-                <th class="py-3 px-3 text-center min-w-[90px] no-print">الشهادة</th>
-              </tr>
-              <tr class="bg-slate-900/60 text-[11px] text-slate-400 border-b border-slate-800">
-                <th colspan="3"></th>
-                <!-- Term 1 Sub -->
-                <th class="py-1 px-1 text-center text-indigo-300 bg-indigo-950/20 border-r border-indigo-900/40">ش 1 (20)</th>
-                <th class="py-1 px-1 text-center text-indigo-300 bg-indigo-950/20">ش 2 (20)</th>
-                <th class="py-1 px-1 text-center text-indigo-300 bg-indigo-950/20">امتحان (30)</th>
-                <th class="py-1 px-1 text-center text-indigo-200 font-bold bg-indigo-900/30">مجموع</th>
-                <!-- Term 2 Sub -->
-                <th class="py-1 px-1 text-center text-blue-300 bg-blue-950/20 border-r border-blue-900/40">ش 1 (20)</th>
-                <th class="py-1 px-1 text-center text-blue-300 bg-blue-950/20">ش 2 (20)</th>
-                <th class="py-1 px-1 text-center text-blue-300 bg-blue-950/20">امتحان (30)</th>
-                <th class="py-1 px-1 text-center text-blue-200 font-bold bg-blue-900/30">مجموع</th>
-                <th colspan="3"></th>
-              </tr>
+          <table class="w-full text-right text-xs border-collapse" id="table-grades-master">
+            <thead id="thead-grades-list">
+              <!-- Dynamically rendered based on grade subjects -->
             </thead>
             <tbody id="tbody-grades-list" class="divide-y divide-slate-800/60">
               <!-- Rendered by JS -->
@@ -2041,6 +2062,38 @@
     let gradesSearchQuery = '';
     let certLanguage = 'arabic';
     let certCurrentStudentId = '';
+    let currentGradesPeriod = 't1_exam';
+    let currentGradesCustomTitle = 'FIRST TERM REPORT';
+
+    function onGradesPeriodChange(val) {
+      currentGradesPeriod = val;
+      const titleMap = {
+        't1_m1': 'FIRST MONTH REPORT',
+        't1_m2': 'SECOND MONTH REPORT',
+        't1_exam': 'FIRST TERM REPORT',
+        't2_m1': 'TERM 2 - FIRST MONTH REPORT',
+        't2_m2': 'TERM 2 - SECOND MONTH REPORT',
+        't2_exam': 'SECOND TERM FINAL REPORT'
+      };
+      const titleInp = document.getElementById('grades-custom-title-input');
+      if (titleInp && !titleInp.dataset.userEdited) {
+        currentGradesCustomTitle = titleMap[val] || 'FIRST TERM REPORT';
+        titleInp.value = currentGradesCustomTitle;
+      }
+      // Sync cert-period-select as well
+      const certSel = document.getElementById('cert-period-select');
+      if (certSel) certSel.value = val;
+
+      renderGradesModule();
+      renderCertificatePreview();
+    }
+
+    function onGradesCustomTitleChange(val) {
+      currentGradesCustomTitle = val ? val.trim() : '';
+      const titleInp = document.getElementById('grades-custom-title-input');
+      if (titleInp) titleInp.dataset.userEdited = "true";
+      renderCertificatePreview();
+    }
 
     const ENCOURAGING_PHRASES = {
       arabic: {
@@ -2196,6 +2249,19 @@
         bBadge.innerText = `Grade ${currentGrade} • ${gradesTrackFilter === 'all' ? 'جميع المسارات' : (gradesTrackFilter === 'languages' ? 'لغات' : 'عربي')}`;
       }
 
+      // Update period badge
+      const pBadge = document.getElementById('grades-period-badge-info');
+      if (pBadge) {
+        const titleInp = document.getElementById('grades-custom-title-input');
+        const activeTitle = (titleInp && titleInp.value) ? titleInp.value : currentGradesCustomTitle;
+        pBadge.innerHTML = `الاختبار المعروض: <b class="text-amber-400 font-bold">${activeTitle}</b> • <span class="text-slate-400 text-xs">رصد مباشر لكل مادة</span>`;
+      }
+
+      const thead = document.getElementById('thead-grades-list');
+      const tbody = document.getElementById('tbody-grades-list');
+      if (!tbody) return;
+
+      // Filter students
       const filtered = ALL_STUDENTS.filter(s => {
         if (s.grade !== currentGrade) return false;
         if (gradesTrackFilter !== 'all' && s.track !== gradesTrackFilter) return false;
@@ -2203,9 +2269,7 @@
           const ar = (s.nameAr || '').toLowerCase();
           const en = (s.nameEn || '').toLowerCase();
           const id = (s.id || '').toLowerCase();
-          if (!ar.includes(gradesSearchQuery) && !en.includes(gradesSearchQuery) && !id.includes(gradesSearchQuery)) {
-            return false;
-          }
+          return ar.includes(gradesSearchQuery) || en.includes(gradesSearchQuery) || id.includes(gradesSearchQuery);
         }
         return true;
       });
@@ -2213,48 +2277,80 @@
       const countEl = document.getElementById('grades-stat-count');
       if (countEl) countEl.innerText = filtered.length;
 
-      let honorsCount = 0;
-      filtered.forEach(s => {
-        const sc = s.termsScores || {};
-        const ann = parseFloat(sc.annual_total) || 0;
-        if (ann >= 85) honorsCount++;
-      });
-      const honEl = document.getElementById('grades-stat-honors');
-      if (honEl) honEl.innerText = honorsCount;
+      // Get stage subjects for the table
+      const subjects = getGradeSubjectsConfig(currentGrade, gradesTrackFilter === 'arabic' ? 'arabic' : 'languages');
 
-      const tbody = document.getElementById('tbody-grades-list');
-      if (!tbody) return;
+      // Build THEAD
+      if (thead) {
+        const subjCols = subjects.map(sub => {
+          const isRel = (sub.id === 'religion');
+          const maxBadge = isRel ? `<span class="text-slate-400 text-[10px]">(${sub.max})</span>` : `<span class="text-red-400 text-[10px]">(${sub.max})</span>`;
+          return `<th class="py-2.5 px-2 text-center border-r border-slate-800 min-w-[85px]">${sub.name} ${maxBadge}</th>`;
+        }).join('');
+
+        thead.innerHTML = `
+          <tr class="bg-slate-900 text-slate-300 border-b border-slate-800">
+            <th class="py-3 px-2 text-center w-10">#</th>
+            <th class="py-3 px-4 min-w-[170px]">اسم الطالب</th>
+            <th class="py-3 px-3 text-center min-w-[80px]">المسار</th>
+            ${subjCols}
+            <th class="py-3 px-3 text-center bg-indigo-950/40 text-indigo-300 min-w-[85px]">المجموع</th>
+            <th class="py-3 px-3 text-center min-w-[65px]">النسبة</th>
+            <th class="py-3 px-3 text-center min-w-[110px]">الترتيب</th>
+            <th class="py-3 px-3 text-center min-w-[90px] no-print">الشهادة</th>
+          </tr>
+        `;
+      }
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="12" class="py-8 text-center text-slate-500 font-bold">لا يوجد طلاب مطابقين للبحث في الصف ${currentGrade}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="${subjects.length + 7}" class="py-8 text-center text-slate-500 font-bold">لا يوجد طلاب مطابقين للبحث في الصف ${currentGrade}</td></tr>`;
         return;
       }
 
+      let honorsCount = 0;
+
+      // Render TBODY
       tbody.innerHTML = filtered.map((s, idx) => {
-        const sc = s.termsScores || { t1_m1: 0, t1_m2: 0, t1_exam: 0, t1_total: 0, t2_m1: 0, t2_m2: 0, t2_exam: 0, t2_total: 0, annual_total: 0 };
-        const t1_m1 = parseFloat(sc.t1_m1) || 0;
-        const t1_m2 = parseFloat(sc.t1_m2) || 0;
-        const t1_exam = parseFloat(sc.t1_exam) || 0;
-        const t2_m1 = parseFloat(sc.t2_m1) || 0;
-        const t2_m2 = parseFloat(sc.t2_m2) || 0;
-        const t2_exam = parseFloat(sc.t2_exam) || 0;
+        let totalMax = 0;
+        let totalScore = 0;
 
-        let t1_total = parseFloat(sc.t1_total) || 0;
-        let t2_total = parseFloat(sc.t2_total) || 0;
-        let annual = parseFloat(sc.annual_total) || 0;
+        const maxPScore = currentGradesPeriod.includes('exam') ? 30 : 20;
+        const studentPeriodScore = (s.termsScores && s.termsScores[currentGradesPeriod]) ? parseFloat(s.termsScores[currentGradesPeriod]) : 0;
+        const scoreRatio = maxPScore > 0 ? (studentPeriodScore / maxPScore) : 0;
 
-        // Auto scale if scores exist
-        if (t1_m1 > 0 || t1_m2 > 0 || t1_exam > 0) {
-          t1_total = Math.min(100, Math.round(t1_m1 + t1_m2 + t1_exam + (t1_m1 + t1_m2 + t1_exam > 0 ? 28 : 0)));
-        }
-        if (t2_m1 > 0 || t2_m2 > 0 || t2_exam > 0) {
-          t2_total = Math.min(100, Math.round(t2_m1 + t2_m2 + t2_exam + (t2_m1 + t2_m2 + t2_exam > 0 ? 28 : 0)));
-        }
-        if (t1_total > 0 || t2_total > 0) {
-          annual = Math.round((t1_total + t2_total) / 2);
-        }
+        const subjCells = subjects.map(sub => {
+          const isReligion = (sub.id === 'religion');
+          if (!isReligion) totalMax += sub.max;
 
-        const app = getAppreciation(annual);
+          let val = 0;
+          if (s.subjectScores && s.subjectScores[sub.id] && s.subjectScores[sub.id].scores && s.subjectScores[sub.id].scores[currentGradesPeriod]) {
+            const entry = s.subjectScores[sub.id].scores[currentGradesPeriod];
+            val = (typeof entry === 'object') ? entry.score : entry;
+          } else if (scoreRatio > 0) {
+            val = Math.round(sub.max * Math.min(1.0, scoreRatio) * 2) / 2;
+          }
+          val = parseFloat(val) || 0;
+          if (!isReligion) totalScore += val;
+
+          return `
+            <td class="py-2 px-1 text-center border-r border-slate-800">
+              <input 
+                type="number" 
+                min="0" 
+                max="${sub.max}" 
+                step="0.5" 
+                value="${val}" 
+                oninput="onStudentSubjectInput('${s.id}', '${sub.id}', this.value, ${sub.max})"
+                class="w-14 sm:w-16 text-center py-1 rounded-lg bg-slate-900 font-bold text-slate-200 border border-slate-700 focus:border-indigo-400 focus:outline-none text-xs"
+              >
+            </td>
+          `;
+        }).join('');
+
+        const perc = totalMax > 0 ? Math.round((totalScore / totalMax) * 100) : 0;
+        if (perc >= 85) honorsCount++;
+        const rank = calculateStudentClassRank(s, currentGradesPeriod);
+
         const trackBadge = (s.track === 'languages')
           ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-blue-500/20 text-blue-300 border border-blue-400/30">لغات</span>'
           : '<span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">عربي</span>';
@@ -2263,113 +2359,108 @@
           <tr id="row-st-${s.id}" class="hover:bg-slate-900/60 transition-colors">
             <td class="py-2.5 px-2 text-center text-slate-500 font-mono">${idx + 1}</td>
             <td class="py-2.5 px-4">
-              <div class="font-black text-white text-sm">${s.nameAr}</div>
+              <div class="font-black text-white text-xs sm:text-sm">${s.nameAr}</div>
               <div class="text-[11px] text-slate-400 font-en font-medium">${s.nameEn || ''} <span class="text-slate-600 font-mono text-[10px]">(${s.id})</span></div>
             </td>
             <td class="py-2.5 px-3 text-center">${trackBadge}</td>
-
-            <!-- Term 1 -->
-            <td class="py-2 px-1 text-center bg-indigo-950/20 border-r border-slate-800">
-              <input type="number" min="0" max="20" step="0.5" value="${t1_m1}" onchange="onStudentGradeChange('${s.id}', 't1_m1', this.value)" class="grade-input text-indigo-300">
+            ${subjCells}
+            <td class="py-2 px-2 text-center bg-indigo-950/20 font-black font-en text-indigo-300" id="cell-tot-${s.id}">
+              ${totalScore}
             </td>
-            <td class="py-2 px-1 text-center bg-indigo-950/20">
-              <input type="number" min="0" max="20" step="0.5" value="${t1_m2}" onchange="onStudentGradeChange('${s.id}', 't1_m2', this.value)" class="grade-input text-indigo-300">
+            <td class="py-2 px-2 text-center font-black font-mono text-emerald-400" id="cell-perc-${s.id}">
+              ${perc}%
             </td>
-            <td class="py-2 px-1 text-center bg-indigo-950/20">
-              <input type="number" min="0" max="30" step="0.5" value="${t1_exam}" onchange="onStudentGradeChange('${s.id}', 't1_exam', this.value)" class="grade-input text-indigo-300">
+            <td class="py-2 px-2 text-center text-xs font-bold text-amber-300" id="cell-rank-${s.id}">
+              ${rank}
             </td>
-            <td class="py-2 px-1 text-center bg-indigo-900/30 font-black font-en text-indigo-200" id="cell-t1-tot-${s.id}">
-              ${t1_total}
-            </td>
-
-            <!-- Term 2 -->
-            <td class="py-2 px-1 text-center bg-blue-950/20 border-r border-slate-800">
-              <input type="number" min="0" max="20" step="0.5" value="${t2_m1}" onchange="onStudentGradeChange('${s.id}', 't2_m1', this.value)" class="grade-input text-blue-300">
-            </td>
-            <td class="py-2 px-1 text-center bg-blue-950/20">
-              <input type="number" min="0" max="20" step="0.5" value="${t2_m2}" onchange="onStudentGradeChange('${s.id}', 't2_m2', this.value)" class="grade-input text-blue-300">
-            </td>
-            <td class="py-2 px-1 text-center bg-blue-950/20">
-              <input type="number" min="0" max="30" step="0.5" value="${t2_exam}" onchange="onStudentGradeChange('${s.id}', 't2_exam', this.value)" class="grade-input text-blue-300">
-            </td>
-            <td class="py-2 px-1 text-center bg-blue-900/30 font-black font-en text-blue-200" id="cell-t2-tot-${s.id}">
-              ${t2_total}
-            </td>
-
-            <!-- Annual -->
-            <td class="py-2.5 px-3 text-center font-black font-en text-amber-300 text-sm bg-amber-950/20" id="cell-annual-${s.id}">
-              ${annual}
-            </td>
-
-            <!-- Appreciation Badge -->
-            <td class="py-2.5 px-3 text-center" id="cell-app-${s.id}">
-              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-black border ${app.badge}">
-                ${app.ar}
-              </span>
-            </td>
-
-            <!-- Actions -->
             <td class="py-2.5 px-3 text-center no-print">
-              <button onclick="openCertificateForStudent('${s.id}')" class="px-2.5 py-1 bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 font-black rounded-lg text-[11px] border border-amber-400/40 transition active:scale-95 flex items-center justify-center gap-1 mx-auto" title="عرض واستخراج الشهادة">
+              <button onclick="openCertificateForStudent('${s.id}')" class="px-2.5 py-1 bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 font-black rounded-lg text-[11px] border border-amber-400/40 transition active:scale-95 flex items-center justify-center gap-1 mx-auto" title="عرض واستخراج الشهادة لهذا الاختبار">
                 <span>📜</span> <span>الشهادة</span>
               </button>
             </td>
           </tr>
         `;
       }).join('');
+
+      const honEl = document.getElementById('grades-stat-honors');
+      if (honEl) honEl.innerText = honorsCount;
     }
 
-    function onStudentGradeChange(studentId, scoreKey, val) {
+    function onStudentSubjectInput(studentId, subjectId, val, maxScore) {
+      let v = parseFloat(val) || 0;
+      if (v > maxScore) v = maxScore;
+
       const student = ALL_STUDENTS.find(s => s.id === studentId);
       if (!student) return;
 
-      if (!student.termsScores) {
-        student.termsScores = { t1_m1: 0, t1_m2: 0, t1_exam: 0, t1_total: 0, t2_m1: 0, t2_m2: 0, t2_exam: 0, t2_total: 0, annual_total: 0 };
-      }
-      student.termsScores[scoreKey] = parseFloat(val) || 0;
+      student.subjectScores = student.subjectScores || {};
+      student.subjectScores[subjectId] = student.subjectScores[subjectId] || { scores: {} };
+      student.subjectScores[subjectId].scores[currentGradesPeriod] = {
+        score: v,
+        maxScore: maxScore,
+        updatedAt: new Date().toISOString()
+      };
 
-      // Recalculate totals
-      const sc = student.termsScores;
-      const m1 = parseFloat(sc.t1_m1) || 0;
-      const m2 = parseFloat(sc.t1_m2) || 0;
-      const ex1 = parseFloat(sc.t1_exam) || 0;
-      if (m1 > 0 || m2 > 0 || ex1 > 0) {
-        sc.t1_total = Math.min(100, Math.round(m1 + m2 + ex1 + 28));
-      } else {
-        sc.t1_total = 0;
-      }
+      // Recalculate total for this student
+      const subjects = getGradeSubjectsConfig(student.grade, student.track);
+      let totalScore = 0;
+      let totalMax = 0;
 
-      const m3 = parseFloat(sc.t2_m1) || 0;
-      const m4 = parseFloat(sc.t2_m2) || 0;
-      const ex2 = parseFloat(sc.t2_exam) || 0;
-      if (m3 > 0 || m4 > 0 || ex2 > 0) {
-        sc.t2_total = Math.min(100, Math.round(m3 + m4 + ex2 + 28));
-      } else {
-        sc.t2_total = 0;
-      }
+      subjects.forEach(sub => {
+        if (sub.id !== 'religion') {
+          totalMax += sub.max;
+          let sVal = 0;
+          if (student.subjectScores && student.subjectScores[sub.id] && student.subjectScores[sub.id].scores && student.subjectScores[sub.id].scores[currentGradesPeriod]) {
+            const entry = student.subjectScores[sub.id].scores[currentGradesPeriod];
+            sVal = (typeof entry === 'object') ? entry.score : entry;
+          }
+          totalScore += parseFloat(sVal) || 0;
+        }
+      });
 
-      if (sc.t1_total > 0 || sc.t2_total > 0) {
-        sc.annual_total = Math.round((sc.t1_total + sc.t2_total) / 2);
-      } else {
-        sc.annual_total = 0;
-      }
+      // Update primary termsScores for unified compatibility
+      student.termsScores = student.termsScores || {};
+      student.termsScores[currentGradesPeriod] = totalScore;
 
-      // Update DOM directly for instant reactivity
-      const cT1 = document.getElementById('cell-t1-tot-' + studentId);
-      if (cT1) cT1.innerText = sc.t1_total;
-      const cT2 = document.getElementById('cell-t2-tot-' + studentId);
-      if (cT2) cT2.innerText = sc.t2_total;
-      const cAnn = document.getElementById('cell-annual-' + studentId);
-      if (cAnn) cAnn.innerText = sc.annual_total;
+      // Update live DOM cells
+      const elTot = document.getElementById(`cell-tot-${studentId}`);
+      if (elTot) elTot.innerText = totalScore;
 
-      const app = getAppreciation(sc.annual_total);
-      const cApp = document.getElementById('cell-app-' + studentId);
-      if (cApp) {
-        cApp.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-black border ${app.badge}">${app.ar}</span>`;
-      }
+      const perc = totalMax > 0 ? Math.round((totalScore / totalMax) * 100) : 0;
+      const elPerc = document.getElementById(`cell-perc-${studentId}`);
+      if (elPerc) elPerc.innerText = `${perc}%`;
 
-      // Save to storage and cloud
+      const rank = calculateStudentClassRank(student, currentGradesPeriod);
+      const elRank = document.getElementById(`cell-rank-${studentId}`);
+      if (elRank) elRank.innerText = rank;
+
       saveStudentsToStorage();
+    }
+
+    function applyUniformGradeForSubjectPrompt() {
+      const subjects = getGradeSubjectsConfig(currentGrade, gradesTrackFilter === 'arabic' ? 'arabic' : 'languages');
+      const subjOptions = subjects.map((s, idx) => `${idx + 1}. ${s.name} (عظمى: ${s.max})`).join('\n');
+      const choice = prompt(`اختر رقم المادة لتطبيق درجة موحدة:\n${subjOptions}`);
+      if (!choice) return;
+      const idx = parseInt(choice) - 1;
+      if (isNaN(idx) || idx < 0 || idx >= subjects.length) {
+        alert('اختيار غير صالح');
+        return;
+      }
+      const selSubj = subjects[idx];
+      const valStr = prompt(`أدخل الدرجة الموحدة لمادة [${selSubj.name}] لجميع طلاب الصف (من 0 إلى ${selSubj.max}):`, selSubj.max);
+      if (valStr === null) return;
+      const val = parseFloat(valStr);
+      if (isNaN(val) || val < 0 || val > selSubj.max) {
+        alert(`يرجى إدخال درجة صالحة بين 0 و ${selSubj.max}`);
+        return;
+      }
+
+      const students = ALL_STUDENTS.filter(s => s.grade === currentGrade);
+      students.forEach(st => {
+        onStudentSubjectInput(st.id, selSubj.id, val, selSubj.max);
+      });
+      renderGradesModule();
     }
 
     // ==================== CERTIFICATES MODULE ====================
@@ -2539,7 +2630,7 @@
         't2_m2': 'TERM 2 - SECOND MONTH REPORT',
         't2_exam': 'SECOND TERM FINAL REPORT'
       };
-      const reportHeaderTitle = titleMap[periodKey] || 'FIRST TERM REPORT';
+      const reportHeaderTitle = (currentGradesCustomTitle && currentGradesCustomTitle.trim()) ? currentGradesCustomTitle : (titleMap[periodKey] || 'FIRST TERM REPORT');
 
       // Subjects configuration for student's grade & track
       const subjects = getGradeSubjectsConfig(st.grade, st.track);
