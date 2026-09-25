@@ -430,13 +430,16 @@
             <p class="text-xs text-indigo-200 font-semibold">سجل الحضور والغياب اليومي مع كشف تجميعة الغياب الشهري لكافة الأيام</p>
           </div>
 
-          <!-- Attendance Sub-View Switcher: Daily vs Monthly Summary -->
-          <div class="flex items-center bg-slate-950 p-1.5 rounded-2xl border border-slate-800">
+          <!-- Attendance Sub-View Switcher: Daily vs Monthly Summary vs Period Report -->
+          <div class="flex items-center bg-slate-950 p-1.5 rounded-2xl border border-slate-800 flex-wrap gap-1">
             <button onclick="setAttendanceSubView('daily')" id="btn-att-view-daily" class="px-3.5 py-1.5 rounded-xl text-xs font-black transition flex items-center gap-1.5 bg-emerald-600 text-white shadow">
               <span>تسجيل الحضور اليومي ☀️</span>
             </button>
             <button onclick="setAttendanceSubView('monthly')" id="btn-att-view-monthly" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 text-slate-400 hover:text-white">
               <span>تجميعة الشهر بالتاريخ 📊</span>
+            </button>
+            <button onclick="setAttendanceSubView('period')" id="btn-att-view-period" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 text-slate-400 hover:text-white">
+              <span>تقرير الغياب خلال فترة محددة 📑</span>
             </button>
           </div>
         </div>
@@ -489,11 +492,25 @@
 
       <!-- Monthly Summary Controls Bar -->
       <div id="att-monthly-controls" class="bg-slate-800/70 border border-slate-700/80 rounded-2xl p-4 mb-6 hidden flex-wrap items-center justify-between gap-4 no-print">
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 flex-wrap">
           <label class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
             <span>🗓️ شهر التجميعة:</span>
             <input type="month" id="att-month-picker" onchange="handleMonthChange(this.value)" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none focus:border-indigo-500">
           </label>
+
+          <!-- Track Switcher for Monthly -->
+          <div class="bg-slate-900 p-1 rounded-xl border border-slate-700 flex items-center gap-1 text-xs">
+            <button onclick="setAttTrackFilter('all')" id="btn-att-month-track-all" class="px-3 py-1 rounded-lg font-black bg-indigo-600 text-white">الكل</button>
+            <button onclick="setAttTrackFilter('languages')" id="btn-att-month-track-languages" class="px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white">لغات 🌐</button>
+            <button onclick="setAttTrackFilter('arabic')" id="btn-att-month-track-arabic" class="px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white">عربي 📖</button>
+          </div>
+
+          <!-- Filter Only Absent toggle -->
+          <label class="flex items-center gap-1.5 text-xs font-bold text-slate-300 cursor-pointer bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-700 hover:border-slate-500">
+            <input type="checkbox" id="att-month-only-absent" onchange="toggleAttOnlyAbsent(this.checked)" class="rounded text-red-500 focus:ring-0">
+            <span>عرض الغائبين فقط ⚠️</span>
+          </label>
+
           <!-- Search in Monthly Summary -->
           <div class="relative min-w-[210px] flex-1 max-w-xs">
             <input type="text" id="att-month-search-input" oninput="handleAttSearch(this.value)" placeholder="ابحث باسم الطالب في الشيت الشهري..." class="w-full bg-slate-900 border border-slate-700 rounded-xl py-1.5 pr-8 pl-3 text-xs font-semibold text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition shadow-inner">
@@ -501,10 +518,77 @@
           </div>
         </div>
 
-        <button onclick="window.print()" class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black rounded-xl transition flex items-center gap-1.5 shadow">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-          <span>طباعة الشيت الشهري</span>
-        </button>
+        <div class="flex items-center gap-2">
+          <button onclick="exportMonthlyAttendanceCSV()" class="px-3.5 py-1.5 bg-emerald-600/80 hover:bg-emerald-600 text-white text-xs font-bold rounded-xl transition flex items-center gap-1.5 shadow" title="تصدير كشف الغياب الشهري إلى Excel">
+            <span>📊 تصدير Excel</span>
+          </button>
+          <button onclick="window.print()" class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black rounded-xl transition flex items-center gap-1.5 shadow">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+            <span>طباعة الشيت الشهري</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Period Absence Report Controls Bar -->
+      <div id="att-period-controls" class="bg-slate-800/70 border border-slate-700/80 rounded-2xl p-4 mb-6 hidden flex-col gap-3 no-print">
+        <div class="flex items-center justify-between flex-wrap gap-3">
+          <div class="flex items-center gap-3 flex-wrap">
+            <div class="flex items-center gap-2 bg-slate-900 p-2 rounded-xl border border-slate-700">
+              <label class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                <span>📅 من تاريخ:</span>
+                <input type="date" id="att-period-start" onchange="handlePeriodDateChange()" class="bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-bold text-white focus:outline-none focus:border-indigo-500">
+              </label>
+              <label class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                <span>إلى تاريخ:</span>
+                <input type="date" id="att-period-end" onchange="handlePeriodDateChange()" class="bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-bold text-white focus:outline-none focus:border-indigo-500">
+              </label>
+            </div>
+
+            <!-- Quick Presets -->
+            <div class="flex items-center gap-1 text-xs flex-wrap">
+              <span class="text-slate-400 font-bold ml-1">فترات سريعة:</span>
+              <button onclick="setPeriodPreset('this-week')" class="px-2.5 py-1 bg-slate-900 hover:bg-slate-700 text-slate-300 rounded-lg text-[11px] font-bold border border-slate-700 transition">هذا الأسبوع</button>
+              <button onclick="setPeriodPreset('sep-2026')" class="px-2.5 py-1 bg-slate-900 hover:bg-slate-700 text-slate-300 rounded-lg text-[11px] font-bold border border-slate-700 transition">سبتمبر 2026</button>
+              <button onclick="setPeriodPreset('oct-2026')" class="px-2.5 py-1 bg-slate-900 hover:bg-slate-700 text-slate-300 rounded-lg text-[11px] font-bold border border-slate-700 transition">أكتوبر 2026</button>
+              <button onclick="setPeriodPreset('term-1')" class="px-2.5 py-1 bg-slate-900 hover:bg-slate-700 text-slate-300 rounded-lg text-[11px] font-bold border border-slate-700 transition">الفصل الدراسي الأول</button>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex items-center gap-2">
+            <button onclick="exportPeriodAbsenceCSV()" class="px-3.5 py-1.5 bg-emerald-600/80 hover:bg-emerald-600 text-white text-xs font-bold rounded-xl transition flex items-center gap-1.5 shadow" title="تصدير تقرير الغياب إلى Excel">
+              <span>📊 تصدير Excel</span>
+            </button>
+            <button onclick="window.print()" class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black rounded-xl transition flex items-center gap-1.5 shadow">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+              <span>طباعة تقرير الغياب الرسمي</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Row -->
+        <div class="flex items-center justify-between flex-wrap gap-3 pt-2 border-t border-slate-700/60">
+          <div class="flex items-center gap-3 flex-wrap">
+            <!-- Track Filter for Period -->
+            <div class="bg-slate-900 p-1 rounded-xl border border-slate-700 flex items-center gap-1 text-xs">
+              <button onclick="setAttTrackFilter('all')" id="btn-att-period-track-all" class="px-3 py-1 rounded-lg font-black bg-indigo-600 text-white">الكل</button>
+              <button onclick="setAttTrackFilter('languages')" id="btn-att-period-track-languages" class="px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white">لغات 🌐</button>
+              <button onclick="setAttTrackFilter('arabic')" id="btn-att-period-track-arabic" class="px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white">عربي 📖</button>
+            </div>
+
+            <!-- Only Absent Toggle -->
+            <label class="flex items-center gap-1.5 text-xs font-bold text-slate-300 cursor-pointer bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-700 hover:border-slate-500">
+              <input type="checkbox" id="att-period-only-absent" onchange="toggleAttOnlyAbsent(this.checked)" class="rounded text-red-500 focus:ring-0">
+              <span>عرض الطلاب الغائبين فقط (غياب ≥ 1 يوم) ⚠️</span>
+            </label>
+          </div>
+
+          <!-- Search by Student Name -->
+          <div class="relative min-w-[210px] flex-1 max-w-xs">
+            <input type="text" id="att-period-search-input" oninput="handleAttSearch(this.value)" placeholder="ابحث باسم الطالب في التقرير..." class="w-full bg-slate-900 border border-slate-700 rounded-xl py-1.5 pr-8 pl-3 text-xs font-semibold text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition shadow-inner">
+            <svg class="w-3.5 h-3.5 text-slate-500 absolute right-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </div>
+        </div>
       </div>
 
       <!-- Attendance Table Output Container -->
@@ -553,11 +637,14 @@
 
           <!-- Quick Action Buttons -->
           <div class="flex items-center gap-2 flex-wrap">
+            <button onclick="openConfigureMaxScoresModal()" class="px-3.5 py-2 bg-gradient-to-r from-amber-600 to-amber-700 hover:brightness-110 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow active:scale-95" title="تحديد النهايات العظمى لجميع المواد وتطبيقها تلقائياً">
+              <span>⚙️ تحديد الدرجات العظمى للمواد</span>
+            </button>
             <button onclick="openTeacherGradeFormModal()" class="px-3.5 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:brightness-110 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow-[0_0_15px_rgba(147,51,234,0.3)] active:scale-95" title="رصد درجات مادة كاملة للفصل دفعة واحدة">
               <span>➕ رصد درجات المادة (نموذج المعلمة)</span>
             </button>
-            <button onclick="window.print()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow active:scale-95">
-              <span>🖨️ طباعة شيت الدرجات</span>
+            <button onclick="openPrintGradingSheetsModal()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow active:scale-95" title="طباعة شيت رصد الدرجات اليدوي A4 المنظم">
+              <span>🖨️ طباعة شيت الدرجات (A4 للمعلمات)</span>
             </button>
             <button onclick="if(window.SmileKidsDB) { SmileKidsDB.syncToCloud(); alert('تم بدء الحفظ والمزامنة المباشرة مع Google Drive 🟢'); }" class="px-3.5 py-2 bg-emerald-600/30 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/40 rounded-xl text-xs font-bold transition flex items-center gap-1.5 active:scale-95">
               <span>☁️ حفظ سحابي Google Drive</span>
@@ -908,6 +995,170 @@
     </div>
   </div>
 
+  <!-- Modal: Student Absence Notice (Printable) -->
+  <div id="modal-student-absence-notice" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl">
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950 no-print">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">📄</span>
+          <div>
+            <h3 class="text-lg font-black text-white">إخطار غياب رسمي لولي الأمر</h3>
+            <p class="text-xs text-slate-400">إشعار غياب معتمد من إدارة شؤون الطلاب</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="printStudentAbsenceNotice()" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow">
+            <span>🖨️ طباعة الإخطار</span>
+          </button>
+          <button onclick="closeModal('modal-student-absence-notice')" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div id="student-absence-notice-content" class="p-6 text-slate-200">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Configure Grade Max Scores -->
+  <div id="modal-grade-max-scores" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl">
+      <!-- Header -->
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950 no-print">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl p-2 bg-amber-500/20 text-amber-300 rounded-xl border border-amber-500/30">⚙️</span>
+          <div>
+            <h3 class="text-lg font-black text-white">تحديد وضبط الدرجات العظمى للمواد</h3>
+            <p class="text-xs text-slate-400">تعديل النهاية العظمى لكل مادة وتطبيقها تلقائياً على جداول الرصد والشهادات</p>
+          </div>
+        </div>
+        <button onclick="closeModal('modal-grade-max-scores')" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Grade Selector Pills -->
+      <div class="p-4 bg-slate-950/60 border-b border-slate-800 flex items-center gap-2 overflow-x-auto no-scrollbar">
+        <span class="text-xs font-bold text-slate-400 whitespace-nowrap ml-1">اختر الصف:</span>
+        <div id="max-scores-grade-pills" class="flex items-center gap-1.5 flex-nowrap">
+          <!-- Grade buttons rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Body / Subject Inputs Container -->
+      <div class="p-5 overflow-y-auto flex-1 space-y-4" id="max-scores-inputs-container">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Footer & Actions -->
+      <div class="p-4 border-t border-slate-800 bg-slate-950 flex flex-wrap items-center justify-between gap-3 no-print">
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-slate-400 font-bold">المجموع الكلي للنهايات العظمى:</span>
+          <span id="max-scores-total-sum" class="px-2.5 py-1 bg-amber-500/20 text-amber-300 font-black rounded-lg border border-amber-500/30 text-sm font-mono">0</span>
+          <span class="text-xs text-slate-500">درجة</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="resetDefaultMaxScoresForGrade()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold transition">
+            🔄 استعادة الافتراضي
+          </button>
+          <button onclick="saveCustomMaxScores()" class="px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-700 hover:brightness-110 text-white font-black rounded-xl text-xs transition shadow flex items-center gap-1.5 active:scale-95">
+            <span>💾 حفظ وتطبيق فوراً</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Print Teacher Manual Grading Sheets (A4) -->
+  <div id="modal-print-grading-sheets" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-4xl w-full max-h-[92vh] flex flex-col overflow-hidden shadow-2xl">
+      <!-- Header -->
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950 no-print">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl p-2 bg-indigo-500/20 text-indigo-300 rounded-xl border border-indigo-500/30">🖨️</span>
+          <div>
+            <h3 class="text-lg font-black text-white">طباعة شيت رصد الدرجات المنظم (A4 للمعلمات)</h3>
+            <p class="text-xs text-slate-400">شيت منظم ومحدد لكل صف في صفحة A4 مستقلة للرصد اليدوي بالقلم (لغات ثم عربي)</p>
+          </div>
+        </div>
+        <button onclick="closeModal('modal-print-grading-sheets')" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Controls -->
+      <div class="p-5 overflow-y-auto flex-1 space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Scope Selection -->
+          <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-800">
+            <label class="block text-xs font-black text-slate-300 mb-2">📑 نطاق الصفوف المطلوب طباعتها:</label>
+            <div class="space-y-2">
+              <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-indigo-500 transition">
+                <input type="radio" name="print-scope" value="current" checked onchange="updatePrintSheetsPreview()" class="text-indigo-600 focus:ring-0">
+                <span class="text-xs font-bold text-white" id="print-current-grade-label">الصف الحالي فقط (Grade 1)</span>
+              </label>
+              <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-indigo-500 transition">
+                <input type="radio" name="print-scope" value="all" onchange="updatePrintSheetsPreview()" class="text-indigo-600 focus:ring-0">
+                <span class="text-xs font-bold text-white">جميع الصفوف (Grade 1 إلى Grade 9) — كل صف في ورقة A4 مستقلة</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Exam Title and Blank Mode -->
+          <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-800 space-y-3">
+            <div>
+              <label class="block text-xs font-black text-slate-300 mb-1">✍️ عنوان الاختبار / الشهر المطبوع في رأس الصفحة:</label>
+              <input type="text" id="print-sheet-exam-title" oninput="updatePrintSheetsPreview()" value="اختبار شهر أكتوبر (شهر 1)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white font-bold focus:outline-none focus:border-indigo-500">
+            </div>
+            <div>
+              <label class="block text-xs font-black text-slate-300 mb-1.5">📝 محتوى خلايا الرصد في الجدول:</label>
+              <div class="flex items-center gap-3">
+                <label class="flex items-center gap-1.5 text-xs font-bold text-white cursor-pointer">
+                  <input type="radio" name="print-data-mode" value="blank" checked onchange="updatePrintSheetsPreview()" class="text-indigo-600">
+                  <span>خانات بيضاء فارغة لكتابة المعلمات بالقلم ✍️</span>
+                </label>
+                <label class="flex items-center gap-1.5 text-xs font-bold text-slate-400 cursor-pointer">
+                  <input type="radio" name="print-data-mode" value="filled" onchange="updatePrintSheetsPreview()" class="text-indigo-600">
+                  <span>تضمين الدرجات المسجلة حالياً 📊</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Preview Header -->
+        <div class="border-t border-slate-800 pt-3">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-black text-slate-300 flex items-center gap-1.5">
+              <span>👁️ نموذج مصغر لشيت الطباعة (A4 Landscape):</span>
+            </span>
+            <span class="text-[11px] text-amber-400 font-bold bg-amber-500/10 px-2.5 py-0.5 rounded-lg border border-amber-500/20">
+              مهيأ تلقائياً للطباعة المباشرة بحجم A4 بالعرض بدون حشو وبأعلى درجات التنظيم
+            </span>
+          </div>
+          <!-- Preview Box with scroll and scale -->
+          <div class="bg-slate-950 p-2 sm:p-3 rounded-2xl border border-slate-800 overflow-x-auto max-h-80">
+            <div id="print-sheets-live-preview" class="bg-white text-black p-3 rounded shadow text-xs min-w-[750px]">
+              <!-- Live preview rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer & Action Buttons -->
+      <div class="p-4 border-t border-slate-800 bg-slate-950 flex items-center justify-between no-print">
+        <button onclick="closeModal('modal-print-grading-sheets')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl text-xs transition">
+          إلغاء
+        </button>
+        <button onclick="executePrintGradingSheets()" class="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:brightness-110 text-white font-black rounded-xl text-xs sm:text-sm transition shadow-[0_0_20px_rgba(99,102,241,0.4)] flex items-center gap-2 active:scale-95">
+          <span>🖨️ بدء طباعة الشيت (A4)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="border-t border-slate-800/80 bg-slate-950 py-5 text-center text-xs text-slate-500 font-semibold no-print mt-auto">
     <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-2">
@@ -960,10 +1211,13 @@
     let searchQuery = '';
 
     // Attendance State
-    let currentAttSubView = 'daily'; // 'daily' or 'monthly'
+    let currentAttSubView = 'daily'; // 'daily', 'monthly', or 'period'
     let currentAttDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
     let currentAttMonth = currentAttDate.substring(0, 7); // YYYY-MM
+    let currentAttPeriodStart = currentAttDate.substring(0, 7) + '-01'; // YYYY-MM-01
+    let currentAttPeriodEnd = currentAttDate; // YYYY-MM-DD
     let currentAttTrackFilter = 'all'; // 'all', 'languages', 'arabic'
+    let attOnlyAbsentFilter = false;
     let attSearchQuery = '';
 
     function init() {
@@ -987,6 +1241,10 @@
       if (datePicker) datePicker.value = currentAttDate;
       const monthPicker = document.getElementById('att-month-picker');
       if (monthPicker) monthPicker.value = currentAttMonth;
+      const periodStart = document.getElementById('att-period-start');
+      if (periodStart) periodStart.value = currentAttPeriodStart;
+      const periodEnd = document.getElementById('att-period-end');
+      if (periodEnd) periodEnd.value = currentAttPeriodEnd;
 
       updateGlobalKPIs();
       renderGradePills();
@@ -1513,8 +1771,10 @@
       attSearchQuery = (val || '').trim();
       const i1 = document.getElementById('att-search-input');
       const i2 = document.getElementById('att-month-search-input');
+      const i3 = document.getElementById('att-period-search-input');
       if (i1 && i1.value !== val) i1.value = val;
       if (i2 && i2.value !== val) i2.value = val;
+      if (i3 && i3.value !== val) i3.value = val;
       renderAttendanceModule();
     }
 
@@ -1522,24 +1782,53 @@
       currentAttSubView = subView;
       const btnDaily = document.getElementById('btn-att-view-daily');
       const btnMonthly = document.getElementById('btn-att-view-monthly');
+      const btnPeriod = document.getElementById('btn-att-view-period');
       const dailyControls = document.getElementById('att-daily-controls');
       const monthlyControls = document.getElementById('att-monthly-controls');
+      const periodControls = document.getElementById('att-period-controls');
 
-      if (subView === 'daily') {
-        btnDaily.className = 'px-3.5 py-1.5 rounded-xl text-xs font-black transition flex items-center gap-1.5 bg-emerald-600 text-white shadow';
-        btnMonthly.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 text-slate-400 hover:text-white';
-        dailyControls.classList.remove('hidden');
-        dailyControls.classList.add('flex');
-        monthlyControls.classList.add('hidden');
-        monthlyControls.classList.remove('flex');
-      } else {
-        btnDaily.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 text-slate-400 hover:text-white';
-        btnMonthly.className = 'px-3.5 py-1.5 rounded-xl text-xs font-black transition flex items-center gap-1.5 bg-emerald-600 text-white shadow';
-        dailyControls.classList.add('hidden');
-        dailyControls.classList.remove('flex');
-        monthlyControls.classList.remove('hidden');
-        monthlyControls.classList.add('flex');
+      [
+        { el: btnDaily, active: subView === 'daily' },
+        { el: btnMonthly, active: subView === 'monthly' },
+        { el: btnPeriod, active: subView === 'period' }
+      ].forEach(item => {
+        if (item.el) {
+          item.el.className = item.active
+            ? 'px-3.5 py-1.5 rounded-xl text-xs font-black transition flex items-center gap-1.5 bg-emerald-600 text-white shadow'
+            : 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 text-slate-400 hover:text-white';
+        }
+      });
+
+      if (dailyControls) {
+        if (subView === 'daily') {
+          dailyControls.classList.remove('hidden');
+          dailyControls.classList.add('flex');
+        } else {
+          dailyControls.classList.add('hidden');
+          dailyControls.classList.remove('flex');
+        }
       }
+
+      if (monthlyControls) {
+        if (subView === 'monthly') {
+          monthlyControls.classList.remove('hidden');
+          monthlyControls.classList.add('flex');
+        } else {
+          monthlyControls.classList.add('hidden');
+          monthlyControls.classList.remove('flex');
+        }
+      }
+
+      if (periodControls) {
+        if (subView === 'period') {
+          periodControls.classList.remove('hidden');
+          periodControls.classList.add('flex');
+        } else {
+          periodControls.classList.add('hidden');
+          periodControls.classList.remove('flex');
+        }
+      }
+
       setTimeout(updatePrintHeader, 50);
       renderAttendanceModule();
     }
@@ -1556,23 +1845,86 @@
       renderAttendanceModule();
     }
 
+    function handlePeriodDateChange() {
+      const s = document.getElementById('att-period-start');
+      const e = document.getElementById('att-period-end');
+      if (s && s.value) currentAttPeriodStart = s.value;
+      if (e && e.value) currentAttPeriodEnd = e.value;
+      setTimeout(updatePrintHeader, 50);
+      renderAttendanceModule();
+    }
+
+    function setPeriodPreset(preset) {
+      const today = new Date();
+      const pad = n => (n < 10 ? '0' + n : '' + n);
+      const fmt = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+
+      if (preset === 'this-week') {
+        const start = new Date(today);
+        start.setDate(today.getDate() - 6);
+        currentAttPeriodStart = fmt(start);
+        currentAttPeriodEnd = fmt(today);
+      } else if (preset === 'sep-2026') {
+        currentAttPeriodStart = '2026-09-01';
+        currentAttPeriodEnd = '2026-09-30';
+      } else if (preset === 'oct-2026') {
+        currentAttPeriodStart = '2026-10-01';
+        currentAttPeriodEnd = '2026-10-31';
+      } else if (preset === 'term-1') {
+        currentAttPeriodStart = '2026-09-01';
+        currentAttPeriodEnd = fmt(today);
+      }
+
+      const s = document.getElementById('att-period-start');
+      const e = document.getElementById('att-period-end');
+      if (s) s.value = currentAttPeriodStart;
+      if (e) e.value = currentAttPeriodEnd;
+
+      setTimeout(updatePrintHeader, 50);
+      renderAttendanceModule();
+    }
+
+    function toggleAttOnlyAbsent(checked) {
+      attOnlyAbsentFilter = !!checked;
+      const mCb = document.getElementById('att-month-only-absent');
+      const pCb = document.getElementById('att-period-only-absent');
+      if (mCb) mCb.checked = attOnlyAbsentFilter;
+      if (pCb) pCb.checked = attOnlyAbsentFilter;
+      renderAttendanceModule();
+    }
+
     function setAttTrackFilter(track) {
       currentAttTrackFilter = track;
       ['all', 'languages', 'arabic'].forEach(t => {
-        const btn = document.getElementById('btn-att-track-' + t);
-        if (btn) {
-          btn.className = (t === track) ? 'px-3 py-1 rounded-lg font-black bg-indigo-600 text-white' : 'px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white';
-        }
+        ['btn-att-track-', 'btn-att-month-track-', 'btn-att-period-track-'].forEach(prefix => {
+          const btn = document.getElementById(prefix + t);
+          if (btn) {
+            btn.className = (t === track)
+              ? 'px-3 py-1 rounded-lg font-black bg-indigo-600 text-white'
+              : 'px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white';
+          }
+        });
       });
       renderAttendanceModule();
     }
 
-    function getStudentAttendance(studentId, dateStr) {
+    function getStudentAttendanceStatus(studentId, dateStr) {
       if (window.SmileKidsDB) {
-        return window.SmileKidsDB.getAttendance(studentId, dateStr);
+        const st = window.SmileKidsDB.getStudentById(studentId);
+        if (st && st.attendanceRecords && st.attendanceRecords[dateStr]) {
+          return st.attendanceRecords[dateStr];
+        }
       }
       const st = ALL_STUDENTS.find(s => s.id === studentId);
-      return (st && st.attendanceRecords && st.attendanceRecords[dateStr]) || 'present';
+      if (st && st.attendanceRecords && st.attendanceRecords[dateStr]) {
+        return st.attendanceRecords[dateStr];
+      }
+      return null;
+    }
+
+    function getStudentAttendance(studentId, dateStr) {
+      const status = getStudentAttendanceStatus(studentId, dateStr);
+      return status || 'present';
     }
 
     function setStudentAttendance(studentId, dateStr, status) {
@@ -1587,6 +1939,12 @@
         saveStudentsToStorage();
       }
       renderAttendanceModule();
+    }
+
+    function toggleStudentAttendanceMonthly(studentId, dateStr) {
+      const cur = getStudentAttendanceStatus(studentId, dateStr);
+      const next = (cur === 'absent') ? 'present' : 'absent';
+      setStudentAttendance(studentId, dateStr, next);
     }
 
     function markAllAttendance(status) {
@@ -1610,7 +1968,8 @@
     function renderAttendanceModule() {
       const g = currentGrade || 1;
       const info = GRADE_CONFIG[g];
-      document.getElementById('att-banner-grade-title').innerText = `${info.ar} (${info.en})`;
+      const titleBanner = document.getElementById('att-banner-grade-title');
+      if (titleBanner) titleBanner.innerText = `${info.ar} (${info.en})`;
 
       let students = ALL_STUDENTS.filter(s => s.grade === g);
       if (currentAttTrackFilter !== 'all') {
@@ -1625,11 +1984,14 @@
       }
 
       const container = document.getElementById('attendance-content-container');
+      if (!container) return;
 
       if (currentAttSubView === 'daily') {
         renderDailyAttendanceTable(container, students, g);
-      } else {
+      } else if (currentAttSubView === 'monthly') {
         renderMonthlySummaryGrid(container, students, g);
+      } else if (currentAttSubView === 'period') {
+        renderPeriodAbsenceReport(container, students, g);
       }
     }
 
@@ -1729,88 +2091,613 @@
     }
 
     function renderMonthlySummaryGrid(container, students, gradeNum) {
-      const year = parseInt(currentAttMonth.split('-')[0]);
-      const month = parseInt(currentAttMonth.split('-')[1]);
+      const parts = currentAttMonth.split('-');
+      const year = parseInt(parts[0]) || 2026;
+      const month = parseInt(parts[1]) || 9;
       const daysInMonth = new Date(year, month, 0).getDate();
 
       // Day headers
       let dayHeaders = '';
       for (let d = 1; d <= daysInMonth; d++) {
-        dayHeaders += `<th class="py-2 px-1 text-center font-bold text-[10px] w-6 border-x border-slate-700">${d}</th>`;
+        const dObj = new Date(year, month - 1, d);
+        const isWeekend = (dObj.getDay() === 5 || dObj.getDay() === 6);
+        const weekendClass = isWeekend ? 'bg-slate-950/60 text-slate-500' : 'text-slate-300';
+        dayHeaders += `<th class="py-2 px-1 text-center font-bold text-[10px] w-6 border-x border-slate-700 ${weekendClass}" title="يوم ${d}">${d}</th>`;
       }
 
+      // Process students and calculate month statistics
+      let totalAbsenceCountInMonth = 0;
+      let totalPresentCountInMonth = 0;
+      let studentsWithAbsence = 0;
+
+      const processed = students.map(s => {
+        let stPresent = 0, stAbsent = 0;
+        const absentDatesList = [];
+        let daysCells = '';
+
+        for (let d = 1; d <= daysInMonth; d++) {
+          const dStr = d < 10 ? `0${d}` : `${d}`;
+          const dateFull = `${currentAttMonth}-${dStr}`;
+          const dObj = new Date(year, month - 1, d);
+          const isWeekend = (dObj.getDay() === 5 || dObj.getDay() === 6);
+          const recStatus = getStudentAttendanceStatus(s.id, dateFull);
+
+          let mark = '';
+          if (recStatus === 'absent') {
+            stAbsent++;
+            absentDatesList.push(dateFull);
+            mark = `<span onclick="toggleStudentAttendanceMonthly('${s.id}', '${dateFull}')" class="text-red-400 font-bold bg-red-950/90 px-1 py-0.5 rounded cursor-pointer hover:scale-110 transition inline-block text-[11px]" title="غائب في ${dateFull} (انقر للتعديل)">غ</span>`;
+          } else if (recStatus === 'present') {
+            stPresent++;
+            mark = `<span onclick="toggleStudentAttendanceMonthly('${s.id}', '${dateFull}')" class="text-emerald-400 font-bold cursor-pointer hover:bg-slate-700/60 px-1 py-0.5 rounded transition inline-block text-[11px]" title="حاضر في ${dateFull} (انقر للتعديل)">ح</span>`;
+          } else {
+            // Unrecorded
+            if (isWeekend) {
+              mark = `<span class="text-slate-600 text-[9px] select-none" title="عطلة رسمية (جمعة/سبت)">-</span>`;
+            } else {
+              stPresent++;
+              mark = `<span onclick="toggleStudentAttendanceMonthly('${s.id}', '${dateFull}')" class="text-emerald-500/60 font-semibold cursor-pointer hover:bg-slate-700/60 px-1 py-0.5 rounded transition inline-block text-[11px]" title="حاضر (انقر لتسجيل غياب)">ح</span>`;
+            }
+          }
+
+          const cellBg = isWeekend ? 'bg-slate-950/30' : '';
+          daysCells += `<td class="py-1.5 px-0.5 text-center border-x border-slate-700/40 ${cellBg}">${mark}</td>`;
+        }
+
+        totalAbsenceCountInMonth += stAbsent;
+        totalPresentCountInMonth += stPresent;
+        if (stAbsent > 0) studentsWithAbsence++;
+
+        const totalDays = stPresent + stAbsent;
+        const rate = totalDays > 0 ? Math.round((stPresent / totalDays) * 100) : 100;
+
+        return {
+          student: s,
+          stPresent,
+          stAbsent,
+          rate,
+          daysCells,
+          absentDatesList
+        };
+      });
+
+      // Filter if attOnlyAbsentFilter is true
+      const displayList = attOnlyAbsentFilter 
+        ? processed.filter(item => item.stAbsent > 0)
+        : processed;
+
+      const totalRecorded = totalPresentCountInMonth + totalAbsenceCountInMonth;
+      const monthRate = totalRecorded > 0 ? Math.round((totalPresentCountInMonth / totalRecorded) * 100) : 100;
+
       container.innerHTML = `
-        <div class="bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl">
-          <div class="bg-gradient-to-r from-slate-950 to-indigo-950 px-6 py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
-            <div>
-              <h3 class="font-black text-white text-base">تجميعة غياب الشهر بالتاريخ — ${GRADE_CONFIG[gradeNum].ar}</h3>
-              <p class="text-xs text-indigo-300 font-bold mt-0.5">شهر: ${currentAttMonth} • إجمالي طلاب الفصل: ${students.length} طالب</p>
+        <div class="space-y-4">
+          <!-- Monthly KPI Banner -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 no-print">
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 flex items-center gap-3">
+              <span class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl">👥</span>
+              <div>
+                <div class="text-[11px] text-slate-400 font-bold">إجمالي طلاب الصف</div>
+                <div class="text-lg font-black text-white">${students.length} طالب</div>
+              </div>
             </div>
-            
-            <div class="flex items-center gap-3 text-xs font-bold text-slate-300">
-              <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span> ح = حاضر</span>
-              <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span> غ = غائب</span>
+
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 flex items-center gap-3">
+              <span class="w-10 h-10 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center text-xl">⚠️</span>
+              <div>
+                <div class="text-[11px] text-slate-400 font-bold">إجمالي أيام الغياب بالشهر</div>
+                <div class="text-lg font-black text-red-400">${totalAbsenceCountInMonth} يوم غياب</div>
+              </div>
+            </div>
+
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 flex items-center gap-3">
+              <span class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl">🔔</span>
+              <div>
+                <div class="text-[11px] text-slate-400 font-bold">الطلاب ذوي الغياب</div>
+                <div class="text-lg font-black text-amber-300">${studentsWithAbsence} طالب</div>
+              </div>
+            </div>
+
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 flex items-center gap-3">
+              <span class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl">📈</span>
+              <div>
+                <div class="text-[11px] text-slate-400 font-bold">متوسط نسبة الحضور</div>
+                <div class="text-lg font-black text-emerald-400">${monthRate}%</div>
+              </div>
             </div>
           </div>
 
-          <div class="overflow-x-auto">
-            <table class="w-full text-right text-xs">
-              <thead>
-                <tr class="bg-slate-900 text-slate-300 border-b border-slate-700">
-                  <th class="py-2 px-2 text-center w-8 font-black">م</th>
-                  <th class="py-2 px-3 font-black min-w-[170px]">اسم الطالب</th>
-                  <th class="py-2 px-2 text-center font-black w-14">القسم</th>
-                  ${dayHeaders}
-                  <th class="py-2 px-2 text-center font-black bg-emerald-950/80 text-emerald-300 w-12">حضور</th>
-                  <th class="py-2 px-2 text-center font-black bg-red-950/80 text-red-300 w-12">غياب</th>
-                  <th class="py-2 px-2 text-center font-black bg-blue-950/80 text-blue-300 w-14">النسبة</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-700/60 font-mono">
-                ${students.length === 0 ? `<tr><td colspan="${daysInMonth + 6}" class="py-10 text-center text-slate-500 font-bold font-sans">لا يوجد طلاب مطابقين للبحث في هذا الفصل</td></tr>` : ''}
-                ${students.map((s, idx) => {
-                  let stPresent = 0, stAbsent = 0;
-                  let daysCells = '';
+          <!-- Main Table Card -->
+          <div class="bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl section-card">
+            <div class="bg-gradient-to-r from-slate-950 to-indigo-950 px-6 py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4 print-section-header">
+              <div>
+                <h3 class="font-black text-white text-base">كشف تجميعة الغياب والحضور الشهري — ${GRADE_CONFIG[gradeNum].ar}</h3>
+                <p class="text-xs text-indigo-300 font-bold mt-0.5">شهر: ${currentAttMonth} • إجمالي طلاب الفصل: ${students.length} (المعروض: ${displayList.length})</p>
+              </div>
+              
+              <div class="flex items-center gap-3 text-xs font-bold text-slate-300 no-print">
+                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span> ح = حاضر</span>
+                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-500 inline-block"></span> غ = غائب (انقر للتعديل)</span>
+                <button onclick="setAttendanceSubView('period')" class="mr-2 px-3 py-1 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 rounded-lg border border-amber-500/30 transition text-xs font-bold flex items-center gap-1">
+                  <span>📑 تقرير تفصيلي بفترة محددة</span>
+                </button>
+              </div>
+            </div>
 
-                  for (let d = 1; d <= daysInMonth; d++) {
-                    const dStr = d < 10 ? `0${d}` : `${d}`;
-                    const dateFull = `${currentAttMonth}-${dStr}`;
-                    const hasRecord = ATTENDANCE_DATA[s.id] && ATTENDANCE_DATA[s.id][dateFull];
-                    const status = hasRecord ? ATTENDANCE_DATA[s.id][dateFull] : 'present';
+            <div class="overflow-x-auto">
+              <table class="w-full text-right text-xs">
+                <thead>
+                  <tr class="bg-slate-900 text-slate-300 border-b border-slate-700">
+                    <th class="py-2.5 px-2 text-center w-8 font-black">م</th>
+                    <th class="py-2.5 px-3 font-black min-w-[170px]">اسم الطالب رباعي</th>
+                    <th class="py-2.5 px-2 text-center font-black w-14">القسم</th>
+                    ${dayHeaders}
+                    <th class="py-2.5 px-2 text-center font-black bg-emerald-950/80 text-emerald-300 w-14">حضور</th>
+                    <th class="py-2.5 px-2 text-center font-black bg-red-950/80 text-red-300 w-14">غياب</th>
+                    <th class="py-2.5 px-2 text-center font-black bg-blue-950/80 text-blue-300 w-14">النسبة</th>
+                    <th class="py-2.5 px-2 text-center font-black w-20 no-print">الحالة</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700/60 font-mono">
+                  ${displayList.length === 0 ? `<tr><td colspan="${daysInMonth + 7}" class="py-10 text-center text-slate-500 font-bold font-sans">لا يوجد طلاب مطابقين للبحث أو الفلتر</td></tr>` : ''}
+                  ${displayList.map((item, idx) => {
+                    const s = item.student;
+                    const statusBadge = (item.stAbsent === 0)
+                      ? '<span class="text-emerald-400 font-black text-[10px]">منتظم 🟢</span>'
+                      : (item.stAbsent <= 2)
+                        ? '<span class="text-amber-400 font-bold text-[10px]">تنبيه 🟡</span>'
+                        : '<span class="text-rose-400 font-black text-[10px]">إنذار غياب 🔴</span>';
 
-                    let mark = '<span class="text-emerald-400 font-bold">ح</span>';
-                    if (status === 'present') {
-                      stPresent++;
-                    } else {
-                      stAbsent++;
-                      mark = '<span class="text-red-400 font-bold bg-red-950/80 px-1 rounded">غ</span>';
-                    }
+                    const absentBadge = (item.stAbsent > 0)
+                      ? `<span class="bg-red-500/20 text-red-300 px-1.5 py-0.5 rounded font-black border border-red-500/30">${item.stAbsent}</span>`
+                      : `<span class="text-slate-500">0</span>`;
 
-                    daysCells += `<td class="py-2 px-1 text-center border-x border-slate-700/40 text-[11px]">${mark}</td>`;
-                  }
-
-                  const totalDays = stPresent + stAbsent;
-                  const rate = totalDays > 0 ? Math.round((stPresent / totalDays) * 100) : 100;
-
-                  return `
-                    <tr class="hover:bg-slate-700/40 transition">
-                      <td class="py-2 px-2 text-center text-slate-400 font-bold font-sans">${idx + 1}</td>
-                      <td class="py-2 px-3 font-bold text-white font-sans whitespace-nowrap">${s.nameAr}</td>
-                      <td class="py-2 px-2 text-center font-sans text-[11px]">
-                        <span class="${s.track === 'arabic' ? 'text-emerald-400' : 'text-blue-400'}">${s.track === 'arabic' ? 'عربي' : 'لغات'}</span>
-                      </td>
-                      ${daysCells}
-                      <td class="py-2 px-2 text-center font-bold text-emerald-400 bg-emerald-950/40">${stPresent}</td>
-                      <td class="py-2 px-2 text-center font-bold text-red-400 bg-red-950/40">${stAbsent}</td>
-                      <td class="py-2 px-2 text-center font-black text-blue-400 bg-blue-950/40">${rate}%</td>
-                    </tr>
-                  `;
-                }).join('')}
-              </tbody>
-            </table>
+                    return `
+                      <tr class="hover:bg-slate-700/40 transition">
+                        <td class="py-2 px-2 text-center text-slate-400 font-bold font-sans">${idx + 1}</td>
+                        <td class="py-2 px-3 font-bold text-white font-sans whitespace-nowrap">
+                          <div>${s.nameAr}</div>
+                          <div class="text-[10px] text-slate-400 font-mono no-print">${s.id}</div>
+                        </td>
+                        <td class="py-2 px-2 text-center font-sans text-[11px]">
+                          <span class="${s.track === 'arabic' ? 'text-emerald-400' : 'text-blue-400'} font-bold">${s.track === 'arabic' ? 'عربي' : 'لغات'}</span>
+                        </td>
+                        ${item.daysCells}
+                        <td class="py-2 px-2 text-center font-bold text-emerald-400 bg-emerald-950/40">${item.stPresent}</td>
+                        <td class="py-2 px-2 text-center font-bold bg-red-950/40">${absentBadge}</td>
+                        <td class="py-2 px-2 text-center font-black text-blue-400 bg-blue-950/40">${item.rate}%</td>
+                        <td class="py-2 px-2 text-center font-sans no-print">${statusBadge}</td>
+                      </tr>
+                    `;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       `;
+    }
+
+    function renderPeriodAbsenceReport(container, students, gradeNum) {
+      if (!currentAttPeriodStart) currentAttPeriodStart = `${currentAttMonth}-01`;
+      if (!currentAttPeriodEnd) currentAttPeriodEnd = currentAttDate;
+
+      let startDate = currentAttPeriodStart;
+      let endDate = currentAttPeriodEnd;
+      if (startDate > endDate) {
+        const tmp = startDate;
+        startDate = endDate;
+        endDate = tmp;
+      }
+
+      // Generate all dates in period
+      const allDates = [];
+      const cur = new Date(startDate);
+      const endD = new Date(endDate);
+      while (cur <= endD) {
+        const y = cur.getFullYear();
+        const m = (cur.getMonth() + 1 < 10) ? '0' + (cur.getMonth() + 1) : '' + (cur.getMonth() + 1);
+        const d = (cur.getDate() < 10) ? '0' + cur.getDate() : '' + cur.getDate();
+        allDates.push(`${y}-${m}-${d}`);
+        cur.setDate(cur.getDate() + 1);
+      }
+
+      let totalAbsenceDaysInPeriod = 0;
+      let totalPresentDaysInPeriod = 0;
+      let absentStudentsCount = 0;
+
+      const processed = students.map(s => {
+        let stAbsent = 0;
+        let stPresent = 0;
+        const absentDates = [];
+
+        allDates.forEach(dateStr => {
+          const status = getStudentAttendanceStatus(s.id, dateStr);
+          if (status === 'absent') {
+            stAbsent++;
+            absentDates.push(dateStr);
+          } else {
+            stPresent++;
+          }
+        });
+
+        totalAbsenceDaysInPeriod += stAbsent;
+        totalPresentDaysInPeriod += stPresent;
+        if (stAbsent > 0) absentStudentsCount++;
+
+        const totalDays = stAbsent + stPresent;
+        const rate = totalDays > 0 ? Math.round((stPresent / totalDays) * 100) : 100;
+
+        return {
+          student: s,
+          stAbsent,
+          stPresent,
+          totalDays,
+          rate,
+          absentDates
+        };
+      });
+
+      const displayList = attOnlyAbsentFilter 
+        ? processed.filter(item => item.stAbsent > 0)
+        : processed;
+
+      displayList.sort((a, b) => b.stAbsent - a.stAbsent);
+
+      const totalPeriodDays = allDates.length;
+      const totalRecorded = totalPresentDaysInPeriod + totalAbsenceDaysInPeriod;
+      const overallRate = totalRecorded > 0 ? Math.round((totalPresentDaysInPeriod / totalRecorded) * 100) : 100;
+
+      container.innerHTML = `
+        <div class="space-y-5">
+          <!-- Report Header Banner & KPIs -->
+          <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-indigo-900/50 rounded-3xl p-5 shadow-2xl">
+            <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-indigo-900/40">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xl">📑</span>
+                  <h3 class="text-lg sm:text-xl font-black text-white">تقرير حصر ومتابعة غياب الطلاب خلال فترة محددة</h3>
+                </div>
+                <p class="text-xs text-indigo-300 font-bold mt-1">
+                  الفترة: من <span class="text-white underline font-mono font-bold">${startDate}</span> إلى <span class="text-white underline font-mono font-bold">${endDate}</span> 
+                  • إجمالي أيام الفترة: <span class="text-amber-300 font-black">${totalPeriodDays} يوماً</span>
+                  • الصف: <span class="text-white font-black">${GRADE_CONFIG[gradeNum].ar}</span>
+                </p>
+              </div>
+
+              <div class="flex items-center gap-2 no-print">
+                <button onclick="exportPeriodAbsenceCSV()" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow">
+                  <span>📊 تصدير الكشف Excel</span>
+                </button>
+                <button onclick="window.print()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow">
+                  <span>🖨️ طباعة التقرير الرسمي</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
+              <div class="bg-slate-950/70 border border-slate-800 rounded-2xl p-3.5">
+                <div class="text-[11px] text-slate-400 font-bold">إجمالي طلاب الصف</div>
+                <div class="text-xl font-black text-white mt-0.5">${students.length} طالب</div>
+              </div>
+
+              <div class="bg-slate-950/70 border border-slate-800 rounded-2xl p-3.5">
+                <div class="text-[11px] text-red-300 font-bold">إجمالي أيام الغياب المسجلة</div>
+                <div class="text-xl font-black text-red-400 mt-0.5">${totalAbsenceDaysInPeriod} يوم غياب</div>
+              </div>
+
+              <div class="bg-slate-950/70 border border-slate-800 rounded-2xl p-3.5">
+                <div class="text-[11px] text-amber-300 font-bold">عدد الطلاب الذين تغيبوا</div>
+                <div class="text-xl font-black text-amber-300 mt-0.5">${absentStudentsCount} طالب</div>
+              </div>
+
+              <div class="bg-slate-950/70 border border-slate-800 rounded-2xl p-3.5">
+                <div class="text-[11px] text-emerald-300 font-bold">نسبة انضباط الصف للفترة</div>
+                <div class="text-xl font-black text-emerald-400 mt-0.5">${overallRate}%</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Report Table -->
+          <div class="bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl section-card">
+            <div class="overflow-x-auto">
+              <table class="w-full text-right text-xs sm:text-sm">
+                <thead>
+                  <tr class="bg-slate-900 text-slate-300 border-b border-slate-700">
+                    <th class="py-3 px-3 text-center w-12 font-black">م</th>
+                    <th class="py-3 px-4 font-black min-w-[170px]">اسم الطالب رباعي</th>
+                    <th class="py-3 px-3 text-center font-black w-20">المسار</th>
+                    <th class="py-3 px-3 text-center font-black bg-red-950/60 text-red-300 min-w-[120px]">عدد أيام الغياب</th>
+                    <th class="py-3 px-3 text-center font-black bg-emerald-950/60 text-emerald-300 min-w-[100px]">أيام الحضور</th>
+                    <th class="py-3 px-3 text-center font-black bg-blue-950/60 text-blue-300 min-w-[90px]">النسبة</th>
+                    <th class="py-3 px-4 font-black min-w-[220px]">تواريخ وأيام الغياب بالتفصيل</th>
+                    <th class="py-3 px-3 text-center font-black min-w-[120px]">حالة المتابعة</th>
+                    <th class="py-3 px-3 text-center font-black min-w-[110px] no-print">إجراءات</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700/60">
+                  ${displayList.length === 0 ? `
+                    <tr>
+                      <td colspan="9" class="py-12 text-center text-slate-400 font-bold">
+                        <div class="text-2xl mb-2">🎉</div>
+                        <div>لا توجد حالات غياب مسجلة لهؤلاء الطلاب خلال الفترة المحددة (${startDate} إلى ${endDate})</div>
+                      </td>
+                    </tr>
+                  ` : ''}
+                  ${displayList.map((item, idx) => {
+                    const s = item.student;
+                    const isAbs = item.stAbsent > 0;
+                    
+                    let statusBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">منتظم ومثالي 🟢</span>';
+                    if (item.stAbsent >= 5) {
+                      statusBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-black bg-rose-500/20 text-rose-300 border border-rose-500/40">استدعاء ولي أمر 🔴</span>';
+                    } else if (item.stAbsent >= 3) {
+                      statusBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-black bg-orange-500/20 text-orange-300 border border-orange-500/40">إنذار غياب 🟠</span>';
+                    } else if (item.stAbsent >= 1) {
+                      statusBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">تنبيه أولي 🟡</span>';
+                    }
+
+                    const datesBadges = isAbs
+                      ? item.absentDates.map(d => `<span class="bg-red-950/80 border border-red-800 text-red-300 px-2 py-0.5 rounded text-[11px] font-mono font-bold inline-block">${d}</span>`).join(' ')
+                      : '<span class="text-emerald-400 font-bold text-xs">لا يوجد غياب (حضور كامل) 🌟</span>';
+
+                    const absentBadge = isAbs
+                      ? `<span class="px-3 py-1 rounded-xl bg-red-500/20 text-red-300 font-black text-sm border border-red-500/40 shadow-sm">${item.stAbsent} يوم غياب</span>`
+                      : `<span class="px-2.5 py-0.5 rounded-lg bg-slate-900 text-slate-500 font-bold text-xs">0 غياب</span>`;
+
+                    return `
+                      <tr class="hover:bg-slate-700/40 transition">
+                        <td class="py-3 px-3 text-center text-slate-400 font-bold">${idx + 1}</td>
+                        <td class="py-3 px-4 font-bold text-white">
+                          <div class="text-sm">${s.nameAr}</div>
+                          <div class="text-[10px] text-slate-400 font-mono no-print">${s.id}</div>
+                        </td>
+                        <td class="py-3 px-3 text-center">
+                          <span class="text-xs font-bold px-2 py-0.5 rounded-full ${
+                            s.track === 'arabic' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+                          }">
+                            ${s.track === 'arabic' ? 'عربي' : 'لغات'}
+                          </span>
+                        </td>
+                        <td class="py-3 px-3 text-center font-bold bg-red-950/30">${absentBadge}</td>
+                        <td class="py-3 px-3 text-center font-bold text-emerald-400 bg-emerald-950/30">${item.stPresent} يوم</td>
+                        <td class="py-3 px-3 text-center font-black font-mono text-blue-300 bg-blue-950/30">${item.rate}%</td>
+                        <td class="py-3 px-4">
+                          <div class="flex flex-wrap gap-1 items-center">
+                            ${datesBadges}
+                          </div>
+                        </td>
+                        <td class="py-3 px-3 text-center">${statusBadge}</td>
+                        <td class="py-3 px-3 text-center no-print">
+                          ${isAbs ? `
+                            <button onclick="openStudentAbsenceNoticeModal('${s.id}', '${startDate}', '${endDate}', ${item.stAbsent})" class="px-2.5 py-1 bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 font-black rounded-lg text-[11px] border border-amber-400/40 transition active:scale-95 flex items-center justify-center gap-1 mx-auto" title="طباعة إخطار غياب موجه لولي الأمر">
+                              <span>📄</span> <span>إخطار غياب</span>
+                            </button>
+                          ` : `<span class="text-slate-600 text-[11px]">-</span>`}
+                        </td>
+                      </tr>
+                    `;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function openStudentAbsenceNoticeModal(studentId, startDate, endDate, absentCount) {
+      const st = ALL_STUDENTS.find(s => s.id === studentId);
+      if (!st) return;
+
+      const absentDates = [];
+      const cur = new Date(startDate);
+      const endD = new Date(endDate);
+      while (cur <= endD) {
+        const y = cur.getFullYear();
+        const m = (cur.getMonth() + 1 < 10) ? '0' + (cur.getMonth() + 1) : '' + (cur.getMonth() + 1);
+        const d = (cur.getDate() < 10) ? '0' + cur.getDate() : '' + cur.getDate();
+        const dStr = `${y}-${m}-${d}`;
+        if (getStudentAttendanceStatus(st.id, dStr) === 'absent') {
+          absentDates.push(dStr);
+        }
+        cur.setDate(cur.getDate() + 1);
+      }
+
+      const modalContent = document.getElementById('student-absence-notice-content');
+      if (modalContent) {
+        modalContent.innerHTML = `
+          <div style="direction: rtl; font-family: 'Cairo', Arial, sans-serif; border: 2px solid #334155; border-radius: 16px; padding: 24px; background: #0f172a; color: #f8fafc;">
+            <!-- Header -->
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #475569; padding-bottom: 14px; margin-bottom: 16px;">
+              <div style="text-align: right;">
+                <div style="font-size: 13px; color: #94a3b8; font-weight: bold;">جمهورية مصر العربية • وزارة التربية والتعليم</div>
+                <div style="font-size: 18px; font-weight: 900; color: #ffffff; margin-top: 2px;">مدارس سمايل كيدز الحديثة للغات</div>
+                <div style="font-size: 12px; color: #38bdf8;">قسم شؤون الطلاب والمتابعة المدرسية</div>
+              </div>
+              <div style="text-align: left; font-size: 11px; color: #cbd5e1;">
+                <div>التاريخ: ${new Date().toLocaleDateString('ar-EG')}</div>
+                <div style="color: #f59e0b; font-weight: 900; margin-top: 2px;">العام الدراسي 2026 / 2027</div>
+              </div>
+            </div>
+
+            <!-- Title -->
+            <div style="text-align: center; margin: 16px 0;">
+              <span style="background: #dc2626; color: white; padding: 6px 24px; border-radius: 9999px; font-weight: 900; font-size: 15px; box-shadow: 0 4px 10px rgba(220,38,38,0.3);">
+                إخطــــــــار غيــــــــاب طالــــــــب
+              </span>
+            </div>
+
+            <!-- Body -->
+            <div style="font-size: 14px; line-height: 1.8; margin-top: 14px;">
+              <p>السيد ولي أمر الطالب / الطالبة: <b style="color: #38bdf8; font-size: 16px;">${st.nameAr}</b> المحترم،</p>
+              <p style="margin-top: 6px;">
+                تحية طيبة وبعد،،،<br>
+                نحيط سيادتكم علماً بأن نجلكم المقيد بالصف: <b style="color: #fde047;">${GRADE_CONFIG[st.grade].ar}</b> (${st.track === 'languages' ? 'قسم اللغات' : 'قسم العربي'}) 
+                قد تغيب عن الحضور بالمدرسة لعدد <b style="color: #ef4444; font-size: 16px;">(${absentCount}) أيام</b> خلال الفترة من <b>${startDate}</b> إلى <b>${endDate}</b>.
+              </p>
+
+              <!-- Absent Dates Table -->
+              <div style="margin: 14px 0; background: #1e293b; padding: 12px; border-radius: 12px; border: 1px solid #334155;">
+                <div style="font-size: 12px; font-weight: bold; color: #cbd5e1; margin-bottom: 6px;">تواريخ أيام الغياب المسجلة:</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                  ${absentDates.map(d => `<span style="background: #991b1b; color: #fee2e2; padding: 3px 10px; border-radius: 6px; font-size: 12px; font-family: monospace; font-weight: bold;">${d}</span>`).join('')}
+                </div>
+              </div>
+
+              <p style="font-size: 12px; color: #94a3b8; margin-top: 10px;">
+                يرجى موافاة إدارة المدرسة بعذر الغياب المقبول فوراً، حرصاً على التحصيل الأكاديمي والتزاماً باللوائح والقرارات الوزارية المنظمة للمواظبة والغياب.
+              </p>
+            </div>
+
+            <!-- Signatures -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 14px; border-top: 1.5px dashed #475569; font-size: 12px; font-weight: bold;">
+              <div style="text-align: center; width: 30%;">
+                <div>مسؤول شؤون الطلاب</div>
+                <div style="margin-top: 22px; color: #64748b;">................................</div>
+              </div>
+              <div style="text-align: center; width: 30%;">
+                <div style="border: 1px dashed #64748b; border-radius: 50%; width: 50px; height: 50px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 9px; color: #94a3b8;">
+                  خاتم المدرسة
+                </div>
+              </div>
+              <div style="text-align: center; width: 30%;">
+                <div>يعتمد، مديرة المدرسة</div>
+                <div style="margin-top: 12px; color: #ffffff; font-weight: 900;">المهندسة / نبيلة فخري</div>
+              </div>
+            </div>
+
+            <!-- Parent Acknowledgement Slip -->
+            <div style="margin-top: 20px; padding-top: 12px; border-top: 1.5px dashed #dc2626; font-size: 12px;">
+              <div style="text-align: center; font-weight: 900; color: #f87171; margin-bottom: 6px;">قسيمة إقرار ولي الأمر بالعلم (تُسلّم لإدارة المدرسة)</div>
+              <div>أقر أنا ولي أمر الطالب / الطالبة: <b>${st.nameAr}</b> بعلمي بعدد أيام الغياب (${absentCount} أيام)، والتزم بانتظام الطالب.</div>
+              <div style="display: flex; justify-content: space-between; margin-top: 14px; color: #cbd5e1;">
+                <div>الاسم: ................................................</div>
+                <div>التوقيع: ................................................</div>
+                <div>التاريخ: ..... / ..... / 2026</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      openModal('modal-student-absence-notice');
+    }
+
+    function printStudentAbsenceNotice() {
+      const content = document.getElementById('student-absence-notice-content');
+      if (!content) return;
+      const printWin = window.open('', '_blank');
+      printWin.document.write(`
+        <!DOCTYPE html>
+        <html dir="rtl" lang="ar">
+        <head>
+          <meta charset="UTF-8">
+          <title>إخطار غياب رسمي - مدرسة Smile Kids</title>
+          <style>
+            body { font-family: 'Cairo', Arial, sans-serif; padding: 30px; direction: rtl; }
+            @media print { body { padding: 10px; } }
+          </style>
+        </head>
+        <body>
+          ${content.innerHTML}
+          <script>window.onload = function() { window.print(); window.close(); }<\/script>
+        </body>
+        </html>
+      `);
+      printWin.document.close();
+    }
+
+    function exportMonthlyAttendanceCSV() {
+      const g = currentGrade || 1;
+      let students = ALL_STUDENTS.filter(s => s.grade === g);
+      if (currentAttTrackFilter !== 'all') {
+        students = students.filter(s => s.track === currentAttTrackFilter);
+      }
+      const parts = currentAttMonth.split('-');
+      const year = parseInt(parts[0]) || 2026;
+      const month = parseInt(parts[1]) || 9;
+      const daysInMonth = new Date(year, month, 0).getDate();
+
+      let header = '\uFEFFم,كود الطالب,اسم الطالب,المسار';
+      for (let d = 1; d <= daysInMonth; d++) {
+        header += `,${d}`;
+      }
+      header += ',أيام الحضور,أيام الغياب,نسبة الحضور %\n';
+
+      let csv = header;
+      students.forEach((s, idx) => {
+        let row = `${idx + 1},${s.id},"${s.nameAr}",${s.track === 'arabic' ? 'عربي' : 'لغات'}`;
+        let stPresent = 0, stAbsent = 0;
+        for (let d = 1; d <= daysInMonth; d++) {
+          const dStr = d < 10 ? `0${d}` : `${d}`;
+          const dateFull = `${currentAttMonth}-${dStr}`;
+          const status = getStudentAttendanceStatus(s.id, dateFull);
+          if (status === 'absent') {
+            stAbsent++;
+            row += ',غ';
+          } else {
+            stPresent++;
+            row += ',ح';
+          }
+        }
+        const total = stPresent + stAbsent;
+        const rate = total > 0 ? Math.round((stPresent / total) * 100) : 100;
+        row += `,${stPresent},${stAbsent},${rate}%\n`;
+        csv += row;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `شيت_تجميعة_الغياب_الشهري_Grade_${g}_${currentAttMonth}.csv`;
+      link.click();
+    }
+
+    function exportPeriodAbsenceCSV() {
+      const g = currentGrade || 1;
+      let students = ALL_STUDENTS.filter(s => s.grade === g);
+      if (currentAttTrackFilter !== 'all') {
+        students = students.filter(s => s.track === currentAttTrackFilter);
+      }
+      const startDate = currentAttPeriodStart || `${currentAttMonth}-01`;
+      const endDate = currentAttPeriodEnd || currentAttDate;
+
+      const allDates = [];
+      const cur = new Date(startDate);
+      const endD = new Date(endDate);
+      while (cur <= endD) {
+        const y = cur.getFullYear();
+        const m = (cur.getMonth() + 1 < 10) ? '0' + (cur.getMonth() + 1) : '' + (cur.getMonth() + 1);
+        const d = (cur.getDate() < 10) ? '0' + cur.getDate() : '' + cur.getDate();
+        allDates.push(`${y}-${m}-${d}`);
+        cur.setDate(cur.getDate() + 1);
+      }
+
+      let csv = '\uFEFFم,كود الطالب,اسم الطالب,الصف,المسار,عدد أيام الغياب,عدد أيام الحضور,نسبة الحضور %,تواريخ الغياب\n';
+      students.forEach((s, idx) => {
+        let stAbsent = 0;
+        let stPresent = 0;
+        const absentDates = [];
+        allDates.forEach(d => {
+          if (getStudentAttendanceStatus(s.id, d) === 'absent') {
+            stAbsent++;
+            absentDates.push(d);
+          } else {
+            stPresent++;
+          }
+        });
+        const total = stAbsent + stPresent;
+        const rate = total > 0 ? Math.round((stPresent / total) * 100) : 100;
+        const datesStr = '"' + absentDates.join(' ، ') + '"';
+        csv += `${idx + 1},${s.id},"${s.nameAr}",Grade ${s.grade},${s.track === 'arabic' ? 'عربي' : 'لغات'},${stAbsent},${stPresent},${rate}%,${datesStr}\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `تقرير_غياب_Grade_${g}_${startDate}_إلى_${endDate}.csv`;
+      link.click();
     }
 
     // =========================================================
@@ -2079,10 +2966,15 @@
           if (gradeElem) gradeElem.innerText = info.ar;
           if (subElem) subElem.innerText = `تاريخ اليوم: ${currentAttDate} • العام الدراسي 2026 / 2027`;
           if (countElem) countElem.innerText = `إجمالي طلاب الفصل: ${gStudents.length} طالب وطالبة`;
-        } else {
+        } else if (currentAttSubView === 'monthly') {
           if (titleElem) titleElem.innerText = 'كشف تجميعة الغياب والحضور الشهري';
           if (gradeElem) gradeElem.innerText = info.ar;
           if (subElem) subElem.innerText = `عن شهر: ${currentAttMonth} • العام الدراسي 2026 / 2027`;
+          if (countElem) countElem.innerText = `إجمالي طلاب الفصل: ${gStudents.length} طالب وطالبة`;
+        } else if (currentAttSubView === 'period') {
+          if (titleElem) titleElem.innerText = 'تقرير حصر ومتابعة غياب الطلاب خلال فترة محددة';
+          if (gradeElem) gradeElem.innerText = info.ar;
+          if (subElem) subElem.innerText = `عن الفترة من ${currentAttPeriodStart} إلى ${currentAttPeriodEnd} • العام الدراسي 2026 / 2027`;
           if (countElem) countElem.innerText = `إجمالي طلاب الفصل: ${gStudents.length} طالب وطالبة`;
         }
       }
@@ -2097,6 +2989,15 @@
     let certCurrentStudentId = '';
     let currentGradesPeriod = 't1_m1';
     let currentGradesCustomTitle = 'FIRST MONTH REPORT';
+
+    // Custom Subject Max Scores Override (persisted in localStorage)
+    let CUSTOM_SUBJECT_MAX = {};
+    try {
+      CUSTOM_SUBJECT_MAX = JSON.parse(localStorage.getItem('smile_kids_custom_max_scores') || '{}');
+    } catch (e) {
+      CUSTOM_SUBJECT_MAX = {};
+    }
+    let maxScoresSelectedGrade = 1;
 
     function onGradesPeriodChange(val) {
       currentGradesPeriod = val;
@@ -2533,12 +3434,22 @@
 
     
     // ==================== REPORT CARD SUBJECT & RANKING ENGINE ====================
+    function getDefaultSubjectMax(grade, subjId) {
+      const g = parseInt(grade) || 1;
+      if (subjId === 'arabic') return 50;
+      if (subjId === 'english_ol' || subjId === 'english_al') return 30;
+      if (subjId === 'math' || subjId === 'science') return (g <= 6) ? 30 : 40;
+      if (subjId === 'social' || subjId === 'ict' || subjId === 'german' || subjId === 'religion') return 20;
+      return 20;
+    }
+
     function getGradeSubjectsConfig(grade, track) {
       const g = parseInt(grade) || 1;
       const isLang = (track === 'languages');
 
+      let subs = [];
       if (g <= 3) {
-        return [
+        subs = [
           { id: 'arabic', name: 'لغة عربية', max: 50 },
           { id: 'english_ol', name: 'لغة انجليزية (OL)', max: 30 },
           { id: 'english_al', name: '( Connect Plus ) لغة انجليزية', max: 30 },
@@ -2546,7 +3457,7 @@
           { id: 'religion', name: 'ديـــــن', max: 20 }
         ];
       } else if (g <= 6) {
-        return [
+        subs = [
           { id: 'arabic', name: 'لغة عربية', max: 50 },
           { id: 'english_ol', name: 'لغة انجليزية (OL)', max: 30 },
           { id: 'english_al', name: '( Connect Plus ) لغة انجليزية', max: 30 },
@@ -2558,7 +3469,7 @@
         ];
       } else {
         // Prep Grades (7, 8, 9)
-        return [
+        subs = [
           { id: 'arabic', name: 'لغة عربية', max: 50 },
           { id: 'english_ol', name: 'لغة انجليزية (OL)', max: 30 },
           { id: 'math', name: isLang ? 'Math / رياضيات' : 'رياضيات', max: 40 },
@@ -2567,6 +3478,458 @@
           { id: 'german', name: 'لغة ألمانية (German)', max: 20 },
           { id: 'religion', name: 'تربية دينية', max: 20 }
         ];
+      }
+
+      // Dynamic override from CUSTOM_SUBJECT_MAX
+      if (CUSTOM_SUBJECT_MAX && CUSTOM_SUBJECT_MAX[g]) {
+        subs.forEach(s => {
+          if (CUSTOM_SUBJECT_MAX[g][s.id] !== undefined && CUSTOM_SUBJECT_MAX[g][s.id] !== null) {
+            const customVal = parseFloat(CUSTOM_SUBJECT_MAX[g][s.id]);
+            if (!isNaN(customVal) && customVal > 0) {
+              s.max = customVal;
+            }
+          }
+        });
+      }
+
+      return subs;
+    }
+
+    // ==================== CONFIGURE MAX SCORES SYSTEM ====================
+    function openConfigureMaxScoresModal() {
+      maxScoresSelectedGrade = currentGrade > 0 ? currentGrade : 1;
+      renderMaxScoresGradePills();
+      renderMaxScoresInputs(maxScoresSelectedGrade);
+      openModal('modal-grade-max-scores');
+    }
+
+    function renderMaxScoresGradePills() {
+      const container = document.getElementById('max-scores-grade-pills');
+      if (!container) return;
+      let html = '';
+      for (let g = 1; g <= 9; g++) {
+        const isActive = (g === maxScoresSelectedGrade);
+        const cls = isActive
+          ? 'px-3 py-1.5 rounded-xl font-black text-xs bg-amber-500 text-slate-950 shadow transition'
+          : 'px-3 py-1.5 rounded-xl font-bold text-xs bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition';
+        html += `<button type="button" onclick="setMaxScoresGrade(${g})" class="${cls}">Grade ${g}</button>`;
+      }
+      container.innerHTML = html;
+    }
+
+    function setMaxScoresGrade(g) {
+      maxScoresSelectedGrade = g;
+      renderMaxScoresGradePills();
+      renderMaxScoresInputs(g);
+    }
+
+    function renderMaxScoresInputs(g) {
+      const container = document.getElementById('max-scores-inputs-container');
+      if (!container) return;
+
+      const subjects = getGradeSubjectsConfig(g, 'languages');
+      const stageName = g <= 3 ? 'المرحلة الابتدائية الأولى (صفوف 1 - 3)' : (g <= 6 ? 'المرحلة الابتدائية العليا (صفوف 4 - 6)' : 'المرحلة الإعدادية (صفوف 7 - 9)');
+
+      let cardsHtml = subjects.map(sub => {
+        const defMax = getDefaultSubjectMax(g, sub.id);
+        const isCustom = (CUSTOM_SUBJECT_MAX && CUSTOM_SUBJECT_MAX[g] && CUSTOM_SUBJECT_MAX[g][sub.id] !== undefined);
+        return `
+          <div class="flex items-center justify-between p-3.5 bg-slate-950/80 rounded-2xl border ${isCustom ? 'border-amber-500/50 bg-amber-950/10' : 'border-slate-800'} transition">
+            <div class="flex items-center gap-3">
+              <span class="text-xl">📘</span>
+              <div>
+                <div class="text-sm font-black text-white">${sub.name}</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">
+                  الدرجة الافتراضية للوزارة: <b class="text-slate-300 font-mono">${defMax}</b>
+                  ${isCustom ? '<span class="text-amber-400 font-bold mr-2">(مُعدلة حالياً)</span>' : ''}
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <label class="text-xs font-bold text-slate-400">الدرجة العظمى:</label>
+              <input 
+                type="number" 
+                id="input-max-${sub.id}" 
+                value="${sub.max}" 
+                min="1" 
+                max="300" 
+                step="1" 
+                oninput="updateMaxScoresTotalSum()" 
+                class="w-20 text-center py-2 px-2 bg-slate-900 border border-slate-700 focus:border-amber-400 rounded-xl text-amber-300 font-black text-sm transition outline-none"
+              >
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.innerHTML = `
+        <div class="space-y-2.5">
+          ${cardsHtml}
+        </div>
+        <div class="pt-2">
+          <label class="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-950 border border-slate-800 text-xs font-bold text-slate-300 cursor-pointer hover:border-amber-500/40 transition">
+            <input type="checkbox" id="chk-apply-to-stage" checked class="w-4 h-4 text-amber-500 rounded focus:ring-0">
+            <span>تطبيق نفس النهايات العظمى على باقي صفوف نفس المرحلة: <b class="text-amber-400">${stageName}</b></span>
+          </label>
+        </div>
+      `;
+
+      updateMaxScoresTotalSum();
+    }
+
+    function updateMaxScoresTotalSum() {
+      const g = maxScoresSelectedGrade;
+      const subjects = getGradeSubjectsConfig(g, 'languages');
+      let total = 0;
+      subjects.forEach(sub => {
+        const inp = document.getElementById('input-max-' + sub.id);
+        if (inp) {
+          const v = parseFloat(inp.value) || 0;
+          total += v;
+        } else {
+          total += sub.max;
+        }
+      });
+      const sumEl = document.getElementById('max-scores-total-sum');
+      if (sumEl) sumEl.innerText = total;
+    }
+
+    function saveCustomMaxScores() {
+      const g = maxScoresSelectedGrade;
+      const subjects = getGradeSubjectsConfig(g, 'languages');
+      const newVals = {};
+
+      subjects.forEach(sub => {
+        const inp = document.getElementById('input-max-' + sub.id);
+        if (inp) {
+          const v = parseFloat(inp.value);
+          if (!isNaN(v) && v > 0) {
+            newVals[sub.id] = v;
+          }
+        }
+      });
+
+      const applyStage = document.getElementById('chk-apply-to-stage')?.checked;
+      let targetGrades = [g];
+      if (applyStage) {
+        if (g <= 3) targetGrades = [1, 2, 3];
+        else if (g <= 6) targetGrades = [4, 5, 6];
+        else targetGrades = [7, 8, 9];
+      }
+
+      targetGrades.forEach(gradeNum => {
+        CUSTOM_SUBJECT_MAX[gradeNum] = { ...(CUSTOM_SUBJECT_MAX[gradeNum] || {}), ...newVals };
+      });
+
+      try {
+        localStorage.setItem('smile_kids_custom_max_scores', JSON.stringify(CUSTOM_SUBJECT_MAX));
+      } catch (e) {
+        console.error('Failed to save to localStorage', e);
+      }
+
+      // Recompute all student period totals and sync
+      ALL_STUDENTS.forEach(student => {
+        if (targetGrades.includes(student.grade) && student.termsScores) {
+          Object.keys(student.termsScores).forEach(periodKey => {
+            const pTot = getStudentPeriodTotal(student, periodKey);
+            student.termsScores[periodKey] = pTot.totalScore;
+          });
+        }
+      });
+      saveStudentsToStorage();
+
+      // Immediately propagate updates to UI
+      renderGradesModule();
+      renderCertificatePreview();
+      updatePrintSheetsPreview();
+
+      closeModal('modal-grade-max-scores');
+      alert(`✓ تم بنجاح حفظ وتطبيق الدرجات العظمى وتحديث المجموع والشهادات للصفوف (${targetGrades.map(x => 'Grade ' + x).join(' ، ')}) تلقائياً! 🟢`);
+    }
+
+    function resetDefaultMaxScoresForGrade() {
+      const g = maxScoresSelectedGrade;
+      if (confirm(`هل أنت متأكد من استعادة الدرجات العظمى الافتراضية للصف Grade ${g}؟`)) {
+        if (CUSTOM_SUBJECT_MAX && CUSTOM_SUBJECT_MAX[g]) {
+          delete CUSTOM_SUBJECT_MAX[g];
+          localStorage.setItem('smile_kids_custom_max_scores', JSON.stringify(CUSTOM_SUBJECT_MAX));
+        }
+
+        // Recompute student totals
+        ALL_STUDENTS.forEach(student => {
+          if (student.grade === g && student.termsScores) {
+            Object.keys(student.termsScores).forEach(periodKey => {
+              const pTot = getStudentPeriodTotal(student, periodKey);
+              student.termsScores[periodKey] = pTot.totalScore;
+            });
+          }
+        });
+        saveStudentsToStorage();
+
+        renderMaxScoresInputs(g);
+        renderGradesModule();
+        renderCertificatePreview();
+        updatePrintSheetsPreview();
+        alert(`✓ تم استعادة الدرجات العظمى الافتراضية للصف Grade ${g} بنجاح!`);
+      }
+    }
+
+    // ==================== A4 TEACHER MANUAL GRADING SHEETS PRINT SYSTEM ====================
+    function openPrintGradingSheetsModal() {
+      const currGradeLabel = document.getElementById('print-current-grade-label');
+      if (currGradeLabel) {
+        const g = currentGrade > 0 ? currentGrade : 1;
+        currGradeLabel.innerText = `الصف الحالي فقط (Grade ${g} - ${getGradeArabicName(g)})`;
+      }
+
+      const titleInp = document.getElementById('print-sheet-exam-title');
+      if (titleInp) {
+        titleInp.value = currentGradesCustomTitle || 'اختبار شهر أكتوبر (شهر 1)';
+      }
+
+      updatePrintSheetsPreview();
+      openModal('modal-print-grading-sheets');
+    }
+
+    function updatePrintSheetsPreview() {
+      const container = document.getElementById('print-sheets-live-preview');
+      if (!container) return;
+
+      const titleInp = document.getElementById('print-sheet-exam-title');
+      const examTitle = titleInp ? titleInp.value : 'اختبار شهر أكتوبر (شهر 1)';
+
+      const modeRadio = document.querySelector('input[name="print-data-mode"]:checked');
+      const isBlank = modeRadio ? (modeRadio.value === 'blank') : true;
+
+      const g = currentGrade > 0 ? currentGrade : 1;
+      container.innerHTML = generateManualGradingSheetHTML(g, examTitle, isBlank);
+    }
+
+    function generateManualGradingSheetHTML(gradeNum, examTitle, isBlank) {
+      const g = parseInt(gradeNum) || 1;
+      const gradeAr = getGradeArabicName(g);
+      const subjects = getGradeSubjectsConfig(g, 'languages');
+      const gStudents = ALL_STUDENTS.filter(s => s.grade === g);
+      const langStudents = gStudents.filter(s => s.track === 'languages');
+      const arStudents = gStudents.filter(s => s.track === 'arabic');
+
+      let totalMax = 0;
+      subjects.forEach(s => totalMax += s.max);
+
+      const colCount = subjects.length + 5; // #, ID, Name, [subjects], Total, Notes
+
+      // Build Subject Table Headers
+      const subjHeaders = subjects.map(s => `
+        <th style="border: 1.5px solid #000; padding: 6px 3px; text-align: center; vertical-align: middle; background: #f8fafc; font-size: 11.5px; font-weight: 900; line-height: 1.2;">
+          <div style="font-size: 12px; color: #000;">${s.name}</div>
+          <div style="font-size: 10.5px; font-weight: 900; color: #b91c1c; margin-top: 2px;">(العظمى: ${s.max})</div>
+        </th>
+      `).join('');
+
+      // Row generator helper
+      const renderRow = (st, idx) => {
+        const subjCells = subjects.map(sub => {
+          let cellContent = '&nbsp;';
+          if (!isBlank) {
+            const sc = getStudentSubjectScore(st, sub.id, currentGradesPeriod);
+            if (sc && sc.isRecorded) {
+              cellContent = `<b style="font-size: 12px;">${sc.score}</b>`;
+            }
+          }
+          return `<td style="border: 1px solid #334155; padding: 4px 2px; text-align: center; vertical-align: middle; height: 26px; min-width: 48px; background: #ffffff;">${cellContent}</td>`;
+        }).join('');
+
+        let totalCell = '&nbsp;';
+        if (!isBlank) {
+          const pTot = getStudentPeriodTotal(st, currentGradesPeriod);
+          totalCell = `<b style="font-size: 12px; color: #000;">${pTot.totalScore}</b>`;
+        }
+
+        return `
+          <tr style="height: 26px; font-size: 11.5px;">
+            <td style="border: 1px solid #334155; padding: 3px; text-align: center; font-weight: 800; background: #f8fafc; width: 28px;">${idx + 1}</td>
+            <td style="border: 1px solid #334155; padding: 3px 5px; text-align: center; font-family: monospace; font-size: 10.5px; font-weight: bold; width: 75px;">${st.id}</td>
+            <td style="border: 1px solid #334155; padding: 3px 8px; text-align: right; font-weight: 900; font-size: 12px; min-width: 165px; white-space: nowrap;">
+              ${st.nameAr}
+              ${st.nameEn ? `<span style="font-size: 9px; color: #475569; display: block; font-weight: normal; direction: ltr; text-align: right;">${st.nameEn}</span>` : ''}
+            </td>
+            ${subjCells}
+            <td style="border: 1.5px solid #000; padding: 3px; text-align: center; font-weight: 900; background: #f1f5f9; min-width: 50px;">${totalCell}</td>
+            <td style="border: 1px solid #334155; padding: 3px; text-align: center; min-width: 55px;">&nbsp;</td>
+          </tr>
+        `;
+      };
+
+      const langRowsHtml = langStudents.length > 0
+        ? langStudents.map((s, idx) => renderRow(s, idx)).join('')
+        : `<tr><td colspan="${colCount}" style="border: 1px solid #334155; text-align: center; padding: 6px; color: #64748b;">لا يوجد طلاب مسجلين في قسم اللغات</td></tr>`;
+
+      const arRowsHtml = arStudents.length > 0
+        ? arStudents.map((s, idx) => renderRow(s, idx)).join('')
+        : `<tr><td colspan="${colCount}" style="border: 1px solid #334155; text-align: center; padding: 6px; color: #64748b;">لا يوجد طلاب مسجلين في قسم العربي</td></tr>`;
+
+      const dateNow = new Date().toISOString().split('T')[0];
+
+      return `
+        <div class="grade-a4-sheet" style="width: 100%; max-width: 100%; box-sizing: border-box; page-break-after: always; break-after: page; background: #ffffff; color: #000000; padding: 4px; direction: rtl; font-family: 'Cairo', Arial, sans-serif;">
+          <!-- Page Header -->
+          <table style="width: 100%; border: none; margin-bottom: 6px; border-collapse: collapse;">
+            <tr>
+              <td style="width: 25%; text-align: right; vertical-align: top; border: none; padding: 0;">
+                <div style="font-weight: 900; font-size: 13px; color: #0f172a;">مدرسة Smile Kids الخاصة للغات</div>
+                <div style="font-size: 10px; color: #475569; font-weight: bold;">إدارة التعليم الخاص والتجريبي</div>
+                <div style="font-size: 10px; color: #475569; font-weight: bold;">كنترول شؤون الطلاب والامتحانات</div>
+              </td>
+              <td style="width: 50%; text-align: center; vertical-align: top; border: none; padding: 0;">
+                <div style="display: inline-block; border: 2px solid #000000; padding: 3px 14px; border-radius: 6px; background: #f8fafc;">
+                  <h2 style="margin: 0; font-size: 15px; font-weight: 900; color: #000000;">كشف رصد درجات الطلاب (الرصد اليدوي للمعلمات)</h2>
+                </div>
+                <div style="font-size: 12px; font-weight: 900; color: #1e3a8a; margin-top: 3px;">
+                  الصف: Grade ${g} (${gradeAr}) • العام الدراسي 2026 / 2027
+                </div>
+                <div style="font-size: 11px; font-weight: 800; color: #b91c1c; margin-top: 1px;">
+                  [ ${examTitle || 'اختبار شهر ........................'} ]
+                </div>
+              </td>
+              <td style="width: 25%; text-align: left; vertical-align: top; border: none; padding: 0; direction: rtl;">
+                <div style="font-size: 10.5px; font-weight: bold; color: #334155;">تاريخ الطبع: ${dateNow}</div>
+                <div style="font-size: 10.5px; font-weight: bold; color: #334155;">إجمالي الفصل: ${gStudents.length} طالب وطالبة</div>
+                <div style="font-size: 10px; font-weight: bold; color: #1e3a8a;">(لغات: ${langStudents.length} • عربي: ${arStudents.length})</div>
+              </td>
+            </tr>
+          </table>
+
+          <!-- Main Grading Table -->
+          <table style="width: 100%; border-collapse: collapse; border: 2px solid #000000; font-size: 11.5px; margin-bottom: 6px;">
+            <thead>
+              <tr style="background: #f1f5f9; border-bottom: 2px solid #000000;">
+                <th style="border: 1.5px solid #000; padding: 5px 3px; text-align: center; width: 28px; font-weight: 900;">م</th>
+                <th style="border: 1.5px solid #000; padding: 5px 4px; text-align: center; width: 75px; font-weight: 900;">كود الطالب</th>
+                <th style="border: 1.5px solid #000; padding: 5px 8px; text-align: right; min-width: 165px; font-weight: 900;">اسم الطالب</th>
+                ${subjHeaders}
+                <th style="border: 2px solid #000; padding: 5px 4px; text-align: center; background: #e2e8f0; font-weight: 900; min-width: 50px;">
+                  <div>المجموع</div>
+                  <div style="font-size: 10px; color: #b91c1c;">(${totalMax})</div>
+                </th>
+                <th style="border: 1.5px solid #000; padding: 5px 4px; text-align: center; min-width: 55px; font-weight: 900;">ملاحظات</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Languages Track Section -->
+              <tr style="background: #e0f2fe; border-top: 2px solid #0369a1; border-bottom: 1.5px solid #0369a1;">
+                <td colspan="${colCount}" style="padding: 3px 10px; font-weight: 900; font-size: 11.5px; color: #0369a1; text-align: right; border: 1.5px solid #0369a1;">
+                  🔷 أولاً: طلاب قسم اللغات (Languages Track) — [عدد الطلاب: ${langStudents.length}]
+                </td>
+              </tr>
+              ${langRowsHtml}
+
+              <!-- Arabic Track Section -->
+              <tr style="background: #fef3c7; border-top: 2px solid #d97706; border-bottom: 1.5px solid #d97706;">
+                <td colspan="${colCount}" style="padding: 3px 10px; font-weight: 900; font-size: 11.5px; color: #b45309; text-align: right; border: 1.5px solid #d97706;">
+                  🔶 ثانياً: طلاب قسم العربي (Arabic Track) — [عدد الطلاب: ${arStudents.length}]
+                </td>
+              </tr>
+              ${arRowsHtml}
+            </tbody>
+          </table>
+
+          <!-- Signatures Footer -->
+          <table style="width: 100%; border: none; margin-top: 4px; border-collapse: collapse; font-size: 11px; font-weight: 800; color: #1e293b;">
+            <tr>
+              <td style="width: 33%; text-align: right; border: none; padding: 3px;">
+                توقيع معلمات المواد / رائد الفصل: .........................
+              </td>
+              <td style="width: 34%; text-align: center; border: none; padding: 3px;">
+                مسؤول الكنترول وشؤون الطلاب: .........................
+              </td>
+              <td style="width: 33%; text-align: left; border: none; padding: 3px; direction: rtl;">
+                يعتمد، مديرة المدرسة: <b style="font-size: 11.5px; color: #000;">المهندسة / نبيلة فخري</b>
+              </td>
+            </tr>
+          </table>
+        </div>
+      `;
+    }
+
+    function executePrintGradingSheets() {
+      const scopeRadio = document.querySelector('input[name="print-scope"]:checked');
+      const scope = scopeRadio ? scopeRadio.value : 'current';
+      const titleInp = document.getElementById('print-sheet-exam-title');
+      const examTitle = titleInp ? titleInp.value : 'اختبار شهر أكتوبر (شهر 1)';
+      const modeRadio = document.querySelector('input[name="print-data-mode"]:checked');
+      const isBlank = modeRadio ? (modeRadio.value === 'blank') : true;
+
+      let gradesToPrint = [];
+      if (scope === 'all') {
+        gradesToPrint = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+      } else {
+        gradesToPrint = [currentGrade > 0 ? currentGrade : 1];
+      }
+
+      let fullHtml = '';
+      gradesToPrint.forEach(g => {
+        fullHtml += generateManualGradingSheetHTML(g, examTitle, isBlank);
+      });
+
+      const printWin = window.open('', '_blank');
+      if (printWin) {
+        printWin.document.write(`
+          <!DOCTYPE html>
+          <html dir="rtl" lang="ar">
+          <head>
+            <meta charset="UTF-8">
+            <title>شيت رصد الدرجات اليدوي - مدرسة Smile Kids</title>
+            <style>
+              @page {
+                size: A4 landscape;
+                margin: 6mm 8mm;
+              }
+              * {
+                box-sizing: border-box;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+              }
+              body {
+                margin: 0;
+                padding: 0;
+                background: #ffffff;
+                color: #000000;
+                font-family: 'Cairo', Arial, sans-serif;
+                direction: rtl;
+              }
+              .grade-a4-sheet {
+                page-break-after: always;
+                break-after: page;
+              }
+              .grade-a4-sheet:last-child {
+                page-break-after: avoid;
+                break-after: avoid;
+              }
+            </style>
+          </head>
+          <body>
+            ${fullHtml}
+            <script>
+              window.onload = function() {
+                setTimeout(function() {
+                  window.print();
+                  window.close();
+                }, 350);
+              };
+            <\/script>
+          </body>
+          </html>
+        `);
+        printWin.document.close();
+      } else {
+        // Fallback for pop-up blocker
+        const printArea = document.getElementById('batch-certificates-print-area');
+        if (printArea) {
+          printArea.innerHTML = fullHtml;
+          printArea.classList.remove('hidden');
+          window.print();
+          printArea.classList.add('hidden');
+        }
       }
     }
 
@@ -3468,14 +4831,16 @@
       const selPeriod = document.getElementById('tg-period-select');
       if (selPeriod) currentTgPeriod = selPeriod.value;
 
-      // Default max score for period
+      // Default max score for period or configured subject max
       const pDef = GRADING_PERIODS_ORDER.find(p => p.key === currentTgPeriod) || GRADING_PERIODS_ORDER[0];
       const maxInp = document.getElementById('tg-max-score');
       if (maxInp) {
         // If current value is untouched or default, adjust
         if (!maxInp.dataset.userEdited) {
-          maxInp.value = pDef.defaultMax;
-          currentTgMaxScore = pDef.defaultMax;
+          const cfg = getGradeSubjectsConfig(currentTgGrade, 'languages').find(s => s.id === currentTgSubjectId);
+          const defScore = cfg ? cfg.max : pDef.defaultMax;
+          maxInp.value = defScore;
+          currentTgMaxScore = defScore;
         } else {
           currentTgMaxScore = parseFloat(maxInp.value) || pDef.defaultMax;
         }
