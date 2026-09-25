@@ -2538,55 +2538,34 @@
       const isLang = (track === 'languages');
 
       if (g <= 3) {
-        if (isLang) {
-          return [
-            { id: 'arabic', name: 'لغة عربية', max: 50 },
-            { id: 'english_ol', name: 'لغة انجليزية (OL)', max: 30 },
-            { id: 'english_al', name: '( Connect Plus ) لغة انجليزية', max: 30 },
-            { id: 'math', name: 'Math / رياضيات', max: 30 },
-            { id: 'religion', name: 'ديـــــن', max: 20 }
-          ];
-        } else {
-          return [
-            { id: 'arabic', name: 'لغة عربية', max: 50 },
-            { id: 'english_ol', name: 'لغة انجليزية (OL)', max: 30 },
-            { id: 'math', name: 'رياضيات / حساب', max: 40 },
-            { id: 'religion', name: 'ديـــــن', max: 20 }
-          ];
-        }
+        return [
+          { id: 'arabic', name: 'لغة عربية', max: 50 },
+          { id: 'english_ol', name: 'لغة انجليزية (OL)', max: 30 },
+          { id: 'english_al', name: '( Connect Plus ) لغة انجليزية', max: 30 },
+          { id: 'math', name: isLang ? 'Math / رياضيات' : 'رياضيات / حساب', max: 30 },
+          { id: 'religion', name: 'ديـــــن', max: 20 }
+        ];
       } else if (g <= 6) {
-        if (isLang) {
-          return [
-            { id: 'arabic', name: 'لغة عربية', max: 50 },
-            { id: 'english_ol', name: 'لغة انجليزية (OL)', max: 30 },
-            { id: 'english_al', name: '( Connect Plus ) لغة انجليزية', max: 30 },
-            { id: 'math', name: 'Math / رياضيات', max: 30 },
-            { id: 'science', name: 'Science / علوم', max: 30 },
-            { id: 'social', name: 'دراسات اجتماعية', max: 20 },
-            { id: 'ict', name: 'تكنولوجيا المعلومات (ICT)', max: 20 },
-            { id: 'religion', name: 'ديـــــن', max: 20 }
-          ];
-        } else {
-          return [
-            { id: 'arabic', name: 'لغة عربية', max: 50 },
-            { id: 'english_ol', name: 'لغة انجليزية (OL)', max: 30 },
-            { id: 'math', name: 'رياضيات', max: 40 },
-            { id: 'science', name: 'علوم', max: 40 },
-            { id: 'social', name: 'دراسات اجتماعية', max: 20 },
-            { id: 'ict', name: 'تكنولوجيا المعلومات (ICT)', max: 20 },
-            { id: 'religion', name: 'ديـــــن', max: 20 }
-          ];
-        }
+        return [
+          { id: 'arabic', name: 'لغة عربية', max: 50 },
+          { id: 'english_ol', name: 'لغة انجليزية (OL)', max: 30 },
+          { id: 'english_al', name: '( Connect Plus ) لغة انجليزية', max: 30 },
+          { id: 'math', name: isLang ? 'Math / رياضيات' : 'رياضيات', max: 30 },
+          { id: 'science', name: isLang ? 'Science / علوم' : 'علوم', max: 30 },
+          { id: 'social', name: 'دراسات اجتماعية', max: 20 },
+          { id: 'ict', name: 'تكنولوجيا المعلومات (ICT)', max: 20 },
+          { id: 'religion', name: 'ديـــــن', max: 20 }
+        ];
       } else {
         // Prep Grades (7, 8, 9)
         return [
           { id: 'arabic', name: 'لغة عربية', max: 50 },
-          { id: 'english_ol', name: 'لغة انجليزية', max: 30 },
+          { id: 'english_ol', name: 'لغة انجليزية (OL)', max: 30 },
           { id: 'math', name: isLang ? 'Math / رياضيات' : 'رياضيات', max: 40 },
           { id: 'science', name: isLang ? 'Science / علوم' : 'علوم', max: 40 },
           { id: 'social', name: 'دراسات اجتماعية', max: 20 },
-          { id: 'religion', name: 'تربية دينية', max: 20 },
-          { id: 'german', name: 'لغة ألمانية (German)', max: 20 }
+          { id: 'german', name: 'لغة ألمانية (German)', max: 20 },
+          { id: 'religion', name: 'تربية دينية', max: 20 }
         ];
       }
     }
@@ -2614,25 +2593,18 @@
     }
 
     function getStudentPeriodTotal(student, periodKey) {
-      if (!student) return { totalScore: 0, totalMax: 0, percentage: 0, recordedCount: 0, totalAcademicSubjects: 0 };
+      if (!student) return { totalScore: 0, totalMax: 0, percentage: 0, recordedCount: 0, totalSubjects: 0, totalAcademicSubjects: 0 };
       const subjects = getGradeSubjectsConfig(student.grade, student.track);
       let totalScore = 0;
       let totalMax = 0;
       let recordedCount = 0;
-      let totalAcademicSubjects = 0;
 
       subjects.forEach(sub => {
-        const isReligion = (sub.id === 'religion');
-        if (!isReligion) {
-          totalAcademicSubjects++;
-          totalMax += sub.max;
-        }
+        totalMax += sub.max;
         const scoreData = getStudentSubjectScore(student, sub.id, periodKey);
         if (scoreData && scoreData.isRecorded) {
-          if (!isReligion) {
-            totalScore += scoreData.score;
-          }
-          recordedCount++;
+          totalScore += scoreData.score;
+          if (scoreData.score > 0) recordedCount++;
         }
       });
 
@@ -2642,7 +2614,8 @@
         totalMax: totalMax,
         percentage: percentage,
         recordedCount: recordedCount,
-        totalAcademicSubjects: totalAcademicSubjects
+        totalSubjects: subjects.length,
+        totalAcademicSubjects: subjects.length
       };
     }
 
