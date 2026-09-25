@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>معرض نماذج شهادات سمايل كيدز - Smile Kids Certificate Showcase</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Amiri:wght@700&family=Playfair+Display:wght@700;900&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+    }
+    .font-amiri { font-family: 'Amiri', serif; }
+    .font-serif-en { font-family: 'Playfair Display', Georgia, serif; }
+    .font-kids { font-family: 'Fredoka', 'Cairo', cursive, sans-serif; }
+    
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; padding: 0 !important; }
+      .certificate-page { box-shadow: none !important; margin: 0 !important; page-break-after: always; }
+    }
+
+    /* Gold foil effect */
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #d4af37 0%, #fff3a8 30%, #aa771c 60%, #ffd700 80%, #8b6508 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gold-border {
+      border-image: linear-gradient(135deg, #d4af37, #fff3a8, #aa771c, #ffd700, #8b6508) 1;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-4 md:p-8">
+
+  <!-- Header & Showcase Toolbar -->
+  <div class="max-w-6xl mx-auto mb-8 no-print">
+    <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-2xl backdrop-blur-md">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-5">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center text-3xl shadow-[0_0_20px_rgba(245,158,11,0.35)]">
+            📜
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[11px] font-black px-2.5 py-0.5 rounded-full">Smile Kids Excellence</span>
+              <span class="text-xs text-slate-400 font-bold">بنفس بيانات الدرجات والطلاب</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-black text-white mt-1">معرض التصاميم المقترحة للشهادات</h1>
+            <p class="text-xs sm:text-sm text-slate-400 mt-0.5">اختر التصميم الأنسب لطباعته أو اعتماده في النظام بضغطة زر واحدة</p>
+          </div>
+        </div>
+
+        <!-- Print & Action Button -->
+        <div class="flex items-center gap-2.5 flex-wrap">
+          <button onclick="window.print()" class="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl text-xs sm:text-sm transition flex items-center gap-2 shadow-[0_0_20px_rgba(245,158,11,0.35)] active:scale-95">
+            <span>🖨️ طباعة النموذج المعروض</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Controls: Student & Exam Switcher -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6 pt-5 border-t border-slate-800/80 text-xs">
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">👤 الطالب التجريبي:</label>
+          <select id="sel-sample-student" onchange="updateShowcaseData()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-bold focus:outline-none focus:border-amber-500">
+            <option value="ibrahim" selected>إبراهيم محمود حلمي محمود (Grade 1 - لغات) - المركز الأول 🥇</option>
+            <option value="khadija">خديجة أحمد محمد سعيد (Grade 4 - عربي) - المركز الأول 🥇</option>
+            <option value="omar">عمر شريف علي حسن (Grade 7 - لغات) - المركز الثاني 🥈</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">🏷️ عنوان الاختبار / الفترة:</label>
+          <input type="text" id="inp-sample-title" value="FIRST TERM REPORT" oninput="updateShowcaseData()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-amber-300 font-bold focus:outline-none focus:border-amber-500">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">✍️ توقيع الإدارة والاعتماد:</label>
+          <input type="text" id="inp-sample-principal" value="المهندسة / نبيلة فخري" oninput="updateShowcaseData()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 font-bold focus:outline-none focus:border-amber-500">
+        </div>
+      </div>
+
+      <!-- Style Switcher Tabs -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 mt-6 pt-5 border-t border-slate-800/80">
+        <button onclick="setActiveStyle('style-current')" id="btn-style-current" class="style-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-1.5 bg-amber-500 text-slate-950 shadow-md">
+          <span>📋 النمط 1: التقرير المدرسي الأصلي</span>
+        </button>
+        <button onclick="setActiveStyle('style-royal')" id="btn-style-royal" class="style-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 text-slate-400 hover:text-white bg-slate-950/80 border border-slate-800">
+          <span>👑 النمط 2: الشهادة الملكية الذهبية</span>
+        </button>
+        <button onclick="setActiveStyle('style-modern')" id="btn-style-modern" class="style-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 text-slate-400 hover:text-white bg-slate-950/80 border border-slate-800">
+          <span>💎 النمط 3: المودرن النظيف (انفوجرافيك)</span>
+        </button>
+        <button onclick="setActiveStyle('style-kids')" id="btn-style-kids" class="style-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 text-slate-400 hover:text-white bg-slate-950/80 border border-slate-800">
+          <span>🎈 النمط 4: أبطال كيدز المبهج</span>
+        </button>
+        <button onclick="setActiveStyle('style-all')" id="btn-style-all" class="style-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 text-slate-400 hover:text-white bg-slate-950/80 border border-slate-800">
+          <span>👁️ عرض الكل جنباً إلى جنب</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Showcase Preview Container -->
+  <main class="max-w-6xl mx-auto space-y-12">
+
+    <!-- ============================================================== -->
+    <!-- STYLE 1: Current Official Report Card (User Approved Reference) -->
+    <!-- ============================================================== -->
+    <section id="sec-style-current" class="style-section">
+      <div class="mb-3 text-center no-print">
+        <span class="bg-blue-500/20 text-blue-300 border border-blue-500/30 text-xs font-black px-3 py-1 rounded-full">
+          النمط 1: التقرير المدرسي المعتمد (النموذج المطابق لصورة كارت الدرجات)
+        </span>
+      </div>
+
+      <div class="certificate-page bg-white text-slate-900 border-[2.5px] border-slate-600 rounded-lg p-6 sm:p-9 shadow-2xl max-w-4xl mx-auto direction-ltr" style="direction: ltr;">
+        <!-- Top Row: Tilted Logo on Far Left & 3D Boxed Title in Center -->
+        <div class="flex items-start justify-between relative mb-4">
+          <div class="transform -rotate-12 bg-white p-2 px-3 rounded-2xl shadow-lg border border-slate-300 inline-block">
+            <div class="flex items-center gap-2">
+              <span class="text-3xl">☺</span>
+              <div class="leading-tight text-left">
+                <div class="font-black text-blue-700 text-sm tracking-tighter">SMILE KIDS</div>
+                <div class="text-[9px] font-bold text-amber-500">LANGUAGE SCHOOL</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-[2.5px] border-blue-600 rounded px-7 py-1.5 bg-white shadow-sm">
+            <h2 class="text-2xl sm:text-3xl font-black text-blue-800 tracking-wider uppercase m-0 sample-title-display" style="text-shadow: 2px 2px 0px #93c5fd, 3px 3px 0px #cbd5e1;">
+              FIRST TERM REPORT
+            </h2>
+          </div>
+
+          <div class="w-28 hidden sm:block"></div>
+        </div>
+
+        <!-- Student Name Line -->
+        <div class="flex items-center justify-between mt-4 mb-3 px-1">
+          <div class="text-red-600 text-xl sm:text-2xl font-black tracking-wide text-left sample-name-en">
+            Ibrahim Mahmoud Helmi Mahmoud
+          </div>
+          <div class="text-red-600 text-xl sm:text-2xl font-black text-right whitespace-nowrap" style="direction: rtl;">
+            اسم الطالب/ ة :
+          </div>
+        </div>
+
+        <!-- The Table -->
+        <table class="w-full border-collapse border-2 border-slate-900 text-center" style="direction: rtl;">
+          <tr class="border-b-2 border-slate-900">
+            <td class="border-2 border-slate-900 p-2 text-sm font-black w-[35%] text-slate-900">
+              الصــــــف :
+            </td>
+            <td colspan="2" class="border-2 border-slate-900 p-2 text-xl font-black text-blue-600 sample-grade-display" style="text-shadow: -1px -1px 0 #93c5fd, 1px -1px 0 #93c5fd, -1px 1px 0 #93c5fd, 1px 1px 0 #93c5fd;">
+              Grade 1 Language
+            </td>
+          </tr>
+
+          <tr class="bg-slate-50 border-b-2 border-slate-900 text-slate-900">
+            <th class="border-[1.5px] border-slate-900 p-2 text-sm font-black w-[35%]">المادة الدراسية</th>
+            <th class="border-[1.5px] border-slate-900 p-2 text-sm font-black w-[35%] text-red-600">النهاية العظمى</th>
+            <th class="border-[1.5px] border-slate-900 p-2 text-sm font-black w-[30%]">الدرجة</th>
+          </tr>
+
+          <tbody id="s1-table-body">
+            <!-- Populated dynamically -->
+          </tbody>
+
+          <!-- Total Row -->
+          <tr class="border-t-2 border-slate-900 bg-white font-black text-slate-900 text-base">
+            <td class="border-[1.5px] border-slate-900 p-2">المجموع الكلى</td>
+            <td class="border-[1.5px] border-slate-900 p-2 s1-total-max">110</td>
+            <td class="border-[1.5px] border-slate-900 p-2 s1-total-score">107.5</td>
+          </tr>
+
+          <!-- Ranking Row -->
+          <tr class="border-t border-slate-900 bg-white font-black text-slate-900">
+            <td class="border-[1.5px] border-slate-900 p-2 text-sm font-black">التـــــــرتيـــــــب</td>
+            <td colspan="2" class="border-[1.5px] border-slate-900 p-2 text-2xl font-black text-amber-600 sample-rank-display">
+              المركز الأول 🥇
+            </td>
+          </tr>
+        </table>
+
+        <!-- Footer Area -->
+        <div class="w-full h-0.5 bg-gradient-to-r from-blue-300 via-blue-400 to-blue-300 mt-6 mb-3"></div>
+
+        <div class="flex items-center justify-between px-2 text-left" style="direction: ltr;">
+          <div class="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500" style="font-family: 'Fredoka', cursive;">
+            Congratulations
+          </div>
+
+          <div class="text-center text-blue-500 italic font-bold text-xs sm:text-sm">
+            With our best wishes for continued success and excellence<br>
+            <span class="text-sm font-normal not-italic text-blue-600">Smile Kids ☺</span>
+          </div>
+
+          <div class="flex flex-col items-center relative">
+            <div class="border-2 border-red-500 rounded-lg p-1.5 px-3 bg-white shadow-sm flex flex-col items-center">
+              <span class="text-[9px] font-black text-blue-600 tracking-wider">GOOD JOB</span>
+              <span class="text-xl">✉️</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-xs font-bold text-slate-600 px-3" style="direction: rtl;">
+          <div>مسؤول الكنترول: ....................</div>
+          <div>خاتم المدرسة</div>
+          <div>مديرة المدرسة: <b class="text-slate-900 sample-principal-display">المهندسة / نبيلة فخري</b></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- STYLE 2: Royal Gold & Navy Classic Certificate                 -->
+    <!-- ============================================================== -->
+    <section id="sec-style-royal" class="style-section hidden">
+      <div class="mb-3 text-center no-print">
+        <span class="bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-black px-3 py-1 rounded-full">
+          النمط 2: الشهادة الملكية الذهبية الفاخرة (شهادة تفوق وتقدير كلاسيكية راقية)
+        </span>
+      </div>
+
+      <div class="certificate-page bg-gradient-to-br from-[#0c162c] via-[#09101f] to-[#040813] text-amber-100 rounded-2xl p-3 sm:p-5 shadow-[0_0_50px_rgba(0,0,0,0.8)] max-w-4xl mx-auto relative overflow-hidden border border-amber-500/30">
+        
+        <!-- Ornate Gold Dual Borders -->
+        <div class="border-2 border-amber-400/70 rounded-xl p-6 sm:p-10 relative bg-[#091122]/90 backdrop-blur-md">
+          
+          <!-- Corner Arabesques -->
+          <div class="absolute top-2 right-2 text-2xl text-amber-400/80">⚜️</div>
+          <div class="absolute top-2 left-2 text-2xl text-amber-400/80">⚜️</div>
+          <div class="absolute bottom-2 right-2 text-2xl text-amber-400/80">⚜️</div>
+          <div class="absolute bottom-2 left-2 text-2xl text-amber-400/80">⚜️</div>
+
+          <!-- Top Header -->
+          <div class="flex items-center justify-between pb-6 border-b border-amber-400/30">
+            <div class="text-right">
+              <div class="text-amber-300 font-amiri text-lg font-bold">جمهورية مصر العربية • وزارة التربية والتعليم</div>
+              <div class="text-white text-xl sm:text-2xl font-black mt-0.5">مدارس سمايل كيدز الحديثة للغات</div>
+              <div class="text-amber-400/80 text-xs font-semibold">Smile Kids International Language Schools</div>
+            </div>
+
+            <!-- Royal Emblem / Wax Seal -->
+            <div class="relative flex items-center justify-center">
+              <div class="w-20 h-20 rounded-full border-2 border-amber-400/90 bg-gradient-to-tr from-amber-700 via-amber-500 to-amber-200 p-1 flex items-center justify-center shadow-[0_0_25px_rgba(245,158,11,0.5)]">
+                <div class="w-full h-full rounded-full bg-slate-950 flex flex-col items-center justify-center text-center">
+                  <span class="text-amber-400 text-xs font-serif-en font-black">SMILE</span>
+                  <span class="text-amber-300 text-lg">👑</span>
+                  <span class="text-[8px] text-amber-200 font-bold uppercase">Excellence</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-left font-serif-en">
+              <div class="text-xs text-amber-300 font-bold uppercase tracking-widest">CERTIFICATE OF</div>
+              <div class="text-xl sm:text-2xl font-black text-amber-400 uppercase tracking-wider">EXCELLENCE</div>
+              <div class="text-[10px] text-amber-200/70 sample-title-display">FIRST TERM REPORT</div>
+            </div>
+          </div>
+
+          <!-- Certificate Title & Ribbon Banner -->
+          <div class="my-6 text-center">
+            <div class="inline-block relative">
+              <div class="bg-gradient-to-r from-amber-600 via-amber-400 to-amber-600 text-slate-950 px-8 py-2 rounded-full font-black text-lg sm:text-xl shadow-[0_0_20px_rgba(245,158,11,0.4)]">
+                شهـــــادة تقــــدير وتفــــــوق أكاديمي
+              </div>
+            </div>
+            <p class="text-xs text-amber-200/80 mt-2 font-semibold">
+              يسر إدارة المدرسة وهيئة التدريس منح هذه الشهادة اعتزازاً بالمستوى الأكاديمي الرفيع
+            </p>
+          </div>
+
+          <!-- Honored Student Name Showcase -->
+          <div class="bg-gradient-to-r from-amber-950/20 via-amber-500/10 to-amber-950/20 border-y border-amber-400/40 py-4 my-5 text-center">
+            <span class="text-xs font-bold text-amber-300 uppercase tracking-widest">تمنح للطالب النجيب / الطالبة النجيبة:</span>
+            <h3 class="text-2xl sm:text-3xl font-black text-white mt-1 sample-name-ar">
+              إبراهيم محمود حلمي محمود عبد الله
+            </h3>
+            <div class="text-sm font-serif-en text-amber-400 tracking-wider mt-0.5 sample-name-en">
+              Ibrahim Mahmoud Helmi Mahmoud
+            </div>
+            <div class="inline-flex items-center gap-2 mt-2 bg-amber-500/20 border border-amber-400/40 px-4 py-1 rounded-full text-xs font-bold text-amber-200 sample-grade-display">
+              Grade 1 Language • الصف الأول الابتدائي
+            </div>
+          </div>
+
+          <!-- Academic Scores Table (Royal Edition) -->
+          <div class="my-6">
+            <table class="w-full text-center text-xs sm:text-sm border-collapse">
+              <thead>
+                <tr class="bg-amber-500/20 text-amber-300 border-b border-amber-400/40">
+                  <th class="py-2.5 px-3 font-black text-right">المادة الدراسية</th>
+                  <th class="py-2.5 px-3 font-black text-amber-400">النهاية العظمى</th>
+                  <th class="py-2.5 px-3 font-black text-white">الدرجة المحققة</th>
+                  <th class="py-2.5 px-3 font-black text-emerald-300">التقدير</th>
+                </tr>
+              </thead>
+              <tbody id="s2-table-body" class="divide-y divide-amber-400/20">
+                <!-- Dynamically populated -->
+              </tbody>
+              <tfoot>
+                <tr class="border-t-2 border-amber-400/60 bg-amber-500/25 font-black text-amber-200">
+                  <td class="py-3 px-3 text-right">المجموع الكلي والترتيب:</td>
+                  <td class="py-3 px-3 s1-total-max">110</td>
+                  <td class="py-3 px-3 text-white text-base s1-total-score">107.5</td>
+                  <td class="py-3 px-3 text-amber-300 text-sm font-black sample-rank-display">المركز الأول 🥇</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <!-- Royal Signatures & Accreditation Footer -->
+          <div class="mt-8 pt-5 border-t border-amber-400/30 grid grid-cols-3 text-center text-xs font-bold">
+            <div>
+              <div class="text-amber-300/80">رائد الفصل</div>
+              <div class="mt-6 text-slate-300">مس شيرين أحمد</div>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="w-14 h-14 rounded-full border border-dashed border-amber-400/60 flex items-center justify-center text-[10px] text-amber-300/70 p-1">
+                خاتم شعار المدرسة
+              </div>
+            </div>
+            <div>
+              <div class="text-amber-300/80">مديرة المدرسة والاعتماد</div>
+              <div class="mt-6 text-white font-black text-sm sample-principal-display">المهندسة / نبيلة فخري</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- STYLE 3: Modern Minimalist Studio & Infographic               -->
+    <!-- ============================================================== -->
+    <section id="sec-style-modern" class="style-section hidden">
+      <div class="mb-3 text-center no-print">
+        <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-black px-3 py-1 rounded-full">
+          النمط 3: التصميم العصري الحديث (انفوجرافيك أكاديمي وبطاقات درجات ملونة مع بار كود)
+        </span>
+      </div>
+
+      <div class="certificate-page bg-slate-900 border border-slate-700/80 rounded-3xl p-6 sm:p-9 shadow-2xl max-w-4xl mx-auto text-white">
+        <!-- Top Modern Bar -->
+        <div class="flex items-center justify-between pb-5 border-b border-slate-800">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center font-black text-xl shadow-lg shadow-indigo-600/30">
+              SK
+            </div>
+            <div>
+              <div class="text-lg font-black text-white">SMILE KIDS SCHOOL</div>
+              <div class="text-xs text-indigo-400 font-bold">نظام التقييم الأكاديمي الرقمي الموحد</div>
+            </div>
+          </div>
+
+          <div class="text-left">
+            <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-xs font-black px-3 py-1 rounded-full sample-title-display">
+              FIRST TERM REPORT
+            </span>
+            <div class="text-[11px] text-slate-400 mt-1">العام الدراسي: 2026 / 2027</div>
+          </div>
+        </div>
+
+        <!-- Student Info Header Card -->
+        <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-5 my-6 flex flex-col sm:flex-row items-center justify-between gap-5">
+          <div class="flex items-center gap-4">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center text-3xl shadow-md">
+              🎓
+            </div>
+            <div>
+              <span class="text-xs text-slate-400 font-bold">بيانات الطالب الأكاديمية:</span>
+              <h2 class="text-xl sm:text-2xl font-black text-white sample-name-ar">إبراهيم محمود حلمي محمود</h2>
+              <div class="text-xs font-mono text-indigo-300 sample-name-en">Ibrahim Mahmoud Helmi Mahmoud</div>
+            </div>
+          </div>
+
+          <!-- Quick Metrics Pills -->
+          <div class="flex items-center gap-2 flex-wrap">
+            <div class="bg-slate-900 border border-slate-800 px-3 py-2 rounded-xl text-center min-w-[75px]">
+              <div class="text-[10px] text-slate-400">الصف</div>
+              <div class="text-xs font-black text-indigo-400 sample-grade-display">Grade 1</div>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 px-3 py-2 rounded-xl text-center min-w-[75px]">
+              <div class="text-[10px] text-slate-400">النسبة</div>
+              <div class="text-xs font-black text-emerald-400">97.7%</div>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 px-3 py-2 rounded-xl text-center min-w-[85px]">
+              <div class="text-[10px] text-slate-400">الترتيب</div>
+              <div class="text-xs font-black text-amber-400 sample-rank-display">المركز الأول</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subjects Grid (Modern Cards with mini progress bars) -->
+        <div class="my-6">
+          <h4 class="text-xs font-black text-slate-400 uppercase tracking-wider mb-3">تفاصيل درجات المواد التخصصية:</h4>
+          <div id="s3-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+            <!-- Dynamically populated cards -->
+          </div>
+        </div>
+
+        <!-- Overall Score Summary Bar -->
+        <div class="bg-gradient-to-r from-indigo-950/60 to-purple-950/60 border border-indigo-800/50 rounded-2xl p-4 my-6 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">🏆</span>
+            <div>
+              <div class="text-sm font-black text-white">المجموع الإجمالي المحقق</div>
+              <div class="text-xs text-indigo-300">مجموع درجات المواد المقررة الأساسية</div>
+            </div>
+          </div>
+          <div class="text-left font-mono">
+            <div class="text-2xl font-black text-emerald-400"><span class="s1-total-score">107.5</span> / <span class="s1-total-max">110</span></div>
+            <div class="text-[11px] text-slate-400">التقدير العام: ممتاز (A+)</div>
+          </div>
+        </div>
+
+        <!-- Modern Footer with Verification QR and Principal -->
+        <div class="mt-8 pt-5 border-t border-slate-800 flex items-center justify-between text-xs font-bold text-slate-400">
+          <div class="flex items-center gap-2">
+            <div class="w-10 h-10 bg-white p-1 rounded-lg">
+              <svg viewBox="0 0 24 24" class="w-full h-full text-slate-950" fill="currentColor">
+                <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-3 2h2v3h-2v-3zm3 3h3v3h-3v-3zm-5 1h2v2h-2v-2z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-slate-200">التحقق الرقمي المعتمد</div>
+              <div class="text-[10px]">كود المصادقة: SK-2026-091</div>
+            </div>
+          </div>
+
+          <div class="text-left">
+            <div class="text-slate-300">يعتمد، مديرة المدرسة</div>
+            <div class="text-sm font-black text-white sample-principal-display">المهندسة / نبيلة فخري</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- STYLE 4: Cheerful Kids & Super Star Celebration                -->
+    <!-- ============================================================== -->
+    <section id="sec-style-kids" class="style-section hidden">
+      <div class="mb-3 text-center no-print">
+        <span class="bg-pink-500/20 text-pink-300 border border-pink-500/40 text-xs font-black px-3 py-1 rounded-full">
+          النمط 4: نمط أبطال كيدز المبهج (مخصص لرياض الأطفال والمرحلة الابتدائية - ألوان مبهجة ونجوم وكأس تفوق)
+        </span>
+      </div>
+
+      <div class="certificate-page bg-[#fffdfa] text-slate-800 border-[6px] border-amber-400 rounded-3xl p-6 sm:p-9 shadow-2xl max-w-4xl mx-auto relative overflow-hidden font-kids">
+        
+        <!-- Wavy Colorful Border Accents -->
+        <div class="absolute -top-12 -right-12 w-32 h-32 rounded-full bg-pink-300/30 blur-2xl"></div>
+        <div class="absolute -bottom-12 -left-12 w-32 h-32 rounded-full bg-cyan-300/30 blur-2xl"></div>
+
+        <!-- Cheerful Header -->
+        <div class="flex items-center justify-between relative z-10 pb-4 border-b-2 border-dashed border-amber-300">
+          <div class="flex items-center gap-2">
+            <span class="text-4xl animate-bounce">⭐</span>
+            <div>
+              <div class="text-xl font-black text-pink-600">حضانة ومدرسة سمايل كيدز</div>
+              <div class="text-xs font-bold text-amber-600">Smile Kids Happy Learning School</div>
+            </div>
+          </div>
+
+          <div class="bg-amber-400 text-slate-900 px-4 py-1.5 rounded-2xl font-black text-sm shadow-sm sample-title-display">
+            FIRST TERM REPORT
+          </div>
+
+          <div class="flex items-center gap-1 text-2xl">
+            <span>🎈</span>
+            <span>🌈</span>
+          </div>
+        </div>
+
+        <!-- Big Celebration Banner -->
+        <div class="my-5 text-center relative z-10">
+          <div class="inline-flex items-center gap-3 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white px-6 py-2.5 rounded-3xl shadow-lg">
+            <span class="text-2xl">🏆</span>
+            <span class="text-lg sm:text-xl font-black">شهـــــادة بطــــل التفـــــوق الصغيـــر</span>
+            <span class="text-2xl">🎉</span>
+          </div>
+
+          <p class="text-xs text-purple-700 font-bold mt-2">
+            بكل فخر واعتزاز، نبارك لبطلنا المميز تفوقه وإبداعه الرائع في اختبارات هذا الفصل
+          </p>
+        </div>
+
+        <!-- Student Cheerful Card -->
+        <div class="bg-white border-2 border-purple-200 rounded-2xl p-4 my-4 shadow-sm text-center relative z-10">
+          <div class="text-xs font-bold text-slate-500">اسم النجم / النجمة:</div>
+          <h2 class="text-2xl sm:text-3xl font-black text-purple-800 mt-0.5 sample-name-ar">
+            إبراهيم محمود حلمي محمود عبد الله
+          </h2>
+          <div class="text-sm font-bold text-pink-500 sample-name-en">Ibrahim Mahmoud Helmi Mahmoud</div>
+          <div class="inline-block bg-yellow-100 border border-yellow-300 text-amber-800 text-xs font-black px-4 py-1 rounded-full mt-2 sample-grade-display">
+            Grade 1 Language • الصف الأول الابتدائي
+          </div>
+        </div>
+
+        <!-- Fun Subjects Table -->
+        <div class="my-5 relative z-10">
+          <table class="w-full text-center border-collapse rounded-2xl overflow-hidden shadow-sm">
+            <thead>
+              <tr class="bg-cyan-500 text-white font-black text-xs sm:text-sm">
+                <th class="p-2.5 text-right pr-4">المادة الممتعة 📚</th>
+                <th class="p-2.5">الدرجة العظمى 🎯</th>
+                <th class="p-2.5">درجة البطل 🌟</th>
+                <th class="p-2.5">التقدير التشجيعي 👏</th>
+              </tr>
+            </thead>
+            <tbody id="s4-table-body" class="divide-y divide-purple-100 bg-white text-xs sm:text-sm font-bold">
+              <!-- Dynamically populated -->
+            </tbody>
+            <tfoot>
+              <tr class="bg-amber-100 text-slate-900 font-black text-sm border-t-2 border-amber-300">
+                <td class="p-2.5 text-right pr-4">المجموع الكلي:</td>
+                <td class="p-2.5 s1-total-max">110</td>
+                <td class="p-2.5 text-purple-700 text-base s1-total-score">107.5</td>
+                <td class="p-2.5 text-amber-700 sample-rank-display">المركز الأول 🥇</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <!-- Footer Stickers & Signature -->
+        <div class="mt-6 pt-4 border-t-2 border-dashed border-amber-300 flex items-center justify-between text-xs font-bold relative z-10">
+          <div class="flex items-center gap-2">
+            <span class="text-3xl">🎖️</span>
+            <div>
+              <div class="text-pink-600 font-black">أحسنت يا بطل! استمر في التألق</div>
+              <div class="text-[10px] text-slate-500">مع تحيات أسرة حضانة ومدرسة سمايل كيدز</div>
+            </div>
+          </div>
+
+          <div class="text-left">
+            <div class="text-slate-500">مديرة المدرسة:</div>
+            <div class="text-sm font-black text-purple-900 sample-principal-display">المهندسة / نبيلة فخري</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Sample Data Sets
+    const SAMPLE_DATA = {
+      ibrahim: {
+        nameAr: 'إبراهيم محمود حلمي محمود عبد الله',
+        nameEn: 'Ibrahim Mahmoud Helmi Mahmoud',
+        gradeText: 'Grade 1 Language',
+        gradeFull: 'الصف الأول الابتدائي (لغات)',
+        rank: 'المركز الأول 🥇',
+        subjects: [
+          { name: 'لغة عربية (Arabic)', max: 50, score: 49, apprec: 'ممتاز 🌟' },
+          { name: 'لغة إنجليزية (Connect Plus)', max: 30, score: 29.5, apprec: 'ممتاز 🌟' },
+          { name: 'رياضيات (Math)', max: 30, score: 29, apprec: 'ممتاز 🌟' },
+          { name: 'تربية دينية (Religion)', max: 20, score: 20, apprec: 'ممتاز 🌟', isReligion: true }
+        ]
+      },
+      khadija: {
+        nameAr: 'خديجة أحمد محمد سعيد',
+        nameEn: 'Khadija Ahmed Mohamed Saeed',
+        gradeText: 'Grade 4 Arabic',
+        gradeFull: 'الصف الرابع الابتدائي (عربي)',
+        rank: 'المركز الأول 🥇',
+        subjects: [
+          { name: 'لغة عربية', max: 50, score: 48, apprec: 'ممتاز 🌟' },
+          { name: 'رياضيات', max: 40, score: 39, apprec: 'ممتاز 🌟' },
+          { name: 'علوم', max: 40, score: 38.5, apprec: 'ممتاز 🌟' },
+          { name: 'دراسات اجتماعية', max: 20, score: 19.5, apprec: 'ممتاز 🌟' },
+          { name: 'لغة إنجليزية (OL)', max: 30, score: 29, apprec: 'ممتاز 🌟' },
+          { name: 'تكنولوجيا المعلومات (ICT)', max: 20, score: 20, apprec: 'ممتاز 🌟' },
+          { name: 'تربية دينية', max: 20, score: 20, apprec: 'ممتاز 🌟', isReligion: true }
+        ]
+      },
+      omar: {
+        nameAr: 'عمر شريف علي حسن',
+        nameEn: 'Omar Sherif Ali Hassan',
+        gradeText: 'Grade 7 Language',
+        gradeFull: 'الصف الأول الإعدادي (لغات)',
+        rank: 'المركز الثاني 🥈',
+        subjects: [
+          { name: 'لغة عربية', max: 50, score: 46, apprec: 'جيد جداً 🟢' },
+          { name: 'Math / رياضيات', max: 40, score: 38, apprec: 'ممتاز 🌟' },
+          { name: 'Science / علوم', max: 40, score: 37.5, apprec: 'جيد جداً 🟢' },
+          { name: 'دراسات اجتماعية', max: 20, score: 18, apprec: 'جيد جداً 🟢' },
+          { name: 'لغة إنجليزية', max: 30, score: 28, apprec: 'ممتاز 🌟' },
+          { name: 'لغة ألمانية (German)', max: 20, score: 19, apprec: 'ممتاز 🌟' },
+          { name: 'تربية دينية', max: 20, score: 19, apprec: 'ممتاز 🌟', isReligion: true }
+        ]
+      }
+    };
+
+    function updateShowcaseData() {
+      const studentKey = document.getElementById('sel-sample-student').value;
+      const title = document.getElementById('inp-sample-title').value.trim() || 'FIRST TERM REPORT';
+      const principal = document.getElementById('inp-sample-principal').value.trim() || 'المهندسة / نبيلة فخري';
+
+      const st = SAMPLE_DATA[studentKey];
+
+      // Update text displays
+      document.querySelectorAll('.sample-title-display').forEach(el => el.innerText = title);
+      document.querySelectorAll('.sample-principal-display').forEach(el => el.innerText = principal);
+      document.querySelectorAll('.sample-name-ar').forEach(el => el.innerText = st.nameAr);
+      document.querySelectorAll('.sample-name-en').forEach(el => el.innerText = st.nameEn);
+      document.querySelectorAll('.sample-grade-display').forEach(el => el.innerText = st.gradeText);
+      document.querySelectorAll('.sample-rank-display').forEach(el => el.innerText = st.rank);
+
+      // Calculate totals (excluding religion from academic total)
+      let totalMax = 0, totalScore = 0;
+      st.subjects.forEach(s => {
+        if (!s.isReligion) {
+          totalMax += s.max;
+          totalScore += s.score;
+        }
+      });
+
+      document.querySelectorAll('.s1-total-max').forEach(el => el.innerText = totalMax);
+      document.querySelectorAll('.s1-total-score').forEach(el => el.innerText = totalScore);
+
+      // Render Style 1 Table Body
+      const s1Body = document.getElementById('s1-table-body');
+      if (s1Body) {
+        s1Body.innerHTML = st.subjects.map(s => `
+          <tr class="border-b border-slate-900">
+            <td class="border-[1.5px] border-slate-900 p-2 text-sm font-bold text-slate-900">${s.name}</td>
+            <td class="border-[1.5px] border-slate-900 p-2 text-sm font-black text-red-600 font-mono">${s.max}</td>
+            <td class="border-[1.5px] border-slate-900 p-2 text-sm font-black text-slate-900 font-mono">${s.score}</td>
+          </tr>
+        `).join('');
+      }
+
+      // Render Style 2 (Royal) Table Body
+      const s2Body = document.getElementById('s2-table-body');
+      if (s2Body) {
+        s2Body.innerHTML = st.subjects.map(s => `
+          <tr class="hover:bg-amber-500/10 transition">
+            <td class="py-2.5 px-3 font-bold text-right text-amber-100">${s.name}</td>
+            <td class="py-2.5 px-3 font-black text-amber-400 font-mono">${s.max}</td>
+            <td class="py-2.5 px-3 font-black text-white font-mono text-sm">${s.score}</td>
+            <td class="py-2.5 px-3 font-bold text-emerald-400 text-xs">${s.apprec}</td>
+          </tr>
+        `).join('');
+      }
+
+      // Render Style 3 (Modern) Cards
+      const s3Grid = document.getElementById('s3-cards-grid');
+      if (s3Grid) {
+        s3Grid.innerHTML = st.subjects.map(s => {
+          const pct = Math.round((s.score / s.max) * 100);
+          return `
+            <div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 flex flex-col justify-between">
+              <div>
+                <div class="text-xs font-black text-slate-300 truncate">${s.name}</div>
+                <div class="flex items-baseline justify-between mt-2">
+                  <span class="text-xl font-black text-white font-mono">${s.score}</span>
+                  <span class="text-xs text-slate-500 font-mono">/ ${s.max}</span>
+                </div>
+              </div>
+              <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-3">
+                <div class="bg-indigo-500 h-full rounded-full" style="width: ${pct}%"></div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Render Style 4 (Kids) Table Body
+      const s4Body = document.getElementById('s4-table-body');
+      if (s4Body) {
+        s4Body.innerHTML = st.subjects.map(s => `
+          <tr class="hover:bg-pink-50 transition">
+            <td class="p-2.5 text-right pr-4 font-black text-purple-900">${s.name}</td>
+            <td class="p-2.5 font-black text-slate-500 font-mono">${s.max}</td>
+            <td class="p-2.5 font-black text-pink-600 font-mono text-base">${s.score}</td>
+            <td class="p-2.5 text-amber-600 text-xs font-black">${s.apprec}</td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    function setActiveStyle(styleId) {
+      // Update Tab Buttons UI
+      document.querySelectorAll('.style-tab-btn').forEach(btn => {
+        btn.className = 'style-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 text-slate-400 hover:text-white bg-slate-950/80 border border-slate-800';
+      });
+
+      const activeBtn = document.getElementById('btn-' + styleId.replace('sec-', ''));
+      if (activeBtn) {
+        activeBtn.className = 'style-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-1.5 bg-amber-500 text-slate-950 shadow-md';
+      }
+
+      if (styleId === 'style-all') {
+        document.querySelectorAll('.style-section').forEach(sec => sec.classList.remove('hidden'));
+      } else {
+        document.querySelectorAll('.style-section').forEach(sec => sec.classList.add('hidden'));
+        const targetSec = document.getElementById('sec-' + styleId.replace('sec-', ''));
+        if (targetSec) targetSec.classList.remove('hidden');
+      }
+    }
+
+    // Initial Load
+    updateShowcaseData();
+  </script>
+</body>
+</html>

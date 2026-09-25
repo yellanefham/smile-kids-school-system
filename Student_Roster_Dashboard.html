@@ -350,15 +350,15 @@
       </div>
     </div>
 
-    <!-- Grade Selection Pill Bar -->
-    <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-2.5 mb-6 shadow-sm no-print">
-      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none" id="grade-pills-container">
-        <!-- Injected via JavaScript -->
-      </div>
-    </div>
-
     <!-- SECTION 1: ROSTERS TAB CONTENT -->
     <div id="section-rosters">
+
+      <!-- Grade Selection Pill Bar for Rosters -->
+      <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-2.5 mb-6 shadow-sm no-print">
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none" id="grade-pills-container">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
       
       <!-- Active Grade Details Banner -->
       <div id="active-grade-banner" class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-indigo-900/60 rounded-3xl p-5 mb-6 shadow-xl relative overflow-hidden">
@@ -440,6 +440,14 @@
             </button>
           </div>
         </div>
+
+        <!-- Grade Selection for Attendance -->
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-3 mt-4 border-t border-slate-800/80">
+          <span class="text-xs font-bold text-slate-400 whitespace-nowrap ml-1">اختر الصف:</span>
+          <div id="att-pills-container" class="flex items-center gap-1.5 flex-nowrap">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
       </div>
 
       <!-- Date Selection & Toolbar for Daily Attendance -->
@@ -470,7 +478,6 @@
           <div class="flex items-center gap-2 text-xs font-bold">
             <span class="bg-emerald-950 text-emerald-300 border border-emerald-800 px-2.5 py-1 rounded-lg">حضور: <b id="att-count-present">0</b></span>
             <span class="bg-red-950 text-red-300 border border-red-800 px-2.5 py-1 rounded-lg">غياب: <b id="att-count-absent">0</b></span>
-            <span class="bg-amber-950 text-amber-300 border border-amber-800 px-2.5 py-1 rounded-lg">بعذر: <b id="att-count-excused">0</b></span>
             <span class="bg-blue-950 text-blue-300 border border-blue-800 px-2.5 py-1 rounded-lg">نسبة الحضور: <b id="att-rate-daily">100%</b></span>
           </div>
 
@@ -685,8 +692,8 @@
           </div>
         </div>
 
-        <!-- Select Student & Exam Period & Language -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3 pt-3 border-t border-slate-800/60">
+        <!-- Select Student & Exam Period & Style & Language -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-3 pt-3 border-t border-slate-800/60">
           <!-- Student Selector -->
           <div>
             <label class="block text-xs font-bold text-slate-400 mb-1">اختر الطالب / الطالبة:</label>
@@ -705,6 +712,20 @@
               <option value="t2_m1">اختبار شهر 1 (الفصل الثاني) - TERM 2 FIRST MONTH REPORT</option>
               <option value="t2_m2">اختبار شهر 2 (الفصل الثاني) - TERM 2 SECOND MONTH REPORT</option>
               <option value="t2_exam">امتحان نهاية العام (الفصل الثاني) - SECOND TERM FINAL REPORT</option>
+            </select>
+          </div>
+
+          <!-- Certificate Template Selector -->
+          <div>
+            <label class="block text-xs font-bold text-amber-300 mb-1 flex items-center justify-between">
+              <span>🎨 شكل وتصميم الشهادة:</span>
+              <a href="certificate_showcase.html" target="_blank" class="text-[10px] text-blue-400 hover:underline">معرض النماذج ↗</a>
+            </label>
+            <select id="cert-style-select" onchange="onCertStyleChange(this.value)" class="w-full bg-slate-900 border border-amber-500/40 text-amber-300 rounded-xl px-3 py-2 text-xs font-bold focus:outline-none focus:border-amber-500">
+              <option value="style-current" selected>📋 1. كارت التقرير المعتمد (النموذج الأصلي)</option>
+              <option value="style-royal">👑 2. الشهادة الملكية الذهبية الفاخرة (Royal Gold)</option>
+              <option value="style-modern">💎 3. التصميم العصري الحديث (Modern Studio)</option>
+              <option value="style-kids">🎈 4. نمط أبطال كيدز المبهج (Cheerful Kids)</option>
             </select>
           </div>
 
@@ -1039,9 +1060,8 @@
 
     function renderGradePills() {
       const container = document.getElementById('grade-pills-container');
-      let html = '';
-      
-      if (currentMainTab === 'rosters') {
+      if (container) {
+        let html = '';
         html += `
           <button onclick="switchGrade(0)" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition whitespace-nowrap flex items-center gap-1.5 ${
             currentGrade === 0 ? 'bg-amber-500 text-slate-950 shadow-md font-black' : 'text-slate-300 hover:text-white hover:bg-slate-700/60'
@@ -1050,21 +1070,42 @@
             <span class="text-[10px] ${currentGrade === 0 ? 'bg-slate-950/20 text-slate-950' : 'bg-slate-700 text-slate-300'} px-1.5 py-0.5 rounded-full">${ALL_STUDENTS.length}</span>
           </button>
         `;
+
+        for (let g = 1; g <= 9; g++) {
+          const count = ALL_STUDENTS.filter(s => s.grade === g).length;
+          const isActive = currentGrade === g;
+          html += `
+            <button onclick="switchGrade(${g})" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black transition whitespace-nowrap flex items-center gap-1.5 ${
+              isActive ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-300 hover:text-white hover:bg-slate-700/60'
+            }">
+              <span>Grade ${g}</span>
+              <span class="text-[10px] ${isActive ? 'bg-white/20 text-white' : 'bg-slate-700 text-slate-300'} px-1.5 py-0.5 rounded-full">${count}</span>
+            </button>
+          `;
+        }
+        container.innerHTML = html;
       }
 
-      for (let g = 1; g <= 9; g++) {
-        const count = ALL_STUDENTS.filter(s => s.grade === g).length;
-        const isActive = currentGrade === g;
-        html += `
-          <button onclick="switchGrade(${g})" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black transition whitespace-nowrap flex items-center gap-1.5 ${
-            isActive ? (currentMainTab === 'attendance' ? 'bg-emerald-600 text-white shadow-md' : 'bg-indigo-600 text-white shadow-md') : 'text-slate-300 hover:text-white hover:bg-slate-700/60'
-          }">
-            <span>Grade ${g}</span>
-            <span class="text-[10px] ${isActive ? 'bg-white/20 text-white' : 'bg-slate-700 text-slate-300'} px-1.5 py-0.5 rounded-full">${count}</span>
-          </button>
-        `;
+      // Also render att-pills-container for attendance section
+      const attContainer = document.getElementById('att-pills-container');
+      if (attContainer) {
+        let attHtml = '';
+        for (let g = 1; g <= 9; g++) {
+          const count = ALL_STUDENTS.filter(s => s.grade === g).length;
+          const isActive = currentGrade === g;
+          const cls = isActive
+            ? 'px-3.5 py-1.5 rounded-xl text-xs font-black transition whitespace-nowrap bg-emerald-600 text-white shadow-[0_0_15px_rgba(16,185,129,0.4)] border border-emerald-400/50'
+            : 'px-3 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap bg-slate-900 text-slate-400 hover:text-white border border-slate-800';
+          attHtml += `<button onclick="setAttendanceGrade(${g})" class="${cls}">Grade ${g} (${count})</button>`;
+        }
+        attContainer.innerHTML = attHtml;
       }
-      container.innerHTML = html;
+    }
+
+    function setAttendanceGrade(g) {
+      currentGrade = g;
+      renderGradePills();
+      renderAttendanceModule();
     }
 
     function switchGrade(grade) {
@@ -1073,8 +1114,14 @@
       if (currentMainTab === 'rosters') {
         renderActiveGradeBanner();
         renderContent();
-      } else {
+      } else if (currentMainTab === 'attendance') {
         renderAttendanceModule();
+      } else if (currentMainTab === 'grades') {
+        renderGradesPills();
+        renderGradesModule();
+      } else if (currentMainTab === 'certificates') {
+        renderCertPills();
+        renderCertificatesModule();
       }
     }
 
@@ -1587,27 +1634,25 @@
     }
 
     function renderDailyAttendanceTable(container, students, gradeNum) {
-      let presentCount = 0, absentCount = 0, excusedCount = 0;
+      let presentCount = 0, absentCount = 0;
 
       students.forEach(s => {
         const st = getStudentAttendance(s.id, currentAttDate);
         if (st === 'present') presentCount++;
-        else if (st === 'absent') absentCount++;
-        else if (st === 'excused') excusedCount++;
+        else absentCount++;
       });
 
-      document.getElementById('att-count-present').innerText = presentCount;
-      document.getElementById('att-count-absent').innerText = absentCount;
-      document.getElementById('att-count-excused').innerText = excusedCount;
+      if (document.getElementById('att-count-present')) document.getElementById('att-count-present').innerText = presentCount;
+      if (document.getElementById('att-count-absent')) document.getElementById('att-count-absent').innerText = absentCount;
       const rate = students.length > 0 ? Math.round((presentCount / students.length) * 100) : 100;
-      document.getElementById('att-rate-daily').innerText = `${rate}%`;
+      if (document.getElementById('att-rate-daily')) document.getElementById('att-rate-daily').innerText = `${rate}%`;
 
       container.innerHTML = `
         <div class="bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl max-w-5xl mx-auto section-card">
           <div class="bg-gradient-to-r from-slate-950 to-indigo-950 px-6 py-4 border-b border-slate-800 flex items-center justify-between print-section-header">
             <div>
               <h3 class="font-black text-white text-base">كشف تسجيل الحضور والغياب اليومي: ${GRADE_CONFIG[gradeNum].ar}</h3>
-              <p class="text-xs text-indigo-300 font-bold mt-0.5">التاريخ: ${currentAttDate} • إجمالي الطلاب: ${students.length} (حضور: ${presentCount} • غياب: ${absentCount} • بعذر: ${excusedCount})</p>
+              <p class="text-xs text-indigo-300 font-bold mt-0.5">التاريخ: ${currentAttDate} • إجمالي الطلاب: ${students.length} (حضور: ${presentCount} • غياب: ${absentCount})</p>
             </div>
             <span class="text-xs font-bold text-slate-400 no-print">انقر على الزر لتحديد حالة الطالب فوراً</span>
           </div>
@@ -1654,29 +1699,23 @@
                       <!-- Interactive Status Buttons (Screen Only) -->
                       <td class="py-3 px-6 text-center no-print">
                         <div class="inline-flex items-center gap-1.5 bg-slate-950 p-1 rounded-2xl border border-slate-800 shadow-inner">
-                          <button onclick="setStudentAttendance('${s.id}', '${currentAttDate}', 'present')" class="px-3 py-1 rounded-xl text-xs font-black transition ${
+                          <button onclick="setStudentAttendance('${s.id}', '${currentAttDate}', 'present')" class="px-3.5 py-1.5 rounded-xl text-xs font-black transition ${
                             curStatus === 'present' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-400 hover:text-emerald-400'
                           }">
                             ✓ حاضر
                           </button>
                           
-                          <button onclick="setStudentAttendance('${s.id}', '${currentAttDate}', 'absent')" class="px-3 py-1 rounded-xl text-xs font-black transition ${
+                          <button onclick="setStudentAttendance('${s.id}', '${currentAttDate}', 'absent')" class="px-3.5 py-1.5 rounded-xl text-xs font-black transition ${
                             curStatus === 'absent' ? 'bg-red-600 text-white shadow-md' : 'text-slate-400 hover:text-red-400'
                           }">
                             ✗ غائب
-                          </button>
-
-                          <button onclick="setStudentAttendance('${s.id}', '${currentAttDate}', 'excused')" class="px-3 py-1 rounded-xl text-xs font-black transition ${
-                            curStatus === 'excused' ? 'bg-amber-600 text-white shadow-md' : 'text-slate-400 hover:text-amber-400'
-                          }">
-                            ⚠ بعذر
                           </button>
                         </div>
                       </td>
 
                       <!-- Official Print Status (Print Only) -->
                       <td class="py-3 px-4 text-center print-only font-black text-xs">
-                        ${curStatus === 'present' ? '<span style="color:#047857; font-weight:900;">[ حاضر ]</span>' : curStatus === 'absent' ? '<span style="color:#b91c1c; font-weight:900;">[ غائب ]</span>' : '<span style="color:#b45309; font-weight:900;">[ بعذر ]</span>'}
+                        ${curStatus === 'present' ? '<span style="color:#047857; font-weight:900;">[ حاضر ]</span>' : '<span style="color:#b91c1c; font-weight:900;">[ غائب ]</span>'}
                       </td>
                       <td class="py-3 px-4 text-center print-only"></td>
                     </tr>
@@ -1711,7 +1750,6 @@
             <div class="flex items-center gap-3 text-xs font-bold text-slate-300">
               <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span> ح = حاضر</span>
               <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span> غ = غائب</span>
-              <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span> ع = بعذر</span>
             </div>
           </div>
 
@@ -1725,14 +1763,13 @@
                   ${dayHeaders}
                   <th class="py-2 px-2 text-center font-black bg-emerald-950/80 text-emerald-300 w-12">حضور</th>
                   <th class="py-2 px-2 text-center font-black bg-red-950/80 text-red-300 w-12">غياب</th>
-                  <th class="py-2 px-2 text-center font-black bg-amber-950/80 text-amber-300 w-12">عذر</th>
                   <th class="py-2 px-2 text-center font-black bg-blue-950/80 text-blue-300 w-14">النسبة</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-700/60 font-mono">
-                ${students.length === 0 ? `<tr><td colspan="${daysInMonth + 7}" class="py-10 text-center text-slate-500 font-bold font-sans">لا يوجد طلاب مطابقين للبحث في هذا الفصل</td></tr>` : ''}
+                ${students.length === 0 ? `<tr><td colspan="${daysInMonth + 6}" class="py-10 text-center text-slate-500 font-bold font-sans">لا يوجد طلاب مطابقين للبحث في هذا الفصل</td></tr>` : ''}
                 ${students.map((s, idx) => {
-                  let stPresent = 0, stAbsent = 0, stExcused = 0;
+                  let stPresent = 0, stAbsent = 0;
                   let daysCells = '';
 
                   for (let d = 1; d <= daysInMonth; d++) {
@@ -1744,18 +1781,15 @@
                     let mark = '<span class="text-emerald-400 font-bold">ح</span>';
                     if (status === 'present') {
                       stPresent++;
-                    } else if (status === 'absent') {
+                    } else {
                       stAbsent++;
                       mark = '<span class="text-red-400 font-bold bg-red-950/80 px-1 rounded">غ</span>';
-                    } else if (status === 'excused') {
-                      stExcused++;
-                      mark = '<span class="text-amber-400 font-bold bg-amber-950/80 px-1 rounded">ع</span>';
                     }
 
                     daysCells += `<td class="py-2 px-1 text-center border-x border-slate-700/40 text-[11px]">${mark}</td>`;
                   }
 
-                  const totalDays = stPresent + stAbsent + stExcused;
+                  const totalDays = stPresent + stAbsent;
                   const rate = totalDays > 0 ? Math.round((stPresent / totalDays) * 100) : 100;
 
                   return `
@@ -1768,7 +1802,6 @@
                       ${daysCells}
                       <td class="py-2 px-2 text-center font-bold text-emerald-400 bg-emerald-950/40">${stPresent}</td>
                       <td class="py-2 px-2 text-center font-bold text-red-400 bg-red-950/40">${stAbsent}</td>
-                      <td class="py-2 px-2 text-center font-bold text-amber-400 bg-amber-950/40">${stExcused}</td>
                       <td class="py-2 px-2 text-center font-black text-blue-400 bg-blue-950/40">${rate}%</td>
                     </tr>
                   `;
@@ -2618,7 +2651,14 @@
       return 'يحتاج لمزيد من الاجتهاد 🔴';
     }
 
-    function generateSingleCertificateHTML(st, lang, pKey) {
+    let selectedCertificateStyle = 'style-current';
+    function onCertStyleChange(val) {
+      selectedCertificateStyle = val;
+      renderCertificatePreview();
+    }
+
+    function generateSingleCertificateHTML(st, lang, pKey, styleChoice) {
+      const activeStyle = styleChoice || selectedCertificateStyle || (document.getElementById('cert-style-select') ? document.getElementById('cert-style-select').value : 'style-current');
       const periodKey = pKey || (document.getElementById('cert-period-select') ? document.getElementById('cert-period-select').value : 't1_exam');
       
       // Determine Report Card Title based on period
@@ -2643,15 +2683,13 @@
       let totalMax = 0;
       let totalScore = 0;
 
-      const subjectRowsHtml = subjects.map(subj => {
-        // In Egyptian curriculum, Religion (دين) is outside total score summation
+      const processedSubjects = subjects.map(subj => {
         const isReligion = subj.id === 'religion';
         if (!isReligion) {
           totalMax += subj.max;
         }
         
         let subjScore = 0;
-        // Check if teacher recorded a specific subject score
         if (st.subjectScores && st.subjectScores[subj.id] && st.subjectScores[subj.id].scores && st.subjectScores[subj.id].scores[periodKey]) {
           const entry = st.subjectScores[subj.id].scores[periodKey];
           subjScore = (typeof entry === 'object') ? entry.score : entry;
@@ -2665,7 +2703,341 @@
         }
 
         const displayScore = (studentPeriodScore === 0 && subjScore === 0) ? '0' : subjScore;
+        const pct = subj.max > 0 ? Math.round((subjScore / subj.max) * 100) : 0;
+        let apprec = 'ممتاز 🌟';
+        if (pct < 50) apprec = 'مقبول 🟡';
+        else if (pct < 65) apprec = 'جيد 🔵';
+        else if (pct < 85) apprec = 'جيد جداً 🟢';
 
+        return {
+          ...subj,
+          score: subjScore,
+          displayScore: displayScore,
+          pct: pct,
+          apprec: apprec,
+          isReligion: isReligion
+        };
+      });
+
+      const rankTitle = calculateStudentClassRank(st, periodKey);
+      const studentDisplayName = (st.nameEn && st.nameEn.trim()) ? st.nameEn : st.nameAr;
+      const trackLabel = (st.track === 'languages') ? 'Language' : 'Arabic';
+      const overallPct = totalMax > 0 ? Math.round((totalScore / totalMax) * 1000) / 10 : 0;
+
+      // ==========================================
+      // TEMPLATE 2: ROYAL GOLD & NAVY PRESTIGE
+      // ==========================================
+      if (activeStyle === 'style-royal') {
+        const s2Rows = processedSubjects.map(s => `
+          <tr style="border-bottom: 1px solid rgba(245, 158, 11, 0.25);">
+            <td style="padding: 8px 12px; font-weight: bold; text-align: right; color: #fef3c7;">${s.name}</td>
+            <td style="padding: 8px 12px; font-weight: 900; color: #fbbf24; font-family: Arial, sans-serif;">${s.max}</td>
+            <td style="padding: 8px 12px; font-weight: 900; color: #ffffff; font-family: Arial, sans-serif; font-size: 15px;">${s.displayScore}</td>
+            <td style="padding: 8px 12px; font-weight: bold; color: #6ee7b7; font-size: 13px;">${s.apprec}</td>
+          </tr>
+        `).join('');
+
+        return `
+          <div class="custom-report-card-container" style="background: linear-gradient(135deg, #091122 0%, #040814 100%); border: 3px solid #d97706; border-radius: 16px; padding: 22px 28px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); width: 100%; max-width: 880px; margin: 0 auto; direction: rtl; font-family: 'Cairo', Arial, sans-serif; position: relative; box-sizing: border-box; color: #fef3c7;">
+            <!-- Ornate Inner Frame -->
+            <div style="border: 1.5px solid rgba(251, 191, 36, 0.5); border-radius: 10px; padding: 20px 24px; position: relative; background: rgba(9, 17, 34, 0.7);">
+              
+              <!-- Corner Icons -->
+              <div style="position: absolute; top: 6px; right: 8px; color: #fbbf24; font-size: 18px;">⚜️</div>
+              <div style="position: absolute; top: 6px; left: 8px; color: #fbbf24; font-size: 18px;">⚜️</div>
+              <div style="position: absolute; bottom: 6px; right: 8px; color: #fbbf24; font-size: 18px;">⚜️</div>
+              <div style="position: absolute; bottom: 6px; left: 8px; color: #fbbf24; font-size: 18px;">⚜️</div>
+
+              <!-- Top Bar -->
+              <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1.5px solid rgba(251, 191, 36, 0.3); padding-bottom: 14px; margin-bottom: 14px;">
+                <div style="text-align: right;">
+                  <div style="font-size: 12px; color: #fcd34d; font-weight: 700;">جمهورية مصر العربية • وزارة التربية والتعليم</div>
+                  <div style="font-size: 20px; font-weight: 900; color: #ffffff; margin-top: 2px;">مدارس سمايل كيدز الحديثة للغات</div>
+                  <div style="font-size: 11px; color: #fbbf24;">Smile Kids International Language Schools</div>
+                </div>
+
+                <!-- Gold Wax Seal Emblem -->
+                <div style="width: 68px; height: 68px; border-radius: 50%; border: 2px solid #fbbf24; background: linear-gradient(135deg, #b45309, #f59e0b, #fef08a); padding: 3px; box-shadow: 0 0 20px rgba(245,158,11,0.4); display: flex; align-items: center; justify-content: center;">
+                  <div style="width: 100%; height: 100%; border-radius: 50%; background: #020617; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                    <span style="font-size: 16px;">👑</span>
+                    <span style="font-size: 7px; color: #fde68a; font-weight: 900; letter-spacing: 0.5px;">EXCELLENCE</span>
+                  </div>
+                </div>
+
+                <div style="text-align: left; direction: ltr;">
+                  <div style="font-size: 10px; color: #fcd34d; font-weight: 800; letter-spacing: 1px;">CERTIFICATE OF</div>
+                  <div style="font-size: 18px; font-weight: 900; color: #fbbf24; letter-spacing: 1px;">EXCELLENCE</div>
+                  <div style="font-size: 11px; color: #e2e8f0; font-weight: 700;">${reportHeaderTitle}</div>
+                </div>
+              </div>
+
+              <!-- Certificate Ribbon Title -->
+              <div style="text-align: center; margin: 12px 0;">
+                <div style="display: inline-block; background: linear-gradient(90deg, #d97706, #fbbf24, #d97706); color: #020617; font-weight: 900; font-size: 17px; padding: 5px 28px; border-radius: 9999px; box-shadow: 0 4px 15px rgba(245,158,11,0.35);">
+                  شهـــــادة تقــــدير وتفــــــوق أكاديمي
+                </div>
+              </div>
+
+              <!-- Student Showcase Banner -->
+              <div style="background: rgba(245, 158, 11, 0.1); border-top: 1px solid rgba(251, 191, 36, 0.4); border-bottom: 1px solid rgba(251, 191, 36, 0.4); padding: 10px; margin: 12px 0; text-align: center;">
+                <div style="font-size: 12px; color: #fde68a; font-weight: 700;">تُمنح هذه الشهادة بكل فخر واعتزاز للطالب / الطالبة:</div>
+                <div style="font-size: 24px; font-weight: 900; color: #ffffff; margin-top: 3px;">${st.nameAr}</div>
+                <div style="font-size: 13px; color: #fbbf24; font-weight: 700; direction: ltr;">${st.nameEn || ''}</div>
+                <div style="display: inline-block; background: rgba(251, 191, 36, 0.2); border: 1px solid #fbbf24; padding: 3px 14px; border-radius: 9999px; font-size: 12px; font-weight: 800; color: #fef08a; margin-top: 6px;">
+                  الصف: Grade ${st.grade} ${trackLabel}
+                </div>
+              </div>
+
+              <!-- Royal Table -->
+              <table style="width: 100%; border-collapse: collapse; text-align: center; font-size: 13px; margin: 14px 0;">
+                <thead>
+                  <tr style="background: rgba(245, 158, 11, 0.25); border-bottom: 1.5px solid #fbbf24; color: #fde68a;">
+                    <th style="padding: 7px 12px; text-align: right;">المادة الدراسية</th>
+                    <th style="padding: 7px 12px; color: #fcd34d;">النهاية العظمى</th>
+                    <th style="padding: 7px 12px; color: #ffffff;">الدرجة المحققة</th>
+                    <th style="padding: 7px 12px; color: #6ee7b7;">التقدير</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${s2Rows}
+                </tbody>
+                <tfoot>
+                  <tr style="border-top: 2px solid #fbbf24; background: rgba(245, 158, 11, 0.3); font-weight: 900; font-size: 14px; color: #ffffff;">
+                    <td style="padding: 8px 12px; text-align: right;">المجموع الكلي والترتيب:</td>
+                    <td style="padding: 8px 12px; color: #fde68a;">${totalMax}</td>
+                    <td style="padding: 8px 12px; color: #ffffff; font-size: 16px;">${totalScore}</td>
+                    <td style="padding: 8px 12px; color: #fef08a;">${rankTitle}</td>
+                  </tr>
+                </tfoot>
+              </table>
+
+              <!-- Footer Signatures -->
+              <div style="margin-top: 18px; padding-top: 12px; border-top: 1px solid rgba(251, 191, 36, 0.3); display: flex; align-items: center; justify-content: space-between; font-size: 12px; font-weight: 800;">
+                <div style="text-align: center; width: 30%;">
+                  <div style="color: #fcd34d;">رائد الفصل</div>
+                  <div style="margin-top: 20px; color: #cbd5e1;">معتمد الإدارة</div>
+                </div>
+                <div style="text-align: center; width: 30%;">
+                  <div style="width: 50px; height: 50px; border: 1.5px dashed rgba(251, 191, 36, 0.6); border-radius: 50%; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 9px; color: #fcd34d;">
+                    خاتم المدرسة
+                  </div>
+                </div>
+                <div style="text-align: center; width: 30%;">
+                  <div style="color: #fcd34d;">يعتمد، مديرة المدرسة</div>
+                  <div style="margin-top: 18px; color: #ffffff; font-size: 13px; font-weight: 900;">المهندسة / نبيلة فخري</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        `;
+      }
+
+      // ==========================================
+      // TEMPLATE 3: MODERN MINIMALIST & INFOGRAPHIC
+      // ==========================================
+      if (activeStyle === 'style-modern') {
+        const s3Cards = processedSubjects.map(s => `
+          <div style="background: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 10px 14px; text-align: right; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">
+            <div style="font-size: 12px; font-weight: 900; color: #cbd5e1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${s.name}</div>
+            <div style="display: flex; align-items: baseline; justify-content: space-between; margin-top: 6px;">
+              <span style="font-size: 18px; font-weight: 900; color: #ffffff; font-family: Arial, sans-serif;">${s.displayScore}</span>
+              <span style="font-size: 11px; color: #64748b; font-family: Arial, sans-serif;">/ ${s.max}</span>
+            </div>
+            <div style="width: 100%; height: 5px; background: #1e293b; border-radius: 9999px; margin-top: 8px; overflow: hidden;">
+              <div style="height: 100%; background: linear-gradient(90deg, #6366f1, #38bdf8); width: ${s.pct}%; border-radius: 9999px;"></div>
+            </div>
+          </div>
+        `).join('');
+
+        return `
+          <div class="custom-report-card-container" style="background: #090d16; border: 1.5px solid #1e293b; border-radius: 20px; padding: 25px 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); width: 100%; max-width: 880px; margin: 0 auto; direction: rtl; font-family: 'Cairo', Arial, sans-serif; position: relative; box-sizing: border-box; color: #ffffff;">
+            
+            <!-- Modern Header -->
+            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1.5px solid #1e293b; padding-bottom: 16px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="width: 46px; height: 46px; border-radius: 14px; background: #4f46e5; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 20px; color: white; box-shadow: 0 4px 15px rgba(79,70,229,0.4);">
+                  SK
+                </div>
+                <div>
+                  <div style="font-size: 17px; font-weight: 900; color: white;">SMILE KIDS SCHOOL</div>
+                  <div style="font-size: 11px; font-weight: 700; color: #818cf8;">نظام الرصد والتقييم الأكاديمي الموحد</div>
+                </div>
+              </div>
+
+              <div style="text-align: left; direction: ltr;">
+                <span style="background: rgba(99,102,241,0.2); border: 1px solid rgba(99,102,241,0.4); color: #a5b4fc; font-size: 11px; font-weight: 900; padding: 4px 12px; border-radius: 9999px;">
+                  ${reportHeaderTitle}
+                </span>
+                <div style="font-size: 10px; color: #64748b; margin-top: 4px;">العام الدراسي 2026 / 2027</div>
+              </div>
+            </div>
+
+            <!-- Student Profile Header Card -->
+            <div style="background: #020617; border: 1px solid #1e293b; border-radius: 16px; padding: 14px 18px; margin: 16px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg, #7c3aed, #4f46e5); display: flex; align-items: center; justify-content: center; font-size: 26px;">
+                  🎓
+                </div>
+                <div>
+                  <div style="font-size: 11px; color: #94a3b8; font-weight: 700;">اسم الطالب رباعي:</div>
+                  <div style="font-size: 20px; font-weight: 900; color: white;">${st.nameAr}</div>
+                  <div style="font-size: 12px; color: #818cf8; direction: ltr; text-align: right;">${st.nameEn || ''}</div>
+                </div>
+              </div>
+
+              <!-- Quick Metric Badges -->
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="background: #0f172a; border: 1px solid #334155; padding: 6px 12px; border-radius: 10px; text-align: center;">
+                  <div style="font-size: 9px; color: #94a3b8;">الصف</div>
+                  <div style="font-size: 12px; font-weight: 900; color: #818cf8;">Grade ${st.grade}</div>
+                </div>
+                <div style="background: #0f172a; border: 1px solid #334155; padding: 6px 12px; border-radius: 10px; text-align: center;">
+                  <div style="font-size: 9px; color: #94a3b8;">النسبة</div>
+                  <div style="font-size: 12px; font-weight: 900; color: #34d399;">${overallPct}%</div>
+                </div>
+                <div style="background: #0f172a; border: 1px solid #334155; padding: 6px 12px; border-radius: 10px; text-align: center;">
+                  <div style="font-size: 9px; color: #94a3b8;">الترتيب</div>
+                  <div style="font-size: 12px; font-weight: 900; color: #fbbf24;">${rankTitle}</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Subject Cards Grid -->
+            <div style="margin: 16px 0;">
+              <div style="font-size: 11px; font-weight: 900; color: #94a3b8; margin-bottom: 8px;">تفاصيل درجات المواد:</div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px;">
+                ${s3Cards}
+              </div>
+            </div>
+
+            <!-- Overall Summary Banner -->
+            <div style="background: linear-gradient(90deg, rgba(79,70,229,0.2), rgba(147,51,234,0.2)); border: 1px solid rgba(99,102,241,0.4); border-radius: 14px; padding: 12px 18px; margin: 16px 0; display: flex; align-items: center; justify-content: space-between;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 24px;">🏆</span>
+                <div>
+                  <div style="font-size: 13px; font-weight: 900; color: white;">المجموع الإجمالي المحقق</div>
+                  <div style="font-size: 10px; color: #a5b4fc;">مجموع الدرجات المقررة الأساسية</div>
+                </div>
+              </div>
+              <div style="text-align: left; font-family: Arial, sans-serif; direction: ltr;">
+                <div style="font-size: 20px; font-weight: 900; color: #34d399;">${totalScore} / ${totalMax}</div>
+                <div style="font-size: 10px; color: #94a3b8;">التقدير العام: ممتاز (A+)</div>
+              </div>
+            </div>
+
+            <!-- Modern Footer -->
+            <div style="margin-top: 18px; pt-3; border-top: 1px solid #1e293b; display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: #94a3b8; font-weight: 700;">
+              <div>التحقق الرقمي المعتمد: SK-${st.id}-${periodKey}</div>
+              <div>مديرة المدرسة: <b style="color: white; font-size: 12px;">المهندسة / نبيلة فخري</b></div>
+            </div>
+
+          </div>
+        `;
+      }
+
+      // ==========================================
+      // TEMPLATE 4: CHEERFUL KIDS & SUPER STAR
+      // ==========================================
+      if (activeStyle === 'style-kids') {
+        const s4Rows = processedSubjects.map(s => `
+          <tr style="border-bottom: 1.5px solid #fce7f3; background: #ffffff;">
+            <td style="padding: 8px 12px; font-weight: 900; text-align: right; color: #581c87;">${s.name}</td>
+            <td style="padding: 8px 12px; font-weight: bold; color: #64748b; font-family: Arial, sans-serif;">${s.max}</td>
+            <td style="padding: 8px 12px; font-weight: 900; color: #db2777; font-family: Arial, sans-serif; font-size: 15px;">${s.displayScore}</td>
+            <td style="padding: 8px 12px; font-weight: 900; color: #d97706; font-size: 12px;">${s.apprec}</td>
+          </tr>
+        `).join('');
+
+        return `
+          <div class="custom-report-card-container" style="background: #fffdf9; border: 5px solid #fbbf24; border-radius: 24px; padding: 22px 28px; box-shadow: 0 15px 35px rgba(0,0,0,0.12); width: 100%; max-width: 880px; margin: 0 auto; direction: rtl; font-family: 'Cairo', sans-serif; position: relative; box-sizing: border-box; color: #1e293b;">
+            
+            <!-- Cheerful Header -->
+            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px dashed #fcd34d; padding-bottom: 12px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 32px;">⭐</span>
+                <div>
+                  <div style="font-size: 18px; font-weight: 900; color: #db2777;">حضانة ومدرسة سمايل كيدز</div>
+                  <div style="font-size: 10px; font-weight: 800; color: #d97706;">Smile Kids Happy Learning School</div>
+                </div>
+              </div>
+
+              <div style="background: #fbbf24; color: #0f172a; padding: 4px 16px; border-radius: 12px; font-weight: 900; font-size: 13px;">
+                ${reportHeaderTitle}
+              </div>
+
+              <div style="font-size: 24px;">🎈 🌈</div>
+            </div>
+
+            <!-- Big Celebration Trophy Banner -->
+            <div style="text-align: center; margin: 14px 0;">
+              <div style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(90deg, #ec4899, #8b5cf6, #3b82f6); color: white; padding: 6px 24px; border-radius: 9999px; font-weight: 900; font-size: 16px; box-shadow: 0 4px 15px rgba(236,72,153,0.3);">
+                <span>🏆</span>
+                <span>شهـــــادة بطــــل التفـــــوق الصغيـــر</span>
+                <span>🎉</span>
+              </div>
+              <div style="font-size: 11px; font-weight: 700; color: #7c3aed; margin-top: 4px;">
+                نبارك لبطلنا المميز تفوقه وإبداعه الرائع في اختبارات هذا الفصل الدراسي
+              </div>
+            </div>
+
+            <!-- Student Card -->
+            <div style="background: #ffffff; border: 2px solid #e9d5ff; border-radius: 16px; padding: 10px; text-align: center; margin: 12px 0;">
+              <div style="font-size: 11px; color: #64748b; font-weight: bold;">اسم النجم الصغير:</div>
+              <div style="font-size: 22px; font-weight: 900; color: #6b21a8; margin-top: 2px;">${st.nameAr}</div>
+              <div style="font-size: 12px; font-weight: 800; color: #ec4899; direction: ltr;">${st.nameEn || ''}</div>
+              <div style="display: inline-block; background: #fef3c7; border: 1px solid #fde68a; padding: 2px 12px; border-radius: 9999px; font-size: 11px; font-weight: 900; color: #92400e; margin-top: 4px;">
+                Grade ${st.grade} ${trackLabel}
+              </div>
+            </div>
+
+            <!-- Cheerful Table -->
+            <table style="width: 100%; border-collapse: collapse; text-align: center; font-size: 13px; border-radius: 12px; overflow: hidden; margin: 12px 0;">
+              <thead>
+                <tr style="background: #06b6d4; color: white; font-weight: 900;">
+                  <th style="padding: 7px 12px; text-align: right;">المادة الممتعة 📚</th>
+                  <th style="padding: 7px 12px;">الدرجة العظمى 🎯</th>
+                  <th style="padding: 7px 12px;">درجة البطل 🌟</th>
+                  <th style="padding: 7px 12px;">التقدير 👏</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${s4Rows}
+              </tbody>
+              <tfoot>
+                <tr style="background: #fef3c7; font-weight: 900; font-size: 14px; border-top: 2px solid #fcd34d;">
+                  <td style="padding: 8px 12px; text-align: right; color: #1e293b;">المجموع الكلي:</td>
+                  <td style="padding: 8px 12px; color: #64748b;">${totalMax}</td>
+                  <td style="padding: 8px 12px; color: #6b21a8; font-size: 16px;">${totalScore}</td>
+                  <td style="padding: 8px 12px; color: #b45309;">${rankTitle}</td>
+                </tr>
+              </tfoot>
+            </table>
+
+            <!-- Cheerful Footer -->
+            <div style="margin-top: 14px; padding-top: 10px; border-top: 2px dashed #fcd34d; display: flex; align-items: center; justify-content: space-between; font-size: 11px; font-weight: 800;">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="font-size: 26px;">🎖️</span>
+                <div>
+                  <div style="color: #db2777; font-weight: 900;">أحسنت يا بطل! استمر في التألق والنجاح</div>
+                  <div style="color: #64748b; font-size: 9px;">أسرة حضانة ومدرسة سمايل كيدز للغات</div>
+                </div>
+              </div>
+
+              <div>
+                <div style="color: #64748b;">مديرة المدرسة:</div>
+                <div style="color: #581c87; font-size: 13px; font-weight: 900;">المهندسة / نبيلة فخري</div>
+              </div>
+            </div>
+
+          </div>
+        `;
+      }
+
+      // ==============================================================
+      // TEMPLATE 1: CURRENT OFFICIAL REPORT CARD (APPROVED STANDARD)
+      // ==============================================================
+      const subjectRowsHtml = processedSubjects.map(subj => {
         return `
           <tr style="border-bottom: 1.5px solid #1e293b;">
             <td style="border: 1.5px solid #1e293b; padding: 7px 14px; font-size: 14.5px; font-weight: 800; color: #0f172a; text-align: center;">
@@ -2675,15 +3047,11 @@
               ${subj.max}
             </td>
             <td style="border: 1.5px solid #1e293b; padding: 7px 14px; font-size: 15px; font-weight: 800; color: #0f172a; text-align: center; font-family: Arial, sans-serif;">
-              ${displayScore}
+              ${subj.displayScore}
             </td>
           </tr>
         `;
       }).join('');
-
-      const rankTitle = calculateStudentClassRank(st, periodKey);
-      const studentDisplayName = (st.nameEn && st.nameEn.trim()) ? st.nameEn : st.nameAr;
-      const trackLabel = (st.track === 'languages') ? 'Language' : 'Arabic';
 
       return `
         <div class="custom-report-card-container" style="background: #ffffff; border: 2.5px solid #64748b; border-radius: 8px; padding: 25px 35px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.12); width: 100%; max-width: 880px; margin: 0 auto; direction: ltr; font-family: 'Cairo', 'Segoe UI', Arial, sans-serif; position: relative; box-sizing: border-box;">
@@ -2795,6 +3163,13 @@
               <div style="font-size: 26px; margin-top: -6px;">💌</div>
             </div>
 
+          </div>
+
+          <!-- Official Signatures Bottom Bar -->
+          <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; font-size: 12px; font-weight: 800; color: #475569; direction: rtl;">
+            <div>مسؤول الكنترول: ....................</div>
+            <div>خاتم المدرسة المعتمد</div>
+            <div>يعتمد، مديرة المدرسة: <b style="color: #0f172a;">المهندسة / نبيلة فخري</b></div>
           </div>
 
         </div>
