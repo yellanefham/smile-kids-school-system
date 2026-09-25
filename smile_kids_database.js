@@ -4836,6 +4836,7 @@
       this._cache.forEach(s => {
         if (!s.attendanceRecords) s.attendanceRecords = {};
         if (!s.attendanceNotes) s.attendanceNotes = {};
+        if (!s.subjectScores) s.subjectScores = {};
         if (!s.termsScores) {
           s.termsScores = {
             t1_m1: (s.sampleScores && s.sampleScores.month1) || 0,

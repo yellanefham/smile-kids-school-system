@@ -581,9 +581,9 @@
               <span>📅 اختيار الاختبار / الشهر المراد رصده:</span>
             </label>
             <select id="grades-period-select" onchange="onGradesPeriodChange(this.value)" class="w-full bg-slate-900 border border-slate-700 text-white rounded-xl px-3 py-2 font-bold focus:outline-none focus:border-indigo-500">
-              <option value="t1_exam" selected>امتحان منتصف العام (الفصل الأول) - FIRST TERM REPORT</option>
-              <option value="t1_m1">اختبار شهر أكتوبر (شهر 1) - FIRST MONTH REPORT</option>
+              <option value="t1_m1" selected>اختبار شهر أكتوبر (شهر 1) - FIRST MONTH REPORT</option>
               <option value="t1_m2">اختبار شهر نوفمبر (شهر 2) - SECOND MONTH REPORT</option>
+              <option value="t1_exam">امتحان منتصف العام (الفصل الأول) - FIRST TERM REPORT</option>
               <option value="t2_m1">اختبار شهر فبراير (شهر 1 ف2) - TERM 2 FIRST MONTH REPORT</option>
               <option value="t2_m2">اختبار شهر مارس (شهر 2 ف2) - TERM 2 SECOND MONTH REPORT</option>
               <option value="t2_exam">امتحان نهاية العام الدراسي (الفصل الثاني)</option>
@@ -599,8 +599,8 @@
             <input 
               type="text" 
               id="grades-custom-title-input" 
-              value="FIRST TERM REPORT" 
-              placeholder="اكتب عنوان الاختبار (مثلاً: FIRST TERM REPORT أو اختبار شهر أكتوبر)..." 
+              value="FIRST MONTH REPORT" 
+              placeholder="اكتب عنوان الاختبار (مثلاً: FIRST MONTH REPORT أو اختبار شهر أكتوبر)..." 
               oninput="onGradesCustomTitleChange(this.value)" 
               class="w-full bg-slate-900 border border-amber-500/40 text-amber-300 rounded-xl px-3 py-2 font-black focus:outline-none focus:border-amber-400"
             >
@@ -706,9 +706,9 @@
           <div>
             <label class="block text-xs font-bold text-slate-400 mb-1">الفترة التقييمية:</label>
             <select id="cert-period-select" onchange="renderCertificatePreview()" class="w-full bg-slate-900 border border-slate-800 text-white rounded-xl px-3 py-2 text-xs font-bold focus:outline-none focus:border-amber-500">
-              <option value="t1_exam" selected>امتحان منتصف العام (الفصل الأول) - FIRST TERM REPORT</option>
-              <option value="t1_m1">اختبار شهر 1 (الفصل الأول) - FIRST MONTH REPORT</option>
+              <option value="t1_m1" selected>اختبار شهر 1 (الفصل الأول) - FIRST MONTH REPORT</option>
               <option value="t1_m2">اختبار شهر 2 (الفصل الأول) - SECOND MONTH REPORT</option>
+              <option value="t1_exam">امتحان منتصف العام (الفصل الأول) - FIRST TERM REPORT</option>
               <option value="t2_m1">اختبار شهر 1 (الفصل الثاني) - TERM 2 FIRST MONTH REPORT</option>
               <option value="t2_m2">اختبار شهر 2 (الفصل الثاني) - TERM 2 SECOND MONTH REPORT</option>
               <option value="t2_exam">امتحان نهاية العام (الفصل الثاني) - SECOND TERM FINAL REPORT</option>
@@ -2095,8 +2095,8 @@
     let gradesSearchQuery = '';
     let certLanguage = 'arabic';
     let certCurrentStudentId = '';
-    let currentGradesPeriod = 't1_exam';
-    let currentGradesCustomTitle = 'FIRST TERM REPORT';
+    let currentGradesPeriod = 't1_m1';
+    let currentGradesCustomTitle = 'FIRST MONTH REPORT';
 
     function onGradesPeriodChange(val) {
       currentGradesPeriod = val;
@@ -2344,26 +2344,18 @@
 
       // Render TBODY
       tbody.innerHTML = filtered.map((s, idx) => {
-        let totalMax = 0;
-        let totalScore = 0;
-
-        const maxPScore = currentGradesPeriod.includes('exam') ? 30 : 20;
-        const studentPeriodScore = (s.termsScores && s.termsScores[currentGradesPeriod]) ? parseFloat(s.termsScores[currentGradesPeriod]) : 0;
-        const scoreRatio = maxPScore > 0 ? (studentPeriodScore / maxPScore) : 0;
+        const periodTotals = getStudentPeriodTotal(s, currentGradesPeriod);
+        const totalMax = periodTotals.totalMax;
+        const totalScore = periodTotals.totalScore;
 
         const subjCells = subjects.map(sub => {
           const isReligion = (sub.id === 'religion');
-          if (!isReligion) totalMax += sub.max;
-
-          let val = 0;
-          if (s.subjectScores && s.subjectScores[sub.id] && s.subjectScores[sub.id].scores && s.subjectScores[sub.id].scores[currentGradesPeriod]) {
-            const entry = s.subjectScores[sub.id].scores[currentGradesPeriod];
-            val = (typeof entry === 'object') ? entry.score : entry;
-          } else if (scoreRatio > 0) {
-            val = Math.round(sub.max * Math.min(1.0, scoreRatio) * 2) / 2;
-          }
-          val = parseFloat(val) || 0;
-          if (!isReligion) totalScore += val;
+          const scoreData = getStudentSubjectScore(s, sub.id, currentGradesPeriod);
+          const val = scoreData ? scoreData.score : 0;
+          const isRecorded = scoreData && scoreData.isRecorded && scoreData.score > 0;
+          const cellBorder = isRecorded 
+            ? 'border-emerald-500/70 bg-emerald-950/30 text-emerald-200 font-black shadow-[inset_0_0_8px_rgba(16,185,129,0.15)]' 
+            : 'border-slate-800 bg-slate-900 text-slate-400 font-bold';
 
           return `
             <td class="py-2 px-1 text-center border-r border-slate-800">
@@ -2374,13 +2366,13 @@
                 step="0.5" 
                 value="${val}" 
                 oninput="onStudentSubjectInput('${s.id}', '${sub.id}', this.value, ${sub.max})"
-                class="w-14 sm:w-16 text-center py-1 rounded-lg bg-slate-900 font-bold text-slate-200 border border-slate-700 focus:border-indigo-400 focus:outline-none text-xs"
+                class="w-14 sm:w-16 text-center py-1 rounded-lg ${cellBorder} border focus:border-indigo-400 focus:outline-none text-xs transition"
               >
             </td>
           `;
         }).join('');
 
-        const perc = totalMax > 0 ? Math.round((totalScore / totalMax) * 100) : 0;
+        const perc = periodTotals.percentage;
         if (perc >= 85) honorsCount++;
         const rank = calculateStudentClassRank(s, currentGradesPeriod);
 
@@ -2397,8 +2389,8 @@
             </td>
             <td class="py-2.5 px-3 text-center">${trackBadge}</td>
             ${subjCells}
-            <td class="py-2 px-2 text-center bg-indigo-950/20 font-black font-en text-indigo-300" id="cell-tot-${s.id}">
-              ${totalScore}
+            <td class="py-2 px-2 text-center bg-indigo-950/40 font-black font-mono text-indigo-300 border-r border-slate-800" id="cell-tot-${s.id}">
+              ${totalScore} <span class="text-[10px] text-slate-500 font-normal">/ ${totalMax}</span>
             </td>
             <td class="py-2 px-2 text-center font-black font-mono text-emerald-400" id="cell-perc-${s.id}">
               ${perc}%
@@ -2435,33 +2427,17 @@
       };
 
       // Recalculate total for this student
-      const subjects = getGradeSubjectsConfig(student.grade, student.track);
-      let totalScore = 0;
-      let totalMax = 0;
+      const pTot = getStudentPeriodTotal(student, currentGradesPeriod);
 
-      subjects.forEach(sub => {
-        if (sub.id !== 'religion') {
-          totalMax += sub.max;
-          let sVal = 0;
-          if (student.subjectScores && student.subjectScores[sub.id] && student.subjectScores[sub.id].scores && student.subjectScores[sub.id].scores[currentGradesPeriod]) {
-            const entry = student.subjectScores[sub.id].scores[currentGradesPeriod];
-            sVal = (typeof entry === 'object') ? entry.score : entry;
-          }
-          totalScore += parseFloat(sVal) || 0;
-        }
-      });
-
-      // Update primary termsScores for unified compatibility
       student.termsScores = student.termsScores || {};
-      student.termsScores[currentGradesPeriod] = totalScore;
+      student.termsScores[currentGradesPeriod] = pTot.totalScore;
 
       // Update live DOM cells
       const elTot = document.getElementById(`cell-tot-${studentId}`);
-      if (elTot) elTot.innerText = totalScore;
+      if (elTot) elTot.innerHTML = `${pTot.totalScore} <span class="text-[10px] text-slate-500 font-normal">/ ${pTot.totalMax}</span>`;
 
-      const perc = totalMax > 0 ? Math.round((totalScore / totalMax) * 100) : 0;
       const elPerc = document.getElementById(`cell-perc-${studentId}`);
-      if (elPerc) elPerc.innerText = `${perc}%`;
+      if (elPerc) elPerc.innerText = `${pTot.percentage}%`;
 
       const rank = calculateStudentClassRank(student, currentGradesPeriod);
       const elRank = document.getElementById(`cell-rank-${studentId}`);
@@ -2615,40 +2591,95 @@
       }
     }
 
+    function getStudentSubjectScore(student, subjectId, periodKey) {
+      if (!student || !student.subjectScores) return null;
+      const subjEntry = student.subjectScores[subjectId];
+      if (!subjEntry || !subjEntry.scores) return null;
+      const scoreEntry = subjEntry.scores[periodKey];
+      if (scoreEntry === undefined || scoreEntry === null) return null;
+      if (typeof scoreEntry === 'object') {
+        const sc = parseFloat(scoreEntry.score);
+        return {
+          score: isNaN(sc) ? 0 : sc,
+          maxScore: parseFloat(scoreEntry.maxScore) || 0,
+          isRecorded: true
+        };
+      }
+      const sc = parseFloat(scoreEntry);
+      return {
+        score: isNaN(sc) ? 0 : sc,
+        maxScore: 0,
+        isRecorded: true
+      };
+    }
+
+    function getStudentPeriodTotal(student, periodKey) {
+      if (!student) return { totalScore: 0, totalMax: 0, percentage: 0, recordedCount: 0, totalAcademicSubjects: 0 };
+      const subjects = getGradeSubjectsConfig(student.grade, student.track);
+      let totalScore = 0;
+      let totalMax = 0;
+      let recordedCount = 0;
+      let totalAcademicSubjects = 0;
+
+      subjects.forEach(sub => {
+        const isReligion = (sub.id === 'religion');
+        if (!isReligion) {
+          totalAcademicSubjects++;
+          totalMax += sub.max;
+        }
+        const scoreData = getStudentSubjectScore(student, sub.id, periodKey);
+        if (scoreData && scoreData.isRecorded) {
+          if (!isReligion) {
+            totalScore += scoreData.score;
+          }
+          recordedCount++;
+        }
+      });
+
+      const percentage = totalMax > 0 ? Math.round((totalScore / totalMax) * 1000) / 10 : 0;
+      return {
+        totalScore: Math.round(totalScore * 10) / 10,
+        totalMax: totalMax,
+        percentage: percentage,
+        recordedCount: recordedCount,
+        totalAcademicSubjects: totalAcademicSubjects
+      };
+    }
+
     function calculateStudentClassRank(st, periodKey) {
       const classmates = ALL_STUDENTS.filter(s => s.grade === st.grade);
-      if (classmates.length <= 1) return 'المركز الأول';
+      if (classmates.length <= 1) return 'المركز الأول 🥇';
+
+      const stTotal = getStudentPeriodTotal(st, periodKey);
+      if (stTotal.recordedCount === 0 || stTotal.totalScore === 0) {
+        return 'في انتظار رصد الدرجات';
+      }
 
       // Sort classmates by their score in this specific period
       const sorted = [...classmates].sort((a, b) => {
-        const scA = (a.termsScores && a.termsScores[periodKey]) ? parseFloat(a.termsScores[periodKey]) : 0;
-        const scB = (b.termsScores && b.termsScores[periodKey]) ? parseFloat(b.termsScores[periodKey]) : 0;
-        return scB - scA;
+        const totA = getStudentPeriodTotal(a, periodKey).totalScore;
+        const totB = getStudentPeriodTotal(b, periodKey).totalScore;
+        return totB - totA;
       });
-
-      const currentScore = (st.termsScores && st.termsScores[periodKey]) ? parseFloat(st.termsScores[periodKey]) : 0;
-      if (currentScore === 0) return 'في انتظار رصد الدرجات';
 
       const rankIndex = sorted.findIndex(s => s.id === st.id) + 1;
       const rankTitles = {
         1: 'المركز الأول 🥇',
         2: 'المركز الثاني 🥈',
         3: 'المركز الثالث 🥉',
-        4: 'المركز الرابع',
-        5: 'المركز الخامس'
+        4: 'المركز الرابع 🎖️',
+        5: 'المركز الخامس 🎖️'
       };
 
       if (rankTitles[rankIndex]) {
         return rankTitles[rankIndex];
       }
 
-      const maxP = periodKey.includes('exam') ? 30 : 20;
-      const perc = (currentScore / maxP) * 100;
-      if (perc >= 90) return 'مستوى متميز 🌟';
-      if (perc >= 75) return 'جيد جداً 🟢';
-      if (perc >= 65) return 'جيد 🔵';
-      if (perc >= 50) return 'مقبول 🟡';
-      return 'يحتاج لمزيد من الاجتهاد 🔴';
+      if (stTotal.percentage >= 90) return `المركز ${rankIndex} (ممتاز 🌟)`;
+      if (stTotal.percentage >= 75) return `المركز ${rankIndex} (جيد جداً 🟢)`;
+      if (stTotal.percentage >= 65) return `المركز ${rankIndex} (جيد 🔵)`;
+      if (stTotal.percentage >= 50) return `المركز ${rankIndex} (مقبول 🟡)`;
+      return `المركز ${rankIndex}`;
     }
 
     let selectedCertificateStyle = 'style-current';
@@ -2675,37 +2706,22 @@
       // Subjects configuration for student's grade & track
       const subjects = getGradeSubjectsConfig(st.grade, st.track);
       
-      // Determine student performance factor for this period
-      const maxPScore = periodKey.includes('exam') ? 30 : 20;
-      const studentPeriodScore = (st.termsScores && st.termsScores[periodKey]) ? parseFloat(st.termsScores[periodKey]) : 0;
-      const scoreRatio = maxPScore > 0 ? (studentPeriodScore / maxPScore) : 0;
-
-      let totalMax = 0;
-      let totalScore = 0;
+      const periodTotals = getStudentPeriodTotal(st, periodKey);
+      const totalMax = periodTotals.totalMax;
+      const totalScore = periodTotals.totalScore;
+      const overallPct = periodTotals.percentage;
 
       const processedSubjects = subjects.map(subj => {
         const isReligion = subj.id === 'religion';
-        if (!isReligion) {
-          totalMax += subj.max;
-        }
-        
-        let subjScore = 0;
-        if (st.subjectScores && st.subjectScores[subj.id] && st.subjectScores[subj.id].scores && st.subjectScores[subj.id].scores[periodKey]) {
-          const entry = st.subjectScores[subj.id].scores[periodKey];
-          subjScore = (typeof entry === 'object') ? entry.score : entry;
-        } else if (scoreRatio > 0) {
-          subjScore = Math.round(subj.max * Math.min(1.0, scoreRatio) * 2) / 2;
-        }
-
-        subjScore = parseFloat(subjScore) || 0;
-        if (!isReligion) {
-          totalScore += subjScore;
-        }
-
-        const displayScore = (studentPeriodScore === 0 && subjScore === 0) ? '0' : subjScore;
+        const scoreData = getStudentSubjectScore(st, subj.id, periodKey);
+        const subjScore = scoreData ? scoreData.score : 0;
+        const isRecorded = scoreData && scoreData.isRecorded;
+        const displayScore = isRecorded ? subjScore : '0';
         const pct = subj.max > 0 ? Math.round((subjScore / subj.max) * 100) : 0;
+        
         let apprec = 'ممتاز 🌟';
-        if (pct < 50) apprec = 'مقبول 🟡';
+        if (!isRecorded || subjScore === 0) apprec = 'لم ترصد ⏳';
+        else if (pct < 50) apprec = 'مقبول 🟡';
         else if (pct < 65) apprec = 'جيد 🔵';
         else if (pct < 85) apprec = 'جيد جداً 🟢';
 
@@ -2715,14 +2731,14 @@
           displayScore: displayScore,
           pct: pct,
           apprec: apprec,
-          isReligion: isReligion
+          isReligion: isReligion,
+          isRecorded: isRecorded
         };
       });
 
       const rankTitle = calculateStudentClassRank(st, periodKey);
       const studentDisplayName = (st.nameEn && st.nameEn.trim()) ? st.nameEn : st.nameAr;
       const trackLabel = (st.track === 'languages') ? 'Language' : 'Arabic';
-      const overallPct = totalMax > 0 ? Math.round((totalScore / totalMax) * 1000) / 10 : 0;
 
       // ==========================================
       // TEMPLATE 2: ROYAL GOLD & NAVY PRESTIGE
@@ -3194,6 +3210,8 @@
       if (!st) return;
       currentGrade = st.grade;
       certCurrentStudentId = st.id;
+      const certSel = document.getElementById('cert-period-select');
+      if (certSel) certSel.value = currentGradesPeriod;
       switchMainTab('certificates');
     }
 
@@ -3422,23 +3440,17 @@
       renderTgStudentsSheet();
     }
 
-    // Check if preceding period has recorded scores for this grade
+    // Check if preceding period has recorded scores for this grade & subject
     function isPeriodUnlockedForClass(pIndex) {
-      if (pIndex === 0) return true; // Period 1 is always unlocked
+      if (pIndex === 0) return true; // Period 1 (Month 1) is always unlocked
       const prevDef = GRADING_PERIODS_ORDER[pIndex - 1];
       const students = ALL_STUDENTS.filter(s => s.grade === currentTgGrade);
       if (students.length === 0) return true;
 
-      // Check if at least one student has a recorded score in the previous period
+      // Check if at least one student has a recorded score in the previous period for THIS subject
       const hasPrevScores = students.some(s => {
-        // Check in subjectScores first
-        if (s.subjectScores && s.subjectScores[currentTgSubjectId] && s.subjectScores[currentTgSubjectId].scores) {
-          const sc = s.subjectScores[currentTgSubjectId].scores[prevDef.key];
-          if (sc && parseFloat(sc.score) > 0) return true;
-        }
-        // Check in general termsScores as fallback
-        const gSc = s.termsScores ? s.termsScores[prevDef.key] : 0;
-        return parseFloat(gSc) > 0;
+        const sc = getStudentSubjectScore(s, currentTgSubjectId, prevDef.key);
+        return sc && sc.isRecorded && sc.score > 0;
       });
 
       return hasPrevScores;
@@ -3560,15 +3572,9 @@
       let lowestScore = currentTgMaxScore;
 
       const rowsHtml = students.map((s, idx) => {
-        // Read existing score for this subject & period
-        let curVal = 0;
-        if (s.subjectScores && s.subjectScores[currentTgSubjectId] && s.subjectScores[currentTgSubjectId].scores) {
-          const entry = s.subjectScores[currentTgSubjectId].scores[currentTgPeriod];
-          if (entry !== undefined) curVal = (typeof entry === 'object') ? entry.score : entry;
-        } else if (s.termsScores && s.termsScores[currentTgPeriod] !== undefined) {
-          curVal = s.termsScores[currentTgPeriod];
-        }
-        curVal = parseFloat(curVal) || 0;
+        // Read existing score for this teacher's subject & period (strictly isolated)
+        const scoreData = getStudentSubjectScore(s, currentTgSubjectId, currentTgPeriod);
+        let curVal = scoreData ? scoreData.score : 0;
 
         if (curVal > 0) {
           scoredCount++;
@@ -3707,6 +3713,31 @@
       });
     }
 
+    function showSaveSuccessNotification(msg) {
+      let toast = document.getElementById('global-grades-toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'global-grades-toast';
+        document.body.appendChild(toast);
+      }
+      toast.innerHTML = `
+        <div class="flex items-center gap-3">
+          <span class="text-2xl animate-bounce">💾</span>
+          <div>
+            <div class="font-black text-white text-sm">تم الاعتماد والتجميع بنجاح 🟢</div>
+            <div class="text-xs text-emerald-200 mt-0.5">${msg}</div>
+          </div>
+        </div>
+      `;
+      toast.className = 'fixed top-6 left-1/2 -translate-x-1/2 z-[9999] px-6 py-3.5 rounded-2xl shadow-[0_10px_35px_rgba(0,0,0,0.7)] backdrop-blur-md border border-emerald-400/60 bg-emerald-950/95 text-emerald-200 font-bold flex items-center gap-3 transition-all duration-300 transform translate-y-0 opacity-100 pointer-events-auto';
+      
+      setTimeout(() => {
+        if (toast) {
+          toast.className = 'fixed top-6 left-1/2 -translate-x-1/2 z-[9999] px-6 py-3.5 rounded-2xl shadow-[0_10px_35px_rgba(0,0,0,0.7)] backdrop-blur-md border border-emerald-400/60 bg-emerald-950/95 text-emerald-200 font-bold flex items-center gap-3 transition-all duration-300 transform -translate-y-12 opacity-0 pointer-events-none';
+        }
+      }, 4500);
+    }
+
     function saveTeacherGradeForm() {
       const teacher = TEACHERS_CATALOG.find(t => t.id === currentTgTeacherId) || TEACHERS_CATALOG[0];
       const subj = teacher.subjects.find(s => s.id === currentTgSubjectId) || teacher.subjects[0];
@@ -3721,7 +3752,7 @@
           const val = parseFloat(inp.value) || 0;
           if (val > 0) anyScoreRecorded = true;
 
-          // 1. Save in subjectScores structure
+          // 1. Save in subjectScores structure strictly for this subject
           s.subjectScores = s.subjectScores || {};
           s.subjectScores[currentTgSubjectId] = s.subjectScores[currentTgSubjectId] || {
             subjectId: currentTgSubjectId,
@@ -3738,23 +3769,10 @@
             recordedAt: new Date().toISOString()
           };
 
-          // 2. Also update primary termsScores for unified compatibility
-          s.termsScores = s.termsScores || { t1_m1: 0, t1_m2: 0, t1_exam: 0, t1_total: 0, t2_m1: 0, t2_m2: 0, t2_exam: 0, t2_total: 0, annual_total: 0 };
-          s.termsScores[currentTgPeriod] = val;
-
-          // Recalculate totals
-          const sc = s.termsScores;
-          const m1 = parseFloat(sc.t1_m1) || 0;
-          const m2 = parseFloat(sc.t1_m2) || 0;
-          const ex1 = parseFloat(sc.t1_exam) || 0;
-          sc.t1_total = (m1 > 0 || m2 > 0 || ex1 > 0) ? Math.min(100, Math.round(m1 + m2 + ex1 + 28)) : 0;
-
-          const m3 = parseFloat(sc.t2_m1) || 0;
-          const m4 = parseFloat(sc.t2_m2) || 0;
-          const ex2 = parseFloat(sc.t2_exam) || 0;
-          sc.t2_total = (m3 > 0 || m4 > 0 || ex2 > 0) ? Math.min(100, Math.round(m3 + m4 + ex2 + 28)) : 0;
-
-          sc.annual_total = (sc.t1_total > 0 || sc.t2_total > 0) ? Math.round((sc.t1_total + sc.t2_total) / 2) : 0;
+          // 2. Aggregate all recorded academic subjects for this period
+          const pTot = getStudentPeriodTotal(s, currentTgPeriod);
+          s.termsScores = s.termsScores || {};
+          s.termsScores[currentTgPeriod] = pTot.totalScore;
         }
       });
 
@@ -3764,14 +3782,43 @@
         window.SmileKidsDB.syncToCloud();
       }
 
-      // Re-render dashboard grades table
+      // Close the modal
+      closeModal('modal-teacher-grade-form');
+
+      // Sync master dashboard to this grade and period so user sees the updated master table
+      currentGrade = currentTgGrade;
+      currentGradesPeriod = currentTgPeriod;
+
+      const selPeriod = document.getElementById('grades-period-select');
+      if (selPeriod) selPeriod.value = currentTgPeriod;
+
+      const certPeriodSel = document.getElementById('cert-period-select');
+      if (certPeriodSel) certPeriodSel.value = currentTgPeriod;
+
+      const titleMap = {
+        't1_m1': 'FIRST MONTH REPORT',
+        't1_m2': 'SECOND MONTH REPORT',
+        't1_exam': 'FIRST TERM REPORT',
+        't2_m1': 'TERM 2 - FIRST MONTH REPORT',
+        't2_m2': 'TERM 2 - SECOND MONTH REPORT',
+        't2_exam': 'SECOND TERM FINAL REPORT'
+      };
+      const titleInp = document.getElementById('grades-custom-title-input');
+      if (titleInp && !titleInp.dataset.userEdited) {
+        currentGradesCustomTitle = titleMap[currentTgPeriod] || pDef.titleAr;
+        titleInp.value = currentGradesCustomTitle;
+      }
+
+      // Switch to grades view and re-render master table
+      switchMainTab('grades');
+      renderGradesPills();
       renderGradesModule();
 
       // Refresh periods dropdown so next month unlocks if eligible
       updateTgPeriodsDropdown();
 
-      alert(`تم حفظ واعتماد درجات [${pDef.titleAr}] لمادة [${subj ? subj.nameAr : ''}] لجميع طلاب الصف بنجاح 🟢
-تم التحديث محلياً والمزامنة المباشرة مع Google Drive.`);
+      // Show high-visibility confirmation toast
+      showSaveSuccessNotification(`تم حفظ واعتماد درجات [${subj ? subj.nameAr : ''}] للمعلمة (${teacher.nameAr}) وإغلاق نافذة الرصد وتجميع درجات الطلاب في الصفحة المجمعة بنجاح 🟢`);
     }
 
     // ==================== DEDICATED SUBJECT-PERIOD CERTIFICATES ====================
@@ -3780,16 +3827,14 @@
       const subj = teacher.subjects.find(s => s.id === subjId) || teacher.subjects[0];
       const pDef = GRADING_PERIODS_ORDER.find(p => p.key === periodKey) || GRADING_PERIODS_ORDER[0];
 
-      // Retrieve student score
+      // Retrieve student score strictly for this subject
       let score = 0;
       let maxScore = maxScoreVal || currentTgMaxScore;
 
-      if (st.subjectScores && st.subjectScores[subjId] && st.subjectScores[subjId].scores && st.subjectScores[subjId].scores[periodKey]) {
-        const entry = st.subjectScores[subjId].scores[periodKey];
-        score = (typeof entry === 'object') ? entry.score : entry;
-        if (typeof entry === 'object' && entry.maxScore) maxScore = entry.maxScore;
-      } else if (st.termsScores && st.termsScores[periodKey] !== undefined) {
-        score = st.termsScores[periodKey];
+      const scoreData = getStudentSubjectScore(st, subjId, periodKey);
+      if (scoreData && scoreData.isRecorded) {
+        score = scoreData.score;
+        if (scoreData.maxScore > 0) maxScore = scoreData.maxScore;
       }
       score = parseFloat(score) || 0;
 
