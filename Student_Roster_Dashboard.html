@@ -696,25 +696,25 @@
 
         <!-- Center: Prominent Grade & Report Title -->
         <div style="text-align: center;">
-          <div id="print-grade-title" style="font-size: 17px; font-weight: 900; color: #ffffff !important; background: #1e3a8a !important; padding: 4px 22px; border-radius: 9999px; display: inline-block; border: 1.5px solid #1d4ed8; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
-            الصف الرابع الابتدائي • Grade 4
+          <div id="print-grade-title" style="font-size: 19px; font-weight: 900; color: #ffffff !important; background: #1e3a8a !important; padding: 5px 28px; border-radius: 9999px; display: inline-block; border: 2px solid #1d4ed8; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-family: 'Cairo', sans-serif;">
+            الصف الرابع الابتدائي
           </div>
-          <div style="display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 4px;">
-            <span id="print-report-title" style="font-size: 12px; font-weight: 900; color: #0f172a;">كشف أسماء الطلاب الرسمي</span>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 5px;">
+            <span id="print-report-title" style="font-size: 13px; font-weight: 900; color: #0f172a;">كشف أسماء الطلاب الرسمي</span>
             <span style="color: #94a3b8; font-size: 10px;">•</span>
-            <span id="print-track-subtitle" style="font-size: 11px; font-weight: 700; color: #475569;">العام الدراسي 2026 / 2027</span>
+            <span id="print-track-subtitle" style="font-size: 12px; font-weight: 800; color: #475569;">العام الدراسي 2026 / 2027</span>
           </div>
         </div>
 
         <!-- Left: Stats & Meta -->
-        <div style="text-align: left; display: flex; flex-direction: column; align-items: flex-end; gap: 2px;">
-          <div id="print-total-students-count" style="font-size: 11.5px; font-weight: 900; color: #0f172a; background: #f1f5f9; padding: 3px 9px; border-radius: 6px; border: 1px solid #cbd5e1; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
-            إجمالي الفصل: 19 طالب (لغات: 14 • عربي: 5)
+        <div style="text-align: left; display: flex; flex-direction: column; align-items: flex-end; gap: 3px;">
+          <div id="print-total-students-count" style="font-size: 13px; font-weight: 900; color: #0f172a; background: #f1f5f9; padding: 4px 14px; border-radius: 8px; border: 1.5px solid #cbd5e1; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+            إجمالي عدد الطلاب: 19 طالب
           </div>
-          <div style="display: flex; gap: 6px; font-size: 10px; font-weight: 700; color: #64748b; margin-top: 2px;">
+          <div style="display: flex; gap: 6px; font-size: 10.5px; font-weight: 800; color: #64748b; margin-top: 2px;">
             <span id="print-date-display">التاريخ: 2026/09/26</span>
             <span>•</span>
-            <span style="color: #059669; font-weight: 800;">معتمد رسميًا ✓</span>
+            <span style="color: #059669; font-weight: 900;">معتمد رسميًا ✓</span>
           </div>
         </div>
       </div>
@@ -1656,8 +1656,6 @@
       <div>مدرسة Smile Kids الخاصة للغات • الفصول من الصف الأول حتى الصف التاسع • العام الدراسي 2026 / 2027</div>
       <div class="flex items-center gap-3">
         <button onclick="resetCustomStudents()" class="text-slate-500 hover:text-amber-400 transition text-[11px]">إعادة تعيين القوائم للأصل</button>
-        <span>•</span>
-        <span class="text-amber-400/90 font-bold">إعداد وتوثيق: المهندسة نبيلة فخري</span>
       </div>
     </div>
   </footer>
@@ -2147,7 +2145,7 @@
               <div class="flex items-center gap-2.5">
                 <span class="text-xl no-print">📚</span>
                 <div>
-                  <h3 class="font-black text-base">قسم العربي (Arabic Section)</h3>
+                  <h3 class="font-black text-base print:text-lg">📚 قسم العربي</h3>
                   <p class="text-[11px] text-emerald-200 font-semibold no-print">كشف الأسماء الرسمي</p>
                 </div>
               </div>
@@ -2160,7 +2158,7 @@
                   <tr class="bg-slate-900/60 text-slate-400 border-b border-slate-700">
                     <th class="py-2.5 px-3 text-center w-12 font-black">م</th>
                     <th class="py-2.5 px-4 font-black">اسم الطالب رباعي</th>
-                    <th class="py-2.5 px-3 text-center w-20 font-black">النوع</th>
+                    <th class="py-2.5 px-3 text-center w-20 font-black no-print">النوع</th>
                     <th class="py-2.5 px-3 text-center w-24 font-black no-print">إجراءات</th>
                     <th class="py-2.5 px-3 text-center w-24 font-black print-only">ملاحظات</th>
                   </tr>
@@ -2174,14 +2172,11 @@
                         <div class="text-sm">${s.nameAr}</div>
                         ${currentGrade === 0 ? `<div class="text-[10px] text-amber-400 font-semibold mt-0.5">${GRADE_CONFIG[s.grade]?.ar || 'الصف ' + s.grade}</div>` : ''}
                       </td>
-                      <td class="py-2.5 px-3 text-center">
-                        <span class="no-print text-xs font-bold px-2 py-0.5 rounded-full ${
+                      <td class="py-2.5 px-3 text-center no-print">
+                        <span class="text-xs font-bold px-2 py-0.5 rounded-full ${
                           s.gender === 'male' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30' : 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
                         }">
                           ${s.gender === 'male' ? '👦 بنين' : '👧 بنات'}
-                        </span>
-                        <span class="print-only ${s.gender === 'male' ? 'print-gender-male' : 'print-gender-female'}">
-                          ${s.gender === 'male' ? 'بنين' : 'بنات'}
                         </span>
                       </td>
                       <td class="py-2.5 px-2 text-center no-print whitespace-nowrap">
@@ -2208,7 +2203,7 @@
               <div class="flex items-center gap-2.5">
                 <span class="text-xl no-print">🌐</span>
                 <div>
-                  <h3 class="font-black text-base">قسم اللغات (Languages Section)</h3>
+                  <h3 class="font-black text-base print:text-lg">🌐 قسم اللغات</h3>
                   <p class="text-[11px] text-blue-200 font-semibold no-print">كشف الأسماء الرسمي</p>
                 </div>
               </div>
@@ -2221,7 +2216,7 @@
                   <tr class="bg-slate-900/60 text-slate-400 border-b border-slate-700">
                     <th class="py-2.5 px-3 text-center w-12 font-black">م</th>
                     <th class="py-2.5 px-4 font-black">اسم الطالب رباعي</th>
-                    <th class="py-2.5 px-3 text-center w-20 font-black">النوع</th>
+                    <th class="py-2.5 px-3 text-center w-20 font-black no-print">النوع</th>
                     <th class="py-2.5 px-3 text-center w-24 font-black no-print">إجراءات</th>
                     <th class="py-2.5 px-3 text-center w-24 font-black print-only">ملاحظات</th>
                   </tr>
@@ -2235,14 +2230,11 @@
                         <div class="text-sm">${s.nameAr}</div>
                         ${currentGrade === 0 ? `<div class="text-[10px] text-amber-400 font-semibold mt-0.5">${GRADE_CONFIG[s.grade]?.ar || 'الصف ' + s.grade}</div>` : ''}
                       </td>
-                      <td class="py-2.5 px-3 text-center">
-                        <span class="no-print text-xs font-bold px-2 py-0.5 rounded-full ${
+                      <td class="py-2.5 px-3 text-center no-print">
+                        <span class="text-xs font-bold px-2 py-0.5 rounded-full ${
                           s.gender === 'male' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30' : 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
                         }">
                           ${s.gender === 'male' ? '👦 بنين' : '👧 بنات'}
-                        </span>
-                        <span class="print-only ${s.gender === 'male' ? 'print-gender-male' : 'print-gender-female'}">
-                          ${s.gender === 'male' ? 'بنين' : 'بنات'}
                         </span>
                       </td>
                       <td class="py-2.5 px-2 text-center no-print whitespace-nowrap">
@@ -2269,7 +2261,7 @@
 
     function renderSingleTrackView(container, students, trackName) {
       const isAr = trackName === 'arabic';
-      const title = isAr ? 'قسم العربي (Arabic Section)' : 'قسم اللغات (Languages Section)';
+      const title = isAr ? '📚 قسم العربي' : '🌐 قسم اللغات';
       const headerGrad = isAr ? 'from-emerald-800 to-emerald-700' : 'from-blue-800 to-blue-700';
       const icon = isAr ? '📚' : '🌐';
 
@@ -2295,7 +2287,7 @@
                 <tr class="bg-slate-900/60 text-slate-400 border-b border-slate-700">
                   <th class="py-3 px-3 text-center w-12 font-black">م</th>
                   <th class="py-3 px-4 font-black">اسم الطالب رباعي</th>
-                  <th class="py-3 px-3 text-center w-24 font-black">النوع</th>
+                  <th class="py-3 px-3 text-center w-24 font-black no-print">النوع</th>
                   <th class="py-3 px-3 text-center w-28 font-black no-print">إجراءات</th>
                   <th class="py-3 px-4 text-center w-28 font-black print-only">ملاحظات</th>
                 </tr>
@@ -2309,14 +2301,11 @@
                       <div>${s.nameAr}</div>
                       ${currentGrade === 0 ? `<div class="text-[11px] text-amber-400 font-semibold mt-0.5">${GRADE_CONFIG[s.grade]?.ar || 'الصف ' + s.grade}</div>` : ''}
                     </td>
-                    <td class="py-3 px-3 text-center">
-                      <span class="no-print text-xs font-bold px-2 py-0.5 rounded-full ${
+                    <td class="py-3 px-3 text-center no-print">
+                      <span class="text-xs font-bold px-2 py-0.5 rounded-full ${
                         s.gender === 'male' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30' : 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
                       }">
                         ${s.gender === 'male' ? '👦 بنين' : '👧 بنات'}
-                      </span>
-                      <span class="print-only ${s.gender === 'male' ? 'print-gender-male' : 'print-gender-female'}">
-                        ${s.gender === 'male' ? 'بنين' : 'بنات'}
                       </span>
                     </td>
                     <td class="py-3 px-2 text-center no-print whitespace-nowrap">
@@ -2599,7 +2588,7 @@
                   <th class="py-3 px-3 text-center w-12 font-black">م</th>
                   <th class="py-3 px-4 font-black">اسم الطالب رباعي</th>
                   <th class="py-3 px-3 text-center font-black">القسم</th>
-                  <th class="py-3 px-3 text-center font-black">النوع</th>
+                  <th class="py-3 px-3 text-center font-black no-print">النوع</th>
                   <th class="py-3 px-6 text-center font-black no-print">تحديد حالة الحضور / الغياب</th>
                   <th class="py-3 px-4 text-center font-black print-only">حالة الحضور اليوم</th>
                   <th class="py-3 px-4 text-center font-black print-only">ملاحظات</th>
@@ -2625,9 +2614,8 @@
                           ${s.track === 'arabic' ? 'عربي' : 'لغات'}
                         </span>
                       </td>
-                      <td class="py-3 px-3 text-center text-xs font-bold text-slate-400">
-                        <span class="no-print">${s.gender === 'male' ? '👦 بنين' : '👧 بنات'}</span>
-                        <span class="print-only">${s.gender === 'male' ? 'بنين' : 'بنات'}</span>
+                      <td class="py-3 px-3 text-center text-xs font-bold text-slate-400 no-print">
+                        <span>${s.gender === 'male' ? '👦 بنين' : '👧 بنات'}</span>
                       </td>
                       
                       <!-- Interactive Status Buttons (Screen Only) -->
@@ -3120,32 +3108,9 @@
               </p>
             </div>
 
-            <!-- Signatures -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 14px; border-top: 1.5px dashed #475569; font-size: 12px; font-weight: bold;">
-              <div style="text-align: center; width: 30%;">
-                <div>مسؤول شؤون الطلاب</div>
-                <div style="margin-top: 22px; color: #64748b;">................................</div>
-              </div>
-              <div style="text-align: center; width: 30%;">
-                <div style="border: 1px dashed #64748b; border-radius: 50%; width: 50px; height: 50px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 9px; color: #94a3b8;">
-                  خاتم المدرسة
-                </div>
-              </div>
-              <div style="text-align: center; width: 30%;">
-                <div>يعتمد، مديرة المدرسة</div>
-                <div style="margin-top: 12px; color: #ffffff; font-weight: 900;">المهندسة / نبيلة فخري</div>
-              </div>
-            </div>
-
-            <!-- Parent Acknowledgement Slip -->
-            <div style="margin-top: 20px; padding-top: 12px; border-top: 1.5px dashed #dc2626; font-size: 12px;">
-              <div style="text-align: center; font-weight: 900; color: #f87171; margin-bottom: 6px;">قسيمة إقرار ولي الأمر بالعلم (تُسلّم لإدارة المدرسة)</div>
-              <div>أقر أنا ولي أمر الطالب / الطالبة: <b>${st.nameAr}</b> بعلمي بعدد أيام الغياب (${absentCount} أيام)، والتزم بانتظام الطالب.</div>
-              <div style="display: flex; justify-content: space-between; margin-top: 14px; color: #cbd5e1;">
-                <div>الاسم: ................................................</div>
-                <div>التوقيع: ................................................</div>
-                <div>التاريخ: ..... / ..... / 2026</div>
-              </div>
+            <!-- Official Footer -->
+            <div style="margin-top: 24px; padding-top: 14px; border-top: 1.5px solid #475569; text-align: center; font-size: 13px; font-weight: 900; color: #38bdf8;">
+              إدارة مدرسة Smile Kids الخاصة للغات • شؤون الطلاب والمتابعة
             </div>
           </div>
         `;
@@ -3504,47 +3469,47 @@
       if (currentMainTab === 'rosters') {
         if (currentGrade === 0) {
           if (titleElem) titleElem.innerText = 'كشف إجمالي عام لكافة فصول المدرسة';
-          if (gradeElem) gradeElem.innerText = 'الفصول من الصف الأول حتى التاسع';
+          if (gradeElem) gradeElem.innerText = 'كافة صفوف المدرسة (1 - 9)';
           if (subElem) subElem.innerText = 'العام الدراسي 2026 / 2027';
-          if (countElem) countElem.innerText = `إجمالي طلاب المدرسة: ${ALL_STUDENTS.length} طالب وطالبة`;
+          if (countElem) countElem.innerText = `إجمالي عدد الطلاب: ${ALL_STUDENTS.length} طالب وطالبة`;
         } else {
-          const info = GRADE_CONFIG[currentGrade] || { ar: `الصف ${currentGrade}`, en: `Grade ${currentGrade}` };
+          const info = GRADE_CONFIG[currentGrade] || { ar: `الصف ${currentGrade}` };
           const gStudents = ALL_STUDENTS.filter(s => s.grade === currentGrade);
           const ar = gStudents.filter(s => s.track === 'arabic').length;
           const ln = gStudents.filter(s => s.track === 'languages').length;
 
           if (titleElem) titleElem.innerText = 'كشف أسماء الطلاب الرسمي';
-          if (gradeElem) gradeElem.innerText = `${info.ar} • ${info.en || ('Grade ' + currentGrade)}`;
+          if (gradeElem) gradeElem.innerText = `${info.ar}`;
 
           if (currentTrackFilter === 'all') {
             if (subElem) subElem.innerText = `العام الدراسي 2026 / 2027`;
-            if (countElem) countElem.innerText = `إجمالي الفصل: ${gStudents.length} طالب (لغات: ${ln} • عربي: ${ar})`;
+            if (countElem) countElem.innerText = `إجمالي عدد الطلاب: ${gStudents.length} طالب وطالبة`;
           } else if (currentTrackFilter === 'arabic') {
             if (subElem) subElem.innerText = `العام الدراسي 2026 / 2027 • قسم العربي`;
-            if (countElem) countElem.innerText = `إجمالي قسم العربي: ${ar} طالب وطالبة`;
+            if (countElem) countElem.innerText = `إجمالي عدد الطلاب: ${ar} طالب وطالبة`;
           } else if (currentTrackFilter === 'languages') {
             if (subElem) subElem.innerText = `العام الدراسي 2026 / 2027 • قسم اللغات`;
-            if (countElem) countElem.innerText = `إجمالي قسم اللغات: ${ln} طالب وطالبة`;
+            if (countElem) countElem.innerText = `إجمالي عدد الطلاب: ${ln} طالب وطالبة`;
           }
         }
       } else if (currentMainTab === 'attendance') {
-        const info = GRADE_CONFIG[currentGrade] || { ar: `الصف ${currentGrade}`, en: `Grade ${currentGrade}` };
+        const info = GRADE_CONFIG[currentGrade] || { ar: `الصف ${currentGrade}` };
         const gStudents = ALL_STUDENTS.filter(s => s.grade === currentGrade);
         if (currentAttSubView === 'daily') {
           if (titleElem) titleElem.innerText = 'كشف تسجيل الحضور والغياب اليومي';
-          if (gradeElem) gradeElem.innerText = `${info.ar} • ${info.en || ('Grade ' + currentGrade)}`;
+          if (gradeElem) gradeElem.innerText = `${info.ar}`;
           if (subElem) subElem.innerText = `تاريخ اليوم: ${currentAttDate} • العام الدراسي 2026 / 2027`;
-          if (countElem) countElem.innerText = `إجمالي طلاب الفصل: ${gStudents.length} طالب وطالبة`;
+          if (countElem) countElem.innerText = `إجمالي عدد الطلاب: ${gStudents.length} طالب وطالبة`;
         } else if (currentAttSubView === 'monthly') {
           if (titleElem) titleElem.innerText = 'كشف تجميعة الغياب والحضور الشهري';
-          if (gradeElem) gradeElem.innerText = `${info.ar} • ${info.en || ('Grade ' + currentGrade)}`;
+          if (gradeElem) gradeElem.innerText = `${info.ar}`;
           if (subElem) subElem.innerText = `عن شهر: ${currentAttMonth} • العام الدراسي 2026 / 2027`;
-          if (countElem) countElem.innerText = `إجمالي طلاب الفصل: ${gStudents.length} طالب وطالبة`;
+          if (countElem) countElem.innerText = `إجمالي عدد الطلاب: ${gStudents.length} طالب وطالبة`;
         } else if (currentAttSubView === 'period') {
           if (titleElem) titleElem.innerText = 'تقرير حصر ومتابعة غياب الطلاب خلال فترة محددة';
-          if (gradeElem) gradeElem.innerText = `${info.ar} • ${info.en || ('Grade ' + currentGrade)}`;
+          if (gradeElem) gradeElem.innerText = `${info.ar}`;
           if (subElem) subElem.innerText = `عن الفترة من ${currentAttPeriodStart} إلى ${currentAttPeriodEnd} • العام الدراسي 2026 / 2027`;
-          if (countElem) countElem.innerText = `إجمالي طلاب الفصل: ${gStudents.length} طالب وطالبة`;
+          if (countElem) countElem.innerText = `إجمالي عدد الطلاب: ${gStudents.length} طالب وطالبة`;
         }
       }
     }
@@ -4496,17 +4461,17 @@
             </div>
 
             <div style="text-align: center;">
-              <div style="font-size: 20px; font-weight: 900; color: #000000; letter-spacing: -0.3px;">
-                كشف رصد درجات جريد ${g} — ${trackTitleAr}
+              <div style="font-size: 21px; font-weight: 900; color: #000000; letter-spacing: -0.3px; font-family: 'Cairo', sans-serif;">
+                كشف رصد درجات ${GRADE_CONFIG[g]?.ar || ('الصف ' + g)} — ${trackTitleAr}
               </div>
-              <div style="font-size: 12.5px; font-weight: 800; color: ${trackColor}; margin-top: 3px;">
-                ${examTitle} • [ عدد الطلاب: ${students.length} ]
+              <div style="font-size: 13px; font-weight: 800; color: ${trackColor}; margin-top: 3px;">
+                ${examTitle} • [ إجمالي عدد الطلاب: ${students.length} ]
               </div>
             </div>
 
-            <div style="text-align: left; font-size: 12px; font-weight: 800; color: #334155;">
-              <div style="border: 1.5px solid #000000; padding: 3px 10px; border-radius: 6px; background: #f8fafc; display: inline-block;">
-                ${trackKey === 'languages' ? '🌐 Languages Track' : '📚 Arabic Track'}
+            <div style="text-align: left; font-size: 12.5px; font-weight: 900; color: #334155;">
+              <div style="border: 1.5px solid #000000; padding: 3px 12px; border-radius: 6px; background: #f8fafc; display: inline-block;">
+                ${trackKey === 'languages' ? '🌐 قسم اللغات' : '📚 قسم العربي'}
               </div>
             </div>
           </div>
@@ -5448,8 +5413,8 @@
       },
       {
         id: "t_nabila",
-        nameAr: "مس / نبيلة فخري",
-        nameEn: "Ms. Nabila Fakhry",
+        nameAr: "مس / نبيلة",
+        nameEn: "Ms. Nabila",
         subjects: [
           { id: "math", nameAr: "الرياضيات والحساب / Math", nameEn: "Mathematics (Math)", grades: [1, 2, 3, 4, 5] }
         ]
