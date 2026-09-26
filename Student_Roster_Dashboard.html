@@ -33,7 +33,7 @@
   </script>
 
   <style>
-    * { font-family: 'Cairo', 'Tajawal', sans-serif; }
+    * { font-family: 'Cairo', 'Tajawal', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif; }
     .font-en { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
     .scrollbar-none::-webkit-scrollbar { display: none; }
     .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
@@ -739,17 +739,17 @@
           <span>قسم اللغات</span>
           <span>🌐</span>
         </div>
-        <div class="text-xl sm:text-2xl font-black text-blue-400" id="stat-total-languages">88</div>
-        <div class="text-[9px] sm:text-[10px] text-blue-300/70 mt-0.5">67.2% من الطلاب</div>
+        <div class="text-xl sm:text-2xl font-black text-blue-400" id="stat-total-languages">86</div>
+        <div class="text-[9px] sm:text-[10px] text-blue-300/70 mt-0.5" id="stat-pct-languages">62.8% من الطلاب</div>
       </div>
 
       <div class="bg-gradient-to-br from-emerald-950/60 to-slate-900 border border-emerald-800/50 rounded-2xl p-2.5 sm:p-3.5 shadow-sm">
         <div class="flex items-center justify-between text-emerald-300 text-[11px] sm:text-xs font-bold mb-0.5 sm:mb-1">
           <span>قسم العربي</span>
-          <span>📖</span>
+          <span>📚</span>
         </div>
-        <div class="text-xl sm:text-2xl font-black text-emerald-400" id="stat-total-arabic">43</div>
-        <div class="text-[9px] sm:text-[10px] text-emerald-300/70 mt-0.5">32.8% من الطلاب</div>
+        <div class="text-xl sm:text-2xl font-black text-emerald-400" id="stat-total-arabic">51</div>
+        <div class="text-[9px] sm:text-[10px] text-emerald-300/70 mt-0.5" id="stat-pct-arabic">37.2% من الطلاب</div>
       </div>
 
       <div class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-2.5 sm:p-3.5 shadow-sm">
@@ -804,7 +804,7 @@
             </button>
 
             <button onclick="setTrackFilter('arabic')" id="btn-track-arabic" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-slate-400 hover:text-white">
-              <span>قسم العربي 📖</span>
+              <span>قسم العربي 📚</span>
               <span id="badge-track-arabic" class="text-[10px] bg-emerald-950 text-emerald-300 border border-emerald-800 px-1.5 py-0.2 rounded-full">0</span>
             </button>
           </div>
@@ -887,7 +887,7 @@
           <div class="bg-slate-900 p-1 rounded-xl border border-slate-700 flex items-center gap-1 text-xs">
             <button onclick="setAttTrackFilter('all')" id="btn-att-track-all" class="px-3 py-1 rounded-lg font-black bg-indigo-600 text-white">الكل</button>
             <button onclick="setAttTrackFilter('languages')" id="btn-att-track-languages" class="px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white">لغات 🌐</button>
-            <button onclick="setAttTrackFilter('arabic')" id="btn-att-track-arabic" class="px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white">عربي 📖</button>
+            <button onclick="setAttTrackFilter('arabic')" id="btn-att-track-arabic" class="px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white">عربي 📚</button>
           </div>
 
           <!-- Search by Student Name in Attendance -->
@@ -923,7 +923,7 @@
           <div class="bg-slate-900 p-1 rounded-xl border border-slate-700 flex items-center gap-1 text-xs">
             <button onclick="setAttTrackFilter('all')" id="btn-att-month-track-all" class="px-3 py-1 rounded-lg font-black bg-indigo-600 text-white">الكل</button>
             <button onclick="setAttTrackFilter('languages')" id="btn-att-month-track-languages" class="px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white">لغات 🌐</button>
-            <button onclick="setAttTrackFilter('arabic')" id="btn-att-month-track-arabic" class="px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white">عربي 📖</button>
+            <button onclick="setAttTrackFilter('arabic')" id="btn-att-month-track-arabic" class="px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white">عربي 📚</button>
           </div>
 
           <!-- Filter Only Absent toggle -->
@@ -994,7 +994,7 @@
             <div class="bg-slate-900 p-1 rounded-xl border border-slate-700 flex items-center gap-1 text-xs">
               <button onclick="setAttTrackFilter('all')" id="btn-att-period-track-all" class="px-3 py-1 rounded-lg font-black bg-indigo-600 text-white">الكل</button>
               <button onclick="setAttTrackFilter('languages')" id="btn-att-period-track-languages" class="px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white">لغات 🌐</button>
-              <button onclick="setAttTrackFilter('arabic')" id="btn-att-period-track-arabic" class="px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white">عربي 📖</button>
+              <button onclick="setAttTrackFilter('arabic')" id="btn-att-period-track-arabic" class="px-3 py-1 rounded-lg font-bold text-slate-400 hover:text-white">عربي 📚</button>
             </div>
 
             <!-- Only Absent Toggle -->
@@ -1311,7 +1311,7 @@
           <div>
             <label class="block text-xs font-bold text-slate-300 mb-1">القسم / المسار <span class="text-red-400">*</span></label>
             <select id="add-student-track" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white focus:outline-none focus:border-emerald-500 transition">
-              <option value="arabic">قسم العربي 📖</option>
+              <option value="arabic">قسم العربي 📚</option>
               <option value="languages">قسم اللغات 🌐</option>
             </select>
           </div>
@@ -1387,7 +1387,7 @@
           <div>
             <label class="block text-xs font-bold text-slate-300 mb-1">القسم / المسار:</label>
             <select id="edit-student-track" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white focus:outline-none focus:border-indigo-500 transition">
-              <option value="arabic">قسم العربي 📖</option>
+              <option value="arabic">قسم العربي 📚</option>
               <option value="languages">قسم اللغات 🌐</option>
             </select>
           </div>
@@ -1683,6 +1683,7 @@
     }
 
     const GRADE_CONFIG = {
+      0: { ar: 'كافة الصفوف بالمدرسة (1 - 9)', en: 'All School Grades', stage: 'المدرسة بالكامل' },
       1: { ar: 'الصف الأول الابتدائي', en: 'Grade 1', stage: 'المرحلة الابتدائية' },
       2: { ar: 'الصف الثاني الابتدائي', en: 'Grade 2', stage: 'المرحلة الابتدائية' },
       3: { ar: 'الصف الثالث الابتدائي', en: 'Grade 3', stage: 'المرحلة الابتدائية' },
@@ -1799,16 +1800,30 @@
     }
 
     function updateGlobalKPIs() {
-      document.getElementById('stat-total-students').innerText = ALL_STUDENTS.length;
+      const total = ALL_STUDENTS.length;
+      const elTotal = document.getElementById('stat-total-students');
+      if (elTotal) elTotal.innerText = total;
+
       const ln = ALL_STUDENTS.filter(s => s.track === 'languages').length;
       const ar = ALL_STUDENTS.filter(s => s.track === 'arabic').length;
       const boys = ALL_STUDENTS.filter(s => s.gender === 'male').length;
       const girls = ALL_STUDENTS.filter(s => s.gender === 'female').length;
 
-      document.getElementById('stat-total-languages').innerText = ln;
-      document.getElementById('stat-total-arabic').innerText = ar;
-      document.getElementById('stat-total-boys').innerText = boys;
-      document.getElementById('stat-total-girls').innerText = girls;
+      const elLn = document.getElementById('stat-total-languages');
+      if (elLn) elLn.innerText = ln;
+      const elAr = document.getElementById('stat-total-arabic');
+      if (elAr) elAr.innerText = ar;
+      const elBoys = document.getElementById('stat-total-boys');
+      if (elBoys) elBoys.innerText = boys;
+      const elGirls = document.getElementById('stat-total-girls');
+      if (elGirls) elGirls.innerText = girls;
+
+      const lnPct = total > 0 ? ((ln / total) * 100).toFixed(1) : '0';
+      const arPct = total > 0 ? ((ar / total) * 100).toFixed(1) : '0';
+      const elLnPct = document.getElementById('stat-pct-languages');
+      if (elLnPct) elLnPct.innerText = `${lnPct}% من الطلاب`;
+      const elArPct = document.getElementById('stat-pct-arabic');
+      if (elArPct) elArPct.innerText = `${arPct}% من الطلاب`;
     }
 
     function renderGradePills() {
@@ -1926,12 +1941,23 @@
     function renderActiveGradeBanner() {
       const banner = document.getElementById('active-grade-banner');
       if (currentGrade === 0) {
+        const totalAll = ALL_STUDENTS.length;
+        const totalLn = ALL_STUDENTS.filter(s => s.track === 'languages').length;
+        const totalAr = ALL_STUDENTS.filter(s => s.track === 'arabic').length;
+
+        const bAll = document.getElementById('badge-track-all');
+        if (bAll) bAll.innerText = totalAll;
+        const bLn = document.getElementById('badge-track-languages');
+        if (bLn) bLn.innerText = totalLn;
+        const bAr = document.getElementById('badge-track-arabic');
+        if (bAr) bAr.innerText = totalAr;
+
         banner.innerHTML = `
           <div class="flex flex-wrap items-center justify-between gap-4">
             <div>
               <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs font-bold px-3 py-1 rounded-full">التقرير الإجمالي العام</span>
               <h2 class="text-2xl font-black text-white mt-1.5">كافة الصفوف الدراسية بالمدرسة (1 - 9)</h2>
-              <p class="text-xs text-indigo-200 font-semibold">استعراض إحصائي ومفصل لكافة الفصول والمسارات التعليمية</p>
+              <p class="text-xs text-indigo-200 font-semibold">استعراض إحصائي ومفصل لكافة الفصول والمسارات التعليمية (${totalAll} طالب)</p>
             </div>
             <div class="flex items-center gap-2 flex-wrap">
               <button onclick="openAddStudentModal()" class="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black rounded-xl text-xs sm:text-sm transition flex items-center gap-1.5 shadow-lg shadow-emerald-950/40 hover:scale-[1.02] active:scale-95 border border-emerald-400/40">
@@ -1981,10 +2007,61 @@
       }
     }
 
+    function resetGlobalFilters() {
+      searchQuery = '';
+      currentTrackFilter = 'all';
+      currentGenderFilter = 'all';
+      const searchInp = document.getElementById('search-input');
+      if (searchInp) searchInp.value = '';
+      updateTrackButtonsUI();
+      ['all', 'male', 'female'].forEach(item => {
+        const btn = document.getElementById(`btn-gender-${item}`);
+        if (btn) btn.className = item === 'all' ? 'px-2.5 py-1 rounded-lg font-bold bg-slate-800 text-white shadow' : 'px-2.5 py-1 rounded-lg font-bold text-slate-400 hover:text-white';
+      });
+      renderContent();
+    }
+
     function renderContent() {
       const container = document.getElementById('content-container');
       if (currentGrade === 0) {
-        renderOverviewCards(container);
+        if (!searchQuery && currentTrackFilter === 'all' && currentGenderFilter === 'all') {
+          renderOverviewCards(container);
+          return;
+        }
+
+        let students = [...ALL_STUDENTS];
+        if (currentTrackFilter !== 'all') {
+          students = students.filter(s => s.track === currentTrackFilter);
+        }
+        if (currentGenderFilter !== 'all') {
+          students = students.filter(s => s.gender === currentGenderFilter);
+        }
+        if (searchQuery) {
+          students = students.filter(s => 
+            (s.nameAr || '').toLowerCase().includes(searchQuery) ||
+            (s.nameEn || '').toLowerCase().includes(searchQuery) ||
+            (s.id || '').toLowerCase().includes(searchQuery)
+          );
+        }
+
+        if (currentTrackFilter === 'all') {
+          renderSideBySideView(container, students);
+        } else {
+          renderSingleTrackView(container, students, currentTrackFilter);
+        }
+
+        const bannerHtml = `
+          <div class="mb-5 bg-gradient-to-r from-amber-950/70 via-slate-800 to-slate-900 border border-amber-500/40 rounded-2xl p-3.5 px-4 flex items-center justify-between gap-3 text-xs shadow-md">
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <span class="text-amber-400 font-black text-sm">🔍 نتائج البحث والتصفية عبر كافة صفوف المدرسة:</span>
+              <span class="bg-amber-500/20 text-amber-300 font-black px-2.5 py-0.5 rounded-full border border-amber-500/30 text-xs">${students.length} طالب مطابق</span>
+            </div>
+            <button onclick="resetGlobalFilters()" class="text-slate-300 hover:text-white bg-slate-900/90 hover:bg-slate-700 px-3 py-1.5 rounded-xl border border-slate-700 font-bold transition flex items-center gap-1.5 text-xs shadow">
+              <span>✕ إلغاء التصفية وعرض كروت الصفوف</span>
+            </button>
+          </div>
+        `;
+        container.insertAdjacentHTML('afterbegin', bannerHtml);
         return;
       }
 
@@ -2035,7 +2112,7 @@
 
             <div class="grid grid-cols-2 gap-3 mb-4">
               <button onclick="switchGrade(${g}); setTrackFilter('arabic');" class="bg-emerald-950/40 hover:bg-emerald-900/50 border border-emerald-800/40 rounded-2xl p-3 text-center transition">
-                <div class="text-xs font-bold text-emerald-400">قسم العربي 📖</div>
+                <div class="text-xs font-bold text-emerald-400">قسم العربي 📚</div>
                 <div class="text-2xl font-black text-emerald-300 mt-1">${ar}</div>
                 <div class="text-[10px] text-emerald-300/70 mt-0.5 font-semibold">فتح العربي فقط ←</div>
               </button>
@@ -2068,7 +2145,7 @@
           <div class="lg:col-span-6 bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl section-card print-arabic-card">
             <div class="bg-gradient-to-r from-emerald-800 to-emerald-700 px-5 py-3.5 flex items-center justify-between text-white print-section-header">
               <div class="flex items-center gap-2.5">
-                <span class="text-xl no-print">📖</span>
+                <span class="text-xl no-print">📚</span>
                 <div>
                   <h3 class="font-black text-base">قسم العربي (Arabic Section)</h3>
                   <p class="text-[11px] text-emerald-200 font-semibold no-print">كشف الأسماء الرسمي</p>
@@ -2095,6 +2172,7 @@
                       <td class="py-2.5 px-3 text-center text-slate-400 font-bold">${idx + 1}</td>
                       <td class="py-2.5 px-4 font-bold text-white">
                         <div class="text-sm">${s.nameAr}</div>
+                        ${currentGrade === 0 ? `<div class="text-[10px] text-amber-400 font-semibold mt-0.5">${GRADE_CONFIG[s.grade]?.ar || 'الصف ' + s.grade}</div>` : ''}
                       </td>
                       <td class="py-2.5 px-3 text-center">
                         <span class="no-print text-xs font-bold px-2 py-0.5 rounded-full ${
@@ -2155,6 +2233,7 @@
                       <td class="py-2.5 px-3 text-center text-slate-400 font-bold">${idx + 1}</td>
                       <td class="py-2.5 px-4 font-bold text-white">
                         <div class="text-sm">${s.nameAr}</div>
+                        ${currentGrade === 0 ? `<div class="text-[10px] text-amber-400 font-semibold mt-0.5">${GRADE_CONFIG[s.grade]?.ar || 'الصف ' + s.grade}</div>` : ''}
                       </td>
                       <td class="py-2.5 px-3 text-center">
                         <span class="no-print text-xs font-bold px-2 py-0.5 rounded-full ${
@@ -2192,7 +2271,7 @@
       const isAr = trackName === 'arabic';
       const title = isAr ? 'قسم العربي (Arabic Section)' : 'قسم اللغات (Languages Section)';
       const headerGrad = isAr ? 'from-emerald-800 to-emerald-700' : 'from-blue-800 to-blue-700';
-      const icon = isAr ? '📖' : '🌐';
+      const icon = isAr ? '📚' : '🌐';
 
       container.innerHTML = `
         <div class="bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl max-w-5xl mx-auto single-track-card ${isAr ? 'print-arabic-card' : 'print-languages-card'}">
@@ -2226,7 +2305,10 @@
                 ${students.map((s, idx) => `
                   <tr class="hover:bg-slate-700/40 transition">
                     <td class="py-3 px-3 text-center text-slate-400 font-bold">${idx + 1}</td>
-                    <td class="py-3 px-4 font-bold text-white text-base">${s.nameAr}</td>
+                    <td class="py-3 px-4 font-bold text-white text-base">
+                      <div>${s.nameAr}</div>
+                      ${currentGrade === 0 ? `<div class="text-[11px] text-amber-400 font-semibold mt-0.5">${GRADE_CONFIG[s.grade]?.ar || 'الصف ' + s.grade}</div>` : ''}
+                    </td>
                     <td class="py-3 px-3 text-center">
                       <span class="no-print text-xs font-bold px-2 py-0.5 rounded-full ${
                         s.gender === 'male' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30' : 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
@@ -4424,7 +4506,7 @@
 
             <div style="text-align: left; font-size: 12px; font-weight: 800; color: #334155;">
               <div style="border: 1.5px solid #000000; padding: 3px 10px; border-radius: 6px; background: #f8fafc; display: inline-block;">
-                ${trackKey === 'languages' ? '🌐 Languages Track' : '📖 Arabic Track'}
+                ${trackKey === 'languages' ? '🌐 Languages Track' : '📚 Arabic Track'}
               </div>
             </div>
           </div>
