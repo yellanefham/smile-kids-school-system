@@ -424,7 +424,7 @@
       const query = (document.getElementById('pf-search-query').value || '').trim().toLowerCase();
       const statusEl = document.getElementById('pf-review-status');
       if (!query) {
-        statusEl.innerHTML = '<span class="text-amber-700">يرجى كتابة اسم الطالب أو كود الطالب للبحث...</span>';
+        statusEl.innerHTML = '<span class="text-amber-700">يرجى كتابة اسم الطالب للبحث...</span>';
         return;
       }
 
@@ -442,7 +442,7 @@
 
       if (student) {
         loadStudentIntoForm(student);
-        statusEl.innerHTML = `<span class="text-emerald-700">✓ تم العثور على: ${student.nameAr} (${student.id})</span>`;
+        statusEl.innerHTML = `<span class="text-emerald-700">✓ تم العثور على: ${student.nameAr}</span>`;
       } else {
         statusEl.innerHTML = '<span class="text-red-600">لم يتم العثور على أي طالب مطابق لبيانات البحث.</span>';
       }
@@ -609,9 +609,9 @@
 
         <!-- Lookup Section for Review Mode -->
         <div id="pf-review-box" class="gf-card p-4 hidden bg-purple-50/80 border-purple-300">
-          <label class="block text-xs font-black text-[#512da8] mb-1.5">ابحث عن الطالب لمراجعة بياناته (بالاسم بالعربي أو الإنجليزي أو كود الطالب):</label>
+          <label class="block text-xs font-black text-[#512da8] mb-1.5">ابحث عن الطالب لمراجعة بياناته (بالاسم بالعربي أو الإنجليزي):</label>
           <div class="flex gap-2">
-            <input type="text" id="pf-search-query" placeholder="اكتب اسم الطالب أو كود الطالب مثل SK-G1-AR-001..." class="flex-1 px-3 py-2 text-xs bg-white border border-purple-200 rounded-xl outline-none focus:border-[#673ab7] text-slate-800 font-semibold" onkeydown="if(event.key==='Enter'){event.preventDefault();lookupStudentForReview();}">
+            <input type="text" id="pf-search-query" placeholder="اكتب اسم الطالب بالعربي أو الإنجليزي..." class="flex-1 px-3 py-2 text-xs bg-white border border-purple-200 rounded-xl outline-none focus:border-[#673ab7] text-slate-800 font-semibold" onkeydown="if(event.key==='Enter'){event.preventDefault();lookupStudentForReview();}">
             <button type="button" onclick="lookupStudentForReview()" class="px-4 py-2 bg-[#673ab7] hover:bg-[#512da8] text-white text-xs font-bold rounded-xl transition shadow">
               بحث واسترجاع
             </button>
@@ -731,7 +731,7 @@
       <p class="text-xs text-slate-500 mb-4">تم حفظ بيانات الطالب بقاعدة البيانات الموحدة لمدرسة Smile Kids</p>
       
       <div class="bg-slate-50 rounded-2xl p-4 text-right space-y-2 border border-slate-200 text-xs mb-6 font-semibold">
-        <div class="flex justify-between border-b pb-1.5">
+        <div class="flex justify-between border-b pb-1.5 hidden">
           <span class="text-slate-500">كود الطالب:</span>
           <span class="font-mono font-bold text-indigo-600" id="receipt-id">SK-000</span>
         </div>
