@@ -626,6 +626,135 @@ body {
   }
 }
 
+/* Mobile & Tablet Responsiveness for Timetable */
+@media screen and (max-width: 860px) {
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+  
+  .app-header {
+    padding: 8px 10px !important;
+    position: static !important;
+  }
+  
+  .header-top {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+  
+  .brand-section {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+  }
+  
+  .brand-title {
+    font-size: 15px !important;
+    line-height: 1.2 !important;
+  }
+  
+  .brand-sub {
+    font-size: 10.5px !important;
+  }
+  
+  .header-actions {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 6px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .header-actions .global-print-btn,
+  .header-actions a.global-print-btn {
+    font-size: 11px !important;
+    padding: 5px 10px !important;
+    white-space: nowrap !important;
+  }
+  
+  .version-pill {
+    font-size: 10px !important;
+    padding: 4px 8px !important;
+  }
+  
+  .tabs-container {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 6px !important;
+    margin-top: 6px !important;
+  }
+  
+  .main-tab-btn {
+    font-size: 12px !important;
+    padding: 6px 12px !important;
+    white-space: nowrap !important;
+  }
+  
+  .subtabs-bar {
+    position: static !important;
+    padding: 6px 10px !important;
+    top: auto !important;
+  }
+  
+  .subtabs-inner {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 5px !important;
+  }
+  
+  .subtab-btn {
+    font-size: 11.5px !important;
+    padding: 5px 10px !important;
+    white-space: nowrap !important;
+  }
+  
+  .app-content {
+    padding: 10px 6px !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+  
+  .printable-schedule-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 10px 8px !important;
+    border-radius: 10px !important;
+    margin: 0 auto 16px auto !important;
+    box-sizing: border-box !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  
+  .printable-schedule-card table {
+    min-width: 780px !important;
+  }
+  
+  .printable-schedule-card::before {
+    content: "👉 اسحب الجدول أفقياً للمعاينة 👈";
+    display: block;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 800;
+    color: #4338CA;
+    background: #EEF2FF;
+    border: 1px dashed #A5B4FC;
+    border-radius: 6px;
+    padding: 3px 8px;
+    margin-bottom: 6px;
+  }
+  
+  .printable-schedule-card [style*="position: absolute"] {
+    display: none !important;
+  }
+}
+
 /* Print Specific Rules - 100% Strict Single Page Landscape Printing */
 @media print {
   @page {
