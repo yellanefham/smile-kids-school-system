@@ -45,7 +45,7 @@
     @media print {
       @page {
         size: auto;
-        margin: 10mm 12mm 10mm 12mm;
+        margin: 7mm 9mm 7mm 9mm;
       }
       
       * {
@@ -58,7 +58,7 @@
       
       html, body {
         background: #ffffff !important;
-        color: #000000 !important;
+        color: #0f172a !important;
         padding: 0 !important;
         margin: 0 !important;
         min-height: auto !important;
@@ -74,6 +74,7 @@
       #att-daily-controls, 
       #att-monthly-controls, 
       #modal-edit-student, 
+      #print-official-footer,
       button, 
       input, 
       select, 
@@ -104,7 +105,7 @@
       .grid.grid-cols-1.lg\:grid-cols-12 {
         display: grid !important;
         grid-template-columns: 1fr 1fr !important;
-        gap: 16px !important;
+        gap: 12px !important;
         align-items: start !important;
       }
       .lg\:col-span-6 {
@@ -117,69 +118,183 @@
       .single-track-card,
       div[class*="rounded-3xl"] {
         background: #ffffff !important;
-        border: 1.5px solid #0f172a !important;
-        border-radius: 4px !important;
+        border-radius: 8px !important;
         box-shadow: none !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
-        margin-bottom: 15px !important;
+        margin-bottom: 0 !important;
+        overflow: hidden !important;
       }
 
-      /* Clean section title bar */
-      .print-section-header, 
-      div[class*="from-emerald-800"], 
-      div[class*="from-blue-800"], 
-      div[class*="from-slate-950"] {
-        background: #f1f5f9 !important;
-        color: #0f172a !important;
-        border-bottom: 2px solid #0f172a !important;
-        padding: 8px 14px !important;
+      /* --- Arabic Section Card & Header --- */
+      .print-arabic-card,
+      div:has(> div[class*="from-emerald-800"]) {
+        border: 1.5px solid #059669 !important;
       }
-      .print-section-header *, 
-      div[class*="from-emerald-800"] *, 
+      div[class*="from-emerald-800"] {
+        background: linear-gradient(135deg, #065f46 0%, #047857 100%) !important;
+        color: #ffffff !important;
+        border-bottom: 2px solid #059669 !important;
+        padding: 6px 12px !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      div[class*="from-emerald-800"] * {
+        color: #ffffff !important;
+      }
+      div[class*="from-emerald-800"] h3 {
+        font-size: 13.5px !important;
+        font-weight: 900 !important;
+        color: #ffffff !important;
+      }
+      div[class*="from-emerald-800"] span {
+        background: #064e3b !important;
+        color: #ffffff !important;
+        border: 1px solid #34d399 !important;
+        font-size: 11px !important;
+        font-weight: 800 !important;
+        padding: 2px 8px !important;
+        border-radius: 9999px !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      /* Arabic Table Styling */
+      .print-arabic-card table thead tr,
+      div:has(> div[class*="from-emerald-800"]) table thead tr {
+        background: #ecfdf5 !important;
+        border-bottom: 2px solid #059669 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .print-arabic-card table th,
+      div:has(> div[class*="from-emerald-800"]) table th {
+        border: 1px solid #a7f3d0 !important;
+        color: #065f46 !important;
+        font-weight: 900 !important;
+        font-size: 11.5px !important;
+        padding: 4px 6px !important;
+        text-align: center !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .print-arabic-card table tbody tr:nth-child(even),
+      div:has(> div[class*="from-emerald-800"]) table tbody tr:nth-child(even) {
+        background-color: #f0fdf4 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .print-arabic-card table tbody tr:nth-child(odd),
+      div:has(> div[class*="from-emerald-800"]) table tbody tr:nth-child(odd) {
+        background-color: #ffffff !important;
+      }
+
+      /* --- Languages Section Card & Header --- */
+      .print-languages-card,
+      div:has(> div[class*="from-blue-800"]) {
+        border: 1.5px solid #2563eb !important;
+      }
+      div[class*="from-blue-800"] {
+        background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%) !important;
+        color: #ffffff !important;
+        border-bottom: 2px solid #2563eb !important;
+        padding: 6px 12px !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
       div[class*="from-blue-800"] * {
-        color: #0f172a !important;
+        color: #ffffff !important;
+      }
+      div[class*="from-blue-800"] h3 {
+        font-size: 13.5px !important;
+        font-weight: 900 !important;
+        color: #ffffff !important;
+      }
+      div[class*="from-blue-800"] span {
+        background: #1e3a8a !important;
+        color: #ffffff !important;
+        border: 1px solid #60a5fa !important;
+        font-size: 11px !important;
+        font-weight: 800 !important;
+        padding: 2px 8px !important;
+        border-radius: 9999px !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
 
-      /* Professional Table Styling for Print */
+      /* Languages Table Styling */
+      .print-languages-card table thead tr,
+      div:has(> div[class*="from-blue-800"]) table thead tr {
+        background: #eff6ff !important;
+        border-bottom: 2px solid #2563eb !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .print-languages-card table th,
+      div:has(> div[class*="from-blue-800"]) table th {
+        border: 1px solid #bfdbfe !important;
+        color: #1e40af !important;
+        font-weight: 900 !important;
+        font-size: 11.5px !important;
+        padding: 4px 6px !important;
+        text-align: center !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .print-languages-card table tbody tr:nth-child(even),
+      div:has(> div[class*="from-blue-800"]) table tbody tr:nth-child(even) {
+        background-color: #f8fafc !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .print-languages-card table tbody tr:nth-child(odd),
+      div:has(> div[class*="from-blue-800"]) table tbody tr:nth-child(odd) {
+        background-color: #ffffff !important;
+      }
+
+      /* General Table Styling for Print */
       table {
         border-collapse: collapse !important;
         width: 100% !important;
-        font-size: 13px !important;
-        color: #000000 !important;
-      }
-
-      thead tr {
-        background-color: #e2e8f0 !important;
-        border-bottom: 2px solid #0f172a !important;
-      }
-
-      th {
-        border: 1px solid #334155 !important;
+        font-size: 11.5px !important;
         color: #0f172a !important;
-        padding: 6px 8px !important;
-        font-weight: 800 !important;
-        font-size: 13px !important;
-        text-align: center !important;
       }
 
       th:nth-child(2) {
         text-align: right !important;
+        padding-right: 10px !important;
       }
 
       td {
-        border: 1px solid #cbd5e1 !important;
-        color: #000000 !important;
-        padding: 5px 8px !important;
-        font-size: 12.5px !important;
-        line-height: 1.4 !important;
+        border: 1px solid #e2e8f0 !important;
+        color: #0f172a !important;
+        padding: 3.5px 6px !important;
+        font-size: 11.5px !important;
+        line-height: 1.35 !important;
       }
 
-      tbody tr:nth-child(even) {
-        background-color: #f8fafc !important;
+      td:first-child {
+        font-weight: 900 !important;
+        color: #475569 !important;
+        text-align: center !important;
+        width: 28px !important;
+        font-size: 11px !important;
       }
-      tbody tr:nth-child(odd) {
-        background-color: #ffffff !important;
+
+      td:nth-child(2) {
+        font-weight: 800 !important;
+        color: #0f172a !important;
+        text-align: right !important;
+        padding-right: 10px !important;
+      }
+
+      td:nth-child(3) {
+        text-align: center !important;
+        width: 52px !important;
+      }
+
+      td:nth-child(4) {
+        text-align: center !important;
       }
 
       tbody tr {
@@ -187,9 +302,33 @@
         break-inside: avoid !important;
       }
 
-      /* Text color force black */
-      .text-white, .text-slate-400, .text-slate-300, .text-slate-200 {
-        color: #000000 !important;
+      /* Gender pill in print */
+      .print-gender-male {
+        color: #0284c7 !important;
+        background: #e0f2fe !important;
+        border: 1px solid #bae6fd !important;
+        padding: 1.5px 6px !important;
+        border-radius: 4px !important;
+        font-weight: 800 !important;
+        font-size: 10.5px !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .print-gender-female {
+        color: #db2777 !important;
+        background: #fce7f3 !important;
+        border: 1px solid #fbcfe8 !important;
+        padding: 1.5px 6px !important;
+        border-radius: 4px !important;
+        font-weight: 800 !important;
+        font-size: 10.5px !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      /* Text color force black inside rows only */
+      td .text-white, td .text-slate-400, td .text-slate-300, td .text-slate-200 {
+        color: #0f172a !important;
       }
     }
   
@@ -237,6 +376,270 @@
       background-color: #1e1b4b;
     }
 
+    /* ======================================================== */
+    /* RESPONSIVE CERTIFICATE RENDERING ON MOBILE DEVICES       */
+    /* ======================================================== */
+    .cert-view-a4-active {
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      display: block !important;
+    }
+    .cert-view-a4-active .custom-report-card-container {
+      min-width: 780px !important;
+      max-width: 820px !important;
+      margin: 0 auto !important;
+    }
+
+    @media screen and (max-width: 768px) {
+      /* Certificate Container in Mobile */
+      .custom-report-card-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+      }
+
+      /* Template 1: Approved Standard */
+      .cert-tpl-1 {
+        padding: 12px 10px 10px !important;
+        border-radius: 10px !important;
+        border-width: 2px !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.12) !important;
+      }
+      .cert-tpl-1 .cert-top-header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 6px !important;
+        margin-bottom: 10px !important;
+      }
+      .cert-tpl-1 .cert-logo-wrapper {
+        padding: 4px 8px !important;
+        border-radius: 10px !important;
+        transform: rotate(-4deg) !important;
+        flex-shrink: 0 !important;
+      }
+      .cert-tpl-1 .cert-logo-wrapper img {
+        height: 32px !important;
+        max-width: 80px !important;
+      }
+      .cert-tpl-1 .cert-title-box {
+        margin: 0 !important;
+        padding: 4px 10px !important;
+        border-width: 1.5px !important;
+        border-radius: 6px !important;
+        text-align: center !important;
+        flex-grow: 1 !important;
+        max-width: calc(100% - 90px) !important;
+      }
+      .cert-tpl-1 .cert-title-heading {
+        font-size: 13px !important;
+        letter-spacing: 0.5px !important;
+        text-shadow: 1px 1px 0px #93c5fd !important;
+        line-height: 1.2 !important;
+        word-break: break-word !important;
+      }
+      .cert-tpl-1 .cert-header-spacer {
+        display: none !important;
+      }
+
+      /* Student Name Row */
+      .cert-tpl-1 .cert-student-row {
+        margin-top: 8px !important;
+        margin-bottom: 10px !important;
+        padding: 0 2px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 6px !important;
+      }
+      .cert-tpl-1 .cert-student-name {
+        font-size: 15px !important;
+        line-height: 1.25 !important;
+        word-break: break-word !important;
+        flex: 1 !important;
+      }
+      .cert-tpl-1 .cert-student-label {
+        font-size: 13px !important;
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+      }
+
+      /* Table */
+      .cert-tpl-1 .cert-table {
+        border-width: 1.5px !important;
+        font-size: 11px !important;
+        width: 100% !important;
+      }
+      .cert-tpl-1 .cert-table td, 
+      .cert-tpl-1 .cert-table th {
+        padding: 4px 4px !important;
+        font-size: 11px !important;
+      }
+      .cert-tpl-1 .cert-grade-row td:nth-child(1) {
+        font-size: 11.5px !important;
+        width: 32% !important;
+      }
+      .cert-tpl-1 .cert-grade-row td:nth-child(2) {
+        font-size: 13.5px !important;
+      }
+      .cert-tpl-1 .cert-thead-row th {
+        font-size: 11px !important;
+        padding: 4px 2px !important;
+      }
+      .cert-tpl-1 .cert-subject-row td {
+        font-size: 11px !important;
+      }
+      .cert-tpl-1 .cert-total-row td {
+        font-size: 12px !important;
+        padding: 5px 4px !important;
+      }
+      .cert-tpl-1 .cert-rank-row td:nth-child(2) {
+        font-size: 13.5px !important;
+        padding: 5px 4px !important;
+      }
+
+      /* Separator */
+      .cert-tpl-1 .cert-separator {
+        margin-top: 12px !important;
+        margin-bottom: 8px !important;
+      }
+
+      /* Greetings Footer */
+      .cert-tpl-1 .cert-greetings-row {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        gap: 6px !important;
+        padding: 0 !important;
+      }
+      .cert-tpl-1 .cert-congrats-text {
+        font-size: 22px !important;
+        line-height: 1 !important;
+        margin: 0 !important;
+      }
+      .cert-tpl-1 .cert-wish-text {
+        font-size: 9.5px !important;
+        line-height: 1.35 !important;
+        margin: 0 !important;
+      }
+      .cert-tpl-1 .cert-wish-text span {
+        font-size: 11px !important;
+      }
+      .cert-tpl-1 .cert-good-job-badge {
+        transform: none !important;
+        flex-direction: row !important;
+        gap: 4px !important;
+        margin-top: 2px !important;
+      }
+      .cert-tpl-1 .cert-good-job-badge div[style*="background"] {
+        font-size: 9.5px !important;
+        padding: 3px 8px !important;
+        transform: none !important;
+      }
+      .cert-tpl-1 .cert-good-job-badge div:last-child {
+        font-size: 16px !important;
+        margin-top: 0 !important;
+      }
+
+      /* Signatures Row */
+      .cert-tpl-1 .cert-signatures-row {
+        margin-top: 10px !important;
+        padding-top: 6px !important;
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 4px !important;
+        font-size: 8.5px !important;
+        text-align: center !important;
+      }
+      .cert-tpl-1 .cert-signatures-row div {
+        white-space: normal !important;
+        line-height: 1.25 !important;
+      }
+
+      /* Template 2: Royal Gold */
+      .cert-tpl-royal {
+        padding: 10px 8px !important;
+        border-width: 2px !important;
+      }
+      .cert-tpl-royal .cert-royal-inner {
+        padding: 10px 8px !important;
+        border-radius: 8px !important;
+      }
+      .cert-tpl-royal .cert-royal-top-bar {
+        flex-direction: column !important;
+        gap: 8px !important;
+        text-align: center !important;
+      }
+      .cert-tpl-royal .cert-royal-top-bar > div {
+        text-align: center !important;
+      }
+      .cert-tpl-royal table td,
+      .cert-tpl-royal table th {
+        padding: 4px 4px !important;
+        font-size: 11px !important;
+      }
+      .cert-tpl-royal .cert-royal-signatures {
+        flex-direction: column !important;
+        gap: 10px !important;
+      }
+      .cert-tpl-royal .cert-royal-signatures > div {
+        width: 100% !important;
+      }
+
+      /* Template 3: Modern Studio */
+      .cert-tpl-modern {
+        padding: 10px 8px !important;
+        border-radius: 14px !important;
+      }
+      .cert-tpl-modern .cert-modern-header {
+        flex-direction: column !important;
+        gap: 8px !important;
+        text-align: center !important;
+      }
+      .cert-tpl-modern .cert-modern-student {
+        flex-direction: column !important;
+        gap: 8px !important;
+        text-align: center !important;
+      }
+      .cert-tpl-modern .cert-modern-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 6px !important;
+      }
+      .cert-tpl-modern .cert-modern-summary {
+        flex-direction: column !important;
+        gap: 6px !important;
+        text-align: center !important;
+      }
+
+      /* Template 4: Cheerful Kids */
+      .cert-tpl-kids {
+        padding: 10px 8px !important;
+        border-width: 3px !important;
+        border-radius: 16px !important;
+      }
+      .cert-tpl-kids .cert-kids-header {
+        flex-direction: column !important;
+        gap: 6px !important;
+        text-align: center !important;
+      }
+      .cert-tpl-kids .cert-kids-trophy {
+        font-size: 12px !important;
+      }
+      .cert-tpl-kids table td,
+      .cert-tpl-kids table th {
+        padding: 4px 4px !important;
+        font-size: 11px !important;
+      }
+      .cert-tpl-kids .cert-kids-footer {
+        flex-direction: column !important;
+        gap: 8px !important;
+        text-align: center !important;
+      }
+    }
+
   </style>
   <script src="smile_kids_database.js?v=20260925_fix_v8"></script>
 </head>
@@ -279,22 +682,40 @@
   <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex-1 w-full">
 
     <!-- Official Print Header (Only visible on print) -->
-    <div id="print-official-header" class="print-only" style="margin-bottom: 18px; border-bottom: 2px solid #0f172a; padding-bottom: 12px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <div style="text-align: right;">
-          <div style="font-size: 17px; font-weight: 900; color: #0f172a;">مدرسة Smile Kids للغات</div>
-          <div style="font-size: 11px; font-weight: 700; color: #475569;">Smile Kids Language School</div>
-          <div style="font-size: 11px; font-weight: 700; color: #475569;">شؤون الطلاب والامتحانات</div>
+    <div id="print-official-header" class="print-only" style="margin-bottom: 14px; border-bottom: 2px solid #1e3a8a; padding-bottom: 10px;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <!-- Right: School Brand & Logo -->
+        <div style="display: flex; align-items: center; gap: 10px; text-align: right;">
+          <div style="width: 44px; height: 44px; border-radius: 12px; background: #0f172a; display: flex; align-items: center; justify-content: center; font-size: 22px; border: 1.5px solid #d4af37; -webkit-print-color-adjust: exact; print-color-adjust: exact;">🏫</div>
+          <div>
+            <div style="font-size: 16px; font-weight: 900; color: #0f172a; line-height: 1.2;">مدرسة Smile Kids للغات</div>
+            <div style="font-size: 10.5px; font-weight: 800; color: #1e3a8a; letter-spacing: 0.5px; font-family: sans-serif;">SMILE KIDS LANGUAGE SCHOOL</div>
+            <div style="font-size: 10px; font-weight: 700; color: #64748b;">شؤون الطلاب وقوائم الفصول المعتمدة</div>
+          </div>
         </div>
+
+        <!-- Center: Prominent Grade & Report Title -->
         <div style="text-align: center;">
-          <div id="print-report-title" style="font-size: 19px; font-weight: 900; color: #0f172a; margin-bottom: 3px;">كشف أسماء الطلاب الرسمي</div>
-          <div id="print-grade-title" style="font-size: 16px; font-weight: 900; color: #1e3a8a; background: #e0e7ff; padding: 2px 16px; border-radius: 9999px; display: inline-block;">الصف الثاني الابتدائي</div>
-          <div id="print-track-subtitle" style="font-size: 11.5px; font-weight: 700; color: #475569; margin-top: 3px;">العام الدراسي 2026 / 2027</div>
+          <div id="print-grade-title" style="font-size: 17px; font-weight: 900; color: #ffffff !important; background: #1e3a8a !important; padding: 4px 22px; border-radius: 9999px; display: inline-block; border: 1.5px solid #1d4ed8; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+            الصف الرابع الابتدائي • Grade 4
+          </div>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 4px;">
+            <span id="print-report-title" style="font-size: 12px; font-weight: 900; color: #0f172a;">كشف أسماء الطلاب الرسمي</span>
+            <span style="color: #94a3b8; font-size: 10px;">•</span>
+            <span id="print-track-subtitle" style="font-size: 11px; font-weight: 700; color: #475569;">العام الدراسي 2026 / 2027</span>
+          </div>
         </div>
-        <div style="text-align: left;">
-          <div id="print-date-display" style="font-size: 11px; font-weight: 700; color: #0f172a;">التاريخ: 2026/09/24</div>
-          <div id="print-total-students-count" style="font-size: 12px; font-weight: 800; color: #0f172a; margin-top: 2px;">إجمالي الطلاب: 29 طالب</div>
-          <div id="print-stage-info" style="font-size: 10px; font-weight: 600; color: #64748b;">كشف إداري رسمي معتمد</div>
+
+        <!-- Left: Stats & Meta -->
+        <div style="text-align: left; display: flex; flex-direction: column; align-items: flex-end; gap: 2px;">
+          <div id="print-total-students-count" style="font-size: 11.5px; font-weight: 900; color: #0f172a; background: #f1f5f9; padding: 3px 9px; border-radius: 6px; border: 1px solid #cbd5e1; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+            إجمالي الفصل: 19 طالب (لغات: 14 • عربي: 5)
+          </div>
+          <div style="display: flex; gap: 6px; font-size: 10px; font-weight: 700; color: #64748b; margin-top: 2px;">
+            <span id="print-date-display">التاريخ: 2026/09/26</span>
+            <span>•</span>
+            <span style="color: #059669; font-weight: 800;">معتمد رسميًا ✓</span>
+          </div>
         </div>
       </div>
     </div>
@@ -598,24 +1019,7 @@
 
     </div>
 
-  
-    <!-- Official Print Footer (Only visible on print) -->
-    <div id="print-official-footer" class="print-only" style="margin-top: 24px; padding-top: 14px; border-top: 1.5px dashed #64748b; page-break-inside: avoid;">
-      <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 800; color: #1e293b;">
-        <div style="text-align: center; width: 30%;">
-          <div>مسؤول شؤون الطلاب</div>
-          <div style="margin-top: 28px; color: #94a3b8;">................................</div>
-        </div>
-        <div style="text-align: center; width: 30%;">
-          <div>خاتم المدرسة</div>
-          <div style="margin-top: 28px; color: #94a3b8;">[ ................................ ]</div>
-        </div>
-        <div style="text-align: center; width: 30%;">
-          <div>يعتمد، مدير المدرسة</div>
-          <div style="margin-top: 28px; color: #94a3b8;">................................</div>
-        </div>
-      </div>
-    </div>
+
 
   
     <!-- ==================== SECTION 3: GRADES & SCORES ==================== -->
@@ -827,8 +1231,29 @@
         </div>
       </div>
 
-      <!-- Live Certificate Preview Container -->
-      <div class="bg-slate-950/80 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl flex justify-center items-center overflow-x-auto">
+      <!-- Live Certificate Preview Controls & Container -->
+      <div class="flex flex-wrap items-center justify-between gap-3 mt-5 mb-3 no-print">
+        <div class="flex items-center gap-1.5 bg-slate-900 border border-slate-800 p-1 rounded-xl text-xs">
+          <button onclick="setCertViewMode('fit-mobile')" id="btn-cert-mode-mobile" class="px-3 py-1.5 rounded-lg font-bold bg-amber-500 text-slate-950 transition flex items-center gap-1" title="معاينة الشهادة متوافقة ومقروءة تماماً على شاشة الموبايل">
+            <span>📱 ملائمة للشاشة</span>
+          </button>
+          <button onclick="setCertViewMode('a4-sheet')" id="btn-cert-mode-a4" class="px-3 py-1.5 rounded-lg font-bold text-slate-400 hover:text-white transition flex items-center gap-1" title="معاينة الشهادة بحجم الورقة الكامل (A4)">
+            <span>📄 ورقة كاملة (A4)</span>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2 flex-wrap">
+          <button onclick="printSingleCertificate()" class="px-3.5 py-2 bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow-md active:scale-95">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+            <span>طباعة هذه الشهادة</span>
+          </button>
+          <button onclick="printBatchCertificates()" class="px-3.5 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow-md active:scale-95">
+            <span>📜 طباعة كل طلاب الفصل</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="certificate-preview-wrapper" class="bg-slate-950/80 border border-slate-800 rounded-3xl p-2 sm:p-6 lg:p-10 shadow-2xl flex justify-center items-center overflow-x-auto">
         <div id="certificate-preview-container" class="w-full max-w-[860px]">
           <!-- Single certificate rendered here -->
         </div>
@@ -1640,7 +2065,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           <!-- Arabic Section -->
-          <div class="lg:col-span-6 bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl section-card">
+          <div class="lg:col-span-6 bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl section-card print-arabic-card">
             <div class="bg-gradient-to-r from-emerald-800 to-emerald-700 px-5 py-3.5 flex items-center justify-between text-white print-section-header">
               <div class="flex items-center gap-2.5">
                 <span class="text-xl no-print">📖</span>
@@ -1677,7 +2102,7 @@
                         }">
                           ${s.gender === 'male' ? '👦 بنين' : '👧 بنات'}
                         </span>
-                        <span class="print-only text-xs font-bold">
+                        <span class="print-only ${s.gender === 'male' ? 'print-gender-male' : 'print-gender-female'}">
                           ${s.gender === 'male' ? 'بنين' : 'بنات'}
                         </span>
                       </td>
@@ -1700,7 +2125,7 @@
           </div>
 
           <!-- Languages Section -->
-          <div class="lg:col-span-6 bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl section-card">
+          <div class="lg:col-span-6 bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl section-card print-languages-card">
             <div class="bg-gradient-to-r from-blue-800 to-blue-700 px-5 py-3.5 flex items-center justify-between text-white print-section-header">
               <div class="flex items-center gap-2.5">
                 <span class="text-xl no-print">🌐</span>
@@ -1737,7 +2162,7 @@
                         }">
                           ${s.gender === 'male' ? '👦 بنين' : '👧 بنات'}
                         </span>
-                        <span class="print-only text-xs font-bold">
+                        <span class="print-only ${s.gender === 'male' ? 'print-gender-male' : 'print-gender-female'}">
                           ${s.gender === 'male' ? 'بنين' : 'بنات'}
                         </span>
                       </td>
@@ -1770,7 +2195,7 @@
       const icon = isAr ? '📖' : '🌐';
 
       container.innerHTML = `
-        <div class="bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl max-w-5xl mx-auto single-track-card">
+        <div class="bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl max-w-5xl mx-auto single-track-card ${isAr ? 'print-arabic-card' : 'print-languages-card'}">
           <div class="bg-gradient-to-r ${headerGrad} px-6 py-4 flex items-center justify-between text-white print-section-header">
             <div class="flex items-center gap-3">
               <span class="text-2xl no-print">${icon}</span>
@@ -1808,7 +2233,7 @@
                       }">
                         ${s.gender === 'male' ? '👦 بنين' : '👧 بنات'}
                       </span>
-                      <span class="print-only text-xs font-bold">
+                      <span class="print-only ${s.gender === 'male' ? 'print-gender-male' : 'print-gender-female'}">
                         ${s.gender === 'male' ? 'بنين' : 'بنات'}
                       </span>
                     </td>
@@ -3001,41 +3426,41 @@
           if (subElem) subElem.innerText = 'العام الدراسي 2026 / 2027';
           if (countElem) countElem.innerText = `إجمالي طلاب المدرسة: ${ALL_STUDENTS.length} طالب وطالبة`;
         } else {
-          const info = GRADE_CONFIG[currentGrade] || { ar: `الصف ${currentGrade}` };
+          const info = GRADE_CONFIG[currentGrade] || { ar: `الصف ${currentGrade}`, en: `Grade ${currentGrade}` };
           const gStudents = ALL_STUDENTS.filter(s => s.grade === currentGrade);
           const ar = gStudents.filter(s => s.track === 'arabic').length;
           const ln = gStudents.filter(s => s.track === 'languages').length;
 
           if (titleElem) titleElem.innerText = 'كشف أسماء الطلاب الرسمي';
-          if (gradeElem) gradeElem.innerText = info.ar;
+          if (gradeElem) gradeElem.innerText = `${info.ar} • ${info.en || ('Grade ' + currentGrade)}`;
 
           if (currentTrackFilter === 'all') {
-            if (subElem) subElem.innerText = `العام الدراسي 2026 / 2027 • قسم العربي وقسم اللغات`;
-            if (countElem) countElem.innerText = `إجمالي الفصل: ${gStudents.length} (عربي: ${ar} • لغات: ${ln})`;
+            if (subElem) subElem.innerText = `العام الدراسي 2026 / 2027`;
+            if (countElem) countElem.innerText = `إجمالي الفصل: ${gStudents.length} طالب (لغات: ${ln} • عربي: ${ar})`;
           } else if (currentTrackFilter === 'arabic') {
-            if (subElem) subElem.innerText = `العام الدراسي 2026 / 2027 • قسم العربي فقط`;
-            if (countElem) countElem.innerText = `إجمالي طلاب القسم: ${ar} طالب`;
+            if (subElem) subElem.innerText = `العام الدراسي 2026 / 2027 • قسم العربي`;
+            if (countElem) countElem.innerText = `إجمالي قسم العربي: ${ar} طالب وطالبة`;
           } else if (currentTrackFilter === 'languages') {
-            if (subElem) subElem.innerText = `العام الدراسي 2026 / 2027 • قسم اللغات فقط`;
-            if (countElem) countElem.innerText = `إجمالي طلاب القسم: ${ln} طالب وطالبة`;
+            if (subElem) subElem.innerText = `العام الدراسي 2026 / 2027 • قسم اللغات`;
+            if (countElem) countElem.innerText = `إجمالي قسم اللغات: ${ln} طالب وطالبة`;
           }
         }
       } else if (currentMainTab === 'attendance') {
-        const info = GRADE_CONFIG[currentGrade] || { ar: `الصف ${currentGrade}` };
+        const info = GRADE_CONFIG[currentGrade] || { ar: `الصف ${currentGrade}`, en: `Grade ${currentGrade}` };
         const gStudents = ALL_STUDENTS.filter(s => s.grade === currentGrade);
         if (currentAttSubView === 'daily') {
           if (titleElem) titleElem.innerText = 'كشف تسجيل الحضور والغياب اليومي';
-          if (gradeElem) gradeElem.innerText = info.ar;
+          if (gradeElem) gradeElem.innerText = `${info.ar} • ${info.en || ('Grade ' + currentGrade)}`;
           if (subElem) subElem.innerText = `تاريخ اليوم: ${currentAttDate} • العام الدراسي 2026 / 2027`;
           if (countElem) countElem.innerText = `إجمالي طلاب الفصل: ${gStudents.length} طالب وطالبة`;
         } else if (currentAttSubView === 'monthly') {
           if (titleElem) titleElem.innerText = 'كشف تجميعة الغياب والحضور الشهري';
-          if (gradeElem) gradeElem.innerText = info.ar;
+          if (gradeElem) gradeElem.innerText = `${info.ar} • ${info.en || ('Grade ' + currentGrade)}`;
           if (subElem) subElem.innerText = `عن شهر: ${currentAttMonth} • العام الدراسي 2026 / 2027`;
           if (countElem) countElem.innerText = `إجمالي طلاب الفصل: ${gStudents.length} طالب وطالبة`;
         } else if (currentAttSubView === 'period') {
           if (titleElem) titleElem.innerText = 'تقرير حصر ومتابعة غياب الطلاب خلال فترة محددة';
-          if (gradeElem) gradeElem.innerText = info.ar;
+          if (gradeElem) gradeElem.innerText = `${info.ar} • ${info.en || ('Grade ' + currentGrade)}`;
           if (subElem) subElem.innerText = `عن الفترة من ${currentAttPeriodStart} إلى ${currentAttPeriodEnd} • العام الدراسي 2026 / 2027`;
           if (countElem) countElem.innerText = `إجمالي طلاب الفصل: ${gStudents.length} طالب وطالبة`;
         }
@@ -3565,6 +3990,24 @@
         if (bEn) bEn.className = 'flex-1 py-2 rounded-xl text-xs font-black bg-blue-500 text-white transition';
       }
       renderCertificatePreview();
+    }
+
+    let certViewMode = 'fit-mobile';
+
+    function setCertViewMode(mode) {
+      certViewMode = mode;
+      const bMob = document.getElementById('btn-cert-mode-mobile');
+      const bA4 = document.getElementById('btn-cert-mode-a4');
+      const wrap = document.getElementById('certificate-preview-wrapper');
+      if (mode === 'a4-sheet') {
+        if (bMob) bMob.className = 'px-3 py-1.5 rounded-lg font-bold text-slate-400 hover:text-white transition flex items-center gap-1';
+        if (bA4) bA4.className = 'px-3 py-1.5 rounded-lg font-bold bg-amber-500 text-slate-950 transition flex items-center gap-1';
+        if (wrap) wrap.classList.add('cert-view-a4-active');
+      } else {
+        if (bMob) bMob.className = 'px-3 py-1.5 rounded-lg font-bold bg-amber-500 text-slate-950 transition flex items-center gap-1';
+        if (bA4) bA4.className = 'px-3 py-1.5 rounded-lg font-bold text-slate-400 hover:text-white transition flex items-center gap-1';
+        if (wrap) wrap.classList.remove('cert-view-a4-active');
+      }
     }
 
     
@@ -4728,14 +5171,14 @@
       // ==============================================================
       const subjectRowsHtml = processedSubjects.map(subj => {
         return `
-          <tr style="border-bottom: 1.5px solid #1e293b;">
-            <td style="border: 1.5px solid #1e293b; padding: 7px 14px; font-size: 14.5px; font-weight: 800; color: #0f172a; text-align: center;">
+          <tr class="cert-subject-row" style="border-bottom: 1.5px solid #1e293b;">
+            <td class="cert-sub-name" style="border: 1.5px solid #1e293b; padding: 7px 14px; font-size: 14.5px; font-weight: 800; color: #0f172a; text-align: center;">
               ${subj.name}
             </td>
-            <td style="border: 1.5px solid #1e293b; padding: 7px 14px; font-size: 15px; font-weight: 900; color: #dc2626; text-align: center; font-family: Arial, sans-serif;">
+            <td class="cert-sub-max" style="border: 1.5px solid #1e293b; padding: 7px 14px; font-size: 15px; font-weight: 900; color: #dc2626; text-align: center; font-family: Arial, sans-serif;">
               ${subj.max}
             </td>
-            <td style="border: 1.5px solid #1e293b; padding: 7px 14px; font-size: 15px; font-weight: 800; color: #0f172a; text-align: center; font-family: Arial, sans-serif;">
+            <td class="cert-sub-score" style="border: 1.5px solid #1e293b; padding: 7px 14px; font-size: 15px; font-weight: 800; color: #0f172a; text-align: center; font-family: Arial, sans-serif;">
               ${subj.displayScore}
             </td>
           </tr>
@@ -4743,41 +5186,41 @@
       }).join('');
 
       return `
-        <div class="custom-report-card-container" style="background: #ffffff; border: 2.5px solid #64748b; border-radius: 8px; padding: 25px 35px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.12); width: 100%; max-width: 880px; margin: 0 auto; direction: ltr; font-family: 'Cairo', 'Segoe UI', Arial, sans-serif; position: relative; box-sizing: border-box;">
+        <div class="custom-report-card-container cert-tpl-1" style="background: #ffffff; border: 2.5px solid #64748b; border-radius: 8px; padding: 25px 35px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.12); width: 100%; max-width: 880px; margin: 0 auto; direction: ltr; font-family: 'Cairo', 'Segoe UI', Arial, sans-serif; position: relative; box-sizing: border-box;">
           
           <!-- Top Row: Tilted Logo on Far Left & 3D Boxed Title in Center -->
-          <div style="display: flex; align-items: flex-start; justify-content: space-between; position: relative; margin-bottom: 18px;">
+          <div class="cert-top-header" style="display: flex; align-items: flex-start; justify-content: space-between; position: relative; margin-bottom: 18px;">
             
             <!-- Left: Tilted Smile Kids Badge (Matches exactly) -->
-            <div style="transform: rotate(-10deg); background: #ffffff; padding: 6px 14px; border-radius: 16px; box-shadow: 0 5px 16px rgba(0,0,0,0.15); border: 1.5px solid #cbd5e1; display: inline-block;">
+            <div class="cert-logo-wrapper" style="transform: rotate(-10deg); background: #ffffff; padding: 6px 14px; border-radius: 16px; box-shadow: 0 5px 16px rgba(0,0,0,0.15); border: 1.5px solid #cbd5e1; display: inline-block;">
               <img src="smile_kids_logo.png" style="height: 52px; max-width: 130px; object-fit: contain; display: block;" alt="Smile Kids Logo">
             </div>
 
             <!-- Center: 3D Boxed Title with outline/shadow (Matches exactly) -->
-            <div style="margin: 0 auto; border: 2.5px solid #3b82f6; border-radius: 2px; padding: 6px 28px; background: #ffffff; box-shadow: 0 1px 4px rgba(59,130,246,0.15);">
-              <h2 style="margin: 0; font-family: Arial, -apple-system, sans-serif; font-size: 28px; font-weight: 900; letter-spacing: 2px; color: #1e40af; text-shadow: 2px 2px 0px #93c5fd, 3px 3px 0px #cbd5e1; text-transform: uppercase;">
+            <div class="cert-title-box" style="margin: 0 auto; border: 2.5px solid #3b82f6; border-radius: 2px; padding: 6px 28px; background: #ffffff; box-shadow: 0 1px 4px rgba(59,130,246,0.15);">
+              <h2 class="cert-title-heading" style="margin: 0; font-family: Arial, -apple-system, sans-serif; font-size: 28px; font-weight: 900; letter-spacing: 2px; color: #1e40af; text-shadow: 2px 2px 0px #93c5fd, 3px 3px 0px #cbd5e1; text-transform: uppercase;">
                 ${reportHeaderTitle}
               </h2>
             </div>
 
             <!-- Right Spacer for balance -->
-            <div style="width: 140px;"></div>
+            <div class="cert-header-spacer" style="width: 140px;"></div>
           </div>
 
           <!-- Student Name Line: Red bold with Name on left, 'اسم الطالب/ ة :' on right (exact layout) -->
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 15px; margin-bottom: 12px; padding: 0 5px;">
-            <div style="color: #dc2626; font-size: 28px; font-weight: 900; font-family: Arial, 'Cairo', sans-serif; letter-spacing: 0.5px; direction: ltr; text-align: left;">
+          <div class="cert-student-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 15px; margin-bottom: 12px; padding: 0 5px;">
+            <div class="cert-student-name" style="color: #dc2626; font-size: 28px; font-weight: 900; font-family: Arial, 'Cairo', sans-serif; letter-spacing: 0.5px; direction: ltr; text-align: left;">
               ${studentDisplayName}
             </div>
-            <div style="color: #dc2626; font-size: 24px; font-weight: 900; white-space: nowrap; direction: rtl; text-align: right;">
+            <div class="cert-student-label" style="color: #dc2626; font-size: 24px; font-weight: 900; white-space: nowrap; direction: rtl; text-align: right;">
               اسم الطالب/ ة :
             </div>
           </div>
 
           <!-- The Table (RTL for Arabic layout) -->
-          <table style="width: 100%; border-collapse: collapse; border: 2px solid #0f172a; text-align: center; direction: rtl;">
+          <table class="cert-table" style="width: 100%; border-collapse: collapse; border: 2px solid #0f172a; text-align: center; direction: rtl;">
             <!-- Row 1: Grade Banner -->
-            <tr style="border-bottom: 2px solid #0f172a;">
+            <tr class="cert-grade-row" style="border-bottom: 2px solid #0f172a;">
               <td style="border: 2px solid #0f172a; padding: 7px 14px; font-size: 15px; font-weight: 900; width: 35%; color: #0f172a; text-align: center;">
                 الصــــــف :
               </td>
@@ -4787,7 +5230,7 @@
             </tr>
 
             <!-- Row 2: Headers -->
-            <tr style="background: #f8fafc; border-bottom: 2px solid #0f172a;">
+            <tr class="cert-thead-row" style="background: #f8fafc; border-bottom: 2px solid #0f172a;">
               <th style="border: 1.5px solid #0f172a; padding: 7px 14px; font-size: 14.5px; font-weight: 900; width: 35%; color: #0f172a; text-align: center;">
                 المادة الدراسية
               </th>
@@ -4803,7 +5246,7 @@
             ${subjectRowsHtml}
 
             <!-- Total Row -->
-            <tr style="border-top: 2px solid #0f172a; border-bottom: 1.5px solid #0f172a; background: #ffffff;">
+            <tr class="cert-total-row" style="border-top: 2px solid #0f172a; border-bottom: 1.5px solid #0f172a; background: #ffffff;">
               <td style="border: 1.5px solid #0f172a; padding: 7px 14px; font-size: 15px; font-weight: 900; color: #0f172a; text-align: center;">
                 المجموع الكلى
               </td>
@@ -4816,7 +5259,7 @@
             </tr>
 
             <!-- Ranking Row -->
-            <tr style="background: #ffffff;">
+            <tr class="cert-rank-row" style="background: #ffffff;">
               <td style="border: 1.5px solid #0f172a; padding: 7px 14px; font-size: 15px; font-weight: 900; color: #0f172a; text-align: center;">
                 التـــــــرتيـــــــب
               </td>
@@ -4827,23 +5270,23 @@
           </table>
 
           <!-- Footer Area (LTR layout matching the uploaded image exactly) -->
-          <div style="width: 100%; height: 1.5px; background: linear-gradient(to right, #93c5fd, #60a5fa, #93c5fd); margin-top: 25px; margin-bottom: 15px;"></div>
+          <div class="cert-separator" style="width: 100%; height: 1.5px; background: linear-gradient(to right, #93c5fd, #60a5fa, #93c5fd); margin-top: 25px; margin-bottom: 15px;"></div>
 
-          <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 10px; direction: ltr;">
+          <div class="cert-greetings-row" style="display: flex; align-items: center; justify-content: space-between; padding: 0 10px; direction: ltr;">
             
             <!-- Left: Congratulations Art (Exact position) -->
-            <div style="font-family: 'Brush Script MT', 'Dancing Script', 'Pacifico', cursive; font-size: 38px; font-weight: bold; background: linear-gradient(45deg, #ec4899, #8b5cf6, #3b82f6, #06b6d4, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.12));">
+            <div class="cert-congrats-text" style="font-family: 'Brush Script MT', 'Dancing Script', 'Pacifico', cursive; font-size: 38px; font-weight: bold; background: linear-gradient(45deg, #ec4899, #8b5cf6, #3b82f6, #06b6d4, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.12));">
               Congratulations
             </div>
 
             <!-- Middle: Good Wishes Text (Exact position) -->
-            <div style="text-align: center; color: #60a5fa; font-style: italic; font-weight: 700; font-size: 13.5px; line-height: 1.6; font-family: 'Segoe UI', Tahoma, sans-serif;">
+            <div class="cert-wish-text" style="text-align: center; color: #60a5fa; font-style: italic; font-weight: 700; font-size: 13.5px; line-height: 1.6; font-family: 'Segoe UI', Tahoma, sans-serif;">
               With our best wishes for continued success and excellence<br>
               <span style="font-size: 15px; color: #3b82f6; font-style: normal;">Smile Kids ☺</span>
             </div>
 
             <!-- Right: GOOD JOB Card/Badge with Shooting Stars (Exact position) -->
-            <div style="display: flex; flex-direction: column; align-items: center; position: relative;">
+            <div class="cert-good-job-badge" style="display: flex; flex-direction: column; align-items: center; position: relative;">
               <div style="position: absolute; top: -14px; right: -8px; font-size: 14px; color: #f59e0b;">✨</div>
               <div style="position: absolute; top: -12px; left: -8px; font-size: 14px; color: #3b82f6;">⭐</div>
               <div style="background: linear-gradient(135deg, #f43f5e, #fb7185); color: white; font-weight: 900; font-size: 11px; padding: 5px 12px; border-radius: 8px; box-shadow: 0 4px 12px rgba(244,63,94,0.35); border: 2px solid white; transform: rotate(5deg); letter-spacing: 0.5px;">
@@ -4855,7 +5298,7 @@
           </div>
 
           <!-- Official Signatures Bottom Bar -->
-          <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; font-size: 12px; font-weight: 800; color: #475569; direction: rtl;">
+          <div class="cert-signatures-row" style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; font-size: 12px; font-weight: 800; color: #475569; direction: rtl;">
             <div>مسؤول الكنترول: ....................</div>
             <div>خاتم المدرسة المعتمد</div>
             <div>يعتمد، مديرة المدرسة: <b style="color: #0f172a;">المهندسة / نبيلة فخري</b></div>
