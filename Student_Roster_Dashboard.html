@@ -126,6 +126,17 @@
         overflow: hidden !important;
       }
 
+      /* Multi-page consecutive printing for all grades */
+      .grade-print-page {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        width: 100% !important;
+      }
+      .grade-print-page:not(:last-child) {
+        page-break-after: always !important;
+        break-after: page !important;
+      }
+
       /* --- Arabic Section Card & Header --- */
       .print-arabic-card,
       div:has(> div[class*="from-emerald-800"]) {
@@ -823,10 +834,17 @@
           <button onclick="setGenderFilter('female')" id="btn-gender-female" class="px-2.5 py-1 rounded-lg font-bold text-slate-400 hover:text-white">بنات 👧</button>
         </div>
 
-        <button onclick="window.print()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition flex items-center gap-1.5 border border-slate-700">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-          <span>طباعة</span>
-        </button>
+        <!-- Action & Print Buttons -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <button onclick="window.print()" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow" title="طباعة كشف هذا الفصل المعروض">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+            <span>🖨️ طباعة هذا الفصل</span>
+          </button>
+
+          <button onclick="printAllGradeRostersConsecutively()" class="px-3.5 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl text-xs transition flex items-center gap-1.5 shadow active:scale-95" title="طباعة كشوف كافة الصفوف من الأول إلى التاسع ورا بعض دفعة واحدة">
+            <span>📑 طباعة كل الفصول ورا بعض (1 - 9)</span>
+          </button>
+        </div>
 
       </div>
 
@@ -1889,6 +1907,7 @@
         renderCertPills();
         renderCertificatesModule();
       }
+      updatePrintHeader();
     }
 
     function setTrackFilter(track) {
@@ -1962,9 +1981,8 @@
                 <span class="text-base">➕</span>
                 <span>إضافة طالب جديد</span>
               </button>
-              <button onclick="window.print()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-black rounded-xl text-xs transition flex items-center gap-2 shadow">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-                <span>طباعة الكشف الشامل</span>
+              <button onclick="printAllGradeRostersConsecutively()" class="px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl text-xs sm:text-sm transition flex items-center gap-2 shadow active:scale-95" title="طباعة كشوف كافة الصفوف من الأول إلى التاسع ورا بعض دفعة واحدة">
+                <span>📑 طباعة كل الفصول ورا بعض (1 - 9)</span>
               </button>
             </div>
           </div>
@@ -1991,13 +2009,22 @@
             </div>
             
             <div class="flex items-center gap-2 flex-wrap">
-              <button onclick="openAddStudentModal()" class="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black rounded-xl text-xs sm:text-sm transition flex items-center gap-1.5 shadow-lg shadow-emerald-950/40 hover:scale-[1.02] active:scale-95 border border-emerald-400/40">
+              <button onclick="openAddStudentModal()" class="px-3.5 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black rounded-xl text-xs sm:text-sm transition flex items-center gap-1.5 shadow-lg shadow-emerald-950/40 hover:scale-[1.02] active:scale-95 border border-emerald-400/40">
                 <span class="text-base">➕</span>
                 <span>إضافة طالب جديد</span>
               </button>
 
-              <button onclick="switchMainTab('attendance')" class="px-3.5 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl text-xs transition flex items-center gap-1.5 shadow">
-                <span>تسجيل غياب هذا الفصل 📅</span>
+              <button onclick="window.print()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-black rounded-xl text-xs transition flex items-center gap-1.5 shadow" title="طباعة كشف هذا الفصل المعروض">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                <span>🖨️ طباعة هذا الفصل</span>
+              </button>
+
+              <button onclick="printAllGradeRostersConsecutively()" class="px-3.5 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl text-xs transition flex items-center gap-1.5 shadow active:scale-95" title="طباعة كشوف كافة الصفوف من الأول إلى التاسع ورا بعض دفعة واحدة">
+                <span>📑 طباعة كل الفصول ورا بعض (1 - 9)</span>
+              </button>
+
+              <button onclick="switchMainTab('attendance')" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold rounded-xl text-xs transition flex items-center gap-1 border border-slate-700">
+                <span>تسجيل الغياب 📅</span>
               </button>
             </div>
           </div>
@@ -2328,6 +2355,153 @@
       `;
     }
 
+    function printAllGradeRostersConsecutively() {
+      const container = document.getElementById('content-container');
+      if (!container) return;
+
+      const originalHtml = container.innerHTML;
+      const originalGrade = currentGrade;
+      const headerElem = document.getElementById('print-official-header');
+      const prevHeaderDisplay = headerElem ? headerElem.style.display : '';
+
+      // Hide single top header because each grade page will have its own official header
+      if (headerElem) headerElem.style.display = 'none';
+
+      const grades = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+      let allHtml = '<div id="print-all-grades-wrapper" class="w-full">';
+
+      grades.forEach((g, gIdx) => {
+        const info = GRADE_CONFIG[g];
+        const gStudents = ALL_STUDENTS.filter(s => s.grade === g);
+        const arStudents = gStudents.filter(s => s.track === 'arabic');
+        const lnStudents = gStudents.filter(s => s.track === 'languages');
+        const isLast = gIdx === grades.length - 1;
+
+        allHtml += `
+          <div class="grade-print-page" style="${!isLast ? 'page-break-after: always !important; break-after: page !important;' : ''} margin-bottom: 24px; padding-top: 4px;">
+            <!-- Official Print Header for Grade ${g} -->
+            <div style="margin-bottom: 14px; border-bottom: 2px solid #1e3a8a; padding-bottom: 10px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 10px; text-align: right;">
+                  <div style="width: 44px; height: 44px; border-radius: 12px; background: #0f172a; display: flex; align-items: center; justify-content: center; font-size: 22px; border: 1.5px solid #d4af37; -webkit-print-color-adjust: exact; print-color-adjust: exact;">🏫</div>
+                  <div>
+                    <div style="font-size: 16px; font-weight: 900; color: #0f172a; line-height: 1.2;">مدرسة Smile Kids للغات</div>
+                    <div style="font-size: 10.5px; font-weight: 800; color: #1e3a8a; letter-spacing: 0.5px; font-family: sans-serif;">SMILE KIDS LANGUAGE SCHOOL</div>
+                    <div style="font-size: 10px; font-weight: 700; color: #64748b;">شؤون الطلاب وقوائم الفصول المعتمدة</div>
+                  </div>
+                </div>
+
+                <div style="text-align: center;">
+                  <div style="font-size: 19px; font-weight: 900; color: #ffffff !important; background: #1e3a8a !important; padding: 5px 28px; border-radius: 9999px; display: inline-block; border: 2px solid #1d4ed8; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-family: 'Cairo', sans-serif;">
+                    ${info.ar}
+                  </div>
+                  <div style="font-size: 11px; font-weight: 800; color: #1e293b; margin-top: 4px;">
+                    كشف أسماء الطلاب الرسمي • العام الدراسي 2026 / 2027
+                  </div>
+                </div>
+
+                <div style="text-align: left;">
+                  <div style="font-size: 12px; font-weight: 900; color: #0f172a; background: #f1f5f9; padding: 4px 12px; border-radius: 8px; border: 1px solid #cbd5e1; display: inline-block;">
+                    إجمالي عدد الطلاب: ${gStudents.length} طالب
+                  </div>
+                  <div style="font-size: 10px; font-weight: 700; color: #64748b; margin-top: 3px;">
+                    التاريخ: ${new Date().toLocaleDateString('ar-EG')} • <span style="color: #059669; font-weight: 900;">معتمد رسمياً ✓</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Grade ${g} Side-by-side tables -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+              
+              <!-- Arabic Section -->
+              <div class="lg:col-span-6 bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl section-card print-arabic-card">
+                <div class="bg-gradient-to-r from-emerald-800 to-emerald-700 px-5 py-3 flex items-center justify-between text-white print-section-header">
+                  <div class="flex items-center gap-2">
+                    <h3 class="font-black text-base print:text-lg">📚 قسم العربي</h3>
+                  </div>
+                  <span class="bg-white/20 text-white text-xs font-black px-2.5 py-1 rounded-full border border-white/30">${arStudents.length} طالب</span>
+                </div>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-right text-xs sm:text-sm">
+                    <thead>
+                      <tr class="bg-slate-900/60 text-slate-400 border-b border-slate-700">
+                        <th class="py-2.5 px-3 text-center w-12 font-black">م</th>
+                        <th class="py-2.5 px-4 font-black">اسم الطالب رباعي</th>
+                        <th class="py-2.5 px-3 text-center w-24 font-black print-only">ملاحظات</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-700/60">
+                      ${arStudents.length === 0 ? '<tr><td colspan="3" class="py-6 text-center text-slate-500 font-bold">لا يوجد طلاب مسجلين</td></tr>' : ''}
+                      ${arStudents.map((s, idx) => `
+                        <tr class="hover:bg-slate-700/40 transition">
+                          <td class="py-2 px-3 text-center text-slate-400 font-bold">${idx + 1}</td>
+                          <td class="py-2 px-4 font-bold text-slate-900 print:text-slate-900">
+                            <div class="text-sm">${s.nameAr}</div>
+                          </td>
+                          <td class="py-2 px-3 text-center print-only"></td>
+                        </tr>
+                      `).join('')}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Languages Section -->
+              <div class="lg:col-span-6 bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl section-card print-languages-card">
+                <div class="bg-gradient-to-r from-blue-800 to-blue-700 px-5 py-3 flex items-center justify-between text-white print-section-header">
+                  <div class="flex items-center gap-2">
+                    <h3 class="font-black text-base print:text-lg">🌐 قسم اللغات</h3>
+                  </div>
+                  <span class="bg-white/20 text-white text-xs font-black px-2.5 py-1 rounded-full border border-white/30">${lnStudents.length} طالب وطالبة</span>
+                </div>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-right text-xs sm:text-sm">
+                    <thead>
+                      <tr class="bg-slate-900/60 text-slate-400 border-b border-slate-700">
+                        <th class="py-2.5 px-3 text-center w-12 font-black">م</th>
+                        <th class="py-2.5 px-4 font-black">اسم الطالب رباعي</th>
+                        <th class="py-2.5 px-3 text-center w-24 font-black print-only">ملاحظات</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-700/60">
+                      ${lnStudents.length === 0 ? '<tr><td colspan="3" class="py-6 text-center text-slate-500 font-bold">لا يوجد طلاب مسجلين</td></tr>' : ''}
+                      ${lnStudents.map((s, idx) => `
+                        <tr class="hover:bg-slate-700/40 transition">
+                          <td class="py-2 px-3 text-center text-slate-400 font-bold">${idx + 1}</td>
+                          <td class="py-2 px-4 font-bold text-slate-900 print:text-slate-900">
+                            <div class="text-sm">${s.nameAr}</div>
+                          </td>
+                          <td class="py-2 px-3 text-center print-only"></td>
+                        </tr>
+                      `).join('')}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        `;
+      });
+
+      allHtml += '</div>';
+      container.innerHTML = allHtml;
+
+      const restore = () => {
+        container.innerHTML = originalHtml;
+        if (headerElem) headerElem.style.display = prevHeaderDisplay;
+        switchGrade(originalGrade);
+        window.removeEventListener('afterprint', restore);
+      };
+
+      window.addEventListener('afterprint', restore);
+
+      setTimeout(() => {
+        window.print();
+        setTimeout(restore, 1200);
+      }, 200);
+    }
 
     function handleAttSearch(val) {
       attSearchQuery = (val || '').trim();
