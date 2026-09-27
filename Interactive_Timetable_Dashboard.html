@@ -826,7 +826,14 @@ body {
     display: block !important;
   }
   
-  .printable-schedule-card {
+  /* In print mode, hide all cards by default with highest specificity */
+  .printable-schedule-card,
+  .printable-schedule-card.active-card,
+  .printable-schedule-card.student-card,
+  .printable-schedule-card.grade-card,
+  .printable-schedule-card.master-card,
+  .printable-schedule-card.teacher-card,
+  .printable-schedule-card.matrix-card {
     display: none !important;
     box-shadow: none !important;
     margin: 0 auto !important;
@@ -837,20 +844,36 @@ body {
     box-sizing: border-box !important;
   }
   
-  /* Scaling rules for exact A4 landscape fit */
+  /* Scaling rules for exact A4 landscape fit without overflowing */
   .printable-schedule-card.master-card {
     zoom: 0.72 !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
   
-  .printable-schedule-card.grade-card,
-  .printable-schedule-card.student-card,
+  .printable-schedule-card.grade-card {
+    zoom: 0.85 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .printable-schedule-card.student-card {
+    zoom: 0.92 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
   .printable-schedule-card.teacher-card {
-    zoom: 0.84 !important;
+    zoom: 0.85 !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
   
   .printable-schedule-card.breakdown-card,
   #card-breakdown {
     zoom: 0.88 !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
   
   /* Single Card Print Mode: prints ONLY the targeted schedule on 1 single page! */
