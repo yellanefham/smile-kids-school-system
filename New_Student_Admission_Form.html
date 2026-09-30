@@ -167,45 +167,47 @@
   <!-- ==================== PRINTABLE A4 ADMISSION SHEET ==================== -->
   <div class="bg-white p-5 rounded-2xl shadow-2xl border-2 border-blue-950 page-container text-slate-900 leading-snug">
     
-    <!-- HEADER -->
+    <!-- HEADER: Fixed 3-Column Table Layout to eliminate any overlap -->
     <div class="border-b-2 border-blue-900 pb-2 mb-1">
-      <div class="flex items-center justify-between">
-        
-        <!-- Right: School Logo & Identity -->
-        <div class="flex items-center gap-3">
-          <img src="smile_kids_logo.png" alt="Smile Kids" class="h-16 w-16 object-contain shrink-0">
-          <div class="text-center">
-            <div class="text-sm font-black text-blue-950 leading-tight whitespace-nowrap">مدرسة Smile Kids الخاصة</div>
-            <div class="text-[10px] font-bold text-blue-800 font-en tracking-wider whitespace-nowrap">SMILE KIDS LANGUAGE SCHOOL</div>
-            <div class="inline-block bg-amber-100 text-amber-950 text-[9.5px] font-black px-2 py-0.5 rounded border border-amber-300 mt-1 whitespace-nowrap">
-              المنهج مصري لغات 🇪🇬
+      <table style="width: 100%; border: none; border-collapse: collapse;">
+        <tr>
+          <!-- Right: School Logo & Identity -->
+          <td style="width: 36%; vertical-align: middle; border: none; padding: 0;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <img src="smile_kids_logo.png" alt="Smile Kids" style="width: 58px; height: 58px; object-fit: contain; flex-shrink: 0;">
+              <div style="text-align: center;">
+                <div style="font-size: 13.5px; font-weight: 900; color: #0f172a; white-space: nowrap; line-height: 1.2;">مدرسة Smile Kids الخاصة</div>
+                <div style="font-size: 9.5px; font-weight: bold; color: #1e40af; font-family: sans-serif; letter-spacing: 0.5px; white-space: nowrap;">SMILE KIDS LANGUAGE SCHOOL</div>
+                <div style="display: inline-block; background-color: #fef3c7; color: #78350f; font-size: 9px; font-weight: 900; padding: 1.5px 7px; border-radius: 4px; border: 1px solid #fcd34d; margin-top: 2px; white-space: nowrap;">
+                  المنهج مصري لغات 🇪🇬
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </td>
 
-        <!-- Center: Form Title & Academic Year -->
-        <div class="text-center">
-          <div class="inline-block bg-blue-900 text-white font-black text-base px-6 py-1.5 rounded-full shadow-sm whitespace-nowrap">
-            طلب التحاق وتسجيل طالب جديد
-          </div>
-          <div class="text-xs font-bold text-slate-700 mt-1.5 whitespace-nowrap">
-            العام الدراسي: &nbsp;<span style="letter-spacing: 2px;">............ / ............ م</span>
-          </div>
-        </div>
+          <!-- Center: Form Title, Academic Year & Date -->
+          <td style="width: 46%; text-align: center; vertical-align: middle; border: none; padding: 0 4px;">
+            <div style="display: inline-block; background-color: #1e3a8a; color: #ffffff; font-weight: 900; font-size: 14px; padding: 4.5px 16px; border-radius: 9999px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); white-space: nowrap;">
+              طلب التحاق وتسجيل طالب جديد
+            </div>
+            <div style="font-size: 11.5px; font-weight: bold; color: #334155; margin-top: 4px; white-space: nowrap;">
+              العام الدراسي: &nbsp;<span style="letter-spacing: 1.5px;">............ / ............ م</span>
+            </div>
+            <div style="font-size: 11px; font-weight: bold; color: #475569; margin-top: 2px; white-space: nowrap;">
+              التاريخ: &nbsp;<span style="letter-spacing: 1.5px;">........ / ........ / ............ م</span>
+            </div>
+          </td>
 
-        <!-- Left: Student Photo Box & Date -->
-        <div class="flex items-center gap-3">
-          <div class="text-right text-xs font-bold text-slate-700 whitespace-nowrap">
-            <div>التاريخ: &nbsp;<span style="letter-spacing: 1.5px;">........ / ........ / ............ م</span></div>
-          </div>
-          <div class="w-[72px] h-[90px] border-2 border-dashed border-slate-400 bg-slate-50 rounded-lg flex flex-col items-center justify-center text-center p-1 text-[9px] text-slate-600 font-bold shrink-0">
-            <span class="text-xl mb-0.5">👤</span>
-            <span>صورة الطالب</span>
-            <span class="text-[8px] text-slate-400 mt-0.5">(4 × 6)</span>
-          </div>
-        </div>
-
-      </div>
+          <!-- Left: Student Photo Box -->
+          <td style="width: 18%; text-align: left; vertical-align: middle; border: none; padding: 0;">
+            <div style="width: 68px; height: 84px; border: 2px dashed #94a3b8; background: #f8fafc; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-right: auto; padding: 2px;">
+              <span style="font-size: 18px; line-height: 1;">👤</span>
+              <span style="font-size: 8.5px; font-weight: bold; color: #475569; margin-top: 2px;">صورة الطالب</span>
+              <span style="font-size: 7.5px; color: #94a3b8;">(4 × 6)</span>
+            </div>
+          </td>
+        </tr>
+      </table>
     </div>
 
     <!-- 1. STUDENT INFORMATION (بيانات الطالب) -->
