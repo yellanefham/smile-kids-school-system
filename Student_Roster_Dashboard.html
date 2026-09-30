@@ -341,6 +341,25 @@
       td .text-white, td .text-slate-400, td .text-slate-300, td .text-slate-200 {
         color: #0f172a !important;
       }
+
+      /* Blank Handwriting Rows for New Student Additions */
+      .blank-handwriting-row {
+        height: 32px !important;
+      }
+      .blank-handwriting-row td {
+        height: 32px !important;
+        vertical-align: middle !important;
+        background-color: #ffffff !important;
+      }
+      .blank-handwriting-line {
+        border-bottom: 1.5px dashed #94a3b8 !important;
+        height: 20px !important;
+        width: 95% !important;
+        margin-right: 4px !important;
+        display: block !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
     }
   
     /* Certificate Styles */
@@ -836,6 +855,22 @@
 
         <!-- Action & Print Buttons -->
         <div class="flex items-center gap-2 flex-wrap">
+          <!-- Configurable blank handwriting rows selector for new admissions -->
+          <div class="flex items-center gap-1.5 bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1 text-xs shadow-inner" title="تحديد عدد الخانات الفارغة المخصصة لكتابة أسماء الطلاب الجدد يدوياً عند الطباعة">
+            <span class="text-amber-300 font-bold flex items-center gap-1">
+              <span>✍️ خانات فارغة للجدد:</span>
+            </span>
+            <select id="select-print-blank-rows" onchange="changePrintBlankRows(this.value)" class="bg-slate-800 text-amber-300 font-black rounded-lg px-2 py-1 border border-slate-600 focus:outline-none focus:border-amber-400 text-xs cursor-pointer hover:bg-slate-700 transition">
+              <option value="0">بدون خانات (0)</option>
+              <option value="2">خانتان فارغتان (2)</option>
+              <option value="3">3 خانات فارغة</option>
+              <option value="4">4 خانات فارغة</option>
+              <option value="5" selected>5 خانات فارغة (موصى به ⭐)</option>
+              <option value="7">7 خانات فارغة</option>
+              <option value="10">10 خانات فارغة</option>
+            </select>
+          </div>
+
           <button onclick="window.print()" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow" title="طباعة كشف هذا الفصل المعروض">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
             <span>🖨️ طباعة هذا الفصل</span>
@@ -1718,6 +1753,61 @@
     let currentGenderFilter = 'all'; // 'all', 'male', 'female'
     let searchQuery = '';
 
+    // Setting for number of blank handwriting rows for new student additions
+    let printBlankRowsCount = parseInt(localStorage.getItem('smile_kids_print_blank_rows') || '5');
+    if (isNaN(printBlankRowsCount) || printBlankRowsCount < 0) printBlankRowsCount = 5;
+
+    function changePrintBlankRows(val) {
+      printBlankRowsCount = parseInt(val);
+      if (isNaN(printBlankRowsCount) || printBlankRowsCount < 0) printBlankRowsCount = 0;
+      localStorage.setItem('smile_kids_print_blank_rows', String(printBlankRowsCount));
+      if (currentMainTab === 'rosters') {
+        renderContent();
+      }
+    }
+
+    function generateBlankRosterRows(startIdx, count) {
+      if (!count || count <= 0) return '';
+      let rows = '';
+      for (let i = 1; i <= count; i++) {
+        const num = startIdx + i;
+        rows += `
+          <tr class="hover:bg-slate-700/20 transition blank-handwriting-row">
+            <td class="py-2.5 px-3 text-center text-slate-500 font-bold border-b border-slate-700/40 font-mono">${num}</td>
+            <td class="py-2.5 px-4 border-b border-slate-700/40">
+              <div class="h-6 border-b border-dashed border-slate-600/70 print:border-slate-400 blank-handwriting-line flex items-center justify-start px-2">
+                <span class="text-[10px] text-slate-500/60 no-print font-sans">خانة فارغة لكتابة اسم طالب جديد...</span>
+              </div>
+            </td>
+            <td class="py-2.5 px-3 text-center no-print border-b border-slate-700/40 text-slate-600">-</td>
+            <td class="py-2.5 px-2 text-center no-print border-b border-slate-700/40 text-slate-600">-</td>
+            <td class="py-2.5 px-3 text-center print-only border-b border-slate-700/40"></td>
+          </tr>
+        `;
+      }
+      return rows;
+    }
+
+    function generateConsecutiveBlankRows(startIdx, count) {
+      if (!count || count <= 0) return '';
+      let rows = '';
+      for (let i = 1; i <= count; i++) {
+        const num = startIdx + i;
+        rows += `
+          <tr class="hover:bg-slate-700/20 transition blank-handwriting-row">
+            <td class="py-2 px-3 text-center text-slate-400 font-bold font-mono">${num}</td>
+            <td class="py-2 px-4">
+              <div class="h-6 border-b border-dashed border-slate-300 print:border-slate-400 blank-handwriting-line flex items-center justify-start">
+                <span class="text-[10px] text-slate-400/50 no-print">خانة فارغة لكتابة اسم طالب جديد...</span>
+              </div>
+            </td>
+            <td class="py-2 px-3 text-center print-only"></td>
+          </tr>
+        `;
+      }
+      return rows;
+    }
+
     // Attendance State
     let currentAttSubView = 'daily'; // 'daily', 'monthly', or 'period'
     let currentAttDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
@@ -1746,6 +1836,12 @@
             renderAttendanceModule();
           }
         });
+      }
+
+      // Initialize blank rows selector
+      const blankRowsSelect = document.getElementById('select-print-blank-rows');
+      if (blankRowsSelect) {
+        blankRowsSelect.value = String(printBlankRowsCount);
       }
 
       // Set input defaults
@@ -2352,6 +2448,7 @@
                       <td class="py-2.5 px-3 text-center print-only"></td>
                     </tr>
                   `).join('')}
+                  ${generateBlankRosterRows(arStudents.length, printBlankRowsCount)}
                 </tbody>
               </table>
             </div>
@@ -2410,6 +2507,7 @@
                       <td class="py-2.5 px-3 text-center print-only"></td>
                     </tr>
                   `).join('')}
+                  ${generateBlankRosterRows(lnStudents.length, printBlankRowsCount)}
                 </tbody>
               </table>
             </div>
@@ -2481,6 +2579,7 @@
                     <td class="py-3 px-4 text-center print-only"></td>
                   </tr>
                 `).join('')}
+                ${generateBlankRosterRows(students.length, printBlankRowsCount)}
               </tbody>
             </table>
           </div>
@@ -2575,6 +2674,7 @@
                           <td class="py-2 px-3 text-center print-only"></td>
                         </tr>
                       `).join('')}
+                      ${generateConsecutiveBlankRows(arStudents.length, printBlankRowsCount)}
                     </tbody>
                   </table>
                 </div>
@@ -2608,6 +2708,7 @@
                           <td class="py-2 px-3 text-center print-only"></td>
                         </tr>
                       `).join('')}
+                      ${generateConsecutiveBlankRows(lnStudents.length, printBlankRowsCount)}
                     </tbody>
                   </table>
                 </div>
@@ -4684,7 +4785,8 @@
       }).join('');
 
       // Dynamic row height based on student count so the sheet ALWAYS fits on 1 A4 page
-      const count = students.length;
+      const blankCount = (typeof printBlankRowsCount !== 'undefined') ? printBlankRowsCount : 5;
+      const count = students.length + blankCount;
       let rowHeight = 36;
       let fontSize = 13;
       let nameFontSize = 14;
@@ -4732,8 +4834,8 @@
           `;
         }).join('');
 
-        // Add blank handwriting rows only if class is small (<= 12)
-        const extraCount = count <= 9 ? 2 : (count <= 12 ? 1 : 0);
+        // Add blank handwriting rows based on user setting
+        const extraCount = blankCount;
         for (let b = 1; b <= extraCount; b++) {
           const emptyCells = subjects.map(() => `<td style="border: 1.5px solid #000000; height: ${rowHeight}px; background: #ffffff;">&nbsp;</td>`).join('');
           rowsHtml += `
