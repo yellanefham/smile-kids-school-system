@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>استمارة تسجيل طالب جديد • مدرسة Smile Kids للغات</title>
+  <title>استمارة تسجيل طالب جديد • مدرسة Smile Kids الخاصة للغات</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -15,7 +15,7 @@
       print-color-adjust: exact !important;
     }
     body {
-      font-family: 'Cairo', 'Tajawal', sans-serif;
+      font-family: 'Cairo', 'Segoe UI', Tahoma, Arial, sans-serif;
     }
     .font-en {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
@@ -25,12 +25,14 @@
     @media print {
       @page {
         size: A4 portrait;
-        margin: 5mm 7mm 5mm 7mm;
+        margin: 5mm 6mm 5mm 6mm;
       }
-      body {
-        background: #ffffff !important;
-        padding: 0 !important;
+      html, body {
+        width: 100% !important;
+        height: 100% !important;
         margin: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
         color: #000000 !important;
       }
       .no-print {
@@ -38,11 +40,31 @@
       }
       .page-container {
         box-shadow: none !important;
-        margin: 0 auto !important;
+        margin: 0 !important;
         border: 2px solid #1e3a8a !important;
+        border-radius: 8px !important;
         padding: 5mm 6mm !important;
         width: 100% !important;
         max-width: 100% !important;
+        height: 287mm !important;
+        max-height: 287mm !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        page-break-inside: avoid !important;
+        page-break-after: avoid !important;
+        overflow: hidden !important;
+      }
+    }
+
+    @media screen {
+      .page-container {
+        width: 210mm;
+        min-height: 287mm;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
       }
     }
 
@@ -51,13 +73,14 @@
       width: 100%;
       border-collapse: collapse;
       table-layout: fixed;
-      margin-bottom: 3px;
+      margin-bottom: 3.5px;
     }
     .form-table td {
       border: 1px solid #94a3b8;
-      padding: 4.5px 7px;
+      padding: 6px 8px;
       vertical-align: middle;
-      font-size: 11px;
+      font-size: 11.5px;
+      line-height: 1.35;
     }
     .form-table .lbl {
       background-color: #f1f5f9;
@@ -70,39 +93,33 @@
       background-color: #ffffff;
     }
 
-    /* National ID Digits */
-    .digit-cell {
-      width: 18px;
-      height: 20px;
-      border: 1.5px solid #1e3a8a;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-family: monospace;
-      font-weight: 800;
-      font-size: 11px;
-      background: #ffffff;
-      border-radius: 2px;
-      margin: 0 1px;
-    }
-
     /* Square Checkbox */
     .chk-box {
       display: inline-block;
-      width: 13px;
-      height: 13px;
+      width: 14px;
+      height: 14px;
       border: 1.5px solid #1e3a8a;
       border-radius: 3px;
-      vertical-align: middle;
-      margin-left: 3px;
+      vertical-align: -2px;
+      margin-left: 4px;
       margin-right: 2px;
+      background: #ffffff;
+    }
+
+    .box-input {
+      display: inline-block;
+      border: 1px solid #64748b;
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-family: monospace;
+      font-weight: bold;
       background: #ffffff;
     }
 
     /* Dotted writing lines */
     .dots {
       border-bottom: 1.5px dotted #64748b;
-      min-height: 18px;
+      min-height: 19px;
       display: inline-block;
       width: 100%;
       vertical-align: bottom;
@@ -113,10 +130,10 @@
       background: #1e3a8a;
       color: #ffffff;
       font-weight: 900;
-      font-size: 11.5px;
-      padding: 3px 8px;
+      font-size: 12px;
+      padding: 4px 10px;
       border-radius: 4px;
-      margin-top: 5px;
+      margin-top: 4px;
       margin-bottom: 3px;
       display: flex;
       align-items: center;
@@ -128,19 +145,19 @@
 
   <!-- ==================== TOP ACTION TOOLBAR (HIDDEN IN PRINT) ==================== -->
   <div class="max-w-[210mm] mx-auto mb-4 no-print">
-    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-3 shadow-xl flex items-center justify-between gap-4">
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-3.5 shadow-xl flex items-center justify-between gap-4">
       <div class="flex items-center gap-3">
         <img src="smile_kids_logo.png" alt="Smile Kids" class="h-10 w-10 object-contain rounded-xl bg-white p-1">
         <div>
           <h1 class="text-sm sm:text-base font-black text-white">استمارة تسجيل طالب جديد • المنهج مصري لغات 🇪🇬</h1>
-          <p class="text-[11px] text-slate-400">مدرسة Smile Kids الخاصة للغات — نسخة مختصرة ومجهزة للطباعة اليدوية الفورية (A4)</p>
+          <p class="text-[11px] text-slate-400">مدرسة Smile Kids الخاصة للغات — استمارة مجهزة بمقاس A4 كامل ومتناسق للطباعة اليدوية</p>
         </div>
       </div>
 
       <div class="flex items-center gap-2">
-        <button onclick="window.print()" class="px-5 py-2 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black rounded-xl text-xs sm:text-sm transition flex items-center gap-2 shadow-lg shadow-amber-500/25 active:scale-95">
+        <button onclick="window.print()" class="px-5 py-2.5 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black rounded-xl text-xs sm:text-sm transition flex items-center gap-2 shadow-lg shadow-amber-500/25 active:scale-95">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-          <span>طباعة الاستمارة الآن 🖨️</span>
+          <span>طباعة الاستمارة الآن (A4 Fit) 🖨️</span>
         </button>
       </div>
     </div>
@@ -148,44 +165,44 @@
 
 
   <!-- ==================== PRINTABLE A4 ADMISSION SHEET ==================== -->
-  <div class="max-w-[210mm] mx-auto bg-white p-5 rounded-2xl shadow-2xl border-2 border-slate-800 page-container text-slate-900 leading-snug">
+  <div class="bg-white p-5 rounded-2xl shadow-2xl border-2 border-blue-950 page-container text-slate-900 leading-snug">
     
-    <!-- HEADER: Clean, un-cluttered with Official Logo & Egyptian Curriculum Badge -->
-    <div class="border-b-2 border-blue-900 pb-2 mb-1.5">
+    <!-- HEADER -->
+    <div class="border-b-2 border-blue-900 pb-2 mb-1">
       <div class="flex items-center justify-between">
         
         <!-- Right: School Logo & Identity -->
         <div class="flex items-center gap-3">
-          <img src="smile_kids_logo.png" alt="Smile Kids" class="h-14 w-14 object-contain shrink-0">
-          <div class="text-center">
-            <div class="text-sm font-black text-blue-950 leading-tight">مدرسة Smile Kids الخاصة</div>
-            <div class="text-[10px] font-bold text-blue-800 font-en">SMILE KIDS LANGUAGE SCHOOL</div>
-            <div class="inline-block bg-amber-100 text-amber-900 text-[9.5px] font-black px-2 py-0.5 rounded border border-amber-300 mt-0.5">
+          <img src="smile_kids_logo.png" alt="Smile Kids" class="h-16 w-16 object-contain shrink-0">
+          <div class="text-right">
+            <div class="text-base font-black text-blue-950 leading-tight">مدرسة Smile Kids الخاصة</div>
+            <div class="text-[11px] font-bold text-blue-800 font-en tracking-wider">SMILE KIDS LANGUAGE SCHOOL</div>
+            <div class="inline-block bg-amber-100 text-amber-950 text-[10px] font-black px-2.5 py-0.5 rounded border border-amber-300 mt-1">
               المنهج مصري لغات 🇪🇬
             </div>
           </div>
         </div>
 
-        <!-- Center: Form Title & Year -->
-        <div class="text-center w-1/3">
-          <div class="inline-block bg-blue-900 text-white font-black text-sm px-4 py-1 rounded-full shadow-sm">
+        <!-- Center: Form Title & Academic Year -->
+        <div class="text-center">
+          <div class="inline-block bg-blue-900 text-white font-black text-base px-6 py-1.5 rounded-full shadow-sm">
             طلب التحاق وتسجيل طالب جديد
           </div>
           <div class="text-xs font-bold text-slate-700 mt-1">
-            العام الدراسي: 20... / 20... م
+            العام الدراسي: &nbsp;<span style="letter-spacing: 2px;">............ / ............ م</span>
           </div>
         </div>
 
         <!-- Left: Student Photo Box & Date -->
-        <div class="w-1/3 flex justify-end items-center gap-3">
-          <div class="text-left text-[10.5px] font-bold text-slate-600">
-            <div>التاريخ: <span class="font-mono text-slate-900">..... / ..... / 20... م</span></div>
-            <div class="mt-1">رقم الطلب: <span class="font-mono text-slate-400">#...........</span></div>
+        <div class="flex items-center gap-3">
+          <div class="text-right text-xs font-bold text-slate-700 whitespace-nowrap leading-relaxed">
+            <div>التاريخ: &nbsp;<span style="letter-spacing: 1.5px;">........ / ........ / ............ م</span></div>
+            <div class="mt-1">رقم الطلب: <span class="font-mono text-slate-400"># .................</span></div>
           </div>
-          <div class="w-[65px] h-[78px] border-2 border-dashed border-slate-400 bg-slate-50 rounded flex flex-col items-center justify-center text-center p-1 text-[8.5px] text-slate-500 font-bold shrink-0">
-            <span class="text-base">👤</span>
-            <span>صورة التلميذ</span>
-            <span class="text-[7.5px] text-slate-400">(4 × 6)</span>
+          <div class="w-[72px] h-[90px] border-2 border-dashed border-slate-400 bg-slate-50 rounded-lg flex flex-col items-center justify-center text-center p-1 text-[9px] text-slate-600 font-bold shrink-0">
+            <span class="text-xl mb-0.5">👤</span>
+            <span>صورة الطالب</span>
+            <span class="text-[8px] text-slate-400 mt-0.5">(4 × 6)</span>
           </div>
         </div>
 
@@ -193,256 +210,265 @@
     </div>
 
     <!-- 1. STUDENT INFORMATION (بيانات الطالب) -->
-    <div class="sec-header">
-      <span>1. بيانات الطالب / الطالبة (Student Information)</span>
-      <span class="text-[9.5px] font-normal opacity-90">يُرجى كتابة الاسم كما هو مدون بشهادة الميلاد</span>
-    </div>
+    <div>
+      <div class="sec-header">
+        <span>1. بيانات الطالب / الطالبة (Student Information)</span>
+        <span class="text-[10px] font-normal opacity-90">يُرجى كتابة الاسم رباعياً كما هو مدوّن بشهادة الميلاد الرسمية</span>
+      </div>
 
-    <table class="form-table">
-      <colgroup>
-        <col style="width: 140px;">
-        <col style="width: 36%;">
-        <col style="width: 125px;">
-        <col style="width: 36%;">
-      </colgroup>
+      <table class="form-table">
+        <colgroup>
+          <col style="width: 140px;">
+          <col style="width: 38%;">
+          <col style="width: 100px;">
+          <col style="width: 32%;">
+        </colgroup>
 
-      <!-- Arabic Name -->
-      <tr>
-        <td class="lbl">اسم الطالب (بالعربية):</td>
-        <td colspan="3" class="val font-bold">
-          <span class="dots"></span>
-        </td>
-      </tr>
+        <!-- Arabic Name -->
+        <tr>
+          <td class="lbl">اسم الطالب (بالعربية):</td>
+          <td colspan="3" class="val font-bold">
+            <span class="dots"></span>
+          </td>
+        </tr>
 
-      <!-- English Name -->
-      <tr>
-        <td class="lbl">الاسم (بالإنجليزي):</td>
-        <td colspan="3" class="val" dir="ltr" style="text-align: left;">
-          <span class="dots"></span>
-        </td>
-      </tr>
+        <!-- English Name -->
+        <tr>
+          <td class="lbl">اسم الطالب (بالإنجليزية):</td>
+          <td colspan="3" class="val" dir="ltr" style="text-align: left;">
+            <span class="dots"></span>
+          </td>
+        </tr>
 
-      <!-- Birthdate, Age -->
-      <tr>
-        <td class="lbl">تاريخ الميلاد:</td>
-        <td class="val font-bold">
-          اليوم: <span class="dots" style="width: 35px;"></span> 
-          الشهر: <span class="dots" style="width: 35px;"></span> 
-          السنة: <span class="font-mono">20</span><span class="dots" style="width: 25px;"></span>
-        </td>
-        <td class="lbl">السن:</td>
-        <td class="val font-bold">
-          <span class="font-mono">.....</span> سنة ، <span class="font-mono">.....</span> شهر
-        </td>
-      </tr>
+        <!-- Birthdate, Age -->
+        <tr>
+          <td class="lbl">تاريخ الميلاد:</td>
+          <td class="val font-bold text-[11px] whitespace-nowrap">
+            اليوم: <span class="box-input">&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp;
+            الشهر: <span class="box-input">&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp;
+            السنة: <span class="box-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          </td>
+          <td class="lbl">السن:</td>
+          <td class="val font-bold text-[11px] whitespace-nowrap">
+            <span class="box-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> سنة &nbsp;،&nbsp;
+            <span class="box-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> شهر
+          </td>
+        </tr>
 
-      <!-- Gender -->
-      <tr>
-        <td class="lbl">النوع:</td>
-        <td colspan="3" class="val font-bold">
-          <span class="chk-box"></span> بنين &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <span class="chk-box"></span> بنات
-        </td>
-      </tr>
+        <!-- Gender & Nationality -->
+        <tr>
+          <td class="lbl">النوع:</td>
+          <td class="val font-bold">
+            <span class="chk-box"></span> بنين (ذكر) &nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="chk-box"></span> بنات (أنثى)
+          </td>
+          <td class="lbl">الجنسية:</td>
+          <td class="val font-bold">
+            <span class="chk-box"></span> مصري &nbsp;&nbsp;
+            <span class="chk-box"></span> أخرى: <span class="dots" style="width: 50px; display: inline-block;"></span>
+          </td>
+        </tr>
 
-      <!-- Grade & Track Selection -->
-      <tr style="background-color: #f0f7ff;">
-        <td class="lbl" style="color: #1e3a8a; background-color: #e0f2fe; font-weight: 900;">الصف المطلوب:</td>
-        <td class="val font-bold" style="color: #1e3a8a;">
-          الصف: <span class="dots" style="width: 60px;"></span> &nbsp;&nbsp; Grade [ <span class="dots" style="width: 35px;"></span> ]
-        </td>
-        <td class="lbl" style="color: #1e3a8a; background-color: #e0f2fe; font-weight: 900;">المسار التعليمي:</td>
-        <td class="val font-bold">
-          <label class="inline-flex items-center ml-2 cursor-pointer">
-            <span class="chk-box"></span>
-            <span style="color: #1e40af; margin-right: 2px;">🌐 قسم اللغات <span dir="ltr">(Math & Science)</span></span>
-          </label>
-          <label class="inline-flex items-center cursor-pointer">
-            <span class="chk-box"></span>
-            <span style="color: #065f46; margin-right: 2px;">📚 قسم العربي</span>
-          </label>
-        </td>
-      </tr>
+        <!-- Previous School -->
+        <tr>
+          <td class="lbl">المدرسة السابقة (إن وُجدت):</td>
+          <td colspan="3" class="val">
+            <span class="dots"></span>
+          </td>
+        </tr>
 
-      <!-- Previous School -->
-      <tr>
-        <td class="lbl">المدرسة السابقة (إن وجد):</td>
-        <td colspan="3" class="val">
-          <span class="dots"></span>
-        </td>
-      </tr>
-    </table>
-
-
-    <!-- 2. PARENT & FAMILY DETAILS (بيانات ولي الأمر) -->
-    <div class="sec-header">
-      <span>2. بيانات ولي الأمر والأسرة (Parent & Family Details)</span>
-      <span class="text-[9.5px] font-normal opacity-90">يُرجى تحري الدقة في أرقام الهواتف لتفعيل التواصل المدرسي</span>
-    </div>
-
-    <table class="form-table">
-      <colgroup>
-        <col style="width: 140px;">
-        <col style="width: 36%;">
-        <col style="width: 125px;">
-        <col style="width: 36%;">
-      </colgroup>
-
-      <!-- Father Name & Relation -->
-      <tr>
-        <td class="lbl">اسم ولي الأمر (الأب):</td>
-        <td class="val font-bold">
-          <span class="dots"></span>
-        </td>
-        <td class="lbl">صلة القرابة:</td>
-        <td class="val font-bold">
-          <span class="chk-box"></span> أب &nbsp;&nbsp;&nbsp;
-          <span class="chk-box"></span> أم &nbsp;&nbsp;&nbsp;
-          <span class="chk-box"></span> وصي
-        </td>
-      </tr>
-
-      <!-- Father Profession -->
-      <tr>
-        <td class="lbl">الوظيفة / جهة العمل:</td>
-        <td colspan="3" class="val font-bold">
-          <span class="dots"></span>
-        </td>
-      </tr>
-
-      <!-- Phone Numbers: Primary, WhatsApp -->
-      <tr>
-        <td class="lbl" style="color: #1e3a8a;">📱 المحمول الأساسي:</td>
-        <td class="val font-mono font-bold" dir="ltr" style="text-align: right;">
-          <span class="dots"></span>
-        </td>
-        <td class="lbl" style="color: #065f46;">💬 رقم الواتساب:</td>
-        <td class="val font-mono font-bold" dir="ltr" style="text-align: right;">
-          <span class="dots"></span>
-        </td>
-      </tr>
-
-      <!-- Mother Info & Alternate Phone -->
-      <tr>
-        <td class="lbl">اسم الوالدة رباعياً:</td>
-        <td class="val">
-          <span class="dots"></span>
-        </td>
-        <td class="lbl">هاتف الوالدة / بديل:</td>
-        <td class="val font-mono" dir="ltr" style="text-align: right;">
-          <span class="dots"></span>
-        </td>
-      </tr>
-
-      <!-- Address -->
-      <tr>
-        <td class="lbl">🏠 محل الإقامة الحالي:</td>
-        <td colspan="3" class="val">
-          <span class="dots"></span>
-        </td>
-      </tr>
-    </table>
-
-
-    <!-- 3. SERVICES & HEALTH (الخدمات والحالة الصحية) -->
-    <div class="sec-header">
-      <span>3. الخدمات الطلابية والحالة الصحية (Services & Health)</span>
-    </div>
-
-    <table class="form-table">
-      <colgroup>
-        <col style="width: 140px;">
-        <col style="width: 36%;">
-        <col style="width: 125px;">
-        <col style="width: 36%;">
-      </colgroup>
-      <tr>
-        <td class="lbl">🚌 باص المدرسة:</td>
-        <td class="val font-bold">
-          <span class="chk-box"></span> نعم يرغب &nbsp;&nbsp;&nbsp;&nbsp;
-          <span class="chk-box"></span> لا يرغب
-        </td>
-        <td class="lbl">المحطة المطلوبة:</td>
-        <td class="val">
-          <span class="dots"></span>
-        </td>
-      </tr>
-      <tr>
-        <td class="lbl">🩺 الحالة الصحية للتلميذ:</td>
-        <td colspan="3" class="val">
-          <span class="chk-box"></span> سليم معافى بحمد الله ✓ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <span class="chk-box"></span> يعاني من حالة خاصة أو حساسية — تُذكر: <span class="dots" style="width: 55%; display: inline-block;"></span>
-        </td>
-      </tr>
-    </table>
-
-
-    <!-- 4. PARENT DECLARATION (إقرار ولي الأمر) -->
-    <div style="border: 1px solid #cbd5e1; padding: 6px 10px; border-radius: 6px; background-color: #f8fafc; margin-top: 5px; font-size: 10.5px;">
-      <div style="font-weight: 900; color: #0f172a; margin-bottom: 2px;">✍️ إقرار وتعهد ولي الأمر:</div>
-      <p style="color: #334155; line-height: 1.35; margin: 0; text-align: justify;">
-        أقر أنا ولي أمر الطالب المذكور بعاليه، بصحة جميع البيانات المدونة في هذا الطلب، وأتعهد بالالتزام بالنظم واللوائح المدرسية وسداد الرسوم والمصروفات المقررة في المواعيد المحددة.
-      </p>
-      
-      <table style="width: 100%; border: none; margin-top: 5px;">
-        <tr style="border: none;">
-          <td style="border: none; padding: 1px; font-weight: bold; width: 42%;">اسم ولي الأمر: <span class="dots" style="width: 140px; display: inline-block;"></span></td>
-          <td style="border: none; padding: 1px; font-weight: bold; width: 33%;">التوقيع: <span class="dots" style="width: 120px; display: inline-block;"></span></td>
-          <td style="border: none; padding: 1px; font-weight: bold; width: 25%; text-align: left;">
-            التاريخ: <span dir="ltr" style="display: inline-block; font-family: monospace;">.... / .... / 20...</span>
+        <!-- Grade & Track Selection -->
+        <tr style="background-color: #f0f7ff;">
+          <td class="lbl" style="color: #1e3a8a; background-color: #e0f2fe; font-weight: 900;">الصف المطلوب:</td>
+          <td class="val font-bold" style="color: #1e3a8a;">
+            الصف: <span class="dots" style="width: 70px;"></span> &nbsp; Grade: [ <span class="dots" style="width: 30px;"></span> ]
+          </td>
+          <td class="lbl" style="color: #1e3a8a; background-color: #e0f2fe; font-weight: 900;">المسار:</td>
+          <td class="val font-bold">
+            <span class="chk-box"></span> <span style="color: #1e40af;">قسم اللغات <span dir="ltr">Math & Science</span></span> &nbsp;&nbsp;
+            <span class="chk-box"></span> <span style="color: #065f46;">قسم العربي</span>
           </td>
         </tr>
       </table>
     </div>
 
-
-    <!-- 5. FOR OFFICIAL SCHOOL USE ONLY (خاص بإدارة شؤون الطلاب والقبول) -->
-    <div style="border: 1.5px solid #1e3a8a; border-radius: 6px; overflow: hidden; margin-top: 5px;">
-      <div style="background-color: #1e3a8a; color: #ffffff; padding: 2.5px 8px; font-weight: 900; font-size: 10.5px; display: flex; justify-content: space-between; align-items: center;">
-        <span>خاص بإدارة المدرسة ولجنة القبول وشؤون الطلاب (For School Administration)</span>
-        <span style="font-size: 9px; opacity: 0.85; font-family: sans-serif;">SMILE KIDS ADMISSION OFFICE</span>
+    <!-- 2. PARENT & FAMILY DETAILS (بيانات ولي الأمر) -->
+    <div>
+      <div class="sec-header">
+        <span>2. بيانات ولي الأمر والأسرة (Parent & Family Details)</span>
+        <span class="text-[10px] font-normal opacity-90">يُرجى تحري الدقة في أرقام الهواتف لتفعيل منظومة التواصل المدرسي</span>
       </div>
 
-      <div style="padding: 5px 8px; font-size: 10.5px;">
-        <!-- Document Checklist -->
-        <div style="margin-bottom: 4px;">
-          <strong style="color: #0f172a; margin-left: 6px;">المستندات المستلمة:</strong>
-          <span style="display: inline-block; margin-left: 10px;"><span class="chk-box"></span> أصل شهادة الميلاد كمبيوتر</span>
-          <span style="display: inline-block; margin-left: 10px;"><span class="chk-box"></span> عدد 6 صور شخصية</span>
-          <span style="display: inline-block; margin-left: 10px;"><span class="chk-box"></span> صورة بطاقة الأب والأم</span>
-          <span style="display: inline-block; margin-left: 10px;"><span class="chk-box"></span> البطاقة الصحية المدرسية</span>
+      <table class="form-table">
+        <colgroup>
+          <col style="width: 140px;">
+          <col style="width: 38%;">
+          <col style="width: 100px;">
+          <col style="width: 32%;">
+        </colgroup>
+
+        <!-- Guardian Name & Relation -->
+        <tr>
+          <td class="lbl">اسم وليّ الأمر رباعياً:</td>
+          <td class="val font-bold">
+            <span class="dots"></span>
+          </td>
+          <td class="lbl">صلة القرابة:</td>
+          <td class="val font-bold">
+            <span class="chk-box"></span> أب &nbsp;&nbsp;
+            <span class="chk-box"></span> أم &nbsp;&nbsp;
+            <span class="chk-box"></span> وصي
+          </td>
+        </tr>
+
+        <!-- Guardian Profession & Education -->
+        <tr>
+          <td class="lbl">الوظيفة / جهة العمل:</td>
+          <td class="val font-bold">
+            <span class="dots"></span>
+          </td>
+          <td class="lbl">المؤهل الدراسي:</td>
+          <td class="val">
+            <span class="dots"></span>
+          </td>
+        </tr>
+
+        <!-- Phone Numbers: Primary, WhatsApp -->
+        <tr>
+          <td class="lbl" style="color: #1e3a8a;">📱 المحمول الأساسي:</td>
+          <td class="val font-mono font-bold" dir="ltr" style="text-align: right;">
+            <span class="dots"></span>
+          </td>
+          <td class="lbl" style="color: #065f46;">💬 رقم الواتساب:</td>
+          <td class="val font-mono font-bold" dir="ltr" style="text-align: right;">
+            <span class="dots"></span>
+          </td>
+        </tr>
+
+        <!-- Mother Info & Alternate Phone -->
+        <tr>
+          <td class="lbl">اسم الأم رباعياً:</td>
+          <td class="val">
+            <span class="dots"></span>
+          </td>
+          <td class="lbl">هاتف الأم / بديل:</td>
+          <td class="val font-mono" dir="ltr" style="text-align: right;">
+            <span class="dots"></span>
+          </td>
+        </tr>
+
+        <!-- Address -->
+        <tr>
+          <td class="lbl">🏠 العنوان ومحل الإقامة:</td>
+          <td colspan="3" class="val">
+            <span class="dots"></span>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 3. SERVICES & HEALTH (الخدمات والحالة الصحية) -->
+    <div>
+      <div class="sec-header">
+        <span>3. الخدمات الطلابية والحالة الصحية (Services & Health)</span>
+      </div>
+
+      <table class="form-table">
+        <colgroup>
+          <col style="width: 140px;">
+          <col style="width: 38%;">
+          <col style="width: 100px;">
+          <col style="width: 32%;">
+        </colgroup>
+        <tr>
+          <td class="lbl">🚌 خدمة الباص المدرسي:</td>
+          <td class="val font-bold">
+            <span class="chk-box"></span> نعم، يرغب بالاشتراك &nbsp;&nbsp;
+            <span class="chk-box"></span> لا يرغب
+          </td>
+          <td class="lbl">المحطة / المنطقة:</td>
+          <td class="val">
+            <span class="dots"></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="lbl">🩺 الحالة الصحية للتلميذ:</td>
+          <td colspan="3" class="val">
+            <span class="chk-box"></span> سليم ومعافى بفضل الله &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="chk-box"></span> يعاني من حالة خاصة أو حساسية — تُذكر: <span class="dots" style="width: 50%; display: inline-block;"></span>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 4. PARENT DECLARATION (إقرار ولي الأمر) -->
+    <div style="border: 1px solid #cbd5e1; padding: 7px 12px; border-radius: 6px; background-color: #f8fafc; font-size: 11px;">
+      <div style="font-weight: 900; color: #0f172a; margin-bottom: 2px;">✍️ إقرار وتعهد وليّ الأمر:</div>
+      <p style="color: #334155; line-height: 1.45; margin: 0; text-align: justify;">
+        أقر أنا وليّ أمر الطالب المذكور بعاليه، بصحة ودقة جميع البيانات المدونة في هذا الطلب، وأتعهد بالالتزام الكامل بالنظم واللوائح المدرسية ومتابعة المستوى الدراسي والسلوكي لنجلي، وسداد الرسوم والمصروفات الدراسية المقررة في مواعيدها الرسمية.
+      </p>
+      
+      <table style="width: 100%; border: none; margin-top: 5px;">
+        <tr style="border: none;">
+          <td style="border: none; padding: 1px 0; font-weight: bold; width: 40%;">اسم ولي الأمر: <span class="dots" style="width: 150px; display: inline-block;"></span></td>
+          <td style="border: none; padding: 1px 0; font-weight: bold; width: 35%;">التوقيع: <span class="dots" style="width: 130px; display: inline-block;"></span></td>
+          <td style="border: none; padding: 1px 0; font-weight: bold; width: 25%; text-align: left;">
+            التاريخ: &nbsp;<span style="letter-spacing: 1.5px;">........ / ........ / ............ م</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 5. FOR OFFICIAL SCHOOL USE ONLY (خاص بإدارة شؤون الطلاب والقبول) -->
+    <div style="border: 1.5px solid #1e3a8a; border-radius: 6px; overflow: hidden;">
+      <div style="background-color: #1e3a8a; color: #ffffff; padding: 3.5px 10px; font-weight: 900; font-size: 11px; display: flex; justify-content: space-between; align-items: center;">
+        <span>خاص بإدارة المدرسة ولجنة القبول والتسجيل (For School Administration)</span>
+        <span style="font-size: 9.5px; opacity: 0.9; font-family: sans-serif; letter-spacing: 0.5px;">SMILE KIDS ADMISSION OFFICE</span>
+      </div>
+
+      <div style="padding: 6px 10px; font-size: 11px;">
+        <!-- Checklist -->
+        <div style="margin-bottom: 5px; padding-bottom: 4px; border-bottom: 1px solid #e2e8f0;">
+          <strong style="color: #0f172a; margin-left: 8px;">المستندات المستلمة:</strong>
+          <span style="display: inline-block; margin-left: 10px;"><span class="chk-box"></span> أصل شهادة ميلاد مميكنة</span>
+          <span style="display: inline-block; margin-left: 10px;"><span class="chk-box"></span> 6 صور شخصية</span>
+          <span style="display: inline-block; margin-left: 10px;"><span class="chk-box"></span> صورة بطاقة الوالدين</span>
+          <span style="display: inline-block; margin-left: 10px;"><span class="chk-box"></span> البطاقة الصحية للتلميذ</span>
           <span style="display: inline-block;"><span class="chk-box"></span> ملف التقديم / التحويل</span>
         </div>
 
-        <!-- Decision & Class Assignment -->
-        <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 4px; border-top: 1px solid #e2e8f0; font-weight: bold;">
-          <div>
-            قرار القبول: 
-            <span class="chk-box"></span> مقبول &nbsp;&nbsp;
-            <span class="chk-box"></span> قائمة انتظار
-          </div>
-          <div>
-            الصف المسكن عليه: <span style="font-family: monospace; color: #1e3a8a;">Grade [ .... ]</span> &nbsp;
-            (<span class="chk-box"></span> لغات &nbsp;&nbsp; <span class="chk-box"></span> عربي)
-          </div>
-          <div>
-            إيصال المصروفات رقم: <span class="dots" style="width: 80px; display: inline-block;"></span>
-          </div>
-        </div>
+        <!-- Decision Table -->
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 5px;">
+          <tr>
+            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background: #f8fafc; font-weight: bold; width: 33%;">
+              قرار لجنة القبول: &nbsp;
+              <span class="chk-box"></span> مقبول &nbsp;
+              <span class="chk-box"></span> انتظار
+            </td>
+            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background: #f8fafc; font-weight: bold; width: 37%;">
+              الصف المقيد به: <span style="font-family: monospace; color: #1e3a8a;">Grade [ &nbsp;&nbsp;&nbsp;&nbsp; ]</span> &nbsp;
+              <span class="chk-box"></span> لغات &nbsp;
+              <span class="chk-box"></span> عربي
+            </td>
+            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background: #f8fafc; font-weight: bold; width: 30%;">
+              إيصال المصروفات: <span class="dots" style="width: 75px; display: inline-block;"></span>
+            </td>
+          </tr>
+        </table>
 
         <!-- Signatures & Stamp -->
-        <div style="display: flex; justify-content: space-between; align-items: flex-end; padding-top: 5px; border-top: 1px solid #e2e8f0; font-weight: bold; text-align: center;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; padding-top: 6px; font-weight: bold; text-align: center;">
           <div style="width: 32%;">
-            <div style="color: #475569; font-size: 9.5px; margin-bottom: 10px;">مسؤول شؤون الطلاب</div>
-            <div class="dots" style="width: 100px; margin: 0 auto;"></div>
+            <div style="color: #475569; font-size: 10px; margin-bottom: 12px;">مسؤول شؤون الطلاب</div>
+            <div class="dots" style="width: 120px; margin: 0 auto;"></div>
           </div>
           <div style="width: 32%;">
-            <div style="color: #475569; font-size: 9.5px; margin-bottom: 10px;">المدير المالي والإداري</div>
-            <div class="dots" style="width: 100px; margin: 0 auto;"></div>
+            <div style="color: #475569; font-size: 10px; margin-bottom: 12px;">المدير المالي والإداري</div>
+            <div class="dots" style="width: 120px; margin: 0 auto;"></div>
           </div>
           <div style="width: 36%;">
-            <div style="color: #1e3a8a; font-weight: 900; font-size: 10px;">اعتماد مدير المدرسة والختم</div>
-            <div style="width: 46px; height: 46px; border-radius: 9999px; border: 1.5px dashed #dc2626; margin: 1px auto 0 auto; display: flex; align-items: center; justify-content: center; font-size: 7.5px; color: #dc2626; font-weight: 900;">
+            <div style="color: #1e3a8a; font-weight: 900; font-size: 10.5px;">اعتماد مدير المدرسة والختم</div>
+            <div style="width: 48px; height: 48px; border-radius: 9999px; border: 1.5px dashed #dc2626; margin: 2px auto 0 auto; display: flex; align-items: center; justify-content: center; font-size: 8px; color: #dc2626; font-weight: 900;">
               ختم المدرسة ⭕
             </div>
           </div>
@@ -452,10 +478,10 @@
     </div>
 
     <!-- Clean Footer -->
-    <div class="text-center text-[8.5px] text-slate-500 font-bold mt-2 pt-1 border-t border-slate-200 flex justify-between items-center">
+    <div class="text-center text-[9px] text-slate-500 font-bold pt-1.5 border-t border-slate-300 flex justify-between items-center">
       <span>مدرسة Smile Kids الخاصة • المنهج مصري لغات 🇪🇬</span>
       <span>استمارة طلب التحاق وتسجيل تلميذ جديد • شؤون الطلاب</span>
-      <span class="font-mono font-bold">Smile Kids SIS • A4 Form</span>
+      <span class="font-mono font-bold" dir="ltr">Smile Kids SIS • A4 Form</span>
     </div>
 
   </div>
