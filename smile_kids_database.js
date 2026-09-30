@@ -10,8 +10,8 @@
 (function(window) {
   'use strict';
 
-  const STORAGE_KEY = 'SMILE_KIDS_MASTER_DATABASE_2026_V2';
-  const LEGACY_STUDENT_KEYS = ['smile_kids_students_v7_custom', 'smilekids_school_v6'];
+  const STORAGE_KEY = 'SMILE_KIDS_MASTER_DATABASE_2026_V3';
+  const LEGACY_STUDENT_KEYS = ['SMILE_KIDS_MASTER_DATABASE_2026_V2', 'SMILE_KIDS_MASTER_DATABASE_2026', 'smile_kids_students_v7_custom', 'smilekids_school_v6'];
   const LEGACY_ATT_KEY = 'smile_kids_attendance_v7_data';
 
   // Master Initial Verified Students (137 Students across 9 Grades)
@@ -29,24 +29,24 @@
     "nameEn": "Talia Adel Khattab",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -61,24 +61,24 @@
     "nameEn": "Elaf Essam Abdullah",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -93,24 +93,24 @@
     "nameEn": "Mawaddah Ahmed Kamal",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -125,24 +125,24 @@
     "nameEn": "Fayrouz Ashraf Magdy",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -157,24 +157,24 @@
     "nameEn": "Yahia Ahmed Mostafa",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     },
     "phone": "",
     "notes": ""
@@ -191,24 +191,24 @@
     "nameEn": "Amir Mostafa Abdel Latif",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -223,24 +223,24 @@
     "nameEn": "Yamen Islam Ahmed",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -255,24 +255,24 @@
     "nameEn": "Sara Reda Abdel Maksoud",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -287,24 +287,24 @@
     "nameEn": "Kenda Elsayed Ali",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -319,24 +319,24 @@
     "nameEn": "Rihana Abdel Rahman Atef",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -351,24 +351,24 @@
     "nameEn": "Lili Ahmed Mohamed Yousry",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     },
     "phone": "",
     "notes": ""
@@ -385,24 +385,24 @@
     "nameEn": "Hamza Ibrahim Zeidan",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -417,24 +417,24 @@
     "nameEn": "Hamza Mohamed Elbanna",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -449,24 +449,24 @@
     "nameEn": "Marwan Ashraf Ramadan",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -481,24 +481,24 @@
     "nameEn": "Youssef Amr Mohamed",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -513,24 +513,24 @@
     "nameEn": "Ali Mohamed Alaa El-Din",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -545,24 +545,24 @@
     "nameEn": "Zein El-Din Mahmoud Abdel Hamid",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -577,24 +577,24 @@
     "nameEn": "Mahdi Ahmed Mohamed",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -609,24 +609,24 @@
     "nameEn": "Seif Hassan Mohamed",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -641,24 +641,24 @@
     "nameEn": "Adam Ahmed Shawky",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -673,24 +673,24 @@
     "nameEn": "Farida Sherif Ali",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -705,24 +705,24 @@
     "nameEn": "Malek Mohamed El-Khoshen",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -737,24 +737,24 @@
     "nameEn": "Leen Mohannad Khidro",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     },
     "phone": "",
     "notes": ""
@@ -771,24 +771,24 @@
     "nameEn": "Ellen Ahmed Zayran",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -803,24 +803,24 @@
     "nameEn": "Bisan Mohamed Ahmed",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -835,24 +835,24 @@
     "nameEn": "Noah Abdel Hamid Samir",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -867,24 +867,24 @@
     "nameEn": "Tarek Elsayed Abdel Ghani",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -899,24 +899,24 @@
     "nameEn": "Selim Mohamed El-Saeed",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -931,24 +931,24 @@
     "nameEn": "Moataz Mohamed Ataha",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -963,24 +963,24 @@
     "nameEn": "Rashed Abdel Karim Basheer",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -995,24 +995,24 @@
     "nameEn": "Anas Ahmed Mohamed",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1027,24 +1027,24 @@
     "nameEn": "Essam Mohamed Essam",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1059,24 +1059,24 @@
     "nameEn": "Malek Ahmed Abdel Moemen",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1091,24 +1091,24 @@
     "nameEn": "Fayrouz Mohamed El-Naggar",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1123,24 +1123,24 @@
     "nameEn": "Lia Haitham Rashwan",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1155,24 +1155,24 @@
     "nameEn": "Layan Mohamed Amin",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1187,24 +1187,24 @@
     "nameEn": "Habiba Ahmed Hussein",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1219,24 +1219,24 @@
     "nameEn": "Tala Hesham Mohamed",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1251,24 +1251,24 @@
     "nameEn": "Zeina Abdullah Sayed",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1283,24 +1283,24 @@
     "nameEn": "Saja Gamal Ismail",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1315,24 +1315,24 @@
     "nameEn": "Jad Mohamed Abbas",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1347,24 +1347,24 @@
     "nameEn": "Ellen Ahmed Mahmoud",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1379,24 +1379,24 @@
     "nameEn": "Malika Mohamed Adel",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1411,24 +1411,24 @@
     "nameEn": "Areen Ashraf Magdy",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1443,24 +1443,24 @@
     "nameEn": "Al-Fateh Abdel Qader Mohamed",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1475,24 +1475,24 @@
     "nameEn": "Omar Mahmoud Abdel Wahab",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1507,24 +1507,24 @@
     "nameEn": "Abdel Rahman Taha Hussein",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1539,24 +1539,24 @@
     "nameEn": "Leen Mohamed Abdel Halim",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1571,24 +1571,24 @@
     "nameEn": "Asiya Ahmed Mostafa",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1603,24 +1603,24 @@
     "nameEn": "Aryam Ahmed Hassan",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1635,24 +1635,24 @@
     "nameEn": "Layan Sameh Basiouny",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1667,24 +1667,24 @@
     "nameEn": "Maria Khaled Fahmy",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1699,24 +1699,24 @@
     "nameEn": "Adam Mohamed Sobhy",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1731,24 +1731,24 @@
     "nameEn": "Zein Soliman Mohamed",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1763,24 +1763,24 @@
     "nameEn": "Adam Khaled Abdullah",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1795,24 +1795,24 @@
     "nameEn": "Adham Mostafa Waheed",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1827,24 +1827,24 @@
     "nameEn": "Youssef Mohamed Abdel Latif",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1859,24 +1859,24 @@
     "nameEn": "Abdel Rahman Khaled Ragab",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1891,24 +1891,24 @@
     "nameEn": "Shahm Mohamed Anwar Harb",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1923,24 +1923,24 @@
     "nameEn": "Zein Mohamed Nabil Nawar",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1955,24 +1955,24 @@
     "nameEn": "Raed Abdel Karim Basheer",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -1987,24 +1987,24 @@
     "nameEn": "Amin Elsayed Ahmed",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2019,24 +2019,24 @@
     "nameEn": "Nour Ahmed Essam",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2051,24 +2051,24 @@
     "nameEn": "Reman Gamal El-Hussein",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2083,24 +2083,24 @@
     "nameEn": "Mostafa Abdel Salam Mostafa",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2115,24 +2115,24 @@
     "nameEn": "Maha Radwan Tsoun",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2147,24 +2147,24 @@
     "nameEn": "Karma Ahmed Attia",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2179,24 +2179,24 @@
     "nameEn": "Janti Elsayed Abdel Ghani",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2211,24 +2211,24 @@
     "nameEn": "Ali Sherif Ali",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2243,24 +2243,24 @@
     "nameEn": "Mohamed Mahmoud El-Sayad",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2275,24 +2275,24 @@
     "nameEn": "Abdullah Marwan El-Sheikh",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2307,24 +2307,24 @@
     "nameEn": "Hamza Ahmed Abdel Hamid",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2339,24 +2339,24 @@
     "nameEn": "Moheb Gamal Fathallah",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2371,24 +2371,24 @@
     "nameEn": "Adam Amr Osama",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2403,24 +2403,24 @@
     "nameEn": "Youssef Kamal Mohamed",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2435,24 +2435,24 @@
     "nameEn": "Omar Ahmed El-Gezeiry",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2467,24 +2467,24 @@
     "nameEn": "Yahia Mohamed Farouk",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2499,24 +2499,24 @@
     "nameEn": "Rayan Abdel Rahman",
     "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2531,24 +2531,24 @@
     "nameEn": "Dana Elsayed Ali",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2563,24 +2563,24 @@
     "nameEn": "Karma Mohamed Hossam",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2595,24 +2595,24 @@
     "nameEn": "Mira Mohamed Ataha",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2627,24 +2627,24 @@
     "nameEn": "Fayrouz Hesham Mohamed",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2659,24 +2659,24 @@
     "nameEn": "Lojain Walid Mohamed",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -2691,1466 +2691,24 @@
     "nameEn": "Janna Amr Abo El-Makarim",
     "gender": "female",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
     },
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G5-AR-001",
-    "grade": 5,
-    "gradeNameAr": "الصف الخامس الابتدائي",
-    "gradeNameEn": "Grade 5",
-    "track": "arabic",
-    "trackNameAr": "عربي (حساب)",
-    "trackNameEn": "Arabic Track",
-    "nameAr": "ليندا هشام أحمد",
-    "nameEn": "Linda Hesham Ahmed",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G5-AR-002",
-    "grade": 5,
-    "gradeNameAr": "الصف الخامس الابتدائي",
-    "gradeNameEn": "Grade 5",
-    "track": "arabic",
-    "trackNameAr": "عربي (حساب)",
-    "trackNameEn": "Arabic Track",
-    "nameAr": "جويرية أحمد عطيه",
-    "nameEn": "Jowairia Ahmed Attia",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G5-AR-003",
-    "grade": 5,
-    "gradeNameAr": "الصف الخامس الابتدائي",
-    "gradeNameEn": "Grade 5",
-    "track": "arabic",
-    "trackNameAr": "عربي (حساب)",
-    "trackNameEn": "Arabic Track",
-    "nameAr": "عبد الله محمود الصياد",
-    "nameEn": "Abdullah Mahmoud El-Sayad",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G5-AR-004",
-    "grade": 5,
-    "gradeNameAr": "الصف الخامس الابتدائي",
-    "gradeNameEn": "Grade 5",
-    "track": "arabic",
-    "trackNameAr": "عربي (حساب)",
-    "trackNameEn": "Arabic Track",
-    "nameAr": "سامح طه حسين",
-    "nameEn": "Sameh Taha Hussein",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G5-AR-005",
-    "grade": 5,
-    "gradeNameAr": "الصف الخامس الابتدائي",
-    "gradeNameEn": "Grade 5",
-    "track": "arabic",
-    "trackNameAr": "عربي (حساب)",
-    "trackNameEn": "Arabic Track",
-    "nameAr": "مصطفى أحمد مصطفى",
-    "nameEn": "Mostafa Ahmed Mostafa",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G5-AR-006",
-    "grade": 5,
-    "gradeNameAr": "الصف الخامس الابتدائي",
-    "gradeNameEn": "Grade 5",
-    "track": "arabic",
-    "trackNameAr": "عربي (حساب)",
-    "trackNameEn": "Arabic Track",
-    "nameAr": "زياد مصطفى فرج",
-    "nameEn": "Ziad Mostafa Farag",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G5-LN-001",
-    "grade": 5,
-    "gradeNameAr": "الصف الخامس الابتدائي",
-    "gradeNameEn": "Grade 5",
-    "track": "arabic",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "رفيدة خالد رجب",
-    "nameEn": "Rofayda Khaled Ragab",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    },
-    "phone": "",
-    "notes": ""
-  },
-  {
-    "id": "SK-G5-LN-002",
-    "grade": 5,
-    "gradeNameAr": "الصف الخامس الابتدائي",
-    "gradeNameEn": "Grade 5",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "عائشة محمد علاء",
-    "nameEn": "Aisha Mohamed Alaa",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G5-LN-003",
-    "grade": 5,
-    "gradeNameAr": "الصف الخامس الابتدائي",
-    "gradeNameEn": "Grade 5",
-    "track": "languages",
-    "trackNameAr": "لغات (Math & Science)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "مليكة محمد نبيل نوار",
-    "nameEn": "Malika Mohamed Nabil Nawar",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G5-LN-004",
-    "grade": 5,
-    "gradeNameAr": "الصف الخامس الابتدائي",
-    "gradeNameEn": "Grade 5",
-    "track": "languages",
-    "trackNameAr": "لغات (Math & Science)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "رودينة عبد الله سيد",
-    "nameEn": "Rodaina Abdullah Sayed",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G5-LN-005",
-    "grade": 5,
-    "gradeNameAr": "الصف الخامس الابتدائي",
-    "gradeNameEn": "Grade 5",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "مريم حمدى أحمد",
-    "nameEn": "Mariam Hamdy Ahmed",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G5-LN-006",
-    "grade": 5,
-    "gradeNameAr": "الصف الخامس الابتدائي",
-    "gradeNameEn": "Grade 5",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "آيسل محمد السعيد",
-    "nameEn": "Aysel Mohamed El-Saeed",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G5-LN-007",
-    "grade": 5,
-    "gradeNameAr": "الصف الخامس الابتدائي",
-    "gradeNameEn": "Grade 5",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "رقية رضا شوشة",
-    "nameEn": "Roqaya Reda Shousha",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G5-LN-008",
-    "grade": 5,
-    "gradeNameAr": "الصف الخامس الابتدائي",
-    "gradeNameEn": "Grade 5",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "لينا أحمد شوقى",
-    "nameEn": "Lina Ahmed Shawky",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G5-LN-009",
-    "grade": 5,
-    "gradeNameAr": "الصف الخامس الابتدائي",
-    "gradeNameEn": "Grade 5",
-    "track": "languages",
-    "trackNameAr": "لغات (Math & Science)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "محمد أدهم حربي",
-    "nameEn": "Mohamed Adham Harby",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G5-LN-010",
-    "grade": 5,
-    "gradeNameAr": "الصف الخامس الابتدائي",
-    "gradeNameEn": "Grade 5",
-    "track": "languages",
-    "trackNameAr": "لغات (Math & Science)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "محمد عمرو محمد",
-    "nameEn": "Mohamed Amr Mohamed",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G6-AR-001",
-    "grade": 6,
-    "gradeNameAr": "الصف السادس الابتدائي",
-    "gradeNameEn": "Grade 6",
-    "track": "arabic",
-    "trackNameAr": "عربي (حساب)",
-    "trackNameEn": "Arabic Track",
-    "nameAr": "ياسين إسلام محمد",
-    "nameEn": "Yaseen Islam Mohamed",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G6-AR-002",
-    "grade": 6,
-    "gradeNameAr": "الصف السادس الابتدائي",
-    "gradeNameEn": "Grade 6",
-    "track": "arabic",
-    "trackNameAr": "عربي (حساب)",
-    "trackNameEn": "Arabic Track",
-    "nameAr": "باسم حسن العمري",
-    "nameEn": "Bassem Hassan El-Omari",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G6-LN-001",
-    "grade": 6,
-    "gradeNameAr": "الصف السادس الابتدائي",
-    "gradeNameEn": "Grade 6",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "مالك محمود عبد الحميد",
-    "nameEn": "Malek Mahmoud Abdel Hamid",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G6-LN-002",
-    "grade": 6,
-    "gradeNameAr": "الصف السادس الابتدائي",
-    "gradeNameEn": "Grade 6",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "سيف جمال إسماعيل",
-    "nameEn": "Seif Gamal Ismail",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G6-LN-003",
-    "grade": 6,
-    "gradeNameAr": "الصف السادس الابتدائي",
-    "gradeNameEn": "Grade 6",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "محمد مصطفى وحيد",
-    "nameEn": "Mohamed Mostafa Waheed",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G6-LN-004",
-    "grade": 6,
-    "gradeNameAr": "الصف السادس الابتدائي",
-    "gradeNameEn": "Grade 6",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "أروى محمد أحمد",
-    "nameEn": "Arwa Mohamed Ahmed",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G6-LN-005",
-    "grade": 6,
-    "gradeNameAr": "الصف السادس الابتدائي",
-    "gradeNameEn": "Grade 6",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "ليان السيد على",
-    "nameEn": "Layan Elsayed Ali",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G6-LN-006",
-    "grade": 6,
-    "gradeNameAr": "الصف السادس الابتدائي",
-    "gradeNameEn": "Grade 6",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "لورين وليد محمد",
-    "nameEn": "Loreen Walid Mohamed",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G6-LN-007",
-    "grade": 6,
-    "gradeNameAr": "الصف السادس الابتدائي",
-    "gradeNameEn": "Grade 6",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "ماسة محمد أنور حرب",
-    "nameEn": "Massa Mohamed Anwar Harb",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G6-LN-008",
-    "grade": 6,
-    "gradeNameAr": "الصف السادس الابتدائي",
-    "gradeNameEn": "Grade 6",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "أفنان أحمد حسن",
-    "nameEn": "Afnan Ahmed Hassan",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G7-AR-001",
-    "grade": 7,
-    "gradeNameAr": "الصف الأول الإعدادي",
-    "gradeNameEn": "Grade 7 (Prep 1)",
-    "track": "arabic",
-    "trackNameAr": "عربي (رياضيات)",
-    "trackNameEn": "Arabic Track",
-    "nameAr": "نورسان إسلام",
-    "nameEn": "Noursan Islam",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G7-AR-002",
-    "grade": 7,
-    "gradeNameAr": "الصف الأول الإعدادي",
-    "gradeNameEn": "Grade 7 (Prep 1)",
-    "track": "arabic",
-    "trackNameAr": "عربي (رياضيات)",
-    "trackNameEn": "Arabic Track",
-    "nameAr": "ليان محمود",
-    "nameEn": "Layan Mahmoud",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G7-AR-003",
-    "grade": 7,
-    "gradeNameAr": "الصف الأول الإعدادي",
-    "gradeNameEn": "Grade 7 (Prep 1)",
-    "track": "arabic",
-    "trackNameAr": "عربي (رياضيات)",
-    "trackNameEn": "Arabic Track",
-    "nameAr": "سارة أحمد",
-    "nameEn": "Sara Ahmed",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G7-AR-004",
-    "grade": 7,
-    "gradeNameAr": "الصف الأول الإعدادي",
-    "gradeNameEn": "Grade 7 (Prep 1)",
-    "track": "arabic",
-    "trackNameAr": "عربي (حساب)",
-    "trackNameEn": "Arabic Track",
-    "nameAr": "بلال محمد عادل",
-    "nameEn": "Belal Mohamed Adel",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G7-LN-001",
-    "grade": 7,
-    "gradeNameAr": "الصف الأول الإعدادي",
-    "gradeNameEn": "Grade 7 (Prep 1)",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "مريم أدهم حربى",
-    "nameEn": "Mariam Adham Harby",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G7-LN-002",
-    "grade": 7,
-    "gradeNameAr": "الصف الأول الإعدادي",
-    "gradeNameEn": "Grade 7 (Prep 1)",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "مايا هيثم",
-    "nameEn": "Maya Haitham",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G7-LN-003",
-    "grade": 7,
-    "gradeNameAr": "الصف الأول الإعدادي",
-    "gradeNameEn": "Grade 7 (Prep 1)",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "جودى خالد",
-    "nameEn": "Judy Khaled",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G7-LN-004",
-    "grade": 7,
-    "gradeNameAr": "الصف الأول الإعدادي",
-    "gradeNameEn": "Grade 7 (Prep 1)",
-    "track": "languages",
-    "trackNameAr": "لغات (Math & Science)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "أدم عبد الحميد",
-    "nameEn": "Adam Abdel Hamid",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G7-LN-005",
-    "grade": 7,
-    "gradeNameAr": "الصف الأول الإعدادي",
-    "gradeNameEn": "Grade 7 (Prep 1)",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "ياسين سليمان",
-    "nameEn": "Yaseen Soliman",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G7-LN-006",
-    "grade": 7,
-    "gradeNameAr": "الصف الأول الإعدادي",
-    "gradeNameEn": "Grade 7 (Prep 1)",
-    "track": "languages",
-    "trackNameAr": "لغات (Math & Science)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "مالك أدهم حربي",
-    "nameEn": "Malek Adham Harby",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G8-AR-001",
-    "grade": 8,
-    "gradeNameAr": "الصف الثاني الإعدادي",
-    "gradeNameEn": "Grade 8 (Prep 2)",
-    "track": "arabic",
-    "trackNameAr": "عربي (رياضيات)",
-    "trackNameEn": "Arabic Track",
-    "nameAr": "محمد حسن",
-    "nameEn": "Mohamed Hassan",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G8-AR-002",
-    "grade": 8,
-    "gradeNameAr": "الصف الثاني الإعدادي",
-    "gradeNameEn": "Grade 8 (Prep 2)",
-    "track": "arabic",
-    "trackNameAr": "عربي (رياضيات)",
-    "trackNameEn": "Arabic Track",
-    "nameAr": "عبد الغنى عصام",
-    "nameEn": "Abdel Ghany Essam",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G8-LN-001",
-    "grade": 8,
-    "gradeNameAr": "الصف الثاني الإعدادي",
-    "gradeNameEn": "Grade 8 (Prep 2)",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "أنس أحمد حسن",
-    "nameEn": "Anas Ahmed Hassan",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G8-LN-002",
-    "grade": 8,
-    "gradeNameAr": "الصف الثاني الإعدادي",
-    "gradeNameEn": "Grade 8 (Prep 2)",
-    "track": "languages",
-    "trackNameAr": "لغات (Math & Science)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "بسملة عبد الله سيد",
-    "nameEn": "Basmala Abdullah Sayed",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G9-AR-001",
-    "grade": 9,
-    "gradeNameAr": "الصف الثالث الإعدادي",
-    "gradeNameEn": "Grade 9 (Prep 3)",
-    "track": "arabic",
-    "trackNameAr": "عربي (حساب)",
-    "trackNameEn": "Arabic Track",
-    "nameAr": "ساره محمد عطاها",
-    "nameEn": "Sara Mohamed Ataha",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G9-AR-002",
-    "grade": 9,
-    "gradeNameAr": "الصف الثالث الإعدادي",
-    "gradeNameEn": "Grade 9 (Prep 3)",
-    "track": "arabic",
-    "trackNameAr": "عربي (رياضيات)",
-    "trackNameEn": "Arabic Track",
-    "nameAr": "أيمن عصام القاضي",
-    "nameEn": "Ayman Essam El-Kady",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G9-AR-003",
-    "grade": 9,
-    "gradeNameAr": "الصف الثالث الإعدادي",
-    "gradeNameEn": "Grade 9 (Prep 3)",
-    "track": "arabic",
-    "trackNameAr": "عربي (رياضيات)",
-    "trackNameEn": "Arabic Track",
-    "nameAr": "محمد عبد الله النقاش",
-    "nameEn": "Mohamed Abdullah El-Nakkash",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G9-LN-001",
-    "grade": 9,
-    "gradeNameAr": "الصف الثالث الإعدادي",
-    "gradeNameEn": "Grade 9 (Prep 3)",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "أحمد رضا شوشة",
-    "nameEn": "Ahmed Reda Shousha",
-    "gender": "male",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    }
-  },
-  {
-    "id": "SK-G9-LN-002",
-    "grade": 9,
-    "gradeNameAr": "الصف الثالث الإعدادي",
-    "gradeNameEn": "Grade 9 (Prep 3)",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "جودى هيثم رشوان",
-    "nameEn": "Judy Haitham Rashwan",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   },
   {
@@ -4165,25 +2723,18 @@
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
+      "t1_m1": 20,
+      "t1_m2": 20,
+      "t1_exam": 30,
+      "t1_total": 100,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 100,
+      "annual_total": 100
     },
     "trackNameAr": "لغات (Math & Science)",
-    "trackNameEn": "Languages Track",
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    }
+    "trackNameEn": "Languages Track"
   },
   {
     "grade": 2,
@@ -4197,22 +2748,15 @@
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    },
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "t1_m1": 20,
+      "t1_m2": 20,
+      "t1_exam": 30,
+      "t1_total": 100,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 100,
+      "annual_total": 100
     }
   },
   {
@@ -4227,142 +2771,15 @@
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    },
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    }
-  },
-  {
-    "grade": 5,
-    "track": "arabic",
-    "nameAr": "ملك محمد مجدي",
-    "nameEn": "Malak Mohamed Magdy",
-    "phone": "",
-    "gender": "female",
-    "notes": "",
-    "id": "SK-G5-AR-1570",
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    },
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    }
-  },
-  {
-    "grade": 5,
-    "track": "arabic",
-    "nameAr": "جودي مهند خضرو",
-    "nameEn": "Judi Mohannad Khidro",
-    "phone": "",
-    "gender": "female",
-    "notes": "",
-    "id": "SK-G5-AR-0468",
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    },
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    }
-  },
-  {
-    "grade": 6,
-    "track": "arabic",
-    "nameAr": "لينا هشام أحمد",
-    "nameEn": "Lina Hesham Ahmed",
-    "phone": "",
-    "gender": "female",
-    "notes": "",
-    "id": "SK-G6-AR-2866",
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    },
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
-    }
-  },
-  {
-    "grade": 6,
-    "track": "arabic",
-    "nameAr": "أسيل محمد أحمد",
-    "nameEn": "Aseel Mohamed Ahmed",
-    "phone": "",
-    "gender": "female",
-    "notes": "",
-    "id": "SK-G6-AR-4511",
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    },
-    "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "t1_m1": 20,
+      "t1_m2": 20,
+      "t1_exam": 30,
+      "t1_total": 100,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 100,
+      "annual_total": 100
     }
   },
   {
@@ -4381,22 +2798,1903 @@
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_m1": 0,
-      "t1_m2": 0,
-      "t1_exam": 0,
-      "t1_total": 0,
-      "t2_m1": 0,
-      "t2_m2": 0,
-      "t2_exam": 0,
-      "t2_total": 0,
-      "annual_total": 0
-    },
+      "t1_m1": 20,
+      "t1_m2": 20,
+      "t1_exam": 30,
+      "t1_total": 100,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 100,
+      "annual_total": 100
+    }
+  },
+  {
+    "id": "SK-G5-AR-001",
+    "grade": 5,
+    "gradeNameAr": "الصف الخامس الابتدائي",
+    "gradeNameEn": "Grade 5",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "كيان محمود منصور",
+    "nameEn": "Kayan Mahmoud Mansour",
+    "gender": "male",
     "sampleScores": {
-      "month1": 0,
-      "month2": 0,
-      "midterm": 0,
-      "final": 0,
-      "attendance": 0
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G5-AR-002",
+    "grade": 5,
+    "gradeNameAr": "الصف الخامس الابتدائي",
+    "gradeNameEn": "Grade 5",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "جويرية أحمد عطيه",
+    "nameEn": "Jowairia Ahmed Attia",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G5-AR-003",
+    "grade": 5,
+    "gradeNameAr": "الصف الخامس الابتدائي",
+    "gradeNameEn": "Grade 5",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "جودى مهند خضرو",
+    "nameEn": "Judi Mohannad Khidro",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 20,
+      "t1_m2": 20,
+      "t1_exam": 30,
+      "t1_total": 100,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 100,
+      "annual_total": 100
+    }
+  },
+  {
+    "id": "SK-G5-AR-004",
+    "grade": 5,
+    "gradeNameAr": "الصف الخامس الابتدائي",
+    "gradeNameEn": "Grade 5",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "ملك محمد",
+    "nameEn": "Malak Mohamed",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 20,
+      "t1_m2": 20,
+      "t1_exam": 30,
+      "t1_total": 100,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 100,
+      "annual_total": 100
+    }
+  },
+  {
+    "id": "SK-G5-AR-005",
+    "grade": 5,
+    "gradeNameAr": "الصف الخامس الابتدائي",
+    "gradeNameEn": "Grade 5",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "ليندا هشام أحمد",
+    "nameEn": "Linda Hesham Ahmed",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G5-AR-006",
+    "grade": 5,
+    "gradeNameAr": "الصف الخامس الابتدائي",
+    "gradeNameEn": "Grade 5",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "رفيدة خالد رجب",
+    "nameEn": "Rofayda Khaled Ragab",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G5-AR-007",
+    "grade": 5,
+    "gradeNameAr": "الصف الخامس الابتدائي",
+    "gradeNameEn": "Grade 5",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "زياد مصطفى فرج",
+    "nameEn": "Ziad Mostafa Farag",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G5-AR-008",
+    "grade": 5,
+    "gradeNameAr": "الصف الخامس الابتدائي",
+    "gradeNameEn": "Grade 5",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "عبد الله محمود الصياد",
+    "nameEn": "Abdullah Mahmoud El-Sayad",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G5-AR-009",
+    "grade": 5,
+    "gradeNameAr": "الصف الخامس الابتدائي",
+    "gradeNameEn": "Grade 5",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "سامح طه النقاش",
+    "nameEn": "Sameh Taha El-Naqqash",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G5-AR-010",
+    "grade": 5,
+    "gradeNameAr": "الصف الخامس الابتدائي",
+    "gradeNameEn": "Grade 5",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "مصطفى أحمد مصطفى",
+    "nameEn": "Mostafa Ahmed Mostafa",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G5-LN-001",
+    "grade": 5,
+    "gradeNameAr": "الصف الخامس الابتدائي",
+    "gradeNameEn": "Grade 5",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "لينا أحمد شوقى",
+    "nameEn": "Lina Ahmed Shawky",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G5-LN-002",
+    "grade": 5,
+    "gradeNameAr": "الصف الخامس الابتدائي",
+    "gradeNameEn": "Grade 5",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "عائشة محمد علاء الدين",
+    "nameEn": "Aisha Mohamed Alaa El-Din",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G5-LN-003",
+    "grade": 5,
+    "gradeNameAr": "الصف الخامس الابتدائي",
+    "gradeNameEn": "Grade 5",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "رودينة عبد الله السيد",
+    "nameEn": "Rodaina Abdullah Sayed",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G5-LN-004",
+    "grade": 5,
+    "gradeNameAr": "الصف الخامس الابتدائي",
+    "gradeNameEn": "Grade 5",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "رقية رضا عبد المقصود",
+    "nameEn": "Roqaya Reda Abdel Maqsoud",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G5-LN-005",
+    "grade": 5,
+    "gradeNameAr": "الصف الخامس الابتدائي",
+    "gradeNameEn": "Grade 5",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "أيسل محمد السعيد",
+    "nameEn": "Aysel Mohamed El-Saeed",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G5-LN-006",
+    "grade": 5,
+    "gradeNameAr": "الصف الخامس الابتدائي",
+    "gradeNameEn": "Grade 5",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "مليكة محمد نوار",
+    "nameEn": "Malika Mohamed Nawar",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G5-LN-007",
+    "grade": 5,
+    "gradeNameAr": "الصف الخامس الابتدائي",
+    "gradeNameEn": "Grade 5",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "مريم حمدى أحمد",
+    "nameEn": "Mariam Hamdy Ahmed",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G5-LN-008",
+    "grade": 5,
+    "gradeNameAr": "الصف الخامس الابتدائي",
+    "gradeNameEn": "Grade 5",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "محمد عمرو محمد",
+    "nameEn": "Mohamed Amr Mohamed",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G5-LN-009",
+    "grade": 5,
+    "gradeNameAr": "الصف الخامس الابتدائي",
+    "gradeNameEn": "Grade 5",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "محمد أدهم حربي",
+    "nameEn": "Mohamed Adham Harby",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G6-AR-001",
+    "grade": 6,
+    "gradeNameAr": "الصف السادس الابتدائي",
+    "gradeNameEn": "Grade 6",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "ياسين إسلام حمد",
+    "nameEn": "Yaseen Islam Hamad",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G6-AR-002",
+    "grade": 6,
+    "gradeNameAr": "الصف السادس الابتدائي",
+    "gradeNameEn": "Grade 6",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "لينا هشام أحمد",
+    "nameEn": "Lina Hesham Ahmed",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 20,
+      "t1_m2": 20,
+      "t1_exam": 30,
+      "t1_total": 100,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 100,
+      "annual_total": 100
+    }
+  },
+  {
+    "id": "SK-G6-AR-003",
+    "grade": 6,
+    "gradeNameAr": "الصف السادس الابتدائي",
+    "gradeNameEn": "Grade 6",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "باسم حسن العمري",
+    "nameEn": "Bassem Hassan El-Omari",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G6-AR-004",
+    "grade": 6,
+    "gradeNameAr": "الصف السادس الابتدائي",
+    "gradeNameEn": "Grade 6",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "أسيل حمد أحمد",
+    "nameEn": "Aseel Hamad Ahmed",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G6-AR-005",
+    "grade": 6,
+    "gradeNameAr": "الصف السادس الابتدائي",
+    "gradeNameEn": "Grade 6",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "هدى محمد مجدى",
+    "nameEn": "Hoda Mohamed Magdy",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G6-LN-001",
+    "grade": 6,
+    "gradeNameAr": "الصف السادس الابتدائي",
+    "gradeNameEn": "Grade 6",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "محمد السيد سمير",
+    "nameEn": "Mohamed Elsayed Samir",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G6-LN-002",
+    "grade": 6,
+    "gradeNameAr": "الصف السادس الابتدائي",
+    "gradeNameEn": "Grade 6",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "سيف جمال إسماعيل",
+    "nameEn": "Seif Gamal Ismail",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G6-LN-003",
+    "grade": 6,
+    "gradeNameAr": "الصف السادس الابتدائي",
+    "gradeNameEn": "Grade 6",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "مالك محمود عبد الحميد",
+    "nameEn": "Malek Mahmoud Abdel Hamid",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G6-LN-004",
+    "grade": 6,
+    "gradeNameAr": "الصف السادس الابتدائي",
+    "gradeNameEn": "Grade 6",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "محمد مصطفى وحيد",
+    "nameEn": "Mohamed Mostafa Waheed",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G6-LN-005",
+    "grade": 6,
+    "gradeNameAr": "الصف السادس الابتدائي",
+    "gradeNameEn": "Grade 6",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "أروى محمد أحمد",
+    "nameEn": "Arwa Mohamed Ahmed",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G6-LN-006",
+    "grade": 6,
+    "gradeNameAr": "الصف السادس الابتدائي",
+    "gradeNameEn": "Grade 6",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "ليليا مازن شلار",
+    "nameEn": "Lilia Mazen Shollar",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G6-LN-007",
+    "grade": 6,
+    "gradeNameAr": "الصف السادس الابتدائي",
+    "gradeNameEn": "Grade 6",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "ماسة محمد أنور",
+    "nameEn": "Massa Mohamed Anwar",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G6-LN-008",
+    "grade": 6,
+    "gradeNameAr": "الصف السادس الابتدائي",
+    "gradeNameEn": "Grade 6",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "ليان السيد على",
+    "nameEn": "Layan Elsayed Ali",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G6-LN-009",
+    "grade": 6,
+    "gradeNameAr": "الصف السادس الابتدائي",
+    "gradeNameEn": "Grade 6",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "لورين وليد محمد",
+    "nameEn": "Loreen Walid Mohamed",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G6-LN-010",
+    "grade": 6,
+    "gradeNameAr": "الصف السادس الابتدائي",
+    "gradeNameEn": "Grade 6",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "لارين أحمد الشوني",
+    "nameEn": "Lareen Ahmed El-Shouny",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G6-LN-011",
+    "grade": 6,
+    "gradeNameAr": "الصف السادس الابتدائي",
+    "gradeNameEn": "Grade 6",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "أفنان أحمد",
+    "nameEn": "Afnan Ahmed",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G7-AR-001",
+    "grade": 7,
+    "gradeNameAr": "الصف الأول الإعدادي",
+    "gradeNameEn": "Grade 7 (Prep 1)",
+    "track": "arabic",
+    "trackNameAr": "عربي (رياضيات)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "نورسان إسلام محمد",
+    "nameEn": "Noursan Islam Mohamed",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G7-AR-002",
+    "grade": 7,
+    "gradeNameAr": "الصف الأول الإعدادي",
+    "gradeNameEn": "Grade 7 (Prep 1)",
+    "track": "arabic",
+    "trackNameAr": "عربي (رياضيات)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "ليان محمود رزق",
+    "nameEn": "Layan Mahmoud Rezk",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G7-AR-003",
+    "grade": 7,
+    "gradeNameAr": "الصف الأول الإعدادي",
+    "gradeNameEn": "Grade 7 (Prep 1)",
+    "track": "arabic",
+    "trackNameAr": "عربي (رياضيات)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "فريدة شريف رجب",
+    "nameEn": "Farida Sherif Ragab",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G7-AR-004",
+    "grade": 7,
+    "gradeNameAr": "الصف الأول الإعدادي",
+    "gradeNameEn": "Grade 7 (Prep 1)",
+    "track": "arabic",
+    "trackNameAr": "عربي (رياضيات)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "سارة أحمد مصطفى",
+    "nameEn": "Sara Ahmed Mostafa",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G7-AR-005",
+    "grade": 7,
+    "gradeNameAr": "الصف الأول الإعدادي",
+    "gradeNameEn": "Grade 7 (Prep 1)",
+    "track": "arabic",
+    "trackNameAr": "عربي (رياضيات)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "عمار محمود سعد",
+    "nameEn": "Ammar Mahmoud Saad",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G7-AR-006",
+    "grade": 7,
+    "gradeNameAr": "الصف الأول الإعدادي",
+    "gradeNameEn": "Grade 7 (Prep 1)",
+    "track": "arabic",
+    "trackNameAr": "عربي (رياضيات)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "بلال محمد عادل",
+    "nameEn": "Belal Mohamed Adel",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G7-LN-001",
+    "grade": 7,
+    "gradeNameAr": "الصف الأول الإعدادي",
+    "gradeNameEn": "Grade 7 (Prep 1)",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "مايا هيثم رشوان",
+    "nameEn": "Maya Haitham Rashwan",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G7-LN-002",
+    "grade": 7,
+    "gradeNameAr": "الصف الأول الإعدادي",
+    "gradeNameEn": "Grade 7 (Prep 1)",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "مريم أدهم حربي",
+    "nameEn": "Mariam Adham Harby",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G7-LN-003",
+    "grade": 7,
+    "gradeNameAr": "الصف الأول الإعدادي",
+    "gradeNameEn": "Grade 7 (Prep 1)",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "تقى أحمد محمود",
+    "nameEn": "Toqa Ahmed Mahmoud",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G7-LN-004",
+    "grade": 7,
+    "gradeNameAr": "الصف الأول الإعدادي",
+    "gradeNameEn": "Grade 7 (Prep 1)",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "جودى خالد رجب",
+    "nameEn": "Judy Khaled Ragab",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G7-LN-005",
+    "grade": 7,
+    "gradeNameAr": "الصف الأول الإعدادي",
+    "gradeNameEn": "Grade 7 (Prep 1)",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "ياسين سليمان محمد",
+    "nameEn": "Yaseen Soliman Mohamed",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G7-LN-006",
+    "grade": 7,
+    "gradeNameAr": "الصف الأول الإعدادي",
+    "gradeNameEn": "Grade 7 (Prep 1)",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "مالك أدهم حربي",
+    "nameEn": "Malek Adham Harby",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G7-LN-007",
+    "grade": 7,
+    "gradeNameAr": "الصف الأول الإعدادي",
+    "gradeNameEn": "Grade 7 (Prep 1)",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "عمر أحمد عصام",
+    "nameEn": "Omar Ahmed Essam",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G7-LN-008",
+    "grade": 7,
+    "gradeNameAr": "الصف الأول الإعدادي",
+    "gradeNameEn": "Grade 7 (Prep 1)",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "آدم عبد الحميد عيد",
+    "nameEn": "Adam Abdel Hamid Eid",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G8-AR-001",
+    "grade": 8,
+    "gradeNameAr": "الصف الثاني الإعدادي",
+    "gradeNameEn": "Grade 8 (Prep 2)",
+    "track": "arabic",
+    "trackNameAr": "عربي (رياضيات)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "محمد حسن العمري",
+    "nameEn": "Mohamed Hassan El-Omari",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G8-AR-002",
+    "grade": 8,
+    "gradeNameAr": "الصف الثاني الإعدادي",
+    "gradeNameEn": "Grade 8 (Prep 2)",
+    "track": "arabic",
+    "trackNameAr": "عربي (رياضيات)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "سجد محمود منصور",
+    "nameEn": "Saged Mahmoud Mansour",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G8-AR-003",
+    "grade": 8,
+    "gradeNameAr": "الصف الثاني الإعدادي",
+    "gradeNameEn": "Grade 8 (Prep 2)",
+    "track": "arabic",
+    "trackNameAr": "عربي (رياضيات)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "عبد الغني عصام عبد الله",
+    "nameEn": "Abdel Ghany Essam Abdullah",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G8-LN-001",
+    "grade": 8,
+    "gradeNameAr": "الصف الثاني الإعدادي",
+    "gradeNameEn": "Grade 8 (Prep 2)",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "بسملة عبد الله سيد",
+    "nameEn": "Basmala Abdullah Sayed",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G8-LN-002",
+    "grade": 8,
+    "gradeNameAr": "الصف الثاني الإعدادي",
+    "gradeNameEn": "Grade 8 (Prep 2)",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "وتين أحمد الشوني",
+    "nameEn": "Wateen Ahmed El-Shouny",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G9-AR-001",
+    "grade": 9,
+    "gradeNameAr": "الصف الثالث الإعدادي",
+    "gradeNameEn": "Grade 9 (Prep 3)",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "ساره محمد عطاها",
+    "nameEn": "Sara Mohamed Ataha",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G9-AR-002",
+    "grade": 9,
+    "gradeNameAr": "الصف الثالث الإعدادي",
+    "gradeNameEn": "Grade 9 (Prep 3)",
+    "track": "arabic",
+    "trackNameAr": "عربي (رياضيات)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "أيمن عصام القاضي",
+    "nameEn": "Ayman Essam El-Kady",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G9-AR-003",
+    "grade": 9,
+    "gradeNameAr": "الصف الثالث الإعدادي",
+    "gradeNameEn": "Grade 9 (Prep 3)",
+    "track": "arabic",
+    "trackNameAr": "عربي (رياضيات)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "محمد عبد الله النقاش",
+    "nameEn": "Mohamed Abdullah El-Nakkash",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G9-LN-001",
+    "grade": 9,
+    "gradeNameAr": "الصف الثالث الإعدادي",
+    "gradeNameEn": "Grade 9 (Prep 3)",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "أحمد رضا شوشة",
+    "nameEn": "Ahmed Reda Shousha",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G9-LN-002",
+    "grade": 9,
+    "gradeNameAr": "الصف الثالث الإعدادي",
+    "gradeNameEn": "Grade 9 (Prep 3)",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "جودى هيثم رشوان",
+    "nameEn": "Judy Haitham Rashwan",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
     }
   }
 ];
