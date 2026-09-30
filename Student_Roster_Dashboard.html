@@ -1335,6 +1335,20 @@
       </div>
 
       <form id="form-add-student" onsubmit="handleSaveAddStudent(event)" class="p-6 space-y-4">
+        <!-- Printable Form Link for In-Person Parents -->
+        <div class="bg-indigo-950/60 border border-indigo-500/40 rounded-2xl p-3 flex items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🖨️</span>
+            <div>
+              <div class="font-black text-indigo-200">تسجيل يدوي بحضور ولي الأمر؟</div>
+              <div class="text-[11px] text-slate-400">اطبع استمارة طلب الالتحاق الرسمية A4 للتعبئة بالقلم</div>
+            </div>
+          </div>
+          <a href="New_Student_Admission_Form.html" target="_blank" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl transition flex items-center gap-1 shrink-0 shadow">
+            <span>فتح وطباعة الاستمارة 📄</span>
+          </a>
+        </div>
+
         <div>
           <label class="block text-xs font-bold text-slate-300 mb-1">اسم الطالب باللغة العربية (كامل رباعي) <span class="text-red-400">*</span></label>
           <input type="text" id="add-student-name-ar" required placeholder="مثال: يوسف أحمد محمود علي" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-bold text-white focus:outline-none focus:border-emerald-500 transition">
@@ -2077,6 +2091,9 @@
                 <span class="text-base">➕</span>
                 <span>إضافة طالب جديد</span>
               </button>
+              <a href="New_Student_Admission_Form.html" target="_blank" class="px-3.5 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black rounded-xl text-xs sm:text-sm transition flex items-center gap-1.5 shadow-lg shadow-purple-950/40 hover:scale-[1.02] active:scale-95 border border-purple-400/40" title="طباعة استمارة تسجيل ورقية A4 للتسجيل اليدوي عند حضور ولي الأمر">
+                <span>📝 استمارة ورقية (A4)</span>
+              </a>
               <button onclick="printAllGradeRostersConsecutively()" class="px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl text-xs sm:text-sm transition flex items-center gap-2 shadow active:scale-95" title="طباعة كشوف كافة الصفوف من الأول إلى التاسع ورا بعض دفعة واحدة">
                 <span>📑 طباعة كل الفصول ورا بعض (1 - 9)</span>
               </button>
@@ -2109,6 +2126,10 @@
                 <span class="text-base">➕</span>
                 <span>إضافة طالب جديد</span>
               </button>
+
+              <a href="New_Student_Admission_Form.html" target="_blank" class="px-3.5 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black rounded-xl text-xs sm:text-sm transition flex items-center gap-1.5 shadow-lg shadow-purple-950/40 hover:scale-[1.02] active:scale-95 border border-purple-400/40" title="طباعة استمارة تسجيل ورقية A4 للتسجيل اليدوي عند حضور ولي الأمر">
+                <span>📝 استمارة ورقية (A4)</span>
+              </a>
 
               <button onclick="window.print()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-black rounded-xl text-xs transition flex items-center gap-1.5 shadow" title="طباعة كشف هذا الفصل المعروض">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>

@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>استمارة تسجيل طالب جديد • مدرسة Smile Kids للغات</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    body {
+      font-family: 'Cairo', 'Tajawal', sans-serif;
+    }
+    .font-en {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    
+    /* Dedicated Print Styling */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 5mm 7mm 5mm 7mm;
+      }
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        color: #000000 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .page-container {
+        box-shadow: none !important;
+        margin: 0 auto !important;
+        border: none !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: auto !important;
+      }
+      .print-page-break {
+        page-break-after: always !important;
+        break-after: page !important;
+      }
+      .sheet-border {
+        border-width: 2px !important;
+      }
+    }
+
+    /* Digit Box Grid for National ID */
+    .digit-box {
+      width: 21px;
+      height: 23px;
+      border: 1.5px solid #334155;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: monospace;
+      font-weight: 800;
+      font-size: 13px;
+      background: #ffffff;
+      border-radius: 3px;
+    }
+
+    /* Handwriting lines */
+    .hw-line {
+      border-bottom: 1.5px dotted #64748b;
+      min-height: 24px;
+      display: inline-block;
+      vertical-align: bottom;
+    }
+
+    /* Checkbox indicator */
+    .cb-box {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      border: 1.5px solid #0f172a;
+      border-radius: 3px;
+      vertical-align: middle;
+      margin-left: 4px;
+      background: #ffffff;
+    }
+
+    /* Custom Theme Accent Palettes */
+    .theme-royal .accent-bg { background-color: #1e3a8a !important; color: #ffffff !important; }
+    .theme-royal .accent-border { border-color: #1e3a8a !important; }
+    .theme-royal .accent-text { color: #1e3a8a !important; }
+    .theme-royal .sub-bg { background-color: #eff6ff !important; }
+    .theme-royal .gold-badge { background: #d4af37; color: #0f172a; }
+
+    .theme-bw .accent-bg { background-color: #0f172a !important; color: #ffffff !important; }
+    .theme-bw .accent-border { border-color: #0f172a !important; }
+    .theme-bw .accent-text { color: #0f172a !important; }
+    .theme-bw .sub-bg { background-color: #f1f5f9 !important; }
+    .theme-bw .gold-badge { background: #e2e8f0; color: #0f172a; }
+
+    .theme-emerald .accent-bg { background-color: #065f46 !important; color: #ffffff !important; }
+    .theme-emerald .accent-border { border-color: #065f46 !important; }
+    .theme-emerald .accent-text { color: #065f46 !important; }
+    .theme-emerald .sub-bg { background-color: #ecfdf5 !important; }
+    .theme-emerald .gold-badge { background: #10b981; color: #ffffff; }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-800 min-h-screen p-2 sm:p-6 theme-royal" id="main-body">
+
+  <!-- ==================== TOP INTERACTIVE TOOLBAR (HIDDEN IN PRINT) ==================== -->
+  <div class="max-w-4xl mx-auto mb-6 no-print">
+    <div class="bg-slate-800 border border-slate-700 rounded-3xl p-4 sm:p-5 shadow-2xl backdrop-blur-md">
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
+        
+        <!-- Branding / Header -->
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center text-2xl shadow-lg shadow-amber-500/20">
+            📝
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-black px-2 py-0.5 rounded-full">جاهز للطباعة الورقية الفورية A4</span>
+              <span class="text-xs text-slate-400 font-semibold">مدرسة Smile Kids الخاصة للغات</span>
+            </div>
+            <h1 class="text-lg sm:text-xl font-black text-white mt-0.5">استمارة طلب التحاق وتسجيل طالب جديد (للتسجيل اليدوي)</h1>
+          </div>
+        </div>
+
+        <!-- Controls & Print Trigger -->
+        <div class="flex items-center gap-2.5 flex-wrap justify-center">
+          
+          <!-- Mode Switcher -->
+          <div class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-700 text-xs">
+            <button onclick="switchDocMode('single')" id="btn-mode-single" class="px-3 py-1.5 rounded-lg font-black bg-indigo-600 text-white transition">
+              📄 استمارة A4 (صفحة واحدة)
+            </button>
+            <button onclick="switchDocMode('dossier')" id="btn-mode-dossier" class="px-3 py-1.5 rounded-lg font-bold text-slate-300 hover:text-white transition">
+              📑 ملف التحاق شامل (صفحتين)
+            </button>
+            <button onclick="switchDocMode('log')" id="btn-mode-log" class="px-3 py-1.5 rounded-lg font-bold text-slate-300 hover:text-white transition">
+              📋 كشف حصر المقابلات
+            </button>
+          </div>
+
+          <!-- Color Theme Switcher -->
+          <select id="theme-selector" onchange="changeTheme(this.value)" class="bg-slate-900 text-amber-300 text-xs font-bold rounded-xl px-3 py-2 border border-slate-700 outline-none cursor-pointer">
+            <option value="theme-royal">👑 النمط الملكي المعتمد (كحلي وذهبي)</option>
+            <option value="theme-bw">🖨️ كلاسيكي أبيض وأسود (اقتصادي)</option>
+            <option value="theme-emerald">🌿 نمط الزمرد الأخضر</option>
+          </select>
+
+          <!-- Quick Print Button -->
+          <button onclick="window.print()" class="px-5 py-2 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-black rounded-xl text-xs sm:text-sm transition flex items-center gap-2 shadow-lg shadow-amber-500/25 active:scale-95">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+            <span>طباعة الاستمارة الآن 🖨️</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== VIEW 1: SINGLE-PAGE A4 ADMISSION APPLICATION (DEFAULT) ==================== -->
+  <div id="view-single-page" class="doc-view max-w-[210mm] mx-auto bg-white p-5 sm:p-7 rounded-2xl shadow-2xl sheet-border border-2 border-slate-800 page-container text-slate-900 leading-snug">
+    
+    <!-- Top Header: Official Ministry & School Crest -->
+    <div class="border-b-2 accent-border pb-3 mb-3">
+      <div class="flex items-center justify-between">
+        
+        <!-- Right: Official Ministry Hierarchy -->
+        <div class="text-right w-1/3">
+          <div class="text-[11px] font-black text-slate-800 leading-tight">جمهورية مصر العربية</div>
+          <div class="text-[10px] font-bold text-slate-600">وزارة التربية والتعليم والتعليم الفني</div>
+          <div class="text-[10px] font-bold text-slate-600">إدارة التعليم الخاص والتجريبي</div>
+          <div class="text-[11px] font-black accent-text mt-0.5">مدرسة Smile Kids للغات</div>
+        </div>
+
+        <!-- Center: Document Title & Badge -->
+        <div class="text-center w-1/3">
+          <div class="inline-block accent-bg px-4 py-1 rounded-full text-white font-black text-sm tracking-wide shadow-sm">
+            طلب التحاق وتسجيل طالب جديد
+          </div>
+          <div class="text-[10.5px] font-black text-slate-700 font-en tracking-wider mt-1 uppercase">
+            NEW STUDENT ADMISSION APPLICATION
+          </div>
+          <div class="text-[10px] font-bold text-amber-700 mt-0.5">
+            العام الدراسي: 2026 / 2027 م
+          </div>
+        </div>
+
+        <!-- Left: Student Photo Box & Serial -->
+        <div class="w-1/3 flex justify-end items-start gap-3">
+          <div class="text-left text-[10px]">
+            <div class="font-bold text-slate-500">رقم الطلب: <span class="font-mono text-xs font-black text-slate-900">#...........</span></div>
+            <div class="font-bold text-slate-500 mt-1">تاريخ التقديم: <span class="font-mono font-black text-slate-900">....../....../2026</span></div>
+            <div class="font-bold text-slate-500 mt-1">كود الطالب: <span class="font-mono text-slate-400">..................</span></div>
+          </div>
+          <div class="w-[72px] h-[85px] border-2 border-dashed border-slate-400 bg-slate-50 rounded flex flex-col items-center justify-center text-center p-1 text-[9px] text-slate-500 font-bold shrink-0">
+            <span class="text-base">👤</span>
+            <span>صورة الطالب</span>
+            <span class="text-[8px] text-slate-400">حديثة 4×6</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 1. STUDENT BASIC INFO (القسم الأول: بيانات التلميذ) -->
+    <div class="mb-3">
+      <div class="accent-bg px-2.5 py-1 rounded text-white text-xs font-black flex items-center justify-between mb-2">
+        <span>أولاً: بيانات الطالب / الطالبة (Student Details)</span>
+        <span class="text-[10px] font-normal opacity-90">يُرجى كتابة الاسم رباعياً كما هو مدون بشهادة الميلاد المميكنة</span>
+      </div>
+
+      <div class="space-y-2 text-xs">
+        <!-- Arabic & English Names -->
+        <div class="grid grid-cols-12 gap-2 items-center">
+          <div class="col-span-6 flex items-center gap-1.5">
+            <span class="font-black text-slate-800 whitespace-nowrap">اسم الطالب رباعي (بالعربية):</span>
+            <span class="hw-line flex-1"></span>
+          </div>
+          <div class="col-span-6 flex items-center gap-1.5 font-en">
+            <span class="font-bold text-slate-800 whitespace-nowrap text-[11px]">Full Name (English):</span>
+            <span class="hw-line flex-1"></span>
+          </div>
+        </div>
+
+        <!-- National ID & Birth Info -->
+        <div class="grid grid-cols-12 gap-2 items-center bg-slate-50/80 p-1.5 rounded border border-slate-200">
+          <div class="col-span-7 flex items-center gap-1.5">
+            <span class="font-black text-slate-800 whitespace-nowrap">الرقم القومي (14 رقم):</span>
+            <div class="flex gap-0.5 dir-ltr">
+              <span class="digit-box"></span><span class="digit-box"></span><span class="digit-box"></span><span class="digit-box"></span>
+              <span class="digit-box"></span><span class="digit-box"></span><span class="digit-box"></span><span class="digit-box"></span>
+              <span class="digit-box"></span><span class="digit-box"></span><span class="digit-box"></span><span class="digit-box"></span>
+              <span class="digit-box"></span><span class="digit-box"></span>
+            </div>
+          </div>
+          <div class="col-span-5 flex items-center justify-end gap-3 text-[11px] font-bold">
+            <div>النوع: <span class="cb-box"></span> بنين &nbsp; <span class="cb-box"></span> بنات</div>
+            <div>الديانة: <span class="cb-box"></span> مسلم &nbsp; <span class="cb-box"></span> مسيحي</div>
+          </div>
+        </div>
+
+        <!-- DOB & Age in Oct 1st -->
+        <div class="grid grid-cols-12 gap-2 items-center text-[11px]">
+          <div class="col-span-4 flex items-center gap-1">
+            <span class="font-bold text-slate-800 whitespace-nowrap">تاريخ الميلاد:</span>
+            <span class="hw-line flex-1 text-center font-mono">....... / ....... / 20......</span>
+          </div>
+          <div class="col-span-4 flex items-center gap-1">
+            <span class="font-bold text-slate-800 whitespace-nowrap">محل الميلاد:</span>
+            <span class="hw-line flex-1"></span>
+          </div>
+          <div class="col-span-4 flex items-center gap-1">
+            <span class="font-bold text-slate-800 whitespace-nowrap">السن في 1 / 10 / 2026:</span>
+            <span class="font-mono text-slate-700 font-bold whitespace-nowrap">... سنة و ... شهر و ... يوم</span>
+          </div>
+        </div>
+
+        <!-- Applied Grade & Track Selection -->
+        <div class="grid grid-cols-12 gap-2 items-center sub-bg p-2 rounded border accent-border">
+          <div class="col-span-5 flex items-center gap-1.5">
+            <span class="font-black accent-text whitespace-nowrap">الصف المطلوب التقديم له:</span>
+            <span class="hw-line flex-1 font-black text-center text-sm"></span>
+          </div>
+          <div class="col-span-7 flex items-center justify-end gap-4 text-xs font-black">
+            <span class="text-slate-700">المسار التعليمي المطلوب:</span>
+            <label class="flex items-center gap-1 cursor-pointer">
+              <span class="cb-box"></span>
+              <span class="text-blue-900">🌐 قسم اللغات (Math & Science)</span>
+            </label>
+            <label class="flex items-center gap-1 cursor-pointer">
+              <span class="cb-box"></span>
+              <span class="text-emerald-900">📚 قسم العربي (المنهج الوطني)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Previous School (if transferred) -->
+        <div class="grid grid-cols-12 gap-2 items-center text-[11px]">
+          <div class="col-span-7 flex items-center gap-1.5">
+            <span class="font-bold text-slate-700 whitespace-nowrap">المدرسة أو الروضة السابقة المحول منها:</span>
+            <span class="hw-line flex-1"></span>
+          </div>
+          <div class="col-span-5 flex items-center gap-1.5">
+            <span class="font-bold text-slate-700 whitespace-nowrap">الإدارة التعليمية التابع لها:</span>
+            <span class="hw-line flex-1"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. PARENT & FAMILY INFO (القسم الثاني: بيانات الأسرة والتواصل) -->
+    <div class="mb-3">
+      <div class="accent-bg px-2.5 py-1 rounded text-white text-xs font-black flex items-center justify-between mb-2">
+        <span>ثانياً: بيانات ولي الأمر والأسرة (Parent & Family Details)</span>
+        <span class="text-[10px] font-normal opacity-90">يُرجى تحري الدقة في أرقام الهواتف لتفعيل حساب التواصل المدرسي</span>
+      </div>
+
+      <div class="space-y-2 text-xs">
+        <!-- Father / Guardian Name & Relation -->
+        <div class="grid grid-cols-12 gap-2 items-center">
+          <div class="col-span-8 flex items-center gap-1.5">
+            <span class="font-black text-slate-800 whitespace-nowrap">اسم ولي الأمر (الأب) رباعياً:</span>
+            <span class="hw-line flex-1"></span>
+          </div>
+          <div class="col-span-4 flex items-center gap-2 text-[11px] font-bold justify-end">
+            <span>صلة القرابة:</span>
+            <span><span class="cb-box"></span> أب</span>
+            <span><span class="cb-box"></span> أم</span>
+            <span><span class="cb-box"></span> وصي قانوني</span>
+          </div>
+        </div>
+
+        <!-- Father National ID, Job, Education -->
+        <div class="grid grid-cols-12 gap-2 items-center text-[11px]">
+          <div class="col-span-5 flex items-center gap-1">
+            <span class="font-bold text-slate-800 whitespace-nowrap">الرقم القومي للأب:</span>
+            <span class="hw-line flex-1 font-mono">........................................</span>
+          </div>
+          <div class="col-span-4 flex items-center gap-1">
+            <span class="font-bold text-slate-800 whitespace-nowrap">الوظيفة / جهة العمل:</span>
+            <span class="hw-line flex-1"></span>
+          </div>
+          <div class="col-span-3 flex items-center gap-1">
+            <span class="font-bold text-slate-800 whitespace-nowrap">المؤهل الدراسي:</span>
+            <span class="hw-line flex-1"></span>
+          </div>
+        </div>
+
+        <!-- Phones & Communication -->
+        <div class="grid grid-cols-12 gap-2 items-center bg-slate-50/80 p-1.5 rounded border border-slate-200 text-[11px]">
+          <div class="col-span-4 flex items-center gap-1">
+            <span class="font-black text-slate-800 whitespace-nowrap">📱 محمول أساسي:</span>
+            <span class="hw-line flex-1 font-mono font-bold text-left dir-ltr">............................</span>
+          </div>
+          <div class="col-span-4 flex items-center gap-1">
+            <span class="font-black text-emerald-800 whitespace-nowrap">💬 رقم الواتساب:</span>
+            <span class="hw-line flex-1 font-mono font-bold text-left dir-ltr">............................</span>
+          </div>
+          <div class="col-span-4 flex items-center gap-1">
+            <span class="font-bold text-slate-700 whitespace-nowrap">هاتف بديل (طوارئ):</span>
+            <span class="hw-line flex-1 font-mono text-left dir-ltr">............................</span>
+          </div>
+        </div>
+
+        <!-- Mother Info -->
+        <div class="grid grid-cols-12 gap-2 items-center text-[11px]">
+          <div class="col-span-5 flex items-center gap-1">
+            <span class="font-black text-slate-800 whitespace-nowrap">اسم الوالدة رباعياً:</span>
+            <span class="hw-line flex-1"></span>
+          </div>
+          <div class="col-span-4 flex items-center gap-1">
+            <span class="font-bold text-slate-800 whitespace-nowrap">وظيفة الأم:</span>
+            <span class="hw-line flex-1"></span>
+          </div>
+          <div class="col-span-3 flex items-center gap-1">
+            <span class="font-bold text-slate-800 whitespace-nowrap">هاتف الأم:</span>
+            <span class="hw-line flex-1 font-mono">........................</span>
+          </div>
+        </div>
+
+        <!-- Full Residential Address -->
+        <div class="flex items-center gap-1.5 text-[11px]">
+          <span class="font-black text-slate-800 whitespace-nowrap">🏠 العنوان السكني بالتفصيل:</span>
+          <span class="hw-line flex-1"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. SERVICES & HEALTH STATUS (القسم الثالث: الخدمات والحالة الصحية) -->
+    <div class="mb-3">
+      <div class="accent-bg px-2.5 py-1 rounded text-white text-xs font-black flex items-center justify-between mb-2">
+        <span>ثالثاً: الخدمات الطلابية والحالة الصحية (Student Health & Logistics)</span>
+      </div>
+
+      <div class="grid grid-cols-12 gap-2 text-xs bg-slate-50 p-2 rounded border border-slate-200">
+        <!-- Bus Transportation -->
+        <div class="col-span-6 border-l border-slate-300 pl-2">
+          <div class="font-black text-slate-800 mb-1 flex items-center justify-between">
+            <span>🚌 خدمة النقل المدرسي (الباص):</span>
+            <div class="text-[11px] font-bold">
+              <span><span class="cb-box"></span> نعم يرغب</span> &nbsp;
+              <span><span class="cb-box"></span> لا يرغب</span>
+            </div>
+          </div>
+          <div class="text-[10.5px] flex items-center gap-1 mt-1">
+            <span>المحطة المطلوبة:</span>
+            <span class="hw-line flex-1"></span>
+          </div>
+        </div>
+
+        <!-- Health & Medical Conditions -->
+        <div class="col-span-6 pr-1">
+          <div class="font-black text-slate-800 mb-1 flex items-center justify-between">
+            <span>🩺 الحالة الصحية للطالب:</span>
+            <div class="text-[11px] font-bold">
+              <span><span class="cb-box"></span> سليم معافى ✓</span> &nbsp;
+              <span><span class="cb-box"></span> يعاني من حالة خاصة</span>
+            </div>
+          </div>
+          <div class="text-[10.5px] flex items-center gap-1 mt-1">
+            <span>تحديد الحالة إن وجد (حساسية/علاج):</span>
+            <span class="hw-line flex-1"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. PARENT DECLARATION (القسم الرابع: إقرار وتعهد ولي الأمر) -->
+    <div class="mb-3 border border-slate-300 p-2.5 rounded bg-slate-50/50 text-[11px]">
+      <div class="font-black text-slate-900 mb-1 flex items-center gap-1">
+        <span>✍️ إقرار وتعهد ولي الأمر:</span>
+      </div>
+      <p class="text-slate-700 leading-normal text-justify">
+        أقر أنا الموقع أدناه ولي أمر الطالب المذكور بعاليه، بأن جميع البيانات المدونة في هذا الطلب صحيحة وعلى مسؤوليتي، وأتعهد بالالتزام التام بكافة النظم واللوائح المدرسية وقرارات وزارة التربية والتعليم، وسداد الرسوم والمصروفات الدراسية المقررة في المواعيد المحددة، وفي حالة ثبوت عدم صحة أي بيان يحق للمدرسة إلغاء القيد دون أدنى مسؤولية.
+      </p>
+      
+      <div class="grid grid-cols-3 gap-2 mt-2 pt-2 border-t border-slate-200 font-bold">
+        <div>اسم ولي الأمر: <span class="hw-line w-28"></span></div>
+        <div class="text-center">التوقيع: <span class="hw-line w-28"></span></div>
+        <div class="text-left font-mono">التاريخ: ...... / ...... / 2026 م</div>
+      </div>
+    </div>
+
+    <!-- 5. FOR OFFICIAL SCHOOL USE ONLY (القسم الخامس: خاص بإدارة شؤون الطلاب ولجنة القبول) -->
+    <div class="border-2 accent-border rounded overflow-hidden">
+      <div class="accent-bg px-2.5 py-1 text-white text-[11.5px] font-black flex items-center justify-between">
+        <span>خامساً: خاص بإدارة المدرسة ولجنة القبول وشؤون الطلاب (For Official School Use Only)</span>
+        <span class="text-[9.5px] font-mono opacity-90">SMILE KIDS ADMISSION OFFICE</span>
+      </div>
+
+      <div class="p-2 text-xs space-y-2">
+        <!-- Checklist of documents received -->
+        <div class="text-[10.5px]">
+          <span class="font-black text-slate-800 ml-1">المستندات المستلمة:</span>
+          <span class="inline-block mx-1.5"><span class="cb-box"></span> أصل شهادة الميلاد كمبيوتر + 3 صور</span>
+          <span class="inline-block mx-1.5"><span class="cb-box"></span> 6 صور شخصية 4×6</span>
+          <span class="inline-block mx-1.5"><span class="cb-box"></span> صورة بطاقة ولي الأمر والأم</span>
+          <span class="inline-block mx-1.5"><span class="cb-box"></span> البطاقة الصحية المدرسية</span>
+          <span class="inline-block mx-1.5"><span class="cb-box"></span> ملف التقديم / التحويل</span>
+        </div>
+
+        <!-- Decision & Class Assignment -->
+        <div class="grid grid-cols-12 gap-2 items-center pt-1.5 border-t border-slate-200 text-[11px]">
+          <div class="col-span-4 font-black">
+            قرار اللجنة: 
+            <span class="cb-box"></span> مقبول &nbsp;
+            <span class="cb-box"></span> قائمة انتظار &nbsp;
+            <span class="cb-box"></span> معلق
+          </div>
+          <div class="col-span-4 flex items-center gap-1 font-black">
+            <span>التسكين على صف:</span>
+            <span class="hw-line flex-1 text-center font-mono">Grade ........</span>
+          </div>
+          <div class="col-span-4 flex items-center gap-1 font-bold">
+            <span>إيصال المصروفات رقم:</span>
+            <span class="hw-line flex-1 font-mono">................</span>
+          </div>
+        </div>
+
+        <!-- Signatures & Official School Stamp -->
+        <div class="grid grid-cols-3 gap-2 items-end pt-2 border-t border-slate-200 text-[11px] font-bold text-center">
+          <div>
+            <div class="text-slate-600 mb-1">مسؤول شؤون الطلاب</div>
+            <div class="font-mono text-slate-400">..............................</div>
+          </div>
+          <div>
+            <div class="text-slate-600 mb-1">المدير المالي والإداري</div>
+            <div class="font-mono text-slate-400">..............................</div>
+          </div>
+          <div class="relative">
+            <div class="text-slate-900 font-black mb-1">اعتماد مدير عام المدرسة</div>
+            <div class="w-16 h-16 rounded-full border-2 border-dashed border-red-400/80 mx-auto flex items-center justify-center text-[9px] text-red-600 font-black">
+              ختم المدرسة الرسمي ⭕
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Official Minimalist Page Footer -->
+    <div class="text-center text-[9.5px] text-slate-500 font-bold mt-2 pt-1 border-t border-slate-200 flex justify-between items-center">
+      <span>مدرسة Smile Kids الخاصة للغات • قسم القبول وشؤون الطلاب المعتمدة</span>
+      <span>العام الدراسي 2026 / 2027 • يُحفظ هذا الطلب في الملف الرسمي للطالب</span>
+      <span class="font-mono">Page 1 of 1</span>
+    </div>
+
+  </div>
+
+
+  <!-- ==================== VIEW 2: 2-PAGE COMPREHENSIVE ADMISSION DOSSIER (HIDDEN BY DEFAULT) ==================== -->
+  <div id="view-dossier" class="doc-view hidden max-w-[210mm] mx-auto text-slate-900">
+    
+    <!-- PAGE 1: Detailed Application -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-2xl sheet-border border-2 border-slate-800 page-container mb-6 print-page-break">
+      <div class="border-b-2 accent-border pb-3 mb-4 flex items-center justify-between">
+        <div>
+          <div class="text-xs font-black text-slate-800">مدرسة Smile Kids الخاصة للغات</div>
+          <div class="text-[10px] text-slate-500 font-en">SMILE KIDS LANGUAGE SCHOOL</div>
+          <div class="text-xs font-black accent-text mt-0.5">ملف التحاق تلميذ جديد - الجزء الأول (البيانات الأكاديمية والاجتماعية)</div>
+        </div>
+        <div class="w-20 h-24 border-2 border-dashed border-slate-400 rounded flex flex-col items-center justify-center text-xs text-slate-400">
+          <span>صورة 4×6</span>
+        </div>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <div class="sub-bg p-2.5 rounded font-black accent-text">1. البيانات الشخصية والميلاد</div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>اسم الطالب رباعي بالعربية: <span class="hw-line w-full"></span></div>
+          <div class="font-en">Student Full Name (English): <span class="hw-line w-full"></span></div>
+        </div>
+        <div class="grid grid-cols-3 gap-3">
+          <div>الرقم القومي: <span class="hw-line w-full font-mono"></span></div>
+          <div>تاريخ الميلاد: <span class="hw-line w-full font-mono"></span></div>
+          <div>الديانة: <span class="cb-box"></span> مسلم &nbsp; <span class="cb-box"></span> مسيحي</div>
+        </div>
+
+        <div class="sub-bg p-2.5 rounded font-black accent-text">2. المسار التعليمي واللغات</div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>الصف المطلوب: <span class="hw-line w-32 font-bold font-mono"></span></div>
+          <div>القسم: <span class="cb-box"></span> قسم اللغات &nbsp;&nbsp; <span class="cb-box"></span> قسم العربي</div>
+        </div>
+        <div>المدرسة المنقول منها: <span class="hw-line w-80"></span> سبب التحويل: <span class="hw-line w-48"></span></div>
+
+        <div class="sub-bg p-2.5 rounded font-black accent-text">3. بيانات الوالدين والاتصال المباشر</div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>اسم الأب: <span class="hw-line w-full"></span></div>
+          <div>وظيفة الأب: <span class="hw-line w-full"></span></div>
+        </div>
+        <div class="grid grid-cols-3 gap-3">
+          <div>هاتف الأب: <span class="hw-line w-full font-mono"></span></div>
+          <div>واتساب: <span class="hw-line w-full font-mono"></span></div>
+          <div>مؤهل الأب: <span class="hw-line w-full"></span></div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>اسم الأم: <span class="hw-line w-full"></span></div>
+          <div>وظيفة الأم وهاتفها: <span class="hw-line w-full font-mono"></span></div>
+        </div>
+        <div>محل الإقامة الدائم بالتفصيل: <span class="hw-line w-full"></span></div>
+
+        <div class="sub-bg p-2.5 rounded font-black accent-text">4. بيانات الإخوة المقيدين بالمدرسة (إن وجد لخصم الأخوة)</div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>1. الأخ/الأخت: <span class="hw-line w-44"></span> الصف: <span class="hw-line w-24"></span></div>
+          <div>2. الأخ/الأخت: <span class="hw-line w-44"></span> الصف: <span class="hw-line w-24"></span></div>
+        </div>
+      </div>
+      <div class="text-center text-[10px] text-slate-400 mt-8">صفحة 1 من 2 - يُتبع بالصفحة الثانية</div>
+    </div>
+
+    <!-- PAGE 2: Health, Rules & School Record -->
+    <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-2xl sheet-border border-2 border-slate-800 page-container">
+      <div class="border-b-2 accent-border pb-3 mb-4 flex items-center justify-between">
+        <div>
+          <div class="text-xs font-black text-slate-800">مدرسة Smile Kids الخاصة للغات</div>
+          <div class="text-xs font-black accent-text mt-0.5">ملف التحاق تلميذ جديد - الجزء الثاني (الفحص الصحي واللوائح والاعتماد)</div>
+        </div>
+        <div class="text-xs font-bold text-slate-500 font-mono">ملف رقم: #..........</div>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <div class="sub-bg p-2.5 rounded font-black accent-text">5. الحالة الصحية والبدنية للطالب</div>
+        <div class="space-y-2">
+          <div>فصيلة الدم: <span class="hw-line w-24 font-mono"></span> هل يرتدي نظارة طبية؟ <span class="cb-box"></span> نعم &nbsp; <span class="cb-box"></span> لا</div>
+          <div>هل يعاني الطفل من أي حساسية أطعمة أو أدوية معينة؟ <span class="hw-line w-3/4"></span></div>
+          <div>أي أمراض مزمنة أو عمليات جراحية سابقة؟ <span class="hw-line w-3/4"></span></div>
+          <div>اسم طبيب العائلة أو هاتف الطوارئ المعتمد: <span class="hw-line w-1/2 font-mono"></span></div>
+        </div>
+
+        <div class="sub-bg p-2.5 rounded font-black accent-text">6. اشتراك النقل المدرسي والمواصلات</div>
+        <div>
+          الرغبة في الاشتراك: <span class="cb-box"></span> جولة كاملة (ذهاب وعودة) &nbsp; <span class="cb-box"></span> ذهاب فقط &nbsp; <span class="cb-box"></span> عودة فقط &nbsp; <span class="cb-box"></span> لا يرغب
+        </div>
+        <div>عنوان نقطة الركوب والنزول بدقة: <span class="hw-line w-3/4"></span></div>
+
+        <div class="sub-bg p-2.5 rounded font-black accent-text">7. الشروط العامة وإقرار ولي الأمر</div>
+        <p class="text-slate-700 leading-relaxed text-[11px] text-justify border p-2.5 rounded bg-slate-50">
+          أتعهد أنا ولي أمر التلميذ المذكور بتقديم كافة المستندات الأصلية المطلوبة قانونياً واستيفاء شروط السن والتحويل، كما أقر بالالتزام بلائحة الانضباط المدرسي وسداد الأقساط والمصروفات المدرسية بمواعيدها المحددة. ويعتبر هذا الطلب لاغياً إذا لم تُسدد المصروفات المقررة أو لم تُستكمل الأوراق خلال أسبوعين من إعلان القبول.
+        </p>
+        <div class="grid grid-cols-2 gap-4 pt-2">
+          <div>اسم ولي الأمر: <span class="hw-line w-44"></span></div>
+          <div>التوقيع: <span class="hw-line w-44"></span> التاريخ: <span class="hw-line w-32 font-mono"></span></div>
+        </div>
+
+        <div class="sub-bg p-2.5 rounded font-black accent-text">8. قرار إدارة المدرسة ولجنة القبول</div>
+        <div class="border border-slate-300 p-3 rounded">
+          <div class="flex justify-between items-center mb-2">
+            <div>حالة القبول: <span class="cb-box"></span> تم القبول &nbsp; <span class="cb-box"></span> قائمة انتظار</div>
+            <div>الصف المسكن عليه: <span class="hw-line w-28 font-mono"></span></div>
+            <div>القسم: <span class="hw-line w-28"></span></div>
+          </div>
+          <div class="grid grid-cols-3 gap-3 text-center pt-3 mt-3 border-t">
+            <div>مسؤول شؤون الطلاب<br><span class="font-mono text-slate-400">...........</span></div>
+            <div>المسؤول المالي<br><span class="font-mono text-slate-400">...........</span></div>
+            <div>مدير المدرسة والختم<br><span class="font-mono text-slate-400">...........</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center text-[10px] text-slate-400 mt-8">صفحة 2 من 2 - الأرشيف العام لشؤون الطلاب</div>
+    </div>
+
+  </div>
+
+
+  <!-- ==================== VIEW 3: DAILY ADMISSION INTERVIEW LOG (HIDDEN BY DEFAULT) ==================== -->
+  <div id="view-log" class="doc-view hidden max-w-[297mm] mx-auto bg-white p-6 rounded-2xl shadow-2xl sheet-border border-2 border-slate-800 page-container text-slate-900">
+    <div class="border-b-2 accent-border pb-3 mb-4 flex items-center justify-between">
+      <div>
+        <div class="text-sm font-black text-slate-800">مدرسة Smile Kids الخاصة للغات</div>
+        <div class="text-base font-black accent-text">📋 كشف حصر وتدوين حضور أولياء الأمور لتسجيل الطلاب الجدد (سجل الاستقبال اليومي)</div>
+      </div>
+      <div class="text-left text-xs font-bold text-slate-600">
+        <div>التاريخ: <span class="hw-line w-32 font-mono">.... / .... / 2026</span></div>
+        <div>المسؤولة بالاستقبال: <span class="hw-line w-32"></span></div>
+      </div>
+    </div>
+
+    <table class="w-full text-right text-xs border-collapse">
+      <thead>
+        <tr class="accent-bg text-white">
+          <th class="py-2 px-2 text-center w-8 border">م</th>
+          <th class="py-2 px-3 border min-w-[140px]">اسم الطالب ثلاثي / رباعي</th>
+          <th class="py-2 px-2 text-center w-24 border">الصف المطلوب</th>
+          <th class="py-2 px-2 text-center w-20 border">القسم</th>
+          <th class="py-2 px-3 border min-w-[130px]">اسم ولي الأمر</th>
+          <th class="py-2 px-2 text-center w-28 border">رقم الهاتف (1)</th>
+          <th class="py-2 px-2 text-center w-28 border">رقم الهاتف (2 / واتس)</th>
+          <th class="py-2 px-3 border min-w-[100px]">المدرسة السابقة</th>
+          <th class="py-2 px-2 text-center w-24 border">الموقف / الإجراء</th>
+          <th class="py-2 px-2 text-center w-24 border">ملاحظات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 15 Spacious rows for reception manual log -->
+        <script>
+          for (let i = 1; i <= 15; i++) {
+            document.write(`
+              <tr class="${i % 2 === 0 ? 'bg-slate-50' : 'bg-white'} border-b border-slate-300 h-9">
+                <td class="text-center font-bold font-mono border">${i}</td>
+                <td class="border px-2"></td>
+                <td class="border text-center font-mono"></td>
+                <td class="border text-center text-[10px]">لغات / عربي</td>
+                <td class="border px-2"></td>
+                <td class="border text-center font-mono"></td>
+                <td class="border text-center font-mono"></td>
+                <td class="border px-2"></td>
+                <td class="border text-center text-[10px]">مقبول / انتظار</td>
+                <td class="border px-2"></td>
+              </tr>
+            `);
+          }
+        </script>
+      </tbody>
+    </table>
+
+    <div class="text-center text-[10px] text-slate-500 font-bold mt-4 pt-2 border-t">
+      مدرسة Smile Kids الخاصة للغات • سجل متابعة طلبات الالتحاق اليومية للاستقبال وشؤون الطلاب
+    </div>
+  </div>
+
+
+  <!-- ==================== LOGIC / SWITCHERS ==================== -->
+  <script>
+    function switchDocMode(mode) {
+      // Hide all views
+      document.querySelectorAll('.doc-view').forEach(v => v.classList.add('hidden'));
+
+      // Reset button styles
+      document.getElementById('btn-mode-single').className = 'px-3 py-1.5 rounded-lg font-bold text-slate-300 hover:text-white transition';
+      document.getElementById('btn-mode-dossier').className = 'px-3 py-1.5 rounded-lg font-bold text-slate-300 hover:text-white transition';
+      document.getElementById('btn-mode-log').className = 'px-3 py-1.5 rounded-lg font-bold text-slate-300 hover:text-white transition';
+
+      if (mode === 'single') {
+        document.getElementById('view-single-page').classList.remove('hidden');
+        document.getElementById('btn-mode-single').className = 'px-3 py-1.5 rounded-lg font-black bg-indigo-600 text-white transition';
+      } else if (mode === 'dossier') {
+        document.getElementById('view-dossier').classList.remove('hidden');
+        document.getElementById('btn-mode-dossier').className = 'px-3 py-1.5 rounded-lg font-black bg-indigo-600 text-white transition';
+      } else if (mode === 'log') {
+        document.getElementById('view-log').classList.remove('hidden');
+        document.getElementById('btn-mode-log').className = 'px-3 py-1.5 rounded-lg font-black bg-indigo-600 text-white transition';
+      }
+    }
+
+    function changeTheme(themeClass) {
+      const body = document.getElementById('main-body');
+      body.classList.remove('theme-royal', 'theme-bw', 'theme-emerald');
+      body.classList.add(themeClass);
+    }
+  </script>
+
+</body>
+</html>
