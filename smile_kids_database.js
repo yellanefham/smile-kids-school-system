@@ -4792,6 +4792,7 @@
       this._ensureStudentFields();
       this._setupStorageListener();
       this._setupCloudSync();
+      this._setupFirebaseSync();
       return this;
     },
 
@@ -4807,6 +4808,177 @@
       // NOTE: Destructive 20-second interval polling and window focus listeners
       // have been permanently removed so newly recorded grades and attendance
       // are never overwritten or erased.
+    },
+
+    _setupFirebaseSync: function() {
+      if (typeof window === 'undefined') return;
+
+      const startListening = () => {
+        if (!window.SmileKidsFirebase || !window.SmileKidsFirebase.canUseFirestore()) return;
+        if (this._isFirebaseListening) return;
+        this._isFirebaseListening = true;
+
+        console.log('[SmileKids DB] تم تفعيل المزامنة اللحظية مع Google Cloud Firestore 📡');
+
+        this._firestoreUnsubscribe = window.SmileKidsFirebase.initFirestoreListeners({
+          onStudents: (remoteStudents) => {
+            if (!Array.isArray(remoteStudents) || remoteStudents.length === 0) return;
+
+            let hasChanges = false;
+            const localMap = new Map();
+            this.getAllStudents().forEach(s => localMap.set(s.id, s));
+
+            remoteStudents.forEach(remoteSt => {
+              const localSt = localMap.get(remoteSt.id);
+              if (!localSt) {
+                this._cache.push(remoteSt);
+                hasChanges = true;
+              } else {
+                // دمج غير هدام: الحفاظ على أحدث التعديلات
+                const remoteTs = remoteSt._lastModified || 0;
+                const localTs = this._lastModified || 0;
+
+                // دمج سجلات الحضور والغياب
+                if (remoteSt.attendanceRecords && typeof remoteSt.attendanceRecords === 'object') {
+                  localSt.attendanceRecords = localSt.attendanceRecords || {};
+                  Object.keys(remoteSt.attendanceRecords).forEach(d => {
+                    if (remoteTs >= localTs || !localSt.attendanceRecords[d]) {
+                      if (localSt.attendanceRecords[d] !== remoteSt.attendanceRecords[d]) {
+                        localSt.attendanceRecords[d] = remoteSt.attendanceRecords[d];
+                        hasChanges = true;
+                      }
+                    }
+                  });
+                }
+
+                // دمج ملاحظات الحضور
+                if (remoteSt.attendanceNotes && typeof remoteSt.attendanceNotes === 'object') {
+                  localSt.attendanceNotes = localSt.attendanceNotes || {};
+                  Object.keys(remoteSt.attendanceNotes).forEach(d => {
+                    if (localSt.attendanceNotes[d] !== remoteSt.attendanceNotes[d]) {
+                      localSt.attendanceNotes[d] = remoteSt.attendanceNotes[d];
+                      hasChanges = true;
+                    }
+                  });
+                }
+
+                // دمج درجات الشهور والاختبارات
+                if (remoteSt.termsScores && typeof remoteSt.termsScores === 'object') {
+                  localSt.termsScores = localSt.termsScores || {};
+                  Object.keys(remoteSt.termsScores).forEach(k => {
+                    if (remoteTs >= localTs || (!localSt.termsScores[k] && remoteSt.termsScores[k])) {
+                      if (localSt.termsScores[k] !== remoteSt.termsScores[k]) {
+                        localSt.termsScores[k] = remoteSt.termsScores[k];
+                        hasChanges = true;
+                      }
+                    }
+                  });
+                }
+
+                // دمج درجات المواد التفصيلية
+                if (remoteSt.subjectScores && typeof remoteSt.subjectScores === 'object') {
+                  localSt.subjectScores = localSt.subjectScores || {};
+                  Object.keys(remoteSt.subjectScores).forEach(subId => {
+                    if (!localSt.subjectScores[subId]) {
+                      localSt.subjectScores[subId] = remoteSt.subjectScores[subId];
+                      hasChanges = true;
+                    } else if (remoteSt.subjectScores[subId].scores) {
+                      localSt.subjectScores[subId].scores = localSt.subjectScores[subId].scores || {};
+                      Object.keys(remoteSt.subjectScores[subId].scores).forEach(p => {
+                        if (localSt.subjectScores[subId].scores[p] !== remoteSt.subjectScores[subId].scores[p]) {
+                          localSt.subjectScores[subId].scores[p] = remoteSt.subjectScores[subId].scores[p];
+                          hasChanges = true;
+                        }
+                      });
+                    }
+                  });
+                }
+              }
+            });
+
+            if (hasChanges) {
+              this._ensureStudentFields();
+              if (typeof localStorage !== 'undefined') {
+                try {
+                  localStorage.setItem(STORAGE_KEY, JSON.stringify(this._cache));
+                  localStorage.setItem(STORAGE_KEY + '_LAST_MODIFIED', String(Date.now()));
+                } catch(e) {}
+              }
+              this._notifyListeners('firestore_remote_sync');
+            }
+            this._setSyncStatus('online', 'Firestore (متزامن 🟢)');
+          },
+
+          onAttendance: (records) => {
+            if (!Array.isArray(records) || records.length === 0) return;
+            let updated = false;
+            records.forEach(rec => {
+              if (rec.studentId && rec.dateStr && rec.status) {
+                const st = this.getStudentById(rec.studentId);
+                if (st) {
+                  st.attendanceRecords = st.attendanceRecords || {};
+                  if (st.attendanceRecords[rec.dateStr] !== rec.status) {
+                    st.attendanceRecords[rec.dateStr] = rec.status;
+                    updated = true;
+                  }
+                  if (rec.note) {
+                    st.attendanceNotes = st.attendanceNotes || {};
+                    st.attendanceNotes[rec.dateStr] = rec.note;
+                  }
+                }
+              }
+            });
+            if (updated) {
+              this._notifyListeners('firestore_attendance');
+            }
+          },
+
+          onGrades: (grades) => {
+            if (!Array.isArray(grades) || grades.length === 0) return;
+            let updated = false;
+            grades.forEach(g => {
+              if (g.studentId && g.subjectId && g.periodKey && g.score !== undefined) {
+                const st = this.getStudentById(g.studentId);
+                if (st) {
+                  st.subjectScores = st.subjectScores || {};
+                  st.subjectScores[g.subjectId] = st.subjectScores[g.subjectId] || { scores: {} };
+                  st.subjectScores[g.subjectId].scores = st.subjectScores[g.subjectId].scores || {};
+                  if (st.subjectScores[g.subjectId].scores[g.periodKey] !== g.score) {
+                    st.subjectScores[g.subjectId].scores[g.periodKey] = g.score;
+                    updated = true;
+                  }
+                }
+              }
+            });
+            if (updated) {
+              this._notifyListeners('firestore_grades');
+            }
+          },
+
+          onTimetables: (schedulesMap) => {
+            this._timetablesCache = schedulesMap;
+            this._notifyListeners('firestore_timetables');
+          },
+
+          onError: (err) => {
+            console.warn('[SmileKids DB] تنبيه مستمع Firestore (استمرار العمل محلياً):', err);
+          }
+        });
+      };
+
+      if (window.SmileKidsFirebase) {
+        if (window.SmileKidsFirebase.isReady && window.SmileKidsFirebase.canUseFirestore()) {
+          startListening();
+        } else if (window.SmileKidsFirebase.whenReady) {
+          window.SmileKidsFirebase.whenReady.then((ready) => {
+            if (ready) startListening();
+          });
+        }
+      }
+
+      window.addEventListener('smilekids_firebase_ready', () => {
+        startListening();
+      });
     },
 
     _setSyncStatus: function(status, detail) {
@@ -5187,6 +5359,14 @@
       this._syncDebounceTimer = setTimeout(() => {
         this.syncToCloud();
       }, 500);
+
+      // Trigger debounced cloud sync to Firebase Firestore
+      if (typeof window !== 'undefined' && window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore()) {
+        if (this._fbDebounceTimer) clearTimeout(this._fbDebounceTimer);
+        this._fbDebounceTimer = setTimeout(() => {
+          this.syncToFirestore();
+        }, 600);
+      }
     },
 
     getAllStudents: function() {
@@ -5228,13 +5408,33 @@
       this._ensureStudentFields();
       this.save();
 
-      // Instant Cloud Sync for student / grades update
+      // Instant Cloud Sync for student / grades update (Google Drive)
       this.syncToCloud({
         action: 'sync_grades',
         studentId: id,
         patch: patch,
         instant: true
       });
+
+      // Instant Firestore Sync for student / grades update
+      if (typeof window !== 'undefined' && window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore()) {
+        window.SmileKidsFirebase.saveStudentToFirestore(st).catch(e => {
+          console.warn('[SmileKids DB] Firestore saveStudent error:', e);
+        });
+        if (patch.termsScores || patch.subjectScores || patch.score !== undefined) {
+          window.SmileKidsFirebase.saveGradeToFirestore({
+            studentId: id,
+            subjectId: patch.subjectId,
+            periodKey: patch.periodKey,
+            score: patch.score,
+            patch: patch,
+            termsScores: st.termsScores,
+            subjectScores: st.subjectScores
+          }).catch(e => {
+            console.warn('[SmileKids DB] Firestore saveGrade error:', e);
+          });
+        }
+      }
 
       return st;
     },
@@ -5255,6 +5455,14 @@
       }
       this.getAllStudents().push(studentData);
       this.save();
+
+      // Instant Firestore Sync for new student
+      if (typeof window !== 'undefined' && window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore()) {
+        window.SmileKidsFirebase.saveStudentToFirestore(studentData).catch(e => {
+          console.warn('[SmileKids DB] Firestore addStudent error:', e);
+        });
+      }
+
       return studentData;
     },
 
@@ -5263,6 +5471,14 @@
       if (idx !== -1) {
         const removed = this.getAllStudents().splice(idx, 1)[0];
         this.save();
+
+        // Instant Firestore Sync for deleted student
+        if (typeof window !== 'undefined' && window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore()) {
+          window.SmileKidsFirebase.db.collection('students').doc(String(id)).delete().catch(e => {
+            console.warn('[SmileKids DB] Firestore deleteStudent error:', e);
+          });
+        }
+
         return removed;
       }
       return null;
@@ -5287,7 +5503,7 @@
       }
       this.save();
 
-      // Instant Cloud Sync for single attendance record
+      // Instant Cloud Sync for single attendance record (Google Drive)
       this.syncToCloud({
         action: 'sync_attendance',
         studentId: studentId,
@@ -5296,6 +5512,18 @@
         note: note,
         instant: true
       });
+
+      // Instant Firestore Sync for single attendance record
+      if (typeof window !== 'undefined' && window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore()) {
+        window.SmileKidsFirebase.saveAttendanceToFirestore({
+          studentId: studentId,
+          dateStr: dateStr,
+          status: status,
+          note: note
+        }).catch(e => {
+          console.warn('[SmileKids DB] Firestore saveAttendance error:', e);
+        });
+      }
 
       return true;
     },
@@ -5313,13 +5541,46 @@
       });
       this.save();
 
-      // Instant Cloud Sync for batch attendance record
+      // Instant Cloud Sync for batch attendance record (Google Drive)
       this.syncToCloud({
         action: 'sync_attendance',
         dateStr: dateStr,
         records: recordsMap,
         instant: true
       });
+
+      // Instant Firestore Sync for batch attendance record
+      if (typeof window !== 'undefined' && window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore()) {
+        window.SmileKidsFirebase.saveAttendanceToFirestore({
+          studentIds: studentIds,
+          dateStr: dateStr,
+          status: status,
+          isBatch: true,
+          records: recordsMap
+        }).catch(e => {
+          console.warn('[SmileKids DB] Firestore saveBatchAttendance error:', e);
+        });
+      }
+    },
+
+    syncToFirestore: async function() {
+      if (typeof window === 'undefined' || !window.SmileKidsFirebase || !window.SmileKidsFirebase.canUseFirestore()) {
+        return { success: false, fallback: true, message: 'Firestore غير متصل أو يعمل محلياً' };
+      }
+      try {
+        const all = this.getAllStudents();
+        return await window.SmileKidsFirebase.batchSaveStudents(all);
+      } catch(err) {
+        console.warn('[SmileKids DB] خطأ أثناء مزامنة Firestore المجمعة:', err);
+        return { success: false, error: err.message };
+      }
+    },
+
+    saveTimetableToFirestore: async function(teacherId, scheduleData) {
+      if (typeof window !== 'undefined' && window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore()) {
+        return await window.SmileKidsFirebase.saveTimetableToFirestore(teacherId, scheduleData);
+      }
+      return { success: false, fallback: true };
     },
 
     resetToDefault: function() {

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>أداة ترحيل البيانات إلى Google Firestore — مدرسة Smile Kids</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Cairo', sans-serif; }
+    body {
+      background-color: #0b0f19;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.22) 0%, transparent 60%),
+        radial-gradient(circle at 10% 40%, rgba(16, 185, 129, 0.15) 0%, transparent 45%);
+      background-attachment: fixed;
+    }
+  </style>
+  <!-- Firebase Config & SDK -->
+  <script src="../firebase_config.js"></script>
+  <!-- Migration Logic -->
+  <script src="migrate_to_firestore.js"></script>
+</head>
+<body class="min-h-screen text-slate-100 p-4 md:p-8">
+
+  <div class="max-w-4xl mx-auto space-y-6">
+    <!-- Header -->
+    <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-2xl backdrop-blur-xl">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-2">
+            🚀 Cloud Migration Engine
+          </span>
+          <h1 class="text-2xl md:text-3xl font-black text-white">ترحيل قاعدة البيانات إلى Google Firestore</h1>
+          <p class="text-slate-400 text-sm mt-1">نقل جميع الطلاب (147 طالباً)، الدرجات، الحضور والغياب، وجداول الحصص دون أي فقد بيانات.</p>
+        </div>
+        <div id="fb-status-badge" class="px-4 py-2 rounded-xl text-xs font-bold border bg-slate-800/80 border-slate-700 text-slate-300">
+          جاري فحص اتصال Firebase...
+        </div>
+      </div>
+    </div>
+
+    <!-- Status & Stats Card -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5">
+        <div class="text-slate-400 text-xs font-bold mb-1">الطلاب المعتمدون</div>
+        <div class="text-3xl font-black text-amber-400">147 <span class="text-xs font-normal text-slate-400">طالباً</span></div>
+        <div class="text-[11px] text-slate-500 mt-1">9 صفوف (الصف 1 إلى 9)</div>
+      </div>
+      <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5">
+        <div class="text-slate-400 text-xs font-bold mb-1">المسارات الدراسية</div>
+        <div class="text-3xl font-black text-emerald-400">عربي + لغات</div>
+        <div class="text-[11px] text-slate-500 mt-1">56 عربي / 91 لغات</div>
+      </div>
+      <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5">
+        <div class="text-slate-400 text-xs font-bold mb-1">الجداول والمعلمات</div>
+        <div class="text-3xl font-black text-indigo-400">12 <span class="text-xs font-normal text-slate-400">معلمة</span></div>
+        <div class="text-[11px] text-slate-500 mt-1">جداول الحصص الأسبوعية كاملة</div>
+      </div>
+    </div>
+
+    <!-- Actions Panel -->
+    <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="space-y-1">
+          <h2 class="text-lg font-bold text-white">إجراء الترحيل</h2>
+          <p class="text-xs text-slate-400">يتم تجميع الوثائق في حزم Commit Batches متوافقة مع حدود Firestore لضمان السرعة والموثوقية.</p>
+        </div>
+        <div class="flex gap-2">
+          <button id="btn-start-migration" onclick="startMigration()" class="px-6 py-3 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:brightness-110 text-slate-950 font-black rounded-xl text-sm shadow-lg shadow-amber-500/20 transition active:scale-95 flex items-center gap-2">
+            <span>🚀 بدء الترحيل إلى Firestore</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div id="progress-container" class="space-y-2 hidden">
+        <div class="flex justify-between text-xs font-bold">
+          <span id="progress-label" class="text-slate-300">جاري الترحيل...</span>
+          <span id="progress-pct" class="text-amber-400">0%</span>
+        </div>
+        <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden">
+          <div id="progress-bar" class="bg-gradient-to-r from-amber-500 to-emerald-500 h-full w-0 transition-all duration-300 rounded-full"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Execution Logs -->
+    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5 space-y-3 shadow-inner">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold text-slate-400 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          سجل العمليات المباشر (Migration Logs)
+        </span>
+        <button onclick="clearLogs()" class="text-[11px] text-slate-500 hover:text-slate-300">مسح السجل</button>
+      </div>
+      <div id="log-box" class="h-64 overflow-y-auto font-mono text-xs text-slate-300 space-y-1 p-3 bg-slate-900/50 rounded-xl border border-slate-800/60 leading-relaxed">
+        <div class="text-slate-500">// جاهز للتشغيل. انقر فوق "بدء الترحيل" أعلاه للبدء.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function log(msg) {
+      const box = document.getElementById('log-box');
+      const div = document.createElement('div');
+      div.textContent = `[${new Date().toLocaleTimeString('ar-EG')}] ${msg}`;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function clearLogs() {
+      document.getElementById('log-box').innerHTML = '';
+    }
+
+    // فحص حالة Firebase عند التحميل
+    window.addEventListener('DOMContentLoaded', async () => {
+      const badge = document.getElementById('fb-status-badge');
+      if (window.SmileKidsFirebase) {
+        await window.SmileKidsFirebase.whenReady;
+        if (window.SmileKidsFirebase.isConfigured) {
+          badge.className = 'px-4 py-2 rounded-xl text-xs font-bold border bg-emerald-950/70 border-emerald-500/50 text-emerald-300';
+          badge.innerHTML = '🟢 Firebase متصل وجاهز للترحيل';
+        } else {
+          badge.className = 'px-4 py-2 rounded-xl text-xs font-bold border bg-amber-950/70 border-amber-500/50 text-amber-300';
+          badge.innerHTML = '⚠️ Firebase في وضع المحاكاة (عدّل firebase_config.js)';
+        }
+      }
+    });
+
+    async function startMigration() {
+      const btn = document.getElementById('btn-start-migration');
+      const pContainer = document.getElementById('progress-container');
+      const pBar = document.getElementById('progress-bar');
+      const pPct = document.getElementById('progress-pct');
+      const pLabel = document.getElementById('progress-label');
+
+      btn.disabled = true;
+      btn.classList.add('opacity-50', 'cursor-not-allowed');
+      pContainer.classList.remove('hidden');
+
+      try {
+        log('بدء تشغيل محرك الترحيل...');
+        await window.SmileKidsFirestoreMigrator.runBrowserMigration({
+          onLog: log,
+          onProgress: (current, total, entity) => {
+            const pct = Math.round((current / total) * 100);
+            pBar.style.width = pct + '%';
+            pPct.textContent = pct + '%';
+            pLabel.textContent = `جاري نقل وثائق ${entity} (${current}/${total})...`;
+          }
+        });
+
+        pBar.style.width = '100%';
+        pPct.textContent = '100%';
+        pLabel.textContent = 'اكتمل الترحيل بنجاح! 🎉';
+        log('✅ اكتمل الترحيل بالكامل. تم حفظ جميع البيانات في Google Firestore.');
+      } catch(err) {
+        log('❌ خطأ أثناء الترحيل: ' + err.message);
+        pLabel.textContent = 'حدث خطأ أثناء العملية';
+      } finally {
+        btn.disabled = false;
+        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * =========================================================================
+     * Smile Kids School Management System - Firestore Security Rules
+     * قواعد أمان وحماية السحابة لمدرسة Smile Kids للغات
+     * =========================================================================
+     */
+
+    // التحقق من تسجيل دخول المستخدم
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // التحقق من صلاحيات المدير (Admin)
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.role == 'admin' ||
+        request.auth.token.admin == true ||
+        request.auth.token.email.matches('.*(admin|management|smilekids\\.school).*') ||
+        request.auth.uid == 'admin'
+      );
+    }
+
+    // التحقق من صلاحيات المعلمة (Teacher)
+    function isTeacher() {
+      return isSignedIn() && (
+        request.auth.token.role == 'teacher' ||
+        request.auth.token.teacher == true ||
+        request.auth.token.teacherId != null ||
+        isAdmin()
+      );
+    }
+
+    // -------------------------------------------------------------------------
+    // 1. سجلات الطلاب (students collection)
+    // -------------------------------------------------------------------------
+    match /students/{studentId} {
+      // السماح بالقراءة لجميع الكوادر المصرح لها
+      allow read: if isSignedIn();
+      
+      // إضافة وحذف الطلاب مقتصر على الإدارة المدرسية لمنع الحذف العرضي
+      allow create, delete: if isAdmin();
+      
+      // التعديل متاح للإدارة والمعلمات (رصد الدرجات، تحديث الحضور والغياب)
+      allow update: if isAdmin() || isTeacher();
+    }
+
+    // -------------------------------------------------------------------------
+    // 2. سجلات الحضور والغياب (attendance collection)
+    // -------------------------------------------------------------------------
+    match /attendance/{attendanceId} {
+      // القراءة متاحة للمستخدمين المسجلين
+      allow read: if isSignedIn();
+      
+      // تسجيل وتحديث الحضور متاح للمعلمات والإدارة
+      allow create, update: if isAdmin() || isTeacher();
+      
+      // حذف السجلات مقتصر على الإدارة فقط
+      allow delete: if isAdmin();
+    }
+
+    // -------------------------------------------------------------------------
+    // 3. سجلات الدرجات والاختبارات (grades collection)
+    // -------------------------------------------------------------------------
+    match /grades/{gradeId} {
+      // القراءة متاحة للمستخدمين المسجلين
+      allow read: if isSignedIn();
+      
+      // رصد وتعديل الدرجات متاح للمعلمات والإدارة
+      allow create, update: if isAdmin() || isTeacher();
+      
+      // حذف سجلات الدرجات مقتصر على الإدارة فقط
+      allow delete: if isAdmin();
+    }
+
+    // -------------------------------------------------------------------------
+    // 4. الجداول الدراسية والحصص (timetables collection)
+    // -------------------------------------------------------------------------
+    match /timetables/{timetableId} {
+      // القراءة متاحة لجميع المعلمات والإدارة
+      allow read: if isSignedIn();
+      
+      // تعديل الجداول وتوزيع الحصص مقتصر على الإدارة
+      allow write: if isAdmin();
+    }
+
+    // -------------------------------------------------------------------------
+    // 5. دليل المعلمات والبيانات الشخصية (teachers collection)
+    // -------------------------------------------------------------------------
+    match /teachers/{teacherId} {
+      allow read: if isSignedIn();
+      
+      // إنشاء وحذف حسابات المعلمات للإدارة
+      allow create, delete: if isAdmin();
+      
+      // تعديل بيانات المعلمة متاح للإدارة أو المعلمة نفسها
+      allow update: if isAdmin() || (isTeacher() && (request.auth.uid == teacherId || request.auth.token.teacherId == teacherId));
+    }
+
+    // -------------------------------------------------------------------------
+    // 6. قاعدة الحماية الافتراضية لأي مسارات أخرى
+    // -------------------------------------------------------------------------
+    match /{document=**} {
+      allow read, write: if isAdmin();
+    }
+  }
+}
