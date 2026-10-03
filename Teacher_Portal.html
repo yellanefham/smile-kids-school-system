@@ -293,21 +293,15 @@
                 <span>🗓️ الشهر / الامتحان المراد رصده:</span>
               </label>
               <select id="exam-month-select" onchange="onExamMonthSelectChange()" class="bg-slate-900 border border-amber-500/50 rounded-xl px-3 py-1.5 text-xs font-black text-amber-300 focus:outline-none focus:border-amber-400 shadow-[0_0_12px_rgba(245,158,11,0.2)]">
-                <optgroup label="📋 شيت شامل للترم">
-                  <option value="all">🌟 عرض كشف درجات الترم كاملاً (جميع الشهور)</option>
+                <optgroup label="📋 شيت شامل للترم الأول">
+                  <option value="all">🌟 عرض كشف درجات الترم الأول كاملاً (شيت شامل)</option>
                 </optgroup>
-                <optgroup label="❄️ الفصل الدراسي الأول (الترم الأول - حتى شهر 1)">
+                <optgroup label="❄️ شهور وامتحانات الفصل الدراسي الأول (الترم الأول)">
                   <option value="t1_sep">🌱 شهر سبتمبر (بداية العام والتقييمات التمهيدية)</option>
                   <option value="t1_m1" selected>🍁 شهر أكتوبر (اختبار الشهر الأول)</option>
                   <option value="t1_m2">🍂 شهر نوفمبر (اختبار الشهر الثاني)</option>
                   <option value="t1_tasks">📋 شهر ديسمبر (المهام والأنشطة الشهرية)</option>
-                  <option value="t1_exam">❄️ شهر يناير (امتحان نصف العام / الترم الأول)</option>
-                </optgroup>
-                <optgroup label="🌸 الفصل الدراسي الثاني (الترم الثاني - حتى شهر 5)">
-                  <option value="t2_m1">🌱 شهر فبراير (اختبار الشهر الأول بالترم 2)</option>
-                  <option value="t2_m2">🌷 شهر مارس (اختبار الشهر الثاني بالترم 2)</option>
-                  <option value="t2_tasks">📋 شهر أبريل (المهام والأنشطة الشهرية)</option>
-                  <option value="t2_exam">☀️ شهر مايو (امتحان نهاية العام / الترم 2)</option>
+                  <option value="t1_exam">❄️ شهر يناير (امتحان الميدتيرم Midterm Exam)</option>
                 </optgroup>
               </select>
             </div>
@@ -1022,6 +1016,9 @@
         <option value="${g}">${gradeNames[g] || 'الصف ' + g}</option>
       `).join('');
 
+      const curTerm = document.getElementById('term-select')?.value || 't1';
+      updateExamMonthOptions(curTerm);
+
       onGradeChange();
     }
 
@@ -1423,11 +1420,11 @@
       't1_exam': {
         term: 't1',
         field: 'exam',
-        nameAr: 'شهر يناير (امتحان نصف العام / الترم الأول - شهر 1)',
-        shortName: 'شهر يناير (امتحان نصف العام)',
-        badge: '❄️ يناير (ترم 1)',
+        nameAr: 'شهر يناير (امتحان الميدتيرم Midterm Exam - منتصف العام)',
+        shortName: 'امتحان الميدتيرم (Midterm Exam)',
+        badge: '❄️ Midterm (نصف العام)',
         max: 40,
-        desc: 'امتحان نصف العام الدراسي المقرّر في شهر 1'
+        desc: 'امتحان منتصف العام الدراسي المقرّر في شهر يناير (Midterm Exam)'
       },
 
       // Term 2 (ينتهي في شهر 5 - مايو)
@@ -1461,11 +1458,11 @@
       't2_exam': {
         term: 't2',
         field: 'exam',
-        nameAr: 'شهر مايو (امتحان نهاية العام / الترم الثاني - شهر 5)',
-        shortName: 'شهر مايو (امتحان نهاية العام)',
-        badge: '☀️ مايو (ترم 2)',
+        nameAr: 'شهر مايو (امتحان نهاية العام Final Exam - الترم الثاني)',
+        shortName: 'امتحان نهاية العام (Final Exam)',
+        badge: '☀️ Final Exam (نهاية العام)',
         max: 40,
-        desc: 'امتحان نهاية العام الدراسي المقرّر في شهر 5'
+        desc: 'امتحان نهاية العام الدراسي المقرّر في شهر مايو (Final Exam)'
       }
     };
 
@@ -1523,15 +1520,53 @@
       if (presetSel) presetSel.value = '';
     }
 
-    function onTermSelectChange() {
-      const term = document.getElementById('term-select').value;
-      const currentMonth = document.getElementById('exam-month-select').value;
-      if (currentMonth !== 'all') {
-        const def = MONTH_EXAMS_DEF[currentMonth];
-        if (def && def.term !== term) {
-          document.getElementById('exam-month-select').value = term === 't1' ? 't1_m1' : 't2_m1';
+    function updateExamMonthOptions(term, targetValue = null) {
+      const sel = document.getElementById('exam-month-select');
+      if (!sel) return;
+      const curVal = targetValue || sel.value;
+
+      if (term === 't2') {
+        sel.innerHTML = `
+          <optgroup label="📋 شيت شامل للترم الثاني">
+            <option value="all">🌟 عرض كشف درجات الترم الثاني كاملاً (شيت شامل)</option>
+          </optgroup>
+          <optgroup label="🌸 شهور وامتحانات الفصل الدراسي الثاني (الترم الثاني)">
+            <option value="t2_m1">🌱 شهر فبراير (اختبار الشهر الأول بالترم 2)</option>
+            <option value="t2_m2">🌷 شهر مارس (اختبار الشهر الثاني بالترم 2)</option>
+            <option value="t2_tasks">📋 شهر أبريل (المهام والأنشطة الشهرية)</option>
+            <option value="t2_exam">☀️ شهر مايو (امتحان نهاية العام Final Exam)</option>
+          </optgroup>
+        `;
+        if (curVal && (curVal.startsWith('t2') || curVal === 'all')) {
+          sel.value = curVal;
+        } else {
+          sel.value = 't2_m1';
+        }
+      } else {
+        // Term 1 (Default)
+        sel.innerHTML = `
+          <optgroup label="📋 شيت شامل للترم الأول">
+            <option value="all">🌟 عرض كشف درجات الترم الأول كاملاً (شيت شامل)</option>
+          </optgroup>
+          <optgroup label="❄️ شهور وامتحانات الفصل الدراسي الأول (الترم الأول)">
+            <option value="t1_sep">🌱 شهر سبتمبر (بداية العام والتقييمات التمهيدية)</option>
+            <option value="t1_m1">🍁 شهر أكتوبر (اختبار الشهر الأول)</option>
+            <option value="t1_m2">🍂 شهر نوفمبر (اختبار الشهر الثاني)</option>
+            <option value="t1_tasks">📋 شهر ديسمبر (المهام والأنشطة الشهرية)</option>
+            <option value="t1_exam">❄️ شهر يناير (امتحان الميدتيرم Midterm Exam)</option>
+          </optgroup>
+        `;
+        if (curVal && (curVal.startsWith('t1') || curVal === 'all')) {
+          sel.value = curVal;
+        } else {
+          sel.value = 't1_m1';
         }
       }
+    }
+
+    function onTermSelectChange() {
+      const term = document.getElementById('term-select').value;
+      updateExamMonthOptions(term);
       renderGradeSheetTable();
     }
 
@@ -1540,18 +1575,35 @@
       if (selectedMonth !== 'all') {
         const def = MONTH_EXAMS_DEF[selectedMonth];
         if (def) {
-          document.getElementById('term-select').value = def.term;
+          const termSel = document.getElementById('term-select');
+          if (termSel && termSel.value !== def.term) {
+            termSel.value = def.term;
+            updateExamMonthOptions(def.term, selectedMonth);
+          }
         }
       }
       renderGradeSheetTable();
     }
 
     function setExamMonth(monthKey) {
+      if (monthKey !== 'all') {
+        const def = MONTH_EXAMS_DEF[monthKey];
+        if (def) {
+          const termSel = document.getElementById('term-select');
+          if (termSel && termSel.value !== def.term) {
+            termSel.value = def.term;
+          }
+          updateExamMonthOptions(def.term, monthKey);
+        }
+      } else {
+        const term = document.getElementById('term-select').value;
+        updateExamMonthOptions(term, 'all');
+      }
       const sel = document.getElementById('exam-month-select');
       if (sel) {
         sel.value = monthKey;
-        onExamMonthSelectChange();
       }
+      renderGradeSheetTable();
     }
 
     function renderGradeSheetTable() {
@@ -1644,15 +1696,16 @@
               <div class="flex items-center gap-1.5">
                 <span class="text-slate-400 text-[11px]">انتقال سريع:</span>
                 ${term === 't1' ? `
+                  <button onclick="setExamMonth('t1_sep')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">سبتمبر</button>
                   <button onclick="setExamMonth('t1_m1')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">أكتوبر</button>
                   <button onclick="setExamMonth('t1_m2')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">نوفمبر</button>
                   <button onclick="setExamMonth('t1_tasks')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">ديسمبر</button>
-                  <button onclick="setExamMonth('t1_exam')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">يناير (امتحان)</button>
+                  <button onclick="setExamMonth('t1_exam')" class="px-2.5 py-0.5 bg-purple-900/60 hover:bg-purple-700 text-purple-200 hover:text-white rounded text-[11px] font-bold border border-purple-600/50">امتحان الميدتيرم Midterm ❄️</button>
                 ` : `
                   <button onclick="setExamMonth('t2_m1')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">فبراير</button>
                   <button onclick="setExamMonth('t2_m2')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">مارس</button>
                   <button onclick="setExamMonth('t2_tasks')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">أبريل</button>
-                  <button onclick="setExamMonth('t2_exam')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">مايو (امتحان)</button>
+                  <button onclick="setExamMonth('t2_exam')" class="px-2.5 py-0.5 bg-amber-900/60 hover:bg-amber-700 text-amber-200 hover:text-white rounded text-[11px] font-bold border border-amber-600/50">امتحان نهاية العام Final ☀️</button>
                 `}
               </div>
             </div>
@@ -1683,7 +1736,7 @@
           const m1Title = term === 't1' ? 'أكتوبر (شهر 1)' : 'فبراير (شهر 1)';
           const m2Title = term === 't1' ? 'نوفمبر (شهر 2)' : 'مارس (شهر 2)';
           const tasksTitle = term === 't1' ? 'ديسمبر (أنشطة)' : 'أبريل (أنشطة)';
-          const examTitle = term === 't1' ? 'يناير (امتحان نصف العام)' : 'مايو (امتحان نهاية العام)';
+          const examTitle = term === 't1' ? 'يناير (امتحان الميدتيرم Midterm Exam)' : 'مايو (امتحان نهاية العام Final Exam)';
 
           const m1Max = getActiveMaxScore(term + '_m1', subjectId, grade);
           const m2Max = getActiveMaxScore(term + '_m2', subjectId, grade);

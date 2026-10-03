@@ -107,12 +107,6 @@
           <span class="whitespace-nowrap">بوابة المعلمات</span>
         </a>
 
-        <!-- Admin Portal Nav Button -->
-        <button id="nav-admin-btn" onclick="handleNavAdminClick()" class="px-3.5 py-1.5 bg-slate-800/90 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 active:scale-95 group whitespace-nowrap" title="بوابة الإدارة المدرسية والكنترول">
-          <span>👑</span>
-          <span class="whitespace-nowrap">بوابة الإدارة</span>
-        </button>
-
         <!-- Registration Form Button -->
         <button onclick="openParentFormModal()" class="px-3.5 py-1.5 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:brightness-110 text-white rounded-xl text-xs font-black transition-all flex items-center gap-1.5 shadow-[0_0_15px_rgba(147,51,234,0.35)] active:scale-95 group whitespace-nowrap" title="استمارة أولياء الأمور وتسجيل الطلاب">
           <svg class="w-4 h-4 fill-none stroke-current group-hover:scale-110 transition-transform shrink-0" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
@@ -188,340 +182,139 @@
         </div>
       </div>
 
-      <!-- ==================== DUAL ACCESS GATEWAYS ==================== -->
-      <section class="max-w-7xl mx-auto px-4 sm:px-6 mb-12 sm:mb-16">
+      <!-- Portal App Cards Grid: 4 Magnificent Gem-Themed Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
         
-        <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-indigo-500/15 via-purple-500/20 to-indigo-500/15 border border-indigo-400/30 text-indigo-300 text-xs font-black mb-3 shadow-[0_0_20px_rgba(99,102,241,0.25)]">
-            <span>✨</span>
-            <span>المنظومة المدرسية الموحدة — تحديد مسار الدخول</span>
+        <!-- Tab Card 1: Emerald Gem (Comprehensive Student Management Portal) -->
+        <a href="Student_Roster_Dashboard.html" class="glass-card relative bg-gradient-to-b from-emerald-950/40 via-slate-900/90 to-slate-950/95 border border-emerald-500/30 hover:border-emerald-400 rounded-3xl p-6 flex flex-col justify-between shadow-2xl hover:glow-emerald group transition-all duration-300">
+          <div class="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/15 rounded-full blur-2xl group-hover:bg-emerald-500/25 transition duration-500"></div>
+          <div>
+            <div class="flex items-center justify-between mb-5">
+              <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-600/30 border border-emerald-400/40 flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(16,185,129,0.3)] group-hover:scale-110 transition-transform">📋</span>
+              <span class="bg-emerald-500/20 text-emerald-300 text-xs font-black px-3 py-1 rounded-full border border-emerald-400/40 shadow-sm">المنظومة المدرسية</span>
+            </div>
+            <h3 class="text-xl font-black text-white group-hover:text-emerald-300 transition-colors">
+              كشوف الطلاب والشهادات
+            </h3>
+            <p class="text-xs text-emerald-400/80 font-bold mt-2 leading-relaxed">
+              الفصول 1-9 • كشوف الطلاب • الغياب والحضور • الشهادات المدرسية
+            </p>
           </div>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight">
-            اختر بوابة الدخول المعتمدة
-          </h2>
-          <p class="text-xs sm:text-sm text-slate-300 font-bold mt-2">
-            بوابة مخصصة ومستقلة لمعلمات المدرسة، وبوابة إدارية محكمة للإدارة والكنترول
-          </p>
+
+          <div class="mt-6 pt-5 border-t border-emerald-500/20 flex items-center justify-between">
+            <span class="text-emerald-300 font-black text-xs sm:text-sm group-hover:translate-x-[-4px] transition-transform">فتح المنظومة</span>
+            <span class="w-8 h-8 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.4)] group-hover:scale-110 transition-transform">
+              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <!-- Tab Card 2: Cyan/Teal Gem (Teacher Portal) -->
+        <a href="Teacher_Portal.html" class="glass-card relative bg-gradient-to-b from-cyan-950/40 via-slate-900/90 to-slate-950/95 border border-cyan-500/30 hover:border-cyan-400 rounded-3xl p-6 flex flex-col justify-between shadow-2xl hover:glow-cyan group transition-all duration-300">
+          <div class="absolute -top-10 -right-10 w-32 h-32 bg-cyan-500/15 rounded-full blur-2xl group-hover:bg-cyan-500/25 transition duration-500"></div>
+          <div>
+            <div class="flex items-center justify-between mb-5">
+              <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-600/30 border border-cyan-400/40 flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(6,182,212,0.3)] group-hover:scale-110 transition-transform">👩‍🏫</span>
+              <span class="bg-cyan-500/20 text-cyan-300 text-xs font-black px-3 py-1 rounded-full border border-cyan-400/40 shadow-sm">بوابة المعلمات</span>
+            </div>
+            <h3 class="text-xl font-black text-white group-hover:text-cyan-300 transition-colors">
+              رصد الدرجات وغياب الحصة
+            </h3>
+            <p class="text-xs text-cyan-400/80 font-bold mt-2 leading-relaxed">
+              دخول بالرمز PIN • كشف درجات كل مادة • كشف غياب الحصة بالجدول الحي
+            </p>
+          </div>
+
+          <div class="mt-6 pt-5 border-t border-cyan-500/20 flex items-center justify-between">
+            <span class="text-cyan-300 font-black text-xs sm:text-sm group-hover:translate-x-[-4px] transition-transform">دخول المعلمات</span>
+            <span class="w-8 h-8 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.4)] group-hover:scale-110 transition-transform">
+              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <!-- Tab Card 3: Solar Gold Gem (Timetable Dashboard) -->
+        <a href="Interactive_Timetable_Dashboard.html" class="glass-card relative bg-gradient-to-b from-amber-950/40 via-slate-900/90 to-slate-950/95 border border-amber-500/30 hover:border-amber-400 rounded-3xl p-6 flex flex-col justify-between shadow-2xl hover:glow-amber group transition-all duration-300">
+          <div class="absolute -top-10 -right-10 w-32 h-32 bg-amber-500/15 rounded-full blur-2xl group-hover:bg-amber-500/25 transition duration-500"></div>
+          <div>
+            <div class="flex items-center justify-between mb-5">
+              <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-600/30 border border-amber-400/40 flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(245,158,11,0.3)] group-hover:scale-110 transition-transform">📅</span>
+              <span class="bg-amber-500/20 text-amber-300 text-xs font-black px-3 py-1 rounded-full border border-amber-400/40 shadow-sm">الجدول المدرسي</span>
+            </div>
+            <h3 class="text-xl font-black text-white group-hover:text-amber-300 transition-colors">
+              الجداول الأسبوعية
+            </h3>
+            <p class="text-xs text-amber-400/80 font-bold mt-2 leading-relaxed">
+              الأيام • الصفوف • المعلمات • مصفوفة الأنصبة وتفريغ المواد والأنشطة
+            </p>
+          </div>
+
+          <div class="mt-6 pt-5 border-t border-amber-500/20 flex items-center justify-between">
+            <span class="text-amber-300 font-black text-xs sm:text-sm group-hover:translate-x-[-4px] transition-transform">فتح الجداول</span>
+            <span class="w-8 h-8 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-slate-950 font-black flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.4)] group-hover:scale-110 transition-transform">
+              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <!-- Tab Card 4: Royal Amethyst Gem (Student Registration & Parent Form) -->
+        <div onclick="openParentFormModal()" class="glass-card relative bg-gradient-to-b from-purple-950/40 via-slate-900/90 to-slate-950/95 border border-purple-500/30 hover:border-purple-400 rounded-3xl p-6 flex flex-col justify-between shadow-2xl hover:glow-purple group cursor-pointer transition-all duration-300">
+          <div class="absolute -top-10 -right-10 w-32 h-32 bg-purple-500/15 rounded-full blur-2xl group-hover:bg-purple-500/25 transition duration-500"></div>
+          <div>
+            <div class="flex items-center justify-between mb-5">
+              <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/20 to-indigo-600/30 border border-purple-400/40 flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(168,85,247,0.3)] group-hover:scale-110 transition-transform">📝</span>
+              <span class="bg-purple-500/20 text-purple-300 text-xs font-black px-3 py-1 rounded-full border border-purple-400/40 shadow-sm">بوابة القبول</span>
+            </div>
+            <h3 class="text-xl font-black text-white group-hover:text-purple-300 transition-colors">
+              استمارة تسجيل الطلاب
+            </h3>
+            <p class="text-xs text-purple-400/80 font-bold mt-2 leading-relaxed">
+              تسجيل طالب جديد • تدقيق بيانات أولياء الأمور • إيصال تسجيل فوري معتمد
+            </p>
+          </div>
+
+          <div class="mt-6 pt-5 border-t border-purple-500/20 flex items-center justify-between">
+            <span class="text-purple-300 font-black text-xs sm:text-sm group-hover:translate-x-[-4px] transition-transform">فتح الاستمارة</span>
+            <span class="w-8 h-8 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-500 text-white flex items-center justify-center shadow-[0_0_15px_rgba(168,85,247,0.4)] group-hover:scale-110 transition-transform">
+              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </span>
+          </div>
         </div>
 
-        <!-- Two Majestic Gateway Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
-          
-          <!-- Gateway 1: Teachers Portal Card -->
-          <div class="glass-card relative bg-gradient-to-b from-cyan-950/40 via-slate-900/90 to-slate-950/95 border-2 border-cyan-500/40 hover:border-cyan-400 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-2xl hover:glow-cyan group transition-all duration-300">
-            <div class="absolute -top-12 -right-12 w-40 h-40 bg-cyan-500/15 rounded-full blur-3xl group-hover:bg-cyan-500/25 transition duration-500"></div>
-            <div>
-              <div class="flex items-center justify-between mb-6">
-                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-teal-600/30 border border-cyan-400/50 flex items-center justify-center text-3xl shadow-[0_0_25px_rgba(6,182,212,0.3)] group-hover:scale-110 transition-transform">
-                  👩‍🏫
-                </div>
-                <span class="bg-cyan-500/20 text-cyan-300 border border-cyan-400/50 text-xs font-black px-3.5 py-1 rounded-full shadow-sm">
-                  دخول هيئة التدريس
-                </span>
-              </div>
+      </div>
 
-              <h3 class="text-2xl sm:text-3xl font-black text-white group-hover:text-cyan-300 transition-colors">
-                بوابة المعلمات
-              </h3>
-              <p class="text-xs sm:text-sm text-cyan-300/90 font-bold mt-2.5 leading-relaxed">
-                الرصد الأكاديمي للشهور، غياب الحصة الميداني، وجداول الحصص الفردية
-              </p>
-
-              <div class="mt-5 space-y-2.5 text-xs font-bold text-slate-300 border-t border-cyan-500/20 pt-4">
-                <div class="flex items-center gap-2">
-                  <span class="text-cyan-400 font-black">✓</span>
-                  <span>رصد درجات الشهور (سبتمبر – مايو) بنظام التركيز الشهري</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="text-cyan-400 font-black">✓</span>
-                  <span>كشف غياب الحصة بالجدول اليومي الميداني الحي</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="text-cyan-400 font-black">✓</span>
-                  <span>جدول الحصص الأسبوعي الخاص بكل معلمة</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="text-cyan-400 font-black">✓</span>
-                  <span>دخول مخصص لكل معلمة بالرمز السري (PIN: 1234)</span>
-                </div>
+      <!-- Official Cinema Video Showcase Section (Vertical Reel Format) -->
+      <div class="mt-12 sm:mt-16 max-w-xl mx-auto">
+        <div class="glass-card relative bg-gradient-to-b from-slate-900/90 via-slate-900/95 to-slate-950 border border-white/15 rounded-3xl p-5 sm:p-7 shadow-[0_20px_60px_rgba(0,0,0,0.6)] overflow-hidden">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-3 mb-5">
+            <div class="flex items-center gap-3 text-center sm:text-right">
+              <span class="w-11 h-11 rounded-2xl bg-gradient-to-br from-blue-500/20 to-indigo-600/30 border border-blue-400/40 flex items-center justify-center text-2xl text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.3)] shrink-0">🎬</span>
+              <div>
+                <h3 class="text-lg sm:text-xl font-black text-white">جولة مصورة داخل مدرسة Smile Kids</h3>
+                <p class="text-xs text-slate-400 font-bold">فيديو تعريفي بأنشطة وبيئة التعلم من الصفحة الرسمية</p>
               </div>
             </div>
-
-            <div class="mt-8 pt-5 border-t border-cyan-500/20">
-              <a href="Teacher_Portal.html" class="w-full py-3.5 px-6 bg-gradient-to-r from-cyan-500 via-teal-500 to-cyan-600 hover:brightness-110 active:scale-[0.98] text-slate-950 font-black text-sm sm:text-base rounded-2xl flex items-center justify-center gap-2.5 shadow-[0_0_25px_rgba(6,182,212,0.4)] transition">
-                <span>دخول بوابة المعلمات</span>
-                <svg class="w-5 h-5 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-              </a>
-            </div>
+            <a href="https://www.facebook.com/100063590275034/videos/2068181087118819/" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-gradient-to-r from-[#1877F2] to-[#0D65D9] hover:brightness-110 text-white rounded-xl text-xs font-black transition-all flex items-center gap-1.5 shadow-[0_0_15px_rgba(24,119,242,0.3)] active:scale-95 whitespace-nowrap shrink-0" title="مشاهدة على فيسبوك">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              <span>مشاهدة على Facebook</span>
+            </a>
           </div>
 
-          <!-- Gateway 2: School Administration & Control Card -->
-          <div id="admin-gateway-card" class="glass-card relative bg-gradient-to-b from-amber-950/40 via-slate-900/90 to-slate-950/95 border-2 border-amber-500/40 hover:border-amber-400 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-2xl hover:glow-amber group transition-all duration-300">
-            <div class="absolute -top-12 -right-12 w-40 h-40 bg-amber-500/15 rounded-full blur-3xl group-hover:bg-amber-500/25 transition duration-500"></div>
-            <div>
-              <div class="flex items-center justify-between mb-6">
-                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-600/30 border border-amber-400/50 flex items-center justify-center text-3xl shadow-[0_0_25px_rgba(245,158,11,0.3)] group-hover:scale-110 transition-transform">
-                  👑
-                </div>
-                <span id="admin-status-badge" class="bg-amber-500/20 text-amber-300 border border-amber-400/50 text-xs font-black px-3.5 py-1 rounded-full shadow-sm flex items-center gap-1.5">
-                  <span id="admin-status-icon">🔒</span>
-                  <span id="admin-status-text">خاص بالإدارة والكنترول</span>
-                </span>
-              </div>
-
-              <h3 class="text-2xl sm:text-3xl font-black text-white group-hover:text-amber-300 transition-colors">
-                بوابة الإدارة والكنترول
-              </h3>
-              <p class="text-xs sm:text-sm text-amber-300/90 font-bold mt-2.5 leading-relaxed">
-                التحكم الشامل بالسجلات، كشوف الطلاب، الجداول العامة، والشهادات
-              </p>
-
-              <div class="mt-5 space-y-2.5 text-xs font-bold text-slate-300 border-t border-amber-500/20 pt-4">
-                <div class="flex items-center gap-2">
-                  <span class="text-amber-400 font-black">✓</span>
-                  <span>كشوف الطلاب الرسمية (1-9) وطباعة الشهادات المدرسية</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="text-amber-400 font-black">✓</span>
-                  <span>الجدول المدرسي العام وتوزيع الأنصبة ومصفوفة الفصول</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="text-amber-400 font-black">✓</span>
-                  <span>المنظومة الإدارية المتكاملة وشؤون الطلاب</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="text-amber-400 font-black">✓</span>
-                  <span>استمارة تسجيل وقبول الطلاب الجدد (بوابة القبول)</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Dynamic Login/Unlock Action Box -->
-            <div class="mt-8 pt-5 border-t border-amber-500/20">
-              <!-- When Locked (Form) -->
-              <div id="admin-locked-box" class="space-y-3">
-                <div class="flex gap-2">
-                  <div class="relative flex-1">
-                    <input 
-                      type="password" 
-                      id="admin-home-pin-input" 
-                      maxlength="6" 
-                      placeholder="الرمز السري للإدارة (9999)..." 
-                      class="w-full bg-slate-950/80 border border-amber-500/50 rounded-2xl px-4 py-3 text-center text-sm font-black text-amber-300 placeholder-slate-500 outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-500/30 transition"
-                      onkeydown="if(event.key==='Enter'){event.preventDefault();submitAdminHomePin();}"
-                    >
-                  </div>
-                  <button 
-                    type="button" 
-                    onclick="submitAdminHomePin()" 
-                    class="px-5 py-3 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:brightness-110 active:scale-95 text-slate-950 font-black text-xs sm:text-sm rounded-2xl shadow-[0_0_20px_rgba(245,158,11,0.35)] transition whitespace-nowrap flex items-center gap-1.5"
-                  >
-                    <span>دخول 🔓</span>
-                  </button>
-                </div>
-                <div id="admin-home-pin-error" class="text-[11px] text-red-400 font-bold hidden text-center">
-                  الرمز السري غير صحيح! (الرمز الافتراضي: 9999)
-                </div>
-              </div>
-
-              <!-- When Unlocked -->
-              <div id="admin-unlocked-box" class="hidden flex items-center justify-between gap-3">
-                <div class="flex items-center gap-2 text-emerald-400 text-xs sm:text-sm font-black">
-                  <span class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center">✓</span>
-                  <span>الصلاحيات مفعلة للإدارة 🔓</span>
-                </div>
-                <button 
-                  type="button" 
-                  onclick="adminHomeLogout()" 
-                  class="px-4 py-2 bg-red-600/20 hover:bg-red-600/30 text-red-300 border border-red-500/30 rounded-xl text-xs font-bold transition flex items-center gap-1.5 active:scale-95"
-                  title="قفل بوابة الإدارة وتسجيل الخروج"
-                >
-                  <span>🔒</span>
-                  <span>تسجيل خروج</span>
-                </button>
-              </div>
-            </div>
+          <!-- Video Player Container (Vertical Reel Aspect Ratio 9:16) with Ambient Glow -->
+          <div class="relative w-full max-w-[380px] sm:max-w-[420px] aspect-[9/16] mx-auto rounded-3xl overflow-hidden bg-black border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.8)] flex items-center justify-center ring-1 ring-white/10 group">
+            <div class="absolute -inset-4 bg-gradient-to-r from-blue-600/30 via-indigo-600/30 to-purple-600/30 rounded-3xl blur-2xl -z-10 opacity-70 group-hover:opacity-100 transition-opacity"></div>
+            <iframe 
+              src="https://www.facebook.com/plugins/video.php?height=720&href=https%3A%2F%2Fwww.facebook.com%2F100063590275034%2Fvideos%2F2068181087118819%2F&show_text=false&width=405&t=0" 
+              class="w-full h-full border-0" 
+              style="border:none; overflow:hidden;" 
+              scrolling="no" 
+              frameborder="0" 
+              allowfullscreen="true" 
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+            </iframe>
           </div>
-
         </div>
-      </section>
-
-      <!-- ==================== SPLIT SECTION: ADMIN SUITE + VIDEO SHOWCASE ==================== -->
-      <section class="max-w-7xl mx-auto px-4 sm:px-6 mb-16">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          <!-- Right Column (7 cols): Administration Center -->
-          <div class="lg:col-span-7 space-y-6">
-            
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2.5">
-                <span class="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-lg text-amber-300">🏛️</span>
-                <div>
-                  <h3 class="text-xl sm:text-2xl font-black text-white">منظومة الإدارة والكنترول المدرسي</h3>
-                  <p class="text-xs text-slate-400 font-bold">لوحة التحكم المركزية بالسجلات والجداول والشهادات</p>
-                </div>
-              </div>
-              <div id="suite-lock-badge" class="px-3 py-1 rounded-full text-[11px] font-black bg-amber-500/10 text-amber-400 border border-amber-500/30 flex items-center gap-1">
-                <span id="suite-lock-icon">🔒</span>
-                <span id="suite-lock-label">محمي برمز</span>
-              </div>
-            </div>
-
-            <!-- State A: When Locked -->
-            <div id="admin-suite-locked-panel" class="glass-card relative bg-slate-900/80 border-2 border-dashed border-amber-500/30 rounded-3xl p-8 sm:p-10 text-center shadow-xl">
-              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/30 border border-amber-400/40 flex items-center justify-center text-3xl mx-auto mb-4 shadow-[0_0_25px_rgba(245,158,11,0.2)]">
-                🔐
-              </div>
-              <h4 class="text-lg sm:text-xl font-black text-white mb-2">أقسام الإدارة والكنترول مغلقة حالياً</h4>
-              <p class="text-xs sm:text-sm text-slate-400 font-bold max-w-md mx-auto mb-6 leading-relaxed">
-                لحماية سرية بيانات الطلاب والجداول العامة والشهادات، يقتصر الوصول على الإدارة المدرسية ولن تظهر للمعلمات. يرجى إدخال رمز المرور (9999) أعلاه لفتح الأقسام.
-              </p>
-              <button onclick="document.getElementById('admin-home-pin-input').focus(); window.scrollTo({top: document.getElementById('admin-gateway-card').offsetTop - 80, behavior: 'smooth'});" class="px-6 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:brightness-110 active:scale-95 text-slate-950 font-black text-xs sm:text-sm rounded-xl shadow-lg shadow-amber-500/20 transition inline-flex items-center gap-2">
-                <span>🔑</span>
-                <span>إدخال رمز الإدارة (9999) لفتح الأقسام</span>
-              </button>
-            </div>
-
-            <!-- State B: When Unlocked (The 4 Admin Cards Grid) -->
-            <div id="admin-suite-unlocked-grid" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
-              
-              <!-- Tab Card 1: Student Rosters & Certificates -->
-              <a href="Student_Roster_Dashboard.html" class="glass-card relative bg-gradient-to-b from-emerald-950/40 via-slate-900/90 to-slate-950/95 border border-emerald-500/30 hover:border-emerald-400 rounded-3xl p-5 flex flex-col justify-between shadow-xl hover:glow-emerald group transition-all duration-300">
-                <div>
-                  <div class="flex items-center justify-between mb-4">
-                    <span class="w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-600/30 border border-emerald-400/40 flex items-center justify-center text-xl shadow-[0_0_15px_rgba(16,185,129,0.3)] group-hover:scale-110 transition-transform">📋</span>
-                    <span class="bg-emerald-500/20 text-emerald-300 text-[10px] font-black px-2.5 py-0.5 rounded-full border border-emerald-400/40">الكنترول</span>
-                  </div>
-                  <h4 class="text-base sm:text-lg font-black text-white group-hover:text-emerald-300 transition-colors">
-                    كشوف الطلاب والشهادات
-                  </h4>
-                  <p class="text-xs text-emerald-400/80 font-bold mt-1.5 leading-relaxed">
-                    الفصول 1-9 • كشوف الطلاب • الغياب والحضور • طباعة الشهادات
-                  </p>
-                </div>
-                <div class="mt-4 pt-3 border-t border-emerald-500/20 flex items-center justify-between">
-                  <span class="text-emerald-300 font-black text-xs group-hover:translate-x-[-3px] transition-transform">فتح الكشوف</span>
-                  <span class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs group-hover:scale-110 transition-transform">➔</span>
-                </div>
-              </a>
-
-              <!-- Tab Card 2: Interactive Timetable -->
-              <a href="Interactive_Timetable_Dashboard.html" class="glass-card relative bg-gradient-to-b from-amber-950/40 via-slate-900/90 to-slate-950/95 border border-amber-500/30 hover:border-amber-400 rounded-3xl p-5 flex flex-col justify-between shadow-xl hover:glow-amber group transition-all duration-300">
-                <div>
-                  <div class="flex items-center justify-between mb-4">
-                    <span class="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-600/30 border border-amber-400/40 flex items-center justify-center text-xl shadow-[0_0_15px_rgba(245,158,11,0.3)] group-hover:scale-110 transition-transform">📅</span>
-                    <span class="bg-amber-500/20 text-amber-300 text-[10px] font-black px-2.5 py-0.5 rounded-full border border-amber-400/40">الجداول</span>
-                  </div>
-                  <h4 class="text-base sm:text-lg font-black text-white group-hover:text-amber-300 transition-colors">
-                    الجدول المدرسي العام
-                  </h4>
-                  <p class="text-xs text-amber-400/80 font-bold mt-1.5 leading-relaxed">
-                    الجداول الأسبوعية • توزيع الأنصبة • تفريغ المواد والأنشطة
-                  </p>
-                </div>
-                <div class="mt-4 pt-3 border-t border-amber-500/20 flex items-center justify-between">
-                  <span class="text-amber-300 font-black text-xs group-hover:translate-x-[-3px] transition-transform">فتح الجداول</span>
-                  <span class="w-7 h-7 rounded-lg bg-amber-600 text-slate-950 font-black flex items-center justify-center text-xs group-hover:scale-110 transition-transform">➔</span>
-                </div>
-              </a>
-
-              <!-- Tab Card 3: School Management System -->
-              <a href="Smile_Kids_School_Management_System.html" class="glass-card relative bg-gradient-to-b from-blue-950/40 via-slate-900/90 to-slate-950/95 border border-blue-500/30 hover:border-blue-400 rounded-3xl p-5 flex flex-col justify-between shadow-xl hover:glow-indigo group transition-all duration-300">
-                <div>
-                  <div class="flex items-center justify-between mb-4">
-                    <span class="w-11 h-11 rounded-2xl bg-gradient-to-br from-blue-500/20 to-indigo-600/30 border border-blue-400/40 flex items-center justify-center text-xl shadow-[0_0_15px_rgba(59,130,246,0.3)] group-hover:scale-110 transition-transform">🏫</span>
-                    <span class="bg-blue-500/20 text-blue-300 text-[10px] font-black px-2.5 py-0.5 rounded-full border border-blue-400/40">إدارة</span>
-                  </div>
-                  <h4 class="text-base sm:text-lg font-black text-white group-hover:text-blue-300 transition-colors">
-                    المنظومة الإدارية المتكاملة
-                  </h4>
-                  <p class="text-xs text-blue-400/80 font-bold mt-1.5 leading-relaxed">
-                    شؤون الطلاب • الشؤون الأكاديمية • التقارير الإدارية الموحدة
-                  </p>
-                </div>
-                <div class="mt-4 pt-3 border-t border-blue-500/20 flex items-center justify-between">
-                  <span class="text-blue-300 font-black text-xs group-hover:translate-x-[-3px] transition-transform">فتح المنظومة</span>
-                  <span class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs group-hover:scale-110 transition-transform">➔</span>
-                </div>
-              </a>
-
-              <!-- Tab Card 4: Parent Registration Form -->
-              <div onclick="openParentFormModal()" class="glass-card relative bg-gradient-to-b from-purple-950/40 via-slate-900/90 to-slate-950/95 border border-purple-500/30 hover:border-purple-400 rounded-3xl p-5 flex flex-col justify-between shadow-xl hover:glow-purple group cursor-pointer transition-all duration-300">
-                <div>
-                  <div class="flex items-center justify-between mb-4">
-                    <span class="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-500/20 to-indigo-600/30 border border-purple-400/40 flex items-center justify-center text-xl shadow-[0_0_15px_rgba(168,85,247,0.3)] group-hover:scale-110 transition-transform">📝</span>
-                    <span class="bg-purple-500/20 text-purple-300 text-[10px] font-black px-2.5 py-0.5 rounded-full border border-purple-400/40">القبول</span>
-                  </div>
-                  <h4 class="text-base sm:text-lg font-black text-white group-hover:text-purple-300 transition-colors">
-                    استمارة تسجيل الطلاب
-                  </h4>
-                  <p class="text-xs text-purple-400/80 font-bold mt-1.5 leading-relaxed">
-                    تسجيل طالب جديد • تدقيق البيانات • إيصال تسجيل فوري معتمد
-                  </p>
-                </div>
-                <div class="mt-4 pt-3 border-t border-purple-500/20 flex items-center justify-between">
-                  <span class="text-purple-300 font-black text-xs group-hover:translate-x-[-3px] transition-transform">فتح الاستمارة</span>
-                  <span class="w-7 h-7 rounded-lg bg-purple-600 text-white flex items-center justify-center text-xs group-hover:scale-110 transition-transform">➔</span>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-          <!-- Left Column (5 cols): Official Video Reel Showcase -->
-          <div class="lg:col-span-5 space-y-6">
-            <div class="glass-card relative bg-gradient-to-b from-slate-900/90 via-slate-900/95 to-slate-950 border border-white/15 rounded-3xl p-5 sm:p-6 shadow-[0_20px_60px_rgba(0,0,0,0.6)] overflow-hidden">
-              
-              <div class="flex items-center justify-between gap-3 mb-4">
-                <div class="flex items-center gap-2.5">
-                  <span class="w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-500/20 to-indigo-600/30 border border-blue-400/40 flex items-center justify-center text-xl text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.3)] shrink-0">🎬</span>
-                  <div>
-                    <h4 class="text-base sm:text-lg font-black text-white">جولة مصورة بالمدرسة</h4>
-                    <p class="text-[11px] text-slate-400 font-bold">Smile Kids School Reel</p>
-                  </div>
-                </div>
-                <a href="https://www.facebook.com/100063590275034/videos/2068181087118819/" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-gradient-to-r from-[#1877F2] to-[#0D65D9] hover:brightness-110 text-white rounded-xl text-[11px] font-black transition flex items-center gap-1 shadow-[0_0_15px_rgba(24,119,242,0.3)] active:scale-95 whitespace-nowrap" title="مشاهدة على فيسبوك">
-                  <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                  <span>Facebook</span>
-                </a>
-              </div>
-
-              <!-- Video Player Reel 9:16 -->
-              <div class="relative w-full aspect-[9/16] max-h-[520px] mx-auto rounded-2xl overflow-hidden bg-black border border-white/20 shadow-2xl flex items-center justify-center ring-1 ring-white/10 group">
-                <div class="absolute -inset-4 bg-gradient-to-r from-blue-600/30 via-indigo-600/30 to-purple-600/30 rounded-3xl blur-2xl -z-10 opacity-70 group-hover:opacity-100 transition-opacity"></div>
-                <iframe 
-                  src="https://www.facebook.com/plugins/video.php?height=720&href=https%3A%2F%2Fwww.facebook.com%2F100063590275034%2Fvideos%2F2068181087118819%2F&show_text=false&width=405&t=0" 
-                  class="w-full h-full border-0" 
-                  style="border:none; overflow:hidden;" 
-                  scrolling="no" 
-                  frameborder="0" 
-                  allowfullscreen="true" 
-                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-                </iframe>
-              </div>
-
-              <!-- Quick School Metric Strip -->
-              <div class="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-white/10 text-center">
-                <div class="bg-white/5 rounded-xl p-2">
-                  <div class="text-base font-black text-amber-300" id="hero-student-count">147</div>
-                  <div class="text-[10px] text-slate-400 font-bold">طالب وطالبة</div>
-                </div>
-                <div class="bg-white/5 rounded-xl p-2">
-                  <div class="text-base font-black text-cyan-300">G1 - G9</div>
-                  <div class="text-[10px] text-slate-400 font-bold">الصفوف المعتمدة</div>
-                </div>
-                <div class="bg-white/5 rounded-xl p-2">
-                  <div class="text-base font-black text-emerald-300">لغات + عربي</div>
-                  <div class="text-[10px] text-slate-400 font-bold">المساران</div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-      </section>
+      </div>
 
     </div>
   </main>
@@ -538,127 +331,11 @@
   </footer>
 
   <script>
-    // ========================================================
-    // Admin Gateway & Access Control Logic
-    // ========================================================
-    function getStoredAdminPin() {
-      return localStorage.getItem('smile_kids_admin_pin') || '9999';
-    }
-
-    function isAdminAuthenticated() {
-      return sessionStorage.getItem('smile_kids_admin_auth') === 'true';
-    }
-
-    function renderAdminAuthUI() {
-      const isAuth = isAdminAuthenticated();
-      const lockedBox = document.getElementById('admin-locked-box');
-      const unlockedBox = document.getElementById('admin-unlocked-box');
-      const suiteLocked = document.getElementById('admin-suite-locked-panel');
-      const suiteUnlocked = document.getElementById('admin-suite-unlocked-grid');
-      const pinError = document.getElementById('admin-home-pin-error');
-      const statusBadge = document.getElementById('admin-status-badge');
-      const statusIcon = document.getElementById('admin-status-icon');
-      const statusText = document.getElementById('admin-status-text');
-      const suiteBadge = document.getElementById('suite-lock-badge');
-      const suiteIcon = document.getElementById('suite-lock-icon');
-      const suiteLabel = document.getElementById('suite-lock-label');
-      const navBtn = document.getElementById('nav-admin-btn');
-
-      if (pinError) pinError.classList.add('hidden');
-
-      if (isAuth) {
-        if (lockedBox) lockedBox.classList.add('hidden');
-        if (unlockedBox) unlockedBox.classList.remove('hidden');
-        if (suiteLocked) suiteLocked.classList.add('hidden');
-        if (suiteUnlocked) suiteUnlocked.classList.remove('hidden');
-
-        if (statusBadge) statusBadge.className = 'bg-emerald-500/20 text-emerald-300 border border-emerald-400/50 text-xs font-black px-3.5 py-1 rounded-full shadow-sm flex items-center gap-1.5';
-        if (statusIcon) statusIcon.innerText = '🔓';
-        if (statusText) statusText.innerText = 'صلاحيات الإدارة مفعلة';
-
-        if (suiteBadge) suiteBadge.className = 'px-3 py-1 rounded-full text-[11px] font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1';
-        if (suiteIcon) suiteIcon.innerText = '🔓';
-        if (suiteLabel) suiteLabel.innerText = 'مفتوح للإدارة';
-
-        if (navBtn) {
-          navBtn.className = 'px-3.5 py-1.5 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:brightness-110 text-slate-950 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 shadow-[0_0_15px_rgba(245,158,11,0.35)] active:scale-95 group whitespace-nowrap';
-          navBtn.innerHTML = '<span>👑</span><span class="whitespace-nowrap">بوابة الإدارة (مفعلة 🔓)</span>';
-        }
-      } else {
-        if (lockedBox) lockedBox.classList.remove('hidden');
-        if (unlockedBox) unlockedBox.classList.add('hidden');
-        if (suiteLocked) suiteLocked.classList.remove('hidden');
-        if (suiteUnlocked) suiteUnlocked.classList.add('hidden');
-
-        if (statusBadge) statusBadge.className = 'bg-amber-500/20 text-amber-300 border border-amber-400/50 text-xs font-black px-3.5 py-1 rounded-full shadow-sm flex items-center gap-1.5';
-        if (statusIcon) statusIcon.innerText = '🔒';
-        if (statusText) statusText.innerText = 'خاص بالإدارة والكنترول';
-
-        if (suiteBadge) suiteBadge.className = 'px-3 py-1 rounded-full text-[11px] font-black bg-amber-500/10 text-amber-400 border border-amber-500/30 flex items-center gap-1';
-        if (suiteIcon) suiteIcon.innerText = '🔒';
-        if (suiteLabel) suiteLabel.innerText = 'محمي برمز';
-
-        if (navBtn) {
-          navBtn.className = 'px-3.5 py-1.5 bg-slate-800/90 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 active:scale-95 group whitespace-nowrap';
-          navBtn.innerHTML = '<span>👑</span><span class="whitespace-nowrap">بوابة الإدارة</span>';
-        }
-      }
-    }
-
-    function submitAdminHomePin() {
-      const pinInput = document.getElementById('admin-home-pin-input');
-      const pinVal = (pinInput ? pinInput.value : '').trim();
-      const validPin = getStoredAdminPin();
-      const pinError = document.getElementById('admin-home-pin-error');
-
-      if (pinVal === validPin) {
-        sessionStorage.setItem('smile_kids_admin_auth', 'true');
-        if (pinInput) pinInput.value = '';
-        renderAdminAuthUI();
-        const suite = document.getElementById('admin-suite-unlocked-grid');
-        if (suite) {
-          suite.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-      } else {
-        if (pinError) pinError.classList.remove('hidden');
-        if (pinInput) {
-          pinInput.value = '';
-          pinInput.focus();
-        }
-      }
-    }
-
-    function adminHomeLogout() {
-      sessionStorage.removeItem('smile_kids_admin_auth');
-      renderAdminAuthUI();
-      const gateway = document.getElementById('admin-gateway-card');
-      if (gateway) {
-        gateway.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }
-
-    function handleNavAdminClick() {
-      if (isAdminAuthenticated()) {
-        const suite = document.getElementById('admin-suite-unlocked-grid');
-        if (suite) suite.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-        const card = document.getElementById('admin-gateway-card');
-        const input = document.getElementById('admin-home-pin-input');
-        if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        setTimeout(() => { if (input) input.focus(); }, 350);
-      }
-    }
-
     document.addEventListener('DOMContentLoaded', () => {
-      renderAdminAuthUI();
-
       if (window.SmileKidsDB) {
         const updateMetrics = (students) => {
-          const count = (students && students.length) ? students.length : 147;
           const headerCountEl = document.getElementById('header-student-count');
-          if (headerCountEl) headerCountEl.innerText = `${count} طالب وطالبة`;
-          const heroCountEl = document.getElementById('hero-student-count');
-          if (heroCountEl) heroCountEl.innerText = count;
+          if (headerCountEl) headerCountEl.innerText = `${students.length} طالب وطالبة`;
         };
 
         const initialStudents = window.SmileKidsDB.getAllStudents();
