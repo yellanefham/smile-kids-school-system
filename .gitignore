@@ -2,3 +2,12 @@
 Thumbs.db
 desktop.ini
 *.tmp
+*.py
+*.log
+portal_template.html
+default_students.json
+teachers_full_schedules.json
+test_*.pdf
+portal_*.png
+admission_form_*.png
+current_layout_print.png

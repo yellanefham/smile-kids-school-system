@@ -101,6 +101,12 @@
       <!-- Action & Links Toolbar -->
       <div class="flex items-center justify-center sm:justify-end gap-2 sm:gap-2.5 w-full sm:w-auto flex-wrap">
 
+        <!-- Teacher Portal Button -->
+        <a href="Teacher_Portal.html" class="px-3.5 py-1.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 hover:brightness-110 text-white rounded-xl text-xs font-black transition-all flex items-center gap-1.5 shadow-[0_0_15px_rgba(16,185,129,0.35)] active:scale-95 group whitespace-nowrap" title="بوابة المعلمات والحصص ورصد الدرجات">
+          <span class="text-sm">👩‍🏫</span>
+          <span class="whitespace-nowrap">بوابة المعلمات</span>
+        </a>
+
         <!-- Registration Form Button -->
         <button onclick="openParentFormModal()" class="px-3.5 py-1.5 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:brightness-110 text-white rounded-xl text-xs font-black transition-all flex items-center gap-1.5 shadow-[0_0_15px_rgba(147,51,234,0.35)] active:scale-95 group whitespace-nowrap" title="استمارة أولياء الأمور وتسجيل الطلاب">
           <svg class="w-4 h-4 fill-none stroke-current group-hover:scale-110 transition-transform shrink-0" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
@@ -176,76 +182,100 @@
         </div>
       </div>
 
-      <!-- Portal App Cards Grid: 3 Magnificent Gem-Themed Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
+      <!-- Portal App Cards Grid: 4 Magnificent Gem-Themed Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
         
         <!-- Tab Card 1: Emerald Gem (Comprehensive Student Management Portal) -->
-        <a href="Student_Roster_Dashboard.html" class="glass-card relative bg-gradient-to-b from-emerald-950/40 via-slate-900/90 to-slate-950/95 border border-emerald-500/30 hover:border-emerald-400 rounded-3xl p-7 sm:p-8 flex flex-col justify-between shadow-2xl hover:glow-emerald group transition-all duration-300">
+        <a href="Student_Roster_Dashboard.html" class="glass-card relative bg-gradient-to-b from-emerald-950/40 via-slate-900/90 to-slate-950/95 border border-emerald-500/30 hover:border-emerald-400 rounded-3xl p-6 flex flex-col justify-between shadow-2xl hover:glow-emerald group transition-all duration-300">
           <div class="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/15 rounded-full blur-2xl group-hover:bg-emerald-500/25 transition duration-500"></div>
           <div>
-            <div class="flex items-center justify-between mb-6">
-              <span class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-600/30 border border-emerald-400/40 flex items-center justify-center text-3xl shadow-[0_0_20px_rgba(16,185,129,0.3)] group-hover:scale-110 transition-transform">📋</span>
-              <span class="bg-emerald-500/20 text-emerald-300 text-xs font-black px-3 py-1 rounded-full border border-emerald-400/40 shadow-sm">المنظومة المدرسية الشاملة</span>
+            <div class="flex items-center justify-between mb-5">
+              <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-600/30 border border-emerald-400/40 flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(16,185,129,0.3)] group-hover:scale-110 transition-transform">📋</span>
+              <span class="bg-emerald-500/20 text-emerald-300 text-xs font-black px-3 py-1 rounded-full border border-emerald-400/40 shadow-sm">المنظومة المدرسية</span>
             </div>
-            <h3 class="text-2xl font-black text-white group-hover:text-emerald-300 transition-colors">
-              كشوف الطلاب • الحضور • رصد الدرجات • الشهادات
+            <h3 class="text-xl font-black text-white group-hover:text-emerald-300 transition-colors">
+              كشوف الطلاب والشهادات
             </h3>
             <p class="text-xs text-emerald-400/80 font-bold mt-2 leading-relaxed">
-              الفصول من 1 حتى 9 • قسم اللغات والعربي • كشوف وقوائم الطلاب • الغياب والحضور اليومي • رصد وإضافة درجات الشهور والاختبارات • استخراج وطباعة شهادات التقدير
+              الفصول 1-9 • كشوف الطلاب • الغياب والحضور • الشهادات المدرسية
             </p>
           </div>
 
-          <div class="mt-8 pt-6 border-t border-emerald-500/20 flex items-center justify-between">
-            <span class="text-emerald-300 font-black text-sm group-hover:translate-x-[-4px] transition-transform">فتح المنظومة المدرسية الشاملة</span>
-            <span class="w-9 h-9 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.4)] group-hover:scale-110 transition-transform">
+          <div class="mt-6 pt-5 border-t border-emerald-500/20 flex items-center justify-between">
+            <span class="text-emerald-300 font-black text-xs sm:text-sm group-hover:translate-x-[-4px] transition-transform">فتح المنظومة</span>
+            <span class="w-8 h-8 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.4)] group-hover:scale-110 transition-transform">
               <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
             </span>
           </div>
         </a>
 
-        <!-- Tab Card 2: Solar Gold Gem (Timetable Dashboard) -->
-        <a href="Interactive_Timetable_Dashboard.html" class="glass-card relative bg-gradient-to-b from-amber-950/40 via-slate-900/90 to-slate-950/95 border border-amber-500/30 hover:border-amber-400 rounded-3xl p-7 sm:p-8 flex flex-col justify-between shadow-2xl hover:glow-amber group transition-all duration-300">
+        <!-- Tab Card 2: Cyan/Teal Gem (Teacher Portal) -->
+        <a href="Teacher_Portal.html" class="glass-card relative bg-gradient-to-b from-cyan-950/40 via-slate-900/90 to-slate-950/95 border border-cyan-500/30 hover:border-cyan-400 rounded-3xl p-6 flex flex-col justify-between shadow-2xl hover:glow-cyan group transition-all duration-300">
+          <div class="absolute -top-10 -right-10 w-32 h-32 bg-cyan-500/15 rounded-full blur-2xl group-hover:bg-cyan-500/25 transition duration-500"></div>
+          <div>
+            <div class="flex items-center justify-between mb-5">
+              <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-600/30 border border-cyan-400/40 flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(6,182,212,0.3)] group-hover:scale-110 transition-transform">👩‍🏫</span>
+              <span class="bg-cyan-500/20 text-cyan-300 text-xs font-black px-3 py-1 rounded-full border border-cyan-400/40 shadow-sm">بوابة المعلمات</span>
+            </div>
+            <h3 class="text-xl font-black text-white group-hover:text-cyan-300 transition-colors">
+              رصد الدرجات وغياب الحصة
+            </h3>
+            <p class="text-xs text-cyan-400/80 font-bold mt-2 leading-relaxed">
+              دخول بالرمز PIN • كشف درجات كل مادة • كشف غياب الحصة بالجدول الحي
+            </p>
+          </div>
+
+          <div class="mt-6 pt-5 border-t border-cyan-500/20 flex items-center justify-between">
+            <span class="text-cyan-300 font-black text-xs sm:text-sm group-hover:translate-x-[-4px] transition-transform">دخول المعلمات</span>
+            <span class="w-8 h-8 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.4)] group-hover:scale-110 transition-transform">
+              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <!-- Tab Card 3: Solar Gold Gem (Timetable Dashboard) -->
+        <a href="Interactive_Timetable_Dashboard.html" class="glass-card relative bg-gradient-to-b from-amber-950/40 via-slate-900/90 to-slate-950/95 border border-amber-500/30 hover:border-amber-400 rounded-3xl p-6 flex flex-col justify-between shadow-2xl hover:glow-amber group transition-all duration-300">
           <div class="absolute -top-10 -right-10 w-32 h-32 bg-amber-500/15 rounded-full blur-2xl group-hover:bg-amber-500/25 transition duration-500"></div>
           <div>
-            <div class="flex items-center justify-between mb-6">
-              <span class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-600/30 border border-amber-400/40 flex items-center justify-center text-3xl shadow-[0_0_20px_rgba(245,158,11,0.3)] group-hover:scale-110 transition-transform">📅</span>
+            <div class="flex items-center justify-between mb-5">
+              <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-600/30 border border-amber-400/40 flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(245,158,11,0.3)] group-hover:scale-110 transition-transform">📅</span>
               <span class="bg-amber-500/20 text-amber-300 text-xs font-black px-3 py-1 rounded-full border border-amber-400/40 shadow-sm">الجدول المدرسي</span>
             </div>
-            <h3 class="text-2xl font-black text-white group-hover:text-amber-300 transition-colors">
-              الجداول المدرسية الأسبوعية
+            <h3 class="text-xl font-black text-white group-hover:text-amber-300 transition-colors">
+              الجداول الأسبوعية
             </h3>
             <p class="text-xs text-amber-400/80 font-bold mt-2 leading-relaxed">
               الأيام • الصفوف • المعلمات • مصفوفة الأنصبة وتفريغ المواد والأنشطة
             </p>
           </div>
 
-          <div class="mt-8 pt-6 border-t border-amber-500/20 flex items-center justify-between">
-            <span class="text-amber-300 font-black text-sm group-hover:translate-x-[-4px] transition-transform">فتح الجداول المدرسية</span>
-            <span class="w-9 h-9 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-slate-950 font-black flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.4)] group-hover:scale-110 transition-transform">
+          <div class="mt-6 pt-5 border-t border-amber-500/20 flex items-center justify-between">
+            <span class="text-amber-300 font-black text-xs sm:text-sm group-hover:translate-x-[-4px] transition-transform">فتح الجداول</span>
+            <span class="w-8 h-8 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-slate-950 font-black flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.4)] group-hover:scale-110 transition-transform">
               <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
             </span>
           </div>
         </a>
 
-        <!-- Tab Card 3: Royal Amethyst Gem (Student Registration & Parent Form) -->
-        <div onclick="openParentFormModal()" class="glass-card relative bg-gradient-to-b from-purple-950/40 via-slate-900/90 to-slate-950/95 border border-purple-500/30 hover:border-purple-400 rounded-3xl p-7 sm:p-8 flex flex-col justify-between shadow-2xl hover:glow-purple group cursor-pointer transition-all duration-300">
+        <!-- Tab Card 4: Royal Amethyst Gem (Student Registration & Parent Form) -->
+        <div onclick="openParentFormModal()" class="glass-card relative bg-gradient-to-b from-purple-950/40 via-slate-900/90 to-slate-950/95 border border-purple-500/30 hover:border-purple-400 rounded-3xl p-6 flex flex-col justify-between shadow-2xl hover:glow-purple group cursor-pointer transition-all duration-300">
           <div class="absolute -top-10 -right-10 w-32 h-32 bg-purple-500/15 rounded-full blur-2xl group-hover:bg-purple-500/25 transition duration-500"></div>
           <div>
-            <div class="flex items-center justify-between mb-6">
-              <span class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-indigo-600/30 border border-purple-400/40 flex items-center justify-center text-3xl shadow-[0_0_20px_rgba(168,85,247,0.3)] group-hover:scale-110 transition-transform">📝</span>
-              <span class="bg-purple-500/20 text-purple-300 text-xs font-black px-3 py-1 rounded-full border border-purple-400/40 shadow-sm">بوابة التسجيل والقبول</span>
+            <div class="flex items-center justify-between mb-5">
+              <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/20 to-indigo-600/30 border border-purple-400/40 flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(168,85,247,0.3)] group-hover:scale-110 transition-transform">📝</span>
+              <span class="bg-purple-500/20 text-purple-300 text-xs font-black px-3 py-1 rounded-full border border-purple-400/40 shadow-sm">بوابة القبول</span>
             </div>
-            <h3 class="text-2xl font-black text-white group-hover:text-purple-300 transition-colors">
-              استمارة تسجيل ومراجعة بيانات الطلاب
+            <h3 class="text-xl font-black text-white group-hover:text-purple-300 transition-colors">
+              استمارة تسجيل الطلاب
             </h3>
             <p class="text-xs text-purple-400/80 font-bold mt-2 leading-relaxed">
               تسجيل طالب جديد • تدقيق بيانات أولياء الأمور • إيصال تسجيل فوري معتمد
             </p>
           </div>
 
-          <div class="mt-8 pt-6 border-t border-purple-500/20 flex items-center justify-between">
-            <span class="text-purple-300 font-black text-sm group-hover:translate-x-[-4px] transition-transform">فتح استمارة التسجيل الآن</span>
-            <span class="w-9 h-9 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-500 text-white flex items-center justify-center shadow-[0_0_15px_rgba(168,85,247,0.4)] group-hover:scale-110 transition-transform">
+          <div class="mt-6 pt-5 border-t border-purple-500/20 flex items-center justify-between">
+            <span class="text-purple-300 font-black text-xs sm:text-sm group-hover:translate-x-[-4px] transition-transform">فتح الاستمارة</span>
+            <span class="w-8 h-8 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-500 text-white flex items-center justify-center shadow-[0_0_15px_rgba(168,85,247,0.4)] group-hover:scale-110 transition-transform">
               <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
             </span>
           </div>

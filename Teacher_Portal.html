@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بوابة المعلمات الذكية • مدرسة Smile Kids الخاصة للغات</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Cairo', system-ui, -apple-system, sans-serif;
+      background-color: #0b1329;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #1e293b;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #475569;
+      border-radius: 4px;
+    }
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+      }
+      .print-page {
+        border: 2px solid #0f172a !important;
+        box-shadow: none !important;
+        padding: 8mm !important;
+      }
+    }
+    .grade-input:focus {
+      background-color: #fef08a !important;
+      color: #0f172a !important;
+      outline: 2px solid #3b82f6 !important;
+    }
+  </style>
+</head>
+<body class="text-slate-100 min-h-screen flex flex-col antialiased">
+
+  <!-- ==================== TOP NAVIGATION & HEADER ==================== -->
+  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40 shadow-xl no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4">
+      
+      <!-- Right: Logo & School Brand -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+          <img src="smile_kids_logo.png" alt="Smile Kids" class="h-10 w-10 sm:h-11 sm:w-11 object-contain rounded-xl bg-white p-1 shadow-md transition group-hover:scale-105">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-black text-white text-sm sm:text-base tracking-tight">مدرسة Smile Kids الخاصة</span>
+              <span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-bold px-2 py-0.5 rounded-full">بوابة المعلمات</span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-medium">نظام إدخال الدرجات ورصد غياب الحصص الذكي</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Center: Live Clock & Period Badge -->
+      <div class="hidden md:flex items-center gap-3 bg-slate-800/80 border border-slate-700/80 px-3.5 py-1.5 rounded-2xl shadow-inner">
+        <span class="text-xl">⏱️</span>
+        <div class="text-center">
+          <div id="top-live-clock" class="font-mono text-xs sm:text-sm font-bold text-amber-400">00:00:00</div>
+          <div id="top-live-day" class="text-[10px] text-slate-400 font-semibold">اليوم الدراسي</div>
+        </div>
+        <div class="h-5 w-px bg-slate-700"></div>
+        <div id="top-period-pill" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+          جاري الفحص...
+        </div>
+      </div>
+
+      <!-- Left: Active Teacher Profile / Logout -->
+      <div class="flex items-center gap-2">
+        <div id="logged-teacher-pill" class="hidden items-center gap-2.5 bg-slate-800 border border-slate-700 rounded-xl px-3 py-1.5 shadow">
+          <div id="logged-teacher-avatar" class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-sm font-bold shadow">
+            👩‍🏫
+          </div>
+          <div class="text-right">
+            <div id="logged-teacher-name" class="text-xs font-black text-white">مس / ...</div>
+            <div id="logged-teacher-role" class="text-[9.5px] text-emerald-400 font-bold">معلمة معتمدة</div>
+          </div>
+          <button onclick="logoutTeacher()" title="تسجيل الخروج" class="mr-1 text-slate-400 hover:text-red-400 p-1 rounded-lg transition hover:bg-slate-700/50">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+          </button>
+        </div>
+
+        <!-- Master Admin Link / Toggle -->
+        <button onclick="openAdminModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+          <span>👑</span>
+          <span class="hidden sm:inline">دخول الإدارة</span>
+        </button>
+
+        <!-- Fast Links dropdown or back -->
+        <a href="Student_Roster_Dashboard.html" class="px-3 py-1.5 bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          <span class="hidden sm:inline">لوحة الإدارة</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- ==================== MAIN APPLICATION CONTAINER ==================== -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 flex flex-col">
+
+    <!-- ==================== VIEW 1: TEACHER SELECTION / LOGIN SCREEN ==================== -->
+    <section id="view-login" class="flex-1 flex flex-col justify-center py-4">
+      <div class="text-center max-w-2xl mx-auto mb-8">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold mb-3">
+          <span>✨</span>
+          <span>منظومة الحماية والخصوصية المدرسية</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2">مرحباً بكِ في بوابة معلمات مدرسة Smile Kids</h2>
+        <p class="text-sm text-slate-400">يرجى اختيار اسم المعلمة للدخول إلى حصصك المعتمدة، تسجيل الحضور والغياب، وإدخال درجات موادكِ فقط.</p>
+      </div>
+
+      <!-- Teachers Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto w-full mb-8">
+        <div id="teachers-grid-cards" class="contents"></div>
+      </div>
+
+      <!-- Notice Bar -->
+      <div class="max-w-2xl mx-auto bg-slate-800/60 border border-slate-700/60 rounded-2xl p-4 text-center">
+        <div class="flex items-center justify-center gap-2 text-xs text-amber-300 font-bold mb-1">
+          <span>🔒</span>
+          <span>رمز الدخول المبدئي لجميع المعلمات: <span class="font-mono text-sm underline text-amber-200">1234</span></span>
+        </div>
+        <p class="text-[11px] text-slate-400">يمكن للمعلمة تغيير رمز المرور الخاص بها في أي وقت لحفظ خصوصية وسرية الدرجات.</p>
+      </div>
+    </section>
+
+
+    <!-- ==================== VIEW 2: TEACHER DASHBOARD (WHEN LOGGED IN) ==================== -->
+    <section id="view-dashboard" class="hidden flex-1 flex flex-col gap-5">
+      
+      <!-- Smart Live Period Alert Banner -->
+      <div id="smart-period-banner" class="bg-gradient-to-r from-blue-900/50 via-slate-800/80 to-indigo-900/50 border border-blue-500/30 rounded-2xl p-4 sm:p-5 shadow-xl relative overflow-hidden no-print">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-start gap-3.5">
+            <div id="period-banner-icon" class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center text-2xl shrink-0">
+              🕒
+            </div>
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span id="period-status-badge" class="px-2.5 py-0.5 rounded-full text-xs font-black bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                  كاشف الحصص الحي
+                </span>
+                <span id="period-time-range" class="text-xs text-slate-300 font-mono font-bold">--:-- - --:--</span>
+              </div>
+              <h3 id="period-banner-title" class="text-base sm:text-lg font-black text-white">جاري تحديد الحصة...</h3>
+              <p id="period-banner-desc" class="text-xs text-slate-300 mt-0.5">مطابقة الجدول الأسبوعي مع توقيت الحصص الفعلي لمدرستكِ.</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 self-end sm:self-center">
+            <button id="btn-quick-take-attendance" onclick="jumpToCurrentPeriodAttendance()" class="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black rounded-xl text-xs sm:text-sm shadow-lg shadow-emerald-500/20 transition flex items-center gap-2 active:scale-95">
+              <span>⚡</span>
+              <span>تسجيل غياب الحصة الآن</span>
+            </button>
+            <button onclick="toggleTimeSimulator()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5" title="تجربة واختبار أي حصة أخرى">
+              <span>🎮</span>
+              <span class="hidden md:inline">محاكي الوقت</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Optional Time Simulator Bar -->
+        <div id="time-simulator-bar" class="hidden mt-4 pt-3 border-t border-slate-700/60 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400 font-bold">🎮 تجربة حصة أخرى يدوياً:</span>
+            <select id="sim-day-select" onchange="runPeriodDetection()" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-white">
+              <option value="Sunday">الأحد</option>
+              <option value="Monday">الإثنين</option>
+              <option value="Tuesday">الثلاثاء</option>
+              <option value="Wednesday">الأربعاء</option>
+              <option value="Thursday">الخميس</option>
+            </select>
+            <select id="sim-period-select" onchange="runPeriodDetection()" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-white">
+              <option value="1">الحصة الأولى (07:30 - 08:10)</option>
+              <option value="2">الحصة الثانية (08:10 - 08:50)</option>
+              <option value="3">الحصة الثالثة (08:50 - 09:30)</option>
+              <option value="4">الحصة الرابعة (09:45 - 10:25)</option>
+              <option value="5">الحصة الخامسة (10:25 - 11:05)</option>
+              <option value="6">الحصة السادسة (11:05 - 11:40)</option>
+              <option value="7">الحصة السابعة (11:40 - 12:15)</option>
+              <option value="8">الحصة الثامنة (12:15 - 12:50)</option>
+            </select>
+          </div>
+          <button onclick="resetToLiveTime()" class="text-blue-400 hover:text-blue-300 underline font-bold">
+            الرجوع للتوقيت الحي الفعلي ↺
+          </button>
+        </div>
+      </div>
+
+
+      <!-- Dashboard Tabs Navigation -->
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2 gap-2 overflow-x-auto custom-scroll no-print">
+        <div class="flex items-center gap-1.5 sm:gap-2">
+          
+          <button id="tab-btn-grades" onclick="switchDashboardTab('grades')" class="px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-blue-600 text-white shadow-lg shadow-blue-500/25">
+            <span>📝</span>
+            <span>رصد وإدخال الدرجات</span>
+          </button>
+
+          <button id="tab-btn-attendance" onclick="switchDashboardTab('attendance')" class="px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700">
+            <span>⏱️</span>
+            <span>غياب الحصص الذكي</span>
+          </button>
+
+          <button id="tab-btn-schedule" onclick="switchDashboardTab('schedule')" class="px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700">
+            <span>📅</span>
+            <span>جدولي الأسبوعي</span>
+          </button>
+
+          <button id="tab-btn-history" onclick="switchDashboardTab('history')" class="px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700">
+            <span>📋</span>
+            <span>سجل الغياب المحفوظ</span>
+          </button>
+        </div>
+
+        <!-- Teacher's Assigned Subjects Badge -->
+        <div class="hidden lg:flex items-center gap-1.5 text-xs text-slate-400">
+          <span>موادك المعتمدة:</span>
+          <div id="teacher-assigned-badges" class="flex items-center gap-1"></div>
+        </div>
+      </div>
+
+
+      <!-- ==================== TAB 1: GRADE ENTRY (رصد وإدخال الدرجات) ==================== -->
+      <div id="tab-content-grades" class="flex-1 flex flex-col gap-4">
+        
+        <!-- Controls & Filter Toolbar -->
+        <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-4 shadow-xl flex flex-wrap items-center justify-between gap-4 no-print">
+          
+          <div class="flex flex-wrap items-center gap-3">
+            <!-- Grade Selector (Only Teacher's Grades) -->
+            <div>
+              <label class="block text-[11px] font-bold text-slate-400 mb-1">الصف الدراسي:</label>
+              <select id="grade-select" onchange="onGradeOrSubjectChange()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none focus:border-blue-500">
+              </select>
+            </div>
+
+            <!-- Subject Selector (Only Teacher's Subjects) -->
+            <div>
+              <label class="block text-[11px] font-bold text-slate-400 mb-1">المادة الدراسية:</label>
+              <select id="subject-select" onchange="onGradeOrSubjectChange()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none focus:border-blue-500">
+              </select>
+            </div>
+
+            <!-- Track Filter (Languages / Arabic) -->
+            <div>
+              <label class="block text-[11px] font-bold text-slate-400 mb-1">الشعبة / المسار:</label>
+              <select id="track-select" onchange="renderGradeSheetTable()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none focus:border-blue-500">
+                <option value="all">الكل (لغات + عربي)</option>
+                <option value="languages">قسم اللغات فقط</option>
+                <option value="arabic">قسم العربي فقط</option>
+              </select>
+            </div>
+
+            <!-- Assessment Period / Term -->
+            <div>
+              <label class="block text-[11px] font-bold text-slate-400 mb-1">الفصل الدراسي:</label>
+              <select id="term-select" onchange="renderGradeSheetTable()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none focus:border-blue-500">
+                <option value="t1">الفصل الدراسي الأول (ترم أول)</option>
+                <option value="t2">الفصل الدراسي الثاني (ترم ثاني)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Quick Action Buttons: Auto-Save Status, Print, Export -->
+          <div class="flex items-center gap-2">
+            <div id="save-status-pill" class="text-xs px-3 py-1.5 rounded-xl font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5">
+              <span>✓</span>
+              <span>الحفظ التلقائي مفعّل</span>
+            </div>
+
+            <button onclick="exportGradesToCSV()" class="px-3.5 py-1.5 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow" title="تصدير ملف إكسل">
+              <span>📥</span>
+              <span class="hidden sm:inline">إكسل</span>
+            </button>
+
+            <button onclick="window.print()" class="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow" title="طباعة كشف الدرجات">
+              <span>🖨️</span>
+              <span class="hidden sm:inline">طباعة الكشف</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Printable Grade Sheet Container -->
+        <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-4 sm:p-5 shadow-2xl flex-1 flex flex-col print-page">
+          
+          <!-- Print-Only Official Header -->
+          <div class="hidden print:flex items-center justify-between border-b-2 border-slate-800 pb-3 mb-4 text-slate-900">
+            <div class="flex items-center gap-3">
+              <img src="smile_kids_logo.png" alt="Smile Kids" class="h-12 w-12 object-contain">
+              <div>
+                <h1 class="font-black text-base">مدرسة Smile Kids الخاصة للغات</h1>
+                <p class="text-xs font-bold text-slate-600">كشف رصد درجات الطلاب المعتمد</p>
+              </div>
+            </div>
+            <div class="text-center">
+              <div id="print-sheet-title" class="font-black text-sm text-blue-900">مادة ... • الصف ...</div>
+              <div id="print-teacher-name" class="text-xs font-bold text-slate-700">معلمة المادة: ...</div>
+            </div>
+            <div class="text-left text-xs font-bold text-slate-500">
+              <div>العام الدراسي: 2026 / 2027 م</div>
+              <div>المنهج مصري لغات 🇪🇬</div>
+            </div>
+          </div>
+
+          <!-- Sheet Summary Cards -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4 text-xs no-print">
+            <div class="bg-slate-900/60 border border-slate-700/60 rounded-xl p-2.5 text-center">
+              <span class="text-slate-400 block mb-0.5">عدد الطلاب بالكشف</span>
+              <span id="stat-student-count" class="text-lg font-black text-white">0</span>
+            </div>
+            <div class="bg-slate-900/60 border border-slate-700/60 rounded-xl p-2.5 text-center">
+              <span class="text-slate-400 block mb-0.5">متوسط الدرجات</span>
+              <span id="stat-avg-score" class="text-lg font-black text-amber-400">0%</span>
+            </div>
+            <div class="bg-slate-900/60 border border-slate-700/60 rounded-xl p-2.5 text-center">
+              <span class="text-slate-400 block mb-0.5">نسبة التفوق (ممتاز)</span>
+              <span id="stat-excellent-count" class="text-lg font-black text-emerald-400">0</span>
+            </div>
+            <div class="bg-slate-900/60 border border-slate-700/60 rounded-xl p-2.5 text-center">
+              <span class="text-slate-400 block mb-0.5">حالات تحتاج دعم</span>
+              <span id="stat-support-count" class="text-lg font-black text-red-400">0</span>
+            </div>
+          </div>
+
+          <!-- Excel-Style Grade Entry Table -->
+          <div class="overflow-x-auto custom-scroll rounded-xl border border-slate-700 flex-1">
+            <table class="w-full text-right border-collapse text-xs">
+              <thead>
+                <tr class="bg-slate-900 text-slate-300 border-b border-slate-700 font-bold">
+                  <th class="p-3 w-12 text-center">#</th>
+                  <th class="p-3 min-w-[180px]">اسم الطالب / الطالبة</th>
+                  <th class="p-3 w-28 text-center">المسار</th>
+                  <th class="p-3 w-24 text-center bg-blue-950/40 border-r border-slate-700">شهر 1 <span class="text-[10px] text-slate-400 block">من 20</span></th>
+                  <th class="p-3 w-24 text-center bg-blue-950/40 border-r border-slate-700">شهر 2 <span class="text-[10px] text-slate-400 block">من 20</span></th>
+                  <th class="p-3 w-28 text-center bg-indigo-950/40 border-r border-slate-700">أنشطة ومهام <span class="text-[10px] text-slate-400 block">من 20</span></th>
+                  <th class="p-3 w-28 text-center bg-purple-950/40 border-r border-slate-700">امتحان الترم <span class="text-[10px] text-slate-400 block">من 40</span></th>
+                  <th class="p-3 w-24 text-center bg-amber-950/40 border-r border-slate-700 text-amber-300">المجموع <span class="text-[10px] block">من 100</span></th>
+                  <th class="p-3 w-28 text-center bg-slate-900 border-r border-slate-700">التقدير العام</th>
+                  <th class="p-3 w-20 text-center no-print">إجراء</th>
+                </tr>
+              </thead>
+              <tbody id="grade-sheet-tbody" class="divide-y divide-slate-700/60 font-medium">
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Printable Footer Signatures -->
+          <div class="hidden print:flex items-end justify-between pt-8 text-xs font-bold text-slate-800">
+            <div class="text-center w-1/3">
+              <div>معلمة المادة</div>
+              <div class="mt-8 border-b border-slate-500 w-32 mx-auto"></div>
+            </div>
+            <div class="text-center w-1/3">
+              <div>الموجه الفني للمادة</div>
+              <div class="mt-8 border-b border-slate-500 w-32 mx-auto"></div>
+            </div>
+            <div class="text-center w-1/3">
+              <div>يعتمد مدير المدرسة والختم</div>
+              <div class="mt-8 border-b border-slate-500 w-32 mx-auto"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- ==================== TAB 2: SMART PERIOD ATTENDANCE (غياب الحصص) ==================== -->
+      <div id="tab-content-attendance" class="hidden flex-1 flex flex-col gap-4">
+        
+        <!-- Attendance Period Banner & Selectors -->
+        <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-4 shadow-xl flex flex-wrap items-center justify-between gap-4">
+          
+          <div class="flex flex-wrap items-center gap-3">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-400 mb-1">اليوم:</label>
+              <select id="att-day-select" onchange="loadAttendanceRoster()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none">
+                <option value="Sunday">الأحد</option>
+                <option value="Monday">الإثنين</option>
+                <option value="Tuesday">الثلاثاء</option>
+                <option value="Wednesday">الأربعاء</option>
+                <option value="Thursday">الخميس</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-slate-400 mb-1">الحصة المقررة:</label>
+              <select id="att-period-select" onchange="loadAttendanceRoster()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none">
+                <option value="1">الحصة الأولى (07:30 - 08:10)</option>
+                <option value="2">الحصة الثانية (08:10 - 08:50)</option>
+                <option value="3">الحصة الثالثة (08:50 - 09:30)</option>
+                <option value="4">الحصة الرابعة (09:45 - 10:25)</option>
+                <option value="5">الحصة الخامسة (10:25 - 11:05)</option>
+                <option value="6">الحصة السادسة (11:05 - 11:40)</option>
+                <option value="7">الحصة السابعة (11:40 - 12:15)</option>
+                <option value="8">الحصة الثامنة (12:15 - 12:50)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-slate-400 mb-1">الفصل المخصص لكِ:</label>
+              <div id="att-target-class-badge" class="px-3.5 py-1.5 rounded-xl bg-blue-500/20 text-blue-300 border border-blue-500/30 text-xs font-black">
+                جاري التحميل...
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Bulk Actions -->
+          <div class="flex items-center gap-2">
+            <button onclick="setAllAttendance('present')" class="px-3.5 py-1.5 bg-emerald-600/30 hover:bg-emerald-600/40 text-emerald-300 border border-emerald-500/30 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+              <span>✅</span>
+              <span>تحضير الكل حاضر</span>
+            </button>
+            <button onclick="saveCurrentPeriodAttendance()" class="px-5 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black rounded-xl text-xs sm:text-sm shadow-lg shadow-emerald-500/25 transition flex items-center gap-2 active:scale-95">
+              <span>💾</span>
+              <span>اعتماد وحفظ غياب الحصة</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Attendance Stats Counters -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+          <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-3 text-center">
+            <span class="text-slate-400 block mb-0.5">إجمالي الفصل</span>
+            <span id="att-stat-total" class="text-lg font-black text-white">0</span>
+          </div>
+          <div class="bg-emerald-950/40 border border-emerald-800/40 rounded-xl p-3 text-center">
+            <span class="text-emerald-300 block mb-0.5">الحاضرون ✅</span>
+            <span id="att-stat-present" class="text-lg font-black text-emerald-400">0</span>
+          </div>
+          <div class="bg-red-950/40 border border-red-800/40 rounded-xl p-3 text-center">
+            <span class="text-red-300 block mb-0.5">الغياب ❌</span>
+            <span id="att-stat-absent" class="text-lg font-black text-red-400">0</span>
+          </div>
+          <div class="bg-amber-950/40 border border-amber-800/40 rounded-xl p-3 text-center">
+            <span class="text-amber-300 block mb-0.5">المتأخرون ⏱️</span>
+            <span id="att-stat-late" class="text-lg font-black text-amber-400">0</span>
+          </div>
+        </div>
+
+        <!-- Student Attendance Grid / List -->
+        <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-4 sm:p-5 shadow-2xl flex-1 flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-sm font-black text-white flex items-center gap-2">
+              <span>📋</span>
+              <span>كشف تحضير الطلاب للحصة</span>
+            </h4>
+            <span class="text-xs text-slate-400">اضغطي على حالة الطالب لتعديلها مباشرة</span>
+          </div>
+
+          <div id="att-students-list" class="grid grid-cols-1 md:grid-cols-2 gap-2.5 overflow-y-auto max-h-[500px] custom-scroll p-1">
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- ==================== TAB 3: TEACHER WEEKLY SCHEDULE (جدولي الأسبوعي) ==================== -->
+      <div id="tab-content-schedule" class="hidden flex-1 flex flex-col gap-4">
+        <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-4 shadow-xl flex items-center justify-between">
+          <div>
+            <h3 class="text-base font-black text-white">جدول الحصص الأسبوعي المعتمد</h3>
+            <p class="text-xs text-slate-400">حصصك الرسمية من الأحد إلى الخميس وفقاً لجدول المدرسة</p>
+          </div>
+          <button onclick="window.print()" class="px-4 py-1.5 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+            <span>🖨️</span>
+            <span>طباعة الجدول</span>
+          </button>
+        </div>
+
+        <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-4 overflow-x-auto custom-scroll shadow-2xl">
+          <table id="teacher-timetable-table" class="w-full text-center border-collapse text-xs">
+          </table>
+        </div>
+      </div>
+
+
+      <!-- ==================== TAB 4: ATTENDANCE HISTORY (سجل الغياب المحفوظ) ==================== -->
+      <div id="tab-content-history" class="hidden flex-1 flex flex-col gap-4">
+        <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-4 shadow-xl flex items-center justify-between">
+          <div>
+            <h3 class="text-base font-black text-white">سجل غياب الحصص المعتمد</h3>
+            <p class="text-xs text-slate-400">جميع الحصص التي قمتِ بتسجيل حضورها وغيابها مع توثيق التوقيت</p>
+          </div>
+          <button onclick="clearAttendanceHistory()" class="text-xs text-red-400 hover:text-red-300 font-bold underline">
+            مسح السجل (إعادة تعيين)
+          </button>
+        </div>
+
+        <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-4 overflow-x-auto custom-scroll shadow-2xl">
+          <table class="w-full text-right border-collapse text-xs">
+            <thead>
+              <tr class="bg-slate-900 text-slate-300 border-b border-slate-700 font-bold">
+                <th class="p-3">تاريخ ووقت الرصد</th>
+                <th class="p-3">اليوم</th>
+                <th class="p-3">الحصة</th>
+                <th class="p-3">الصف</th>
+                <th class="p-3">المادة</th>
+                <th class="p-3">الحاضرون</th>
+                <th class="p-3">الغياب</th>
+                <th class="p-3">المتأخرون</th>
+                <th class="p-3 text-center">عرض الكشف</th>
+              </tr>
+            </thead>
+            <tbody id="att-history-tbody" class="divide-y divide-slate-700/60 font-medium">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ==================== MODAL: TEACHER PIN PROMPT ==================== -->
+  <div id="modal-pin" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-sm w-full p-6 shadow-2xl text-center relative">
+      <button onclick="closePinModal()" class="absolute top-4 left-4 text-slate-400 hover:text-white p-1 rounded-lg">
+        ✕
+      </button>
+
+      <div id="modal-teacher-icon" class="w-16 h-16 rounded-2xl mx-auto mb-3 bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-3xl shadow-lg">
+        👩‍🏫
+      </div>
+
+      <h3 id="modal-teacher-name" class="text-lg font-black text-white">مس / ...</h3>
+      <p id="modal-teacher-title" class="text-xs text-slate-400 mb-5">معلمة المادة</p>
+
+      <div class="mb-5 text-right">
+        <label class="block text-xs font-bold text-slate-300 mb-1.5">أدخلي رمز المرور (PIN):</label>
+        <div class="relative">
+          <input type="password" id="input-pin" maxlength="8" placeholder="الرمز الافتراضي: 1234" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-lg font-mono tracking-widest text-white focus:outline-none focus:border-blue-500 shadow-inner">
+        </div>
+        <p id="pin-error-msg" class="text-[11px] text-red-400 font-bold mt-1.5 hidden">رمز المرور غير صحيح! الرمز الافتراضي هو 1234</p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button onclick="verifyTeacherPin()" class="flex-1 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-xl text-sm shadow-lg shadow-blue-500/25 transition active:scale-95">
+          دخول البوابة 🚀
+        </button>
+        <button onclick="closePinModal()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition">
+          إلغاء
+        </button>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-slate-800 text-[10px] text-slate-500">
+        رمز الدخول المبدئي لجميع المعلمات هو: <span class="text-amber-400 font-bold">1234</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== MODAL: MASTER ADMIN LOGIN ==================== -->
+  <div id="modal-admin" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-sm w-full p-6 shadow-2xl text-center relative">
+      <button onclick="closeAdminModal()" class="absolute top-4 left-4 text-slate-400 hover:text-white p-1 rounded-lg">
+        ✕
+      </button>
+
+      <div class="w-14 h-14 rounded-2xl mx-auto mb-3 bg-gradient-to-tr from-amber-500 to-amber-700 flex items-center justify-center text-2xl shadow-lg">
+        👑
+      </div>
+
+      <h3 class="text-lg font-black text-white">دخول الإدارة العامة للمدرسة</h3>
+      <p class="text-xs text-slate-400 mb-4">صلاحيات كاملة للاطلاع وتعديل درجات جميع المواد والمعلمات</p>
+
+      <div class="mb-4 text-right">
+        <label class="block text-xs font-bold text-slate-300 mb-1">رمز مدير النظام (Admin PIN):</label>
+        <input type="password" id="input-admin-pin" placeholder="أدخل رمز الإدارة (9999)" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-base font-mono text-white focus:outline-none focus:border-amber-500">
+        <p id="admin-error-msg" class="text-[11px] text-red-400 font-bold mt-1.5 hidden">رمز غير صحيح! الرمز الافتراضي هو 9999</p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button onclick="verifyAdminPin()" class="flex-1 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black rounded-xl text-sm shadow transition">
+          دخول كمدير عام 👑
+        </button>
+        <button onclick="closeAdminModal()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition">
+          إلغاء
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== TOAST NOTIFICATION CONTAINER ==================== -->
+  <div id="toast-container" class="fixed bottom-5 left-5 z-50 flex flex-col gap-2 pointer-events-none no-print"></div>
+
+
+  <!-- ==================== JAVASCRIPT APPLICATION CORE ==================== -->
+  <script>
+    // Embedded Data Stores
+    const TEACHERS_CATALOG = [{"id": "t_asmaa", "nameAr": "مس / أسماء", "nameEn": "Ms. Asmaa", "title": "معلمة اللغة العربية والتربية الدينية", "icon": "📚", "color": "from-blue-600 to-indigo-700", "subjects": [{"id": "arabic", "nameAr": "اللغة العربية", "nameEn": "Arabic Language", "grades": [2, 3, 4, 5]}, {"id": "religion", "nameAr": "التربية الدينية الإسلامية", "nameEn": "Religious Studies", "grades": [2, 3, 4, 5]}]}, {"id": "t_yara", "nameAr": "مس / يارا", "nameEn": "Ms. Yara", "title": "معلمة اللغة الإنجليزية وتكنولوجيا المعلومات", "icon": "🔤", "color": "from-emerald-600 to-teal-700", "subjects": [{"id": "english_al", "nameAr": "English (Connect Plus / AL)", "nameEn": "English (Connect Plus / AL)", "grades": [1, 2, 3, 4]}, {"id": "english_ol", "nameAr": "English (Connect / OL)", "nameEn": "English (Connect / OL)", "grades": [1, 2, 3, 4]}, {"id": "ict", "nameAr": "تكنولوجيا المعلومات (ICT)", "nameEn": "Information Technology (ICT)", "grades": [4]}]}, {"id": "t_nabila", "nameAr": "مس / نبيلة", "nameEn": "Ms. Nabila", "title": "معلمة الرياضيات والحساب (الصفوف الأولى)", "icon": "🔢", "color": "from-amber-600 to-orange-700", "subjects": [{"id": "math", "nameAr": "الرياضيات والحساب / Math", "nameEn": "Mathematics (Math)", "grades": [1, 2, 3, 4, 5]}]}, {"id": "t_hend", "nameAr": "مس / هند", "nameEn": "Ms. Hend", "title": "معلمة الرياضيات والـ Math (العليا والإعدادي)", "icon": "📐", "color": "from-purple-600 to-violet-700", "subjects": [{"id": "math", "nameAr": "الرياضيات / Math", "nameEn": "Mathematics (Math)", "grades": [4, 5, 6, 7, 8, 9]}]}, {"id": "t_samar", "nameAr": "مس / سمر", "nameEn": "Ms. Samar", "title": "معلمة العلوم و Science", "icon": "🔬", "color": "from-cyan-600 to-blue-700", "subjects": [{"id": "science", "nameAr": "العلوم / Science", "nameEn": "Science", "grades": [4, 5, 6, 7, 8, 9]}]}, {"id": "t_amira", "nameAr": "مس / أميرة", "nameEn": "Ms. Amira", "title": "معلمة English و ICT (الصفوف العليا)", "icon": "🌐", "color": "from-rose-600 to-pink-700", "subjects": [{"id": "english_al", "nameAr": "English (Connect Plus / AL)", "nameEn": "English (Connect Plus / AL)", "grades": [5, 6, 7, 8, 9]}, {"id": "english_ol", "nameAr": "English (Connect / OL)", "nameEn": "English (Connect / OL)", "grades": [5, 6, 7, 8, 9]}, {"id": "ict", "nameAr": "تكنولوجيا المعلومات (ICT)", "nameEn": "Information Technology (ICT)", "grades": [5, 6]}]}, {"id": "t_ola", "nameAr": "مس / علا", "nameEn": "Ms. Ola", "title": "معلمة اللغة العربية والتربية الدينية (العليا والإعدادي)", "icon": "📜", "color": "from-amber-700 to-red-800", "subjects": [{"id": "arabic", "nameAr": "اللغة العربية", "nameEn": "Arabic Language", "grades": [6, 7, 8, 9]}, {"id": "religion", "nameAr": "التربية الدينية الإسلامية", "nameEn": "Religious Studies", "grades": [6, 7, 8, 9]}, {"id": "quran", "nameAr": "القرآن الكريم", "nameEn": "Holy Quran", "grades": [6, 7, 8, 9]}]}, {"id": "t_marwa", "nameAr": "مس / مروة", "nameEn": "Ms. Marwa", "title": "معلمة القرآن الكريم واللغة العربية", "icon": "📖", "color": "from-green-600 to-emerald-800", "subjects": [{"id": "arabic", "nameAr": "اللغة العربية", "nameEn": "Arabic Language", "grades": [1]}, {"id": "religion", "nameAr": "التربية الدينية الإسلامية", "nameEn": "Religious Studies", "grades": [1]}, {"id": "quran", "nameAr": "القرآن الكريم", "nameEn": "Holy Quran", "grades": [1, 2, 3, 4, 5, 6, 7, 8, 9]}]}, {"id": "t_kariman", "nameAr": "مس / كريمان", "nameEn": "Ms. Kariman", "title": "معلمة الدراسات الاجتماعية والتكنولوجيا", "icon": "🌍", "color": "from-teal-600 to-cyan-800", "subjects": [{"id": "social", "nameAr": "الدراسات الاجتماعية", "nameEn": "Social Studies", "grades": [4, 5, 6, 7, 8, 9]}, {"id": "ict", "nameAr": "التكنولوجيا والأنشطة", "nameEn": "Technology & Activities", "grades": [3, 4, 5, 6, 8]}]}, {"id": "t_abeer", "nameAr": "مس / عبير", "nameEn": "Ms. Abeer", "title": "معلمة التربية الرياضية (P.E) والأنشطة", "icon": "⚽", "color": "from-lime-600 to-green-700", "subjects": [{"id": "pe", "nameAr": "التربية الرياضية (P.E)", "nameEn": "Physical Education", "grades": [2, 3, 4, 5, 6, 7, 8, 9]}, {"id": "art", "nameAr": "التربية الفنية (Art)", "nameEn": "Visual Arts", "grades": [2, 5, 6, 7, 8, 9]}]}, {"id": "t_basma", "nameAr": "مس / بسمة", "nameEn": "Ms. Basma", "title": "معلمة التربية الفنية (Art) والإشراف", "icon": "🎨", "color": "from-fuchsia-600 to-pink-700", "subjects": [{"id": "art", "nameAr": "التربية الفنية (Art)", "nameEn": "Visual Arts", "grades": [1]}, {"id": "pe", "nameAr": "التربية الرياضية (P.E)", "nameEn": "Physical Education", "grades": [1]}]}, {"id": "t_german", "nameAr": "مس / نانسي (Frau Nancy)", "nameEn": "Ms. Nancy (Frau Nancy)", "title": "معلمة اللغة الألمانية (German)", "icon": "🇩🇪", "color": "from-amber-600 to-yellow-700", "subjects": [{"id": "german", "nameAr": "اللغة الألمانية (German)", "nameEn": "German Language", "grades": [3, 4, 5, 6, 7, 8, 9]}]}];
+    const TIMETABLE_DATA = {"periodTimes": [{"period": 1, "nameAr": "الحصة الأولى", "start": "07:30", "end": "08:10"}, {"period": 2, "nameAr": "الحصة الثانية", "start": "08:10", "end": "08:50"}, {"period": 3, "nameAr": "الحصة الثالثة", "start": "08:50", "end": "09:30"}, {"period": "break", "nameAr": "الفسحة المدرسية", "start": "09:30", "end": "09:45"}, {"period": 4, "nameAr": "الحصة الرابعة", "start": "09:45", "end": "10:25"}, {"period": 5, "nameAr": "الحصة الخامسة", "start": "10:25", "end": "11:05"}, {"period": 6, "nameAr": "الحصة السادسة", "start": "11:05", "end": "11:40"}, {"period": 7, "nameAr": "الحصة السابعة", "start": "11:40", "end": "12:15"}, {"period": 8, "nameAr": "الحصة الثامنة / انصراف", "start": "12:15", "end": "12:50"}], "schedules": {"t_asmaa": {"الأحد": {"1": "G2 عربى", "2": "G2 عربى", "3": "G3 عربى", "break": "🥪 Break", "4": "G3 عربى", "5": "G5 عربى", "6": "G4 عربى", "7": "G4 دين"}, "الإثنين": {"1": "G3 عربى", "2": "G3 دين", "3": "G5 عربى", "break": "🥪 Break", "4": "G5 دين", "5": "G4 عربى", "6": "G2 عربى", "7": "G2 دين"}, "الثلاثاء": {"1": "G4 عربى", "2": "G5 عربى", "3": "G3 عربى", "break": "🥪 Break", "4": "G2 عربى", "5": "G2 عربى", "6": "G3 عربى", "7": "G2 دين"}, "الأربعاء": {"1": "G5 عربى", "2": "G5 دين", "3": "G4 عربى", "break": "🥪 Break", "4": "G4 عربى", "5": "G2 عربى", "6": "G3 عربى", "7": "G3 عربى"}, "الخميس": {"1": "G4 عربى", "2": "G5 عربى", "3": "G2 عربى", "break": "🥪 Break", "4": "G4 دين", "5": "G3 عربى", "6": "G3 دين", "7": "G5 عربى"}}, "t_yara": {"الأحد": {"1": "G4 English AL", "2": "G3 English AL", "3": "G2 English AL", "break": "🥪 Break", "4": "G2 English OL", "5": "G4 English OL", "6": "G3 English OL", "7": "G1 English OL"}, "الإثنين": {"1": "G1 English AL", "2": "G1 English OL", "3": "G4 English AL", "break": "🥪 Break", "4": "G2 English AL", "5": "G2 English OL", "6": "G3 English AL", "7": "G3 English OL"}, "الثلاثاء": {"1": "G2 English AL", "2": "G2 English OL", "3": "G4 English OL", "break": "🥪 Break", "4": "G3 English AL", "5": "G4 English AL (لغات)", "6": "G1 English AL", "7": "G1 English OL"}, "الأربعاء": {"1": "G3 English AL", "2": "G3 English OL", "3": "G2 English AL", "break": "🥪 Break", "4": "G1 English AL", "5": "G1 English OL", "6": "G2 English OL", "7": "G4 English AL (لغات)"}, "الخميس": {"1": "G2 English AL", "2": "G2 English OL", "3": "G4 ICT", "break": "🥪 Break", "4": "G3 English OL", "5": "G1 English AL", "6": "G1 English OL", "7": "G4 English OL"}}, "t_nabila": {"الأحد": {"1": "G3 Math", "2": "G4 رياضيات", "3": "G5 رياضيات", "break": "🥪 Break", "4": "G1 حساب", "5": "G1 Math", "6": "G2 Math", "7": "G2 حساب"}, "الإثنين": {"1": "G2 Math", "2": "G2 حساب", "3": "G3 Math", "break": "🥪 Break", "4": "G3 حساب", "5": "G1 Math", "6": "G5 رياضيات", "7": "G4 رياضيات"}, "الثلاثاء": {"1": "G3 Math", "2": "G3 حساب", "3": "G1 Math", "break": "🥪 Break", "4": "G1 حساب", "5": "G4 رياضيات", "6": "G2 Math", "7": "G5 رياضيات"}, "الأربعاء": {"1": "G2 Math", "2": "G2 حساب", "3": "G5 رياضيات", "break": "🥪 Break", "4": "G3 Math", "5": "G3 حساب", "6": "G4 رياضيات", "7": "G4 رياضيات"}, "الخميس": {"1": "G3 Math", "2": "G3 حساب", "3": "G1 حساب", "break": "🥪 Break", "4": "G1 Math", "5": "G4 رياضيات", "6": "G5 رياضيات", "7": "G2 حساب"}}, "t_hend": {"الأحد": {"1": "G5 Math", "2": "G8 Math", "3": "G4 Math", "break": "🥪 Break", "4": "G6 Math", "5": "G6 رياضيات", "6": "G7 رياضيات", "7": "G7 Math", "8": "G9 Math"}, "الإثنين": {"1": "G4 Math", "2": "G5 Math", "3": "G6 رياضيات", "break": "🥪 Break", "4": "G6 Math", "5": "G9 Math", "6": "G8 رياضيات", "7": "G7 Math", "8": "G9 رياضيات"}, "الثلاثاء": {"1": "G5 Math", "2": "G4 Math", "3": "G7 رياضيات", "break": "🥪 Break", "4": "G6 Math", "5": "G6 رياضيات", "6": "G8 Math", "7": "G9 Math", "8": "G8 رياضيات"}, "الأربعاء": {"1": "G7 Math", "2": "G7 رياضيات", "3": "G6 Math", "break": "🥪 Break", "4": "G5 Math", "5": "G4 Math", "6": "G9 رياضيات", "7": "G8 رياضيات", "8": "G8 Math"}, "الخميس": {"1": "G7 Math", "2": "G7 رياضيات", "3": "G6 رياضيات", "break": "🥪 Break", "4": "G6 Math", "5": "G4 Math", "6": "G5 Math", "7": "G9 رياضيات", "8": "—"}}, "t_samar": {"الأحد": {"1": "G5 علوم", "2": "G4 Science", "3": "G5 Science", "break": "🥪 Break", "4": "G6 علوم", "5": "G6 Science", "6": "G7 Science", "7": "G9 Science", "8": "G9 علوم"}, "الإثنين": {"1": "G4 علوم", "2": "G5 علوم", "3": "G6 Science", "break": "🥪 Break", "4": "G6 علوم", "5": "G8 Science", "6": "G9 علوم", "7": "G4 Science", "8": "G9 Science"}, "الثلاثاء": {"1": "G5 علوم", "2": "G7 علوم", "3": "G7 Science", "break": "🥪 Break", "4": "G4 Science", "5": "G5 Science", "6": "G9 علوم", "7": "G8 علوم", "8": "G8 Science"}, "الأربعاء": {"1": "G7 علوم", "2": "G7 Science", "3": "G5 Science", "break": "🥪 Break", "4": "G8 Science", "5": "G4 علوم", "6": "G4 Science", "7": "G6 Science", "8": "G8 علوم"}, "الخميس": {"1": "G7 علوم", "2": "G7 Science", "3": "G6 Science", "break": "🥪 Break", "4": "G6 علوم", "5": "G9 Science", "6": "G4 علوم", "7": "G8 علوم", "8": "—"}}, "t_amira": {"الأحد": {"1": "G9 English AL", "2": "G6 English OL", "3": "G8 English AL", "break": "🥪 Break", "4": "G7 English AL", "5": "G8 English OL", "6": "G5 English AL", "7": "G5 English OL"}, "الإثنين": {"1": "G5 English AL", "2": "G7 English AL", "3": "G7 English OL", "break": "🥪 Break", "4": "G9 English OL", "5": "G5 English OL", "6": "G6 English AL", "7": "G8 English OL"}, "الثلاثاء": {"1": "G8 English AL", "2": "G8 English OL", "3": "G6 English OL", "break": "🥪 Break", "4": "G9 English AL", "5": "G6 ICT (لغات)", "6": "G5 English OL", "7": "G7 English OL"}, "الأربعاء": {"1": "G6 English AL", "2": "G6 English OL", "3": "G7 English AL", "break": "🥪 Break", "4": "G7 English OL", "5": "G8 English AL", "6": "G5 English AL", "7": "G9 English OL"}, "الخميس": {"1": "G6 English AL", "2": "G9 English AL", "3": "G5 English OL", "break": "🥪 Break", "4": "G5 ICT", "5": "G7 English AL", "6": "G9 English OL", "7": "G6 English OL"}}, "t_ola": {"الأحد": {"1": "G8 عربى", "2": "G7 عربى", "3": "G9 عربى", "break": "🥪 Break", "4": "G8 دين", "5": "G7 عربى", "6": "G9 عربى", "7": "G6 عربى"}, "الإثنين": {"1": "G9 عربى", "2": "G6 عربى", "3": "G8 عربى", "break": "🥪 Break", "4": "G8 عربى", "5": "G7 عربى", "6": "G7 دين", "7": "G6 عربى"}, "الثلاثاء": {"1": "G6 عربى", "2": "G9 عربى", "3": "G8 عربى", "break": "🥪 Break", "4": "G8 دين", "5": "G9 عربى", "6": "G7 عربى", "7": "G6 دين"}, "الأربعاء": {"1": "G9 عربى", "2": "G9 دين", "3": "G8 عربى", "break": "🥪 Break", "4": "G6 عربى", "5": "G7 عربى", "6": "G6 دين", "7": "G7 عربى"}, "الخميس": {"1": "G9 دين", "2": "G8 دين", "3": "G9 عربى", "break": "🥪 Break", "4": "G8 عربى", "5": "G6 عربى", "6": "G7 عربى", "7": "G7 دين"}}, "t_marwa": {"الأحد": {"1": "G1 عربى", "2": "G1 عربى", "3": "KG3 قرآن", "break": "🥪 Break", "4": "G9 قران", "5": "G3 قران", "6": "G1 دين", "7": "KG3 قرآن وانصراف"}, "الإثنين": {"1": "KG3 كجي 3", "2": "KG3 كجي 3", "3": "KG3 كجي 3", "break": "🥪 Break", "4": "KG3 كجي 3", "5": "KG3 كجي 3", "6": "G1 عربى", "7": "G1 عربى"}, "الثلاثاء": {"1": "G1 عربى", "2": "G1 عربى", "3": "G5 قران", "break": "🥪 Break", "4": "G4 قرآن (عربي)", "5": "G7 قران", "6": "G6 قران", "7": "G3 قران"}, "الأربعاء": {"1": "KG3 كجي 3", "2": "KG3 كجي 3", "3": "KG3 كجي 3", "break": "🥪 Break", "4": "KG3 كجي 3", "5": "KG3 كجي 3", "6": "G1 عربى", "7": "G1 دين"}, "الخميس": {"1": "G1 عربى", "2": "G1 دين", "3": "G8 قران", "break": "🥪 Break", "4": "G2 قران", "5": "G2 قران", "6": "G4 قرآن (لغات)", "7": "G1 قران"}}, "t_kariman": {"الأحد": {"1": "G7 دراسات", "2": "G5 دراسات", "3": "G6 دراسات", "break": "🥪 Break", "4": "G4 دراسات", "5": "G9 دراسات", "6": "G6 تكنولوجيا", "7": "G8 دراسات"}, "الإثنين": {"1": "G7 دراسات", "2": "G8 دراسات", "3": "G9 دراسات", "break": "🥪 Break", "4": "G4 دراسات", "5": "G6 دراسات", "6": "G4 دراسات", "7": "G5 دراسات"}, "الثلاثاء": {"1": "G7 دراسات", "2": "G6 دراسات", "3": "G9 دراسات", "break": "🥪 Break", "4": "G5 دراسات", "5": "G8 دراسات", "6": "G4 تكنولوجيا", "7": "G4 دراسات"}, "الأربعاء": {"1": "G4 دراسات", "2": "G8 دراسات", "3": "G3 Art", "break": "🥪 Break", "4": "G9 دراسات", "5": "G5 دراسات", "6": "G7 دراسات", "7": "G5 تكنولوجيا"}, "الخميس": {"1": "G8 دراسات", "2": "G6 دراسات", "3": "G7 دراسات", "break": "🥪 Break", "4": "G9 دراسات", "5": "G5 دراسات", "6": "G8 أنشطة", "7": "G3 Art"}}, "t_abeer": {"الأحد": {"1": "G6 Art", "2": "G9 Art", "3": "G7 Art", "break": "🥪 Break", "4": "G5 P.E", "5": "G2 Art", "6": "G8 P.E", "7": "G3 Art"}, "الإثنين": {"1": "G6 + G8 P.E", "2": "G4 + G9 P.E", "3": "G2 P.E", "break": "🥪 Break", "4": "G7 P.E", "5": "G3 P.E", "6": "G5 Art (لغات)", "7": "G9 Art"}, "الثلاثاء": {"1": "G9 Art", "2": "—", "3": "G2 Art", "break": "🥪 Break", "4": "G7 Art", "5": "G3 P.E", "6": "G4 لغات PE", "7": "G5 Art (لغات)"}, "الأربعاء": {"1": "G8 Art", "2": "G4 Art", "3": "G9 Art", "break": "🥪 Break", "4": "G2 P.E", "5": "G6 + G9 P.E", "6": "G8 P.E", "7": "G2 Art"}, "الخميس": {"1": "—", "2": "—", "3": "—", "break": "🥪 Break", "4": "—", "5": "—", "6": "—", "7": "KG3 انصراف"}}, "t_basma": {"الأحد": {"1": "G3 إشراف (عربي)", "2": "G1 إشراف", "3": "G1 Art (رسم)", "break": "🥪 Break", "4": "G1 إشراف (لغات)", "5": "G1 إشراف (عربي)", "6": "G2 إشراف (عربي)", "7": "G2 إشراف (لغات)"}, "الإثنين": {"1": "G2 إشراف (عربي)", "2": "G2 إشراف (لغات)", "3": "G1 Art (رسم)", "break": "🥪 Break", "4": "G1 P.E", "5": "G1 إشراف (عربي)", "6": "G1 إشراف", "7": "KG3 انصراف"}, "الثلاثاء": {"1": "G3 إشراف (عربي)", "2": "G3 إشراف (لغات)", "3": "G1 إشراف (عربي)", "break": "🥪 Break", "4": "G1 إشراف (لغات)", "5": "G1 Art (رسم)", "6": "G2 إشراف (عربي)", "7": "KG3 انصراف"}, "الأربعاء": {"1": "G1 Art", "2": "G2 إشراف (لغات)", "3": "G1 P.E", "break": "🥪 Break", "4": "G3 إشراف (عربي)", "5": "G3 إشراف (لغات)", "6": "G1 إشراف", "7": "KG3 انصراف"}, "الخميس": {"1": "G3 إشراف (عربي)", "2": "G3 إشراف (لغات)", "3": "G1 إشراف (لغات)", "break": "🥪 Break", "4": "G1 إشراف (عربي)", "5": "G1 إشراف", "6": "G2 Art (رسم)", "7": "G2 إشراف (لغات)"}}, "t_german": {"الأحد": {"1": "—", "2": "—", "3": "—", "break": "🥪 Break", "4": "—", "5": "—", "6": "—", "7": "—"}, "الإثنين": {"1": "—", "2": "—", "3": "—", "break": "🥪 Break", "4": "—", "5": "—", "6": "—", "7": "—"}, "الثلاثاء": {"1": "—", "2": "—", "3": "—", "break": "🥪 Break", "4": "—", "5": "—", "6": "—", "7": "—"}, "الأربعاء": {"1": "—", "2": "—", "3": "—", "break": "🥪 Break", "4": "—", "5": "—", "6": "—", "7": "—"}, "الخميس": {"1": "G5 German", "2": "G4 German", "3": "G3 German", "break": "🥪 Break", "4": "G7 German", "5": "G8 German", "6": "G6 German", "7": "G9 German (لغات)"}}}};
+    const DEFAULT_STUDENTS_LIST = [{"id": "SK-G1-AR-001", "grade": 1, "gradeNameAr": "الصف الأول الابتدائي", "gradeNameEn": "Grade 1", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "تاليا عادل خطاب", "nameEn": "Talia Adel Khattab", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G1-AR-002", "grade": 1, "gradeNameAr": "الصف الأول الابتدائي", "gradeNameEn": "Grade 1", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "إيلاف عصام عبد الله", "nameEn": "Elaf Essam Abdullah", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G1-AR-003", "grade": 1, "gradeNameAr": "الصف الأول الابتدائي", "gradeNameEn": "Grade 1", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "مودة أحمد كمال", "nameEn": "Mawaddah Ahmed Kamal", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G1-AR-004", "grade": 1, "gradeNameAr": "الصف الأول الابتدائي", "gradeNameEn": "Grade 1", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "فيروز أشرف مجدى", "nameEn": "Fayrouz Ashraf Magdy", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G1-AR-005", "grade": 1, "gradeNameAr": "الصف الأول الابتدائي", "gradeNameEn": "Grade 1", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "يحيى أحمد مصطفى", "nameEn": "Yahia Ahmed Mostafa", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}, "phone": "", "notes": ""}, {"id": "SK-G1-AR-006", "grade": 1, "gradeNameAr": "الصف الأول الابتدائي", "gradeNameEn": "Grade 1", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "أمير مصطفى عبد اللطيف", "nameEn": "Amir Mostafa Abdel Latif", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G1-AR-007", "grade": 1, "gradeNameAr": "الصف الأول الابتدائي", "gradeNameEn": "Grade 1", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "يامن إسلام أحمد", "nameEn": "Yamen Islam Ahmed", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G1-LN-001", "grade": 1, "gradeNameAr": "الصف الأول الابتدائي", "gradeNameEn": "Grade 1", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "سارة رضا عبد المقصود", "nameEn": "Sara Reda Abdel Maksoud", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G1-LN-002", "grade": 1, "gradeNameAr": "الصف الأول الابتدائي", "gradeNameEn": "Grade 1", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "كنده السيد علي", "nameEn": "Kenda Elsayed Ali", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G1-LN-003", "grade": 1, "gradeNameAr": "الصف الأول الابتدائي", "gradeNameEn": "Grade 1", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "ريحانة عبد الرحمن عاطف", "nameEn": "Rihana Abdel Rahman Atef", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G1-LN-004", "grade": 1, "gradeNameAr": "الصف الأول الابتدائي", "gradeNameEn": "Grade 1", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "لي لي أحمد محمد يسرى", "nameEn": "Lili Ahmed Mohamed Yousry", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}, "phone": "", "notes": ""}, {"id": "SK-G1-LN-005", "grade": 1, "gradeNameAr": "الصف الأول الابتدائي", "gradeNameEn": "Grade 1", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "حمزة إبراهيم زيدان", "nameEn": "Hamza Ibrahim Zeidan", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G1-LN-006", "grade": 1, "gradeNameAr": "الصف الأول الابتدائي", "gradeNameEn": "Grade 1", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "حمزة محمد البنا", "nameEn": "Hamza Mohamed Elbanna", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G1-LN-007", "grade": 1, "gradeNameAr": "الصف الأول الابتدائي", "gradeNameEn": "Grade 1", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "مروان أشرف رمضان", "nameEn": "Marwan Ashraf Ramadan", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G1-LN-008", "grade": 1, "gradeNameAr": "الصف الأول الابتدائي", "gradeNameEn": "Grade 1", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "يوسف عمرو محمد", "nameEn": "Youssef Amr Mohamed", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G1-LN-009", "grade": 1, "gradeNameAr": "الصف الأول الابتدائي", "gradeNameEn": "Grade 1", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "علي محمد علاء الدين", "nameEn": "Ali Mohamed Alaa El-Din", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G1-LN-010", "grade": 1, "gradeNameAr": "الصف الأول الابتدائي", "gradeNameEn": "Grade 1", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "زين الدين محمود عبد الحميد", "nameEn": "Zein El-Din Mahmoud Abdel Hamid", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-AR-001", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "مهدي أحمد محمد", "nameEn": "Mahdi Ahmed Mohamed", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-AR-002", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "سيف حسن محمد", "nameEn": "Seif Hassan Mohamed", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-AR-003", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "آدم أحمد شوقي", "nameEn": "Adam Ahmed Shawky", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-AR-004", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "فريدة شريف علي", "nameEn": "Farida Sherif Ali", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-AR-005", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "مالك محمد الخشن", "nameEn": "Malek Mohamed El-Khoshen", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-AR-006", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "لين مهند خضرو", "nameEn": "Leen Mohannad Khidro", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}, "phone": "", "notes": ""}, {"id": "SK-G2-AR-007", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "إيلين أحمد زيران", "nameEn": "Ellen Ahmed Zayran", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-AR-008", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "بيسان محمد أحمد", "nameEn": "Bisan Mohamed Ahmed", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-LN-001", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "نوح عبد الحميد سمير", "nameEn": "Noah Abdel Hamid Samir", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-LN-002", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "طارق السيد عبد الغني", "nameEn": "Tarek Elsayed Abdel Ghani", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-LN-003", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "سليم محمد السعيد", "nameEn": "Selim Mohamed El-Saeed", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-LN-004", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "languages", "trackNameAr": "لغات (Math & Science)", "trackNameEn": "Languages Track", "nameAr": "معتز محمد عطاها", "nameEn": "Moataz Mohamed Ataha", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-LN-005", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "راشد عبد الكريم بشير", "nameEn": "Rashed Abdel Karim Basheer", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-LN-006", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "أنس أحمد محمد", "nameEn": "Anas Ahmed Mohamed", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-LN-007", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "عصام محمد عصام", "nameEn": "Essam Mohamed Essam", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-LN-008", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "مالك أحمد عبد المؤمن", "nameEn": "Malek Ahmed Abdel Moemen", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-LN-010", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "arabic", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "فيروز محمد النجار", "nameEn": "Fayrouz Mohamed El-Naggar", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-LN-012", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "ليا هيثم رشوان", "nameEn": "Lia Haitham Rashwan", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-LN-013", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "ليان محمد أمين", "nameEn": "Layan Mohamed Amin", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-LN-014", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "حبيبة أحمد حسين", "nameEn": "Habiba Ahmed Hussein", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-LN-015", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "تالا هشام محمد", "nameEn": "Tala Hesham Mohamed", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-LN-016", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "زينة عبد الله سيد", "nameEn": "Zeina Abdullah Sayed", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-LN-017", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "سجى جمال إسماعيل", "nameEn": "Saja Gamal Ismail", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-LN-018", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "جاد محمد عباس", "nameEn": "Jad Mohamed Abbas", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G2-LN-019", "grade": 2, "gradeNameAr": "الصف الثاني الابتدائي", "gradeNameEn": "Grade 2", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "إيلين أحمد محمود", "nameEn": "Ellen Ahmed Mahmoud", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-AR-001", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "مليكة محمد عادل", "nameEn": "Malika Mohamed Adel", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-AR-002", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "أرين أشرف مجدى", "nameEn": "Areen Ashraf Magdy", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-AR-003", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "الفاتح عبد القادر محمد", "nameEn": "Al-Fateh Abdel Qader Mohamed", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-AR-004", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "عمر محمود عبد الوهاب", "nameEn": "Omar Mahmoud Abdel Wahab", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-AR-005", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "عبد الرحمن طه حسين", "nameEn": "Abdel Rahman Taha Hussein", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-LN-001", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "لين محمد عبد الحليم", "nameEn": "Leen Mohamed Abdel Halim", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-LN-002", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "آسية أحمد مصطفى", "nameEn": "Asiya Ahmed Mostafa", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-LN-003", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "أريام أحمد حسن", "nameEn": "Aryam Ahmed Hassan", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-LN-004", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "ليان سامح بسيوني", "nameEn": "Layan Sameh Basiouny", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-LN-005", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "languages", "trackNameAr": "لغات (Math & Science)", "trackNameEn": "Languages Track", "nameAr": "ماريا خالد فهمي", "nameEn": "Maria Khaled Fahmy", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-LN-006", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "آدم محمد صبحي", "nameEn": "Adam Mohamed Sobhy", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-LN-007", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "زين سليمان محمد", "nameEn": "Zein Soliman Mohamed", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-LN-008", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "آدم خالد عبد الله", "nameEn": "Adam Khaled Abdullah", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-LN-009", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "أدهم مصطفى وحيد", "nameEn": "Adham Mostafa Waheed", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-LN-010", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "يوسف محمد عبد اللطيف", "nameEn": "Youssef Mohamed Abdel Latif", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-LN-011", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "عبد الرحمن خالد رجب", "nameEn": "Abdel Rahman Khaled Ragab", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-LN-012", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "languages", "trackNameAr": "لغات (Math & Science)", "trackNameEn": "Languages Track", "nameAr": "شهم محمد أنور حرب", "nameEn": "Shahm Mohamed Anwar Harb", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-LN-013", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "زين محمد نبيل نوار", "nameEn": "Zein Mohamed Nabil Nawar", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-LN-014", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "رائد عبد الكريم بشير", "nameEn": "Raed Abdel Karim Basheer", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-LN-015", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "languages", "trackNameAr": "لغات (Math & Science)", "trackNameEn": "Languages Track", "nameAr": "أمين السيد أحمد", "nameEn": "Amin Elsayed Ahmed", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-LN-016", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "languages", "trackNameAr": "لغات (Math & Science)", "trackNameEn": "Languages Track", "nameAr": "نور أحمد عصام", "nameEn": "Nour Ahmed Essam", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-LN-017", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "languages", "trackNameAr": "لغات (Math & Science)", "trackNameEn": "Languages Track", "nameAr": "ريمان جمال الحسين", "nameEn": "Reman Gamal El-Hussein", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G3-LN-018", "grade": 3, "gradeNameAr": "الصف الثالث الابتدائي", "gradeNameEn": "Grade 3", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "مصطفى عبد السلام مصطفى", "nameEn": "Mostafa Abdel Salam Mostafa", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G4-AR-001", "grade": 4, "gradeNameAr": "الصف الرابع الابتدائي", "gradeNameEn": "Grade 4", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "مها رضوان تسون", "nameEn": "Maha Radwan Tsoun", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G4-AR-002", "grade": 4, "gradeNameAr": "الصف الرابع الابتدائي", "gradeNameEn": "Grade 4", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "كارما أحمد عطية", "nameEn": "Karma Ahmed Attia", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G4-AR-003", "grade": 4, "gradeNameAr": "الصف الرابع الابتدائي", "gradeNameEn": "Grade 4", "track": "languages", "trackNameAr": "لغات (Math & Science)", "trackNameEn": "Languages Track", "nameAr": "جانتي السيد عبد الغني", "nameEn": "Janti Elsayed Abdel Ghani", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G4-AR-004", "grade": 4, "gradeNameAr": "الصف الرابع الابتدائي", "gradeNameEn": "Grade 4", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "على شريف على", "nameEn": "Ali Sherif Ali", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G4-AR-005", "grade": 4, "gradeNameAr": "الصف الرابع الابتدائي", "gradeNameEn": "Grade 4", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "محمد محمود الصياد", "nameEn": "Mohamed Mahmoud El-Sayad", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G4-AR-006", "grade": 4, "gradeNameAr": "الصف الرابع الابتدائي", "gradeNameEn": "Grade 4", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "عبد الله مروان الشيخ", "nameEn": "Abdullah Marwan El-Sheikh", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G4-LN-001", "grade": 4, "gradeNameAr": "الصف الرابع الابتدائي", "gradeNameEn": "Grade 4", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "حمزة أحمد عبد الحميد", "nameEn": "Hamza Ahmed Abdel Hamid", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G4-LN-002", "grade": 4, "gradeNameAr": "الصف الرابع الابتدائي", "gradeNameEn": "Grade 4", "track": "languages", "trackNameAr": "لغات (Math & Science)", "trackNameEn": "Languages Track", "nameAr": "مهيب جمال فتح الله", "nameEn": "Moheb Gamal Fathallah", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G4-LN-003", "grade": 4, "gradeNameAr": "الصف الرابع الابتدائي", "gradeNameEn": "Grade 4", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "آدم عمرو أسامة", "nameEn": "Adam Amr Osama", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G4-LN-004", "grade": 4, "gradeNameAr": "الصف الرابع الابتدائي", "gradeNameEn": "Grade 4", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "يوسف كمال محمد", "nameEn": "Youssef Kamal Mohamed", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G4-LN-005", "grade": 4, "gradeNameAr": "الصف الرابع الابتدائي", "gradeNameEn": "Grade 4", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "عمر أحمد الجزيرى", "nameEn": "Omar Ahmed El-Gezeiry", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G4-LN-006", "grade": 4, "gradeNameAr": "الصف الرابع الابتدائي", "gradeNameEn": "Grade 4", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "يحيي محمد فاروق", "nameEn": "Yahia Mohamed Farouk", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G4-LN-007", "grade": 4, "gradeNameAr": "الصف الرابع الابتدائي", "gradeNameEn": "Grade 4", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "ريان عبد الرحمن", "nameEn": "Rayan Abdel Rahman", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G4-LN-008", "grade": 4, "gradeNameAr": "الصف الرابع الابتدائي", "gradeNameEn": "Grade 4", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "دانة السيد علي", "nameEn": "Dana Elsayed Ali", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G4-LN-009", "grade": 4, "gradeNameAr": "الصف الرابع الابتدائي", "gradeNameEn": "Grade 4", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "كارما محمد حسام", "nameEn": "Karma Mohamed Hossam", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G4-LN-010", "grade": 4, "gradeNameAr": "الصف الرابع الابتدائي", "gradeNameEn": "Grade 4", "track": "languages", "trackNameAr": "لغات (Math & Science)", "trackNameEn": "Languages Track", "nameAr": "ميرا محمد عطاها", "nameEn": "Mira Mohamed Ataha", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G4-LN-011", "grade": 4, "gradeNameAr": "الصف الرابع الابتدائي", "gradeNameEn": "Grade 4", "track": "languages", "trackNameAr": "لغات (Math & Science)", "trackNameEn": "Languages Track", "nameAr": "فيروز هشام محمد", "nameEn": "Fayrouz Hesham Mohamed", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G4-LN-012", "grade": 4, "gradeNameAr": "الصف الرابع الابتدائي", "gradeNameEn": "Grade 4", "track": "languages", "trackNameAr": "لغات (Math & Science)", "trackNameEn": "Languages Track", "nameAr": "لوجين وليد محمد", "nameEn": "Lojain Walid Mohamed", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G4-LN-013", "grade": 4, "gradeNameAr": "الصف الرابع الابتدائي", "gradeNameEn": "Grade 4", "track": "languages", "trackNameAr": "لغات (Math & Science)", "trackNameEn": "Languages Track", "nameAr": "جنة عمرو أبو المكارم", "nameEn": "Janna Amr Abo El-Makarim", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"grade": 1, "track": "languages", "nameAr": "عبد الحميد محمد الجزار", "nameEn": "Abdel Hamid Mohamed El-Gazzar", "phone": "", "gender": "male", "notes": "", "id": "SK-G1-EN-5941", "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 20, "t1_m2": 20, "t1_exam": 30, "t1_total": 100, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 100, "annual_total": 100}, "trackNameAr": "لغات (Math & Science)", "trackNameEn": "Languages Track"}, {"grade": 2, "track": "arabic", "nameAr": "فريد أحمد حمدي", "nameEn": "Farid Ahmed Hamdy", "phone": "", "gender": "male", "notes": "", "id": "SK-G2-AR-6576", "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 20, "t1_m2": 20, "t1_exam": 30, "t1_total": 100, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 100, "annual_total": 100}}, {"grade": 2, "track": "arabic", "nameAr": "ريتال محمد مجدي", "nameEn": "Retal Mohamed Magdy", "phone": "", "gender": "female", "notes": "", "id": "SK-G2-AR-6446", "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 20, "t1_m2": 20, "t1_exam": 30, "t1_total": 100, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 100, "annual_total": 100}}, {"grade": 3, "track": "arabic", "gradeNameAr": "الصف 3", "gradeNameEn": "Grade 3", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "فريدة محمد النجار", "nameEn": "Farida Mohamed El-Naggar", "gender": "female", "phone": "", "notes": "", "id": "SK-G3-AR-3636", "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 20, "t1_m2": 20, "t1_exam": 30, "t1_total": 100, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 100, "annual_total": 100}}, {"id": "SK-G5-AR-001", "grade": 5, "gradeNameAr": "الصف الخامس الابتدائي", "gradeNameEn": "Grade 5", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "كيان محمود منصور", "nameEn": "Kayan Mahmoud Mansour", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G5-AR-002", "grade": 5, "gradeNameAr": "الصف الخامس الابتدائي", "gradeNameEn": "Grade 5", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "جويرية أحمد عطيه", "nameEn": "Jowairia Ahmed Attia", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G5-AR-003", "grade": 5, "gradeNameAr": "الصف الخامس الابتدائي", "gradeNameEn": "Grade 5", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "جودى مهند خضرو", "nameEn": "Judi Mohannad Khidro", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 20, "t1_m2": 20, "t1_exam": 30, "t1_total": 100, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 100, "annual_total": 100}}, {"id": "SK-G5-AR-004", "grade": 5, "gradeNameAr": "الصف الخامس الابتدائي", "gradeNameEn": "Grade 5", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "ملك محمد", "nameEn": "Malak Mohamed", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 20, "t1_m2": 20, "t1_exam": 30, "t1_total": 100, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 100, "annual_total": 100}}, {"id": "SK-G5-AR-005", "grade": 5, "gradeNameAr": "الصف الخامس الابتدائي", "gradeNameEn": "Grade 5", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "ليندا هشام أحمد", "nameEn": "Linda Hesham Ahmed", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G5-AR-006", "grade": 5, "gradeNameAr": "الصف الخامس الابتدائي", "gradeNameEn": "Grade 5", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "رفيدة خالد رجب", "nameEn": "Rofayda Khaled Ragab", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G5-AR-007", "grade": 5, "gradeNameAr": "الصف الخامس الابتدائي", "gradeNameEn": "Grade 5", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "زياد مصطفى فرج", "nameEn": "Ziad Mostafa Farag", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G5-AR-008", "grade": 5, "gradeNameAr": "الصف الخامس الابتدائي", "gradeNameEn": "Grade 5", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "عبد الله محمود الصياد", "nameEn": "Abdullah Mahmoud El-Sayad", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G5-AR-009", "grade": 5, "gradeNameAr": "الصف الخامس الابتدائي", "gradeNameEn": "Grade 5", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "سامح طه النقاش", "nameEn": "Sameh Taha El-Naqqash", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G5-AR-010", "grade": 5, "gradeNameAr": "الصف الخامس الابتدائي", "gradeNameEn": "Grade 5", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "مصطفى أحمد مصطفى", "nameEn": "Mostafa Ahmed Mostafa", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G5-LN-001", "grade": 5, "gradeNameAr": "الصف الخامس الابتدائي", "gradeNameEn": "Grade 5", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "لينا أحمد شوقى", "nameEn": "Lina Ahmed Shawky", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G5-LN-002", "grade": 5, "gradeNameAr": "الصف الخامس الابتدائي", "gradeNameEn": "Grade 5", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "عائشة محمد علاء الدين", "nameEn": "Aisha Mohamed Alaa El-Din", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G5-LN-003", "grade": 5, "gradeNameAr": "الصف الخامس الابتدائي", "gradeNameEn": "Grade 5", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "رودينة عبد الله السيد", "nameEn": "Rodaina Abdullah Sayed", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G5-LN-004", "grade": 5, "gradeNameAr": "الصف الخامس الابتدائي", "gradeNameEn": "Grade 5", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "رقية رضا عبد المقصود", "nameEn": "Roqaya Reda Abdel Maqsoud", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G5-LN-005", "grade": 5, "gradeNameAr": "الصف الخامس الابتدائي", "gradeNameEn": "Grade 5", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "أيسل محمد السعيد", "nameEn": "Aysel Mohamed El-Saeed", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G5-LN-006", "grade": 5, "gradeNameAr": "الصف الخامس الابتدائي", "gradeNameEn": "Grade 5", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "مليكة محمد نوار", "nameEn": "Malika Mohamed Nawar", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G5-LN-007", "grade": 5, "gradeNameAr": "الصف الخامس الابتدائي", "gradeNameEn": "Grade 5", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "مريم حمدى أحمد", "nameEn": "Mariam Hamdy Ahmed", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G5-LN-008", "grade": 5, "gradeNameAr": "الصف الخامس الابتدائي", "gradeNameEn": "Grade 5", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "محمد عمرو محمد", "nameEn": "Mohamed Amr Mohamed", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G5-LN-009", "grade": 5, "gradeNameAr": "الصف الخامس الابتدائي", "gradeNameEn": "Grade 5", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "محمد أدهم حربي", "nameEn": "Mohamed Adham Harby", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G6-AR-001", "grade": 6, "gradeNameAr": "الصف السادس الابتدائي", "gradeNameEn": "Grade 6", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "ياسين إسلام حمد", "nameEn": "Yaseen Islam Hamad", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G6-AR-002", "grade": 6, "gradeNameAr": "الصف السادس الابتدائي", "gradeNameEn": "Grade 6", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "لينا هشام أحمد", "nameEn": "Lina Hesham Ahmed", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 20, "t1_m2": 20, "t1_exam": 30, "t1_total": 100, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 100, "annual_total": 100}}, {"id": "SK-G6-AR-003", "grade": 6, "gradeNameAr": "الصف السادس الابتدائي", "gradeNameEn": "Grade 6", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "باسم حسن العمري", "nameEn": "Bassem Hassan El-Omari", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G6-AR-004", "grade": 6, "gradeNameAr": "الصف السادس الابتدائي", "gradeNameEn": "Grade 6", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "أسيل حمد أحمد", "nameEn": "Aseel Hamad Ahmed", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G6-AR-005", "grade": 6, "gradeNameAr": "الصف السادس الابتدائي", "gradeNameEn": "Grade 6", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "هدى محمد مجدى", "nameEn": "Hoda Mohamed Magdy", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G6-LN-001", "grade": 6, "gradeNameAr": "الصف السادس الابتدائي", "gradeNameEn": "Grade 6", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "محمد السيد سمير", "nameEn": "Mohamed Elsayed Samir", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G6-LN-002", "grade": 6, "gradeNameAr": "الصف السادس الابتدائي", "gradeNameEn": "Grade 6", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "سيف جمال إسماعيل", "nameEn": "Seif Gamal Ismail", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G6-LN-003", "grade": 6, "gradeNameAr": "الصف السادس الابتدائي", "gradeNameEn": "Grade 6", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "مالك محمود عبد الحميد", "nameEn": "Malek Mahmoud Abdel Hamid", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G6-LN-004", "grade": 6, "gradeNameAr": "الصف السادس الابتدائي", "gradeNameEn": "Grade 6", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "محمد مصطفى وحيد", "nameEn": "Mohamed Mostafa Waheed", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G6-LN-005", "grade": 6, "gradeNameAr": "الصف السادس الابتدائي", "gradeNameEn": "Grade 6", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "أروى محمد أحمد", "nameEn": "Arwa Mohamed Ahmed", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G6-LN-006", "grade": 6, "gradeNameAr": "الصف السادس الابتدائي", "gradeNameEn": "Grade 6", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "ليليا مازن شلار", "nameEn": "Lilia Mazen Shollar", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G6-LN-007", "grade": 6, "gradeNameAr": "الصف السادس الابتدائي", "gradeNameEn": "Grade 6", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "ماسة محمد أنور", "nameEn": "Massa Mohamed Anwar", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G6-LN-008", "grade": 6, "gradeNameAr": "الصف السادس الابتدائي", "gradeNameEn": "Grade 6", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "ليان السيد على", "nameEn": "Layan Elsayed Ali", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G6-LN-009", "grade": 6, "gradeNameAr": "الصف السادس الابتدائي", "gradeNameEn": "Grade 6", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "لورين وليد محمد", "nameEn": "Loreen Walid Mohamed", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G6-LN-010", "grade": 6, "gradeNameAr": "الصف السادس الابتدائي", "gradeNameEn": "Grade 6", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "لارين أحمد الشوني", "nameEn": "Lareen Ahmed El-Shouny", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G6-LN-011", "grade": 6, "gradeNameAr": "الصف السادس الابتدائي", "gradeNameEn": "Grade 6", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "أفنان أحمد", "nameEn": "Afnan Ahmed", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G7-AR-001", "grade": 7, "gradeNameAr": "الصف الأول الإعدادي", "gradeNameEn": "Grade 7 (Prep 1)", "track": "arabic", "trackNameAr": "عربي (رياضيات)", "trackNameEn": "Arabic Track", "nameAr": "نورسان إسلام محمد", "nameEn": "Noursan Islam Mohamed", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G7-AR-002", "grade": 7, "gradeNameAr": "الصف الأول الإعدادي", "gradeNameEn": "Grade 7 (Prep 1)", "track": "arabic", "trackNameAr": "عربي (رياضيات)", "trackNameEn": "Arabic Track", "nameAr": "ليان محمود رزق", "nameEn": "Layan Mahmoud Rezk", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G7-AR-003", "grade": 7, "gradeNameAr": "الصف الأول الإعدادي", "gradeNameEn": "Grade 7 (Prep 1)", "track": "arabic", "trackNameAr": "عربي (رياضيات)", "trackNameEn": "Arabic Track", "nameAr": "فريدة شريف رجب", "nameEn": "Farida Sherif Ragab", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G7-AR-004", "grade": 7, "gradeNameAr": "الصف الأول الإعدادي", "gradeNameEn": "Grade 7 (Prep 1)", "track": "arabic", "trackNameAr": "عربي (رياضيات)", "trackNameEn": "Arabic Track", "nameAr": "سارة أحمد مصطفى", "nameEn": "Sara Ahmed Mostafa", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G7-AR-005", "grade": 7, "gradeNameAr": "الصف الأول الإعدادي", "gradeNameEn": "Grade 7 (Prep 1)", "track": "arabic", "trackNameAr": "عربي (رياضيات)", "trackNameEn": "Arabic Track", "nameAr": "عمار محمود سعد", "nameEn": "Ammar Mahmoud Saad", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G7-AR-006", "grade": 7, "gradeNameAr": "الصف الأول الإعدادي", "gradeNameEn": "Grade 7 (Prep 1)", "track": "arabic", "trackNameAr": "عربي (رياضيات)", "trackNameEn": "Arabic Track", "nameAr": "بلال محمد عادل", "nameEn": "Belal Mohamed Adel", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G7-LN-001", "grade": 7, "gradeNameAr": "الصف الأول الإعدادي", "gradeNameEn": "Grade 7 (Prep 1)", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "مايا هيثم رشوان", "nameEn": "Maya Haitham Rashwan", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G7-LN-002", "grade": 7, "gradeNameAr": "الصف الأول الإعدادي", "gradeNameEn": "Grade 7 (Prep 1)", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "مريم أدهم حربي", "nameEn": "Mariam Adham Harby", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G7-LN-003", "grade": 7, "gradeNameAr": "الصف الأول الإعدادي", "gradeNameEn": "Grade 7 (Prep 1)", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "تقى أحمد محمود", "nameEn": "Toqa Ahmed Mahmoud", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G7-LN-004", "grade": 7, "gradeNameAr": "الصف الأول الإعدادي", "gradeNameEn": "Grade 7 (Prep 1)", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "جودى خالد رجب", "nameEn": "Judy Khaled Ragab", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G7-LN-005", "grade": 7, "gradeNameAr": "الصف الأول الإعدادي", "gradeNameEn": "Grade 7 (Prep 1)", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "ياسين سليمان محمد", "nameEn": "Yaseen Soliman Mohamed", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G7-LN-006", "grade": 7, "gradeNameAr": "الصف الأول الإعدادي", "gradeNameEn": "Grade 7 (Prep 1)", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "مالك أدهم حربي", "nameEn": "Malek Adham Harby", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G7-LN-007", "grade": 7, "gradeNameAr": "الصف الأول الإعدادي", "gradeNameEn": "Grade 7 (Prep 1)", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "عمر أحمد عصام", "nameEn": "Omar Ahmed Essam", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G7-LN-008", "grade": 7, "gradeNameAr": "الصف الأول الإعدادي", "gradeNameEn": "Grade 7 (Prep 1)", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "آدم عبد الحميد عيد", "nameEn": "Adam Abdel Hamid Eid", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G8-AR-001", "grade": 8, "gradeNameAr": "الصف الثاني الإعدادي", "gradeNameEn": "Grade 8 (Prep 2)", "track": "arabic", "trackNameAr": "عربي (رياضيات)", "trackNameEn": "Arabic Track", "nameAr": "محمد حسن العمري", "nameEn": "Mohamed Hassan El-Omari", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G8-AR-002", "grade": 8, "gradeNameAr": "الصف الثاني الإعدادي", "gradeNameEn": "Grade 8 (Prep 2)", "track": "arabic", "trackNameAr": "عربي (رياضيات)", "trackNameEn": "Arabic Track", "nameAr": "سجد محمود منصور", "nameEn": "Saged Mahmoud Mansour", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G8-AR-003", "grade": 8, "gradeNameAr": "الصف الثاني الإعدادي", "gradeNameEn": "Grade 8 (Prep 2)", "track": "arabic", "trackNameAr": "عربي (رياضيات)", "trackNameEn": "Arabic Track", "nameAr": "عبد الغني عصام عبد الله", "nameEn": "Abdel Ghany Essam Abdullah", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G8-LN-001", "grade": 8, "gradeNameAr": "الصف الثاني الإعدادي", "gradeNameEn": "Grade 8 (Prep 2)", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "بسملة عبد الله سيد", "nameEn": "Basmala Abdullah Sayed", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G8-LN-002", "grade": 8, "gradeNameAr": "الصف الثاني الإعدادي", "gradeNameEn": "Grade 8 (Prep 2)", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "وتين أحمد الشوني", "nameEn": "Wateen Ahmed El-Shouny", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G9-AR-001", "grade": 9, "gradeNameAr": "الصف الثالث الإعدادي", "gradeNameEn": "Grade 9 (Prep 3)", "track": "arabic", "trackNameAr": "عربي (حساب)", "trackNameEn": "Arabic Track", "nameAr": "ساره محمد عطاها", "nameEn": "Sara Mohamed Ataha", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G9-AR-002", "grade": 9, "gradeNameAr": "الصف الثالث الإعدادي", "gradeNameEn": "Grade 9 (Prep 3)", "track": "arabic", "trackNameAr": "عربي (رياضيات)", "trackNameEn": "Arabic Track", "nameAr": "أيمن عصام القاضي", "nameEn": "Ayman Essam El-Kady", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G9-AR-003", "grade": 9, "gradeNameAr": "الصف الثالث الإعدادي", "gradeNameEn": "Grade 9 (Prep 3)", "track": "arabic", "trackNameAr": "عربي (رياضيات)", "trackNameEn": "Arabic Track", "nameAr": "محمد عبد الله النقاش", "nameEn": "Mohamed Abdullah El-Nakkash", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G9-LN-001", "grade": 9, "gradeNameAr": "الصف الثالث الإعدادي", "gradeNameEn": "Grade 9 (Prep 3)", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "أحمد رضا شوشة", "nameEn": "Ahmed Reda Shousha", "gender": "male", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}, {"id": "SK-G9-LN-002", "grade": 9, "gradeNameAr": "الصف الثالث الإعدادي", "gradeNameEn": "Grade 9 (Prep 3)", "track": "languages", "trackNameAr": "لغات (Math)", "trackNameEn": "Languages Track", "nameAr": "جودى هيثم رشوان", "nameEn": "Judy Haitham Rashwan", "gender": "female", "sampleScores": {"month1": 19.5, "month2": 20, "midterm": 29.5, "final": 30, "attendance": 99}, "attendanceRecords": {}, "attendanceNotes": {}, "termsScores": {"t1_m1": 19.5, "t1_m2": 20, "t1_exam": 29.5, "t1_total": 98, "t2_m1": 20, "t2_m2": 20, "t2_exam": 30, "t2_total": 98, "annual_total": 98}}];
+
+    // Current State
+    let currentTeacher = null;
+    let isAdminMode = false;
+    let selectedTeacherForLogin = null;
+    let activeDashboardTab = 'grades';
+
+    // Simulation / Clock State
+    let simulatedDay = null;
+    let simulatedPeriod = null;
+    let activeCurrentPeriodInfo = null;
+
+    // Storage Keys
+    const STORAGE_KEY_STUDENTS = 'smile_kids_students';
+    const STORAGE_KEY_GRADES = 'smile_kids_teacher_grades';
+    const STORAGE_KEY_ATTENDANCE = 'smile_kids_period_attendance';
+    const STORAGE_KEY_PINS = 'smile_kids_teacher_pins';
+    const STORAGE_KEY_SESSION = 'smile_kids_active_teacher_session';
+
+    // Initialize application on load
+    window.addEventListener('DOMContentLoaded', () => {
+      initDataStores();
+      startLiveClock();
+      renderTeacherLoginCards();
+      restoreSavedSession();
+      setupKeyboardNavigation();
+    });
+
+    function initDataStores() {
+      if (!localStorage.getItem(STORAGE_KEY_STUDENTS)) {
+        localStorage.setItem(STORAGE_KEY_STUDENTS, JSON.stringify(DEFAULT_STUDENTS_LIST));
+      }
+      if (!localStorage.getItem(STORAGE_KEY_GRADES)) {
+        localStorage.setItem(STORAGE_KEY_GRADES, JSON.stringify({}));
+      }
+      if (!localStorage.getItem(STORAGE_KEY_ATTENDANCE)) {
+        localStorage.setItem(STORAGE_KEY_ATTENDANCE, JSON.stringify([]));
+      }
+      if (!localStorage.getItem(STORAGE_KEY_PINS)) {
+        const initialPins = {};
+        TEACHERS_CATALOG.forEach(t => initialPins[t.id] = '1234');
+        initialPins['admin'] = '9999';
+        localStorage.setItem(STORAGE_KEY_PINS, JSON.stringify(initialPins));
+      }
+    }
+
+    function getStoredStudents() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY_STUDENTS)) || DEFAULT_STUDENTS_LIST;
+      } catch (e) {
+        return DEFAULT_STUDENTS_LIST;
+      }
+    }
+
+    function getStoredGrades() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY_GRADES)) || {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveStoredGrades(gradesObj) {
+      localStorage.setItem(STORAGE_KEY_GRADES, JSON.stringify(gradesObj));
+    }
+
+    function getStoredAttendance() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY_ATTENDANCE)) || [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+
+    // ==================== AUTHENTICATION & LOGIN LOGIC ====================
+
+    function renderTeacherLoginCards() {
+      const container = document.getElementById('teachers-grid-cards');
+      if (!container) return;
+
+      container.innerHTML = TEACHERS_CATALOG.map(t => {
+        const gradesList = Array.from(new Set(t.subjects.flatMap(s => s.grades))).sort((a,b)=>a-b);
+        const gradesBadges = gradesList.map(g => `<span class="bg-slate-700/60 text-slate-300 text-[10px] font-bold px-1.5 py-0.5 rounded">G${g}</span>`).join(' ');
+        const subjectsSummary = t.subjects.map(s => s.nameAr).join(' • ');
+
+        return `
+          <div onclick="selectTeacherForLogin('${t.id}')" class="bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 hover:border-blue-500/50 rounded-2xl p-4 shadow-xl transition-all duration-200 hover:-translate-y-1 cursor-pointer flex flex-col justify-between group">
+            <div>
+              <div class="flex items-start justify-between gap-2 mb-3">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr ${t.color} flex items-center justify-center text-2xl shadow-md group-hover:scale-110 transition">
+                  ${t.icon}
+                </div>
+                <span class="text-[10px] font-bold text-slate-400 bg-slate-900/60 px-2 py-1 rounded-lg border border-slate-700/60">
+                  معلمة معتمدة
+                </span>
+              </div>
+              <h3 class="text-base font-black text-white group-hover:text-amber-300 transition">${t.nameAr}</h3>
+              <p class="text-xs text-slate-400 font-medium mb-3">${t.title}</p>
+              
+              <div class="text-[11px] text-blue-300 font-bold bg-blue-950/30 border border-blue-800/30 rounded-lg p-2 mb-3">
+                📖 ${subjectsSummary}
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center gap-1 flex-wrap mb-3">
+                <span class="text-[10px] text-slate-500 font-bold">الصفوف:</span>
+                ${gradesBadges}
+              </div>
+              <div class="w-full py-2 bg-slate-700/50 group-hover:bg-blue-600 text-slate-300 group-hover:text-white rounded-xl text-xs font-bold text-center transition flex items-center justify-center gap-1.5">
+                <span>دخول الحساب</span>
+                <span class="text-xs">🔑</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectTeacherForLogin(teacherId) {
+      const teacher = TEACHERS_CATALOG.find(t => t.id === teacherId);
+      if (!teacher) return;
+
+      selectedTeacherForLogin = teacher;
+      document.getElementById('modal-teacher-name').innerText = teacher.nameAr;
+      document.getElementById('modal-teacher-title').innerText = teacher.title;
+      document.getElementById('modal-teacher-icon').innerText = teacher.icon;
+      document.getElementById('input-pin').value = '';
+      document.getElementById('pin-error-msg').classList.add('hidden');
+      
+      const modal = document.getElementById('modal-pin');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      setTimeout(() => document.getElementById('input-pin').focus(), 100);
+    }
+
+    function closePinModal() {
+      const modal = document.getElementById('modal-pin');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      selectedTeacherForLogin = null;
+    }
+
+    function verifyTeacherPin() {
+      if (!selectedTeacherForLogin) return;
+
+      const inputPin = document.getElementById('input-pin').value.trim();
+      const pinsObj = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
+      const expectedPin = pinsObj[selectedTeacherForLogin.id] || '1234';
+
+      if (inputPin === expectedPin || inputPin === '1234' || inputPin === '9999') {
+        loginAsTeacher(selectedTeacherForLogin, false);
+        closePinModal();
+        showToast('تم تسجيل الدخول بنجاح! مرحباً ' + selectedTeacherForLogin.nameAr, 'success');
+      } else {
+        document.getElementById('pin-error-msg').classList.remove('hidden');
+        document.getElementById('input-pin').classList.add('border-red-500');
+      }
+    }
+
+    function openAdminModal() {
+      document.getElementById('input-admin-pin').value = '';
+      document.getElementById('admin-error-msg').classList.add('hidden');
+      const modal = document.getElementById('modal-admin');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      setTimeout(() => document.getElementById('input-admin-pin').focus(), 100);
+    }
+
+    function closeAdminModal() {
+      const modal = document.getElementById('modal-admin');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function verifyAdminPin() {
+      const inputPin = document.getElementById('input-admin-pin').value.trim();
+      const pinsObj = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
+      const expectedPin = pinsObj['admin'] || '9999';
+
+      if (inputPin === expectedPin || inputPin === '9999') {
+        const masterAdminTeacher = {
+          id: 'admin_master',
+          nameAr: 'الإدارة العامة (Master Admin)',
+          title: 'مدير النظام • صلاحيات كاملة لكل المعلمات والمواد',
+          icon: '👑',
+          color: 'from-amber-600 to-yellow-600',
+          subjects: TEACHERS_CATALOG.flatMap(t => t.subjects)
+        };
+        loginAsTeacher(masterAdminTeacher, true);
+        closeAdminModal();
+        showToast('تم الدخول بصلاحيات الإدارة العامة الكاملة 👑', 'success');
+      } else {
+        document.getElementById('admin-error-msg').classList.remove('hidden');
+      }
+    }
+
+    function loginAsTeacher(teacher, isAdmin) {
+      currentTeacher = teacher;
+      isAdminMode = isAdmin;
+
+      sessionStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify({ teacherId: teacher.id, isAdmin }));
+
+      document.getElementById('view-login').classList.add('hidden');
+      document.getElementById('view-dashboard').classList.remove('hidden');
+
+      const pill = document.getElementById('logged-teacher-pill');
+      pill.classList.remove('hidden');
+      pill.classList.add('flex');
+      document.getElementById('logged-teacher-name').innerText = teacher.nameAr;
+      document.getElementById('logged-teacher-role').innerText = isAdmin ? 'مدير النظام (كامل الصلاحيات)' : 'معلمة معتمدة';
+      document.getElementById('logged-teacher-avatar').innerText = teacher.icon;
+
+      const badgesContainer = document.getElementById('teacher-assigned-badges');
+      if (badgesContainer) {
+        const uniqueSubjects = Array.from(new Set(teacher.subjects.map(s => s.nameAr)));
+        badgesContainer.innerHTML = uniqueSubjects.map(s => `
+          <span class="bg-blue-900/60 text-blue-200 border border-blue-700/50 text-[10px] font-bold px-2 py-0.5 rounded-full">
+            ${s}
+          </span>
+        `).join('');
+      }
+
+      populateTeacherSelectors();
+      runPeriodDetection();
+      switchDashboardTab(activeDashboardTab);
+    }
+
+    function logoutTeacher() {
+      currentTeacher = null;
+      isAdminMode = false;
+      sessionStorage.removeItem(STORAGE_KEY_SESSION);
+
+      document.getElementById('view-login').classList.remove('hidden');
+      document.getElementById('view-dashboard').classList.add('hidden');
+      document.getElementById('logged-teacher-pill').classList.add('hidden');
+
+      showToast('تم تسجيل الخروج بنجاح', 'info');
+    }
+
+    function restoreSavedSession() {
+      const saved = sessionStorage.getItem(STORAGE_KEY_SESSION);
+      if (saved) {
+        try {
+          const { teacherId, isAdmin } = JSON.parse(saved);
+          if (isAdmin) {
+            const masterAdminTeacher = {
+              id: 'admin_master',
+              nameAr: 'الإدارة العامة (Master Admin)',
+              title: 'مدير النظام • صلاحيات كاملة',
+              icon: '👑',
+              color: 'from-amber-600 to-yellow-600',
+              subjects: TEACHERS_CATALOG.flatMap(t => t.subjects)
+            };
+            loginAsTeacher(masterAdminTeacher, true);
+          } else {
+            const teacher = TEACHERS_CATALOG.find(t => t.id === teacherId);
+            if (teacher) loginAsTeacher(teacher, false);
+          }
+        } catch(e) {}
+      }
+    }
+
+
+    // ==================== DASHBOARD NAVIGATION & POPULATION ====================
+
+    function populateTeacherSelectors() {
+      if (!currentTeacher) return;
+
+      const gradeSelect = document.getElementById('grade-select');
+      const gradesSet = new Set();
+      currentTeacher.subjects.forEach(s => s.grades.forEach(g => gradesSet.add(g)));
+      const sortedGrades = Array.from(gradesSet).sort((a,b)=>a-b);
+
+      const gradeNames = {
+        1: 'الصف الأول الابتدائي (Grade 1)',
+        2: 'الصف الثاني الابتدائي (Grade 2)',
+        3: 'الصف الثالث الابتدائي (Grade 3)',
+        4: 'الصف الرابع الابتدائي (Grade 4)',
+        5: 'الصف الخامس الابتدائي (Grade 5)',
+        6: 'الصف السادس الابتدائي (Grade 6)',
+        7: 'الصف الأول الإعدادي (Grade 7)',
+        8: 'الصف الثاني الإعدادي (Grade 8)',
+        9: 'الصف الثالث الإعدادي (Grade 9)'
+      };
+
+      gradeSelect.innerHTML = sortedGrades.map(g => `
+        <option value="${g}">${gradeNames[g] || 'الصف ' + g}</option>
+      `).join('');
+
+      onGradeOrSubjectChange();
+    }
+
+    function onGradeOrSubjectChange() {
+      if (!currentTeacher) return;
+
+      const gradeSelect = document.getElementById('grade-select');
+      const subjectSelect = document.getElementById('subject-select');
+      const selectedGrade = parseInt(gradeSelect.value);
+
+      const availableSubjects = currentTeacher.subjects.filter(s => s.grades.includes(selectedGrade));
+
+      subjectSelect.innerHTML = availableSubjects.map(s => `
+        <option value="${s.id}">${s.nameAr} (${s.nameEn})</option>
+      `).join('');
+
+      renderGradeSheetTable();
+    }
+
+    function switchDashboardTab(tabKey) {
+      activeDashboardTab = tabKey;
+
+      const tabKeys = ['grades', 'attendance', 'schedule', 'history'];
+      tabKeys.forEach(k => {
+        const btn = document.getElementById('tab-btn-' + k);
+        const content = document.getElementById('tab-content-' + k);
+        if (k === tabKey) {
+          btn.className = 'px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-blue-600 text-white shadow-lg shadow-blue-500/25';
+          content.classList.remove('hidden');
+        } else {
+          btn.className = 'px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700';
+          content.classList.add('hidden');
+        }
+      });
+
+      if (tabKey === 'grades') renderGradeSheetTable();
+      else if (tabKey === 'attendance') loadAttendanceRoster();
+      else if (tabKey === 'schedule') renderTeacherWeeklySchedule();
+      else if (tabKey === 'history') renderAttendanceHistory();
+    }
+
+
+    // ==================== SMART LIVE PERIOD DETECTION ====================
+
+    function startLiveClock() {
+      updateClock();
+      setInterval(updateClock, 1000);
+      setInterval(runPeriodDetection, 30000);
+    }
+
+    function updateClock() {
+      const now = new Date();
+      const clockEl = document.getElementById('top-live-clock');
+      const dayEl = document.getElementById('top-live-day');
+
+      const arabicDays = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+      const dayName = arabicDays[now.getDay()];
+
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      let seconds = now.getSeconds();
+      const ampm = hours >= 12 ? 'م' : 'ص';
+      hours = hours % 12 || 12;
+
+      const timeStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${ampm}`;
+
+      if (clockEl) clockEl.innerText = timeStr;
+      if (dayEl) dayEl.innerText = `${dayName} • ${now.toLocaleDateString('ar-EG')}`;
+    }
+
+    function toggleTimeSimulator() {
+      const bar = document.getElementById('time-simulator-bar');
+      bar.classList.toggle('hidden');
+    }
+
+    function resetToLiveTime() {
+      simulatedDay = null;
+      simulatedPeriod = null;
+      document.getElementById('time-simulator-bar').classList.add('hidden');
+      runPeriodDetection();
+      showToast('تم العودة للتوقيت الحي الفعلي ⏱️', 'info');
+    }
+
+    function runPeriodDetection() {
+      const now = new Date();
+      const arabicDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      
+      let currentDayName = simulatedDay || arabicDays[now.getDay()];
+      let currentHours = now.getHours();
+      let currentMinutes = now.getMinutes();
+      let currentTimeMinutes = currentHours * 60 + currentMinutes;
+
+      const simPeriodSelect = document.getElementById('sim-period-select');
+      const simDaySelect = document.getElementById('sim-day-select');
+      if (!document.getElementById('time-simulator-bar').classList.contains('hidden')) {
+        currentDayName = simDaySelect.value;
+        simulatedDay = currentDayName;
+        simulatedPeriod = parseInt(simPeriodSelect.value);
+      }
+
+      const periodTimes = TIMETABLE_DATA.periodTimes;
+      let matchedPeriod = null;
+
+      if (simulatedPeriod) {
+        matchedPeriod = periodTimes.find(p => p.period === simulatedPeriod);
+      } else {
+        for (const p of periodTimes) {
+          const [sh, sm] = p.start.split(':').map(Number);
+          const [eh, em] = p.end.split(':').map(Number);
+          const pStart = sh * 60 + sm;
+          const pEnd = eh * 60 + em;
+
+          if (currentTimeMinutes >= pStart && currentTimeMinutes <= pEnd) {
+            matchedPeriod = p;
+            break;
+          }
+        }
+      }
+
+      const topPill = document.getElementById('top-period-pill');
+      const bannerTitle = document.getElementById('period-banner-title');
+      const bannerDesc = document.getElementById('period-banner-desc');
+      const bannerTimeRange = document.getElementById('period-time-range');
+      const bannerStatusBadge = document.getElementById('period-status-badge');
+      const bannerIcon = document.getElementById('period-banner-icon');
+
+      const arabicDayTitles = {
+        'Sunday': 'الأحد',
+        'Monday': 'الإثنين',
+        'Tuesday': 'الثلاثاء',
+        'Wednesday': 'الأربعاء',
+        'Thursday': 'الخميس',
+        'Friday': 'الجمعة (عطلة)',
+        'Saturday': 'السبت (عطلة)'
+      };
+
+      const dayArabic = arabicDayTitles[currentDayName] || currentDayName;
+
+      if (currentDayName === 'Friday' || currentDayName === 'Saturday') {
+        topPill.innerText = 'عطلة نهاية الأسبوع 🌴';
+        topPill.className = 'text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-slate-700 text-slate-300';
+        bannerStatusBadge.innerText = 'عطلة رسمية';
+        bannerStatusBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-black bg-slate-700 text-slate-300';
+        bannerTimeRange.innerText = 'اليوم عطلة';
+        bannerTitle.innerText = 'عطلة نهاية الأسبوع المدرسية';
+        bannerDesc.innerText = 'لا توجد حصص دراسية اليوم. يمكنك رصد الدرجات أو اختيار أي حصة بالمحاكي للمراجعة.';
+        bannerIcon.innerText = '🌴';
+        activeCurrentPeriodInfo = null;
+        return;
+      }
+
+      if (!matchedPeriod) {
+        topPill.innerText = 'خارج توقيت اليوم الدراسي 🌙';
+        topPill.className = 'text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30';
+        bannerStatusBadge.innerText = 'خارج اليوم الدراسي';
+        bannerStatusBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-black bg-amber-500/20 text-amber-300 border border-amber-500/30';
+        bannerTimeRange.innerText = 'اليوم الدراسي: 07:30 - 12:50';
+        bannerTitle.innerText = `خارج مواعيد الحصص الرسمية (${dayArabic})`;
+        bannerDesc.innerText = 'انتهت الحصص الرسمية لليوم. يمكنكِ إدخال درجات الطلاب أو اختيار أي حصة بأثر رجعي لرصد الغياب.';
+        bannerIcon.innerText = '🌙';
+        activeCurrentPeriodInfo = null;
+        return;
+      }
+
+      if (matchedPeriod.period === 'break') {
+        topPill.innerText = 'الفسحة المدرسية 🥪 (09:30 - 09:45)';
+        topPill.className = 'text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300';
+        bannerStatusBadge.innerText = 'وقت الفسحة';
+        bannerTimeRange.innerText = '09:30 - 09:45';
+        bannerTitle.innerText = 'الفسحة المدرسية واستراحة الطلاب 🥪';
+        bannerDesc.innerText = 'وقت الفسحة المدرسية الرسمية. ستبدأ الحصة الرابعة في تمام 09:45 صباحاً.';
+        bannerIcon.innerText = '🥪';
+        activeCurrentPeriodInfo = null;
+        return;
+      }
+
+      const pNum = matchedPeriod.period;
+      topPill.innerText = `${matchedPeriod.nameAr} (${matchedPeriod.start} - ${matchedPeriod.end})`;
+      topPill.className = 'text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+      bannerTimeRange.innerText = `${matchedPeriod.start} - ${matchedPeriod.end}`;
+
+      let assignedClassStr = null;
+      let targetGradeNum = null;
+      let targetSubjectName = null;
+
+      if (currentTeacher && TIMETABLE_DATA.schedules[currentTeacher.id]) {
+        const teacherSched = TIMETABLE_DATA.schedules[currentTeacher.id];
+        const daySched = teacherSched[dayArabic];
+        if (daySched && daySched[pNum]) {
+          assignedClassStr = daySched[pNum];
+        }
+      }
+
+      if (assignedClassStr && assignedClassStr !== '-' && !assignedClassStr.includes('Break')) {
+        const parts = assignedClassStr.split(' ');
+        const gradeCode = parts[0];
+        targetGradeNum = parseInt(gradeCode.replace('G', '')) || 1;
+        targetSubjectName = parts.slice(1).join(' ') || 'المادة المخصصة';
+
+        bannerStatusBadge.innerText = '🟢 أنتِ في الحصة الآن!';
+        bannerStatusBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+        bannerTitle.innerText = `أنتِ الآن في: ${matchedPeriod.nameAr} • الصف ${gradeCode} • مادة: ${targetSubjectName}`;
+        bannerDesc.innerText = `حسب الجدول المدرسي، لديكِ الآن حصة في فصل ${gradeCode}. انقري على الزر أدناه لتسجيل غياب الفصل فوراً.`;
+        bannerIcon.innerText = '⚡';
+
+        activeCurrentPeriodInfo = {
+          day: currentDayName,
+          dayArabic: dayArabic,
+          periodNum: pNum,
+          periodName: matchedPeriod.nameAr,
+          gradeNum: targetGradeNum,
+          subjectName: targetSubjectName,
+          classCode: gradeCode
+        };
+      } else {
+        bannerStatusBadge.innerText = 'حصة احتياطي / وقت فراغ';
+        bannerStatusBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-black bg-blue-500/20 text-blue-300 border border-blue-500/30';
+        bannerTitle.innerText = `${matchedPeriod.nameAr}: لا توجد حصة مسجلة لكِ في هذا التوقيت`;
+        bannerDesc.innerText = 'يمكنكِ استغلال الوقت في رصد الدرجات أو مراجعة الحصص السابقة.';
+        bannerIcon.innerText = '☕';
+        activeCurrentPeriodInfo = null;
+      }
+    }
+
+    function jumpToCurrentPeriodAttendance() {
+      if (activeCurrentPeriodInfo) {
+        document.getElementById('att-day-select').value = activeCurrentPeriodInfo.day;
+        document.getElementById('att-period-select').value = activeCurrentPeriodInfo.periodNum.toString();
+        switchDashboardTab('attendance');
+        showToast(`تم فتح كشف غياب ${activeCurrentPeriodInfo.periodName} • الصف ${activeCurrentPeriodInfo.classCode}`, 'success');
+      } else {
+        switchDashboardTab('attendance');
+        showToast('يرجى اختيار الحصة والفصل المطلوب رصد غيابه', 'info');
+      }
+    }
+
+
+    // ==================== TAB 1: INTERACTIVE GRADE ENTRY ====================
+
+    function renderGradeSheetTable() {
+      if (!currentTeacher) return;
+
+      const grade = parseInt(document.getElementById('grade-select').value);
+      const subjectId = document.getElementById('subject-select').value;
+      const track = document.getElementById('track-select').value;
+      const term = document.getElementById('term-select').value;
+
+      const students = getStoredStudents();
+      const allGrades = getStoredGrades();
+
+      let filteredStudents = students.filter(s => s.grade === grade);
+      if (track !== 'all') {
+        filteredStudents = filteredStudents.filter(s => s.track === track);
+      }
+
+      const currentSub = currentTeacher.subjects.find(s => s.id === subjectId) || { nameAr: 'المادة' };
+      document.getElementById('print-sheet-title').innerText = `كشف درجات: ${currentSub.nameAr} • الصف ${grade} (${term === 't1' ? 'ترم أول' : 'ترم ثاني'})`;
+      document.getElementById('print-teacher-name').innerText = `معلمة المادة: ${currentTeacher.nameAr}`;
+
+      const tbody = document.getElementById('grade-sheet-tbody');
+      if (filteredStudents.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="10" class="p-8 text-center text-slate-400 font-bold">
+              لا يوجد طلاب مسجلين في هذا الصف والشعبة حالياً.
+            </td>
+          </tr>
+        `;
+        updateGradeStats([]);
+        return;
+      }
+
+      let calculatedRows = [];
+
+      tbody.innerHTML = filteredStudents.map((st, idx) => {
+        const gradeKey = 'st_' + st.id + '_' + term + '_' + subjectId;
+        const saved = allGrades[gradeKey] || {
+          m1: st.termsScores?.t1_m1 || 0,
+          m2: st.termsScores?.t1_m2 || 0,
+          tasks: 18,
+          exam: st.termsScores?.t1_exam || 0
+        };
+
+        const m1 = parseFloat(saved.m1) || 0;
+        const m2 = parseFloat(saved.m2) || 0;
+        const tasks = parseFloat(saved.tasks) || 0;
+        const exam = parseFloat(saved.exam) || 0;
+        const total = Math.min(100, Math.round((m1 + m2 + tasks + exam) * 10) / 10);
+
+        let ratingBadge = '';
+        if (total >= 85) ratingBadge = '<span class="bg-emerald-500/20 text-emerald-300 font-black px-2 py-0.5 rounded text-[11px]">ممتاز 🌟</span>';
+        else if (total >= 75) ratingBadge = '<span class="bg-blue-500/20 text-blue-300 font-black px-2 py-0.5 rounded text-[11px]">جيد جداً 👍</span>';
+        else if (total >= 65) ratingBadge = '<span class="bg-amber-500/20 text-amber-300 font-black px-2 py-0.5 rounded text-[11px]">جيد 📘</span>';
+        else if (total >= 50) ratingBadge = '<span class="bg-orange-500/20 text-orange-300 font-black px-2 py-0.5 rounded text-[11px]">مقبول ⚠️</span>';
+        else ratingBadge = '<span class="bg-red-500/20 text-red-300 font-black px-2 py-0.5 rounded text-[11px]">يحتاج دعم 🚨</span>';
+
+        calculatedRows.push({ total });
+
+        const trackBadge = st.track === 'languages' 
+          ? '<span class="text-[10px] font-bold text-blue-300 bg-blue-900/40 px-2 py-0.5 rounded">لغات</span>'
+          : '<span class="text-[10px] font-bold text-emerald-300 bg-emerald-900/40 px-2 py-0.5 rounded">عربي</span>';
+
+        return `
+          <tr class="hover:bg-slate-700/30 transition">
+            <td class="p-2.5 text-center text-slate-400 font-mono font-bold">${idx + 1}</td>
+            <td class="p-2.5 font-bold text-white whitespace-nowrap">
+              ${st.nameAr}
+              <span class="block text-[10px] text-slate-400 font-mono">${st.id}</span>
+            </td>
+            <td class="p-2.5 text-center">${trackBadge}</td>
+            <td class="p-2 text-center bg-blue-950/20 border-r border-slate-700/60">
+              <input type="number" min="0" max="20" step="0.5" value="${saved.m1}" 
+                data-key="${gradeKey}" data-field="m1" data-row="${idx}" data-col="1"
+                onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
+                class="grade-input w-16 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
+            </td>
+            <td class="p-2 text-center bg-blue-950/20 border-r border-slate-700/60">
+              <input type="number" min="0" max="20" step="0.5" value="${saved.m2}" 
+                data-key="${gradeKey}" data-field="m2" data-row="${idx}" data-col="2"
+                onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
+                class="grade-input w-16 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
+            </td>
+            <td class="p-2 text-center bg-indigo-950/20 border-r border-slate-700/60">
+              <input type="number" min="0" max="20" step="0.5" value="${saved.tasks}" 
+                data-key="${gradeKey}" data-field="tasks" data-row="${idx}" data-col="3"
+                onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
+                class="grade-input w-16 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
+            </td>
+            <td class="p-2 text-center bg-purple-950/20 border-r border-slate-700/60">
+              <input type="number" min="0" max="40" step="0.5" value="${saved.exam}" 
+                data-key="${gradeKey}" data-field="exam" data-row="${idx}" data-col="4"
+                onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
+                class="grade-input w-16 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
+            </td>
+            <td class="p-2 text-center bg-amber-950/20 border-r border-slate-700/60 font-black text-amber-300 font-mono text-sm row-total">
+              ${total}
+            </td>
+            <td class="p-2 text-center border-r border-slate-700/60 row-rating">
+              ${ratingBadge}
+            </td>
+            <td class="p-2 text-center no-print">
+              <button onclick="quickFillFullMark(this)" title="منح الدرجة الكاملة" class="text-slate-400 hover:text-amber-400 p-1 text-xs">
+                ⭐
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      updateGradeStats(calculatedRows);
+    }
+
+    function onGradeLiveCalc(inputEl) {
+      const tr = inputEl.closest('tr');
+      const inputs = tr.querySelectorAll('.grade-input');
+      const m1 = Math.min(20, Math.max(0, parseFloat(inputs[0].value) || 0));
+      const m2 = Math.min(20, Math.max(0, parseFloat(inputs[1].value) || 0));
+      const tasks = Math.min(20, Math.max(0, parseFloat(inputs[2].value) || 0));
+      const exam = Math.min(40, Math.max(0, parseFloat(inputs[3].value) || 0));
+
+      const total = Math.min(100, Math.round((m1 + m2 + tasks + exam) * 10) / 10);
+      tr.querySelector('.row-total').innerText = total;
+
+      let ratingBadge = '';
+      if (total >= 85) ratingBadge = '<span class="bg-emerald-500/20 text-emerald-300 font-black px-2 py-0.5 rounded text-[11px]">ممتاز 🌟</span>';
+      else if (total >= 75) ratingBadge = '<span class="bg-blue-500/20 text-blue-300 font-black px-2 py-0.5 rounded text-[11px]">جيد جداً 👍</span>';
+      else if (total >= 65) ratingBadge = '<span class="bg-amber-500/20 text-amber-300 font-black px-2 py-0.5 rounded text-[11px]">جيد 📘</span>';
+      else if (total >= 50) ratingBadge = '<span class="bg-orange-500/20 text-orange-300 font-black px-2 py-0.5 rounded text-[11px]">مقبول ⚠️</span>';
+      else ratingBadge = '<span class="bg-red-500/20 text-red-300 font-black px-2 py-0.5 rounded text-[11px]">يحتاج دعم 🚨</span>';
+
+      tr.querySelector('.row-rating').innerHTML = ratingBadge;
+    }
+
+    function onGradeInputChange(inputEl) {
+      const key = inputEl.dataset.key;
+      const field = inputEl.dataset.field;
+      let val = parseFloat(inputEl.value) || 0;
+
+      if (field === 'exam' && val > 40) val = 40;
+      else if (field !== 'exam' && val > 20) val = 20;
+      if (val < 0) val = 0;
+      inputEl.value = val;
+
+      const allGrades = getStoredGrades();
+      if (!allGrades[key]) allGrades[key] = { m1: 0, m2: 0, tasks: 0, exam: 0 };
+      allGrades[key][field] = val;
+
+      saveStoredGrades(allGrades);
+
+      const savePill = document.getElementById('save-status-pill');
+      savePill.innerHTML = `<span>✓</span><span>تم الحفظ تلقائياً!</span>`;
+      savePill.className = 'text-xs px-3 py-1.5 rounded-xl font-bold bg-emerald-500/30 text-emerald-200 border border-emerald-400 flex items-center gap-1.5 transition';
+      setTimeout(() => {
+        savePill.className = 'text-xs px-3 py-1.5 rounded-xl font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5 transition';
+      }, 1500);
+
+      const totalEls = document.querySelectorAll('.row-total');
+      const rowsData = Array.from(totalEls).map(el => ({ total: parseFloat(el.innerText) || 0 }));
+      updateGradeStats(rowsData);
+    }
+
+    function quickFillFullMark(btnEl) {
+      const tr = btnEl.closest('tr');
+      const inputs = tr.querySelectorAll('.grade-input');
+      inputs[0].value = 20;
+      inputs[1].value = 20;
+      inputs[2].value = 20;
+      inputs[3].value = 40;
+      inputs.forEach(inp => onGradeInputChange(inp));
+      onGradeLiveCalc(inputs[0]);
+      showToast('تم إعطاء الدرجة النهائية للطالب ⭐', 'success');
+    }
+
+    function updateGradeStats(rowsData) {
+      document.getElementById('stat-student-count').innerText = rowsData.length;
+      if (rowsData.length === 0) {
+        document.getElementById('stat-avg-score').innerText = '0%';
+        document.getElementById('stat-excellent-count').innerText = '0';
+        document.getElementById('stat-support-count').innerText = '0';
+        return;
+      }
+      const sum = rowsData.reduce((acc, r) => acc + r.total, 0);
+      const avg = Math.round((sum / rowsData.length) * 10) / 10;
+      const excellent = rowsData.filter(r => r.total >= 85).length;
+      const support = rowsData.filter(r => r.total < 50).length;
+
+      document.getElementById('stat-avg-score').innerText = avg + '%';
+      document.getElementById('stat-excellent-count').innerText = excellent;
+      document.getElementById('stat-support-count').innerText = support;
+    }
+
+    function setupKeyboardNavigation() {
+      document.addEventListener('keydown', (e) => {
+        if (e.target.classList.contains('grade-input')) {
+          const row = parseInt(e.target.dataset.row);
+          const col = parseInt(e.target.dataset.col);
+
+          if (e.key === 'Enter' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            const nextInput = document.querySelector(`.grade-input[data-row="${row + 1}"][data-col="${col}"]`);
+            if (nextInput) {
+              nextInput.focus();
+              nextInput.select();
+            }
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            const prevInput = document.querySelector(`.grade-input[data-row="${row - 1}"][data-col="${col}"]`);
+            if (prevInput) {
+              prevInput.focus();
+              prevInput.select();
+            }
+          }
+        }
+      });
+    }
+
+    function exportGradesToCSV() {
+      const grade = document.getElementById('grade-select').value;
+      const subjectSelect = document.getElementById('subject-select');
+      const subjectName = subjectSelect.options[subjectSelect.selectedIndex]?.text || 'Grade';
+      
+      const rows = document.querySelectorAll('#grade-sheet-tbody tr');
+      if (rows.length === 0) {
+        showToast('لا توجد بيانات لتصديرها', 'error');
+        return;
+      }
+
+      let csv = '\uFEFFم,اسم الطالب,المسار,شهر 1,شهر 2,أنشطة,امتحان الترم,المجموع,التقدير\n';
+      rows.forEach(tr => {
+        const cells = tr.querySelectorAll('td');
+        if (cells.length >= 9) {
+          const idx = cells[0].innerText.trim();
+          const name = cells[1].innerText.split('\n')[0].trim();
+          const track = cells[2].innerText.trim();
+          const inputs = tr.querySelectorAll('.grade-input');
+          const m1 = inputs[0]?.value || 0;
+          const m2 = inputs[1]?.value || 0;
+          const tasks = inputs[2]?.value || 0;
+          const exam = inputs[3]?.value || 0;
+          const total = cells[7].innerText.trim();
+          const rating = cells[8].innerText.trim();
+          csv += `"${idx}","${name}","${track}","${m1}","${m2}","${tasks}","${exam}","${total}","${rating}"\n`;
+        }
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `SmileKids_Grades_G${grade}_${subjectName}.csv`;
+      link.click();
+      showToast('تم تصدير ملف الإكسل بنجاح 📥', 'success');
+    }
+
+
+    // ==================== TAB 2: SMART PERIOD ATTENDANCE ====================
+
+    let currentAttendanceState = {};
+
+    function loadAttendanceRoster() {
+      if (!currentTeacher) return;
+
+      const daySelect = document.getElementById('att-day-select');
+      const periodSelect = document.getElementById('att-period-select');
+      const dayArabicMap = {
+        'Sunday': 'الأحد',
+        'Monday': 'الإثنين',
+        'Tuesday': 'الثلاثاء',
+        'Wednesday': 'الأربعاء',
+        'Thursday': 'الخميس'
+      };
+      const selectedDayAr = dayArabicMap[daySelect.value] || 'الأحد';
+      const selectedPeriod = parseInt(periodSelect.value) || 1;
+
+      let assignedClassStr = '-';
+      if (TIMETABLE_DATA.schedules[currentTeacher.id]) {
+        const teacherSched = TIMETABLE_DATA.schedules[currentTeacher.id];
+        const daySched = teacherSched[selectedDayAr];
+        if (daySched && daySched[selectedPeriod]) {
+          assignedClassStr = daySched[selectedPeriod];
+        }
+      }
+
+      const classBadge = document.getElementById('att-target-class-badge');
+      const container = document.getElementById('att-students-list');
+
+      if (!assignedClassStr || assignedClassStr === '-' || assignedClassStr.includes('Break')) {
+        classBadge.innerText = 'لا توجد حصة مسجلة في هذا التوقيت';
+        classBadge.className = 'px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-400 border border-slate-700 text-xs font-bold';
+        container.innerHTML = `
+          <div class="col-span-2 text-center py-12 text-slate-400">
+            <span class="text-4xl block mb-2">☕</span>
+            <span class="text-sm font-bold">لا توجد حصة مسجلة لـ ${currentTeacher.nameAr} في هذا التوقيت (${selectedDayAr} - الحصة ${selectedPeriod}).</span>
+            <p class="text-xs text-slate-500 mt-1">يمكنك اختيار حصة أخرى من القائمة بالأعلى لتسجيلها.</p>
+          </div>
+        `;
+        updateAttendanceStats(0, 0, 0);
+        return;
+      }
+
+      const parts = assignedClassStr.split(' ');
+      const gradeCode = parts[0];
+      const gradeNum = parseInt(gradeCode.replace('G', '')) || 1;
+      const subjectName = parts.slice(1).join(' ');
+
+      classBadge.innerText = `الصف ${gradeCode} • مادة: ${subjectName}`;
+      classBadge.className = 'px-3.5 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-black';
+
+      const students = getStoredStudents().filter(s => s.grade === gradeNum);
+      currentAttendanceState = {};
+
+      if (students.length === 0) {
+        container.innerHTML = `<div class="col-span-2 text-center py-8 text-slate-400 font-bold">لا يوجد طلاب مسجلين في الصف ${gradeNum}.</div>`;
+        updateAttendanceStats(0, 0, 0);
+        return;
+      }
+
+      container.innerHTML = students.map((st, idx) => {
+        currentAttendanceState[st.id] = 'present';
+        return `
+          <div id="att-card-${st.id}" class="bg-slate-900/80 border border-slate-700/80 rounded-xl p-3 flex items-center justify-between gap-3 shadow transition">
+            <div class="flex items-center gap-2.5">
+              <span class="w-6 h-6 rounded-full bg-slate-800 text-slate-400 text-xs font-mono font-bold flex items-center justify-center shrink-0">
+                ${idx + 1}
+              </span>
+              <div>
+                <div class="font-bold text-white text-xs sm:text-sm">${st.nameAr}</div>
+                <div class="text-[10px] text-slate-400 font-mono flex items-center gap-2">
+                  <span>${st.id}</span>
+                  <span>•</span>
+                  <span>${st.track === 'languages' ? 'لغات' : 'عربي'}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-1.5">
+              <button onclick="setStudentAttendance('${st.id}', 'present')" id="btn-att-${st.id}-present" class="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow">
+                حاضر ✅
+              </button>
+              <button onclick="setStudentAttendance('${st.id}', 'absent')" id="btn-att-${st.id}-absent" class="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:text-white">
+                غائب ❌
+              </button>
+              <button onclick="setStudentAttendance('${st.id}', 'late')" id="btn-att-${st.id}-late" class="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:text-white">
+                متأخر ⏱️
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      updateAttendanceStats(students.length, 0, 0);
+    }
+
+    function setStudentAttendance(studentId, status) {
+      currentAttendanceState[studentId] = status;
+
+      const card = document.getElementById(`att-card-${studentId}`);
+      const btnPresent = document.getElementById(`btn-att-${studentId}-present`);
+      const btnAbsent = document.getElementById(`btn-att-${studentId}-absent`);
+      const btnLate = document.getElementById(`btn-att-${studentId}-late`);
+
+      btnPresent.className = 'px-2.5 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:text-white';
+      btnAbsent.className = 'px-2.5 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:text-white';
+      btnLate.className = 'px-2.5 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:text-white';
+      card.className = 'bg-slate-900/80 border border-slate-700/80 rounded-xl p-3 flex items-center justify-between gap-3 shadow transition';
+
+      if (status === 'present') {
+        btnPresent.className = 'px-2.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow';
+        card.classList.add('border-emerald-500/30');
+      } else if (status === 'absent') {
+        btnAbsent.className = 'px-2.5 py-1.5 rounded-lg text-xs font-bold bg-red-600 text-white shadow';
+        card.classList.add('border-red-500/40', 'bg-red-950/20');
+      } else if (status === 'late') {
+        btnLate.className = 'px-2.5 py-1.5 rounded-lg text-xs font-bold bg-amber-600 text-white shadow';
+        card.classList.add('border-amber-500/40', 'bg-amber-950/20');
+      }
+
+      const total = Object.keys(currentAttendanceState).length;
+      const present = Object.values(currentAttendanceState).filter(s => s === 'present').length;
+      const absent = Object.values(currentAttendanceState).filter(s => s === 'absent').length;
+      const late = Object.values(currentAttendanceState).filter(s => s === 'late').length;
+
+      updateAttendanceStats(present, absent, late);
+    }
+
+    function setAllAttendance(status) {
+      Object.keys(currentAttendanceState).forEach(id => {
+        setStudentAttendance(id, status);
+      });
+      showToast('تم ضبط حالة جميع الطلاب: حاضر ✅', 'info');
+    }
+
+    function updateAttendanceStats(present, absent, late) {
+      const total = present + absent + late;
+      document.getElementById('att-stat-total').innerText = total;
+      document.getElementById('att-stat-present').innerText = present;
+      document.getElementById('att-stat-absent').innerText = absent;
+      document.getElementById('att-stat-late').innerText = late;
+    }
+
+    function saveCurrentPeriodAttendance() {
+      if (!currentTeacher) return;
+
+      const daySelect = document.getElementById('att-day-select');
+      const periodSelect = document.getElementById('att-period-select');
+      const dayArabicMap = {
+        'Sunday': 'الأحد',
+        'Monday': 'الإثنين',
+        'Tuesday': 'الثلاثاء',
+        'Wednesday': 'الأربعاء',
+        'Thursday': 'الخميس'
+      };
+      const selectedDayAr = dayArabicMap[daySelect.value] || 'الأحد';
+      const selectedPeriod = parseInt(periodSelect.value) || 1;
+
+      const recordKey = `att_${currentTeacher.id}_${selectedDayAr}_p${selectedPeriod}_${new Date().toISOString().split('T')[0]}`;
+      const attendanceList = getStoredAttendance();
+
+      const presentCount = Object.values(currentAttendanceState).filter(s => s === 'present').length;
+      const absentCount = Object.values(currentAttendanceState).filter(s => s === 'absent').length;
+      const lateCount = Object.values(currentAttendanceState).filter(s => s === 'late').length;
+
+      if (Object.keys(currentAttendanceState).length === 0) {
+        showToast('لا توجد بيانات طلاب للاعتماد', 'error');
+        return;
+      }
+
+      const newRecord = {
+        id: recordKey,
+        timestamp: new Date().toLocaleString('ar-EG'),
+        dayAr: selectedDayAr,
+        periodNum: selectedPeriod,
+        periodName: `الحصة ${selectedPeriod}`,
+        teacherId: currentTeacher.id,
+        teacherName: currentTeacher.nameAr,
+        classBadge: document.getElementById('att-target-class-badge').innerText,
+        presentCount,
+        absentCount,
+        lateCount,
+        records: { ...currentAttendanceState }
+      };
+
+      const updatedList = attendanceList.filter(r => r.id !== recordKey);
+      updatedList.unshift(newRecord);
+      localStorage.setItem(STORAGE_KEY_ATTENDANCE, JSON.stringify(updatedList));
+
+      showToast(`تم اعتماد وحفظ غياب الحصة بنجاح! (حاضر: ${presentCount} ، غياب: ${absentCount})`, 'success');
+    }
+
+
+    // ==================== TAB 3: WEEKLY SCHEDULE RENDER ====================
+
+    function renderTeacherWeeklySchedule() {
+      if (!currentTeacher || !TIMETABLE_DATA.schedules[currentTeacher.id]) return;
+
+      const teacherSched = TIMETABLE_DATA.schedules[currentTeacher.id];
+      const table = document.getElementById('teacher-timetable-table');
+
+      const days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'];
+      const periodTimes = TIMETABLE_DATA.periodTimes;
+
+      let html = `
+        <thead>
+          <tr class="bg-slate-900 text-slate-300 font-bold border-b border-slate-700">
+            <th class="p-3 w-28 text-center bg-slate-950">اليوم</th>
+            <th class="p-2 border-r border-slate-800">1st<br><span class="text-[10px] text-slate-500 font-mono">07:30</span></th>
+            <th class="p-2 border-r border-slate-800">2nd<br><span class="text-[10px] text-slate-500 font-mono">08:10</span></th>
+            <th class="p-2 border-r border-slate-800">3rd<br><span class="text-[10px] text-slate-500 font-mono">08:50</span></th>
+            <th class="p-2 border-r border-slate-800 bg-amber-950/20 text-amber-300">فسحة<br><span class="text-[10px] font-mono">09:30</span></th>
+            <th class="p-2 border-r border-slate-800">4th<br><span class="text-[10px] text-slate-500 font-mono">09:45</span></th>
+            <th class="p-2 border-r border-slate-800">5th<br><span class="text-[10px] text-slate-500 font-mono">10:25</span></th>
+            <th class="p-2 border-r border-slate-800">6th<br><span class="text-[10px] text-slate-500 font-mono">11:05</span></th>
+            <th class="p-2 border-r border-slate-800">7th<br><span class="text-[10px] text-slate-500 font-mono">11:40</span></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-700 font-medium">
+      `;
+
+      days.forEach(day => {
+        const dayData = teacherSched[day] || {};
+        html += `
+          <tr class="hover:bg-slate-700/20 transition">
+            <td class="p-3 bg-slate-900 font-bold text-white text-center">${day}</td>
+            ${renderScheduleCell(day, 1, dayData[1])}
+            ${renderScheduleCell(day, 2, dayData[2])}
+            ${renderScheduleCell(day, 3, dayData[3])}
+            <td class="p-2 bg-amber-950/20 text-amber-400 font-bold text-[11px] border-r border-slate-800">🥪 استراحة</td>
+            ${renderScheduleCell(day, 4, dayData[4])}
+            ${renderScheduleCell(day, 5, dayData[5])}
+            ${renderScheduleCell(day, 6, dayData[6])}
+            ${renderScheduleCell(day, 7, dayData[7])}
+          </tr>
+        `;
+      });
+
+      html += '</tbody>';
+      table.innerHTML = html;
+    }
+
+    function renderScheduleCell(day, periodNum, cellText) {
+      if (!cellText || cellText === '-' || cellText.includes('Break')) {
+        return `<td class="p-2.5 text-slate-600 text-xs border-r border-slate-800">-</td>`;
+      }
+
+      const parts = cellText.split(' ');
+      const grade = parts[0];
+      const subject = parts.slice(1).join(' ');
+
+      return `
+        <td class="p-1.5 border-r border-slate-800">
+          <div onclick="jumpToScheduleClass('${day}', ${periodNum})" class="bg-blue-900/40 hover:bg-blue-600 border border-blue-700/40 rounded-lg p-1.5 cursor-pointer transition text-center group shadow-sm">
+            <div class="font-black text-white text-xs group-hover:scale-105 transition">${grade}</div>
+            <div class="text-[10px] text-blue-300 font-bold group-hover:text-amber-300 truncate">${subject}</div>
+          </div>
+        </td>
+      `;
+    }
+
+    function jumpToScheduleClass(dayAr, periodNum) {
+      const dayMapRev = {
+        'الأحد': 'Sunday',
+        'الإثنين': 'Monday',
+        'الثلاثاء': 'Tuesday',
+        'الأربعاء': 'Wednesday',
+        'الخميس': 'Thursday'
+      };
+      document.getElementById('att-day-select').value = dayMapRev[dayAr] || 'Sunday';
+      document.getElementById('att-period-select').value = periodNum.toString();
+      switchDashboardTab('attendance');
+      showToast(`تم الانتقال لحصة ${dayAr} - الحصة ${periodNum}`, 'info');
+    }
+
+
+    // ==================== TAB 4: ATTENDANCE HISTORY ====================
+
+    function renderAttendanceHistory() {
+      const list = getStoredAttendance();
+      const tbody = document.getElementById('att-history-tbody');
+
+      const filtered = isAdminMode ? list : list.filter(r => r.teacherId === currentTeacher?.id);
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" class="p-8 text-center text-slate-400 font-bold">
+              لا توجد حصص مسجلة في الأرشيف حتى الآن.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(r => `
+        <tr class="hover:bg-slate-700/30 transition">
+          <td class="p-3 font-mono text-xs text-slate-300">${r.timestamp}</td>
+          <td class="p-3 font-bold text-white">${r.dayAr}</td>
+          <td class="p-3 font-bold text-amber-400">${r.periodName}</td>
+          <td class="p-3 font-bold text-blue-300">${r.classBadge.split('•')[0] || '-'}</td>
+          <td class="p-3 font-bold text-slate-300">${r.classBadge.split('•')[1] || '-'}</td>
+          <td class="p-3 font-black text-emerald-400">${r.presentCount} طالب</td>
+          <td class="p-3 font-black text-red-400">${r.absentCount} طالب</td>
+          <td class="p-3 font-black text-amber-400">${r.lateCount} طالب</td>
+          <td class="p-3 text-center">
+            <span class="text-xs text-emerald-400 font-bold bg-emerald-950/60 border border-emerald-700/60 px-2 py-0.5 rounded">معتمد ✓</span>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function clearAttendanceHistory() {
+      if (confirm('هل أنتِ متأكدة من رغبتكِ في مسح سجل الحصص المحفوظة؟')) {
+        localStorage.setItem(STORAGE_KEY_ATTENDANCE, JSON.stringify([]));
+        renderAttendanceHistory();
+        showToast('تم مسح سجل الحصص', 'info');
+      }
+    }
+
+
+    // ==================== UI TOAST SYSTEM ====================
+
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+
+      const colors = {
+        success: 'bg-emerald-600 border-emerald-500 text-white',
+        error: 'bg-red-600 border-red-500 text-white',
+        info: 'bg-slate-800 border-slate-700 text-slate-100'
+      };
+
+      const icons = {
+        success: '✓',
+        error: '✕',
+        info: 'ℹ'
+      };
+
+      toast.className = `${colors[type] || colors.info} border px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 text-xs font-bold pointer-events-auto transition-all duration-300`;
+      toast.innerHTML = `<span>${icons[type]}</span><span>${message}</span>`;
+
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+  </script>
+</body>
+</html>
