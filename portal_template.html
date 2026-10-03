@@ -96,6 +96,12 @@
           </button>
         </div>
 
+        <!-- Admin Shortcut Link to SIS Roster & Certificates (Admin only) -->
+        <a id="btn-admin-roster-link" href="Student_Roster_Dashboard.html" class="hidden px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 rounded-xl text-xs font-black transition items-center gap-1.5 shadow-sm" title="الانتقال إلى كشوف الطلاب والشهادات">
+          <span>👑</span>
+          <span class="hidden sm:inline">كشوف الطلاب والشهادات</span>
+        </a>
+
         <!-- Home Page Link -->
         <a href="index.html" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm" title="العودة للبوابة الرئيسية">
           <span>🏠</span>
@@ -1377,6 +1383,18 @@
         if (periodSelect && activeCurrentPeriodInfo.periodNum) periodSelect.value = activeCurrentPeriodInfo.periodNum.toString();
       }
 
+      // Show Admin Roster shortcut button only if Master Admin
+      const adminRosterLink = document.getElementById('btn-admin-roster-link');
+      if (adminRosterLink) {
+        if (isAdmin) {
+          adminRosterLink.classList.remove('hidden');
+          adminRosterLink.classList.add('flex');
+        } else {
+          adminRosterLink.classList.add('hidden');
+          adminRosterLink.classList.remove('flex');
+        }
+      }
+
       // Default to attendance tab so teacher immediately sees the class she teaches and can update attendance!
       activeDashboardTab = 'attendance';
       switchDashboardTab('attendance');
@@ -1386,6 +1404,12 @@
       currentTeacher = null;
       isAdminMode = false;
       sessionStorage.removeItem(STORAGE_KEY_SESSION);
+
+      const adminRosterLink = document.getElementById('btn-admin-roster-link');
+      if (adminRosterLink) {
+        adminRosterLink.classList.add('hidden');
+        adminRosterLink.classList.remove('flex');
+      }
 
       document.getElementById('view-login').classList.remove('hidden');
       document.getElementById('view-dashboard').classList.add('hidden');

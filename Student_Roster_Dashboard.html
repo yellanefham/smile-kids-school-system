@@ -673,8 +673,76 @@
   </style>
   <script src="firebase_config.js"></script>
   <script src="smile_kids_database.js?v=20260925_fix_v8"></script>
+  <script>
+    (function() {
+      try {
+        var s = JSON.parse(sessionStorage.getItem('smile_kids_active_teacher_session') || '{}');
+        if (s && s.isAdmin === true) {
+          document.documentElement.classList.add('admin-authorized');
+        }
+      } catch(e) {}
+    })();
+  </script>
+  <style>
+    html.admin-authorized #admin-auth-guard-overlay {
+      display: none !important;
+    }
+  </style>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+
+  <!-- ======================================================== -->
+  <!-- ADMIN AUTH GUARD OVERLAY (Strict Protection for SIS Dashboard) -->
+  <!-- ======================================================== -->
+  <div id="admin-auth-guard-overlay" class="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-xl flex items-center justify-center p-4 overflow-y-auto no-print" role="dialog" aria-modal="true">
+    <div class="bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border-2 border-amber-500/50 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.8)] text-center relative text-white animate-in fade-in">
+      
+      <div class="w-16 h-16 rounded-2xl mx-auto mb-4 bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-3xl shadow-lg ring-4 ring-amber-500/20">
+        👑
+      </div>
+
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-black mb-3">
+        <span>🔒</span>
+        <span>منطقة مخصصة لإدارة المدرسة فقط</span>
+      </div>
+
+      <h2 class="text-xl sm:text-2xl font-black text-white mb-2">منظومة كشوف الطلاب والشهادات الرسمية</h2>
+      <p class="text-xs text-slate-300 leading-relaxed mb-6">
+        هذه الصفحة سرية ومخصصة لإدارة المدرسة وتحتوي على البيانات الشخصية للطلاب، كشوف الدرجات، وسجلات الغياب والشهادات. يرجى إدخال رمز مرور الإدارة (PIN) للمتابعة.
+      </p>
+
+      <form onsubmit="handleAdminGuardLogin(event)" class="space-y-4 text-right">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">رمز مرور الإدارة (Admin PIN):</label>
+          <input 
+            type="password" 
+            id="input-admin-guard-pin" 
+            placeholder="••••" 
+            maxlength="8" 
+            autocomplete="current-password" 
+            required 
+            class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-center text-xl font-mono tracking-widest text-white focus:outline-none focus:border-amber-400 shadow-inner"
+          >
+          <p id="admin-guard-error-msg" class="text-xs text-red-400 font-bold mt-2 text-center hidden">رمز المرور غير صحيح، يرجى المحاولة مرة أخرى.</p>
+          <p id="admin-guard-lockout-msg" class="text-xs text-amber-400 font-bold mt-2 text-center hidden">⚠️ تم قفل الحساب مؤقتاً لمدة 15 دقيقة بعد 5 محاولات خاطئة. يرجى مراجعة إدارة المدرسة.</p>
+        </div>
+
+        <button type="submit" id="btn-admin-guard-submit" class="w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:brightness-110 text-slate-950 font-black rounded-xl text-sm shadow-xl shadow-amber-500/20 transition active:scale-95 flex items-center justify-center gap-2">
+          <span>دخول لوحة الإدارة 🔓</span>
+        </button>
+      </form>
+
+      <div class="grid grid-cols-2 gap-2 mt-5 pt-4 border-t border-slate-800">
+        <a href="index.html" class="py-2.5 px-3 bg-slate-800/80 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
+          <span>🏠 الرئيسية</span>
+        </a>
+        <a href="Teacher_Portal.html" class="py-2.5 px-3 bg-slate-800/80 hover:bg-slate-700 text-cyan-300 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
+          <span>👩‍🏫 بوابة المعلمات</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
 
 
 
@@ -709,8 +777,21 @@
           <span>📜 الشهادات المدرسية</span>
         </button>
         <a href="Teacher_Portal.html" class="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md border border-emerald-400/30">
-          <span>👩‍🏫 بوابة المعلمين والحصص</span>
+          <span>👩‍🏫 بوابة المعلمات</span>
         </a>
+      </div>
+
+      <!-- Admin Status Pill & Logout Button -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-black shadow-sm">
+          <span>👑</span>
+          <span class="hidden sm:inline">لوحة الإدارة العامة</span>
+          <span class="sm:hidden">الإدارة</span>
+        </div>
+        <button onclick="adminLogout()" class="px-3 py-1.5 rounded-xl text-xs font-black bg-red-950/60 hover:bg-red-900 border border-red-500/40 text-red-200 transition flex items-center gap-1.5 shadow" title="تسجيل الخروج والعودة للرئيسية">
+          <span>خروج</span>
+          <span>🚪</span>
+        </button>
       </div>
   </header>
 
@@ -7166,9 +7247,114 @@
 
 </body>
 <script>
-// Global Esc Key Handler across whole page
+    // ========================================================
+    // Admin Auth Guard & Lockout Enforcement for SIS Dashboard
+    // ========================================================
+    const STORAGE_KEY_PINS = 'smile_kids_teacher_pins';
+    const STORAGE_KEY_LOGIN_ATTEMPTS = 'smile_kids_login_attempts';
+    const STORAGE_KEY_SESSION = 'smile_kids_active_teacher_session';
+    const LOCKOUT_THRESHOLD = 5;
+    const LOCKOUT_DURATION_MS = 15 * 60 * 1000;
+
+    function isUserAdmin() {
+      try {
+        const session = JSON.parse(sessionStorage.getItem(STORAGE_KEY_SESSION) || '{}');
+        return session && session.isAdmin === true;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    function checkAdminAuthGuard() {
+      const overlay = document.getElementById('admin-auth-guard-overlay');
+      if (!overlay) return;
+      if (isUserAdmin()) {
+        overlay.classList.add('hidden');
+        document.documentElement.classList.add('admin-authorized');
+      } else {
+        overlay.classList.remove('hidden');
+        document.documentElement.classList.remove('admin-authorized');
+        const inPin = document.getElementById('input-admin-guard-pin');
+        if (inPin) setTimeout(() => inPin.focus(), 150);
+      }
+    }
+
+    function handleAdminGuardLogin(event) {
+      if (event) event.preventDefault();
+      const inPin = document.getElementById('input-admin-guard-pin');
+      const errEl = document.getElementById('admin-guard-error-msg');
+      const lockoutEl = document.getElementById('admin-guard-lockout-msg');
+      const inputVal = (inPin ? inPin.value : '').trim();
+
+      // Check lockout
+      let attemptsData = {};
+      try { attemptsData = JSON.parse(localStorage.getItem(STORAGE_KEY_LOGIN_ATTEMPTS)) || {}; } catch(e){}
+      const adminAttempts = attemptsData['admin'] || { count: 0, lockedUntil: 0 };
+      const now = Date.now();
+
+      if (adminAttempts.lockedUntil && now < adminAttempts.lockedUntil) {
+        if (errEl) errEl.classList.add('hidden');
+        if (lockoutEl) {
+          lockoutEl.innerText = '⚠️ تم قفل الحساب مؤقتاً لمدة 15 دقيقة بعد 5 محاولات خاطئة. يرجى مراجعة إدارة المدرسة.';
+          lockoutEl.classList.remove('hidden');
+        }
+        return;
+      }
+
+      let pinsObj = {};
+      try { pinsObj = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {}; } catch(e){}
+      const expectedPin = pinsObj['admin'] || '9999';
+
+      if (inputVal === expectedPin) {
+        delete attemptsData['admin'];
+        try { localStorage.setItem(STORAGE_KEY_LOGIN_ATTEMPTS, JSON.stringify(attemptsData)); } catch(e){}
+        sessionStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify({ teacherId: 'admin_master', isAdmin: true }));
+        checkAdminAuthGuard();
+      } else {
+        adminAttempts.count = (adminAttempts.count || 0) + 1;
+        if (adminAttempts.count >= LOCKOUT_THRESHOLD) {
+          adminAttempts.lockedUntil = now + LOCKOUT_DURATION_MS;
+        }
+        attemptsData['admin'] = adminAttempts;
+        try { localStorage.setItem(STORAGE_KEY_LOGIN_ATTEMPTS, JSON.stringify(attemptsData)); } catch(e){}
+
+        if (adminAttempts.count >= LOCKOUT_THRESHOLD) {
+          if (errEl) errEl.classList.add('hidden');
+          if (lockoutEl) {
+            lockoutEl.innerText = '⚠️ تم قفل الحساب مؤقتاً لمدة 15 دقيقة بعد 5 محاولات خاطئة. يرجى مراجعة إدارة المدرسة.';
+            lockoutEl.classList.remove('hidden');
+          }
+        } else {
+          const remaining = LOCKOUT_THRESHOLD - adminAttempts.count;
+          if (lockoutEl) lockoutEl.classList.add('hidden');
+          if (errEl) {
+            errEl.innerText = `رمز المرور غير صحيح، يرجى المحاولة مرة أخرى (متبقي ${remaining} محاولات).`;
+            errEl.classList.remove('hidden');
+          }
+        }
+      }
+    }
+
+    function adminLogout() {
+      sessionStorage.removeItem(STORAGE_KEY_SESSION);
+      window.location.href = 'index.html';
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', checkAdminAuthGuard);
+    } else {
+      checkAdminAuthGuard();
+    }
+
+    // Global Esc Key Handler across whole page
     window.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' || e.keyCode === 27) {
+        const guardOverlay = document.getElementById('admin-auth-guard-overlay');
+        if (guardOverlay && !guardOverlay.classList.contains('hidden') && !isUserAdmin()) {
+          window.location.href = 'index.html';
+          e.preventDefault();
+          return;
+        }
         const addModal = document.getElementById('modal-add-student');
         if (addModal && !addModal.classList.contains('hidden')) {
           addModal.classList.add('hidden');
