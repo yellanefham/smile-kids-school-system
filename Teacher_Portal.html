@@ -271,9 +271,34 @@
             <!-- Assessment Period / Term -->
             <div>
               <label class="block text-[11px] font-bold text-slate-400 mb-1">الفصل الدراسي:</label>
-              <select id="term-select" onchange="renderGradeSheetTable()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none focus:border-blue-500">
+              <select id="term-select" onchange="onTermSelectChange()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none focus:border-blue-500">
                 <option value="t1">الفصل الدراسي الأول (ترم أول)</option>
                 <option value="t2">الفصل الدراسي الثاني (ترم ثاني)</option>
+              </select>
+            </div>
+
+            <!-- Target Exam Month (شهر الامتحان المراد رصده) -->
+            <div>
+              <label class="block text-[11px] font-bold text-amber-300 mb-1 flex items-center gap-1">
+                <span>🗓️ الشهر / الامتحان المراد رصده:</span>
+              </label>
+              <select id="exam-month-select" onchange="onExamMonthSelectChange()" class="bg-slate-900 border border-amber-500/50 rounded-xl px-3 py-1.5 text-xs font-black text-amber-300 focus:outline-none focus:border-amber-400 shadow-[0_0_12px_rgba(245,158,11,0.2)]">
+                <optgroup label="📋 شيت شامل للترم">
+                  <option value="all">🌟 عرض كشف درجات الترم كاملاً (جميع الشهور)</option>
+                </optgroup>
+                <optgroup label="❄️ الفصل الدراسي الأول (الترم الأول - حتى شهر 1)">
+                  <option value="t1_sep">🌱 شهر سبتمبر (بداية العام والتقييمات التمهيدية - 20 درجة)</option>
+                  <option value="t1_m1" selected>🍁 شهر أكتوبر (اختبار الشهر الأول - 20 درجة)</option>
+                  <option value="t1_m2">🍂 شهر نوفمبر (اختبار الشهر الثاني - 20 درجة)</option>
+                  <option value="t1_tasks">📋 شهر ديسمبر (المهام والأنشطة الشهرية - 20 درجة)</option>
+                  <option value="t1_exam">❄️ شهر يناير (امتحان نصف العام / الترم الأول - 40 درجة)</option>
+                </optgroup>
+                <optgroup label="🌸 الفصل الدراسي الثاني (الترم الثاني - حتى شهر 5)">
+                  <option value="t2_m1">🌱 شهر فبراير (اختبار الشهر الأول بالترم 2 - 20 درجة)</option>
+                  <option value="t2_m2">🌷 شهر مارس (اختبار الشهر الثاني بالترم 2 - 20 درجة)</option>
+                  <option value="t2_tasks">📋 شهر أبريل (المهام والأنشطة الشهرية - 20 درجة)</option>
+                  <option value="t2_exam">☀️ شهر مايو (امتحان نهاية العام / الترم 2 - 40 درجة)</option>
+                </optgroup>
               </select>
             </div>
           </div>
@@ -340,22 +365,14 @@
             </div>
           </div>
 
+          <!-- Month Focus Mode Banner -->
+          <div id="month-focus-banner" class="mb-3.5 no-print"></div>
+
           <!-- Excel-Style Grade Entry Table -->
           <div class="overflow-x-auto custom-scroll rounded-xl border border-slate-700 flex-1">
             <table class="w-full text-right border-collapse text-xs">
-              <thead>
-                <tr class="bg-slate-900 text-slate-300 border-b border-slate-700 font-bold">
-                  <th class="p-3 w-12 text-center">#</th>
-                  <th class="p-3 min-w-[180px]">اسم الطالب / الطالبة</th>
-                  <th class="p-3 w-28 text-center">المسار</th>
-                  <th class="p-3 w-24 text-center bg-blue-950/40 border-r border-slate-700">شهر 1 <span class="text-[10px] text-slate-400 block">من 20</span></th>
-                  <th class="p-3 w-24 text-center bg-blue-950/40 border-r border-slate-700">شهر 2 <span class="text-[10px] text-slate-400 block">من 20</span></th>
-                  <th class="p-3 w-28 text-center bg-indigo-950/40 border-r border-slate-700">أنشطة ومهام <span class="text-[10px] text-slate-400 block">من 20</span></th>
-                  <th class="p-3 w-28 text-center bg-purple-950/40 border-r border-slate-700">امتحان الترم <span class="text-[10px] text-slate-400 block">من 40</span></th>
-                  <th class="p-3 w-24 text-center bg-amber-950/40 border-r border-slate-700 text-amber-300">المجموع <span class="text-[10px] block">من 100</span></th>
-                  <th class="p-3 w-28 text-center bg-slate-900 border-r border-slate-700">التقدير العام</th>
-                  <th class="p-3 w-20 text-center no-print">إجراء</th>
-                </tr>
+              <thead id="grade-sheet-thead">
+                <!-- Dynamically rendered based on active month / term -->
               </thead>
               <tbody id="grade-sheet-tbody" class="divide-y divide-slate-700/60 font-medium">
               </tbody>
@@ -1141,6 +1158,127 @@
 
     // ==================== TAB 1: INTERACTIVE GRADE ENTRY ====================
 
+    // ==================== TAB 1: INTERACTIVE GRADE ENTRY & MONTH FILTER ====================
+
+    const MONTH_EXAMS_DEF = {
+      // Term 1 (ينتهي في شهر 1 - يناير)
+      't1_sep': {
+        term: 't1',
+        field: 'sep',
+        fallbackField: 'tasks',
+        nameAr: 'شهر سبتمبر (بداية العام والتقييمات التمهيدية)',
+        shortName: 'شهر سبتمبر',
+        badge: '🌱 سبتمبر',
+        max: 20,
+        desc: 'تقييمات وأنشطة شهر سبتمبر التمهيدية'
+      },
+      't1_m1': {
+        term: 't1',
+        field: 'm1',
+        nameAr: 'شهر أكتوبر (اختبار الشهر الأول - الترم الأول)',
+        shortName: 'شهر أكتوبر',
+        badge: '🍁 أكتوبر',
+        max: 20,
+        desc: 'اختبار شهر أكتوبر الرسمي المقرّر'
+      },
+      't1_m2': {
+        term: 't1',
+        field: 'm2',
+        nameAr: 'شهر نوفمبر (اختبار الشهر الثاني - الترم الأول)',
+        shortName: 'شهر نوفمبر',
+        badge: '🍂 نوفمبر',
+        max: 20,
+        desc: 'اختبار شهر نوفمبر الرسمي المقرّر'
+      },
+      't1_tasks': {
+        term: 't1',
+        field: 'tasks',
+        nameAr: 'شهر ديسمبر (المهام الأدائية والأنشطة الشهرية)',
+        shortName: 'شهر ديسمبر',
+        badge: '📋 ديسمبر',
+        max: 20,
+        desc: 'المهام الأدائية وكشكول الحصة والمواظبة لشهر ديسمبر'
+      },
+      't1_exam': {
+        term: 't1',
+        field: 'exam',
+        nameAr: 'شهر يناير (امتحان نصف العام / الترم الأول - شهر 1)',
+        shortName: 'شهر يناير (امتحان نصف العام)',
+        badge: '❄️ يناير (ترم 1)',
+        max: 40,
+        desc: 'امتحان نصف العام الدراسي المقرّر في شهر 1'
+      },
+
+      // Term 2 (ينتهي في شهر 5 - مايو)
+      't2_m1': {
+        term: 't2',
+        field: 'm1',
+        nameAr: 'شهر فبراير (اختبار الشهر الأول - الترم الثاني)',
+        shortName: 'شهر فبراير',
+        badge: '🌱 فبراير',
+        max: 20,
+        desc: 'اختبار شهر فبراير الرسمي المقرّر بالترم الثاني'
+      },
+      't2_m2': {
+        term: 't2',
+        field: 'm2',
+        nameAr: 'شهر مارس (اختبار الشهر الثاني - الترم الثاني)',
+        shortName: 'شهر مارس',
+        badge: '🌷 مارس',
+        max: 20,
+        desc: 'اختبار شهر مارس الرسمي المقرّر بالترم الثاني'
+      },
+      't2_tasks': {
+        term: 't2',
+        field: 'tasks',
+        nameAr: 'شهر أبريل (المهام الأدائية والأنشطة الشهرية)',
+        shortName: 'شهر أبريل',
+        badge: '📋 أبريل',
+        max: 20,
+        desc: 'المهام الأدائية وكشكول الحصة والمواظبة لشهر أبريل'
+      },
+      't2_exam': {
+        term: 't2',
+        field: 'exam',
+        nameAr: 'شهر مايو (امتحان نهاية العام / الترم الثاني - شهر 5)',
+        shortName: 'شهر مايو (امتحان نهاية العام)',
+        badge: '☀️ مايو (ترم 2)',
+        max: 40,
+        desc: 'امتحان نهاية العام الدراسي المقرّر في شهر 5'
+      }
+    };
+
+    function onTermSelectChange() {
+      const term = document.getElementById('term-select').value;
+      const currentMonth = document.getElementById('exam-month-select').value;
+      if (currentMonth !== 'all') {
+        const def = MONTH_EXAMS_DEF[currentMonth];
+        if (def && def.term !== term) {
+          document.getElementById('exam-month-select').value = term === 't1' ? 't1_m1' : 't2_m1';
+        }
+      }
+      renderGradeSheetTable();
+    }
+
+    function onExamMonthSelectChange() {
+      const selectedMonth = document.getElementById('exam-month-select').value;
+      if (selectedMonth !== 'all') {
+        const def = MONTH_EXAMS_DEF[selectedMonth];
+        if (def) {
+          document.getElementById('term-select').value = def.term;
+        }
+      }
+      renderGradeSheetTable();
+    }
+
+    function setExamMonth(monthKey) {
+      const sel = document.getElementById('exam-month-select');
+      if (sel) {
+        sel.value = monthKey;
+        onExamMonthSelectChange();
+      }
+    }
+
     function renderGradeSheetTable() {
       if (!currentTeacher) return;
 
@@ -1148,6 +1286,9 @@
       const subjectId = document.getElementById('subject-select').value;
       const track = document.getElementById('track-select').value;
       const term = document.getElementById('term-select').value;
+      const selectedMonth = document.getElementById('exam-month-select').value;
+      const isSingleMonth = selectedMonth !== 'all' && Boolean(MONTH_EXAMS_DEF[selectedMonth]);
+      const monthDef = isSingleMonth ? MONTH_EXAMS_DEF[selectedMonth] : null;
 
       const students = getStoredStudents();
       const allGrades = getStoredGrades();
@@ -1158,14 +1299,125 @@
       }
 
       const currentSub = currentTeacher.subjects.find(s => s.id === subjectId) || { nameAr: 'المادة' };
-      document.getElementById('print-sheet-title').innerText = `كشف درجات: ${currentSub.nameAr} • الصف ${grade} (${term === 't1' ? 'ترم أول' : 'ترم ثاني'})`;
+      const subTermTitle = term === 't1' ? 'الترم الأول (حتى شهر 1)' : 'الترم الثاني (حتى شهر 5)';
+      const reportTitle = isSingleMonth 
+        ? `${currentSub.nameAr} • الصف ${grade} • ${monthDef.nameAr}`
+        : `${currentSub.nameAr} • الصف ${grade} • كشف درجات ${subTermTitle} الشامل`;
+
+      document.getElementById('print-sheet-title').innerText = reportTitle;
       document.getElementById('print-teacher-name').innerText = `معلمة المادة: ${currentTeacher.nameAr}`;
 
+      // Render Focus Banner
+      const bannerEl = document.getElementById('month-focus-banner');
+      if (bannerEl) {
+        if (isSingleMonth) {
+          bannerEl.innerHTML = `
+            <div class="bg-gradient-to-r from-blue-950/80 via-indigo-950/70 to-slate-900 border border-blue-500/50 rounded-2xl p-3.5 shadow-xl flex flex-wrap items-center justify-between gap-3 text-xs">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-300 border border-blue-400/40 flex items-center justify-center text-xl shrink-0 shadow">
+                  🎯
+                </div>
+                <div>
+                  <div class="font-black text-white text-sm flex items-center gap-2 flex-wrap">
+                    <span>أنتِ الآن في وضع رصد: <span class="text-amber-300 font-black">${monthDef.nameAr}</span></span>
+                    <span class="bg-blue-500/20 text-blue-300 border border-blue-400/30 text-[10px] font-bold px-2 py-0.5 rounded-full">الدرجة المقررة من ${monthDef.max}</span>
+                  </div>
+                  <div class="text-[11px] text-slate-300 mt-0.5">
+                    ✨ تم إخفاء بقية الشهور للتركيز ومنع الالتباس. اضغطي <kbd class="px-1.5 py-0.5 bg-slate-800 text-amber-300 rounded font-mono font-bold text-[10px] border border-slate-700">Enter</kbd> أو <kbd class="px-1.5 py-0.5 bg-slate-800 text-amber-300 rounded font-mono font-bold text-[10px] border border-slate-700">↓</kbd> للانتقال التلقائي للدرجة التالية.
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button onclick="quickBulkFillActiveMonth()" class="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-xl transition shadow flex items-center gap-1.5 text-xs active:scale-95">
+                  <span>⚡ تعبئة موحدة للجميع</span>
+                </button>
+                <button onclick="quickFillAllActiveMonthMax(${monthDef.max})" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl transition shadow flex items-center gap-1 text-xs active:scale-95">
+                  <span>⭐ الدرجة الكاملة (${monthDef.max})</span>
+                </button>
+                <button onclick="setExamMonth('all')" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold rounded-xl transition flex items-center gap-1 text-xs">
+                  <span>📋 عرض الكشف الشامل</span>
+                </button>
+              </div>
+            </div>
+          `;
+        } else {
+          bannerEl.innerHTML = `
+            <div class="bg-slate-900/60 border border-slate-700/60 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-300">
+              <div class="flex items-center gap-2">
+                <span class="text-base">📊</span>
+                <span class="font-bold text-slate-200">الكشف الشامل لجميع الشهور والامتحانات (${subTermTitle})</span>
+                <span class="text-[11px] text-slate-400">• يمكنك اختيار شهر محدد من القائمة بالأعلى لفلترة خانته فقط ومنع التشتت</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="text-slate-400 text-[11px]">انتقال سريع:</span>
+                ${term === 't1' ? `
+                  <button onclick="setExamMonth('t1_m1')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">أكتوبر</button>
+                  <button onclick="setExamMonth('t1_m2')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">نوفمبر</button>
+                  <button onclick="setExamMonth('t1_tasks')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">ديسمبر</button>
+                  <button onclick="setExamMonth('t1_exam')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">يناير (امتحان)</button>
+                ` : `
+                  <button onclick="setExamMonth('t2_m1')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">فبراير</button>
+                  <button onclick="setExamMonth('t2_m2')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">مارس</button>
+                  <button onclick="setExamMonth('t2_tasks')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">أبريل</button>
+                  <button onclick="setExamMonth('t2_exam')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">مايو (امتحان)</button>
+                `}
+              </div>
+            </div>
+          `;
+        }
+      }
+
+      // Render Table Header
+      const thead = document.getElementById('grade-sheet-thead');
+      if (thead) {
+        if (isSingleMonth) {
+          thead.innerHTML = `
+            <tr class="bg-slate-900 text-slate-300 border-b border-slate-700 font-bold">
+              <th class="p-3 w-12 text-center">#</th>
+              <th class="p-3 min-w-[200px]">اسم الطالب / الطالبة</th>
+              <th class="p-3 w-24 text-center">المسار</th>
+              <th class="p-3.5 min-w-[180px] text-center bg-blue-900/50 border-x-2 border-blue-400 text-white font-black text-sm shadow-inner">
+                <div class="flex items-center justify-center gap-1.5">
+                  <span>${monthDef.badge}</span>
+                  <span class="text-amber-300">${monthDef.shortName}</span>
+                </div>
+                <span class="text-[11px] text-cyan-200 font-bold block mt-0.5">درجة الامتحان من ${monthDef.max}</span>
+              </th>
+              <th class="p-3 w-28 text-center bg-amber-950/40 border-r border-slate-700 text-amber-300">المجموع الكلي <span class="text-[10px] block">من 100</span></th>
+              <th class="p-3 w-28 text-center bg-slate-900 border-r border-slate-700">التقدير العام</th>
+              <th class="p-3 w-24 text-center no-print">إجراء سريع</th>
+            </tr>
+          `;
+        } else {
+          const m1Title = term === 't1' ? 'أكتوبر (شهر 1)' : 'فبراير (شهر 1)';
+          const m2Title = term === 't1' ? 'نوفمبر (شهر 2)' : 'مارس (شهر 2)';
+          const tasksTitle = term === 't1' ? 'ديسمبر (أنشطة)' : 'أبريل (أنشطة)';
+          const examTitle = term === 't1' ? 'يناير (امتحان نصف العام)' : 'مايو (امتحان نهاية العام)';
+
+          thead.innerHTML = `
+            <tr class="bg-slate-900 text-slate-300 border-b border-slate-700 font-bold">
+              <th class="p-3 w-12 text-center">#</th>
+              <th class="p-3 min-w-[180px]">اسم الطالب / الطالبة</th>
+              <th class="p-3 w-24 text-center">المسار</th>
+              <th class="p-3 w-24 text-center bg-blue-950/40 border-r border-slate-700 cursor-pointer hover:bg-blue-900/40 transition" onclick="setExamMonth('${term}_m1')" title="انتقال لرصد هذا الشهر فقط">${m1Title} <span class="text-[10px] text-slate-400 block">من 20 🔍</span></th>
+              <th class="p-3 w-24 text-center bg-blue-950/40 border-r border-slate-700 cursor-pointer hover:bg-blue-900/40 transition" onclick="setExamMonth('${term}_m2')" title="انتقال لرصد هذا الشهر فقط">${m2Title} <span class="text-[10px] text-slate-400 block">من 20 🔍</span></th>
+              <th class="p-3 w-28 text-center bg-indigo-950/40 border-r border-slate-700 cursor-pointer hover:bg-indigo-900/40 transition" onclick="setExamMonth('${term}_tasks')" title="انتقال لرصد هذا الشهر فقط">${tasksTitle} <span class="text-[10px] text-slate-400 block">من 20 🔍</span></th>
+              <th class="p-3 w-28 text-center bg-purple-950/40 border-r border-slate-700 cursor-pointer hover:bg-purple-900/40 transition" onclick="setExamMonth('${term}_exam')" title="انتقال لرصد هذا الامتحان فقط">${examTitle} <span class="text-[10px] text-slate-400 block">من 40 🔍</span></th>
+              <th class="p-3 w-24 text-center bg-amber-950/40 border-r border-slate-700 text-amber-300">المجموع <span class="text-[10px] block">من 100</span></th>
+              <th class="p-3 w-28 text-center bg-slate-900 border-r border-slate-700">التقدير العام</th>
+              <th class="p-3 w-20 text-center no-print">إجراء</th>
+            </tr>
+          `;
+        }
+      }
+
+      // Render Table Body
       const tbody = document.getElementById('grade-sheet-tbody');
       if (filteredStudents.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="10" class="p-8 text-center text-slate-400 font-bold">
+            <td colspan="${isSingleMonth ? 7 : 10}" class="p-8 text-center text-slate-400 font-bold">
               لا يوجد طلاب مسجلين في هذا الصف والشعبة حالياً.
             </td>
           </tr>
@@ -1182,7 +1434,8 @@
           m1: st.termsScores?.t1_m1 || 0,
           m2: st.termsScores?.t1_m2 || 0,
           tasks: 18,
-          exam: st.termsScores?.t1_exam || 0
+          exam: st.termsScores?.t1_exam || 0,
+          sep: 19
         };
 
         const m1 = parseFloat(saved.m1) || 0;
@@ -1204,51 +1457,86 @@
           ? '<span class="text-[10px] font-bold text-blue-300 bg-blue-900/40 px-2 py-0.5 rounded">لغات</span>'
           : '<span class="text-[10px] font-bold text-emerald-300 bg-emerald-900/40 px-2 py-0.5 rounded">عربي</span>';
 
-        return `
-          <tr class="hover:bg-slate-700/30 transition">
-            <td class="p-2.5 text-center text-slate-400 font-mono font-bold">${idx + 1}</td>
-            <td class="p-2.5 font-bold text-white whitespace-nowrap">
-              ${st.nameAr}
-              <span class="block text-[10px] text-slate-400 font-mono">${st.id}</span>
-            </td>
-            <td class="p-2.5 text-center">${trackBadge}</td>
-            <td class="p-2 text-center bg-blue-950/20 border-r border-slate-700/60">
-              <input type="number" min="0" max="20" step="0.5" value="${saved.m1}" 
-                data-key="${gradeKey}" data-field="m1" data-row="${idx}" data-col="1"
-                onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
-                class="grade-input w-16 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
-            </td>
-            <td class="p-2 text-center bg-blue-950/20 border-r border-slate-700/60">
-              <input type="number" min="0" max="20" step="0.5" value="${saved.m2}" 
-                data-key="${gradeKey}" data-field="m2" data-row="${idx}" data-col="2"
-                onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
-                class="grade-input w-16 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
-            </td>
-            <td class="p-2 text-center bg-indigo-950/20 border-r border-slate-700/60">
-              <input type="number" min="0" max="20" step="0.5" value="${saved.tasks}" 
-                data-key="${gradeKey}" data-field="tasks" data-row="${idx}" data-col="3"
-                onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
-                class="grade-input w-16 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
-            </td>
-            <td class="p-2 text-center bg-purple-950/20 border-r border-slate-700/60">
-              <input type="number" min="0" max="40" step="0.5" value="${saved.exam}" 
-                data-key="${gradeKey}" data-field="exam" data-row="${idx}" data-col="4"
-                onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
-                class="grade-input w-16 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
-            </td>
-            <td class="p-2 text-center bg-amber-950/20 border-r border-slate-700/60 font-black text-amber-300 font-mono text-sm row-total">
-              ${total}
-            </td>
-            <td class="p-2 text-center border-r border-slate-700/60 row-rating">
-              ${ratingBadge}
-            </td>
-            <td class="p-2 text-center no-print">
-              <button onclick="quickFillFullMark(this)" title="منح الدرجة الكاملة" class="text-slate-400 hover:text-amber-400 p-1 text-xs">
-                ⭐
-              </button>
-            </td>
-          </tr>
-        `;
+        if (isSingleMonth) {
+          const fieldVal = saved[monthDef.field] !== undefined ? saved[monthDef.field] : (saved[monthDef.fallbackField] || 0);
+          return `
+            <tr class="hover:bg-slate-700/30 transition">
+              <td class="p-2.5 text-center text-slate-400 font-mono font-bold">${idx + 1}</td>
+              <td class="p-2.5 font-bold text-white whitespace-nowrap">
+                ${st.nameAr}
+                <span class="block text-[10px] text-slate-400 font-mono">${st.id}</span>
+              </td>
+              <td class="p-2.5 text-center">${trackBadge}</td>
+              <td class="p-2.5 text-center bg-blue-950/20 border-x-2 border-blue-500/50">
+                <div class="flex items-center justify-center gap-2">
+                  <input type="number" min="0" max="${monthDef.max}" step="0.5" value="${fieldVal}" 
+                    data-key="${gradeKey}" data-field="${monthDef.field}" data-row="${idx}" data-col="1" data-max="${monthDef.max}"
+                    onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
+                    class="grade-input w-24 text-center font-black text-base bg-slate-900 border-2 border-blue-400 focus:border-amber-400 focus:bg-blue-950 rounded-xl py-1.5 px-2 text-white shadow-inner focus:outline-none focus:ring-2 focus:ring-amber-400/40 transition">
+                  <span class="text-xs font-bold text-slate-400">/ ${monthDef.max}</span>
+                </div>
+              </td>
+              <td class="p-2 text-center bg-amber-950/20 border-r border-slate-700/60 font-black text-amber-300 font-mono text-sm row-total">
+                ${total}
+              </td>
+              <td class="p-2 text-center border-r border-slate-700/60 row-rating">
+                ${ratingBadge}
+              </td>
+              <td class="p-2 text-center no-print">
+                <button onclick="quickFillSingleStudentMax(this, '${monthDef.field}', ${monthDef.max})" title="منح الدرجة النهائية في ${monthDef.shortName} (${monthDef.max})" class="px-2.5 py-1 bg-amber-500/20 hover:bg-amber-500/40 border border-amber-500/40 rounded-lg text-amber-300 hover:text-white text-xs font-bold transition flex items-center justify-center gap-1 mx-auto">
+                  <span>⭐</span>
+                  <span>${monthDef.max}</span>
+                </button>
+              </td>
+            </tr>
+          `;
+        } else {
+          return `
+            <tr class="hover:bg-slate-700/30 transition">
+              <td class="p-2.5 text-center text-slate-400 font-mono font-bold">${idx + 1}</td>
+              <td class="p-2.5 font-bold text-white whitespace-nowrap">
+                ${st.nameAr}
+                <span class="block text-[10px] text-slate-400 font-mono">${st.id}</span>
+              </td>
+              <td class="p-2.5 text-center">${trackBadge}</td>
+              <td class="p-2 text-center bg-blue-950/20 border-r border-slate-700/60">
+                <input type="number" min="0" max="20" step="0.5" value="${saved.m1}" 
+                  data-key="${gradeKey}" data-field="m1" data-row="${idx}" data-col="1" data-max="20"
+                  onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
+                  class="grade-input w-16 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
+              </td>
+              <td class="p-2 text-center bg-blue-950/20 border-r border-slate-700/60">
+                <input type="number" min="0" max="20" step="0.5" value="${saved.m2}" 
+                  data-key="${gradeKey}" data-field="m2" data-row="${idx}" data-col="2" data-max="20"
+                  onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
+                  class="grade-input w-16 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
+              </td>
+              <td class="p-2 text-center bg-indigo-950/20 border-r border-slate-700/60">
+                <input type="number" min="0" max="20" step="0.5" value="${saved.tasks}" 
+                  data-key="${gradeKey}" data-field="tasks" data-row="${idx}" data-col="3" data-max="20"
+                  onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
+                  class="grade-input w-16 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
+              </td>
+              <td class="p-2 text-center bg-purple-950/20 border-r border-slate-700/60">
+                <input type="number" min="0" max="40" step="0.5" value="${saved.exam}" 
+                  data-key="${gradeKey}" data-field="exam" data-row="${idx}" data-col="4" data-max="40"
+                  onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
+                  class="grade-input w-16 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
+              </td>
+              <td class="p-2 text-center bg-amber-950/20 border-r border-slate-700/60 font-black text-amber-300 font-mono text-sm row-total">
+                ${total}
+              </td>
+              <td class="p-2 text-center border-r border-slate-700/60 row-rating">
+                ${ratingBadge}
+              </td>
+              <td class="p-2 text-center no-print">
+                <button onclick="quickFillFullMark(this)" title="منح الدرجة الكاملة (100)" class="text-slate-400 hover:text-amber-400 p-1 text-xs">
+                  ⭐
+                </button>
+              </td>
+            </tr>
+          `;
+        }
       }).join('');
 
       updateGradeStats(calculatedRows);
@@ -1256,14 +1544,25 @@
 
     function onGradeLiveCalc(inputEl) {
       const tr = inputEl.closest('tr');
-      const inputs = tr.querySelectorAll('.grade-input');
-      const m1 = Math.min(20, Math.max(0, parseFloat(inputs[0].value) || 0));
-      const m2 = Math.min(20, Math.max(0, parseFloat(inputs[1].value) || 0));
-      const tasks = Math.min(20, Math.max(0, parseFloat(inputs[2].value) || 0));
-      const exam = Math.min(40, Math.max(0, parseFloat(inputs[3].value) || 0));
+      const key = inputEl.dataset.key;
+      const field = inputEl.dataset.field;
+      const maxVal = parseFloat(inputEl.dataset.max) || 20;
+      let val = parseFloat(inputEl.value) || 0;
+      if (val > maxVal) val = maxVal;
+      if (val < 0) val = 0;
 
+      const allGrades = getStoredGrades();
+      const saved = allGrades[key] || { m1: 0, m2: 0, tasks: 0, exam: 0 };
+      saved[field] = val;
+
+      const m1 = parseFloat(saved.m1) || 0;
+      const m2 = parseFloat(saved.m2) || 0;
+      const tasks = parseFloat(saved.tasks) || 0;
+      const exam = parseFloat(saved.exam) || 0;
       const total = Math.min(100, Math.round((m1 + m2 + tasks + exam) * 10) / 10);
-      tr.querySelector('.row-total').innerText = total;
+
+      const totalEl = tr.querySelector('.row-total');
+      if (totalEl) totalEl.innerText = total;
 
       let ratingBadge = '';
       if (total >= 85) ratingBadge = '<span class="bg-emerald-500/20 text-emerald-300 font-black px-2 py-0.5 rounded text-[11px]">ممتاز 🌟</span>';
@@ -1272,16 +1571,17 @@
       else if (total >= 50) ratingBadge = '<span class="bg-orange-500/20 text-orange-300 font-black px-2 py-0.5 rounded text-[11px]">مقبول ⚠️</span>';
       else ratingBadge = '<span class="bg-red-500/20 text-red-300 font-black px-2 py-0.5 rounded text-[11px]">يحتاج دعم 🚨</span>';
 
-      tr.querySelector('.row-rating').innerHTML = ratingBadge;
+      const ratingEl = tr.querySelector('.row-rating');
+      if (ratingEl) ratingEl.innerHTML = ratingBadge;
     }
 
     function onGradeInputChange(inputEl) {
       const key = inputEl.dataset.key;
       const field = inputEl.dataset.field;
+      const max = parseFloat(inputEl.dataset.max) || 20;
       let val = parseFloat(inputEl.value) || 0;
 
-      if (field === 'exam' && val > 40) val = 40;
-      else if (field !== 'exam' && val > 20) val = 20;
+      if (val > max) val = max;
       if (val < 0) val = 0;
       inputEl.value = val;
 
@@ -1290,28 +1590,86 @@
       allGrades[key][field] = val;
 
       saveStoredGrades(allGrades);
-
-      const savePill = document.getElementById('save-status-pill');
-      savePill.innerHTML = `<span>✓</span><span>تم الحفظ تلقائياً!</span>`;
-      savePill.className = 'text-xs px-3 py-1.5 rounded-xl font-bold bg-emerald-500/30 text-emerald-200 border border-emerald-400 flex items-center gap-1.5 transition';
-      setTimeout(() => {
-        savePill.className = 'text-xs px-3 py-1.5 rounded-xl font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5 transition';
-      }, 1500);
+      flashSavePill();
 
       const totalEls = document.querySelectorAll('.row-total');
       const rowsData = Array.from(totalEls).map(el => ({ total: parseFloat(el.innerText) || 0 }));
       updateGradeStats(rowsData);
     }
 
+    function flashSavePill() {
+      const savePill = document.getElementById('save-status-pill');
+      if (savePill) {
+        savePill.innerHTML = `<span>✓</span><span>تم الحفظ تلقائياً!</span>`;
+        savePill.className = 'text-xs px-3 py-1.5 rounded-xl font-bold bg-emerald-500/30 text-emerald-200 border border-emerald-400 flex items-center gap-1.5 transition';
+        setTimeout(() => {
+          savePill.className = 'text-xs px-3 py-1.5 rounded-xl font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5 transition';
+        }, 1500);
+      }
+    }
+
+    function quickFillSingleStudentMax(btnEl, field, maxVal) {
+      const tr = btnEl.closest('tr');
+      const input = tr.querySelector('.grade-input');
+      if (input) {
+        input.value = maxVal;
+        onGradeInputChange(input);
+        onGradeLiveCalc(input);
+        showToast(`تم إعطاء الدرجة النهائية (${maxVal}) للطالب ⭐`, 'success');
+      }
+    }
+
+    function quickFillAllActiveMonthMax(maxVal) {
+      const selectedMonth = document.getElementById('exam-month-select').value;
+      const def = MONTH_EXAMS_DEF[selectedMonth];
+      const monthTitle = def ? def.shortName : 'هذا الشهر';
+      if (!confirm(`هل أنتِ متأكدة من إعطاء الدرجة النهائية (${maxVal}) لجميع طلاب الكشف في [${monthTitle}]؟`)) return;
+
+      const inputs = document.querySelectorAll('.grade-input');
+      inputs.forEach(inp => {
+        inp.value = maxVal;
+        onGradeInputChange(inp);
+        onGradeLiveCalc(inp);
+      });
+      showToast(`تم إعطاء الدرجة النهائية (${maxVal}) لجميع طلاب الكشف ⭐`, 'success');
+    }
+
+    function quickBulkFillActiveMonth() {
+      const selectedMonth = document.getElementById('exam-month-select').value;
+      if (selectedMonth === 'all') {
+        alert('يرجى أولاً اختيار شهر محدد من القائمة لتعبئة درجاته موحدة.');
+        return;
+      }
+      const def = MONTH_EXAMS_DEF[selectedMonth];
+      const enteredVal = prompt(`أدخلي الدرجة المراد تعبئتها لجميع الطلاب في [${def.shortName}] (من 0 إلى ${def.max}):`, def.max);
+      if (enteredVal === null) return;
+      const val = Math.min(def.max, Math.max(0, parseFloat(enteredVal) || 0));
+
+      const inputs = document.querySelectorAll('.grade-input');
+      inputs.forEach(inp => {
+        inp.value = val;
+        onGradeInputChange(inp);
+        onGradeLiveCalc(inp);
+      });
+      showToast(`تم تعبئة درجة (${val}) لجميع الطلاب في ${def.shortName} بنجاح ✨`, 'success');
+    }
+
     function quickFillFullMark(btnEl) {
       const tr = btnEl.closest('tr');
       const inputs = tr.querySelectorAll('.grade-input');
-      inputs[0].value = 20;
-      inputs[1].value = 20;
-      inputs[2].value = 20;
-      inputs[3].value = 40;
-      inputs.forEach(inp => onGradeInputChange(inp));
-      onGradeLiveCalc(inputs[0]);
+      if (inputs.length >= 4) {
+        inputs[0].value = 20;
+        inputs[1].value = 20;
+        inputs[2].value = 20;
+        inputs[3].value = 40;
+        inputs.forEach(inp => onGradeInputChange(inp));
+        onGradeLiveCalc(inputs[0]);
+      } else if (inputs.length === 1) {
+        const maxVal = parseFloat(inputs[0].dataset.max) || 20;
+        inputs[0].value = maxVal;
+        onGradeInputChange(inputs[0]);
+        onGradeLiveCalc(inputs[0]);
+      }
       showToast('تم إعطاء الدرجة النهائية للطالب ⭐', 'success');
     }
 
@@ -1359,38 +1717,54 @@
     }
 
     function exportGradesToCSV() {
-      const grade = document.getElementById('grade-select').value;
-      const subjectSelect = document.getElementById('subject-select');
-      const subjectName = subjectSelect.options[subjectSelect.selectedIndex]?.text || 'Grade';
-      
-      const rows = document.querySelectorAll('#grade-sheet-tbody tr');
-      if (rows.length === 0) {
-        showToast('لا توجد بيانات لتصديرها', 'error');
-        return;
-      }
+      if (!currentTeacher) return;
+      const grade = parseInt(document.getElementById('grade-select').value);
+      const subjectId = document.getElementById('subject-select').value;
+      const track = document.getElementById('track-select').value;
+      const term = document.getElementById('term-select').value;
+      const selectedMonth = document.getElementById('exam-month-select').value;
+      const isSingleMonth = selectedMonth !== 'all' && Boolean(MONTH_EXAMS_DEF[selectedMonth]);
+      const def = isSingleMonth ? MONTH_EXAMS_DEF[selectedMonth] : null;
 
-      let csv = '\uFEFFم,اسم الطالب,المسار,شهر 1,شهر 2,أنشطة,امتحان الترم,المجموع,التقدير\n';
-      rows.forEach(tr => {
-        const cells = tr.querySelectorAll('td');
-        if (cells.length >= 9) {
-          const idx = cells[0].innerText.trim();
-          const name = cells[1].innerText.split('\n')[0].trim();
-          const track = cells[2].innerText.trim();
-          const inputs = tr.querySelectorAll('.grade-input');
-          const m1 = inputs[0]?.value || 0;
-          const m2 = inputs[1]?.value || 0;
-          const tasks = inputs[2]?.value || 0;
-          const exam = inputs[3]?.value || 0;
-          const total = cells[7].innerText.trim();
-          const rating = cells[8].innerText.trim();
-          csv += `"${idx}","${name}","${track}","${m1}","${m2}","${tasks}","${exam}","${total}","${rating}"\n`;
-        }
-      });
+      const students = getStoredStudents();
+      const allGrades = getStoredGrades();
+      let filtered = students.filter(s => s.grade === grade);
+      if (track !== 'all') filtered = filtered.filter(s => s.track === track);
+
+      const currentSub = currentTeacher.subjects.find(s => s.id === subjectId) || { nameAr: 'المادة' };
+
+      let csv = '\uFEFF';
+      if (isSingleMonth) {
+        csv += `م,كود الطالب,اسم الطالب,المسار,درجة ${def.shortName} (من ${def.max}),المجموع التراكمي للترم (من 100),التقدير العام\n`;
+        filtered.forEach((st, idx) => {
+          const key = 'st_' + st.id + '_' + term + '_' + subjectId;
+          const saved = allGrades[key] || { m1: 0, m2: 0, tasks: 0, exam: 0 };
+          const val = saved[def.field] !== undefined ? saved[def.field] : (saved[def.fallbackField] || 0);
+          const tot = Math.min(100, Math.round(((parseFloat(saved.m1)||0) + (parseFloat(saved.m2)||0) + (parseFloat(saved.tasks)||0) + (parseFloat(saved.exam)||0)) * 10) / 10);
+          let rat = tot >= 85 ? 'ممتاز' : tot >= 75 ? 'جيد جدا' : tot >= 65 ? 'جيد' : tot >= 50 ? 'مقبول' : 'يحتاج دعم';
+          csv += `"${idx + 1}","${st.id}","${st.nameAr}","${st.track === 'languages' ? 'لغات' : 'عربي'}","${val}","${tot}","${rat}"\n`;
+        });
+      } else {
+        const m1Title = term === 't1' ? 'أكتوبر (من 20)' : 'فبراير (من 20)';
+        const m2Title = term === 't1' ? 'نوفمبر (من 20)' : 'مارس (من 20)';
+        const tasksTitle = term === 't1' ? 'أنشطة ديسمبر (من 20)' : 'أنشطة أبريل (من 20)';
+        const examTitle = term === 't1' ? 'امتحان نصف العام يناير (من 40)' : 'امتحان نهاية العام مايو (من 40)';
+
+        csv += `م,كود الطالب,اسم الطالب,المسار,${m1Title},${m2Title},${tasksTitle},${examTitle},المجموع (من 100),التقدير العام\n`;
+        filtered.forEach((st, idx) => {
+          const key = 'st_' + st.id + '_' + term + '_' + subjectId;
+          const saved = allGrades[key] || { m1: 0, m2: 0, tasks: 0, exam: 0 };
+          const tot = Math.min(100, Math.round(((parseFloat(saved.m1)||0) + (parseFloat(saved.m2)||0) + (parseFloat(saved.tasks)||0) + (parseFloat(saved.exam)||0)) * 10) / 10);
+          let rat = tot >= 85 ? 'ممتاز' : tot >= 75 ? 'جيد جدا' : tot >= 65 ? 'جيد' : tot >= 50 ? 'مقبول' : 'يحتاج دعم';
+          csv += `"${idx + 1}","${st.id}","${st.nameAr}","${st.track === 'languages' ? 'لغات' : 'عربي'}","${saved.m1||0}","${saved.m2||0}","${saved.tasks||0}","${saved.exam||0}","${tot}","${rat}"\n`;
+        });
+      }
 
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = `SmileKids_Grades_G${grade}_${subjectName}.csv`;
+      const fileTitle = isSingleMonth ? def.shortName : (term === 't1' ? 'ترم_أول' : 'ترم_ثاني');
+      link.download = `SmileKids_درجات_${currentTeacher.nameAr}_${currentSub.nameAr}_الصف_${grade}_${fileTitle}.csv`;
       link.click();
       showToast('تم تصدير ملف الإكسل بنجاح 📥', 'success');
     }
