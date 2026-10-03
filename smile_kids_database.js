@@ -10,12 +10,11 @@
 (function(window) {
   'use strict';
 
-  const STORAGE_KEY = 'SMILE_KIDS_MASTER_DATABASE_2026_V3';
-  const LEGACY_STUDENT_KEYS = ['SMILE_KIDS_MASTER_DATABASE_2026_V2', 'SMILE_KIDS_MASTER_DATABASE_2026', 'smile_kids_students_v7_custom', 'smilekids_school_v6'];
+  const STORAGE_KEY = 'SMILE_KIDS_MASTER_DATABASE_2026_V4';
+  const LEGACY_STUDENT_KEYS = ['SMILE_KIDS_MASTER_DATABASE_2026_V3', 'SMILE_KIDS_MASTER_DATABASE_2026_V2', 'SMILE_KIDS_MASTER_DATABASE_2026', 'smile_kids_students_v7_custom', 'smilekids_school_v6'];
   const LEGACY_ATT_KEY = 'smile_kids_attendance_v7_data';
 
-  // Master Initial Verified Students (137 Students across 9 Grades)
-  // Master Initial Verified Students (137 Students across 9 Grades)
+  // Master Initial Verified Students (147 Students across 9 Grades)
   const MASTER_INITIAL_STUDENTS = [
   {
     "id": "SK-G1-AR-001",
@@ -4751,6 +4750,21 @@
           this._cache = this._clone(MASTER_INITIAL_STUDENTS);
         }
         this.save();
+      }
+
+      // Ensure all 147 verified students exist in cache even after migration
+      if (this._cache && this._cache.length < MASTER_INITIAL_STUDENTS.length) {
+        const existingIds = new Set(this._cache.map(s => s.id));
+        let addedCount = 0;
+        MASTER_INITIAL_STUDENTS.forEach(defSt => {
+          if (!existingIds.has(defSt.id)) {
+            this._cache.push(this._clone(defSt));
+            addedCount++;
+          }
+        });
+        if (addedCount > 0) {
+          this.save();
+        }
       }
 
       this._ensureStudentFields();

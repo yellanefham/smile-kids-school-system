@@ -122,7 +122,7 @@
         <!-- Total Students Glowing Badge -->
         <div class="flex items-center gap-2 bg-slate-900/90 border border-indigo-500/40 px-3 py-1.5 rounded-xl shadow-[0_0_15px_rgba(99,102,241,0.2)] whitespace-nowrap">
           <span class="text-xs font-bold text-slate-300 hidden sm:inline">الطلاب:</span>
-          <span id="header-student-count" class="text-xs font-black text-indigo-300">137 طالب وطالبة</span>
+          <span id="header-student-count" class="text-xs font-black text-indigo-300">147 طالب وطالبة</span>
         </div>
       </div>
     </div>
@@ -504,7 +504,7 @@
               <!-- Quick School Metric Strip -->
               <div class="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-white/10 text-center">
                 <div class="bg-white/5 rounded-xl p-2">
-                  <div class="text-base font-black text-amber-300">137</div>
+                  <div class="text-base font-black text-amber-300" id="hero-student-count">147</div>
                   <div class="text-[10px] text-slate-400 font-bold">طالب وطالبة</div>
                 </div>
                 <div class="bg-white/5 rounded-xl p-2">
@@ -654,8 +654,11 @@
 
       if (window.SmileKidsDB) {
         const updateMetrics = (students) => {
+          const count = (students && students.length) ? students.length : 147;
           const headerCountEl = document.getElementById('header-student-count');
-          if (headerCountEl) headerCountEl.innerText = `${students.length} طالب وطالبة`;
+          if (headerCountEl) headerCountEl.innerText = `${count} طالب وطالبة`;
+          const heroCountEl = document.getElementById('hero-student-count');
+          if (heroCountEl) heroCountEl.innerText = count;
         };
 
         const initialStudents = window.SmileKidsDB.getAllStudents();

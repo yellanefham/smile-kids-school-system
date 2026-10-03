@@ -214,14 +214,14 @@
             <!-- Grade Selector (Only Teacher's Grades) -->
             <div>
               <label class="block text-[11px] font-bold text-slate-400 mb-1">الصف الدراسي:</label>
-              <select id="grade-select" onchange="onGradeOrSubjectChange()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none focus:border-blue-500">
+              <select id="grade-select" onchange="onGradeChange()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none focus:border-blue-500">
               </select>
             </div>
 
             <!-- Subject Selector (Only Teacher's Subjects) -->
             <div>
               <label class="block text-[11px] font-bold text-slate-400 mb-1">المادة الدراسية:</label>
-              <select id="subject-select" onchange="onGradeOrSubjectChange()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none focus:border-blue-500">
+              <select id="subject-select" onchange="onSubjectChange()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none focus:border-blue-500">
               </select>
             </div>
 
@@ -267,6 +267,39 @@
                   <option value="t2_exam">☀️ شهر مايو (امتحان نهاية العام / الترم 2 - 40 درجة)</option>
                 </optgroup>
               </select>
+            </div>
+
+            <!-- Custom Max Score Selector (تحديد الدرجة العظمى للامتحان) -->
+            <div id="max-score-control-box" class="border-r border-slate-700/80 pr-2">
+              <label class="block text-[11px] font-bold text-amber-300 mb-1 flex items-center gap-1">
+                <span>🎯 الدرجة العظمى:</span>
+              </label>
+              <div class="flex items-center gap-1.5">
+                <input 
+                  type="number" 
+                  id="custom-max-score-input" 
+                  min="1" 
+                  max="200" 
+                  step="1"
+                  value="20" 
+                  onchange="onCustomMaxScoreChange()" 
+                  onkeydown="if(event.key==='Enter'){event.preventDefault();onCustomMaxScoreChange();}"
+                  class="w-16 bg-slate-900 border-2 border-amber-500/70 rounded-xl px-2 py-1.5 text-center text-xs font-black text-amber-300 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/40 shadow-[0_0_12px_rgba(245,158,11,0.25)]"
+                  title="حددي الدرجة العظمى للامتحان (مثال: 20، 25، 30، 40، 50، 100)"
+                >
+                <select id="max-score-preset-select" onchange="onMaxScorePresetChange(this.value)" class="bg-slate-900 border border-slate-700 rounded-xl px-2 py-1.5 text-xs font-bold text-slate-300 focus:outline-none focus:border-amber-400" title="خيارات سريعة للدرجة العظمى">
+                  <option value="">خيارات سريعة</option>
+                  <option value="10">من 10</option>
+                  <option value="15">من 15</option>
+                  <option value="20">من 20</option>
+                  <option value="25">من 25</option>
+                  <option value="30">من 30</option>
+                  <option value="40">من 40</option>
+                  <option value="50">من 50</option>
+                  <option value="60">من 60</option>
+                  <option value="100">من 100</option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -459,18 +492,34 @@
 
       <!-- ==================== TAB 3: TEACHER WEEKLY SCHEDULE (جدولي الأسبوعي) ==================== -->
       <div id="tab-content-schedule" class="hidden flex-1 flex flex-col gap-4">
-        <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-4 shadow-xl flex items-center justify-between">
+        <div class="bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-slate-700/80 rounded-2xl p-4 shadow-xl flex items-center justify-between">
           <div>
-            <h3 class="text-base font-black text-white">جدول الحصص الأسبوعي المعتمد</h3>
-            <p class="text-xs text-slate-400">حصصك الرسمية من الأحد إلى الخميس وفقاً لجدول المدرسة</p>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <h3 class="text-base font-black text-white">جدول الحصص الأسبوعي المعتمد</h3>
+              <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">جدول ذكي ملون</span>
+            </div>
+            <p class="text-xs text-slate-400">حصصك الرسمية من الأحد إلى الخميس مع تمييز لوني لكل مادة لسهولة المتابعة</p>
           </div>
-          <button onclick="window.print()" class="px-4 py-1.5 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+          <button onclick="window.print()" class="px-4 py-2 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/30">
             <span>🖨️</span>
             <span>طباعة الجدول</span>
           </button>
         </div>
 
-        <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-4 overflow-x-auto custom-scroll shadow-2xl">
+        <!-- Palette / Color Legend -->
+        <div class="flex items-center justify-center gap-2 flex-wrap py-2 px-3 bg-slate-900/80 rounded-xl border border-slate-800 text-[11px] shadow-sm">
+          <span class="text-slate-400 font-bold ml-1">دليل المواد:</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-emerald-950/60 text-emerald-300 border border-emerald-500/30 font-bold">📚 عربي</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-teal-950/60 text-teal-300 border border-teal-500/30 font-bold">🕌 دين</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-sky-950/60 text-sky-300 border border-sky-500/30 font-bold">🔤 English</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-amber-950/60 text-amber-300 border border-amber-500/30 font-bold">🔢 Math</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-lime-950/60 text-lime-300 border border-lime-500/30 font-bold">🔬 Science</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-orange-950/60 text-orange-300 border border-orange-500/30 font-bold">🌍 دراسات</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-purple-950/60 text-purple-300 border border-purple-500/30 font-bold">💻 ICT</span>
+        </div>
+
+        <div class="bg-gradient-to-b from-slate-900/90 via-slate-950/95 to-slate-900/90 border border-slate-700/80 rounded-2xl p-4 overflow-x-auto custom-scroll shadow-2xl backdrop-blur-md">
           <table id="teacher-timetable-table" class="w-full text-center border-collapse text-xs">
           </table>
         </div>
@@ -532,7 +581,7 @@
       <div class="mb-5 text-right">
         <label class="block text-xs font-bold text-slate-300 mb-1.5">أدخلي رمز المرور (PIN):</label>
         <div class="relative">
-          <input type="password" id="input-pin" maxlength="8" placeholder="الرمز الافتراضي: 1234" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-lg font-mono tracking-widest text-white focus:outline-none focus:border-blue-500 shadow-inner">
+          <input type="password" id="input-pin" maxlength="8" placeholder="الرمز الافتراضي: 1234" onkeydown="if(event.key==='Enter'||event.keyCode===13){event.preventDefault();verifyTeacherPin();}" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-lg font-mono tracking-widest text-white focus:outline-none focus:border-blue-500 shadow-inner">
         </div>
         <p id="pin-error-msg" class="text-[11px] text-red-400 font-bold mt-1.5 hidden">رمز المرور غير صحيح! الرمز الافتراضي هو 1234</p>
       </div>
@@ -569,7 +618,7 @@
 
       <div class="mb-4 text-right">
         <label class="block text-xs font-bold text-slate-300 mb-1">رمز مدير النظام (Admin PIN):</label>
-        <input type="password" id="input-admin-pin" placeholder="أدخل رمز الإدارة (9999)" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-base font-mono text-white focus:outline-none focus:border-amber-500">
+        <input type="password" id="input-admin-pin" placeholder="أدخل رمز الإدارة (9999)" onkeydown="if(event.key==='Enter'||event.keyCode===13){event.preventDefault();verifyAdminPin();}" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-base font-mono text-white focus:outline-none focus:border-amber-500">
         <p id="admin-error-msg" class="text-[11px] text-red-400 font-bold mt-1.5 hidden">رمز غير صحيح! الرمز الافتراضي هو 9999</p>
       </div>
 
@@ -886,22 +935,34 @@
         <option value="${g}">${gradeNames[g] || 'الصف ' + g}</option>
       `).join('');
 
-      onGradeOrSubjectChange();
+      onGradeChange();
     }
 
-    function onGradeOrSubjectChange() {
+    const onGradeOrSubjectChange = onGradeChange;
+
+    function onGradeChange() {
       if (!currentTeacher) return;
 
       const gradeSelect = document.getElementById('grade-select');
       const subjectSelect = document.getElementById('subject-select');
       const selectedGrade = parseInt(gradeSelect.value);
 
+      const prevSubject = subjectSelect.value;
       const availableSubjects = currentTeacher.subjects.filter(s => s.grades.includes(selectedGrade));
 
-      subjectSelect.innerHTML = availableSubjects.map(s => `
-        <option value="${s.id}">${s.nameAr} (${s.nameEn})</option>
-      `).join('');
+      subjectSelect.innerHTML = availableSubjects.map(s => {
+        const title = (s.nameAr === s.nameEn) ? s.nameAr : (s.nameAr + ' (' + s.nameEn + ')');
+        return `<option value="${s.id}">${title}</option>`;
+      }).join('');
 
+      if (availableSubjects.some(s => s.id === prevSubject)) {
+        subjectSelect.value = prevSubject;
+      }
+
+      renderGradeSheetTable();
+    }
+
+    function onSubjectChange() {
       renderGradeSheetTable();
     }
 
@@ -1206,6 +1267,53 @@
       }
     };
 
+    function getActiveMaxScore(monthKey, subjectId, grade) {
+      if (!monthKey || monthKey === 'all') return 20;
+      const def = MONTH_EXAMS_DEF[monthKey];
+      if (!def) return 20;
+      const storageKey = 'smile_kids_max_score_' + (subjectId || 'sub') + '_' + (grade || 'g') + '_' + monthKey;
+      const saved = localStorage.getItem(storageKey);
+      if (saved && !isNaN(parseFloat(saved)) && parseFloat(saved) > 0) {
+        return parseFloat(saved);
+      }
+      return def.max;
+    }
+
+    function setActiveMaxScore(monthKey, subjectId, grade, newMax) {
+      if (!monthKey || monthKey === 'all') return;
+      const storageKey = 'smile_kids_max_score_' + (subjectId || 'sub') + '_' + (grade || 'g') + '_' + monthKey;
+      localStorage.setItem(storageKey, String(newMax));
+    }
+
+    function onCustomMaxScoreChange() {
+      const inputEl = document.getElementById('custom-max-score-input');
+      if (!inputEl) return;
+      let val = parseFloat(inputEl.value);
+      if (isNaN(val) || val <= 0) val = 20;
+      inputEl.value = val;
+
+      const subjectId = document.getElementById('subject-select')?.value;
+      const grade = document.getElementById('grade-select')?.value;
+      const selectedMonth = document.getElementById('exam-month-select')?.value;
+      
+      if (selectedMonth && selectedMonth !== 'all') {
+        setActiveMaxScore(selectedMonth, subjectId, grade, val);
+        renderGradeSheetTable();
+        showToast(`تم اعتماد الدرجة العظمى للامتحان: (${val}) بنجاح ⭐`, 'success');
+      }
+    }
+
+    function onMaxScorePresetChange(val) {
+      if (!val) return;
+      const inputEl = document.getElementById('custom-max-score-input');
+      if (inputEl) {
+        inputEl.value = val;
+        onCustomMaxScoreChange();
+      }
+      const presetSel = document.getElementById('max-score-preset-select');
+      if (presetSel) presetSel.value = '';
+    }
+
     function onTermSelectChange() {
       const term = document.getElementById('term-select').value;
       const currentMonth = document.getElementById('exam-month-select').value;
@@ -1246,7 +1354,22 @@
       const term = document.getElementById('term-select').value;
       const selectedMonth = document.getElementById('exam-month-select').value;
       const isSingleMonth = selectedMonth !== 'all' && Boolean(MONTH_EXAMS_DEF[selectedMonth]);
-      const monthDef = isSingleMonth ? MONTH_EXAMS_DEF[selectedMonth] : null;
+      const monthDef = isSingleMonth ? Object.assign({}, MONTH_EXAMS_DEF[selectedMonth]) : null;
+
+      if (isSingleMonth && monthDef) {
+        const effectiveMax = getActiveMaxScore(selectedMonth, subjectId, grade);
+        monthDef.effectiveMax = effectiveMax;
+
+        const maxBox = document.getElementById('max-score-control-box');
+        if (maxBox) maxBox.classList.remove('hidden');
+        const maxInput = document.getElementById('custom-max-score-input');
+        if (maxInput && document.activeElement !== maxInput) {
+          maxInput.value = effectiveMax;
+        }
+      } else {
+        const maxBox = document.getElementById('max-score-control-box');
+        if (maxBox) maxBox.classList.add('hidden');
+      }
 
       const students = getStoredStudents();
       const allGrades = getStoredGrades();
@@ -1258,8 +1381,9 @@
 
       const currentSub = currentTeacher.subjects.find(s => s.id === subjectId) || { nameAr: 'المادة' };
       const subTermTitle = term === 't1' ? 'الترم الأول (حتى شهر 1)' : 'الترم الثاني (حتى شهر 5)';
+      const currentMaxDisplay = isSingleMonth ? (monthDef.effectiveMax || monthDef.max) : 100;
       const reportTitle = isSingleMonth 
-        ? `${currentSub.nameAr} • الصف ${grade} • ${monthDef.nameAr}`
+        ? `${currentSub.nameAr} • الصف ${grade} • ${monthDef.nameAr} (من ${currentMaxDisplay})`
         : `${currentSub.nameAr} • الصف ${grade} • كشف درجات ${subTermTitle} الشامل`;
 
       document.getElementById('print-sheet-title').innerText = reportTitle;
@@ -1269,6 +1393,7 @@
       const bannerEl = document.getElementById('month-focus-banner');
       if (bannerEl) {
         if (isSingleMonth) {
+          const curMax = monthDef.effectiveMax || monthDef.max;
           bannerEl.innerHTML = `
             <div class="bg-gradient-to-r from-blue-950/80 via-indigo-950/70 to-slate-900 border border-blue-500/50 rounded-2xl p-3.5 shadow-xl flex flex-wrap items-center justify-between gap-3 text-xs">
               <div class="flex items-center gap-3">
@@ -1278,10 +1403,10 @@
                 <div>
                   <div class="font-black text-white text-sm flex items-center gap-2 flex-wrap">
                     <span>أنتِ الآن في وضع رصد: <span class="text-amber-300 font-black">${monthDef.nameAr}</span></span>
-                    <span class="bg-blue-500/20 text-blue-300 border border-blue-400/30 text-[10px] font-bold px-2 py-0.5 rounded-full">الدرجة المقررة من ${monthDef.max}</span>
+                    <span class="bg-amber-500/20 text-amber-300 border border-amber-400/40 text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-sm">الدرجة العظمى المحددة: من ${curMax}</span>
                   </div>
                   <div class="text-[11px] text-slate-300 mt-0.5">
-                    ✨ تم إخفاء بقية الشهور للتركيز ومنع الالتباس. اضغطي <kbd class="px-1.5 py-0.5 bg-slate-800 text-amber-300 rounded font-mono font-bold text-[10px] border border-slate-700">Enter</kbd> أو <kbd class="px-1.5 py-0.5 bg-slate-800 text-amber-300 rounded font-mono font-bold text-[10px] border border-slate-700">↓</kbd> للانتقال التلقائي للدرجة التالية.
+                    ✨ تم إخفاء بقية الشهور للتركيز. يمكنك تعديل الدرجة العظمى من الخانة بالأعلى في أي وقت. اضغطي <kbd class="px-1.5 py-0.5 bg-slate-800 text-amber-300 rounded font-mono font-bold text-[10px] border border-slate-700">Enter</kbd> أو <kbd class="px-1.5 py-0.5 bg-slate-800 text-amber-300 rounded font-mono font-bold text-[10px] border border-slate-700">↓</kbd> للتنقل.
                   </div>
                 </div>
               </div>
@@ -1290,8 +1415,8 @@
                 <button onclick="quickBulkFillActiveMonth()" class="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-xl transition shadow flex items-center gap-1.5 text-xs active:scale-95">
                   <span>⚡ تعبئة موحدة للجميع</span>
                 </button>
-                <button onclick="quickFillAllActiveMonthMax(${monthDef.max})" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl transition shadow flex items-center gap-1 text-xs active:scale-95">
-                  <span>⭐ الدرجة الكاملة (${monthDef.max})</span>
+                <button onclick="quickFillAllActiveMonthMax(${curMax})" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl transition shadow flex items-center gap-1 text-xs active:scale-95">
+                  <span>⭐ الدرجة الكاملة (${curMax})</span>
                 </button>
                 <button onclick="setExamMonth('all')" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold rounded-xl transition flex items-center gap-1 text-xs">
                   <span>📋 عرض الكشف الشامل</span>
@@ -1305,7 +1430,7 @@
               <div class="flex items-center gap-2">
                 <span class="text-base">📊</span>
                 <span class="font-bold text-slate-200">الكشف الشامل لجميع الشهور والامتحانات (${subTermTitle})</span>
-                <span class="text-[11px] text-slate-400">• يمكنك اختيار شهر محدد من القائمة بالأعلى لفلترة خانته فقط ومنع التشتت</span>
+                <span class="text-[11px] text-slate-400">• يمكنك اختيار شهر محدد من القائمة بالأعلى لفلترة خانته وتحديد درجته العظمى</span>
               </div>
               <div class="flex items-center gap-1.5">
                 <span class="text-slate-400 text-[11px]">انتقال سريع:</span>
@@ -1330,6 +1455,7 @@
       const thead = document.getElementById('grade-sheet-thead');
       if (thead) {
         if (isSingleMonth) {
+          const curMax = monthDef.effectiveMax || monthDef.max;
           thead.innerHTML = `
             <tr class="bg-slate-900 text-slate-300 border-b border-slate-700 font-bold text-sm">
               <th class="p-3 w-12 text-center">#</th>
@@ -1340,7 +1466,7 @@
                   <span>${monthDef.badge}</span>
                   <span class="text-amber-300 font-black">${monthDef.nameAr}</span>
                 </div>
-                <span class="text-[11px] text-cyan-200 font-bold block mt-0.5">درجة الامتحان المقررة من ${monthDef.max}</span>
+                <span class="text-[11px] text-cyan-200 font-bold block mt-0.5">درجة الامتحان المقررة من ${curMax}</span>
               </th>
             </tr>
           `;
@@ -1378,6 +1504,8 @@
         return;
       }
 
+      const curMax = isSingleMonth ? (monthDef.effectiveMax || monthDef.max) : 20;
+
       tbody.innerHTML = filteredStudents.map((st, idx) => {
         const gradeKey = 'st_' + st.id + '_' + term + '_' + subjectId;
         const saved = allGrades[gradeKey] || {
@@ -1404,12 +1532,12 @@
               <td class="p-3 text-center">${trackBadge}</td>
               <td class="p-3 text-center bg-blue-950/20 border-x-2 border-blue-500/50">
                 <div class="flex items-center justify-center gap-2">
-                  <input type="number" min="0" max="${monthDef.max}" step="0.5" value="${fieldVal}" 
-                    data-key="${gradeKey}" data-field="${monthDef.field}" data-row="${idx}" data-col="1" data-max="${monthDef.max}"
+                  <input type="number" min="0" max="${curMax}" step="0.5" value="${fieldVal}" 
+                    data-key="${gradeKey}" data-field="${monthDef.field}" data-row="${idx}" data-col="1" data-max="${curMax}"
                     data-student-id="${st.id}" data-subject-id="${subjectId}" data-term="${term}"
                     onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
                     class="grade-input w-28 text-center font-black text-lg bg-slate-900 border-2 border-blue-400 focus:border-amber-400 focus:bg-blue-950 rounded-xl py-2 px-3 text-white shadow-inner focus:outline-none focus:ring-2 focus:ring-amber-400/40 transition">
-                  <span class="text-sm font-black text-slate-400">/ ${monthDef.max}</span>
+                  <span class="text-sm font-black text-slate-400">/ ${curMax}</span>
                 </div>
               </td>
             </tr>
@@ -1459,18 +1587,35 @@
       updateGradeStats();
     }
 
-    function syncGradeToMasterDB(studentId, subjectId, term, field, scoreVal) {
+    function syncGradeToMasterDB(studentId, subjectId, term, field, scoreVal, maxVal) {
       if (!studentId) return;
+
+      const selectedMonth = document.getElementById('exam-month-select')?.value;
+      let periodKey = (selectedMonth && selectedMonth !== 'all') ? selectedMonth : (term + '_' + field);
+      const effectiveMax = parseFloat(maxVal) || 20;
+      const teacherName = currentTeacher ? currentTeacher.nameAr : '';
+
       // 1. Update in SmileKidsDB
       if (window.SmileKidsDB && typeof window.SmileKidsDB.getStudentById === 'function') {
         const student = window.SmileKidsDB.getStudentById(studentId);
         if (student) {
           student.subjectScores = student.subjectScores || {};
-          student.subjectScores[subjectId] = student.subjectScores[subjectId] || {};
+          student.subjectScores[subjectId] = student.subjectScores[subjectId] || {
+            subjectId: subjectId,
+            teacherNameAr: teacherName,
+            scores: {}
+          };
+          student.subjectScores[subjectId].scores = student.subjectScores[subjectId].scores || {};
+          student.subjectScores[subjectId].scores[periodKey] = {
+            score: scoreVal,
+            maxScore: effectiveMax,
+            isRecorded: true,
+            recordedAt: new Date().toISOString()
+          };
           student.subjectScores[subjectId][field] = scoreVal;
 
           student.termsScores = student.termsScores || {};
-          student.termsScores[field] = scoreVal;
+          student.termsScores[periodKey] = scoreVal;
           if (typeof window.SmileKidsDB.updateStudent === 'function') {
             window.SmileKidsDB.updateStudent(studentId, student);
           }
@@ -1483,16 +1628,63 @@
         const target = stList.find(s => s.id === studentId);
         if (target) {
           target.subjectScores = target.subjectScores || {};
-          target.subjectScores[subjectId] = target.subjectScores[subjectId] || {};
+          target.subjectScores[subjectId] = target.subjectScores[subjectId] || {
+            subjectId: subjectId,
+            teacherNameAr: teacherName,
+            scores: {}
+          };
+          target.subjectScores[subjectId].scores = target.subjectScores[subjectId].scores || {};
+          target.subjectScores[subjectId].scores[periodKey] = {
+            score: scoreVal,
+            maxScore: effectiveMax,
+            isRecorded: true,
+            recordedAt: new Date().toISOString()
+          };
           target.subjectScores[subjectId][field] = scoreVal;
 
           target.termsScores = target.termsScores || {};
-          target.termsScores[field] = scoreVal;
+          target.termsScores[periodKey] = scoreVal;
           localStorage.setItem(STORAGE_KEY_STUDENTS, JSON.stringify(stList));
         }
       } catch (e) {
         console.error('Error syncing grade to local student storage:', e);
       }
+
+      // 3. Update in master database storage key directly
+      try {
+        const masterKey = 'SMILE_KIDS_MASTER_DATABASE_2026_V4';
+        const raw = localStorage.getItem(masterKey);
+        if (raw) {
+          const dbData = JSON.parse(raw);
+          const st = dbData.students?.find(s => s.id === studentId);
+          if (st) {
+            st.subjectScores = st.subjectScores || {};
+            st.subjectScores[subjectId] = st.subjectScores[subjectId] || {
+              subjectId: subjectId,
+              teacherNameAr: teacherName,
+              scores: {}
+            };
+            st.subjectScores[subjectId].scores = st.subjectScores[subjectId].scores || {};
+            st.subjectScores[subjectId].scores[periodKey] = {
+              score: scoreVal,
+              maxScore: effectiveMax,
+              isRecorded: true,
+              recordedAt: new Date().toISOString()
+            };
+            st.subjectScores[subjectId][field] = scoreVal;
+            st.termsScores = st.termsScores || {};
+            st.termsScores[periodKey] = scoreVal;
+            localStorage.setItem(masterKey, JSON.stringify(dbData));
+          }
+        }
+      } catch (e) {
+        console.error('Error syncing grade to master database storage:', e);
+      }
+
+      // 4. Update last sync timestamp
+      try {
+        localStorage.setItem('smile_kids_last_grade_sync', Date.now().toString());
+      } catch (e) {}
     }
 
     function onGradeLiveCalc(inputEl) {
@@ -1522,7 +1714,7 @@
       allGrades[key][field] = val;
 
       saveStoredGrades(allGrades);
-      syncGradeToMasterDB(studentId, subjectId, term, field, val);
+      syncGradeToMasterDB(studentId, subjectId, term, field, val, max);
       flashSavePill();
       updateGradeStats();
     }
@@ -1925,30 +2117,35 @@
 
       let html = `
         <thead>
-          <tr class="bg-slate-900 text-slate-300 font-bold border-b border-slate-700">
-            <th class="p-3 w-28 text-center bg-slate-950">اليوم</th>
-            <th class="p-2 border-r border-slate-800">1st<br><span class="text-[10px] text-slate-500 font-mono">07:30</span></th>
-            <th class="p-2 border-r border-slate-800">2nd<br><span class="text-[10px] text-slate-500 font-mono">08:10</span></th>
-            <th class="p-2 border-r border-slate-800">3rd<br><span class="text-[10px] text-slate-500 font-mono">08:50</span></th>
-            <th class="p-2 border-r border-slate-800 bg-amber-950/20 text-amber-300">فسحة<br><span class="text-[10px] font-mono">09:30</span></th>
-            <th class="p-2 border-r border-slate-800">4th<br><span class="text-[10px] text-slate-500 font-mono">09:45</span></th>
-            <th class="p-2 border-r border-slate-800">5th<br><span class="text-[10px] text-slate-500 font-mono">10:25</span></th>
-            <th class="p-2 border-r border-slate-800">6th<br><span class="text-[10px] text-slate-500 font-mono">11:05</span></th>
-            <th class="p-2 border-r border-slate-800">7th<br><span class="text-[10px] text-slate-500 font-mono">11:40</span></th>
+          <tr class="bg-slate-950 text-slate-200 font-bold border-b-2 border-indigo-500/40">
+            <th class="p-3 w-28 text-center bg-slate-900 text-amber-300 font-black border-r border-slate-800">اليوم</th>
+            <th class="p-2 border-r border-slate-800 bg-slate-900/60"><div class="text-xs font-black text-white">1st</div><div class="text-[10px] text-indigo-300 font-mono mt-0.5">07:30</div></th>
+            <th class="p-2 border-r border-slate-800 bg-slate-900/60"><div class="text-xs font-black text-white">2nd</div><div class="text-[10px] text-indigo-300 font-mono mt-0.5">08:10</div></th>
+            <th class="p-2 border-r border-slate-800 bg-slate-900/60"><div class="text-xs font-black text-white">3rd</div><div class="text-[10px] text-indigo-300 font-mono mt-0.5">08:50</div></th>
+            <th class="p-2 border-r border-amber-500/40 bg-gradient-to-b from-amber-500/20 to-amber-950/40 text-amber-300 border-l border-amber-500/40"><div class="text-xs font-black">🥪 فسحة</div><div class="text-[10px] font-mono mt-0.5 text-amber-400">09:30</div></th>
+            <th class="p-2 border-r border-slate-800 bg-slate-900/60"><div class="text-xs font-black text-white">4th</div><div class="text-[10px] text-indigo-300 font-mono mt-0.5">09:45</div></th>
+            <th class="p-2 border-r border-slate-800 bg-slate-900/60"><div class="text-xs font-black text-white">5th</div><div class="text-[10px] text-indigo-300 font-mono mt-0.5">10:25</div></th>
+            <th class="p-2 border-r border-slate-800 bg-slate-900/60"><div class="text-xs font-black text-white">6th</div><div class="text-[10px] text-indigo-300 font-mono mt-0.5">11:05</div></th>
+            <th class="p-2 border-r border-slate-800 bg-slate-900/60"><div class="text-xs font-black text-white">7th</div><div class="text-[10px] text-indigo-300 font-mono mt-0.5">11:40</div></th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-slate-700 font-medium">
+        <tbody class="divide-y divide-slate-800/80 font-medium">
       `;
 
       days.forEach(day => {
         const dayData = teacherSched[day] || {};
         html += `
-          <tr class="hover:bg-slate-700/20 transition">
-            <td class="p-3 bg-slate-900 font-bold text-white text-center">${day}</td>
+          <tr class="hover:bg-slate-800/30 transition">
+            <td class="p-3 bg-slate-900/90 font-black text-amber-300 text-center border-r border-slate-800">${day}</td>
             ${renderScheduleCell(day, 1, dayData[1])}
             ${renderScheduleCell(day, 2, dayData[2])}
             ${renderScheduleCell(day, 3, dayData[3])}
-            <td class="p-2 bg-amber-950/20 text-amber-400 font-bold text-[11px] border-r border-slate-800">🥪 استراحة</td>
+            <td class="p-2 bg-amber-500/10 text-amber-300 font-bold text-[11px] border-r border-l border-amber-500/30 text-center">
+              <div class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-amber-500/15 border border-amber-500/30 text-amber-300 font-bold">
+                <span>🥪</span>
+                <span>استراحة</span>
+              </div>
+            </td>
             ${renderScheduleCell(day, 4, dayData[4])}
             ${renderScheduleCell(day, 5, dayData[5])}
             ${renderScheduleCell(day, 6, dayData[6])}
@@ -1961,20 +2158,110 @@
       table.innerHTML = html;
     }
 
+    function getScheduleCellTheme(subjectText) {
+      const s = (subjectText || '').toLowerCase();
+      if (s.includes('عرب') || s.includes('arabic')) {
+        return {
+          bg: 'bg-emerald-950/50 hover:bg-emerald-800/60',
+          border: 'border-emerald-500/40 hover:border-emerald-400',
+          gradeBadge: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
+          subjectText: 'text-emerald-200',
+          glow: 'hover:shadow-[0_0_15px_rgba(16,185,129,0.25)]'
+        };
+      }
+      if (s.includes('دين') || s.includes('قرآن') || s.includes('islam') || s.includes('religion')) {
+        return {
+          bg: 'bg-teal-950/50 hover:bg-teal-800/60',
+          border: 'border-teal-500/40 hover:border-teal-400',
+          gradeBadge: 'bg-teal-500/20 text-teal-300 border-teal-500/40',
+          subjectText: 'text-teal-200',
+          glow: 'hover:shadow-[0_0_15px_rgba(20,184,166,0.25)]'
+        };
+      }
+      if (s.includes('english') || s.includes('انجليز') || s.includes('connect')) {
+        return {
+          bg: 'bg-sky-950/50 hover:bg-sky-800/60',
+          border: 'border-sky-500/40 hover:border-sky-400',
+          gradeBadge: 'bg-sky-500/20 text-sky-300 border-sky-500/40',
+          subjectText: 'text-sky-200',
+          glow: 'hover:shadow-[0_0_15px_rgba(14,165,233,0.25)]'
+        };
+      }
+      if (s.includes('math') || s.includes('حساب') || s.includes('رياضيات')) {
+        return {
+          bg: 'bg-amber-950/50 hover:bg-amber-800/60',
+          border: 'border-amber-500/40 hover:border-amber-400',
+          gradeBadge: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
+          subjectText: 'text-amber-200',
+          glow: 'hover:shadow-[0_0_15px_rgba(245,158,11,0.25)]'
+        };
+      }
+      if (s.includes('sci') || s.includes('علوم')) {
+        return {
+          bg: 'bg-lime-950/50 hover:bg-lime-800/60',
+          border: 'border-lime-500/40 hover:border-lime-400',
+          gradeBadge: 'bg-lime-500/20 text-lime-300 border-lime-500/40',
+          subjectText: 'text-lime-200',
+          glow: 'hover:shadow-[0_0_15px_rgba(132,204,22,0.25)]'
+        };
+      }
+      if (s.includes('دراسات') || s.includes('social')) {
+        return {
+          bg: 'bg-orange-950/50 hover:bg-orange-800/60',
+          border: 'border-orange-500/40 hover:border-orange-400',
+          gradeBadge: 'bg-orange-500/20 text-orange-300 border-orange-500/40',
+          subjectText: 'text-orange-200',
+          glow: 'hover:shadow-[0_0_15px_rgba(249,115,22,0.25)]'
+        };
+      }
+      if (s.includes('ict') || s.includes('حاسب') || s.includes('تكنولوج')) {
+        return {
+          bg: 'bg-purple-950/50 hover:bg-purple-800/60',
+          border: 'border-purple-500/40 hover:border-purple-400',
+          gradeBadge: 'bg-purple-500/20 text-purple-300 border-purple-500/40',
+          subjectText: 'text-purple-200',
+          glow: 'hover:shadow-[0_0_15px_rgba(168,85,247,0.25)]'
+        };
+      }
+      if (s.includes('اكتشف') || s.includes('discover')) {
+        return {
+          bg: 'bg-pink-950/50 hover:bg-pink-800/60',
+          border: 'border-pink-500/40 hover:border-pink-400',
+          gradeBadge: 'bg-pink-500/20 text-pink-300 border-pink-500/40',
+          subjectText: 'text-pink-200',
+          glow: 'hover:shadow-[0_0_15px_rgba(236,72,153,0.25)]'
+        };
+      }
+      return {
+        bg: 'bg-indigo-950/50 hover:bg-indigo-800/60',
+        border: 'border-indigo-500/40 hover:border-indigo-400',
+        gradeBadge: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40',
+        subjectText: 'text-indigo-200',
+        glow: 'hover:shadow-[0_0_15px_rgba(99,102,241,0.25)]'
+      };
+    }
+
     function renderScheduleCell(day, periodNum, cellText) {
       if (!cellText || cellText === '-' || cellText.includes('Break')) {
-        return `<td class="p-2.5 text-slate-600 text-xs border-r border-slate-800">-</td>`;
+        return `<td class="p-2 text-slate-600 text-xs border-r border-slate-800/60 font-mono select-none">-</td>`;
       }
 
       const parts = cellText.split(' ');
       const grade = parts[0];
       const subject = parts.slice(1).join(' ');
+      const theme = getScheduleCellTheme(subject);
 
       return `
-        <td class="p-1.5 border-r border-slate-800">
-          <div onclick="jumpToScheduleClass('${day}', ${periodNum})" class="bg-blue-900/40 hover:bg-blue-600 border border-blue-700/40 rounded-lg p-1.5 cursor-pointer transition text-center group shadow-sm">
-            <div class="font-black text-white text-xs group-hover:scale-105 transition">${grade}</div>
-            <div class="text-[10px] text-blue-300 font-bold group-hover:text-amber-300 truncate">${subject}</div>
+        <td class="p-1.5 border-r border-slate-800/60">
+          <div onclick="jumpToScheduleClass('${day}', ${periodNum})" 
+               title="انقر لتسجيل غياب هذه الحصة (${day} - الحصة ${periodNum})"
+               class="${theme.bg} ${theme.border} ${theme.glow} border rounded-xl p-2 cursor-pointer transition-all duration-200 text-center group shadow-md hover:scale-[1.03]">
+            <div class="inline-block px-2 py-0.5 rounded-md text-[11px] font-black tracking-wide border ${theme.gradeBadge} mb-1 group-hover:scale-105 transition">
+              ${grade}
+            </div>
+            <div class="text-[11px] font-bold ${theme.subjectText} truncate group-hover:text-white transition">
+              ${subject}
+            </div>
           </div>
         </td>
       `;

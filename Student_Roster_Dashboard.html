@@ -1291,14 +1291,30 @@
             </div>
           </div>
 
-          <!-- Print Controls -->
+          <!-- Print & Teacher Sync Controls -->
           <div class="flex items-center gap-2 flex-wrap">
+            <button onclick="syncAllTeacherGradesIntoStudents(true)" class="px-4 py-2 bg-emerald-600/30 hover:bg-emerald-600 text-emerald-200 hover:text-white border border-emerald-500/50 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 shadow active:scale-95">
+              <span>🔄</span>
+              <span>تحديث درجات المعلمات الآن</span>
+            </button>
             <button onclick="printSingleCertificate()" class="px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl text-xs sm:text-sm transition flex items-center gap-1.5 shadow-[0_0_15px_rgba(245,158,11,0.35)] active:scale-95">
               <span>🖨️ طباعة الشهادة المعروضة</span>
             </button>
             <button onclick="printBatchCertificates()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-xs sm:text-sm transition flex items-center gap-1.5 shadow active:scale-95">
               <span>📑 طباعة شهادات الفصل بالكامل</span>
             </button>
+          </div>
+        </div>
+
+        <!-- Live Teacher Sync Status Banner -->
+        <div class="mt-4 p-3 bg-gradient-to-r from-emerald-950/70 via-slate-900 to-emerald-950/50 border border-emerald-500/40 rounded-2xl flex flex-wrap items-center justify-between gap-2 text-xs shadow-lg">
+          <div class="flex items-center gap-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
+            <span class="text-white font-black">الربط التلقائي بدرجات المعلمات نشط ومجمّع:</span>
+            <span class="text-emerald-300 font-semibold">تُقرأ الشهادات تلقائياً من درجات المعلمات بكافة المواد (عربي، لغات، رياضيات، علوم، دين، دراسات، ICT) مع حساب المجموع والنسبة والترتيب فورياً ✨</span>
+          </div>
+          <div id="cert-sync-status-badge" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-[11px] font-mono font-bold text-emerald-300">
+            ✓ متزامن مع كشوف المعلمات
           </div>
         </div>
 
@@ -1324,12 +1340,15 @@
           <div>
             <label class="block text-xs font-bold text-slate-400 mb-1">الفترة التقييمية:</label>
             <select id="cert-period-select" onchange="renderCertificatePreview()" class="w-full bg-slate-900 border border-slate-800 text-white rounded-xl px-3 py-2 text-xs font-bold focus:outline-none focus:border-amber-500">
-              <option value="t1_m1" selected>اختبار شهر 1 (الفصل الأول) - FIRST MONTH REPORT</option>
-              <option value="t1_m2">اختبار شهر 2 (الفصل الأول) - SECOND MONTH REPORT</option>
-              <option value="t1_exam">امتحان منتصف العام (الفصل الأول) - FIRST TERM REPORT</option>
-              <option value="t2_m1">اختبار شهر 1 (الفصل الثاني) - TERM 2 FIRST MONTH REPORT</option>
-              <option value="t2_m2">اختبار شهر 2 (الفصل الثاني) - TERM 2 SECOND MONTH REPORT</option>
-              <option value="t2_exam">امتحان نهاية العام (الفصل الثاني) - SECOND TERM FINAL REPORT</option>
+              <option value="t1_sep">تقييم شهر سبتمبر - SEPTEMBER REPORT</option>
+              <option value="t1_m1" selected>اختبار شهر 1 (أكتوبر) - FIRST MONTH REPORT</option>
+              <option value="t1_m2">اختبار شهر 2 (نوفمبر) - SECOND MONTH REPORT</option>
+              <option value="t1_tasks">المهام الأدائية (ديسمبر) - TASKS REPORT</option>
+              <option value="t1_exam">امتحان نصف العام (يناير) - FIRST TERM REPORT</option>
+              <option value="t2_m1">اختبار شهر 1 (فبراير) - TERM 2 FIRST MONTH REPORT</option>
+              <option value="t2_m2">اختبار شهر 2 (مارس) - TERM 2 SECOND MONTH REPORT</option>
+              <option value="t2_tasks">المهام الأدائية (أبريل) - TERM 2 TASKS REPORT</option>
+              <option value="t2_exam">امتحان نهاية العام (مايو) - SECOND TERM FINAL REPORT</option>
             </select>
           </div>
 
@@ -1994,6 +2013,7 @@
         if (btnCert) btnCert.className = 'px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-1.5 bg-amber-600 text-white shadow';
         if (secCert) secCert.classList.remove('hidden');
         if (currentGrade === 0) currentGrade = 1;
+        syncAllTeacherGradesIntoStudents();
         renderCertPills();
         renderCertificatesModule();
       }
@@ -3913,7 +3933,7 @@
     }
 
     function resetCustomStudents() {
-      if (confirm('هل أنت متأكد من رغبتك في استعادة قاعدة البيانات الأصلية الموحدة لجميع الفصول (137 طالب)؟')) {
+      if (confirm('هل أنت متأكد من رغبتك في استعادة قاعدة البيانات الأصلية الموحدة لجميع الفصول (147 طالب)؟')) {
         if (window.SmileKidsDB) {
           ALL_STUDENTS = window.SmileKidsDB.resetToDefault();
         } else {
@@ -4508,6 +4528,7 @@
 
     function renderCertificatesModule() {
       if (currentGrade === 0) currentGrade = 1;
+      syncAllTeacherGradesIntoStudents();
       const gradeStudents = ALL_STUDENTS.filter(s => s.grade === currentGrade);
 
       const sel = document.getElementById('cert-student-select');
@@ -5117,26 +5138,188 @@
       }
     }
 
-    function getStudentSubjectScore(student, subjectId, periodKey) {
-      if (!student || !student.subjectScores) return null;
-      const subjEntry = student.subjectScores[subjectId];
-      if (!subjEntry || !subjEntry.scores) return null;
-      const scoreEntry = subjEntry.scores[periodKey];
-      if (scoreEntry === undefined || scoreEntry === null) return null;
-      if (typeof scoreEntry === 'object') {
-        const sc = parseFloat(scoreEntry.score);
-        return {
-          score: isNaN(sc) ? 0 : sc,
-          maxScore: parseFloat(scoreEntry.maxScore) || 0,
-          isRecorded: true
-        };
+    // ==================== AUTO-READ & COMPILE TEACHER PORTAL GRADES ====================
+    function syncAllTeacherGradesIntoStudents(notifyUser = false) {
+      let syncCount = 0;
+
+      // 1. Read from localStorage smile_kids_teacher_grades
+      try {
+        const raw = localStorage.getItem('smile_kids_teacher_grades');
+        if (raw) {
+          const tGrades = JSON.parse(raw);
+          // Keys are 'st_' + studentId + '_' + term + '_' + subjectId
+          Object.keys(tGrades).forEach(key => {
+            if (!key.startsWith('st_')) return;
+            const parts = key.split('_');
+            const termIdx = parts.findIndex((p, i) => i > 0 && (p === 't1' || p === 't2'));
+            if (termIdx === -1) return;
+
+            const stId = parts.slice(1, termIdx).join('_');
+            const term = parts[termIdx];
+            const subjId = parts.slice(termIdx + 1).join('_');
+            const record = tGrades[key];
+
+            const st = ALL_STUDENTS.find(s => s.id === stId);
+            if (!st || !record) return;
+
+            st.subjectScores = st.subjectScores || {};
+            st.subjectScores[subjId] = st.subjectScores[subjId] || { subjectId: subjId, scores: {} };
+            st.subjectScores[subjId].scores = st.subjectScores[subjId].scores || {};
+
+            const fieldMapping = {
+              'sep': term + '_sep',
+              'm1': term + '_m1',
+              'm2': term + '_m2',
+              'tasks': term + '_tasks',
+              'exam': term + '_exam'
+            };
+
+            Object.entries(fieldMapping).forEach(([fld, pKey]) => {
+              if (record[fld] !== undefined && record[fld] !== null && record[fld] !== '') {
+                const sc = parseFloat(record[fld]);
+                if (!isNaN(sc)) {
+                  const maxSaved = localStorage.getItem('smile_kids_max_score_' + subjId + '_' + st.grade + '_' + pKey)
+                    || localStorage.getItem('smile_kids_max_score_' + subjId + '_' + st.grade + '_' + fld);
+                  const isExam = pKey.includes('exam');
+                  const defMax = isExam ? getDefaultSubjectMax(st.grade, subjId) : 20;
+                  const finalMax = maxSaved ? (parseFloat(maxSaved) || defMax) : defMax;
+
+                  st.subjectScores[subjId].scores[pKey] = {
+                    score: sc,
+                    maxScore: finalMax,
+                    isRecorded: true,
+                    updatedAt: new Date().toISOString()
+                  };
+                  syncCount++;
+                }
+              }
+            });
+          });
+        }
+      } catch (e) {
+        console.error('Error syncing teacher grades from localStorage:', e);
       }
-      const sc = parseFloat(scoreEntry);
-      return {
-        score: isNaN(sc) ? 0 : sc,
-        maxScore: 0,
-        isRecorded: true
-      };
+
+      // 2. Also merge from SmileKidsDB if available
+      if (window.SmileKidsDB && typeof window.SmileKidsDB.getAllStudents === 'function') {
+        try {
+          const dbStudents = window.SmileKidsDB.getAllStudents();
+          dbStudents.forEach(dbSt => {
+            const st = ALL_STUDENTS.find(s => s.id === dbSt.id);
+            if (st && dbSt.subjectScores) {
+              st.subjectScores = st.subjectScores || {};
+              Object.keys(dbSt.subjectScores).forEach(subId => {
+                st.subjectScores[subId] = st.subjectScores[subId] || { subjectId: subId, scores: {} };
+                if (dbSt.subjectScores[subId].scores) {
+                  st.subjectScores[subId].scores = {
+                    ...(st.subjectScores[subId].scores || {}),
+                    ...dbSt.subjectScores[subId].scores
+                  };
+                }
+              });
+            }
+          });
+        } catch (e) {
+          console.error('Error merging SmileKidsDB subject scores:', e);
+        }
+      }
+
+      // 3. Update sync badge
+      const badge = document.getElementById('cert-sync-status-badge');
+      if (badge) {
+        const timeStr = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        badge.innerText = `✓ مجمّع تلقائياً (${timeStr})`;
+      }
+
+      if (notifyUser) {
+        renderCertificatePreview();
+        alert(`✓ تم بنجاح تحديث وتجميع درجات جميع المواد من بوابة المعلمات! (${syncCount} درجة مسجلة)`);
+      }
+    }
+
+    function getStudentSubjectScore(student, subjectId, periodKey) {
+      if (!student) return null;
+
+      // 1. Check in-memory student.subjectScores
+      if (student.subjectScores && student.subjectScores[subjectId]) {
+        const subjEntry = student.subjectScores[subjectId];
+        if (subjEntry.scores && subjEntry.scores[periodKey] !== undefined) {
+          const scoreEntry = subjEntry.scores[periodKey];
+          if (typeof scoreEntry === 'object' && scoreEntry !== null) {
+            return {
+              score: parseFloat(scoreEntry.score) || 0,
+              maxScore: parseFloat(scoreEntry.maxScore) || 0,
+              isRecorded: true
+            };
+          }
+          const sc = parseFloat(scoreEntry);
+          return {
+            score: isNaN(sc) ? 0 : sc,
+            maxScore: 0,
+            isRecorded: true
+          };
+        }
+      }
+
+      // 2. Direct live fallback to teacher portal grades in localStorage
+      try {
+        const raw = localStorage.getItem('smile_kids_teacher_grades');
+        if (raw) {
+          const tGrades = JSON.parse(raw);
+          const term = (periodKey && periodKey.startsWith('t2')) ? 't2' : 't1';
+          let fld = 'm1';
+          if (periodKey.endsWith('sep')) fld = 'sep';
+          else if (periodKey.endsWith('m1')) fld = 'm1';
+          else if (periodKey.endsWith('m2')) fld = 'm2';
+          else if (periodKey.endsWith('tasks')) fld = 'tasks';
+          else if (periodKey.endsWith('exam')) fld = 'exam';
+
+          const key = 'st_' + student.id + '_' + term + '_' + subjectId;
+          if (tGrades[key] && tGrades[key][fld] !== undefined && tGrades[key][fld] !== null && tGrades[key][fld] !== '') {
+            const sc = parseFloat(tGrades[key][fld]);
+            if (!isNaN(sc)) {
+              const maxSaved = localStorage.getItem('smile_kids_max_score_' + subjectId + '_' + student.grade + '_' + periodKey)
+                || localStorage.getItem('smile_kids_max_score_' + subjectId + '_' + student.grade + '_' + fld);
+              const isExam = periodKey.includes('exam');
+              const defMax = isExam ? getDefaultSubjectMax(student.grade, subjectId) : 20;
+              const finalMax = maxSaved ? (parseFloat(maxSaved) || defMax) : defMax;
+
+              // Cache immediately
+              student.subjectScores = student.subjectScores || {};
+              student.subjectScores[subjectId] = student.subjectScores[subjectId] || { subjectId: subjectId, scores: {} };
+              student.subjectScores[subjectId].scores = student.subjectScores[subjectId].scores || {};
+              student.subjectScores[subjectId].scores[periodKey] = {
+                score: sc,
+                maxScore: finalMax,
+                isRecorded: true
+              };
+
+              return {
+                score: sc,
+                maxScore: finalMax,
+                isRecorded: true
+              };
+            }
+          }
+        }
+      } catch (e) {
+        console.error('Error fetching live teacher score:', e);
+      }
+
+      // 3. Central SmileKidsDB lookup
+      if (window.SmileKidsDB && typeof window.SmileKidsDB.getStudentById === 'function') {
+        const dbSt = window.SmileKidsDB.getStudentById(student.id);
+        if (dbSt && dbSt.subjectScores && dbSt.subjectScores[subjectId]?.scores?.[periodKey]) {
+          const scEntry = dbSt.subjectScores[subjectId].scores[periodKey];
+          return {
+            score: parseFloat(scEntry.score) || 0,
+            maxScore: parseFloat(scEntry.maxScore) || 0,
+            isRecorded: true
+          };
+        }
+      }
+
+      return null;
     }
 
     function getStudentPeriodTotal(student, periodKey) {
@@ -5147,8 +5330,13 @@
       let recordedCount = 0;
 
       subjects.forEach(sub => {
-        totalMax += sub.max;
         const scoreData = getStudentSubjectScore(student, sub.id, periodKey);
+        const isExam = periodKey && periodKey.includes('exam');
+        const effectiveMax = (scoreData && scoreData.maxScore > 0)
+          ? scoreData.maxScore
+          : (isExam ? sub.max : 20);
+
+        totalMax += effectiveMax;
         if (scoreData && scoreData.isRecorded) {
           totalScore += scoreData.score;
           if (scoreData.score > 0) recordedCount++;
@@ -5361,11 +5549,14 @@
       
       // Determine Report Card Title based on period
       const titleMap = {
+        't1_sep': 'SEPTEMBER ASSESSMENT REPORT',
         't1_m1': 'FIRST MONTH REPORT',
         't1_m2': 'SECOND MONTH REPORT',
+        't1_tasks': 'PERFORMANCE TASKS REPORT',
         't1_exam': 'FIRST TERM REPORT',
         't2_m1': 'TERM 2 - FIRST MONTH REPORT',
         't2_m2': 'TERM 2 - SECOND MONTH REPORT',
+        't2_tasks': 'TERM 2 - TASKS REPORT',
         't2_exam': 'SECOND TERM FINAL REPORT'
       };
       const reportHeaderTitle = (currentGradesCustomTitle && currentGradesCustomTitle.trim()) ? currentGradesCustomTitle : (titleMap[periodKey] || 'FIRST TERM REPORT');
@@ -5377,23 +5568,30 @@
       const totalMax = periodTotals.totalMax;
       const totalScore = periodTotals.totalScore;
       const overallPct = periodTotals.percentage;
+      const isExam = periodKey && periodKey.includes('exam');
 
       const processedSubjects = subjects.map(subj => {
         const isReligion = subj.id === 'religion';
         const scoreData = getStudentSubjectScore(st, subj.id, periodKey);
         const subjScore = scoreData ? scoreData.score : 0;
         const isRecorded = scoreData && scoreData.isRecorded;
-        const displayScore = isRecorded ? subjScore : '0';
-        const pct = subj.max > 0 ? Math.round((subjScore / subj.max) * 100) : 0;
+        const effectiveSubjMax = (scoreData && scoreData.maxScore > 0)
+          ? scoreData.maxScore
+          : (isExam ? subj.max : 20);
+
+        const displayScore = isRecorded ? subjScore : 'قيد الرصد';
+        const pct = effectiveSubjMax > 0 ? Math.round((subjScore / effectiveSubjMax) * 100) : 0;
         
         let apprec = 'ممتاز 🌟';
-        if (!isRecorded || subjScore === 0) apprec = 'لم ترصد ⏳';
+        if (!isRecorded) apprec = 'قيد الرصد ⏳';
+        else if (subjScore === 0) apprec = '0 ⏳';
         else if (pct < 50) apprec = 'مقبول 🟡';
         else if (pct < 65) apprec = 'جيد 🔵';
         else if (pct < 85) apprec = 'جيد جداً 🟢';
 
         return {
           ...subj,
+          max: effectiveSubjMax,
           score: subjScore,
           displayScore: displayScore,
           pct: pct,
@@ -6725,6 +6923,21 @@
       window.print();
       printArea.classList.add('hidden');
     }
+
+    // Auto-sync teacher portal grades on startup and window storage events
+    window.addEventListener('DOMContentLoaded', () => {
+      syncAllTeacherGradesIntoStudents();
+    });
+    window.addEventListener('storage', (e) => {
+      if (!e.key || e.key.includes('grade') || e.key.includes('DATABASE') || e.key.includes('score')) {
+        syncAllTeacherGradesIntoStudents();
+        if (currentMainTab === 'certificates') {
+          renderCertificatePreview();
+        }
+      }
+    });
+    // Immediate initial sync execution
+    syncAllTeacherGradesIntoStudents();
 
   </script>
 
