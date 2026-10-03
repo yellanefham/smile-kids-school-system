@@ -125,6 +125,15 @@
         <div id="teachers-grid-cards" class="contents"></div>
       </div>
 
+      <!-- Master Admin Access Button -->
+      <div class="max-w-md mx-auto w-full mb-8 text-center">
+        <button id="btn-admin-master-login" type="button" onclick="openAdminModal()" class="w-full py-3.5 px-6 bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-slate-950 font-black rounded-2xl shadow-xl hover:shadow-amber-500/25 transition-all duration-200 flex items-center justify-center gap-2 group text-sm sm:text-base border border-amber-400/50">
+          <span class="text-xl group-hover:scale-125 transition-transform">👑</span>
+          <span>دخول الإدارة العامة (Master Admin) • PIN 9999</span>
+          <span class="text-[11px] bg-black/20 text-slate-900 font-bold px-2 py-0.5 rounded-full mr-2">صلاحيات كاملة لجميع المواد</span>
+        </button>
+      </div>
+
       <!-- Notice Bar -->
       <div class="max-w-2xl mx-auto bg-slate-800/60 border border-slate-700/60 rounded-2xl p-4 text-center">
         <div class="flex items-center justify-center gap-2 text-xs text-amber-300 font-bold mb-1">
@@ -288,17 +297,17 @@
                   <option value="all">🌟 عرض كشف درجات الترم كاملاً (جميع الشهور)</option>
                 </optgroup>
                 <optgroup label="❄️ الفصل الدراسي الأول (الترم الأول - حتى شهر 1)">
-                  <option value="t1_sep">🌱 شهر سبتمبر (بداية العام والتقييمات التمهيدية - 20 درجة)</option>
-                  <option value="t1_m1" selected>🍁 شهر أكتوبر (اختبار الشهر الأول - 20 درجة)</option>
-                  <option value="t1_m2">🍂 شهر نوفمبر (اختبار الشهر الثاني - 20 درجة)</option>
-                  <option value="t1_tasks">📋 شهر ديسمبر (المهام والأنشطة الشهرية - 20 درجة)</option>
-                  <option value="t1_exam">❄️ شهر يناير (امتحان نصف العام / الترم الأول - 40 درجة)</option>
+                  <option value="t1_sep">🌱 شهر سبتمبر (بداية العام والتقييمات التمهيدية)</option>
+                  <option value="t1_m1" selected>🍁 شهر أكتوبر (اختبار الشهر الأول)</option>
+                  <option value="t1_m2">🍂 شهر نوفمبر (اختبار الشهر الثاني)</option>
+                  <option value="t1_tasks">📋 شهر ديسمبر (المهام والأنشطة الشهرية)</option>
+                  <option value="t1_exam">❄️ شهر يناير (امتحان نصف العام / الترم الأول)</option>
                 </optgroup>
                 <optgroup label="🌸 الفصل الدراسي الثاني (الترم الثاني - حتى شهر 5)">
-                  <option value="t2_m1">🌱 شهر فبراير (اختبار الشهر الأول بالترم 2 - 20 درجة)</option>
-                  <option value="t2_m2">🌷 شهر مارس (اختبار الشهر الثاني بالترم 2 - 20 درجة)</option>
-                  <option value="t2_tasks">📋 شهر أبريل (المهام والأنشطة الشهرية - 20 درجة)</option>
-                  <option value="t2_exam">☀️ شهر مايو (امتحان نهاية العام / الترم 2 - 40 درجة)</option>
+                  <option value="t2_m1">🌱 شهر فبراير (اختبار الشهر الأول بالترم 2)</option>
+                  <option value="t2_m2">🌷 شهر مارس (اختبار الشهر الثاني بالترم 2)</option>
+                  <option value="t2_tasks">📋 شهر أبريل (المهام والأنشطة الشهرية)</option>
+                  <option value="t2_exam">☀️ شهر مايو (امتحان نهاية العام / الترم 2)</option>
                 </optgroup>
               </select>
             </div>
@@ -316,6 +325,7 @@
                   max="200" 
                   step="1"
                   value="20" 
+                  oninput="onCustomMaxScoreChange()"
                   onchange="onCustomMaxScoreChange()" 
                   onkeydown="if(event.key==='Enter'){event.preventDefault();onCustomMaxScoreChange();}"
                   class="w-16 bg-slate-900 border-2 border-amber-500/70 rounded-xl px-2 py-1.5 text-center text-xs font-black text-amber-300 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/40 shadow-[0_0_12px_rgba(245,158,11,0.25)]"
@@ -719,6 +729,15 @@
       setupKeyboardNavigation();
     });
 
+    // Auto-refresh when grades/students change in other tabs or portals
+    window.addEventListener('storage', (e) => {
+      if (!e.key || e.key.includes('grade') || e.key.includes('DATABASE') || e.key.includes('student')) {
+        if (currentTeacher && activeDashboardTab === 'grades') {
+          renderGradeSheetTable();
+        }
+      }
+    });
+
     function initDataStores() {
       if (!localStorage.getItem(STORAGE_KEY_STUDENTS)) {
         localStorage.setItem(STORAGE_KEY_STUDENTS, JSON.stringify(DEFAULT_STUDENTS_LIST));
@@ -852,9 +871,10 @@
       const expectedPin = pinsObj[selectedTeacherForLogin.id] || '1234';
 
       if (inputPin === expectedPin || inputPin === '1234' || inputPin === '9999') {
-        loginAsTeacher(selectedTeacherForLogin, false);
+        const teacher = selectedTeacherForLogin;
+        loginAsTeacher(teacher, false);
         closePinModal();
-        showToast('تم تسجيل الدخول بنجاح! مرحباً ' + selectedTeacherForLogin.nameAr, 'success');
+        showToast('تم تسجيل الدخول بنجاح! مرحباً ' + (teacher ? teacher.nameAr : ''), 'success');
       } else {
         document.getElementById('pin-error-msg').classList.remove('hidden');
         document.getElementById('input-pin').classList.add('border-red-500');
@@ -1452,19 +1472,26 @@
     function getActiveMaxScore(monthKey, subjectId, grade) {
       if (!monthKey || monthKey === 'all') return 20;
       const def = MONTH_EXAMS_DEF[monthKey];
-      if (!def) return 20;
-      const storageKey = 'smile_kids_max_score_' + (subjectId || 'sub') + '_' + (grade || 'g') + '_' + monthKey;
-      const saved = localStorage.getItem(storageKey);
+      const defaultMax = def ? def.max : 20;
+      const curSubj = subjectId || document.getElementById('subject-select')?.value;
+      const curGrade = grade || document.getElementById('grade-select')?.value;
+      const specificKey = 'smile_kids_max_score_' + (curSubj || 'sub') + '_' + (curGrade || 'g') + '_' + monthKey;
+      const fallbackKey = 'smile_kids_max_score_' + monthKey;
+      const saved = localStorage.getItem(specificKey) || localStorage.getItem(fallbackKey);
       if (saved && !isNaN(parseFloat(saved)) && parseFloat(saved) > 0) {
         return parseFloat(saved);
       }
-      return def.max;
+      return defaultMax;
     }
 
     function setActiveMaxScore(monthKey, subjectId, grade, newMax) {
       if (!monthKey || monthKey === 'all') return;
-      const storageKey = 'smile_kids_max_score_' + (subjectId || 'sub') + '_' + (grade || 'g') + '_' + monthKey;
-      localStorage.setItem(storageKey, String(newMax));
+      const curSubj = subjectId || document.getElementById('subject-select')?.value;
+      const curGrade = grade || document.getElementById('grade-select')?.value;
+      const specificKey = 'smile_kids_max_score_' + (curSubj || 'sub') + '_' + (curGrade || 'g') + '_' + monthKey;
+      const fallbackKey = 'smile_kids_max_score_' + monthKey;
+      localStorage.setItem(specificKey, String(newMax));
+      localStorage.setItem(fallbackKey, String(newMax));
     }
 
     function onCustomMaxScoreChange() {
@@ -1658,15 +1685,20 @@
           const tasksTitle = term === 't1' ? 'ديسمبر (أنشطة)' : 'أبريل (أنشطة)';
           const examTitle = term === 't1' ? 'يناير (امتحان نصف العام)' : 'مايو (امتحان نهاية العام)';
 
+          const m1Max = getActiveMaxScore(term + '_m1', subjectId, grade);
+          const m2Max = getActiveMaxScore(term + '_m2', subjectId, grade);
+          const tasksMax = getActiveMaxScore(term + '_tasks', subjectId, grade);
+          const examMax = getActiveMaxScore(term + '_exam', subjectId, grade);
+
           thead.innerHTML = `
             <tr class="bg-slate-900 text-slate-300 border-b border-slate-700 font-bold text-sm">
               <th class="p-3 w-12 text-center">#</th>
               <th class="p-3 min-w-[200px]">اسم الطالب / الطالبة</th>
               <th class="p-3 w-24 text-center">المسار</th>
-              <th class="p-3 w-28 text-center bg-blue-950/40 border-r border-slate-700 cursor-pointer hover:bg-blue-900/40 transition" onclick="setExamMonth('${term}_m1')" title="انتقال لرصد هذا الشهر فقط">${m1Title} <span class="text-[10px] text-slate-400 block">من 20 🔍</span></th>
-              <th class="p-3 w-28 text-center bg-blue-950/40 border-r border-slate-700 cursor-pointer hover:bg-blue-900/40 transition" onclick="setExamMonth('${term}_m2')" title="انتقال لرصد هذا الشهر فقط">${m2Title} <span class="text-[10px] text-slate-400 block">من 20 🔍</span></th>
-              <th class="p-3 w-32 text-center bg-indigo-950/40 border-r border-slate-700 cursor-pointer hover:bg-indigo-900/40 transition" onclick="setExamMonth('${term}_tasks')" title="انتقال لرصد هذا الشهر فقط">${tasksTitle} <span class="text-[10px] text-slate-400 block">من 20 🔍</span></th>
-              <th class="p-3 w-32 text-center bg-purple-950/40 border-r border-slate-700 cursor-pointer hover:bg-purple-900/40 transition" onclick="setExamMonth('${term}_exam')" title="انتقال لرصد هذا الامتحان فقط">${examTitle} <span class="text-[10px] text-slate-400 block">من 40 🔍</span></th>
+              <th class="p-3 w-28 text-center bg-blue-950/40 border-r border-slate-700 cursor-pointer hover:bg-blue-900/40 transition" onclick="setExamMonth('${term}_m1')" title="انتقال لرصد هذا الشهر فقط">${m1Title} <span class="text-[10px] text-amber-300 font-bold block">من ${m1Max} 🔍</span></th>
+              <th class="p-3 w-28 text-center bg-blue-950/40 border-r border-slate-700 cursor-pointer hover:bg-blue-900/40 transition" onclick="setExamMonth('${term}_m2')" title="انتقال لرصد هذا الشهر فقط">${m2Title} <span class="text-[10px] text-amber-300 font-bold block">من ${m2Max} 🔍</span></th>
+              <th class="p-3 w-32 text-center bg-indigo-950/40 border-r border-slate-700 cursor-pointer hover:bg-indigo-900/40 transition" onclick="setExamMonth('${term}_tasks')" title="انتقال لرصد هذا الشهر فقط">${tasksTitle} <span class="text-[10px] text-amber-300 font-bold block">من ${tasksMax} 🔍</span></th>
+              <th class="p-3 w-32 text-center bg-purple-950/40 border-r border-slate-700 cursor-pointer hover:bg-purple-900/40 transition" onclick="setExamMonth('${term}_exam')" title="انتقال لرصد هذا الامتحان فقط">${examTitle} <span class="text-[10px] text-amber-300 font-bold block">من ${examMax} 🔍</span></th>
             </tr>
           `;
         }
@@ -1687,15 +1719,41 @@
       }
 
       const curMax = isSingleMonth ? (monthDef.effectiveMax || monthDef.max) : 20;
+      const compM1Max = getActiveMaxScore(term + '_m1', subjectId, grade);
+      const compM2Max = getActiveMaxScore(term + '_m2', subjectId, grade);
+      const compTasksMax = getActiveMaxScore(term + '_tasks', subjectId, grade);
+      const compExamMax = getActiveMaxScore(term + '_exam', subjectId, grade);
 
       tbody.innerHTML = filteredStudents.map((st, idx) => {
         const gradeKey = 'st_' + st.id + '_' + term + '_' + subjectId;
-        const saved = allGrades[gradeKey] || {
-          m1: st.termsScores?.t1_m1 || 0,
-          m2: st.termsScores?.t1_m2 || 0,
-          tasks: 18,
-          exam: st.termsScores?.t1_exam || 0,
-          sep: 19
+        const stSubj = (st.subjectScores && st.subjectScores[subjectId]) || {};
+        const stScores = stSubj.scores || {};
+        const storedRec = allGrades[gradeKey] || {};
+
+        const getVal = (fld) => {
+          if (storedRec[fld] !== undefined && storedRec[fld] !== null && storedRec[fld] !== '') {
+            return parseFloat(storedRec[fld]) || 0;
+          }
+          const pKey = term + '_' + fld;
+          if (stScores[pKey] !== undefined) {
+            const sc = (typeof stScores[pKey] === 'object' && stScores[pKey] !== null) ? stScores[pKey].score : stScores[pKey];
+            if (sc !== undefined && sc !== null && sc !== '') return parseFloat(sc) || 0;
+          }
+          if (stSubj[fld] !== undefined && stSubj[fld] !== null && stSubj[fld] !== '') {
+            return parseFloat(stSubj[fld]) || 0;
+          }
+          if (term === 't1' && st.termsScores && st.termsScores['t1_' + fld] !== undefined) {
+            return parseFloat(st.termsScores['t1_' + fld]) || 0;
+          }
+          return 0;
+        };
+
+        const saved = {
+          m1: getVal('m1'),
+          m2: getVal('m2'),
+          tasks: storedRec.tasks !== undefined ? (parseFloat(storedRec.tasks) || 0) : (getVal('tasks') || 18),
+          exam: getVal('exam'),
+          sep: storedRec.sep !== undefined ? (parseFloat(storedRec.sep) || 0) : (getVal('sep') || 19)
         };
 
         const trackBadge = st.track === 'languages' 
@@ -1734,29 +1792,29 @@
               </td>
               <td class="p-3 text-center">${trackBadge}</td>
               <td class="p-2.5 text-center bg-blue-950/20 border-r border-slate-700/60">
-                <input type="number" min="0" max="20" step="0.5" value="${saved.m1}" 
-                  data-key="${gradeKey}" data-field="m1" data-row="${idx}" data-col="1" data-max="20"
+                <input type="number" min="0" max="${compM1Max}" step="0.5" value="${saved.m1}" 
+                  data-key="${gradeKey}" data-field="m1" data-row="${idx}" data-col="1" data-max="${compM1Max}"
                   data-student-id="${st.id}" data-subject-id="${subjectId}" data-term="${term}"
                   onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
                   class="grade-input w-20 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
               </td>
               <td class="p-2.5 text-center bg-blue-950/20 border-r border-slate-700/60">
-                <input type="number" min="0" max="20" step="0.5" value="${saved.m2}" 
-                  data-key="${gradeKey}" data-field="m2" data-row="${idx}" data-col="2" data-max="20"
+                <input type="number" min="0" max="${compM2Max}" step="0.5" value="${saved.m2}" 
+                  data-key="${gradeKey}" data-field="m2" data-row="${idx}" data-col="2" data-max="${compM2Max}"
                   data-student-id="${st.id}" data-subject-id="${subjectId}" data-term="${term}"
                   onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
                   class="grade-input w-20 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
               </td>
               <td class="p-2.5 text-center bg-indigo-950/20 border-r border-slate-700/60">
-                <input type="number" min="0" max="20" step="0.5" value="${saved.tasks}" 
-                  data-key="${gradeKey}" data-field="tasks" data-row="${idx}" data-col="3" data-max="20"
+                <input type="number" min="0" max="${compTasksMax}" step="0.5" value="${saved.tasks}" 
+                  data-key="${gradeKey}" data-field="tasks" data-row="${idx}" data-col="3" data-max="${compTasksMax}"
                   data-student-id="${st.id}" data-subject-id="${subjectId}" data-term="${term}"
                   onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
                   class="grade-input w-20 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
               </td>
               <td class="p-2.5 text-center bg-purple-950/20 border-r border-slate-700/60">
-                <input type="number" min="0" max="40" step="0.5" value="${saved.exam}" 
-                  data-key="${gradeKey}" data-field="exam" data-row="${idx}" data-col="4" data-max="40"
+                <input type="number" min="0" max="${compExamMax}" step="0.5" value="${saved.exam}" 
+                  data-key="${gradeKey}" data-field="exam" data-row="${idx}" data-col="4" data-max="${compExamMax}"
                   data-student-id="${st.id}" data-subject-id="${subjectId}" data-term="${term}"
                   onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
                   class="grade-input w-20 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
@@ -1775,7 +1833,16 @@
       const selectedMonth = document.getElementById('exam-month-select')?.value;
       let periodKey = (selectedMonth && selectedMonth !== 'all') ? selectedMonth : (term + '_' + field);
       const effectiveMax = parseFloat(maxVal) || 20;
-      const teacherName = currentTeacher ? currentTeacher.nameAr : '';
+      let teacherName = currentTeacher ? currentTeacher.nameAr : '';
+      if (isAdminMode && currentTeacher && currentTeacher.id === 'admin_master') {
+        const gradeVal = parseInt(document.getElementById('grade-select')?.value);
+        const assignedTeacher = TEACHERS_CATALOG.find(t => 
+          t.subjects && t.subjects.some(s => s.id === subjectId && s.grades && s.grades.includes(gradeVal))
+        );
+        if (assignedTeacher) {
+          teacherName = assignedTeacher.nameAr;
+        }
+      }
 
       // 1. Update in SmileKidsDB
       if (window.SmileKidsDB && typeof window.SmileKidsDB.getStudentById === 'function') {
@@ -1921,26 +1988,33 @@
       const tr = btnEl.closest('tr');
       const input = tr.querySelector('.grade-input');
       if (input) {
-        input.value = maxVal;
+        const effectiveMax = parseFloat(input.dataset.max) || maxVal || 20;
+        input.value = effectiveMax;
         onGradeInputChange(input);
         onGradeLiveCalc(input);
-        showToast(`تم إعطاء الدرجة النهائية (${maxVal}) للطالب ⭐`, 'success');
+        showToast(`تم إعطاء الدرجة النهائية (${effectiveMax}) للطالب ⭐`, 'success');
       }
     }
 
     function quickFillAllActiveMonthMax(maxVal) {
       const selectedMonth = document.getElementById('exam-month-select').value;
+      const grade = document.getElementById('grade-select')?.value;
+      const subjectId = document.getElementById('subject-select')?.value;
+      const effectiveMax = getActiveMaxScore(selectedMonth, subjectId, grade);
+      const finalMax = (maxVal !== undefined && maxVal !== null && !isNaN(maxVal)) ? maxVal : effectiveMax;
       const def = MONTH_EXAMS_DEF[selectedMonth];
       const monthTitle = def ? def.shortName : 'هذا الشهر';
-      if (!confirm(`هل أنتِ متأكدة من إعطاء الدرجة النهائية (${maxVal}) لجميع طلاب الكشف في [${monthTitle}]؟`)) return;
+      if (!confirm(`هل أنتِ متأكدة من إعطاء الدرجة النهائية (${finalMax}) لجميع طلاب الكشف في [${monthTitle}]؟`)) return;
 
       const inputs = document.querySelectorAll('.grade-input');
       inputs.forEach(inp => {
-        inp.value = maxVal;
+        inp.dataset.max = finalMax;
+        inp.max = finalMax;
+        inp.value = finalMax;
         onGradeInputChange(inp);
         onGradeLiveCalc(inp);
       });
-      showToast(`تم إعطاء الدرجة النهائية (${maxVal}) لجميع طلاب الكشف ⭐`, 'success');
+      showToast(`تم إعطاء الدرجة النهائية (${finalMax}) لجميع طلاب الكشف ⭐`, 'success');
     }
 
     function quickBulkFillActiveMonth() {
@@ -1949,28 +2023,44 @@
         alert('يرجى أولاً اختيار شهر محدد من القائمة لتعبئة درجاته موحدة.');
         return;
       }
+      const grade = document.getElementById('grade-select')?.value;
+      const subjectId = document.getElementById('subject-select')?.value;
+      const effectiveMax = getActiveMaxScore(selectedMonth, subjectId, grade);
       const def = MONTH_EXAMS_DEF[selectedMonth];
-      const enteredVal = prompt(`أدخلي الدرجة المراد تعبئتها لجميع الطلاب في [${def.shortName}] (من 0 إلى ${def.max}):`, def.max);
+      const monthTitle = def ? def.shortName : 'هذا الشهر';
+
+      const enteredVal = prompt(`أدخلي الدرجة المراد تعبئتها لجميع الطلاب في [${monthTitle}] (من 0 إلى ${effectiveMax}):`, effectiveMax);
       if (enteredVal === null) return;
-      const val = Math.min(def.max, Math.max(0, parseFloat(enteredVal) || 0));
+      const parsed = parseFloat(enteredVal);
+      if (isNaN(parsed)) return;
+      const val = Math.min(effectiveMax, Math.max(0, parsed));
 
       const inputs = document.querySelectorAll('.grade-input');
       inputs.forEach(inp => {
+        inp.dataset.max = effectiveMax;
+        inp.max = effectiveMax;
         inp.value = val;
         onGradeInputChange(inp);
         onGradeLiveCalc(inp);
       });
-      showToast(`تم تعبئة درجة (${val}) لجميع الطلاب في ${def.shortName} بنجاح ✨`, 'success');
+      showToast(`تم تعبئة درجة (${val}) لجميع الطلاب في ${monthTitle} بنجاح ✨`, 'success');
     }
 
     function quickFillFullMark(btnEl) {
       const tr = btnEl.closest('tr');
       const inputs = tr.querySelectorAll('.grade-input');
       if (inputs.length >= 4) {
-        inputs[0].value = 20;
-        inputs[1].value = 20;
-        inputs[2].value = 20;
-        inputs[3].value = 40;
+        const grade = document.getElementById('grade-select')?.value;
+        const subjectId = document.getElementById('subject-select')?.value;
+        const term = document.getElementById('term-select')?.value || 't1';
+        const m1Max = getActiveMaxScore(term + '_m1', subjectId, grade);
+        const m2Max = getActiveMaxScore(term + '_m2', subjectId, grade);
+        const tasksMax = getActiveMaxScore(term + '_tasks', subjectId, grade);
+        const examMax = getActiveMaxScore(term + '_exam', subjectId, grade);
+        inputs[0].value = m1Max; inputs[0].dataset.max = m1Max; inputs[0].max = m1Max;
+        inputs[1].value = m2Max; inputs[1].dataset.max = m2Max; inputs[1].max = m2Max;
+        inputs[2].value = tasksMax; inputs[2].dataset.max = tasksMax; inputs[2].max = tasksMax;
+        inputs[3].value = examMax; inputs[3].dataset.max = examMax; inputs[3].max = examMax;
         inputs.forEach(inp => onGradeInputChange(inp));
         onGradeLiveCalc(inputs[0]);
       } else if (inputs.length === 1) {
