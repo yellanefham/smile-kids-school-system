@@ -1832,6 +1832,10 @@
       } else {
         localStorage.setItem('SMILE_KIDS_MASTER_DATABASE_2026', JSON.stringify(ALL_STUDENTS));
       }
+      try {
+        localStorage.setItem('SMILE_KIDS_MASTER_DATABASE_2026_V4', JSON.stringify(ALL_STUDENTS));
+        localStorage.setItem('smile_kids_students', JSON.stringify(ALL_STUDENTS));
+      } catch (e) {}
     }
 
     function saveAttendanceToStorage() {
@@ -4475,6 +4479,22 @@
       if (elRank) elRank.innerHTML = rank;
 
       saveStudentsToStorage();
+
+      // Bidirectional sync: also update smile_kids_teacher_grades so Teacher Portal reflects this grade instantly!
+      try {
+        const rawT = localStorage.getItem('smile_kids_teacher_grades');
+        const tGrades = rawT ? JSON.parse(rawT) : {};
+        const term = (currentGradesPeriod && currentGradesPeriod.startsWith('t2')) ? 't2' : 't1';
+        const key = 'st_' + studentId + '_' + term + '_' + subjectId;
+        tGrades[key] = tGrades[key] || { m1: 0, m2: 0, tasks: 0, exam: 0 };
+        const fldMap = {
+          't1_sep': 'sep', 't1_m1': 'm1', 't1_m2': 'm2', 't1_tasks': 'tasks', 't1_exam': 'exam',
+          't2_m1': 'm1', 't2_m2': 'm2', 't2_tasks': 'tasks', 't2_exam': 'exam'
+        };
+        const fld = fldMap[currentGradesPeriod] || 'm1';
+        tGrades[key][fld] = v;
+        localStorage.setItem('smile_kids_teacher_grades', JSON.stringify(tGrades));
+      } catch(e) {}
     }
 
     function applyUniformGradeForSubjectPrompt() {
@@ -5229,6 +5249,10 @@
       if (badge) {
         const timeStr = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
         badge.innerText = `✓ مجمّع تلقائياً (${timeStr})`;
+      }
+
+      if (syncCount > 0) {
+        saveStudentsToStorage();
       }
 
       if (notifyUser) {
@@ -6933,6 +6957,8 @@
         syncAllTeacherGradesIntoStudents();
         if (currentMainTab === 'certificates') {
           renderCertificatePreview();
+        } else if (currentMainTab === 'grades') {
+          renderGradesModule();
         }
       }
     });

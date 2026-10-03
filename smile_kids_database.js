@@ -5053,6 +5053,7 @@
           localStorage.setItem('SMILE_KIDS_MASTER_DATABASE_2026', serialized);
           localStorage.setItem('smilekids_school_v6', serialized);
           localStorage.setItem('smile_kids_students_v7_custom', serialized);
+          localStorage.setItem('smile_kids_students', serialized);
         } catch(e) {
           console.warn('DB Save failed:', e);
         }
