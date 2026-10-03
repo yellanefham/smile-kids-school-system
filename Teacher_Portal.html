@@ -94,16 +94,10 @@
           </button>
         </div>
 
-        <!-- Master Admin Link / Toggle -->
-        <button onclick="openAdminModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
-          <span>👑</span>
-          <span class="hidden sm:inline">دخول الإدارة</span>
-        </button>
-
-        <!-- Fast Links dropdown or back -->
-        <a href="Student_Roster_Dashboard.html" class="px-3 py-1.5 bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
-          <span class="hidden sm:inline">لوحة الإدارة</span>
+        <!-- Home Page Link -->
+        <a href="index.html" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm" title="العودة للبوابة الرئيسية">
+          <span>🏠</span>
+          <span class="hidden sm:inline">الرئيسية</span>
         </a>
       </div>
 
@@ -168,38 +162,11 @@
               <span>⚡</span>
               <span>تسجيل غياب الحصة الآن</span>
             </button>
-            <button onclick="toggleTimeSimulator()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5" title="تجربة واختبار أي حصة أخرى">
-              <span>🎮</span>
-              <span class="hidden md:inline">محاكي الوقت</span>
+            <button onclick="switchDashboardTab('attendance')" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5 active:scale-95" title="سجل غياب الطلاب والحصص">
+              <span>📋</span>
+              <span>غياب</span>
             </button>
           </div>
-        </div>
-
-        <!-- Optional Time Simulator Bar -->
-        <div id="time-simulator-bar" class="hidden mt-4 pt-3 border-t border-slate-700/60 flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div class="flex items-center gap-2">
-            <span class="text-amber-400 font-bold">🎮 تجربة حصة أخرى يدوياً:</span>
-            <select id="sim-day-select" onchange="runPeriodDetection()" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-white">
-              <option value="Sunday">الأحد</option>
-              <option value="Monday">الإثنين</option>
-              <option value="Tuesday">الثلاثاء</option>
-              <option value="Wednesday">الأربعاء</option>
-              <option value="Thursday">الخميس</option>
-            </select>
-            <select id="sim-period-select" onchange="runPeriodDetection()" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-white">
-              <option value="1">الحصة الأولى (07:30 - 08:10)</option>
-              <option value="2">الحصة الثانية (08:10 - 08:50)</option>
-              <option value="3">الحصة الثالثة (08:50 - 09:30)</option>
-              <option value="4">الحصة الرابعة (09:45 - 10:25)</option>
-              <option value="5">الحصة الخامسة (10:25 - 11:05)</option>
-              <option value="6">الحصة السادسة (11:05 - 11:40)</option>
-              <option value="7">الحصة السابعة (11:40 - 12:15)</option>
-              <option value="8">الحصة الثامنة (12:15 - 12:50)</option>
-            </select>
-          </div>
-          <button onclick="resetToLiveTime()" class="text-blue-400 hover:text-blue-300 underline font-bold">
-            الرجوع للتوقيت الحي الفعلي ↺
-          </button>
         </div>
       </div>
 
@@ -348,20 +315,20 @@
           <!-- Sheet Summary Cards -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4 text-xs no-print">
             <div class="bg-slate-900/60 border border-slate-700/60 rounded-xl p-2.5 text-center">
-              <span class="text-slate-400 block mb-0.5">عدد الطلاب بالكشف</span>
+              <span class="text-slate-400 block mb-0.5">إجمالي طلاب الفصل</span>
               <span id="stat-student-count" class="text-lg font-black text-white">0</span>
             </div>
             <div class="bg-slate-900/60 border border-slate-700/60 rounded-xl p-2.5 text-center">
-              <span class="text-slate-400 block mb-0.5">متوسط الدرجات</span>
-              <span id="stat-avg-score" class="text-lg font-black text-amber-400">0%</span>
+              <span class="text-slate-400 block mb-0.5">تم رصد درجاتهم</span>
+              <span id="stat-graded-count" class="text-lg font-black text-emerald-400">0</span>
             </div>
             <div class="bg-slate-900/60 border border-slate-700/60 rounded-xl p-2.5 text-center">
-              <span class="text-slate-400 block mb-0.5">نسبة التفوق (ممتاز)</span>
-              <span id="stat-excellent-count" class="text-lg font-black text-emerald-400">0</span>
+              <span class="text-slate-400 block mb-0.5">المتبقي بدون رصد</span>
+              <span id="stat-pending-count" class="text-lg font-black text-amber-400">0</span>
             </div>
             <div class="bg-slate-900/60 border border-slate-700/60 rounded-xl p-2.5 text-center">
-              <span class="text-slate-400 block mb-0.5">حالات تحتاج دعم</span>
-              <span id="stat-support-count" class="text-lg font-black text-red-400">0</span>
+              <span class="text-slate-400 block mb-0.5">متوسط درجات الشهر</span>
+              <span id="stat-avg-score" class="text-lg font-black text-cyan-400">0</span>
             </div>
           </div>
 
@@ -989,54 +956,16 @@
       if (dayEl) dayEl.innerText = `${dayName} • ${now.toLocaleDateString('ar-EG')}`;
     }
 
-    function toggleTimeSimulator() {
-      const bar = document.getElementById('time-simulator-bar');
-      bar.classList.toggle('hidden');
-    }
-
-    function resetToLiveTime() {
-      simulatedDay = null;
-      simulatedPeriod = null;
-      document.getElementById('time-simulator-bar').classList.add('hidden');
-      runPeriodDetection();
-      showToast('تم العودة للتوقيت الحي الفعلي ⏱️', 'info');
-    }
-
     function runPeriodDetection() {
       const now = new Date();
+      const dayIndex = now.getDay(); // 0: Sunday, 1: Monday, 2: Tuesday, 3: Wednesday, 4: Thursday, 5: Friday, 6: Saturday
+      const isWeekend = (dayIndex === 5 || dayIndex === 6);
       const arabicDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       
-      let currentDayName = simulatedDay || arabicDays[now.getDay()];
-      let currentHours = now.getHours();
-      let currentMinutes = now.getMinutes();
-      let currentTimeMinutes = currentHours * 60 + currentMinutes;
-
-      const simPeriodSelect = document.getElementById('sim-period-select');
-      const simDaySelect = document.getElementById('sim-day-select');
-      if (!document.getElementById('time-simulator-bar').classList.contains('hidden')) {
-        currentDayName = simDaySelect.value;
-        simulatedDay = currentDayName;
-        simulatedPeriod = parseInt(simPeriodSelect.value);
-      }
-
-      const periodTimes = TIMETABLE_DATA.periodTimes;
-      let matchedPeriod = null;
-
-      if (simulatedPeriod) {
-        matchedPeriod = periodTimes.find(p => p.period === simulatedPeriod);
-      } else {
-        for (const p of periodTimes) {
-          const [sh, sm] = p.start.split(':').map(Number);
-          const [eh, em] = p.end.split(':').map(Number);
-          const pStart = sh * 60 + sm;
-          const pEnd = eh * 60 + em;
-
-          if (currentTimeMinutes >= pStart && currentTimeMinutes <= pEnd) {
-            matchedPeriod = p;
-            break;
-          }
-        }
-      }
+      const currentDayName = arabicDays[dayIndex];
+      const currentHours = now.getHours();
+      const currentMinutes = now.getMinutes();
+      const currentTimeMinutes = currentHours * 60 + currentMinutes;
 
       const topPill = document.getElementById('top-period-pill');
       const bannerTitle = document.getElementById('period-banner-title');
@@ -1044,41 +973,70 @@
       const bannerTimeRange = document.getElementById('period-time-range');
       const bannerStatusBadge = document.getElementById('period-status-badge');
       const bannerIcon = document.getElementById('period-banner-icon');
+      const quickBtn = document.getElementById('btn-quick-take-attendance');
+
+      // Check for Weekend: Friday (5) or Saturday (6)
+      if (isWeekend) {
+        const weekendName = dayIndex === 6 ? 'السبت' : 'الجمعة';
+        if (topPill) {
+          topPill.innerText = `عطلة أسبوعية (${weekendName}) 🌴`;
+          topPill.className = 'text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-slate-800 text-amber-300 border border-slate-700';
+        }
+        if (bannerStatusBadge) {
+          bannerStatusBadge.innerText = 'إجازة رسمية';
+          bannerStatusBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-black bg-amber-500/20 text-amber-300 border border-amber-500/30';
+        }
+        if (bannerTimeRange) bannerTimeRange.innerText = `اليوم ${weekendName} (إجازة أسبوعية)`;
+        if (bannerTitle) bannerTitle.innerText = `اليوم ${weekendName}: إجازة نهاية الأسبوع المدرسية الرسمية 🌴`;
+        if (bannerDesc) bannerDesc.innerText = 'لا توجد حصص دراسية اليوم بمدرسة Smile Kids. يمكنكِ استغلال الوقت في رصد درجات الشهور، أو مراجعة سجلات الحصص السابقة.';
+        if (bannerIcon) bannerIcon.innerText = '🏖️';
+        if (quickBtn) {
+          quickBtn.innerHTML = '<span>📋</span><span>تسجيل غياب الحصص</span>';
+        }
+        activeCurrentPeriodInfo = null;
+        return;
+      }
+
+      const periodTimes = TIMETABLE_DATA.periodTimes;
+      let matchedPeriod = null;
+
+      for (const p of periodTimes) {
+        const [sh, sm] = p.start.split(':').map(Number);
+        const [eh, em] = p.end.split(':').map(Number);
+        const pStart = sh * 60 + sm;
+        const pEnd = eh * 60 + em;
+
+        if (currentTimeMinutes >= pStart && currentTimeMinutes <= pEnd) {
+          matchedPeriod = p;
+          break;
+        }
+      }
 
       const arabicDayTitles = {
         'Sunday': 'الأحد',
         'Monday': 'الإثنين',
         'Tuesday': 'الثلاثاء',
         'Wednesday': 'الأربعاء',
-        'Thursday': 'الخميس',
-        'Friday': 'الجمعة (عطلة)',
-        'Saturday': 'السبت (عطلة)'
+        'Thursday': 'الخميس'
       };
-
       const dayArabic = arabicDayTitles[currentDayName] || currentDayName;
 
-      if (currentDayName === 'Friday' || currentDayName === 'Saturday') {
-        topPill.innerText = 'عطلة نهاية الأسبوع 🌴';
-        topPill.className = 'text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-slate-700 text-slate-300';
-        bannerStatusBadge.innerText = 'عطلة رسمية';
-        bannerStatusBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-black bg-slate-700 text-slate-300';
-        bannerTimeRange.innerText = 'اليوم عطلة';
-        bannerTitle.innerText = 'عطلة نهاية الأسبوع المدرسية';
-        bannerDesc.innerText = 'لا توجد حصص دراسية اليوم. يمكنك رصد الدرجات أو اختيار أي حصة بالمحاكي للمراجعة.';
-        bannerIcon.innerText = '🌴';
-        activeCurrentPeriodInfo = null;
-        return;
-      }
-
       if (!matchedPeriod) {
-        topPill.innerText = 'خارج توقيت اليوم الدراسي 🌙';
-        topPill.className = 'text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30';
-        bannerStatusBadge.innerText = 'خارج اليوم الدراسي';
-        bannerStatusBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-black bg-amber-500/20 text-amber-300 border border-amber-500/30';
-        bannerTimeRange.innerText = 'اليوم الدراسي: 07:30 - 12:50';
-        bannerTitle.innerText = `خارج مواعيد الحصص الرسمية (${dayArabic})`;
-        bannerDesc.innerText = 'انتهت الحصص الرسمية لليوم. يمكنكِ إدخال درجات الطلاب أو اختيار أي حصة بأثر رجعي لرصد الغياب.';
-        bannerIcon.innerText = '🌙';
+        if (topPill) {
+          topPill.innerText = 'خارج مواعيد الحصص 🌙';
+          topPill.className = 'text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700';
+        }
+        if (bannerStatusBadge) {
+          bannerStatusBadge.innerText = 'خارج اليوم الدراسي';
+          bannerStatusBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-black bg-slate-700 text-slate-300';
+        }
+        if (bannerTimeRange) bannerTimeRange.innerText = 'اليوم الدراسي: 07:30 - 12:50';
+        if (bannerTitle) bannerTitle.innerText = `خارج مواعيد الحصص الرسمية (يوم ${dayArabic})`;
+        if (bannerDesc) bannerDesc.innerText = 'انتهت الحصص الرسمية لليوم. يمكنكِ إدخال درجات الطلاب أو مراجعة كشوف الغياب.';
+        if (bannerIcon) bannerIcon.innerText = '🌙';
+        if (quickBtn) {
+          quickBtn.innerHTML = '<span>📋</span><span>تسجيل غياب الحصص</span>';
+        }
         activeCurrentPeriodInfo = null;
         return;
       }
@@ -1373,20 +1331,17 @@
       if (thead) {
         if (isSingleMonth) {
           thead.innerHTML = `
-            <tr class="bg-slate-900 text-slate-300 border-b border-slate-700 font-bold">
+            <tr class="bg-slate-900 text-slate-300 border-b border-slate-700 font-bold text-sm">
               <th class="p-3 w-12 text-center">#</th>
-              <th class="p-3 min-w-[200px]">اسم الطالب / الطالبة</th>
-              <th class="p-3 w-24 text-center">المسار</th>
-              <th class="p-3.5 min-w-[180px] text-center bg-blue-900/50 border-x-2 border-blue-400 text-white font-black text-sm shadow-inner">
+              <th class="p-3 min-w-[220px]">اسم الطالب / الطالبة</th>
+              <th class="p-3 w-28 text-center">المسار</th>
+              <th class="p-3.5 min-w-[220px] text-center bg-blue-900/50 border-x-2 border-blue-400 text-white font-black text-sm shadow-inner">
                 <div class="flex items-center justify-center gap-1.5">
                   <span>${monthDef.badge}</span>
-                  <span class="text-amber-300">${monthDef.shortName}</span>
+                  <span class="text-amber-300 font-black">${monthDef.nameAr}</span>
                 </div>
-                <span class="text-[11px] text-cyan-200 font-bold block mt-0.5">درجة الامتحان من ${monthDef.max}</span>
+                <span class="text-[11px] text-cyan-200 font-bold block mt-0.5">درجة الامتحان المقررة من ${monthDef.max}</span>
               </th>
-              <th class="p-3 w-28 text-center bg-amber-950/40 border-r border-slate-700 text-amber-300">المجموع الكلي <span class="text-[10px] block">من 100</span></th>
-              <th class="p-3 w-28 text-center bg-slate-900 border-r border-slate-700">التقدير العام</th>
-              <th class="p-3 w-24 text-center no-print">إجراء سريع</th>
             </tr>
           `;
         } else {
@@ -1396,17 +1351,14 @@
           const examTitle = term === 't1' ? 'يناير (امتحان نصف العام)' : 'مايو (امتحان نهاية العام)';
 
           thead.innerHTML = `
-            <tr class="bg-slate-900 text-slate-300 border-b border-slate-700 font-bold">
+            <tr class="bg-slate-900 text-slate-300 border-b border-slate-700 font-bold text-sm">
               <th class="p-3 w-12 text-center">#</th>
-              <th class="p-3 min-w-[180px]">اسم الطالب / الطالبة</th>
+              <th class="p-3 min-w-[200px]">اسم الطالب / الطالبة</th>
               <th class="p-3 w-24 text-center">المسار</th>
-              <th class="p-3 w-24 text-center bg-blue-950/40 border-r border-slate-700 cursor-pointer hover:bg-blue-900/40 transition" onclick="setExamMonth('${term}_m1')" title="انتقال لرصد هذا الشهر فقط">${m1Title} <span class="text-[10px] text-slate-400 block">من 20 🔍</span></th>
-              <th class="p-3 w-24 text-center bg-blue-950/40 border-r border-slate-700 cursor-pointer hover:bg-blue-900/40 transition" onclick="setExamMonth('${term}_m2')" title="انتقال لرصد هذا الشهر فقط">${m2Title} <span class="text-[10px] text-slate-400 block">من 20 🔍</span></th>
-              <th class="p-3 w-28 text-center bg-indigo-950/40 border-r border-slate-700 cursor-pointer hover:bg-indigo-900/40 transition" onclick="setExamMonth('${term}_tasks')" title="انتقال لرصد هذا الشهر فقط">${tasksTitle} <span class="text-[10px] text-slate-400 block">من 20 🔍</span></th>
-              <th class="p-3 w-28 text-center bg-purple-950/40 border-r border-slate-700 cursor-pointer hover:bg-purple-900/40 transition" onclick="setExamMonth('${term}_exam')" title="انتقال لرصد هذا الامتحان فقط">${examTitle} <span class="text-[10px] text-slate-400 block">من 40 🔍</span></th>
-              <th class="p-3 w-24 text-center bg-amber-950/40 border-r border-slate-700 text-amber-300">المجموع <span class="text-[10px] block">من 100</span></th>
-              <th class="p-3 w-28 text-center bg-slate-900 border-r border-slate-700">التقدير العام</th>
-              <th class="p-3 w-20 text-center no-print">إجراء</th>
+              <th class="p-3 w-28 text-center bg-blue-950/40 border-r border-slate-700 cursor-pointer hover:bg-blue-900/40 transition" onclick="setExamMonth('${term}_m1')" title="انتقال لرصد هذا الشهر فقط">${m1Title} <span class="text-[10px] text-slate-400 block">من 20 🔍</span></th>
+              <th class="p-3 w-28 text-center bg-blue-950/40 border-r border-slate-700 cursor-pointer hover:bg-blue-900/40 transition" onclick="setExamMonth('${term}_m2')" title="انتقال لرصد هذا الشهر فقط">${m2Title} <span class="text-[10px] text-slate-400 block">من 20 🔍</span></th>
+              <th class="p-3 w-32 text-center bg-indigo-950/40 border-r border-slate-700 cursor-pointer hover:bg-indigo-900/40 transition" onclick="setExamMonth('${term}_tasks')" title="انتقال لرصد هذا الشهر فقط">${tasksTitle} <span class="text-[10px] text-slate-400 block">من 20 🔍</span></th>
+              <th class="p-3 w-32 text-center bg-purple-950/40 border-r border-slate-700 cursor-pointer hover:bg-purple-900/40 transition" onclick="setExamMonth('${term}_exam')" title="انتقال لرصد هذا الامتحان فقط">${examTitle} <span class="text-[10px] text-slate-400 block">من 40 🔍</span></th>
             </tr>
           `;
         }
@@ -1417,16 +1369,14 @@
       if (filteredStudents.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="${isSingleMonth ? 7 : 10}" class="p-8 text-center text-slate-400 font-bold">
+            <td colspan="${isSingleMonth ? 4 : 7}" class="p-8 text-center text-slate-400 font-bold">
               لا يوجد طلاب مسجلين في هذا الصف والشعبة حالياً.
             </td>
           </tr>
         `;
-        updateGradeStats([]);
+        updateGradeStats();
         return;
       }
-
-      let calculatedRows = [];
 
       tbody.innerHTML = filteredStudents.map((st, idx) => {
         const gradeKey = 'st_' + st.id + '_' + term + '_' + subjectId;
@@ -1438,21 +1388,6 @@
           sep: 19
         };
 
-        const m1 = parseFloat(saved.m1) || 0;
-        const m2 = parseFloat(saved.m2) || 0;
-        const tasks = parseFloat(saved.tasks) || 0;
-        const exam = parseFloat(saved.exam) || 0;
-        const total = Math.min(100, Math.round((m1 + m2 + tasks + exam) * 10) / 10);
-
-        let ratingBadge = '';
-        if (total >= 85) ratingBadge = '<span class="bg-emerald-500/20 text-emerald-300 font-black px-2 py-0.5 rounded text-[11px]">ممتاز 🌟</span>';
-        else if (total >= 75) ratingBadge = '<span class="bg-blue-500/20 text-blue-300 font-black px-2 py-0.5 rounded text-[11px]">جيد جداً 👍</span>';
-        else if (total >= 65) ratingBadge = '<span class="bg-amber-500/20 text-amber-300 font-black px-2 py-0.5 rounded text-[11px]">جيد 📘</span>';
-        else if (total >= 50) ratingBadge = '<span class="bg-orange-500/20 text-orange-300 font-black px-2 py-0.5 rounded text-[11px]">مقبول ⚠️</span>';
-        else ratingBadge = '<span class="bg-red-500/20 text-red-300 font-black px-2 py-0.5 rounded text-[11px]">يحتاج دعم 🚨</span>';
-
-        calculatedRows.push({ total });
-
         const trackBadge = st.track === 'languages' 
           ? '<span class="text-[10px] font-bold text-blue-300 bg-blue-900/40 px-2 py-0.5 rounded">لغات</span>'
           : '<span class="text-[10px] font-bold text-emerald-300 bg-emerald-900/40 px-2 py-0.5 rounded">عربي</span>';
@@ -1460,124 +1395,121 @@
         if (isSingleMonth) {
           const fieldVal = saved[monthDef.field] !== undefined ? saved[monthDef.field] : (saved[monthDef.fallbackField] || 0);
           return `
-            <tr class="hover:bg-slate-700/30 transition">
-              <td class="p-2.5 text-center text-slate-400 font-mono font-bold">${idx + 1}</td>
-              <td class="p-2.5 font-bold text-white whitespace-nowrap">
-                ${st.nameAr}
+            <tr class="hover:bg-slate-700/30 transition border-b border-slate-700/50">
+              <td class="p-3 text-center text-slate-400 font-mono font-bold">${idx + 1}</td>
+              <td class="p-3 font-bold text-white whitespace-nowrap">
+                <div class="text-sm">${st.nameAr}</div>
                 <span class="block text-[10px] text-slate-400 font-mono">${st.id}</span>
               </td>
-              <td class="p-2.5 text-center">${trackBadge}</td>
-              <td class="p-2.5 text-center bg-blue-950/20 border-x-2 border-blue-500/50">
+              <td class="p-3 text-center">${trackBadge}</td>
+              <td class="p-3 text-center bg-blue-950/20 border-x-2 border-blue-500/50">
                 <div class="flex items-center justify-center gap-2">
                   <input type="number" min="0" max="${monthDef.max}" step="0.5" value="${fieldVal}" 
                     data-key="${gradeKey}" data-field="${monthDef.field}" data-row="${idx}" data-col="1" data-max="${monthDef.max}"
+                    data-student-id="${st.id}" data-subject-id="${subjectId}" data-term="${term}"
                     onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
-                    class="grade-input w-24 text-center font-black text-base bg-slate-900 border-2 border-blue-400 focus:border-amber-400 focus:bg-blue-950 rounded-xl py-1.5 px-2 text-white shadow-inner focus:outline-none focus:ring-2 focus:ring-amber-400/40 transition">
-                  <span class="text-xs font-bold text-slate-400">/ ${monthDef.max}</span>
+                    class="grade-input w-28 text-center font-black text-lg bg-slate-900 border-2 border-blue-400 focus:border-amber-400 focus:bg-blue-950 rounded-xl py-2 px-3 text-white shadow-inner focus:outline-none focus:ring-2 focus:ring-amber-400/40 transition">
+                  <span class="text-sm font-black text-slate-400">/ ${monthDef.max}</span>
                 </div>
-              </td>
-              <td class="p-2 text-center bg-amber-950/20 border-r border-slate-700/60 font-black text-amber-300 font-mono text-sm row-total">
-                ${total}
-              </td>
-              <td class="p-2 text-center border-r border-slate-700/60 row-rating">
-                ${ratingBadge}
-              </td>
-              <td class="p-2 text-center no-print">
-                <button onclick="quickFillSingleStudentMax(this, '${monthDef.field}', ${monthDef.max})" title="منح الدرجة النهائية في ${monthDef.shortName} (${monthDef.max})" class="px-2.5 py-1 bg-amber-500/20 hover:bg-amber-500/40 border border-amber-500/40 rounded-lg text-amber-300 hover:text-white text-xs font-bold transition flex items-center justify-center gap-1 mx-auto">
-                  <span>⭐</span>
-                  <span>${monthDef.max}</span>
-                </button>
               </td>
             </tr>
           `;
         } else {
           return `
-            <tr class="hover:bg-slate-700/30 transition">
-              <td class="p-2.5 text-center text-slate-400 font-mono font-bold">${idx + 1}</td>
-              <td class="p-2.5 font-bold text-white whitespace-nowrap">
-                ${st.nameAr}
+            <tr class="hover:bg-slate-700/30 transition border-b border-slate-700/50">
+              <td class="p-3 text-center text-slate-400 font-mono font-bold">${idx + 1}</td>
+              <td class="p-3 font-bold text-white whitespace-nowrap">
+                <div class="text-sm">${st.nameAr}</div>
                 <span class="block text-[10px] text-slate-400 font-mono">${st.id}</span>
               </td>
-              <td class="p-2.5 text-center">${trackBadge}</td>
-              <td class="p-2 text-center bg-blue-950/20 border-r border-slate-700/60">
+              <td class="p-3 text-center">${trackBadge}</td>
+              <td class="p-2.5 text-center bg-blue-950/20 border-r border-slate-700/60">
                 <input type="number" min="0" max="20" step="0.5" value="${saved.m1}" 
                   data-key="${gradeKey}" data-field="m1" data-row="${idx}" data-col="1" data-max="20"
+                  data-student-id="${st.id}" data-subject-id="${subjectId}" data-term="${term}"
                   onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
-                  class="grade-input w-16 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
+                  class="grade-input w-20 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
               </td>
-              <td class="p-2 text-center bg-blue-950/20 border-r border-slate-700/60">
+              <td class="p-2.5 text-center bg-blue-950/20 border-r border-slate-700/60">
                 <input type="number" min="0" max="20" step="0.5" value="${saved.m2}" 
                   data-key="${gradeKey}" data-field="m2" data-row="${idx}" data-col="2" data-max="20"
+                  data-student-id="${st.id}" data-subject-id="${subjectId}" data-term="${term}"
                   onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
-                  class="grade-input w-16 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
+                  class="grade-input w-20 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
               </td>
-              <td class="p-2 text-center bg-indigo-950/20 border-r border-slate-700/60">
+              <td class="p-2.5 text-center bg-indigo-950/20 border-r border-slate-700/60">
                 <input type="number" min="0" max="20" step="0.5" value="${saved.tasks}" 
                   data-key="${gradeKey}" data-field="tasks" data-row="${idx}" data-col="3" data-max="20"
+                  data-student-id="${st.id}" data-subject-id="${subjectId}" data-term="${term}"
                   onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
-                  class="grade-input w-16 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
+                  class="grade-input w-20 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
               </td>
-              <td class="p-2 text-center bg-purple-950/20 border-r border-slate-700/60">
+              <td class="p-2.5 text-center bg-purple-950/20 border-r border-slate-700/60">
                 <input type="number" min="0" max="40" step="0.5" value="${saved.exam}" 
                   data-key="${gradeKey}" data-field="exam" data-row="${idx}" data-col="4" data-max="40"
+                  data-student-id="${st.id}" data-subject-id="${subjectId}" data-term="${term}"
                   onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
-                  class="grade-input w-16 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
-              </td>
-              <td class="p-2 text-center bg-amber-950/20 border-r border-slate-700/60 font-black text-amber-300 font-mono text-sm row-total">
-                ${total}
-              </td>
-              <td class="p-2 text-center border-r border-slate-700/60 row-rating">
-                ${ratingBadge}
-              </td>
-              <td class="p-2 text-center no-print">
-                <button onclick="quickFillFullMark(this)" title="منح الدرجة الكاملة (100)" class="text-slate-400 hover:text-amber-400 p-1 text-xs">
-                  ⭐
-                </button>
+                  class="grade-input w-20 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
               </td>
             </tr>
           `;
         }
       }).join('');
 
-      updateGradeStats(calculatedRows);
+      updateGradeStats();
+    }
+
+    function syncGradeToMasterDB(studentId, subjectId, term, field, scoreVal) {
+      if (!studentId) return;
+      // 1. Update in SmileKidsDB
+      if (window.SmileKidsDB && typeof window.SmileKidsDB.getStudentById === 'function') {
+        const student = window.SmileKidsDB.getStudentById(studentId);
+        if (student) {
+          student.subjectScores = student.subjectScores || {};
+          student.subjectScores[subjectId] = student.subjectScores[subjectId] || {};
+          student.subjectScores[subjectId][field] = scoreVal;
+
+          student.termsScores = student.termsScores || {};
+          student.termsScores[field] = scoreVal;
+          if (typeof window.SmileKidsDB.updateStudent === 'function') {
+            window.SmileKidsDB.updateStudent(studentId, student);
+          }
+        }
+      }
+
+      // 2. Also update in localStorage[STORAGE_KEY_STUDENTS]
+      try {
+        const stList = JSON.parse(localStorage.getItem(STORAGE_KEY_STUDENTS)) || [];
+        const target = stList.find(s => s.id === studentId);
+        if (target) {
+          target.subjectScores = target.subjectScores || {};
+          target.subjectScores[subjectId] = target.subjectScores[subjectId] || {};
+          target.subjectScores[subjectId][field] = scoreVal;
+
+          target.termsScores = target.termsScores || {};
+          target.termsScores[field] = scoreVal;
+          localStorage.setItem(STORAGE_KEY_STUDENTS, JSON.stringify(stList));
+        }
+      } catch (e) {
+        console.error('Error syncing grade to local student storage:', e);
+      }
     }
 
     function onGradeLiveCalc(inputEl) {
-      const tr = inputEl.closest('tr');
-      const key = inputEl.dataset.key;
-      const field = inputEl.dataset.field;
       const maxVal = parseFloat(inputEl.dataset.max) || 20;
       let val = parseFloat(inputEl.value) || 0;
-      if (val > maxVal) val = maxVal;
-      if (val < 0) val = 0;
+      if (val > maxVal) inputEl.value = maxVal;
+      if (val < 0) inputEl.value = 0;
 
-      const allGrades = getStoredGrades();
-      const saved = allGrades[key] || { m1: 0, m2: 0, tasks: 0, exam: 0 };
-      saved[field] = val;
-
-      const m1 = parseFloat(saved.m1) || 0;
-      const m2 = parseFloat(saved.m2) || 0;
-      const tasks = parseFloat(saved.tasks) || 0;
-      const exam = parseFloat(saved.exam) || 0;
-      const total = Math.min(100, Math.round((m1 + m2 + tasks + exam) * 10) / 10);
-
-      const totalEl = tr.querySelector('.row-total');
-      if (totalEl) totalEl.innerText = total;
-
-      let ratingBadge = '';
-      if (total >= 85) ratingBadge = '<span class="bg-emerald-500/20 text-emerald-300 font-black px-2 py-0.5 rounded text-[11px]">ممتاز 🌟</span>';
-      else if (total >= 75) ratingBadge = '<span class="bg-blue-500/20 text-blue-300 font-black px-2 py-0.5 rounded text-[11px]">جيد جداً 👍</span>';
-      else if (total >= 65) ratingBadge = '<span class="bg-amber-500/20 text-amber-300 font-black px-2 py-0.5 rounded text-[11px]">جيد 📘</span>';
-      else if (total >= 50) ratingBadge = '<span class="bg-orange-500/20 text-orange-300 font-black px-2 py-0.5 rounded text-[11px]">مقبول ⚠️</span>';
-      else ratingBadge = '<span class="bg-red-500/20 text-red-300 font-black px-2 py-0.5 rounded text-[11px]">يحتاج دعم 🚨</span>';
-
-      const ratingEl = tr.querySelector('.row-rating');
-      if (ratingEl) ratingEl.innerHTML = ratingBadge;
+      updateGradeStats();
     }
 
     function onGradeInputChange(inputEl) {
       const key = inputEl.dataset.key;
       const field = inputEl.dataset.field;
+      const studentId = inputEl.dataset.studentId;
+      const subjectId = inputEl.dataset.subjectId;
+      const term = inputEl.dataset.term;
       const max = parseFloat(inputEl.dataset.max) || 20;
       let val = parseFloat(inputEl.value) || 0;
 
@@ -1590,11 +1522,9 @@
       allGrades[key][field] = val;
 
       saveStoredGrades(allGrades);
+      syncGradeToMasterDB(studentId, subjectId, term, field, val);
       flashSavePill();
-
-      const totalEls = document.querySelectorAll('.row-total');
-      const rowsData = Array.from(totalEls).map(el => ({ total: parseFloat(el.innerText) || 0 }));
-      updateGradeStats(rowsData);
+      updateGradeStats();
     }
 
     function flashSavePill() {
@@ -1674,21 +1604,38 @@
     }
 
     function updateGradeStats(rowsData) {
-      document.getElementById('stat-student-count').innerText = rowsData.length;
-      if (rowsData.length === 0) {
-        document.getElementById('stat-avg-score').innerText = '0%';
-        document.getElementById('stat-excellent-count').innerText = '0';
-        document.getElementById('stat-support-count').innerText = '0';
-        return;
-      }
-      const sum = rowsData.reduce((acc, r) => acc + r.total, 0);
-      const avg = Math.round((sum / rowsData.length) * 10) / 10;
-      const excellent = rowsData.filter(r => r.total >= 85).length;
-      const support = rowsData.filter(r => r.total < 50).length;
+      const studentRows = document.querySelectorAll('#grade-sheet-tbody tr');
+      const totalStudents = studentRows.length;
+      
+      const elStudentCount = document.getElementById('stat-student-count');
+      const elGradedCount = document.getElementById('stat-graded-count');
+      const elPendingCount = document.getElementById('stat-pending-count');
+      const elAvgScore = document.getElementById('stat-avg-score');
 
-      document.getElementById('stat-avg-score').innerText = avg + '%';
-      document.getElementById('stat-excellent-count').innerText = excellent;
-      document.getElementById('stat-support-count').innerText = support;
+      let gradedRows = 0;
+      let totalScores = 0;
+      let scoreCount = 0;
+
+      studentRows.forEach(row => {
+        const rowInputs = Array.from(row.querySelectorAll('.grade-input'));
+        const hasScore = rowInputs.some(inp => inp.value !== '' && !isNaN(parseFloat(inp.value)));
+        if (hasScore) gradedRows++;
+        rowInputs.forEach(inp => {
+          const v = parseFloat(inp.value);
+          if (!isNaN(v) && inp.value !== '') {
+            totalScores += v;
+            scoreCount++;
+          }
+        });
+      });
+
+      if (elStudentCount) elStudentCount.innerText = totalStudents;
+      if (elGradedCount) elGradedCount.innerText = gradedRows;
+      if (elPendingCount) elPendingCount.innerText = Math.max(0, totalStudents - gradedRows);
+      if (elAvgScore) {
+        const avg = scoreCount > 0 ? (Math.round((totalScores / scoreCount) * 10) / 10) : 0;
+        elAvgScore.innerText = avg;
+      }
     }
 
     function setupKeyboardNavigation() {
