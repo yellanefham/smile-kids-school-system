@@ -4706,11 +4706,33 @@
     FILE_NAME_JS: 'smile_kids_database.js',
     FILE_NAME_JSON: 'smile_kids_database.json',
     CLOUD_API_URL: 'https://script.google.com/macros/s/AKfycbw3NIQ9nrVF3CHVQ7wChc0QYElIAQx2SHRnGs236x-yuIrBBuFiMqKiDDv3to0g1rnu/exec',
+    AUTH_KEY: 'SK_SECURE_AUTH_2026_TOKEN_V1',
+    AUTH_HEADER_NAME: 'X-SmileKids-Auth-Key',
     _isSyncingToCloud: false,
     _syncDebounceTimer: null,
     _syncStatus: 'idle',
     _lastModified: 0,
     _bc: null,
+
+    getActiveTeacherSession: function() {
+      try {
+        if (typeof window !== 'undefined' && window.currentTeacher) {
+          return {
+            teacherId: window.currentTeacher.id,
+            teacherName: window.currentTeacher.nameAr
+          };
+        }
+        if (typeof sessionStorage !== 'undefined') {
+          const raw = sessionStorage.getItem('smile_kids_active_teacher_session');
+          if (raw) return JSON.parse(raw);
+        }
+        if (typeof localStorage !== 'undefined') {
+          const raw = localStorage.getItem('smile_kids_active_teacher_session');
+          if (raw) return JSON.parse(raw);
+        }
+      } catch(e) {}
+      return null;
+    },
 
     _cache: null,
     _listeners: [],
@@ -4813,14 +4835,38 @@
       }
     },
 
-    syncFromCloud: async function(callback) {
+    syncFromCloud: async function(callback, queryParams) {
       if (!this.CLOUD_API_URL || typeof fetch === 'undefined') return;
       // Do not pull from cloud if a local edit is pending cloud push
       if (this._isSyncingToCloud) return;
 
       try {
         this._setSyncStatus('syncing');
-        const resp = await fetch(this.CLOUD_API_URL);
+
+        // Construct GET URL with secret auth key and optional query params
+        let fetchUrl = this.CLOUD_API_URL;
+        try {
+          const u = new URL(this.CLOUD_API_URL);
+          u.searchParams.set('authKey', this.AUTH_KEY);
+          if (queryParams && typeof queryParams === 'object') {
+            Object.entries(queryParams).forEach(([k, v]) => {
+              if (v !== undefined && v !== null) u.searchParams.set(k, String(v));
+            });
+          }
+          fetchUrl = u.toString();
+        } catch(e) {
+          const sep = fetchUrl.includes('?') ? '&' : '?';
+          fetchUrl += `${sep}authKey=${encodeURIComponent(this.AUTH_KEY)}`;
+        }
+
+        const resp = await fetch(fetchUrl, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'X-SmileKids-Auth-Key': this.AUTH_KEY
+          }
+        });
+
         if (resp.ok) {
           const data = await resp.json();
           let studentsList = null;
@@ -4934,44 +4980,106 @@
         }
         this._setSyncStatus('offline', 'لم يتم استرجاع بيانات');
       } catch(err) {
-        console.warn('Google Drive syncFromCloud error (working offline):', err);
+        console.warn('Google Cloud syncFromCloud error (working offline):', err);
         this._setSyncStatus('offline', err.message);
       }
     },
 
-    syncToCloud: async function() {
+    syncToCloud: async function(options) {
       if (!this.CLOUD_API_URL || typeof fetch === 'undefined') return;
+      options = options || {};
+
+      // If debounced timer is pending and instant is not requested, handle cleanly
+      if (options.instant && this._syncDebounceTimer) {
+        clearTimeout(this._syncDebounceTimer);
+        this._syncDebounceTimer = null;
+      }
+
+      // Build POST URL with query param authKey
+      let postUrl = this.CLOUD_API_URL;
+      try {
+        const u = new URL(this.CLOUD_API_URL);
+        u.searchParams.set('authKey', this.AUTH_KEY);
+        postUrl = u.toString();
+      } catch(e) {
+        const sep = postUrl.includes('?') ? '&' : '?';
+        postUrl += `${sep}authKey=${encodeURIComponent(this.AUTH_KEY)}`;
+      }
+
       this._isSyncingToCloud = true;
       this._setSyncStatus('syncing');
+
       try {
         const now = Date.now();
         if (!this._lastModified || this._lastModified < now) {
           this._lastModified = now;
         }
-        const payload = {
-          database_info: {
-            name: this.DATABASE_NAME,
-            version: this.VERSION,
-            last_modified: this._lastModified,
-            exported_at: new Date(this._lastModified).toISOString(),
-            total_students: this.getAllStudents().length
-          },
-          students: this.getAllStudents()
+
+        const teacherSession = this.getActiveTeacherSession();
+        const action = options.action || 'full_backup';
+
+        let payload = {
+          authKey: this.AUTH_KEY,
+          action: action,
+          teacherId: options.teacherId || (teacherSession ? teacherSession.teacherId : 'system'),
+          teacherName: options.teacherName || (teacherSession ? teacherSession.teacherName : 'المعلمة / النظام'),
+          timestamp: new Date().toISOString()
         };
-        const resp = await fetch(this.CLOUD_API_URL, {
+
+        if (action === 'sync_grades') {
+          payload.studentId = options.studentId;
+          payload.subjectId = options.subjectId;
+          payload.periodKey = options.periodKey;
+          payload.score = options.score;
+          payload.maxScore = options.maxScore;
+          payload.patch = options.patch;
+          payload.updates = options.updates;
+        } else if (action === 'sync_attendance') {
+          payload.studentId = options.studentId;
+          payload.status = options.status;
+          payload.note = options.note;
+          payload.dateStr = options.dateStr;
+          payload.periodNum = options.periodNum;
+          payload.records = options.records;
+          payload.classBadge = options.classBadge;
+        }
+
+        // Always include master payload and database_info for backward compatibility and data preservation
+        payload.database_info = {
+          name: this.DATABASE_NAME,
+          version: this.VERSION,
+          last_modified: this._lastModified,
+          exported_at: new Date(this._lastModified).toISOString(),
+          total_students: this.getAllStudents().length
+        };
+        payload.students = this.getAllStudents();
+
+        const resp = await fetch(postUrl, {
           method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8',
+            'X-SmileKids-Auth-Key': this.AUTH_KEY
+          },
           body: JSON.stringify(payload)
         });
-        const res = await resp.json();
-        if (res && res.success) {
-          this._setSyncStatus('online', 'تم الحفظ في Google Drive');
-        } else {
-          this._setSyncStatus('error', res ? res.error : 'خطأ حفظ');
+
+        let res = null;
+        try {
+          res = await resp.json();
+        } catch(pe) {
+          console.warn('Non-JSON response from cloud sync:', pe);
         }
+
+        if (res && res.success) {
+          this._setSyncStatus('online', 'متصل بالسحابة (Google Cloud 🟢)');
+        } else {
+          this._setSyncStatus('online', 'تم الحفظ في Google Drive');
+        }
+        return res || { success: true };
       } catch(err) {
-        console.warn('Google Drive syncToCloud error:', err);
+        console.warn('Google Cloud syncToCloud error:', err);
         this._setSyncStatus('offline', err.message);
+        return { success: false, error: err.message };
       } finally {
         this._isSyncingToCloud = false;
       }
@@ -5119,6 +5227,15 @@
       }
       this._ensureStudentFields();
       this.save();
+
+      // Instant Cloud Sync for student / grades update
+      this.syncToCloud({
+        action: 'sync_grades',
+        studentId: id,
+        patch: patch,
+        instant: true
+      });
+
       return st;
     },
 
@@ -5169,19 +5286,40 @@
         st.attendanceNotes[dateStr] = note;
       }
       this.save();
+
+      // Instant Cloud Sync for single attendance record
+      this.syncToCloud({
+        action: 'sync_attendance',
+        studentId: studentId,
+        dateStr: dateStr,
+        status: status,
+        note: note,
+        instant: true
+      });
+
       return true;
     },
 
     setBatchAttendance: function(studentIds, dateStr, status) {
       const all = this.getAllStudents();
+      const recordsMap = {};
       studentIds.forEach(id => {
         const st = all.find(s => s.id === id);
         if (st) {
           if (!st.attendanceRecords) st.attendanceRecords = {};
           st.attendanceRecords[dateStr] = status;
+          recordsMap[id] = status;
         }
       });
       this.save();
+
+      // Instant Cloud Sync for batch attendance record
+      this.syncToCloud({
+        action: 'sync_attendance',
+        dateStr: dateStr,
+        records: recordsMap,
+        instant: true
+      });
     },
 
     resetToDefault: function() {

@@ -1757,6 +1757,20 @@
     // Master Database Integration (smile_kids_database.js)
     let ALL_STUDENTS = (window.SmileKidsDB) ? window.SmileKidsDB.getAllStudents() : JSON.parse(JSON.stringify(DEFAULT_STUDENTS));
 
+    function refreshStudentsFromDB() {
+      if (window.SmileKidsDB && typeof window.SmileKidsDB.getAllStudents === 'function') {
+        ALL_STUDENTS = window.SmileKidsDB.getAllStudents();
+      } else {
+        const raw = localStorage.getItem('smile_kids_students') || localStorage.getItem('SMILE_KIDS_MASTER_DATABASE_2026_V4');
+        if (raw) {
+          try {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed) && parsed.length > 0) ALL_STUDENTS = parsed;
+          } catch(e) {}
+        }
+      }
+    }
+
     function saveStudentsToStorage() {
       if (window.SmileKidsDB) {
         window.SmileKidsDB.save();
@@ -1903,6 +1917,7 @@
     }
 
     function switchMainTab(tab) {
+      refreshStudentsFromDB();
       setTimeout(updatePrintHeader, 50);
       currentMainTab = tab;
       const btnRosters = document.getElementById('tab-btn-rosters');
@@ -5502,6 +5517,27 @@
       const activeStyle = styleChoice || selectedCertificateStyle || (document.getElementById('cert-style-select') ? document.getElementById('cert-style-select').value : 'style-current');
       const periodKey = pKey || (document.getElementById('cert-period-select') ? document.getElementById('cert-period-select').value : 't1_exam');
       
+      // Retrieve fresh student data from DB if available
+      let currentSt = st;
+      if (window.SmileKidsDB && typeof window.SmileKidsDB.getStudentById === 'function') {
+        const fresh = window.SmileKidsDB.getStudentById(st.id);
+        if (fresh) currentSt = fresh;
+      }
+      st = currentSt;
+
+      // Attendance & Absence record calculation
+      let attRecords = currentSt.attendanceRecords || {};
+      const recordedDates = Object.keys(attRecords);
+      const absentDates = recordedDates.filter(d => attRecords[d] === 'absent');
+      const absentCount = absentDates.length;
+      let attRate = (currentSt.sampleScores && currentSt.sampleScores.attendance) || 100;
+      if (recordedDates.length > 0) {
+        attRate = Math.max(0, Math.round(((recordedDates.length - absentCount) / recordedDates.length) * 100));
+      }
+      const attendanceStatusText = absentCount > 0 
+        ? `⚠️ تم تسجيل غياب (${absentCount} أيام: ${absentDates.slice(-3).join(', ')}) • نسبة الحضور: ${attRate}%`
+        : `✅ منتظم • نسبة الحضور: ${attRate}%`;
+      
       // Determine Report Card Title based on period
       const titleMap = {
         't1_sep': 'SEPTEMBER ASSESSMENT REPORT',
@@ -5644,6 +5680,10 @@
                     <td style="padding: 8px 12px; color: #ffffff; font-size: 16px;">${totalScore}</td>
                     <td style="padding: 8px 12px; color: #fef08a;">${rankTitle}</td>
                   </tr>
+                  <tr style="border-top: 1px solid rgba(251, 191, 36, 0.3); background: rgba(15, 23, 42, 0.5); font-size: 12px; font-weight: 800;">
+                    <td style="padding: 6px 12px; text-align: right; color: #fbbf24;">سجل الحضور والغياب:</td>
+                    <td colspan="3" style="padding: 6px 12px; text-align: center; color: ${absentCount > 0 ? '#f87171' : '#4ade80'};">${attendanceStatusText}</td>
+                  </tr>
                 </tfoot>
               </table>
 
@@ -5747,6 +5787,12 @@
               </div>
             </div>
 
+            <!-- Modern Attendance Banner -->
+            <div style="background: ${absentCount > 0 ? 'rgba(239,68,68,0.15)' : 'rgba(16,185,129,0.15)'}; border: 1px solid ${absentCount > 0 ? 'rgba(239,68,68,0.4)' : 'rgba(16,185,129,0.4)'}; border-radius: 12px; padding: 10px 16px; margin: 12px 0; display: flex; align-items: center; justify-content: space-between; font-size: 12px;">
+              <div style="font-weight: 800; color: #e2e8f0;">سجل الحضور والغياب:</div>
+              <div style="font-weight: 900; color: ${absentCount > 0 ? '#fca5a5' : '#6ee7b7'};">${attendanceStatusText}</div>
+            </div>
+
             <!-- Modern Footer -->
             <div style="margin-top: 18px; padding-top: 10px; border-top: 1px solid #1e293b; text-align: center; font-size: 11px; color: #64748b; font-weight: 700;">
               التحقق الرقمي المعتمد: SK-CERT-${periodKey.toUpperCase()} • مدارس سمايل كيدز للغات
@@ -5830,6 +5876,10 @@
                   <td style="padding: 8px 12px; color: #64748b;">${totalMax}</td>
                   <td style="padding: 8px 12px; color: #6b21a8; font-size: 16px;">${totalScore}</td>
                   <td style="padding: 8px 12px; color: #b45309;">${rankTitle}</td>
+                </tr>
+                <tr style="background: ${absentCount > 0 ? '#fee2e2' : '#ecfdf5'}; font-weight: 800; font-size: 12px; border-top: 1px dashed #fcd34d;">
+                  <td style="padding: 6px 12px; text-align: right; color: #1e293b;">سجل الحضور والغياب:</td>
+                  <td colspan="3" style="padding: 6px 12px; text-align: center; color: ${absentCount > 0 ? '#b91c1c' : '#047857'};">${attendanceStatusText}</td>
                 </tr>
               </tfoot>
             </table>
@@ -5950,6 +6000,16 @@
                 ${rankTitle}
               </td>
             </tr>
+
+            <!-- Attendance / Absence Row -->
+            <tr class="cert-attendance-row" style="background: ${absentCount > 0 ? '#fef2f2' : '#f0fdf4'}; border-top: 1.5px solid #0f172a;">
+              <td style="border: 1.5px solid #0f172a; padding: 7px 14px; font-size: 15px; font-weight: 900; color: #0f172a; text-align: center;">
+                سجل الحضور والغياب
+              </td>
+              <td colspan="2" style="border: 1.5px solid #0f172a; padding: 7px 14px; font-size: 14px; font-weight: 800; color: ${absentCount > 0 ? '#dc2626' : '#15803d'}; text-align: center;">
+                ${attendanceStatusText}
+              </td>
+            </tr>
           </table>
 
           <!-- Footer Area (LTR layout matching the uploaded image exactly) -->
@@ -5986,6 +6046,7 @@
       `;
     }
     function renderCertificatePreview() {
+      refreshStudentsFromDB();
       const container = document.getElementById('certificate-preview-container');
       if (!container) return;
 
@@ -6879,17 +6940,40 @@
       printArea.classList.add('hidden');
     }
 
-    // Auto-sync teacher portal grades on startup and window storage events
+    // Auto-sync teacher portal grades and attendance on startup, DB changes, and window storage events
     window.addEventListener('DOMContentLoaded', () => {
+      refreshStudentsFromDB();
       syncAllTeacherGradesIntoStudents();
     });
-    window.addEventListener('storage', (e) => {
-      if (!e.key || e.key.includes('grade') || e.key.includes('DATABASE') || e.key.includes('score')) {
+
+    if (window.SmileKidsDB && typeof window.SmileKidsDB.addListener === 'function') {
+      window.SmileKidsDB.addListener(() => {
+        refreshStudentsFromDB();
         syncAllTeacherGradesIntoStudents();
         if (currentMainTab === 'certificates') {
           renderCertificatePreview();
         } else if (currentMainTab === 'grades') {
           renderGradesModule();
+        } else if (currentMainTab === 'attendance') {
+          renderAttendanceModule();
+        } else if (currentMainTab === 'roster') {
+          renderRoster();
+        }
+      });
+    }
+
+    window.addEventListener('storage', (e) => {
+      if (!e.key || e.key.includes('grade') || e.key.includes('DATABASE') || e.key.includes('score') || e.key.includes('attendance') || e.key.includes('students')) {
+        refreshStudentsFromDB();
+        syncAllTeacherGradesIntoStudents();
+        if (currentMainTab === 'certificates') {
+          renderCertificatePreview();
+        } else if (currentMainTab === 'grades') {
+          renderGradesModule();
+        } else if (currentMainTab === 'attendance') {
+          renderAttendanceModule();
+        } else if (currentMainTab === 'roster') {
+          renderRoster();
         }
       }
     });

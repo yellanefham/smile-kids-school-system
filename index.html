@@ -101,6 +101,12 @@
       <!-- Action & Links Toolbar -->
       <div class="flex items-center justify-center sm:justify-end gap-2 sm:gap-2.5 w-full sm:w-auto flex-wrap">
 
+        <!-- Quick Login Button -->
+        <button onclick="openQuickLoginModal()" id="btn-quick-login-nav" class="px-3.5 py-1.5 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:brightness-110 text-slate-950 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 shadow-[0_0_15px_rgba(245,158,11,0.35)] active:scale-95 group whitespace-nowrap" title="بوابة تسجيل الدخول السريع للمعلمات والإدارة">
+          <span class="text-sm">⚡</span>
+          <span class="whitespace-nowrap">دخول المعلمات والإدارة</span>
+        </button>
+
         <!-- Teacher Portal Button -->
         <a href="Teacher_Portal.html" class="px-3.5 py-1.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 hover:brightness-110 text-white rounded-xl text-xs font-black transition-all flex items-center gap-1.5 shadow-[0_0_15px_rgba(16,185,129,0.35)] active:scale-95 group whitespace-nowrap" title="بوابة المعلمات والحصص ورصد الدرجات">
           <span class="text-sm">👩‍🏫</span>
@@ -179,6 +185,27 @@
             </div>
           </div>
 
+        </div>
+      </div>
+
+      <!-- Quick Login Majestic Banner / Card Action -->
+      <div class="max-w-5xl mx-auto mb-8 sm:mb-10">
+        <div class="glass-card relative bg-gradient-to-r from-amber-950/60 via-slate-900/90 to-blue-950/60 border-2 border-amber-500/40 hover:border-amber-400 rounded-3xl p-5 sm:p-6 shadow-[0_10px_35px_rgba(0,0,0,0.5)] flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-4 text-center sm:text-right">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-3xl shadow-lg ring-4 ring-amber-500/20 shrink-0">
+              ⚡
+            </div>
+            <div>
+              <div class="flex items-center gap-2 justify-center sm:justify-start flex-wrap">
+                <h3 class="text-lg sm:text-xl font-black text-white">بوابة تسجيل الدخول السريع للمعلمات والإدارة</h3>
+                <span class="bg-amber-500/20 text-amber-300 text-[10px] font-black px-2.5 py-0.5 rounded-full border border-amber-500/40">دخول مباشر وآمن</span>
+              </div>
+              <p class="text-xs text-slate-300 mt-1">مصادقة فورية بالرمز السري PIN للمعلمات وإدارة المدرسة مباشرة من الصفحة الرئيسية مع حماية مشددة ضد التخمين</p>
+            </div>
+          </div>
+          <button onclick="openQuickLoginModal()" id="btn-quick-login-card" class="px-5 py-3 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:brightness-110 text-slate-950 font-black rounded-2xl text-xs sm:text-sm shadow-xl shadow-amber-500/25 transition-all flex items-center gap-2 active:scale-95 shrink-0 whitespace-nowrap">
+            <span>تسجيل الدخول السريع 🚀</span>
+          </button>
         </div>
       </div>
 
@@ -567,12 +594,491 @@
     }
 
     // ========================================================
+    // Quick Teacher & Admin Login with Brute-Force & Forced PIN Change
+    // ========================================================
+    const TEACHERS_CATALOG = [
+      { id: "t_asmaa", nameAr: "مس / أسماء", nameEn: "Ms. Asmaa", title: "معلمة اللغة العربية والتربية الدينية", icon: "📚", color: "from-blue-600 to-indigo-700" },
+      { id: "t_yara", nameAr: "مس / يارا", nameEn: "Ms. Yara", title: "معلمة اللغة الإنجليزية وتكنولوجيا المعلومات", icon: "🔤", color: "from-emerald-600 to-teal-700" },
+      { id: "t_nabila", nameAr: "مس / نبيلة", nameEn: "Ms. Nabila", title: "معلمة الرياضيات والحساب (الصفوف الأولى)", icon: "🔢", color: "from-amber-600 to-orange-700" },
+      { id: "t_hend", nameAr: "مس / هند", nameEn: "Ms. Hend", title: "معلمة الرياضيات والـ Math (العليا والإعدادي)", icon: "📐", color: "from-purple-600 to-violet-700" },
+      { id: "t_samar", nameAr: "مس / سمر", nameEn: "Ms. Samar", title: "معلمة العلوم و Science", icon: "🔬", color: "from-cyan-600 to-blue-700" },
+      { id: "t_amira", nameAr: "مس / أميرة", nameEn: "Ms. Amira", title: "معلمة English و ICT (الصفوف العليا)", icon: "🌐", color: "from-rose-600 to-pink-700" },
+      { id: "t_ola", nameAr: "مس / علا", nameEn: "Ms. Ola", title: "معلمة اللغة العربية والتربية الدينية (العليا والإعدادي)", icon: "📜", color: "from-amber-700 to-red-800" },
+      { id: "t_marwa", nameAr: "مس / مروة", nameEn: "Ms. Marwa", title: "معلمة القرآن الكريم واللغة العربية", icon: "📖", color: "from-green-600 to-emerald-800" },
+      { id: "t_kariman", nameAr: "مس / كريمان", nameEn: "Ms. Kariman", title: "معلمة الدراسات الاجتماعية والتكنولوجيا", icon: "🌍", color: "from-teal-600 to-cyan-800" },
+      { id: "t_abeer", nameAr: "مس / عبير", nameEn: "Ms. Abeer", title: "معلمة التربية الرياضية (P.E) والأنشطة", icon: "⚽", color: "from-lime-600 to-green-700" },
+      { id: "t_basma", nameAr: "مس / بسمة", nameEn: "Ms. Basma", title: "معلمة التربية الفنية (Art) والإشراف", icon: "🎨", color: "from-fuchsia-600 to-pink-700" },
+      { id: "t_german", nameAr: "مس / نانسي (Frau Nancy)", nameEn: "Ms. Nancy (Frau Nancy)", title: "معلمة اللغة الألمانية (German)", icon: "🇩🇪", color: "from-amber-600 to-yellow-700" }
+    ];
+
+    const STORAGE_KEY_PINS = 'smile_kids_teacher_pins';
+    const STORAGE_KEY_PIN_STATUS = 'smile_kids_teacher_pin_status';
+    const STORAGE_KEY_LOGIN_ATTEMPTS = 'smile_kids_login_attempts';
+    const STORAGE_KEY_SESSION = 'smile_kids_active_teacher_session';
+
+    const LOCKOUT_THRESHOLD = 5;
+    const LOCKOUT_DURATION_MS = 15 * 60 * 1000; // 15 minutes
+    const LOCKOUT_ALERT_TEXT = '⚠️ تم قفل الحساب مؤقتاً لمدة 15 دقيقة بعد 5 محاولات خاطئة. يرجى مراجعة إدارة المدرسة.';
+
+    let quickAuthRole = 'teacher';
+    let selectedTeacherForLogin = TEACHERS_CATALOG[0];
+    let pendingTeacherForPinChange = null;
+
+    function initQuickAuthStores() {
+      if (!localStorage.getItem(STORAGE_KEY_PINS)) {
+        const initialPins = {};
+        TEACHERS_CATALOG.forEach(t => initialPins[t.id] = '1234');
+        initialPins['admin'] = '9999';
+        localStorage.setItem(STORAGE_KEY_PINS, JSON.stringify(initialPins));
+      }
+      if (!localStorage.getItem(STORAGE_KEY_PIN_STATUS)) {
+        localStorage.setItem(STORAGE_KEY_PIN_STATUS, JSON.stringify({}));
+      }
+      if (!localStorage.getItem(STORAGE_KEY_LOGIN_ATTEMPTS)) {
+        localStorage.setItem(STORAGE_KEY_LOGIN_ATTEMPTS, JSON.stringify({}));
+      }
+    }
+
+    function renderQuickTeacherOptions() {
+      const select = document.getElementById('quick-teacher-select');
+      if (!select) return;
+      select.innerHTML = TEACHERS_CATALOG.map(t => `<option value="${t.id}">${t.nameAr} (${t.title})</option>`).join('');
+      if (selectedTeacherForLogin) {
+        select.value = selectedTeacherForLogin.id;
+      }
+    }
+
+    function onQuickTeacherSelectChanged() {
+      const select = document.getElementById('quick-teacher-select');
+      if (!select) return;
+      const teacher = TEACHERS_CATALOG.find(t => t.id === select.value) || TEACHERS_CATALOG[0];
+      selectTeacherForLogin(teacher.id);
+    }
+
+    function selectTeacherForLogin(teacherId) {
+      const teacher = TEACHERS_CATALOG.find(t => t.id === teacherId) || TEACHERS_CATALOG[0];
+      selectedTeacherForLogin = teacher;
+      
+      const select = document.getElementById('quick-teacher-select');
+      if (select && select.value !== teacher.id) select.value = teacher.id;
+
+      const nameEl = document.getElementById('modal-teacher-name');
+      if (nameEl) nameEl.innerText = teacher.nameAr;
+      const titleEl = document.getElementById('modal-teacher-title');
+      if (titleEl) titleEl.innerText = teacher.title;
+      const iconEl = document.getElementById('modal-teacher-icon');
+      if (iconEl) iconEl.innerText = teacher.icon;
+
+      const inPin = document.getElementById('input-pin');
+      if (inPin) inPin.value = '';
+      const errEl = document.getElementById('pin-error-msg');
+      if (errEl) errEl.classList.add('hidden');
+
+      const lockout = checkLockoutStatus(teacher.id);
+      applyTeacherLockoutUI(lockout.isLocked);
+
+      openModal('modal-quick-login');
+      if (!lockout.isLocked && inPin) {
+        setTimeout(() => inPin.focus(), 100);
+      }
+    }
+
+    function openQuickLoginModal(role = 'teacher') {
+      initQuickAuthStores();
+      renderQuickTeacherOptions();
+      setQuickAuthRole(role);
+      openModal('modal-quick-login');
+      if (role === 'teacher') {
+        selectTeacherForLogin(selectedTeacherForLogin ? selectedTeacherForLogin.id : TEACHERS_CATALOG[0].id);
+      } else {
+        const inAdmin = document.getElementById('input-admin-pin');
+        const lockout = checkLockoutStatus('admin');
+        applyAdminLockoutUI(lockout.isLocked);
+        if (!lockout.isLocked && inAdmin) {
+          setTimeout(() => inAdmin.focus(), 100);
+        }
+      }
+    }
+
+    function closeQuickLoginModal() {
+      closeModal('modal-quick-login');
+    }
+
+    function setQuickAuthRole(role) {
+      quickAuthRole = role;
+      const tabTeacher = document.getElementById('tab-auth-teacher');
+      const tabAdmin = document.getElementById('tab-auth-admin');
+      const viewTeacher = document.getElementById('view-auth-teacher');
+      const viewAdmin = document.getElementById('view-auth-admin');
+
+      if (role === 'teacher') {
+        if (tabTeacher) tabTeacher.className = 'flex-1 py-2 rounded-xl text-xs font-black bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow transition';
+        if (tabAdmin) tabAdmin.className = 'flex-1 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition';
+        if (viewTeacher) viewTeacher.classList.remove('hidden');
+        if (viewAdmin) viewAdmin.classList.add('hidden');
+        if (selectedTeacherForLogin) {
+          const lockout = checkLockoutStatus(selectedTeacherForLogin.id);
+          applyTeacherLockoutUI(lockout.isLocked);
+          const inPin = document.getElementById('input-pin');
+          if (!lockout.isLocked && inPin) setTimeout(() => inPin.focus(), 100);
+        }
+      } else {
+        if (tabTeacher) tabTeacher.className = 'flex-1 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition';
+        if (tabAdmin) tabAdmin.className = 'flex-1 py-2 rounded-xl text-xs font-black bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow transition';
+        if (viewTeacher) viewTeacher.classList.add('hidden');
+        if (viewAdmin) viewAdmin.classList.remove('hidden');
+        const lockout = checkLockoutStatus('admin');
+        applyAdminLockoutUI(lockout.isLocked);
+        const inAdmin = document.getElementById('input-admin-pin');
+        if (!lockout.isLocked && inAdmin) setTimeout(() => inAdmin.focus(), 100);
+      }
+    }
+
+    function getLoginAttemptsData() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY_LOGIN_ATTEMPTS)) || {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveLoginAttemptsData(data) {
+      try {
+        localStorage.setItem(STORAGE_KEY_LOGIN_ATTEMPTS, JSON.stringify(data));
+      } catch (e) {}
+    }
+
+    function checkLockoutStatus(targetId) {
+      const data = getLoginAttemptsData();
+      const entry = data[targetId] || { count: 0, attempts: 0, lockedUntil: 0 };
+      const now = Date.now();
+
+      if (entry.lockedUntil && now < entry.lockedUntil) {
+        const remainingMs = entry.lockedUntil - now;
+        const remainingMinutes = Math.max(1, Math.ceil(remainingMs / 60000));
+        return {
+          isLocked: true,
+          remainingMinutes,
+          message: LOCKOUT_ALERT_TEXT
+        };
+      }
+
+      if (entry.lockedUntil && now >= entry.lockedUntil) {
+        delete data[targetId];
+        if (data.lastTarget === targetId) {
+          delete data.count;
+          delete data.attempts;
+          delete data.lockedUntil;
+          delete data.lastTarget;
+        }
+        saveLoginAttemptsData(data);
+      }
+
+      return { isLocked: false, remainingMinutes: 0, count: entry.count || 0 };
+    }
+
+    function recordFailedLogin(targetId) {
+      const data = getLoginAttemptsData();
+      const entry = data[targetId] || { count: 0, attempts: 0, lockedUntil: 0 };
+      const now = Date.now();
+
+      if (entry.lockedUntil && now >= entry.lockedUntil) {
+        entry.count = 0;
+        entry.attempts = 0;
+        entry.lockedUntil = 0;
+      }
+
+      entry.count = (entry.count || 0) + 1;
+      entry.attempts = entry.count;
+      entry.lastAttempt = now;
+
+      if (entry.count >= LOCKOUT_THRESHOLD) {
+        entry.lockedUntil = now + LOCKOUT_DURATION_MS;
+      }
+
+      data[targetId] = entry;
+      data.count = entry.count;
+      data.attempts = entry.count;
+      data.lockedUntil = entry.lockedUntil;
+      data.lastTarget = targetId;
+
+      saveLoginAttemptsData(data);
+      return {
+        isLocked: entry.count >= LOCKOUT_THRESHOLD,
+        count: entry.count,
+        lockedUntil: entry.lockedUntil,
+        message: LOCKOUT_ALERT_TEXT
+      };
+    }
+
+    function clearFailedLogin(targetId) {
+      const data = getLoginAttemptsData();
+      if (data[targetId]) {
+        delete data[targetId];
+        if (data.lastTarget === targetId) {
+          delete data.count;
+          delete data.attempts;
+          delete data.lockedUntil;
+          delete data.lastTarget;
+        }
+        saveLoginAttemptsData(data);
+      }
+    }
+
+    function applyTeacherLockoutUI(isLocked) {
+      const inPin = document.getElementById('input-pin');
+      const btnSubmit = document.getElementById('btn-submit-pin');
+      const errEl = document.getElementById('pin-error-msg');
+      const lockoutEl = document.getElementById('pin-lockout-msg');
+
+      if (isLocked) {
+        if (inPin) {
+          inPin.disabled = true;
+          inPin.value = '';
+          inPin.placeholder = 'الحساب مقفل مؤقتاً';
+          inPin.classList.add('opacity-50', 'cursor-not-allowed', 'border-red-500');
+        }
+        if (btnSubmit) {
+          btnSubmit.disabled = true;
+          btnSubmit.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+        if (errEl) errEl.classList.add('hidden');
+        if (lockoutEl) {
+          lockoutEl.innerText = LOCKOUT_ALERT_TEXT;
+          lockoutEl.classList.remove('hidden');
+        }
+      } else {
+        if (inPin) {
+          inPin.disabled = false;
+          inPin.placeholder = '••••';
+          inPin.classList.remove('opacity-50', 'cursor-not-allowed', 'border-red-500');
+        }
+        if (btnSubmit) {
+          btnSubmit.disabled = false;
+          btnSubmit.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+        if (lockoutEl) lockoutEl.classList.add('hidden');
+      }
+    }
+
+    function applyAdminLockoutUI(isLocked) {
+      const inPin = document.getElementById('input-admin-pin');
+      const btnSubmit = document.getElementById('btn-submit-admin-pin');
+      const errEl = document.getElementById('admin-error-msg');
+      const lockoutEl = document.getElementById('admin-lockout-msg');
+
+      if (isLocked) {
+        if (inPin) {
+          inPin.disabled = true;
+          inPin.value = '';
+          inPin.placeholder = 'الحساب مقفل مؤقتاً';
+          inPin.classList.add('opacity-50', 'cursor-not-allowed', 'border-red-500');
+        }
+        if (btnSubmit) {
+          btnSubmit.disabled = true;
+          btnSubmit.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+        if (errEl) errEl.classList.add('hidden');
+        if (lockoutEl) {
+          lockoutEl.innerText = LOCKOUT_ALERT_TEXT;
+          lockoutEl.classList.remove('hidden');
+        }
+      } else {
+        if (inPin) {
+          inPin.disabled = false;
+          inPin.placeholder = '••••';
+          inPin.classList.remove('opacity-50', 'cursor-not-allowed', 'border-red-500');
+        }
+        if (btnSubmit) {
+          btnSubmit.disabled = false;
+          btnSubmit.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+        if (lockoutEl) lockoutEl.classList.add('hidden');
+      }
+    }
+
+    function verifyTeacherPin() {
+      if (!selectedTeacherForLogin) return;
+      const teacherId = selectedTeacherForLogin.id;
+
+      const lockout = checkLockoutStatus(teacherId);
+      if (lockout.isLocked) {
+        applyTeacherLockoutUI(true);
+        return;
+      }
+
+      const inputPin = (document.getElementById('input-pin').value || '').trim();
+      let pinsObj = {};
+      try {
+        pinsObj = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
+      } catch (e) { pinsObj = {}; }
+      const expectedPin = pinsObj[teacherId] || '1234';
+
+      if (inputPin === expectedPin) {
+        clearFailedLogin(teacherId);
+
+        let pinStatus = {};
+        try {
+          pinStatus = JSON.parse(localStorage.getItem(STORAGE_KEY_PIN_STATUS)) || {};
+        } catch (e) { pinStatus = {}; }
+        const isTeacherChanged = pinStatus[teacherId] && pinStatus[teacherId].isChanged;
+
+        if (expectedPin === '1234' || !isTeacherChanged) {
+          closeQuickLoginModal();
+          openForceChangePinModal(selectedTeacherForLogin);
+          return;
+        }
+
+        // Custom PIN already active: authenticate and redirect to portal dashboard
+        closeQuickLoginModal();
+        sessionStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify({ teacherId, isAdmin: false }));
+        window.location.href = 'Teacher_Portal.html';
+      } else {
+        const res = recordFailedLogin(teacherId);
+        if (res.isLocked) {
+          applyTeacherLockoutUI(true);
+        } else {
+          const remaining = LOCKOUT_THRESHOLD - res.count;
+          const errorMsg = document.getElementById('pin-error-msg');
+          if (errorMsg) {
+            errorMsg.innerText = `رمز المرور غير صحيح، يرجى المحاولة مرة أخرى (متبقي ${remaining} محاولات).`;
+            errorMsg.classList.remove('hidden');
+          }
+          const inPin = document.getElementById('input-pin');
+          if (inPin) inPin.classList.add('border-red-500');
+        }
+      }
+    }
+
+    function verifyAdminPin() {
+      const lockout = checkLockoutStatus('admin');
+      if (lockout.isLocked) {
+        applyAdminLockoutUI(true);
+        return;
+      }
+
+      const inputPin = (document.getElementById('input-admin-pin').value || '').trim();
+      let pinsObj = {};
+      try {
+        pinsObj = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
+      } catch (e) { pinsObj = {}; }
+      const expectedPin = pinsObj['admin'] || '9999';
+
+      if (inputPin === expectedPin) {
+        clearFailedLogin('admin');
+        closeQuickLoginModal();
+        sessionStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify({ teacherId: 'admin_master', isAdmin: true }));
+        window.location.href = 'Teacher_Portal.html';
+      } else {
+        const res = recordFailedLogin('admin');
+        if (res.isLocked) {
+          applyAdminLockoutUI(true);
+        } else {
+          const remaining = LOCKOUT_THRESHOLD - res.count;
+          const errorMsg = document.getElementById('admin-error-msg');
+          if (errorMsg) {
+            errorMsg.innerText = `رمز المرور غير صحيح، يرجى المحاولة مجدداً (متبقي ${remaining} محاولات).`;
+            errorMsg.classList.remove('hidden');
+          }
+          const inPin = document.getElementById('input-admin-pin');
+          if (inPin) inPin.classList.add('border-red-500');
+        }
+      }
+    }
+
+    function openForceChangePinModal(teacher) {
+      pendingTeacherForPinChange = teacher;
+      const nameEl = document.getElementById('force-change-teacher-name');
+      if (nameEl) nameEl.innerText = teacher.nameAr + ' — ' + teacher.title;
+
+      const inNew = document.getElementById('input-new-pin');
+      const inConfirm = document.getElementById('input-confirm-pin');
+      const errEl = document.getElementById('force-change-error');
+
+      if (inNew) inNew.value = '';
+      if (inConfirm) inConfirm.value = '';
+      if (errEl) {
+        errEl.innerText = '';
+        errEl.classList.add('hidden');
+      }
+
+      openModal('modal-force-change-pin');
+      if (inNew) setTimeout(() => inNew.focus(), 100);
+    }
+
+    function closeForceChangePinModal() {
+      closeModal('modal-force-change-pin');
+      pendingTeacherForPinChange = null;
+    }
+
+    function handleForceChangePinSubmit(event) {
+      if (event) event.preventDefault();
+      const teacher = pendingTeacherForPinChange || selectedTeacherForLogin;
+      if (!teacher) return;
+
+      const inNew = document.getElementById('input-new-pin');
+      const inConfirm = document.getElementById('input-confirm-pin');
+      const errEl = document.getElementById('force-change-error');
+
+      const newPin = (inNew ? inNew.value : '').trim();
+      const confirmPin = (inConfirm ? inConfirm.value : '').trim();
+
+      if (!/^\d{4,8}$/.test(newPin)) {
+        if (errEl) {
+          errEl.innerText = 'يجب أن يتكون رمز المرور الجديد من 4 إلى 8 أرقام.';
+          errEl.classList.remove('hidden');
+        }
+        return;
+      }
+
+      if (newPin === '1234') {
+        if (errEl) {
+          errEl.innerText = 'لا يمكن استخدام الرمز الافتراضي القديم. يرجى تعيين رمز جديد ومختلف.';
+          errEl.classList.remove('hidden');
+        }
+        return;
+      }
+
+      if (newPin !== confirmPin) {
+        if (errEl) {
+          errEl.innerText = 'تأكيد رمز المرور غير متطابق مع الرمز الجديد.';
+          errEl.classList.remove('hidden');
+        }
+        return;
+      }
+
+      let pinsObj = {};
+      try {
+        pinsObj = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
+      } catch (e) { pinsObj = {}; }
+      pinsObj[teacher.id] = newPin;
+      localStorage.setItem(STORAGE_KEY_PINS, JSON.stringify(pinsObj));
+
+      let pinStatus = {};
+      try {
+        pinStatus = JSON.parse(localStorage.getItem(STORAGE_KEY_PIN_STATUS)) || {};
+      } catch (e) { pinStatus = {}; }
+      pinStatus[teacher.id] = { isChanged: true, changedAt: new Date().toISOString() };
+      pinStatus.isChanged = true;
+      localStorage.setItem(STORAGE_KEY_PIN_STATUS, JSON.stringify(pinStatus));
+
+      closeForceChangePinModal();
+      sessionStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify({ teacherId: teacher.id, isAdmin: false }));
+      window.location.href = 'Teacher_Portal.html';
+    }
+
+    // Auto-init quick auth stores on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      initQuickAuthStores();
+    });
+
+    // ========================================================
     // Global Esc Key Handler across whole page
     // ========================================================
     window.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' || e.keyCode === 27) {
         // 1. Check if any modal is currently visible
-        const modals = ['modal-parent-form', 'modal-receipt-dialog'];
+        const modals = ['modal-quick-login', 'modal-force-change-pin', 'modal-parent-form', 'modal-receipt-dialog'];
         let closedAny = false;
         modals.forEach(mid => {
           const m = document.getElementById(mid);
@@ -786,6 +1292,187 @@
         <button onclick="closeModal('modal-receipt-dialog')" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl transition">
           إتمام
         </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ======================================================== -->
+  <!-- MODAL: Quick Login for Teachers & Admin                  -->
+  <!-- ======================================================== -->
+  <div id="modal-quick-login" class="fixed inset-0 z-50 hidden bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto" role="dialog" aria-modal="true">
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-sm sm:max-w-md w-full p-6 sm:p-7 shadow-2xl text-center relative animate-in fade-in text-white">
+      <button onclick="closeQuickLoginModal()" class="absolute top-4 left-4 text-slate-400 hover:text-white p-1 rounded-lg">
+        ✕
+      </button>
+
+      <!-- Header Icon & Title -->
+      <div id="modal-teacher-icon" class="w-16 h-16 rounded-2xl mx-auto mb-3 bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-3xl shadow-lg ring-4 ring-amber-500/20">
+        ⚡
+      </div>
+
+      <h3 id="modal-quick-login-title" class="text-lg sm:text-xl font-black text-white mb-1">بوابة تسجيل الدخول السريع للمعلمات والإدارة</h3>
+      <p id="modal-teacher-title" class="text-xs text-slate-400 mb-4">اختاري حساب المعلمة أو الإدارة وأدخلي رمز المرور للدخول المباشر</p>
+
+      <!-- Auth Role Switcher -->
+      <div class="flex items-center gap-2 p-1 bg-slate-800/80 rounded-2xl border border-slate-700 mb-4">
+        <button type="button" id="tab-auth-teacher" onclick="setQuickAuthRole('teacher')" class="flex-1 py-2 rounded-xl text-xs font-black bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow transition">
+          👩‍🏫 معلمات المواد
+        </button>
+        <button type="button" id="tab-auth-admin" onclick="setQuickAuthRole('admin')" class="flex-1 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition">
+          👑 الإدارة العامة
+        </button>
+      </div>
+
+      <!-- Teacher Selection & Login View -->
+      <div id="view-auth-teacher" class="space-y-4 text-right">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">اختاري المعلمة:</label>
+          <select id="quick-teacher-select" onchange="onQuickTeacherSelectChanged()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white font-bold focus:outline-none focus:border-blue-500">
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="block text-xs font-bold text-slate-300">أدخلي رمز المرور (PIN):</label>
+            <span id="modal-teacher-name" class="text-xs font-black text-amber-300">مس / أسماء</span>
+          </div>
+          <div class="relative">
+            <input 
+              type="password" 
+              id="input-pin" 
+              maxlength="8" 
+              placeholder="••••" 
+              onkeydown="if(event.key==='Enter'||event.keyCode===13){event.preventDefault();verifyTeacherPin();}" 
+              class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-lg font-mono tracking-widest text-white focus:outline-none focus:border-blue-500 shadow-inner"
+            >
+          </div>
+          <p id="pin-error-msg" class="text-[11px] text-red-400 font-bold mt-1.5 hidden">رمز المرور غير صحيح، يرجى المحاولة مرة أخرى أو مراجعة إدارة المدرسة.</p>
+          <p id="pin-lockout-msg" class="text-[11px] text-amber-400 font-bold mt-1.5 hidden">⚠️ تم قفل الحساب مؤقتاً لمدة 15 دقيقة بعد 5 محاولات خاطئة. يرجى مراجعة إدارة المدرسة.</p>
+        </div>
+
+        <div class="flex items-center gap-2 pt-1">
+          <button id="btn-submit-pin" onclick="verifyTeacherPin()" class="flex-1 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-xl text-sm shadow-lg shadow-blue-500/25 transition active:scale-95">
+            دخول البوابة 🚀
+          </button>
+          <button onclick="closeQuickLoginModal()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition">
+            إلغاء
+          </button>
+        </div>
+      </div>
+
+      <!-- Admin Login View -->
+      <div id="view-auth-admin" class="space-y-4 text-right hidden">
+        <div class="p-3 bg-amber-950/30 border border-amber-500/30 rounded-xl text-center">
+          <span class="text-2xl block mb-1">👑</span>
+          <p class="text-xs font-black text-amber-300">دخول الإدارة العامة (Master Admin)</p>
+          <p class="text-[11px] text-slate-400 mt-0.5">صلاحيات كاملة للاطلاع وتعديل درجات جميع المواد والمعلمات</p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">رمز مدير النظام (Admin PIN):</label>
+          <input 
+            type="password" 
+            id="input-admin-pin" 
+            placeholder="••••" 
+            onkeydown="if(event.key==='Enter'||event.keyCode===13){event.preventDefault();verifyAdminPin();}" 
+            class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-base font-mono text-white focus:outline-none focus:border-amber-500 shadow-inner"
+          >
+          <p id="admin-error-msg" class="text-[11px] text-red-400 font-bold mt-1.5 hidden">رمز المرور غير صحيح، يرجى المحاولة مجدداً.</p>
+          <p id="admin-lockout-msg" class="text-[11px] text-amber-400 font-bold mt-1.5 hidden">⚠️ تم قفل الحساب مؤقتاً لمدة 15 دقيقة بعد 5 محاولات خاطئة. يرجى مراجعة إدارة المدرسة.</p>
+        </div>
+
+        <div class="flex items-center gap-2 pt-1">
+          <button id="btn-submit-admin-pin" onclick="verifyAdminPin()" class="flex-1 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black rounded-xl text-sm shadow transition active:scale-95">
+            دخول كمدير عام 👑
+          </button>
+          <button onclick="closeQuickLoginModal()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition">
+            إلغاء
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-slate-800 text-[10px] text-slate-500">
+        منظومة سرية ومحمية • يتم تسجيل وتأمين جميع عمليات الدخول
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ======================================================== -->
+  <!-- MODAL: Forced PIN Change on First Login                  -->
+  <!-- ======================================================== -->
+  <div id="modal-force-change-pin" class="fixed inset-0 z-50 hidden bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto" role="dialog" aria-modal="true">
+    <div class="bg-slate-900 border-2 border-amber-500/60 rounded-3xl max-w-sm sm:max-w-md w-full p-6 shadow-2xl text-center relative animate-in fade-in text-white">
+      <button onclick="closeForceChangePinModal()" class="absolute top-4 left-4 text-slate-400 hover:text-white p-1 rounded-lg">
+        ✕
+      </button>
+
+      <div class="w-16 h-16 rounded-2xl mx-auto mb-3 bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-3xl shadow-lg ring-4 ring-amber-500/20">
+        🔐
+      </div>
+
+      <div class="inline-block px-3 py-1 bg-amber-500/20 text-amber-300 text-xs font-black rounded-full border border-amber-500/40 mb-2">
+        إجراء أمني إلزامي • أول تسجيل دخول
+      </div>
+
+      <h3 class="text-lg sm:text-xl font-black text-white mb-1">تعيين رمز مرور جديد للحساب</h3>
+      <p id="force-change-teacher-name" class="text-xs sm:text-sm font-bold text-blue-400 mb-3">مس / ...</p>
+
+      <div class="bg-amber-950/40 border border-amber-500/30 rounded-xl p-3 text-right text-xs text-amber-200 font-semibold mb-4 leading-relaxed">
+        ⚠️ لدواعي الأمان وسرية كشوف درجات الطلاب، يجب تغيير رمز المرور الافتراضي وتعيين رمز شخصي جديد خاص بكِ (من 4 إلى 8 أرقام) قبل المتابعة إلى لوحة التحكم.
+      </div>
+
+      <form id="form-force-change-pin" onsubmit="handleForceChangePinSubmit(event)" class="space-y-3.5 text-right">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">رمز المرور الجديد (4 - 8 أرقام):</label>
+          <input 
+            type="password" 
+            id="input-new-pin" 
+            maxlength="8" 
+            placeholder="أدخلي رمز المرور الجديد" 
+            required 
+            autocomplete="new-password"
+            class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-lg font-mono tracking-widest text-white focus:outline-none focus:border-amber-400 shadow-inner"
+          >
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">تأكيد رمز المرور الجديد:</label>
+          <input 
+            type="password" 
+            id="input-confirm-pin" 
+            maxlength="8" 
+            placeholder="أعيدي إدخال الرمز للتأكيد" 
+            required 
+            autocomplete="new-password"
+            class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-lg font-mono tracking-widest text-white focus:outline-none focus:border-amber-400 shadow-inner"
+          >
+        </div>
+
+        <p id="force-change-error" class="text-xs text-red-400 font-bold hidden"></p>
+
+        <div class="pt-2 flex items-center gap-2">
+          <button 
+            type="submit" 
+            id="btn-submit-change-pin" 
+            class="flex-1 py-3 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:brightness-110 text-slate-950 font-black rounded-xl text-sm shadow-lg shadow-amber-500/25 transition active:scale-95"
+          >
+            حفظ الرمز وتفعيل الحساب 🔒
+          </button>
+          <button 
+            type="button" 
+            onclick="closeForceChangePinModal()" 
+            class="px-4 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition"
+          >
+            إلغاء
+          </button>
+        </div>
+      </form>
+
+      <div class="mt-4 pt-3 border-t border-slate-800 text-[10px] text-slate-500">
+        سيتم حفظ الرمز وتشفيره محلياً في متصفحكِ، يرجى حفظه جيداً لعمليات الدخول القادمة.
       </div>
     </div>
   </div>

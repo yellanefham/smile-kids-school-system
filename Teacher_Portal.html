@@ -129,18 +129,18 @@
       <div class="max-w-md mx-auto w-full mb-8 text-center">
         <button id="btn-admin-master-login" type="button" onclick="openAdminModal()" class="w-full py-3.5 px-6 bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-slate-950 font-black rounded-2xl shadow-xl hover:shadow-amber-500/25 transition-all duration-200 flex items-center justify-center gap-2 group text-sm sm:text-base border border-amber-400/50">
           <span class="text-xl group-hover:scale-125 transition-transform">👑</span>
-          <span>دخول الإدارة العامة (Master Admin) • PIN 9999</span>
-          <span class="text-[11px] bg-black/20 text-slate-900 font-bold px-2 py-0.5 rounded-full mr-2">صلاحيات كاملة لجميع المواد</span>
+          <span>دخول الإدارة العامة (Master Admin)</span>
+          <span class="text-[11px] bg-black/20 text-slate-900 font-bold px-2 py-0.5 rounded-full mr-2">صلاحيات كاملة للمنظومة</span>
         </button>
       </div>
 
-      <!-- Notice Bar -->
+      <!-- Security Notice Bar -->
       <div class="max-w-2xl mx-auto bg-slate-800/60 border border-slate-700/60 rounded-2xl p-4 text-center">
         <div class="flex items-center justify-center gap-2 text-xs text-amber-300 font-bold mb-1">
           <span>🔒</span>
-          <span>رمز الدخول المبدئي لجميع المعلمات: <span class="font-mono text-sm underline text-amber-200">1234</span></span>
+          <span>تسجيل دخول محمي • يرجى إدخال رمز المرور الخاص بكِ للدخول</span>
         </div>
-        <p class="text-[11px] text-slate-400">يمكن للمعلمة تغيير رمز المرور الخاص بها في أي وقت لحفظ خصوصية وسرية الدرجات.</p>
+        <p class="text-[11px] text-slate-400">يلزم تغيير كلمة المرور عند أول دخول لضمان خصوصية وسرية الدرجات، ويتم قفل الحساب مؤقتاً عند تكرار المحاولات الخاطئة.</p>
       </div>
     </section>
 
@@ -194,7 +194,7 @@
             <button type="button" onclick="setSimulatedPeriod('break')" class="period-quick-btn px-2 py-1 rounded-lg font-bold border transition text-[11px]" data-p="break">🥪 فسحة</button>
             <button type="button" onclick="setSimulatedPeriod(4)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px]" data-p="4">4 (09:45)</button>
             <button type="button" onclick="setSimulatedPeriod(5)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px]" data-p="5">5 (10:25)</button>
-            <button type="button" onclick="setSimulatedPeriod(6)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px] bg-amber-500/20 text-amber-300 border-amber-500/50 shadow" data-p="6">⭐ 6 (11:40)</button>
+            <button type="button" onclick="setSimulatedPeriod(6)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px] bg-amber-500/20 text-amber-300 border-amber-500/50 shadow" data-p="6">⭐ 6 (11:05)</button>
             <button type="button" onclick="setSimulatedPeriod(7)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px]" data-p="7">7 (11:40)</button>
             <button type="button" onclick="setSimulatedPeriod(8)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px]" data-p="8">8 (12:15)</button>
             <button type="button" onclick="resetToLiveTime()" id="btn-live-clock-reset" class="px-2.5 py-1 rounded-lg font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white transition text-[11px]">⏰ التوقيت الفعلي</button>
@@ -484,7 +484,7 @@
               <button type="button" onclick="quickJumpAttendancePeriod(3)" class="att-quick-p-btn px-2 py-1 rounded-lg text-[11px] font-bold bg-slate-900 border border-slate-700 text-slate-300 hover:text-white" data-p="3">3</button>
               <button type="button" onclick="quickJumpAttendancePeriod(4)" class="att-quick-p-btn px-2 py-1 rounded-lg text-[11px] font-bold bg-slate-900 border border-slate-700 text-slate-300 hover:text-white" data-p="4">4</button>
               <button type="button" onclick="quickJumpAttendancePeriod(5)" class="att-quick-p-btn px-2 py-1 rounded-lg text-[11px] font-bold bg-slate-900 border border-slate-700 text-slate-300 hover:text-white" data-p="5">5</button>
-              <button type="button" onclick="quickJumpAttendancePeriod(6)" class="att-quick-p-btn px-2 py-1 rounded-lg text-[11px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/50 shadow" data-p="6">⭐ 6 (11:40)</button>
+              <button type="button" onclick="quickJumpAttendancePeriod(6)" class="att-quick-p-btn px-2 py-1 rounded-lg text-[11px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/50 shadow" data-p="6">⭐ 6 (11:05)</button>
               <button type="button" onclick="quickJumpAttendancePeriod(7)" class="att-quick-p-btn px-2 py-1 rounded-lg text-[11px] font-bold bg-slate-900 border border-slate-700 text-slate-300 hover:text-white" data-p="7">7</button>
               <button type="button" onclick="quickJumpAttendancePeriod(8)" class="att-quick-p-btn px-2 py-1 rounded-lg text-[11px] font-bold bg-slate-900 border border-slate-700 text-slate-300 hover:text-white" data-p="8">8</button>
             </div>
@@ -632,13 +632,14 @@
       <div class="mb-5 text-right">
         <label class="block text-xs font-bold text-slate-300 mb-1.5">أدخلي رمز المرور (PIN):</label>
         <div class="relative">
-          <input type="password" id="input-pin" maxlength="8" placeholder="الرمز الافتراضي: 1234" onkeydown="if(event.key==='Enter'||event.keyCode===13){event.preventDefault();verifyTeacherPin();}" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-lg font-mono tracking-widest text-white focus:outline-none focus:border-blue-500 shadow-inner">
+          <input type="password" id="input-pin" maxlength="8" placeholder="••••" onkeydown="if(event.key==='Enter'||event.keyCode===13){event.preventDefault();verifyTeacherPin();}" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-lg font-mono tracking-widest text-white focus:outline-none focus:border-blue-500 shadow-inner">
         </div>
-        <p id="pin-error-msg" class="text-[11px] text-red-400 font-bold mt-1.5 hidden">رمز المرور غير صحيح! الرمز الافتراضي هو 1234</p>
+        <p id="pin-error-msg" class="text-[11px] text-red-400 font-bold mt-1.5 hidden">رمز المرور غير صحيح، يرجى المحاولة مرة أخرى أو مراجعة إدارة المدرسة.</p>
+        <p id="pin-lockout-msg" class="text-[11px] text-amber-400 font-bold mt-1.5 hidden">⚠️ تم قفل الحساب مؤقتاً لمدة 15 دقيقة بعد 5 محاولات خاطئة. يرجى مراجعة إدارة المدرسة.</p>
       </div>
 
       <div class="flex items-center gap-2">
-        <button onclick="verifyTeacherPin()" class="flex-1 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-xl text-sm shadow-lg shadow-blue-500/25 transition active:scale-95">
+        <button id="btn-submit-pin" onclick="verifyTeacherPin()" class="flex-1 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-xl text-sm shadow-lg shadow-blue-500/25 transition active:scale-95">
           دخول البوابة 🚀
         </button>
         <button onclick="closePinModal()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition">
@@ -647,7 +648,7 @@
       </div>
 
       <div class="mt-4 pt-3 border-t border-slate-800 text-[10px] text-slate-500">
-        رمز الدخول المبدئي لجميع المعلمات هو: <span class="text-amber-400 font-bold">1234</span>
+        منظومة سرية ومحمية • يتم تسجيل وتأمين جميع عمليات الدخول
       </div>
     </div>
   </div>
@@ -669,17 +670,94 @@
 
       <div class="mb-4 text-right">
         <label class="block text-xs font-bold text-slate-300 mb-1">رمز مدير النظام (Admin PIN):</label>
-        <input type="password" id="input-admin-pin" placeholder="أدخل رمز الإدارة (9999)" onkeydown="if(event.key==='Enter'||event.keyCode===13){event.preventDefault();verifyAdminPin();}" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-base font-mono text-white focus:outline-none focus:border-amber-500">
-        <p id="admin-error-msg" class="text-[11px] text-red-400 font-bold mt-1.5 hidden">رمز غير صحيح! الرمز الافتراضي هو 9999</p>
+        <input type="password" id="input-admin-pin" placeholder="••••" onkeydown="if(event.key==='Enter'||event.keyCode===13){event.preventDefault();verifyAdminPin();}" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-base font-mono text-white focus:outline-none focus:border-amber-500">
+        <p id="admin-error-msg" class="text-[11px] text-red-400 font-bold mt-1.5 hidden">رمز المرور غير صحيح، يرجى المحاولة مجدداً.</p>
+        <p id="admin-lockout-msg" class="text-[11px] text-amber-400 font-bold mt-1.5 hidden">⚠️ تم قفل الحساب مؤقتاً لمدة 15 دقيقة بعد 5 محاولات خاطئة. يرجى مراجعة إدارة المدرسة.</p>
       </div>
 
       <div class="flex items-center gap-2">
-        <button onclick="verifyAdminPin()" class="flex-1 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black rounded-xl text-sm shadow transition">
+        <button id="btn-submit-admin-pin" onclick="verifyAdminPin()" class="flex-1 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black rounded-xl text-sm shadow transition">
           دخول كمدير عام 👑
         </button>
         <button onclick="closeAdminModal()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition">
           إلغاء
         </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== MODAL: FORCE PIN CHANGE ON FIRST LOGIN ==================== -->
+  <div id="modal-force-change-pin" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border-2 border-amber-500/60 rounded-3xl max-w-sm sm:max-w-md w-full p-6 shadow-2xl text-center relative animate-in fade-in">
+      <button onclick="closeForceChangePinModal()" class="absolute top-4 left-4 text-slate-400 hover:text-white p-1 rounded-lg">
+        ✕
+      </button>
+
+      <div class="w-16 h-16 rounded-2xl mx-auto mb-3 bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-3xl shadow-lg ring-4 ring-amber-500/20">
+        🔐
+      </div>
+
+      <div class="inline-block px-3 py-1 bg-amber-500/20 text-amber-300 text-xs font-black rounded-full border border-amber-500/40 mb-2">
+        إجراء أمني إلزامي • أول تسجيل دخول
+      </div>
+
+      <h3 class="text-lg sm:text-xl font-black text-white mb-1">تعيين رمز مرور جديد للحساب</h3>
+      <p id="force-change-teacher-name" class="text-xs sm:text-sm font-bold text-blue-400 mb-3">مس / ...</p>
+
+      <div class="bg-amber-950/40 border border-amber-500/30 rounded-xl p-3 text-right text-xs text-amber-200 font-semibold mb-4 leading-relaxed">
+        ⚠️ لدواعي الأمان وسرية كشوف درجات الطلاب، يجب تغيير رمز المرور الافتراضي وتعيين رمز شخصي جديد خاص بكِ (من 4 إلى 8 أرقام) قبل المتابعة إلى لوحة التحكم.
+      </div>
+
+      <form id="form-force-change-pin" onsubmit="handleForceChangePinSubmit(event)" class="space-y-3.5 text-right">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">رمز المرور الجديد (4 - 8 أرقام):</label>
+          <input 
+            type="password" 
+            id="input-new-pin" 
+            maxlength="8" 
+            placeholder="أدخلي رمز المرور الجديد" 
+            required 
+            autocomplete="new-password"
+            class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-lg font-mono tracking-widest text-white focus:outline-none focus:border-amber-400 shadow-inner"
+          >
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">تأكيد رمز المرور الجديد:</label>
+          <input 
+            type="password" 
+            id="input-confirm-pin" 
+            maxlength="8" 
+            placeholder="أعيدي إدخال الرمز للتأكيد" 
+            required 
+            autocomplete="new-password"
+            class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-lg font-mono tracking-widest text-white focus:outline-none focus:border-amber-400 shadow-inner"
+          >
+        </div>
+
+        <p id="force-change-error" class="text-xs text-red-400 font-bold hidden"></p>
+
+        <div class="pt-2 flex items-center gap-2">
+          <button 
+            type="submit" 
+            id="btn-submit-change-pin" 
+            class="flex-1 py-3 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:brightness-110 text-slate-950 font-black rounded-xl text-sm shadow-lg shadow-amber-500/25 transition active:scale-95"
+          >
+            حفظ الرمز وتفعيل الحساب 🔒
+          </button>
+          <button 
+            type="button" 
+            onclick="closeForceChangePinModal()" 
+            class="px-4 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition"
+          >
+            إلغاء
+          </button>
+        </div>
+      </form>
+
+      <div class="mt-4 pt-3 border-t border-slate-800 text-[10px] text-slate-500">
+        سيتم حفظ الرمز وتشفيره محلياً في متصفحكِ، يرجى حفظه جيداً لعمليات الدخول القادمة.
       </div>
     </div>
   </div>
@@ -712,7 +790,13 @@
     const STORAGE_KEY_GRADES = 'smile_kids_teacher_grades';
     const STORAGE_KEY_ATTENDANCE = 'smile_kids_period_attendance';
     const STORAGE_KEY_PINS = 'smile_kids_teacher_pins';
+    const STORAGE_KEY_PIN_STATUS = 'smile_kids_teacher_pin_status';
+    const STORAGE_KEY_LOGIN_ATTEMPTS = 'smile_kids_login_attempts';
     const STORAGE_KEY_SESSION = 'smile_kids_active_teacher_session';
+
+    const LOCKOUT_THRESHOLD = 5;
+    const LOCKOUT_DURATION_MS = 15 * 60 * 1000; // 15 minutes
+    const LOCKOUT_ALERT_TEXT = '⚠️ تم قفل الحساب مؤقتاً لمدة 15 دقيقة بعد 5 محاولات خاطئة. يرجى مراجعة إدارة المدرسة.';
 
     // Initialize application on load
     window.addEventListener('DOMContentLoaded', () => {
@@ -747,6 +831,12 @@
         TEACHERS_CATALOG.forEach(t => initialPins[t.id] = '1234');
         initialPins['admin'] = '9999';
         localStorage.setItem(STORAGE_KEY_PINS, JSON.stringify(initialPins));
+      }
+      if (!localStorage.getItem(STORAGE_KEY_PIN_STATUS)) {
+        localStorage.setItem(STORAGE_KEY_PIN_STATUS, JSON.stringify({}));
+      }
+      if (!localStorage.getItem(STORAGE_KEY_LOGIN_ATTEMPTS)) {
+        localStorage.setItem(STORAGE_KEY_LOGIN_ATTEMPTS, JSON.stringify({}));
       }
     }
 
@@ -833,6 +923,173 @@
       }).join('');
     }
 
+    // ==================== BRUTE-FORCE LOCKOUT & AUTH HELPERS ====================
+
+    function getLoginAttemptsData() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY_LOGIN_ATTEMPTS)) || {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveLoginAttemptsData(data) {
+      try {
+        localStorage.setItem(STORAGE_KEY_LOGIN_ATTEMPTS, JSON.stringify(data));
+      } catch (e) {}
+    }
+
+    function checkLockoutStatus(targetId) {
+      const data = getLoginAttemptsData();
+      const entry = data[targetId] || { count: 0, attempts: 0, lockedUntil: 0 };
+      const now = Date.now();
+
+      if (entry.lockedUntil && now < entry.lockedUntil) {
+        const remainingMs = entry.lockedUntil - now;
+        const remainingMinutes = Math.max(1, Math.ceil(remainingMs / 60000));
+        return {
+          isLocked: true,
+          remainingMinutes,
+          message: LOCKOUT_ALERT_TEXT
+        };
+      }
+
+      // If lockout expired, reset counter for this target
+      if (entry.lockedUntil && now >= entry.lockedUntil) {
+        delete data[targetId];
+        if (data.lastTarget === targetId) {
+          delete data.count;
+          delete data.attempts;
+          delete data.lockedUntil;
+          delete data.lastTarget;
+        }
+        saveLoginAttemptsData(data);
+      }
+
+      return { isLocked: false, remainingMinutes: 0, count: entry.count || 0 };
+    }
+
+    function recordFailedLogin(targetId) {
+      const data = getLoginAttemptsData();
+      const entry = data[targetId] || { count: 0, attempts: 0, lockedUntil: 0 };
+      const now = Date.now();
+
+      if (entry.lockedUntil && now >= entry.lockedUntil) {
+        entry.count = 0;
+        entry.attempts = 0;
+        entry.lockedUntil = 0;
+      }
+
+      entry.count = (entry.count || 0) + 1;
+      entry.attempts = entry.count;
+      entry.lastAttempt = now;
+
+      if (entry.count >= LOCKOUT_THRESHOLD) {
+        entry.lockedUntil = now + LOCKOUT_DURATION_MS;
+      }
+
+      data[targetId] = entry;
+      // Mirror top-level fields for convenient inspection
+      data.count = entry.count;
+      data.attempts = entry.count;
+      data.lockedUntil = entry.lockedUntil;
+      data.lastTarget = targetId;
+
+      saveLoginAttemptsData(data);
+      return {
+        isLocked: entry.count >= LOCKOUT_THRESHOLD,
+        count: entry.count,
+        lockedUntil: entry.lockedUntil,
+        message: LOCKOUT_ALERT_TEXT
+      };
+    }
+
+    function clearFailedLogin(targetId) {
+      const data = getLoginAttemptsData();
+      if (data[targetId]) {
+        delete data[targetId];
+        if (data.lastTarget === targetId) {
+          delete data.count;
+          delete data.attempts;
+          delete data.lockedUntil;
+          delete data.lastTarget;
+        }
+        saveLoginAttemptsData(data);
+      }
+    }
+
+    function applyTeacherLockoutUI(isLocked) {
+      const inPin = document.getElementById('input-pin');
+      const btnSubmit = document.getElementById('btn-submit-pin');
+      const errEl = document.getElementById('pin-error-msg');
+      const lockoutEl = document.getElementById('pin-lockout-msg');
+
+      if (isLocked) {
+        if (inPin) {
+          inPin.disabled = true;
+          inPin.value = '';
+          inPin.placeholder = 'الحساب مقفل مؤقتاً';
+          inPin.classList.add('opacity-50', 'cursor-not-allowed', 'border-red-500');
+        }
+        if (btnSubmit) {
+          btnSubmit.disabled = true;
+          btnSubmit.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+        if (errEl) errEl.classList.add('hidden');
+        if (lockoutEl) {
+          lockoutEl.innerText = LOCKOUT_ALERT_TEXT;
+          lockoutEl.classList.remove('hidden');
+        }
+      } else {
+        if (inPin) {
+          inPin.disabled = false;
+          inPin.placeholder = '••••';
+          inPin.classList.remove('opacity-50', 'cursor-not-allowed', 'border-red-500');
+        }
+        if (btnSubmit) {
+          btnSubmit.disabled = false;
+          btnSubmit.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+        if (lockoutEl) lockoutEl.classList.add('hidden');
+      }
+    }
+
+    function applyAdminLockoutUI(isLocked) {
+      const inPin = document.getElementById('input-admin-pin');
+      const btnSubmit = document.getElementById('btn-submit-admin-pin');
+      const errEl = document.getElementById('admin-error-msg');
+      const lockoutEl = document.getElementById('admin-lockout-msg');
+
+      if (isLocked) {
+        if (inPin) {
+          inPin.disabled = true;
+          inPin.value = '';
+          inPin.placeholder = 'الحساب مقفل مؤقتاً';
+          inPin.classList.add('opacity-50', 'cursor-not-allowed', 'border-red-500');
+        }
+        if (btnSubmit) {
+          btnSubmit.disabled = true;
+          btnSubmit.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+        if (errEl) errEl.classList.add('hidden');
+        if (lockoutEl) {
+          lockoutEl.innerText = LOCKOUT_ALERT_TEXT;
+          lockoutEl.classList.remove('hidden');
+        }
+      } else {
+        if (inPin) {
+          inPin.disabled = false;
+          inPin.placeholder = '••••';
+          inPin.classList.remove('opacity-50', 'cursor-not-allowed', 'border-red-500');
+        }
+        if (btnSubmit) {
+          btnSubmit.disabled = false;
+          btnSubmit.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+        if (lockoutEl) lockoutEl.classList.add('hidden');
+      }
+    }
+
     function selectTeacherForLogin(teacherId) {
       const teacher = TEACHERS_CATALOG.find(t => t.id === teacherId);
       if (!teacher) return;
@@ -843,11 +1100,16 @@
       document.getElementById('modal-teacher-icon').innerText = teacher.icon;
       document.getElementById('input-pin').value = '';
       document.getElementById('pin-error-msg').classList.add('hidden');
+
+      const lockout = checkLockoutStatus(teacher.id);
+      applyTeacherLockoutUI(lockout.isLocked);
       
       const modal = document.getElementById('modal-pin');
       modal.classList.remove('hidden');
       modal.classList.add('flex');
-      setTimeout(() => document.getElementById('input-pin').focus(), 100);
+      if (!lockout.isLocked) {
+        setTimeout(() => document.getElementById('input-pin').focus(), 100);
+      }
     }
 
     function closePinModal() {
@@ -859,29 +1121,75 @@
 
     function verifyTeacherPin() {
       if (!selectedTeacherForLogin) return;
+      const teacherId = selectedTeacherForLogin.id;
+
+      // Check lockout status
+      const lockout = checkLockoutStatus(teacherId);
+      if (lockout.isLocked) {
+        applyTeacherLockoutUI(true);
+        return;
+      }
 
       const inputPin = document.getElementById('input-pin').value.trim();
-      const pinsObj = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
-      const expectedPin = pinsObj[selectedTeacherForLogin.id] || '1234';
+      let pinsObj = {};
+      try {
+        pinsObj = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
+      } catch (e) { pinsObj = {}; }
+      const expectedPin = pinsObj[teacherId] || '1234';
 
-      if (inputPin === expectedPin || inputPin === '1234' || inputPin === '9999') {
+      if (inputPin === expectedPin) {
+        // PIN is correct! Clear failed attempts
+        clearFailedLogin(teacherId);
+
+        // Check if forced PIN change is required (first login / default PIN '1234')
+        let pinStatus = {};
+        try {
+          pinStatus = JSON.parse(localStorage.getItem(STORAGE_KEY_PIN_STATUS)) || {};
+        } catch (e) { pinStatus = {}; }
+        const isTeacherChanged = pinStatus[teacherId] && pinStatus[teacherId].isChanged;
+
+        if (expectedPin === '1234' || !isTeacherChanged) {
+          // FORCED PIN CHANGE REQUIRED: DO NOT PROCEED TO DASHBOARD!
+          const teacher = selectedTeacherForLogin;
+          closePinModal();
+          openForceChangePinModal(teacher);
+          return;
+        }
+
+        // Custom PIN already set: proceed to dashboard
         const teacher = selectedTeacherForLogin;
-        loginAsTeacher(teacher, false);
         closePinModal();
+        loginAsTeacher(teacher, false);
         showToast('تم تسجيل الدخول بنجاح! مرحباً ' + (teacher ? teacher.nameAr : ''), 'success');
       } else {
-        document.getElementById('pin-error-msg').classList.remove('hidden');
-        document.getElementById('input-pin').classList.add('border-red-500');
+        // Wrong PIN: record failed attempt
+        const res = recordFailedLogin(teacherId);
+        if (res.isLocked) {
+          applyTeacherLockoutUI(true);
+          showToast(LOCKOUT_ALERT_TEXT, 'error');
+        } else {
+          const remaining = LOCKOUT_THRESHOLD - res.count;
+          const errorMsg = document.getElementById('pin-error-msg');
+          errorMsg.innerText = `رمز المرور غير صحيح، يرجى المحاولة مرة أخرى (متبقي ${remaining} محاولات).`;
+          errorMsg.classList.remove('hidden');
+          document.getElementById('input-pin').classList.add('border-red-500');
+        }
       }
     }
 
     function openAdminModal() {
       document.getElementById('input-admin-pin').value = '';
       document.getElementById('admin-error-msg').classList.add('hidden');
+
+      const lockout = checkLockoutStatus('admin');
+      applyAdminLockoutUI(lockout.isLocked);
+
       const modal = document.getElementById('modal-admin');
       modal.classList.remove('hidden');
       modal.classList.add('flex');
-      setTimeout(() => document.getElementById('input-admin-pin').focus(), 100);
+      if (!lockout.isLocked) {
+        setTimeout(() => document.getElementById('input-admin-pin').focus(), 100);
+      }
     }
 
     function closeAdminModal() {
@@ -891,11 +1199,21 @@
     }
 
     function verifyAdminPin() {
+      const lockout = checkLockoutStatus('admin');
+      if (lockout.isLocked) {
+        applyAdminLockoutUI(true);
+        return;
+      }
+
       const inputPin = document.getElementById('input-admin-pin').value.trim();
-      const pinsObj = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
+      let pinsObj = {};
+      try {
+        pinsObj = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
+      } catch (e) { pinsObj = {}; }
       const expectedPin = pinsObj['admin'] || '9999';
 
-      if (inputPin === expectedPin || inputPin === '9999') {
+      if (inputPin === expectedPin) {
+        clearFailedLogin('admin');
         const masterAdminTeacher = {
           id: 'admin_master',
           nameAr: 'الإدارة العامة (Master Admin)',
@@ -908,8 +1226,117 @@
         closeAdminModal();
         showToast('تم الدخول بصلاحيات الإدارة العامة الكاملة 👑', 'success');
       } else {
-        document.getElementById('admin-error-msg').classList.remove('hidden');
+        const res = recordFailedLogin('admin');
+        if (res.isLocked) {
+          applyAdminLockoutUI(true);
+          showToast(LOCKOUT_ALERT_TEXT, 'error');
+        } else {
+          const remaining = LOCKOUT_THRESHOLD - res.count;
+          const errorMsg = document.getElementById('admin-error-msg');
+          errorMsg.innerText = `رمز المرور غير صحيح، يرجى المحاولة مجدداً (متبقي ${remaining} محاولات).`;
+          errorMsg.classList.remove('hidden');
+          document.getElementById('input-admin-pin').classList.add('border-red-500');
+        }
       }
+    }
+
+    // ==================== FORCED PIN CHANGE LOGIC ====================
+    let pendingTeacherForPinChange = null;
+
+    function openForceChangePinModal(teacher) {
+      pendingTeacherForPinChange = teacher;
+      const nameEl = document.getElementById('force-change-teacher-name');
+      if (nameEl) nameEl.innerText = teacher.nameAr + ' — ' + teacher.title;
+
+      const inNew = document.getElementById('input-new-pin');
+      const inConfirm = document.getElementById('input-confirm-pin');
+      const errEl = document.getElementById('force-change-error');
+
+      if (inNew) inNew.value = '';
+      if (inConfirm) inConfirm.value = '';
+      if (errEl) {
+        errEl.innerText = '';
+        errEl.classList.add('hidden');
+      }
+
+      const modal = document.getElementById('modal-force-change-pin');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        setTimeout(() => { if (inNew) inNew.focus(); }, 100);
+      }
+    }
+
+    function closeForceChangePinModal() {
+      const modal = document.getElementById('modal-force-change-pin');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+      pendingTeacherForPinChange = null;
+    }
+
+    function handleForceChangePinSubmit(event) {
+      if (event) event.preventDefault();
+      const teacher = pendingTeacherForPinChange || selectedTeacherForLogin;
+      if (!teacher) return;
+
+      const inNew = document.getElementById('input-new-pin');
+      const inConfirm = document.getElementById('input-confirm-pin');
+      const errEl = document.getElementById('force-change-error');
+
+      const newPin = (inNew ? inNew.value : '').trim();
+      const confirmPin = (inConfirm ? inConfirm.value : '').trim();
+
+      // 1. Must be 4 to 8 digits
+      if (!/^\d{4,8}$/.test(newPin)) {
+        if (errEl) {
+          errEl.innerText = 'يجب أن يتكون رمز المرور الجديد من 4 إلى 8 أرقام.';
+          errEl.classList.remove('hidden');
+        }
+        return;
+      }
+
+      // 2. Cannot be initial default '1234'
+      if (newPin === '1234') {
+        if (errEl) {
+          errEl.innerText = 'لا يمكن استخدام الرمز الافتراضي القديم. يرجى تعيين رمز جديد ومختلف.';
+          errEl.classList.remove('hidden');
+        }
+        return;
+      }
+
+      // 3. Confirm matches
+      if (newPin !== confirmPin) {
+        if (errEl) {
+          errEl.innerText = 'تأكيد رمز المرور غير متطابق مع الرمز الجديد.';
+          errEl.classList.remove('hidden');
+        }
+        return;
+      }
+
+      // Update localStorage[STORAGE_KEY_PINS]
+      let pinsObj = {};
+      try {
+        pinsObj = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
+      } catch (e) { pinsObj = {}; }
+      pinsObj[teacher.id] = newPin;
+      localStorage.setItem(STORAGE_KEY_PINS, JSON.stringify(pinsObj));
+
+      // Mark isChanged: true in localStorage[STORAGE_KEY_PIN_STATUS]
+      let pinStatus = {};
+      try {
+        pinStatus = JSON.parse(localStorage.getItem(STORAGE_KEY_PIN_STATUS)) || {};
+      } catch (e) { pinStatus = {}; }
+      pinStatus[teacher.id] = { isChanged: true, changedAt: new Date().toISOString() };
+      pinStatus.isChanged = true;
+      localStorage.setItem(STORAGE_KEY_PIN_STATUS, JSON.stringify(pinStatus));
+
+      closeForceChangePinModal();
+      showToast('تم تعيين رمز المرور الجديد وتأمين حسابكِ بنجاح! 🔒', 'success');
+
+      // Now proceed to dashboard
+      loginAsTeacher(teacher, false);
     }
 
     function loginAsTeacher(teacher, isAdmin) {
@@ -1169,21 +1596,21 @@
         const currentMinutes = now.getMinutes();
         const currentTimeMinutes = currentHours * 60 + currentMinutes;
 
-        // At 11:40 (700 minutes), Period 6 matches (start 11:05 = 665, end 11:40 = 700)
+        // Period matching logic: Period 6 is (11:05 - 11:40), Period 7 is (11:40 - 12:15)
         for (const p of periodTimes) {
           const [sh, sm] = p.start.split(':').map(Number);
           const [eh, em] = p.end.split(':').map(Number);
           const pStart = sh * 60 + sm;
           const pEnd = eh * 60 + em;
 
-          if (currentTimeMinutes >= pStart && currentTimeMinutes <= pEnd) {
+          if (currentTimeMinutes >= pStart && currentTimeMinutes < pEnd) {
             matchedPeriod = p;
             break;
           }
         }
 
-        // If outside school hours (e.g. evening testing at 7:49 PM) or weekend:
-        // Default to Period 6 (11:40) as requested by user, so schedule & attendance are immediately available!
+        // If outside school hours or weekend:
+        // Default to Period 6 (11:05 - 11:40) so schedule & attendance are immediately available!
         if (!matchedPeriod) {
           matchedPeriod = periodTimes.find(p => p.period == 6) || periodTimes[5];
           dayIsWeekendPreview = true;
@@ -2399,7 +2826,8 @@
       const selectedDayAr = dayArabicMap[daySelect.value] || 'الأحد';
       const selectedPeriod = parseInt(periodSelect.value) || 1;
 
-      const recordKey = `att_${currentTeacher.id}_${selectedDayAr}_p${selectedPeriod}_${new Date().toISOString().split('T')[0]}`;
+      const dateStr = new Date().toISOString().split('T')[0];
+      const recordKey = `att_${currentTeacher.id}_${selectedDayAr}_p${selectedPeriod}_${dateStr}`;
       const attendanceList = getStoredAttendance();
 
       const presentCount = Object.values(currentAttendanceState).filter(s => s === 'present').length;
@@ -2411,6 +2839,7 @@
         return;
       }
 
+      // 1. Save period record in localStorage[STORAGE_KEY_ATTENDANCE]
       const newRecord = {
         id: recordKey,
         timestamp: new Date().toLocaleString('ar-EG'),
@@ -2429,6 +2858,52 @@
       const updatedList = attendanceList.filter(r => r.id !== recordKey);
       updatedList.unshift(newRecord);
       localStorage.setItem(STORAGE_KEY_ATTENDANCE, JSON.stringify(updatedList));
+
+      // 2. Immediately update each student's attendanceRecords in SmileKidsDB
+      if (window.SmileKidsDB && typeof window.SmileKidsDB.getAllStudents === 'function') {
+        const dbStudents = window.SmileKidsDB.getAllStudents();
+        Object.entries(currentAttendanceState).forEach(([stId, status]) => {
+          const student = dbStudents.find(s => s.id === stId);
+          if (student) {
+            if (!student.attendanceRecords) student.attendanceRecords = {};
+            if (status === 'absent') {
+              student.attendanceRecords[dateStr] = 'absent';
+            } else if (status === 'late') {
+              student.attendanceRecords[dateStr] = 'late';
+            } else {
+              student.attendanceRecords[dateStr] = 'present';
+            }
+          }
+        });
+        // Trigger window.SmileKidsDB.save() so it synchronizes to cloud & updates Student_Roster_Dashboard.html
+        window.SmileKidsDB.save();
+      }
+
+      // 3. Immediately update each student's attendanceRecords in localStorage[STORAGE_KEY_STUDENTS]
+      try {
+        const rawLocalStudents = localStorage.getItem(STORAGE_KEY_STUDENTS);
+        if (rawLocalStudents) {
+          const localStudents = JSON.parse(rawLocalStudents);
+          if (Array.isArray(localStudents)) {
+            Object.entries(currentAttendanceState).forEach(([stId, status]) => {
+              const student = localStudents.find(s => s.id === stId);
+              if (student) {
+                if (!student.attendanceRecords) student.attendanceRecords = {};
+                if (status === 'absent') {
+                  student.attendanceRecords[dateStr] = 'absent';
+                } else if (status === 'late') {
+                  student.attendanceRecords[dateStr] = 'late';
+                } else {
+                  student.attendanceRecords[dateStr] = 'present';
+                }
+              }
+            });
+            localStorage.setItem(STORAGE_KEY_STUDENTS, JSON.stringify(localStudents));
+          }
+        }
+      } catch (e) {
+        console.error('Error updating localStorage students attendance:', e);
+      }
 
       showToast(`تم اعتماد وحفظ غياب الحصة بنجاح! (حاضر: ${presentCount} ، غياب: ${absentCount})`, 'success');
     }
