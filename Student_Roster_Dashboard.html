@@ -1486,32 +1486,67 @@
         </div>
       </div>
 
+      <!-- View Mode Tabs (الكشف المعتمد مقابل الاختيار السريع من كشف المدرسة) -->
+      <div class="flex items-center justify-between gap-3 mb-4 flex-wrap bg-slate-900/90 p-2 rounded-2xl border border-slate-800 shadow">
+        <div class="flex items-center gap-2 p-1 bg-slate-950 rounded-xl border border-slate-800 flex-wrap">
+          <button id="btn-mode-staff-roster" onclick="setStaffKidsViewMode('roster')" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-black bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 transition flex items-center gap-1.5 shadow">
+            <span>📋 الكشف المعتمد لأبناء المعلمين</span>
+            <span id="badge-mode-roster-count" class="px-2 py-0.5 rounded-full bg-slate-950 text-amber-300 text-[11px] font-bold">0</span>
+          </button>
+          <button id="btn-mode-staff-picker" onclick="setStaffKidsViewMode('picker')" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-300 hover:text-white transition flex items-center gap-1.5 hover:bg-slate-800">
+            <span>🔍 اختيار وتحديد الطلاب من كشف المدرسة</span>
+            <span class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 text-[11px] font-bold">169 طالباً</span>
+          </button>
+        </div>
+
+        <div class="text-xs text-slate-400 font-bold px-2 flex items-center gap-1">
+          <span>💡</span>
+          <span id="staff-kids-mode-hint">اختر أي طالب من المدرسة بنقرة واحدة لإدراجه فوراً</span>
+        </div>
+      </div>
+
       <!-- Filters & Search Toolbar -->
       <div class="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl mb-4 flex flex-wrap items-center justify-between gap-3 shadow-md">
         <div class="flex items-center gap-2 flex-1 min-w-[260px] flex-wrap">
-          <div class="relative flex-1 min-w-[200px]">
-            <input type="text" id="staff-kids-search" oninput="filterStaffKidsTable()" placeholder="🔍 ابحث باسم الطالب أو اسم المعلمة أو الكود..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500">
+          <div class="relative flex-1 min-w-[220px]">
+            <input type="text" id="staff-kids-search" oninput="filterStaffKidsTable()" placeholder="🔍 اكتب اسم الطالب للبحث فوراً في كشوف المدرسة (مثال: جانتي، جاد...)" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 shadow-inner">
           </div>
-          <select id="staff-kids-grade-filter" onchange="filterStaffKidsTable()" class="bg-slate-950 border border-slate-700 text-xs text-slate-300 rounded-xl px-3 py-2 focus:outline-none focus:border-amber-500">
-            <option value="all">كل الصفوف (1-9)</option>
-            <option value="1">الصف الأول</option>
-            <option value="2">الصف الثاني</option>
-            <option value="3">الصف الثالث</option>
-            <option value="4">الصف الرابع</option>
-            <option value="5">الصف الخامس</option>
-            <option value="6">الصف السادس</option>
+          <select id="staff-kids-grade-filter" onchange="filterStaffKidsTable()" class="bg-slate-950 border border-slate-700 text-xs text-slate-200 font-bold rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-amber-500">
+            <option value="all">كل الصفوف الدراسية (1 - 9)</option>
+            <option value="1">الصف الأول الابتدائي</option>
+            <option value="2">الصف الثاني الابتدائي</option>
+            <option value="3">الصف الثالث الابتدائي</option>
+            <option value="4">الصف الرابع الابتدائي</option>
+            <option value="5">الصف الخامس الابتدائي</option>
+            <option value="6">الصف السادس الابتدائي</option>
             <option value="7">الصف الأول الإعدادي</option>
             <option value="8">الصف الثاني الإعدادي</option>
             <option value="9">الصف الثالث الإعدادي</option>
           </select>
-          <select id="staff-kids-teacher-filter" onchange="filterStaffKidsTable()" class="bg-slate-950 border border-slate-700 text-xs text-slate-300 rounded-xl px-3 py-2 focus:outline-none focus:border-amber-500">
+          <select id="staff-kids-teacher-filter" onchange="filterStaffKidsTable()" class="bg-slate-950 border border-slate-700 text-xs text-slate-200 font-bold rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-amber-500">
             <option value="all">كل أولياء الأمور (المعلمات)</option>
           </select>
         </div>
       </div>
 
-      <!-- Staff Kids Table Container -->
-      <div class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
+      <!-- Quick Grade Pills (when in picker mode) -->
+      <div id="staff-kids-grade-pills-bar" class="mb-4 overflow-x-auto pb-1 flex items-center gap-1.5">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Certified Staff Kids Table Container -->
+      <div id="container-staff-roster-view" class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-xl mb-6">
+        <div class="p-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400 font-black text-sm">📋 قائمة أبناء المعلمين المعتمدين بالمدرسة</span>
+            <span id="badge-roster-table-count" class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">0 طلاب</span>
+          </div>
+          <button onclick="setStaffKidsViewMode('picker')" class="text-xs text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1 hover:underline">
+            <span>➕ اختيار وتحديد طلاب إضافيين من كشوف المدرسة</span>
+            <span>←</span>
+          </button>
+        </div>
+
         <div class="overflow-x-auto">
           <table class="w-full text-right text-xs">
             <thead class="bg-slate-950 text-slate-400 border-b border-slate-800 text-[11px] font-black uppercase tracking-wider">
@@ -1533,16 +1568,62 @@
           </table>
         </div>
 
-        <!-- Empty State -->
-        <div id="staff-kids-empty-state" class="p-12 text-center hidden">
+        <!-- Empty State in Certified View -->
+        <div id="staff-kids-empty-state" class="p-10 text-center hidden">
           <div class="text-4xl mb-3">👨‍👩‍👧‍👦</div>
-          <h3 class="text-base font-bold text-white mb-1">لم يتم تسجيل طلاب في كشف أبناء المعلمين بعد</h3>
+          <h3 class="text-base font-bold text-white mb-1">لم يتم اعتماد طلاب في كشف أبناء المعلمين بعد</h3>
           <p class="text-xs text-slate-400 max-w-md mx-auto mb-4">
-            يمكنكم اختيار أي طالب من طلاب المدرسة وتحديد المعلمة وصلة القرابة والخصم بضغطة زر.
+            اضغط على الزر أدناه لتصفح كشوف المدرسة بالكامل وتحديد أبناء المعلمات بنقرة زر واحدة.
           </p>
-          <button onclick="openAddStaffChildModal()" class="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl text-xs sm:text-sm transition shadow-lg">
-            ➕ تسجيل أول طالب في كشف أبناء المعلمين
+          <button onclick="setStaffKidsViewMode('picker')" class="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl text-xs sm:text-sm transition shadow-lg">
+            🔍 تصفح واختيار الطلاب من كشف المدرسة الآن
           </button>
+        </div>
+      </div>
+
+      <!-- Quick School Roster Picker Container (Mode 2) -->
+      <div id="container-staff-picker-view" class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-xl mb-6 hidden">
+        <div class="p-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <span class="text-emerald-400 font-black text-sm block">🔍 كشوف المدرسة بالكامل (اختر الطلاب لتحديدهم كأبناء معلمين)</span>
+            <span class="text-[11px] text-slate-400">انقر على زر "➕ تحديد كابن معلم" بجانب أي طالب، وحدد اسم المعلمة وستُحفظ فوراً.</span>
+          </div>
+          <div id="picker-results-counter" class="text-xs font-bold text-slate-300 bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-700">
+            عرض 169 طالباً
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-right text-xs">
+            <thead class="bg-slate-950 text-slate-400 border-b border-slate-800 text-[11px] font-black uppercase tracking-wider">
+              <tr>
+                <th class="py-3 px-4 w-12 text-center">#</th>
+                <th class="py-3 px-4 w-28">كود الطالب</th>
+                <th class="py-3 px-4">اسم الطالب</th>
+                <th class="py-3 px-4">الصف والمرحلة</th>
+                <th class="py-3 px-4">المسار</th>
+                <th class="py-3 px-4 text-center">حالة الطالب في كشف أبناء المعلمين</th>
+                <th class="py-3 px-4 text-center no-print w-48">إجراء التحديد</th>
+              </tr>
+            </thead>
+            <tbody id="staff-picker-table-body" class="divide-y divide-slate-800/60">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Smart Suggestions Section (When searching in Roster mode and finding un-tagged students) -->
+      <div id="staff-kids-smart-suggestions" class="bg-gradient-to-r from-slate-900 to-indigo-950/60 border border-indigo-500/30 rounded-3xl p-5 shadow-xl hidden">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-base">✨</span>
+            <h4 class="font-black text-white text-sm">طلاب يطابقون بحثك من كشوف المدرسة العامة (غير مسجلين كأبناء معلمين بعد):</h4>
+          </div>
+          <span id="smart-suggestions-count" class="text-xs text-indigo-300 font-bold"></span>
+        </div>
+        <div id="smart-suggestions-list" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <!-- Rendered by JS -->
         </div>
       </div>
     </div>
@@ -2541,19 +2622,58 @@
 
 
     // ========================================================
-    // MODULE: Staff & Teachers Children Management (إدارة أبناء المعلمين)
+    // MODULE: Staff & Teachers Children Management (إدارة أبناء المعلمين المتقدمة)
     // ========================================================
     const TEACHERS_CATALOG_DATA = [{"id": "t_asmaa", "nameAr": "مس / أسماء", "nameEn": "Ms. Asmaa", "title": "معلمة اللغة العربية والتربية الدينية", "icon": "📚", "color": "from-blue-600 to-indigo-700", "subjects": [{"id": "arabic", "nameAr": "اللغة العربية", "nameEn": "Arabic Language", "grades": [2, 3, 4, 5]}, {"id": "religion", "nameAr": "التربية الدينية الإسلامية", "nameEn": "Religious Studies", "grades": [2, 3, 4, 5]}]}, {"id": "t_yara", "nameAr": "مس / يارا", "nameEn": "Ms. Yara", "title": "معلمة اللغة الإنجليزية وتكنولوجيا المعلومات", "icon": "🔤", "color": "from-emerald-600 to-teal-700", "subjects": [{"id": "english_al", "nameAr": "English (Connect Plus / AL)", "nameEn": "English (Connect Plus / AL)", "grades": [1, 2, 3, 4]}, {"id": "english_ol", "nameAr": "English (Connect / OL)", "nameEn": "English (Connect / OL)", "grades": [1, 2, 3, 4]}, {"id": "ict", "nameAr": "تكنولوجيا المعلومات (ICT)", "nameEn": "Information Technology (ICT)", "grades": [4]}]}, {"id": "t_nabila", "nameAr": "مس / نبيلة", "nameEn": "Ms. Nabila", "title": "معلمة الرياضيات والحساب (الصفوف الأولى)", "icon": "🔢", "color": "from-amber-600 to-orange-700", "subjects": [{"id": "math", "nameAr": "الرياضيات والحساب / Math", "nameEn": "Mathematics (Math)", "grades": [1, 2, 3, 4, 5]}]}, {"id": "t_hend", "nameAr": "مس / هند", "nameEn": "Ms. Hend", "title": "معلمة الرياضيات والـ Math (العليا والإعدادي)", "icon": "📐", "color": "from-purple-600 to-violet-700", "subjects": [{"id": "math", "nameAr": "الرياضيات / Math", "nameEn": "Mathematics (Math)", "grades": [4, 5, 6, 7, 8, 9]}]}, {"id": "t_samar", "nameAr": "مس / سمر", "nameEn": "Ms. Samar", "title": "معلمة العلوم و Science", "icon": "🔬", "color": "from-cyan-600 to-blue-700", "subjects": [{"id": "science", "nameAr": "العلوم / Science", "nameEn": "Science", "grades": [4, 5, 6, 7, 8, 9]}]}, {"id": "t_amira", "nameAr": "مس / أميرة", "nameEn": "Ms. Amira", "title": "معلمة English و ICT (الصفوف العليا)", "icon": "🌐", "color": "from-rose-600 to-pink-700", "subjects": [{"id": "english_al", "nameAr": "English (Connect Plus / AL)", "nameEn": "English (Connect Plus / AL)", "grades": [5, 6, 7, 8, 9]}, {"id": "english_ol", "nameAr": "English (Connect / OL)", "nameEn": "English (Connect / OL)", "grades": [5, 6, 7, 8, 9]}, {"id": "ict", "nameAr": "تكنولوجيا المعلومات (ICT)", "nameEn": "Information Technology (ICT)", "grades": [5, 6]}]}, {"id": "t_ola", "nameAr": "مس / علا", "nameEn": "Ms. Ola", "title": "معلمة اللغة العربية والتربية الدينية (العليا والإعدادي)", "icon": "📜", "color": "from-amber-700 to-red-800", "subjects": [{"id": "arabic", "nameAr": "اللغة العربية", "nameEn": "Arabic Language", "grades": [6, 7, 8, 9]}, {"id": "religion", "nameAr": "التربية الدينية الإسلامية", "nameEn": "Religious Studies", "grades": [6, 7, 8, 9]}, {"id": "quran", "nameAr": "القرآن الكريم", "nameEn": "Holy Quran", "grades": [6, 7, 8, 9]}]}, {"id": "t_marwa", "nameAr": "مس / مروة", "nameEn": "Ms. Marwa", "title": "معلمة القرآن الكريم واللغة العربية", "icon": "📖", "color": "from-green-600 to-emerald-800", "subjects": [{"id": "arabic", "nameAr": "اللغة العربية", "nameEn": "Arabic Language", "grades": [1]}, {"id": "religion", "nameAr": "التربية الدينية الإسلامية", "nameEn": "Religious Studies", "grades": [1]}, {"id": "quran", "nameAr": "القرآن الكريم", "nameEn": "Holy Quran", "grades": [1, 2, 3, 4, 5, 6, 7, 8, 9]}]}, {"id": "t_kariman", "nameAr": "مس / كريمان", "nameEn": "Ms. Kariman", "title": "معلمة الدراسات الاجتماعية والتكنولوجيا", "icon": "🌍", "color": "from-teal-600 to-cyan-800", "subjects": [{"id": "social", "nameAr": "الدراسات الاجتماعية", "nameEn": "Social Studies", "grades": [4, 5, 6, 7, 8, 9]}, {"id": "ict", "nameAr": "التكنولوجيا والأنشطة", "nameEn": "Technology & Activities", "grades": [3, 4, 5, 6, 8]}]}, {"id": "t_abeer", "nameAr": "مس / عبير", "nameEn": "Ms. Abeer", "title": "معلمة التربية الرياضية (P.E) والأنشطة", "icon": "⚽", "color": "from-lime-600 to-green-700", "subjects": [{"id": "pe", "nameAr": "التربية الرياضية (P.E)", "nameEn": "Physical Education", "grades": [2, 3, 4, 5, 6, 7, 8, 9]}, {"id": "art", "nameAr": "التربية الفنية (Art)", "nameEn": "Visual Arts", "grades": [2, 5, 6, 7, 8, 9]}]}, {"id": "t_basma", "nameAr": "مس / بسمة", "nameEn": "Ms. Basma", "title": "معلمة التربية الفنية (Art) والإشراف", "icon": "🎨", "color": "from-fuchsia-600 to-pink-700", "subjects": [{"id": "art", "nameAr": "التربية الفنية (Art)", "nameEn": "Visual Arts", "grades": [1]}, {"id": "pe", "nameAr": "التربية الرياضية (P.E)", "nameEn": "Physical Education", "grades": [1]}]}, {"id": "t_german", "nameAr": "مس / نانسي (Frau Nancy)", "nameEn": "Ms. Nancy (Frau Nancy)", "title": "معلمة اللغة الألمانية (German)", "icon": "🇩🇪", "color": "from-amber-600 to-yellow-700", "subjects": [{"id": "german", "nameAr": "اللغة الألمانية (German)", "nameEn": "German Language", "grades": [3, 4, 5, 6, 7, 8, 9]}]}];
+    let currentStaffKidsMode = 'roster'; // 'roster' (Certified List) or 'picker' (School Roster Selector)
+
+    function normalizeArabic(text) {
+      if (!text) return '';
+      return String(text)
+        .replace(/[أإآ]/g, 'ا')
+        .replace(/[ة]/g, 'ه')
+        .replace(/[ى]/g, 'ي')
+        .replace(/[ً-ٟ]/g, '') // remove tashkeel
+        .trim()
+        .toLowerCase();
+    }
+
+    function setStaffKidsViewMode(mode) {
+      currentStaffKidsMode = mode;
+      const btnRoster = document.getElementById('btn-mode-staff-roster');
+      const btnPicker = document.getElementById('btn-mode-staff-picker');
+      const contRoster = document.getElementById('container-staff-roster-view');
+      const contPicker = document.getElementById('container-staff-picker-view');
+      const hintEl = document.getElementById('staff-kids-mode-hint');
+
+      if (mode === 'roster') {
+        if (btnRoster) btnRoster.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-black bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 transition flex items-center gap-1.5 shadow';
+        if (btnPicker) btnPicker.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-300 hover:text-white transition flex items-center gap-1.5 hover:bg-slate-800';
+        if (contRoster) contRoster.classList.remove('hidden');
+        if (contPicker) contPicker.classList.add('hidden');
+        if (hintEl) hintEl.innerText = 'يعرض الطلاب المعتمدين كأبناء معلمين للطباعة والتصدير';
+      } else {
+        if (btnPicker) btnPicker.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-black bg-gradient-to-r from-emerald-500 to-teal-600 text-white transition flex items-center gap-1.5 shadow';
+        if (btnRoster) btnRoster.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-300 hover:text-white transition flex items-center gap-1.5 hover:bg-slate-800';
+        if (contRoster) contRoster.classList.add('hidden');
+        if (contPicker) contPicker.classList.remove('hidden');
+        if (hintEl) hintEl.innerText = 'تصفح كل طلاب المدرسة (169) واختر أبناء المعلمات بنقرة واحدة';
+      }
+
+      filterStaffKidsTable();
+    }
 
     function renderStaffKidsModule() {
       refreshStudentsFromDB();
       const staffKids = ALL_STUDENTS.filter(s => s.isTeacherChild === true);
 
-      // 1. Update Stats
+      // 1. Update KPI Stats Cards
       const elTotal = document.getElementById('staff-kids-count-total');
       const elLanguages = document.getElementById('staff-kids-count-languages');
       const elArabic = document.getElementById('staff-kids-count-arabic');
       const elParents = document.getElementById('staff-kids-count-parents');
+      const badgeRoster = document.getElementById('badge-mode-roster-count');
+      const badgeTable = document.getElementById('badge-roster-table-count');
 
       const lnCount = staffKids.filter(s => s.track === 'languages').length;
       const arCount = staffKids.filter(s => s.track === 'arabic').length;
@@ -2563,11 +2683,59 @@
       if (elLanguages) elLanguages.innerText = lnCount;
       if (elArabic) elArabic.innerText = arCount;
       if (elParents) elParents.innerText = uniqueParents;
+      if (badgeRoster) badgeRoster.innerText = staffKids.length;
+      if (badgeTable) badgeTable.innerText = `${staffKids.length} طلاب`;
 
       // 2. Populate Teacher Filter Dropdown if empty
       populateStaffKidsTeacherFilter();
 
-      // 3. Render Table
+      // 3. Render Grade Filter Pills Bar
+      renderStaffKidsGradePills();
+
+      // 4. Render Table according to current mode
+      filterStaffKidsTable();
+    }
+
+    function renderStaffKidsGradePills() {
+      const container = document.getElementById('staff-kids-grade-pills-bar');
+      if (!container) return;
+
+      const currentGradeFilter = document.getElementById('staff-kids-grade-filter')?.value || 'all';
+
+      let html = `
+        <button onclick="setStaffGradeFilter('all')" class="px-3 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap ${
+          currentGradeFilter === 'all' ? 'bg-amber-500 text-slate-950 font-black shadow' : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
+        }">
+          <span>🌟 الكل</span>
+          <span class="text-[10px] ml-1 opacity-75">(${ALL_STUDENTS.length})</span>
+        </button>
+      `;
+
+      for (let g = 1; g <= 9; g++) {
+        const gName = GRADE_CONFIG[g] ? GRADE_CONFIG[g].ar : `الصف ${g}`;
+        const totalInG = ALL_STUDENTS.filter(s => s.grade === g).length;
+        const staffInG = ALL_STUDENTS.filter(s => s.grade === g && s.isTeacherChild).length;
+        const isSel = currentGradeFilter === String(g);
+
+        html += `
+          <button onclick="setStaffGradeFilter('${g}')" class="px-3 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap ${
+            isSel ? 'bg-amber-500 text-slate-950 font-black shadow' : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
+          }">
+            <span>${gName}</span>
+            <span class="text-[10px] px-1.5 py-0.2 rounded-full ${isSel ? 'bg-slate-950/20 text-slate-950' : 'bg-slate-800 text-amber-300'} font-mono font-bold mr-1">
+              ${staffInG > 0 ? `★ ${staffInG}` : totalInG}
+            </span>
+          </button>
+        `;
+      }
+
+      container.innerHTML = html;
+    }
+
+    function setStaffGradeFilter(gVal) {
+      const select = document.getElementById('staff-kids-grade-filter');
+      if (select) select.value = gVal;
+      renderStaffKidsGradePills();
       filterStaffKidsTable();
     }
 
@@ -2584,19 +2752,25 @@
     }
 
     function filterStaffKidsTable() {
-      const searchVal = (document.getElementById('staff-kids-search')?.value || '').trim().toLowerCase();
+      const searchRaw = document.getElementById('staff-kids-search')?.value || '';
+      const normSearch = normalizeArabic(searchRaw);
       const gradeVal = document.getElementById('staff-kids-grade-filter')?.value || 'all';
       const teacherVal = document.getElementById('staff-kids-teacher-filter')?.value || 'all';
 
+      renderStaffKidsGradePills();
+
+      // =======================================================
+      // MODE 1: CERTIFIED STAFF ROSTER VIEW
+      // =======================================================
       let staffKids = ALL_STUDENTS.filter(s => s.isTeacherChild === true);
 
-      if (searchVal) {
+      if (normSearch) {
         staffKids = staffKids.filter(s => 
-          (s.nameAr && s.nameAr.toLowerCase().includes(searchVal)) ||
-          (s.nameEn && s.nameEn.toLowerCase().includes(searchVal)) ||
-          (s.id && s.id.toLowerCase().includes(searchVal)) ||
-          (s.teacherParentName && s.teacherParentName.toLowerCase().includes(searchVal)) ||
-          (s.teacherChildNotes && s.teacherChildNotes.toLowerCase().includes(searchVal))
+          normalizeArabic(s.nameAr).includes(normSearch) ||
+          (s.nameEn && s.nameEn.toLowerCase().includes(normSearch)) ||
+          (s.id && s.id.toLowerCase().includes(normSearch)) ||
+          normalizeArabic(s.teacherParentName).includes(normSearch) ||
+          normalizeArabic(s.teacherChildNotes).includes(normSearch)
         );
       }
 
@@ -2608,69 +2782,192 @@
         staffKids = staffKids.filter(s => s.teacherParentName === teacherVal);
       }
 
-      const tbody = document.getElementById('staff-kids-table-body');
-      const emptyState = document.getElementById('staff-kids-empty-state');
-      if (!tbody) return;
+      const tbodyRoster = document.getElementById('staff-kids-table-body');
+      const emptyStateRoster = document.getElementById('staff-kids-empty-state');
+      const badgeTable = document.getElementById('badge-roster-table-count');
+      if (badgeTable) badgeTable.innerText = `${staffKids.length} طلاب`;
 
-      if (staffKids.length === 0) {
-        tbody.innerHTML = '';
-        if (emptyState) emptyState.classList.remove('hidden');
-        return;
+      if (tbodyRoster) {
+        if (staffKids.length === 0) {
+          tbodyRoster.innerHTML = '';
+          if (emptyStateRoster) emptyStateRoster.classList.remove('hidden');
+        } else {
+          if (emptyStateRoster) emptyStateRoster.classList.add('hidden');
+          let html = '';
+          staffKids.forEach((st, idx) => {
+            const gradeObj = GRADE_CONFIG[st.grade] || { ar: `الصف ${st.grade}` };
+            const trackBadge = st.track === 'languages' 
+              ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-950 text-sky-400 border border-sky-800/60">لغات</span>'
+              : '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/60">عربي</span>';
+            const genderAvatar = st.gender === 'female' ? '👧' : '👦';
+
+            html += `
+              <tr class="hover:bg-slate-800/50 transition border-b border-slate-800/60">
+                <td class="py-3 px-4 text-center font-bold text-slate-500">${idx + 1}</td>
+                <td class="py-3 px-4 font-mono font-bold text-amber-400 text-xs">${st.id}</td>
+                <td class="py-3 px-4 font-black text-white text-sm">
+                  <div class="flex items-center gap-2">
+                    <span>${genderAvatar}</span>
+                    <span>${st.nameAr}</span>
+                  </div>
+                </td>
+                <td class="py-3 px-4 font-bold text-slate-300">${gradeObj.ar}</td>
+                <td class="py-3 px-4">${trackBadge}</td>
+                <td class="py-3 px-4 font-bold text-amber-300">
+                  <div class="flex items-center gap-1.5">
+                    <span>👩‍🏫</span>
+                    <span>${st.teacherParentName || 'غير محدد'}</span>
+                  </div>
+                </td>
+                <td class="py-3 px-4 text-slate-300">
+                  <span class="px-2 py-0.5 rounded-lg bg-slate-800 border border-slate-700 text-[11px] font-bold text-slate-200">
+                    ${st.teacherRelation || 'ابن / ابنة'}
+                  </span>
+                  ${st.teacherParentTitle ? `<span class="text-[10px] text-slate-400 block mt-0.5">${st.teacherParentTitle}</span>` : ''}
+                </td>
+                <td class="py-3 px-4 text-slate-300">
+                  ${st.teacherChildNotes ? `<span class="px-2 py-0.5 rounded-lg bg-amber-950/40 border border-amber-500/30 text-amber-300 text-[11px] font-bold">${st.teacherChildNotes}</span>` : '<span class="text-slate-600 text-[11px]">-</span>'}
+                </td>
+                <td class="py-3 px-4 text-center no-print">
+                  <div class="flex items-center justify-center gap-1">
+                    <button onclick="editStaffChild('${st.id}')" class="p-1.5 hover:bg-slate-800 text-slate-400 hover:text-amber-400 rounded-lg transition" title="تعديل بيانات ولي الأمر والملاحظات">
+                      ✏️
+                    </button>
+                    <button onclick="removeStaffChild('${st.id}')" class="p-1.5 hover:bg-red-950/60 text-slate-400 hover:text-red-400 rounded-lg transition" title="إزالة من كشف أبناء المعلمين">
+                      ❌
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            `;
+          });
+          tbodyRoster.innerHTML = html;
+        }
       }
 
-      if (emptyState) emptyState.classList.add('hidden');
+      // =======================================================
+      // SMART SUGGESTIONS (If user searched in Roster mode)
+      // =======================================================
+      const smartBox = document.getElementById('staff-kids-smart-suggestions');
+      const smartList = document.getElementById('smart-suggestions-list');
+      const smartCount = document.getElementById('smart-suggestions-count');
 
-      let html = '';
-      staffKids.forEach((st, idx) => {
-        const gradeObj = GRADE_CONFIG[st.grade] || { ar: `الصف ${st.grade}` };
-        const trackBadge = st.track === 'languages' 
-          ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-950 text-sky-400 border border-sky-800/60">لغات</span>'
-          : '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/60">عربي</span>';
-        
-        const genderAvatar = st.gender === 'female' ? '👧' : '👦';
+      if (smartBox && smartList) {
+        if (normSearch && currentStaffKidsMode === 'roster') {
+          const unTaggedMatches = ALL_STUDENTS.filter(s => 
+            !s.isTeacherChild &&
+            (gradeVal === 'all' || String(s.grade) === gradeVal) &&
+            (normalizeArabic(s.nameAr).includes(normSearch) || s.id.toLowerCase().includes(normSearch))
+          );
 
-        html += `
-          <tr class="hover:bg-slate-800/50 transition border-b border-slate-800/60 group">
-            <td class="py-3 px-4 text-center font-bold text-slate-500">${idx + 1}</td>
-            <td class="py-3 px-4 font-mono font-bold text-amber-400 text-xs">${st.id}</td>
-            <td class="py-3 px-4 font-black text-white text-sm">
-              <div class="flex items-center gap-2">
-                <span>${genderAvatar}</span>
-                <span>${st.nameAr}</span>
-              </div>
-            </td>
-            <td class="py-3 px-4 font-bold text-slate-300">${gradeObj.ar}</td>
-            <td class="py-3 px-4">${trackBadge}</td>
-            <td class="py-3 px-4 font-bold text-amber-300">
-              <div class="flex items-center gap-1.5">
-                <span>👩‍🏫</span>
-                <span>${st.teacherParentName || 'غير محدد'}</span>
-              </div>
-            </td>
-            <td class="py-3 px-4 text-slate-300">
-              <span class="px-2 py-0.5 rounded-lg bg-slate-800 border border-slate-700 text-[11px] font-bold text-slate-200">
-                ${st.teacherRelation || 'ابن / ابنة'}
-              </span>
-              ${st.teacherParentTitle ? `<span class="text-[10px] text-slate-400 block mt-0.5">${st.teacherParentTitle}</span>` : ''}
-            </td>
-            <td class="py-3 px-4 text-slate-300">
-              ${st.teacherChildNotes ? `<span class="px-2 py-0.5 rounded-lg bg-amber-950/40 border border-amber-500/30 text-amber-300 text-[11px] font-bold">${st.teacherChildNotes}</span>` : '<span class="text-slate-600 text-[11px]">-</span>'}
-            </td>
-            <td class="py-3 px-4 text-center no-print">
-              <div class="flex items-center justify-center gap-1">
-                <button onclick="editStaffChild('${st.id}')" class="p-1.5 hover:bg-slate-800 text-slate-400 hover:text-amber-400 rounded-lg transition" title="تعديل بيانات ولي الأمر والملاحظات">
-                  ✏️
-                </button>
-                <button onclick="removeStaffChild('${st.id}')" class="p-1.5 hover:bg-red-950/60 text-slate-400 hover:text-red-400 rounded-lg transition" title="إزالة من كشف أبناء المعلمين">
-                  ❌
-                </button>
-              </div>
-            </td>
-          </tr>
-        `;
-      });
+          if (unTaggedMatches.length > 0) {
+            smartCount.innerText = `(${unTaggedMatches.length} طلاب مطابقة)`;
+            let sHtml = '';
+            unTaggedMatches.forEach(st => {
+              const gradeObj = GRADE_CONFIG[st.grade] || { ar: `الصف ${st.grade}` };
+              const trackName = st.track === 'languages' ? 'لغات' : 'عربي';
+              sHtml += `
+                <div class="bg-slate-950 border border-indigo-500/40 rounded-2xl p-3 flex items-center justify-between gap-2 shadow">
+                  <div class="flex items-center gap-2">
+                    <span class="text-xl">${st.gender === 'female' ? '👧' : '👦'}</span>
+                    <div>
+                      <div class="font-black text-white text-xs">${st.nameAr}</div>
+                      <div class="text-[10px] text-slate-400">${gradeObj.ar} • ${trackName} • <span class="font-mono text-amber-400">${st.id}</span></div>
+                    </div>
+                  </div>
+                  <button onclick="openAddStaffChildModal('${st.id}')" class="px-3 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl text-xs transition shadow flex items-center gap-1 active:scale-95 whitespace-nowrap">
+                    <span>➕ تحديد كابن معلم</span>
+                  </button>
+                </div>
+              `;
+            });
+            smartList.innerHTML = sHtml;
+            smartBox.classList.remove('hidden');
+          } else {
+            smartBox.classList.add('hidden');
+          }
+        } else {
+          smartBox.classList.add('hidden');
+        }
+      }
 
-      tbody.innerHTML = html;
+      // =======================================================
+      // MODE 2: FULL SCHOOL ROSTER PICKER VIEW (169 Students)
+      // =======================================================
+      const tbodyPicker = document.getElementById('staff-picker-table-body');
+      const counterPicker = document.getElementById('picker-results-counter');
+
+      if (tbodyPicker && currentStaffKidsMode === 'picker') {
+        let pool = [...ALL_STUDENTS];
+
+        if (gradeVal !== 'all') {
+          pool = pool.filter(s => String(s.grade) === gradeVal);
+        }
+
+        if (normSearch) {
+          pool = pool.filter(s => 
+            normalizeArabic(s.nameAr).includes(normSearch) ||
+            (s.nameEn && s.nameEn.toLowerCase().includes(normSearch)) ||
+            (s.id && s.id.toLowerCase().includes(normSearch)) ||
+            (s.teacherParentName && normalizeArabic(s.teacherParentName).includes(normSearch))
+          );
+        }
+
+        if (counterPicker) counterPicker.innerText = `عرض ${pool.length} طالباً`;
+
+        let pHtml = '';
+        pool.forEach((st, idx) => {
+          const gradeObj = GRADE_CONFIG[st.grade] || { ar: `الصف ${st.grade}` };
+          const trackBadge = st.track === 'languages' 
+            ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-950 text-sky-400 border border-sky-800/60">لغات</span>'
+            : '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/60">عربي</span>';
+          const genderAvatar = st.gender === 'female' ? '👧' : '👦';
+
+          pHtml += `
+            <tr class="hover:bg-slate-800/50 transition border-b border-slate-800/60 ${st.isTeacherChild ? 'bg-amber-950/20' : ''}">
+              <td class="py-3 px-4 text-center font-bold text-slate-500">${idx + 1}</td>
+              <td class="py-3 px-4 font-mono font-bold text-slate-400 text-xs">${st.id}</td>
+              <td class="py-3 px-4 font-black text-white text-sm">
+                <div class="flex items-center gap-2">
+                  <span>${genderAvatar}</span>
+                  <span>${st.nameAr}</span>
+                  ${st.isTeacherChild ? '<span class="text-amber-400 text-xs" title="مسجل كابن معلم">★</span>' : ''}
+                </div>
+              </td>
+              <td class="py-3 px-4 font-bold text-slate-300">${gradeObj.ar}</td>
+              <td class="py-3 px-4">${trackBadge}</td>
+              <td class="py-3 px-4 text-center">
+                ${st.isTeacherChild ? `
+                  <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-bold">
+                    <span>👩‍🏫</span>
+                    <span>ابن ${st.teacherParentName || 'معلم'}</span>
+                  </div>
+                ` : `
+                  <span class="text-slate-500 text-xs font-semibold">غير محدد</span>
+                `}
+              </td>
+              <td class="py-3 px-4 text-center no-print">
+                ${st.isTeacherChild ? `
+                  <div class="flex items-center justify-center gap-1">
+                    <button onclick="editStaffChild('${st.id}')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-amber-300 rounded-lg text-xs font-bold transition flex items-center gap-1 border border-slate-700">
+                      <span>✏️ تعديل</span>
+                    </button>
+                    <button onclick="removeStaffChild('${st.id}')" class="p-1 hover:bg-red-950 text-slate-400 hover:text-red-400 rounded-lg transition" title="إلغاء التحديد">
+                      ✕
+                    </button>
+                  </div>
+                ` : `
+                  <button onclick="openAddStaffChildModal('${st.id}')" class="w-full px-3 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-xl text-xs transition shadow flex items-center justify-center gap-1 active:scale-95">
+                    <span>➕ تحديد كابن معلم</span>
+                  </button>
+                `}
+              </td>
+            </tr>
+          `;
+        });
+
+        tbodyPicker.innerHTML = pHtml;
+      }
     }
 
     function openAddStaffChildModal(selectedStudentId = null) {
@@ -2811,7 +3108,6 @@
 
       closeModal('modal-add-staff-child');
       renderStaffKidsModule();
-      alert(`✓ تم تسجيل الطالب بنجاح في كشف أبناء المعلمين والعاملين.`);
     }
 
     function editStaffChild(stId) {
