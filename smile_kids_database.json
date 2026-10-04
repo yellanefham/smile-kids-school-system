@@ -1,11 +1,14 @@
 {
   "database_info": {
     "name": "قاعدة بيانات مدرسة Smile Kids الموحدة 2025/2026",
-    "version": "2026.5.0",
-    "last_modified": 1791143005537,
-    "exported_at": "2026-10-04T22:43:25.000Z",
-    "total_students": 170,
-    "storage_key": "SMILE_KIDS_MASTER_DATABASE_2026_V4"
+    "version": "2026.6.0",
+    "last_modified": 1791143648888,
+    "exported_at": "2026-10-04T22:54:08.000Z",
+    "total_students": 169,
+    "storage_key": "SMILE_KIDS_MASTER_DATABASE_2026_V4",
+    "deleted_student_ids": [
+      "SK-G2-LN-013"
+    ]
   },
   "students": [
     {
@@ -1112,38 +1115,6 @@
       "trackNameEn": "Languages Track",
       "nameAr": "ليا هيثم رشوان",
       "nameEn": "Lia Haitham Rashwan",
-      "gender": "female",
-      "sampleScores": {
-        "month1": 19.5,
-        "month2": 20,
-        "midterm": 29.5,
-        "final": 30,
-        "attendance": 99
-      },
-      "attendanceRecords": {},
-      "attendanceNotes": {},
-      "termsScores": {
-        "t1_m1": 19.5,
-        "t1_m2": 20,
-        "t1_exam": 29.5,
-        "t1_total": 98,
-        "t2_m1": 20,
-        "t2_m2": 20,
-        "t2_exam": 30,
-        "t2_total": 98,
-        "annual_total": 98
-      }
-    },
-    {
-      "id": "SK-G2-LN-013",
-      "grade": 2,
-      "gradeNameAr": "الصف الثاني الابتدائي",
-      "gradeNameEn": "Grade 2",
-      "track": "languages",
-      "trackNameAr": "لغات (Math)",
-      "trackNameEn": "Languages Track",
-      "nameAr": "ليان محمد أمين",
-      "nameEn": "Layan Mohamed Amin",
       "gender": "female",
       "sampleScores": {
         "month1": 19.5,

@@ -1143,38 +1143,6 @@
     }
   },
   {
-    "id": "SK-G2-LN-013",
-    "grade": 2,
-    "gradeNameAr": "الصف الثاني الابتدائي",
-    "gradeNameEn": "Grade 2",
-    "track": "languages",
-    "trackNameAr": "لغات (Math)",
-    "trackNameEn": "Languages Track",
-    "nameAr": "ليان محمد أمين",
-    "nameEn": "Layan Mohamed Amin",
-    "gender": "female",
-    "sampleScores": {
-      "month1": 19.5,
-      "month2": 20,
-      "midterm": 29.5,
-      "final": 30,
-      "attendance": 99
-    },
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "t1_m1": 19.5,
-      "t1_m2": 20,
-      "t1_exam": 29.5,
-      "t1_total": 98,
-      "t2_m1": 20,
-      "t2_m2": 20,
-      "t2_exam": 30,
-      "t2_total": 98,
-      "annual_total": 98
-    }
-  },
-  {
     "id": "SK-G2-LN-014",
     "grade": 2,
     "gradeNameAr": "الصف الثاني الابتدائي",
@@ -5472,6 +5440,8 @@
 
     _cache: null,
     _listeners: [],
+    DELETED_IDS_KEY: 'smile_kids_deleted_student_ids_v1',
+    _deletedIds: new Set(['SK-G2-LN-013']),
 
     init: function() {
       let raw = null;
@@ -5510,12 +5480,30 @@
         this.save();
       }
 
-      // Ensure all 147 verified students exist in cache even after migration
+      // Initialize and load deleted student IDs (Tombstones) to prevent zombie resurrections
+      this._deletedIds = new Set(['SK-G2-LN-013']);
+      if (typeof localStorage !== 'undefined') {
+        try {
+          const rawDel = localStorage.getItem(this.DELETED_IDS_KEY);
+          if (rawDel) {
+            const arr = JSON.parse(rawDel);
+            if (Array.isArray(arr)) arr.forEach(id => this._deletedIds.add(id));
+          }
+          localStorage.setItem(this.DELETED_IDS_KEY, JSON.stringify(Array.from(this._deletedIds)));
+        } catch(e) {}
+      }
+
+      // Purge any deleted students from cache immediately
+      if (this._cache && Array.isArray(this._cache)) {
+        this._cache = this._cache.filter(s => !this._deletedIds.has(s.id));
+      }
+
+      // Ensure verified students exist in cache without resurrecting deleted students
       if (this._cache) {
         const existingIds = new Set(this._cache.map(s => s.id));
         let addedCount = 0;
         MASTER_INITIAL_STUDENTS.forEach(defSt => {
-          if (!existingIds.has(defSt.id)) {
+          if (!existingIds.has(defSt.id) && !this._deletedIds.has(defSt.id)) {
             this._cache.push(this._clone(defSt));
             addedCount++;
           }
@@ -5828,7 +5816,12 @@
               const localMap = new Map();
               this._cache.forEach(s => localMap.set(s.id, s));
 
+              let cloudHasDeleted = false;
               studentsList.forEach(cloudSt => {
+                if (this._deletedIds && this._deletedIds.has(cloudSt.id)) {
+                  cloudHasDeleted = true;
+                  return; // NEVER resurrect a deleted student!
+                }
                 const localSt = localMap.get(cloudSt.id);
                 if (!localSt) {
                   this._cache.push(cloudSt);
@@ -6229,15 +6222,27 @@
     },
 
     deleteStudent: function(id) {
+      if (!id) return null;
+      if (!this._deletedIds) this._deletedIds = new Set();
+      this._deletedIds.add(id);
+
+      if (typeof localStorage !== 'undefined') {
+        try {
+          localStorage.setItem(this.DELETED_IDS_KEY, JSON.stringify(Array.from(this._deletedIds)));
+        } catch(e) {}
+      }
+
       const idx = this.getAllStudents().findIndex(s => s.id === id);
+      let removed = null;
       if (idx !== -1) {
-        const removed = this.getAllStudents().splice(idx, 1)[0];
+        removed = this.getAllStudents().splice(idx, 1)[0];
         this.save();
 
-        // Instant Cloud Sync to Google Drive
+        // Instant Cloud Sync to Google Drive with deleted IDs
         this.syncToCloud({
           action: 'full_backup',
-          instant: true
+          instant: true,
+          deleted_student_ids: Array.from(this._deletedIds)
         });
 
         // Instant Firestore Sync for deleted student
