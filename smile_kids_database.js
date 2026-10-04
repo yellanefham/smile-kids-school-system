@@ -4695,6 +4695,742 @@
       "t2_total": 98,
       "annual_total": 98
     }
+  },
+  {
+    "id": "SK-G2-LN-020",
+    "grade": 2,
+    "gradeNameAr": "الصف الثاني الابتدائي",
+    "gradeNameEn": "Grade 2",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "ليان محمود أمين",
+    "nameEn": "Layan Mahmoud Amin",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G2-LN-021",
+    "grade": 2,
+    "gradeNameAr": "الصف الثاني الابتدائي",
+    "gradeNameEn": "Grade 2",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "محمد أحمد ضاحي",
+    "nameEn": "Mohamed Ahmed Dhahi",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G2-LN-022",
+    "grade": 2,
+    "gradeNameAr": "الصف الثاني الابتدائي",
+    "gradeNameEn": "Grade 2",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "يزن حسام عطية",
+    "nameEn": "Yazan Hossam Atteya",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G2-LN-023",
+    "grade": 2,
+    "gradeNameAr": "الصف الثاني الابتدائي",
+    "gradeNameEn": "Grade 2",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "ريماس أحمد محمد",
+    "nameEn": "Remas Ahmed Mohamed",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G2-LN-024",
+    "grade": 2,
+    "gradeNameAr": "الصف الثاني الابتدائي",
+    "gradeNameEn": "Grade 2",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "أمنية محمد عبد الرحمن",
+    "nameEn": "Omnia Mohamed Abdel Rahman",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G2-LN-025",
+    "grade": 2,
+    "gradeNameAr": "الصف الثاني الابتدائي",
+    "gradeNameEn": "Grade 2",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "فريدة محمود إبراهيم",
+    "nameEn": "Farida Mahmoud Ibrahim",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G2-AR-009",
+    "grade": 2,
+    "gradeNameAr": "الصف الثاني الابتدائي",
+    "gradeNameEn": "Grade 2",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "تالا عبد القادر",
+    "nameEn": "Tala Abdel Qader",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G1-LN-011",
+    "grade": 1,
+    "gradeNameAr": "الصف الأول الابتدائي",
+    "gradeNameEn": "Grade 1",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "ليان محمود احمد",
+    "nameEn": "Layan Mahmoud Ahmed",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G1-LN-012",
+    "grade": 1,
+    "gradeNameAr": "الصف الأول الابتدائي",
+    "gradeNameEn": "Grade 1",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "لوجين ياسر محمد",
+    "nameEn": "Loujain Yasser Mohamed",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G1-LN-013",
+    "grade": 1,
+    "gradeNameAr": "الصف الأول الابتدائي",
+    "gradeNameEn": "Grade 1",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "سيلا محمد صبحي",
+    "nameEn": "Sila Mohamed Sobhi",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G1-LN-014",
+    "grade": 1,
+    "gradeNameAr": "الصف الأول الابتدائي",
+    "gradeNameEn": "Grade 1",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "روز احمد فواد",
+    "nameEn": "Rose Ahmed Fouad",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G1-LN-015",
+    "grade": 1,
+    "gradeNameAr": "الصف الأول الابتدائي",
+    "gradeNameEn": "Grade 1",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "بسمة محمد ابو فراج",
+    "nameEn": "Basma Mohamed Abou Farag",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G1-LN-016",
+    "grade": 1,
+    "gradeNameAr": "الصف الأول الابتدائي",
+    "gradeNameEn": "Grade 1",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "مليكة محمد رفعت",
+    "nameEn": "Malika Mohamed Refaat",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G1-LN-017",
+    "grade": 1,
+    "gradeNameAr": "الصف الأول الابتدائي",
+    "gradeNameEn": "Grade 1",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "لوجين محمد رمضان",
+    "nameEn": "Loujain Mohamed Ramadan",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G1-LN-018",
+    "grade": 1,
+    "gradeNameAr": "الصف الأول الابتدائي",
+    "gradeNameEn": "Grade 1",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "أدم عبدالرحمن السيد",
+    "nameEn": "Adam Abdel Rahman El-Sayed",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G1-LN-019",
+    "grade": 1,
+    "gradeNameAr": "الصف الأول الابتدائي",
+    "gradeNameEn": "Grade 1",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "سفيان محمد رمضان",
+    "nameEn": "Sofian Mohamed Ramadan",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G1-AR-008",
+    "grade": 1,
+    "gradeNameAr": "الصف الأول الابتدائي",
+    "gradeNameEn": "Grade 1",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "ماريا قطيبه علي",
+    "nameEn": "Maria Qutaiba Ali",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G1-AR-009",
+    "grade": 1,
+    "gradeNameAr": "الصف الأول الابتدائي",
+    "gradeNameEn": "Grade 1",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "كادي محمود سعد",
+    "nameEn": "Cady Mahmoud Saad",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G3-LN-019",
+    "grade": 3,
+    "gradeNameAr": "الصف الثالث الابتدائي",
+    "gradeNameEn": "Grade 3",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "مالك محمود ابراهيم",
+    "nameEn": "Malek Mahmoud Ibrahim",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G3-LN-020",
+    "grade": 3,
+    "gradeNameAr": "الصف الثالث الابتدائي",
+    "gradeNameEn": "Grade 3",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "مؤيد أحمد سيد",
+    "nameEn": "Moayad Ahmed Sayed",
+    "gender": "male",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G3-LN-021",
+    "grade": 3,
+    "gradeNameAr": "الصف الثالث الابتدائي",
+    "gradeNameEn": "Grade 3",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "ريتال محمد عسل",
+    "nameEn": "Retal Mohamed Asal",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G3-LN-022",
+    "grade": 3,
+    "gradeNameAr": "الصف الثالث الابتدائي",
+    "gradeNameEn": "Grade 3",
+    "track": "languages",
+    "trackNameAr": "لغات (Math)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "تالين أحمد محمود",
+    "nameEn": "Taleen Ahmed Mahmoud",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
+  },
+  {
+    "id": "SK-G3-AR-006",
+    "grade": 3,
+    "gradeNameAr": "الصف الثالث الابتدائي",
+    "gradeNameEn": "Grade 3",
+    "track": "arabic",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "نور حماده عياد",
+    "nameEn": "Nour Hamada Ayyad",
+    "gender": "female",
+    "sampleScores": {
+      "month1": 19.5,
+      "month2": 20,
+      "midterm": 29.5,
+      "final": 30,
+      "attendance": 99
+    },
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 19.5,
+      "t1_m2": 20,
+      "t1_exam": 29.5,
+      "t1_total": 98,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 98,
+      "annual_total": 98
+    }
   }
 ];
 
@@ -4775,7 +5511,7 @@
       }
 
       // Ensure all 147 verified students exist in cache even after migration
-      if (this._cache && this._cache.length < MASTER_INITIAL_STUDENTS.length) {
+      if (this._cache) {
         const existingIds = new Set(this._cache.map(s => s.id));
         let addedCount = 0;
         MASTER_INITIAL_STUDENTS.forEach(defSt => {
@@ -4800,14 +5536,32 @@
     _setupCloudSync: function() {
       if (typeof window === 'undefined') return;
 
-      // Safe, single initial cloud check after startup (non-destructive)
+      // 1. Initial cloud check on startup
       setTimeout(() => {
         this.syncFromCloud();
-      }, 500);
+      }, 400);
 
-      // NOTE: Destructive 20-second interval polling and window focus listeners
-      // have been permanently removed so newly recorded grades and attendance
-      // are never overwritten or erased.
+      // 2. Auto-sync whenever user switches back to the tab/window on mobile or desktop
+      if (typeof document !== 'undefined' && document.addEventListener) {
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'visible') {
+            this.syncFromCloud();
+          }
+        });
+      }
+      if (window.addEventListener) {
+        window.addEventListener('focus', () => {
+          this.syncFromCloud();
+        });
+      }
+    },
+
+    forceCloudSync: async function() {
+      this._setSyncStatus('syncing', 'جاري المزامنة السحابية الفورية...');
+      await this.syncToCloud({ action: 'full_backup', instant: true });
+      await this.syncFromCloud();
+      this._notifyListeners('force_sync');
+      return { success: true, total: this.getAllStudents().length };
     },
 
     _setupFirebaseSync: function() {
@@ -5032,11 +5786,7 @@
         }
 
         const resp = await fetch(fetchUrl, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'X-SmileKids-Auth-Key': this.AUTH_KEY
-          }
+          method: 'GET'
         });
 
         if (resp.ok) {
@@ -5055,8 +5805,15 @@
           }
 
           if (studentsList && studentsList.length > 0) {
+            // Guard 0: If local has MORE students than cloud (e.g. 154 on mobile vs 147 on cloud), push local students to cloud!
+            if (this._cache && this._cache.length > studentsList.length) {
+              console.log('[SmileKids DB] Local has more students than cloud (' + this._cache.length + ' vs ' + studentsList.length + '). Uploading master to cloud...');
+              this.syncToCloud({ action: 'full_backup', instant: true });
+              return;
+            }
+
             // Guard 1: If local edits were made more recently than cloud timestamp, push local to cloud instead
-            if (this._lastModified > 0 && cloudTimestamp > 0 && this._lastModified > cloudTimestamp + 1000) {
+            if (this._lastModified > 0 && cloudTimestamp > 0 && this._lastModified > cloudTimestamp + 1000 && this._cache && this._cache.length >= studentsList.length) {
               console.log('Local data is newer than cloud. Syncing local changes to cloud...');
               this.syncToCloud();
               return;
@@ -5229,8 +5986,7 @@
         const resp = await fetch(postUrl, {
           method: 'POST',
           headers: {
-            'Content-Type': 'text/plain;charset=utf-8',
-            'X-SmileKids-Auth-Key': this.AUTH_KEY
+            'Content-Type': 'text/plain;charset=utf-8'
           },
           body: JSON.stringify(payload)
         });
@@ -5456,6 +6212,12 @@
       this.getAllStudents().push(studentData);
       this.save();
 
+      // Instant Cloud Sync to Google Drive
+      this.syncToCloud({
+        action: 'full_backup',
+        instant: true
+      });
+
       // Instant Firestore Sync for new student
       if (typeof window !== 'undefined' && window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore()) {
         window.SmileKidsFirebase.saveStudentToFirestore(studentData).catch(e => {
@@ -5471,6 +6233,12 @@
       if (idx !== -1) {
         const removed = this.getAllStudents().splice(idx, 1)[0];
         this.save();
+
+        // Instant Cloud Sync to Google Drive
+        this.syncToCloud({
+          action: 'full_backup',
+          instant: true
+        });
 
         // Instant Firestore Sync for deleted student
         if (typeof window !== 'undefined' && window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore()) {
