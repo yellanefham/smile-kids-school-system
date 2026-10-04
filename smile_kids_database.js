@@ -10,6 +10,16 @@
 (function(window) {
   'use strict';
 
+    const BLACKLIST_DELETED_STUDENTS = new Set(['SK-G2-LN-013']);
+  const BLACKLIST_DELETED_NAMES = new Set(['ليان محمد أمين']);
+
+  function isStudentBlacklisted(s) {
+    if (!s) return false;
+    if (s.id && BLACKLIST_DELETED_STUDENTS.has(s.id)) return true;
+    if (s.nameAr && BLACKLIST_DELETED_NAMES.has(s.nameAr.trim())) return true;
+    return false;
+  }
+
   const STORAGE_KEY = 'SMILE_KIDS_MASTER_DATABASE_2026_V4';
   const LEGACY_STUDENT_KEYS = ['SMILE_KIDS_MASTER_DATABASE_2026_V3', 'SMILE_KIDS_MASTER_DATABASE_2026_V2', 'SMILE_KIDS_MASTER_DATABASE_2026', 'smile_kids_students_v7_custom', 'smilekids_school_v6'];
   const LEGACY_ATT_KEY = 'smile_kids_attendance_v7_data';
@@ -5459,7 +5469,7 @@
         try {
           const parsed = JSON.parse(raw);
           if (Array.isArray(parsed) && parsed.length > 0) {
-            this._cache = parsed;
+            this._cache = parsed.filter(s => !isStudentBlacklisted(s));
           } else {
             this._cache = this._clone(MASTER_INITIAL_STUDENTS);
             this.save();
@@ -5793,6 +5803,7 @@
           }
 
           if (studentsList && studentsList.length > 0) {
+            studentsList = studentsList.filter(s => !isStudentBlacklisted(s));
             // Guard 0: If local has MORE students than cloud (e.g. 154 on mobile vs 147 on cloud), push local students to cloud!
             if (this._cache && this._cache.length > studentsList.length) {
               console.log('[SmileKids DB] Local has more students than cloud (' + this._cache.length + ' vs ' + studentsList.length + '). Uploading master to cloud...');
