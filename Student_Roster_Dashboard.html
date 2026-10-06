@@ -93,6 +93,11 @@
         display: table-cell !important;
       }
 
+      /* Hide single header during consecutive all-grades print */
+      body.printing-consecutive #print-official-header {
+        display: none !important;
+      }
+
       /* Container adjustments */
       main {
         max-width: 100% !important;
@@ -101,43 +106,45 @@
         width: 100% !important;
       }
 
-      /* Official Print Header compact layout */
+      /* Official Print Header layout */
       #print-official-header {
-        margin-bottom: 5px !important;
-        padding-bottom: 4px !important;
+        margin-bottom: 7px !important;
+        padding-bottom: 5px !important;
         border-bottom: 1.5px solid #1e3a8a !important;
       }
       #print-official-header .school-logo,
       #print-official-header > div > div:first-child > div:first-child {
-        width: 32px !important;
-        height: 32px !important;
-        font-size: 16px !important;
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 19px !important;
         border-radius: 8px !important;
       }
       #print-official-header div[id="print-grade-title"] {
-        font-size: 14px !important;
+        font-size: 15px !important;
         font-weight: 900 !important;
-        padding: 2px 20px !important;
+        padding: 2.5px 22px !important;
         border-radius: 9999px !important;
       }
       #print-official-header div[id="print-total-students-count"] {
-        font-size: 11px !important;
+        font-size: 11.5px !important;
         font-weight: 800 !important;
-        padding: 2px 8px !important;
+        padding: 2.5px 10px !important;
         border-radius: 6px !important;
       }
       #print-official-header #print-report-title {
-        font-size: 10.5px !important;
+        font-size: 11px !important;
+        font-weight: 900 !important;
       }
       #print-official-header #print-track-subtitle {
         font-size: 10px !important;
+        font-weight: 800 !important;
       }
 
       /* Section grid layout in print: side-by-side */
       .grid.grid-cols-1.lg\:grid-cols-12 {
         display: grid !important;
         grid-template-columns: 1fr 1fr !important;
-        gap: 8px !important;
+        gap: 10px !important;
         align-items: start !important;
       }
       .lg\:col-span-6 {
@@ -188,7 +195,7 @@
         background: linear-gradient(135deg, #065f46 0%, #047857 100%) !important;
         color: #ffffff !important;
         border-bottom: 1.5px solid #059669 !important;
-        padding: 3px 8px !important;
+        padding: 4px 10px !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
@@ -196,18 +203,18 @@
         color: #ffffff !important;
       }
       div[class*="from-emerald-800"] h3 {
-        font-size: 12px !important;
+        font-size: 13px !important;
         font-weight: 900 !important;
         color: #ffffff !important;
-        line-height: 1.2 !important;
+        line-height: 1.25 !important;
       }
       div[class*="from-emerald-800"] span {
         background: #064e3b !important;
         color: #ffffff !important;
         border: 1px solid #34d399 !important;
-        font-size: 10px !important;
+        font-size: 10.5px !important;
         font-weight: 800 !important;
-        padding: 1px 6px !important;
+        padding: 1.5px 8px !important;
         border-radius: 9999px !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
@@ -226,8 +233,8 @@
         border: 1px solid #a7f3d0 !important;
         color: #065f46 !important;
         font-weight: 900 !important;
-        font-size: 10px !important;
-        padding: 2px 4px !important;
+        font-size: 11px !important;
+        padding: 3.5px 6px !important;
         text-align: center !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
@@ -252,7 +259,7 @@
         background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%) !important;
         color: #ffffff !important;
         border-bottom: 1.5px solid #2563eb !important;
-        padding: 3px 8px !important;
+        padding: 4px 10px !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
@@ -260,18 +267,18 @@
         color: #ffffff !important;
       }
       div[class*="from-blue-800"] h3 {
-        font-size: 12px !important;
+        font-size: 13px !important;
         font-weight: 900 !important;
         color: #ffffff !important;
-        line-height: 1.2 !important;
+        line-height: 1.25 !important;
       }
       div[class*="from-blue-800"] span {
         background: #1e3a8a !important;
         color: #ffffff !important;
         border: 1px solid #60a5fa !important;
-        font-size: 10px !important;
+        font-size: 10.5px !important;
         font-weight: 800 !important;
-        padding: 1px 6px !important;
+        padding: 1.5px 8px !important;
         border-radius: 9999px !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
@@ -290,8 +297,8 @@
         border: 1px solid #bfdbfe !important;
         color: #1e40af !important;
         font-weight: 900 !important;
-        font-size: 10px !important;
-        padding: 2px 4px !important;
+        font-size: 11px !important;
+        padding: 3.5px 6px !important;
         text-align: center !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
@@ -311,45 +318,45 @@
       table {
         border-collapse: collapse !important;
         width: 100% !important;
-        font-size: 10px !important;
+        font-size: 11.5px !important;
         color: #0f172a !important;
       }
 
       th:nth-child(2) {
         text-align: right !important;
-        padding-right: 6px !important;
+        padding-right: 8px !important;
       }
 
       td {
         border: 1px solid #cbd5e1 !important;
         color: #0f172a !important;
-        padding: 2px 4px !important;
-        font-size: 10px !important;
-        line-height: 1.15 !important;
+        padding: 3.2px 6px !important;
+        font-size: 11.5px !important;
+        line-height: 1.28 !important;
       }
 
       td:first-child {
         font-weight: 900 !important;
         color: #475569 !important;
         text-align: center !important;
-        width: 22px !important;
-        font-size: 9.5px !important;
+        width: 24px !important;
+        font-size: 10.5px !important;
       }
 
       td:nth-child(2) {
         font-weight: 800 !important;
         color: #0f172a !important;
         text-align: right !important;
-        padding-right: 6px !important;
+        padding-right: 8px !important;
       }
       td:nth-child(2) div {
-        font-size: 10px !important;
-        line-height: 1.15 !important;
+        font-size: 11.5px !important;
+        line-height: 1.28 !important;
       }
 
       td:nth-child(3) {
         text-align: center !important;
-        width: 45px !important;
+        width: 48px !important;
       }
 
       td:nth-child(4) {
@@ -366,10 +373,10 @@
         color: #0284c7 !important;
         background: #e0f2fe !important;
         border: 1px solid #bae6fd !important;
-        padding: 1px 4px !important;
+        padding: 1.5px 5px !important;
         border-radius: 3px !important;
         font-weight: 800 !important;
-        font-size: 9.5px !important;
+        font-size: 10px !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
@@ -377,10 +384,10 @@
         color: #db2777 !important;
         background: #fce7f3 !important;
         border: 1px solid #fbcfe8 !important;
-        padding: 1px 4px !important;
+        padding: 1.5px 5px !important;
         border-radius: 3px !important;
         font-weight: 800 !important;
-        font-size: 9.5px !important;
+        font-size: 10px !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
@@ -392,17 +399,17 @@
 
       /* Blank Handwriting Rows for New Student Additions */
       .blank-handwriting-row {
-        height: 17px !important;
+        height: 23px !important;
       }
       .blank-handwriting-row td {
-        height: 17px !important;
-        padding: 1px 3px !important;
+        height: 23px !important;
+        padding: 1.5px 5px !important;
         vertical-align: middle !important;
         background-color: #ffffff !important;
       }
       .blank-handwriting-line {
         border-bottom: 1.2px dashed #94a3b8 !important;
-        height: 12px !important;
+        height: 16px !important;
         width: 95% !important;
         margin-right: 4px !important;
         display: block !important;
@@ -1001,11 +1008,11 @@
               <span>✍️ خانات فارغة للجدد:</span>
             </span>
             <select id="select-print-blank-rows" onchange="changePrintBlankRows(this.value)" class="bg-slate-800 text-amber-300 font-black rounded-lg px-2 py-1 border border-slate-600 focus:outline-none focus:border-amber-400 text-xs cursor-pointer hover:bg-slate-700 transition">
-              <option value="0" selected>بدون خانات إضافية (0) - صفحة واحدة مثالية ⭐</option>
-              <option value="1">خانة واحدة إضافية (1)</option>
-              <option value="2">خانتان إضافيتان (2)</option>
-              <option value="3">3 خانات إضافية (3)</option>
-              <option value="5">5 خانات إضافية (5)</option>
+              <option value="5" selected>5 خانات فارغة للتسجيل اليدوي (موصى به ⭐)</option>
+              <option value="4">4 خانات فارغة</option>
+              <option value="3">3 خانات فارغة</option>
+              <option value="2">خانتان فارغتان (2)</option>
+              <option value="0">بدون خانات إضافية (0)</option>
             </select>
           </div>
 
@@ -2259,14 +2266,14 @@
     let currentGenderFilter = 'all'; // 'all', 'male', 'female'
     let searchQuery = '';
 
-    // Setting for number of blank handwriting rows for new student additions (defaults to 0 for 1-page fit)
-    let printBlankRowsCount = parseInt(localStorage.getItem('smile_kids_print_blank_rows_v2') || '0');
-    if (isNaN(printBlankRowsCount) || printBlankRowsCount < 0) printBlankRowsCount = 0;
+    // Setting for number of blank handwriting rows for new student additions (defaults to 5 as agreed)
+    let printBlankRowsCount = parseInt(localStorage.getItem('smile_kids_print_blank_rows_v3') || '5');
+    if (isNaN(printBlankRowsCount) || printBlankRowsCount < 0) printBlankRowsCount = 5;
 
     function changePrintBlankRows(val) {
       printBlankRowsCount = parseInt(val);
       if (isNaN(printBlankRowsCount) || printBlankRowsCount < 0) printBlankRowsCount = 0;
-      localStorage.setItem('smile_kids_print_blank_rows_v2', String(printBlankRowsCount));
+      localStorage.setItem('smile_kids_print_blank_rows_v3', String(printBlankRowsCount));
       localStorage.setItem('smile_kids_print_blank_rows', String(printBlankRowsCount));
       if (currentMainTab === 'rosters') {
         renderContent();
@@ -3769,6 +3776,7 @@
       const prevHeaderDisplay = headerElem ? headerElem.style.display : '';
 
       // Hide single top header because each grade page will have its own official header
+      document.body.classList.add('printing-consecutive');
       if (headerElem) headerElem.style.display = 'none';
 
       const grades = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -3895,6 +3903,7 @@
       container.innerHTML = allHtml;
 
       const restore = () => {
+        document.body.classList.remove('printing-consecutive');
         container.innerHTML = originalHtml;
         if (headerElem) headerElem.style.display = prevHeaderDisplay;
         switchGrade(originalGrade);
