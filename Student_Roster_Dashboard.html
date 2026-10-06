@@ -44,8 +44,8 @@
 
     @media print {
       @page {
-        size: auto;
-        margin: 7mm 9mm 7mm 9mm;
+        size: A4 landscape;
+        margin: 4mm 6mm 4mm 6mm;
       }
       
       * {
@@ -101,11 +101,43 @@
         width: 100% !important;
       }
 
+      /* Official Print Header compact layout */
+      #print-official-header {
+        margin-bottom: 5px !important;
+        padding-bottom: 4px !important;
+        border-bottom: 1.5px solid #1e3a8a !important;
+      }
+      #print-official-header .school-logo,
+      #print-official-header > div > div:first-child > div:first-child {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 16px !important;
+        border-radius: 8px !important;
+      }
+      #print-official-header div[id="print-grade-title"] {
+        font-size: 14px !important;
+        font-weight: 900 !important;
+        padding: 2px 20px !important;
+        border-radius: 9999px !important;
+      }
+      #print-official-header div[id="print-total-students-count"] {
+        font-size: 11px !important;
+        font-weight: 800 !important;
+        padding: 2px 8px !important;
+        border-radius: 6px !important;
+      }
+      #print-official-header #print-report-title {
+        font-size: 10.5px !important;
+      }
+      #print-official-header #print-track-subtitle {
+        font-size: 10px !important;
+      }
+
       /* Section grid layout in print: side-by-side */
       .grid.grid-cols-1.lg\:grid-cols-12 {
         display: grid !important;
         grid-template-columns: 1fr 1fr !important;
-        gap: 12px !important;
+        gap: 8px !important;
         align-items: start !important;
       }
       .lg\:col-span-6 {
@@ -113,17 +145,21 @@
         width: 100% !important;
       }
 
-      /* Section cards */
+      /* Section cards - allow natural placement without forcing page overflow */
       .section-card,
       .single-track-card,
       div[class*="rounded-3xl"] {
         background: #ffffff !important;
-        border-radius: 8px !important;
+        border-radius: 6px !important;
         box-shadow: none !important;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
+        page-break-inside: auto !important;
+        break-inside: auto !important;
         margin-bottom: 0 !important;
-        overflow: hidden !important;
+        overflow: visible !important;
+      }
+
+      .overflow-x-auto {
+        overflow: visible !important;
       }
 
       /* Multi-page consecutive printing for all grades */
@@ -131,10 +167,16 @@
         page-break-inside: avoid !important;
         break-inside: avoid !important;
         width: 100% !important;
+        margin-bottom: 0 !important;
+        box-sizing: border-box !important;
       }
       .grade-print-page:not(:last-child) {
         page-break-after: always !important;
         break-after: page !important;
+      }
+      .grade-print-page:last-child {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
       }
 
       /* --- Arabic Section Card & Header --- */
@@ -145,8 +187,8 @@
       div[class*="from-emerald-800"] {
         background: linear-gradient(135deg, #065f46 0%, #047857 100%) !important;
         color: #ffffff !important;
-        border-bottom: 2px solid #059669 !important;
-        padding: 6px 12px !important;
+        border-bottom: 1.5px solid #059669 !important;
+        padding: 3px 8px !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
@@ -154,17 +196,18 @@
         color: #ffffff !important;
       }
       div[class*="from-emerald-800"] h3 {
-        font-size: 13.5px !important;
+        font-size: 12px !important;
         font-weight: 900 !important;
         color: #ffffff !important;
+        line-height: 1.2 !important;
       }
       div[class*="from-emerald-800"] span {
         background: #064e3b !important;
         color: #ffffff !important;
         border: 1px solid #34d399 !important;
-        font-size: 11px !important;
+        font-size: 10px !important;
         font-weight: 800 !important;
-        padding: 2px 8px !important;
+        padding: 1px 6px !important;
         border-radius: 9999px !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
@@ -174,7 +217,7 @@
       .print-arabic-card table thead tr,
       div:has(> div[class*="from-emerald-800"]) table thead tr {
         background: #ecfdf5 !important;
-        border-bottom: 2px solid #059669 !important;
+        border-bottom: 1.5px solid #059669 !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
@@ -183,8 +226,8 @@
         border: 1px solid #a7f3d0 !important;
         color: #065f46 !important;
         font-weight: 900 !important;
-        font-size: 11.5px !important;
-        padding: 4px 6px !important;
+        font-size: 10px !important;
+        padding: 2px 4px !important;
         text-align: center !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
@@ -208,8 +251,8 @@
       div[class*="from-blue-800"] {
         background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%) !important;
         color: #ffffff !important;
-        border-bottom: 2px solid #2563eb !important;
-        padding: 6px 12px !important;
+        border-bottom: 1.5px solid #2563eb !important;
+        padding: 3px 8px !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
@@ -217,17 +260,18 @@
         color: #ffffff !important;
       }
       div[class*="from-blue-800"] h3 {
-        font-size: 13.5px !important;
+        font-size: 12px !important;
         font-weight: 900 !important;
         color: #ffffff !important;
+        line-height: 1.2 !important;
       }
       div[class*="from-blue-800"] span {
         background: #1e3a8a !important;
         color: #ffffff !important;
         border: 1px solid #60a5fa !important;
-        font-size: 11px !important;
+        font-size: 10px !important;
         font-weight: 800 !important;
-        padding: 2px 8px !important;
+        padding: 1px 6px !important;
         border-radius: 9999px !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
@@ -237,7 +281,7 @@
       .print-languages-card table thead tr,
       div:has(> div[class*="from-blue-800"]) table thead tr {
         background: #eff6ff !important;
-        border-bottom: 2px solid #2563eb !important;
+        border-bottom: 1.5px solid #2563eb !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
@@ -246,8 +290,8 @@
         border: 1px solid #bfdbfe !important;
         color: #1e40af !important;
         font-weight: 900 !important;
-        font-size: 11.5px !important;
-        padding: 4px 6px !important;
+        font-size: 10px !important;
+        padding: 2px 4px !important;
         text-align: center !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
@@ -267,41 +311,45 @@
       table {
         border-collapse: collapse !important;
         width: 100% !important;
-        font-size: 11.5px !important;
+        font-size: 10px !important;
         color: #0f172a !important;
       }
 
       th:nth-child(2) {
         text-align: right !important;
-        padding-right: 10px !important;
+        padding-right: 6px !important;
       }
 
       td {
-        border: 1px solid #e2e8f0 !important;
+        border: 1px solid #cbd5e1 !important;
         color: #0f172a !important;
-        padding: 3.5px 6px !important;
-        font-size: 11.5px !important;
-        line-height: 1.35 !important;
+        padding: 2px 4px !important;
+        font-size: 10px !important;
+        line-height: 1.15 !important;
       }
 
       td:first-child {
         font-weight: 900 !important;
         color: #475569 !important;
         text-align: center !important;
-        width: 28px !important;
-        font-size: 11px !important;
+        width: 22px !important;
+        font-size: 9.5px !important;
       }
 
       td:nth-child(2) {
         font-weight: 800 !important;
         color: #0f172a !important;
         text-align: right !important;
-        padding-right: 10px !important;
+        padding-right: 6px !important;
+      }
+      td:nth-child(2) div {
+        font-size: 10px !important;
+        line-height: 1.15 !important;
       }
 
       td:nth-child(3) {
         text-align: center !important;
-        width: 52px !important;
+        width: 45px !important;
       }
 
       td:nth-child(4) {
@@ -318,10 +366,10 @@
         color: #0284c7 !important;
         background: #e0f2fe !important;
         border: 1px solid #bae6fd !important;
-        padding: 1.5px 6px !important;
-        border-radius: 4px !important;
+        padding: 1px 4px !important;
+        border-radius: 3px !important;
         font-weight: 800 !important;
-        font-size: 10.5px !important;
+        font-size: 9.5px !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
@@ -329,10 +377,10 @@
         color: #db2777 !important;
         background: #fce7f3 !important;
         border: 1px solid #fbcfe8 !important;
-        padding: 1.5px 6px !important;
-        border-radius: 4px !important;
+        padding: 1px 4px !important;
+        border-radius: 3px !important;
         font-weight: 800 !important;
-        font-size: 10.5px !important;
+        font-size: 9.5px !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
@@ -344,16 +392,17 @@
 
       /* Blank Handwriting Rows for New Student Additions */
       .blank-handwriting-row {
-        height: 32px !important;
+        height: 17px !important;
       }
       .blank-handwriting-row td {
-        height: 32px !important;
+        height: 17px !important;
+        padding: 1px 3px !important;
         vertical-align: middle !important;
         background-color: #ffffff !important;
       }
       .blank-handwriting-line {
-        border-bottom: 1.5px dashed #94a3b8 !important;
-        height: 20px !important;
+        border-bottom: 1.2px dashed #94a3b8 !important;
+        height: 12px !important;
         width: 95% !important;
         margin-right: 4px !important;
         display: block !important;
@@ -803,36 +852,36 @@
   <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex-1 w-full">
 
     <!-- Official Print Header (Only visible on print) -->
-    <div id="print-official-header" class="print-only" style="margin-bottom: 14px; border-bottom: 2px solid #1e3a8a; padding-bottom: 10px;">
+    <div id="print-official-header" class="print-only" style="margin-bottom: 5px; border-bottom: 1.5px solid #1e3a8a; padding-bottom: 4px;">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <!-- Right: School Brand & Logo -->
-        <div style="display: flex; align-items: center; gap: 10px; text-align: right;">
-          <div style="width: 44px; height: 44px; border-radius: 12px; background: #0f172a; display: flex; align-items: center; justify-content: center; font-size: 22px; border: 1.5px solid #d4af37; -webkit-print-color-adjust: exact; print-color-adjust: exact;">🏫</div>
+        <div style="display: flex; align-items: center; gap: 8px; text-align: right;">
+          <div style="width: 32px; height: 32px; border-radius: 8px; background: #0f172a; display: flex; align-items: center; justify-content: center; font-size: 16px; border: 1.5px solid #d4af37; -webkit-print-color-adjust: exact; print-color-adjust: exact;">🏫</div>
           <div>
-            <div style="font-size: 16px; font-weight: 900; color: #0f172a; line-height: 1.2;">مدرسة Smile Kids للغات</div>
-            <div style="font-size: 10.5px; font-weight: 800; color: #1e3a8a; letter-spacing: 0.5px; font-family: sans-serif;">SMILE KIDS LANGUAGE SCHOOL</div>
-            <div style="font-size: 10px; font-weight: 700; color: #64748b;">شؤون الطلاب وقوائم الفصول المعتمدة</div>
+            <div style="font-size: 13.5px; font-weight: 900; color: #0f172a; line-height: 1.15;">مدرسة Smile Kids للغات</div>
+            <div style="font-size: 9px; font-weight: 800; color: #1e3a8a; letter-spacing: 0.5px; font-family: sans-serif;">SMILE KIDS LANGUAGE SCHOOL</div>
+            <div style="font-size: 8.5px; font-weight: 700; color: #64748b;">شؤون الطلاب وقوائم الفصول المعتمدة</div>
           </div>
         </div>
 
         <!-- Center: Prominent Grade & Report Title -->
         <div style="text-align: center;">
-          <div id="print-grade-title" style="font-size: 19px; font-weight: 900; color: #ffffff !important; background: #1e3a8a !important; padding: 5px 28px; border-radius: 9999px; display: inline-block; border: 2px solid #1d4ed8; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-family: 'Cairo', sans-serif;">
+          <div id="print-grade-title" style="font-size: 14px; font-weight: 900; color: #ffffff !important; background: #1e3a8a !important; padding: 2px 22px; border-radius: 9999px; display: inline-block; border: 1.5px solid #1d4ed8; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-family: 'Cairo', sans-serif;">
             الصف الرابع الابتدائي
           </div>
-          <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 5px;">
-            <span id="print-report-title" style="font-size: 13px; font-weight: 900; color: #0f172a;">كشف أسماء الطلاب الرسمي</span>
-            <span style="color: #94a3b8; font-size: 10px;">•</span>
-            <span id="print-track-subtitle" style="font-size: 12px; font-weight: 800; color: #475569;">العام الدراسي 2026 / 2027</span>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 2px;">
+            <span id="print-report-title" style="font-size: 11px; font-weight: 900; color: #0f172a;">كشف أسماء الطلاب الرسمي</span>
+            <span style="color: #94a3b8; font-size: 9px;">•</span>
+            <span id="print-track-subtitle" style="font-size: 10px; font-weight: 800; color: #475569;">العام الدراسي 2026 / 2027</span>
           </div>
         </div>
 
         <!-- Left: Stats & Meta -->
-        <div style="text-align: left; display: flex; flex-direction: column; align-items: flex-end; gap: 3px;">
-          <div id="print-total-students-count" style="font-size: 13px; font-weight: 900; color: #0f172a; background: #f1f5f9; padding: 4px 14px; border-radius: 8px; border: 1.5px solid #cbd5e1; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+        <div style="text-align: left; display: flex; flex-direction: column; align-items: flex-end; gap: 2px;">
+          <div id="print-total-students-count" style="font-size: 11px; font-weight: 900; color: #0f172a; background: #f1f5f9; padding: 2px 10px; border-radius: 6px; border: 1px solid #cbd5e1; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
             إجمالي عدد الطلاب: 19 طالب
           </div>
-          <div style="display: flex; gap: 6px; font-size: 10.5px; font-weight: 800; color: #64748b; margin-top: 2px;">
+          <div style="display: flex; gap: 4px; font-size: 9.5px; font-weight: 800; color: #64748b;">
             <span id="print-date-display">التاريخ: 2026/09/26</span>
             <span>•</span>
             <span style="color: #059669; font-weight: 900;">معتمد رسميًا ✓</span>
@@ -952,13 +1001,11 @@
               <span>✍️ خانات فارغة للجدد:</span>
             </span>
             <select id="select-print-blank-rows" onchange="changePrintBlankRows(this.value)" class="bg-slate-800 text-amber-300 font-black rounded-lg px-2 py-1 border border-slate-600 focus:outline-none focus:border-amber-400 text-xs cursor-pointer hover:bg-slate-700 transition">
-              <option value="0">بدون خانات (0)</option>
-              <option value="2">خانتان فارغتان (2)</option>
-              <option value="3">3 خانات فارغة</option>
-              <option value="4">4 خانات فارغة</option>
-              <option value="5" selected>5 خانات فارغة (موصى به ⭐)</option>
-              <option value="7">7 خانات فارغة</option>
-              <option value="10">10 خانات فارغة</option>
+              <option value="0" selected>بدون خانات إضافية (0) - صفحة واحدة مثالية ⭐</option>
+              <option value="1">خانة واحدة إضافية (1)</option>
+              <option value="2">خانتان إضافيتان (2)</option>
+              <option value="3">3 خانات إضافية (3)</option>
+              <option value="5">5 خانات إضافية (5)</option>
             </select>
           </div>
 
@@ -2212,13 +2259,14 @@
     let currentGenderFilter = 'all'; // 'all', 'male', 'female'
     let searchQuery = '';
 
-    // Setting for number of blank handwriting rows for new student additions
-    let printBlankRowsCount = parseInt(localStorage.getItem('smile_kids_print_blank_rows') || '5');
-    if (isNaN(printBlankRowsCount) || printBlankRowsCount < 0) printBlankRowsCount = 5;
+    // Setting for number of blank handwriting rows for new student additions (defaults to 0 for 1-page fit)
+    let printBlankRowsCount = parseInt(localStorage.getItem('smile_kids_print_blank_rows_v2') || '0');
+    if (isNaN(printBlankRowsCount) || printBlankRowsCount < 0) printBlankRowsCount = 0;
 
     function changePrintBlankRows(val) {
       printBlankRowsCount = parseInt(val);
       if (isNaN(printBlankRowsCount) || printBlankRowsCount < 0) printBlankRowsCount = 0;
+      localStorage.setItem('smile_kids_print_blank_rows_v2', String(printBlankRowsCount));
       localStorage.setItem('smile_kids_print_blank_rows', String(printBlankRowsCount));
       if (currentMainTab === 'rosters') {
         renderContent();
@@ -3734,33 +3782,33 @@
         const isLast = gIdx === grades.length - 1;
 
         allHtml += `
-          <div class="grade-print-page" style="${!isLast ? 'page-break-after: always !important; break-after: page !important;' : ''} margin-bottom: 24px; padding-top: 4px;">
+          <div class="grade-print-page" style="${!isLast ? 'page-break-after: always !important; break-after: page !important;' : ''} margin: 0; padding: 0; box-sizing: border-box;">
             <!-- Official Print Header for Grade ${g} -->
-            <div style="margin-bottom: 14px; border-bottom: 2px solid #1e3a8a; padding-bottom: 10px;">
+            <div style="margin-bottom: 5px; border-bottom: 1.5px solid #1e3a8a; padding-bottom: 4px;">
               <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div style="display: flex; align-items: center; gap: 10px; text-align: right;">
-                  <div style="width: 44px; height: 44px; border-radius: 12px; background: #0f172a; display: flex; align-items: center; justify-content: center; font-size: 22px; border: 1.5px solid #d4af37; -webkit-print-color-adjust: exact; print-color-adjust: exact;">🏫</div>
+                <div style="display: flex; align-items: center; gap: 8px; text-align: right;">
+                  <div style="width: 32px; height: 32px; border-radius: 8px; background: #0f172a; display: flex; align-items: center; justify-content: center; font-size: 16px; border: 1.5px solid #d4af37; -webkit-print-color-adjust: exact; print-color-adjust: exact;">🏫</div>
                   <div>
-                    <div style="font-size: 16px; font-weight: 900; color: #0f172a; line-height: 1.2;">مدرسة Smile Kids للغات</div>
-                    <div style="font-size: 10.5px; font-weight: 800; color: #1e3a8a; letter-spacing: 0.5px; font-family: sans-serif;">SMILE KIDS LANGUAGE SCHOOL</div>
-                    <div style="font-size: 10px; font-weight: 700; color: #64748b;">شؤون الطلاب وقوائم الفصول المعتمدة</div>
+                    <div style="font-size: 13.5px; font-weight: 900; color: #0f172a; line-height: 1.15;">مدرسة Smile Kids للغات</div>
+                    <div style="font-size: 9px; font-weight: 800; color: #1e3a8a; letter-spacing: 0.5px; font-family: sans-serif;">SMILE KIDS LANGUAGE SCHOOL</div>
+                    <div style="font-size: 8.5px; font-weight: 700; color: #64748b;">شؤون الطلاب وقوائم الفصول المعتمدة</div>
                   </div>
                 </div>
 
                 <div style="text-align: center;">
-                  <div style="font-size: 19px; font-weight: 900; color: #ffffff !important; background: #1e3a8a !important; padding: 5px 28px; border-radius: 9999px; display: inline-block; border: 2px solid #1d4ed8; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-family: 'Cairo', sans-serif;">
+                  <div style="font-size: 14px; font-weight: 900; color: #ffffff !important; background: #1e3a8a !important; padding: 2px 22px; border-radius: 9999px; display: inline-block; border: 1.5px solid #1d4ed8; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-family: 'Cairo', sans-serif;">
                     ${info.ar}
                   </div>
-                  <div style="font-size: 11px; font-weight: 800; color: #1e293b; margin-top: 4px;">
+                  <div style="font-size: 10px; font-weight: 800; color: #1e293b; margin-top: 2px;">
                     كشف أسماء الطلاب الرسمي • العام الدراسي 2026 / 2027
                   </div>
                 </div>
 
                 <div style="text-align: left;">
-                  <div style="font-size: 12px; font-weight: 900; color: #0f172a; background: #f1f5f9; padding: 4px 12px; border-radius: 8px; border: 1px solid #cbd5e1; display: inline-block;">
+                  <div style="font-size: 11px; font-weight: 900; color: #0f172a; background: #f1f5f9; padding: 2px 10px; border-radius: 6px; border: 1px solid #cbd5e1; display: inline-block;">
                     إجمالي عدد الطلاب: ${gStudents.length} طالب
                   </div>
-                  <div style="font-size: 10px; font-weight: 700; color: #64748b; margin-top: 3px;">
+                  <div style="font-size: 9.5px; font-weight: 700; color: #64748b; margin-top: 2px;">
                     التاريخ: ${new Date().toLocaleDateString('ar-EG')} • <span style="color: #059669; font-weight: 900;">معتمد رسمياً ✓</span>
                   </div>
                 </div>
@@ -3768,34 +3816,34 @@
             </div>
 
             <!-- Grade ${g} Side-by-side tables -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-2 items-start">
               
               <!-- Arabic Section -->
               <div class="lg:col-span-6 bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl section-card print-arabic-card">
-                <div class="bg-gradient-to-r from-emerald-800 to-emerald-700 px-5 py-3 flex items-center justify-between text-white print-section-header">
+                <div class="bg-gradient-to-r from-emerald-800 to-emerald-700 px-3 py-1.5 flex items-center justify-between text-white print-section-header">
                   <div class="flex items-center gap-2">
-                    <h3 class="font-black text-base print:text-lg">📚 قسم العربي</h3>
+                    <h3 class="font-black text-xs sm:text-sm">📚 قسم العربي</h3>
                   </div>
-                  <span class="bg-white/20 text-white text-xs font-black px-2.5 py-1 rounded-full border border-white/30">${arStudents.length} طالب</span>
+                  <span class="bg-white/20 text-white text-[10px] font-black px-2 py-0.5 rounded-full border border-white/30">${arStudents.length} طالب</span>
                 </div>
                 <div class="overflow-x-auto">
-                  <table class="w-full text-right text-xs sm:text-sm">
+                  <table class="w-full text-right text-xs">
                     <thead>
                       <tr class="bg-slate-900/60 text-slate-400 border-b border-slate-700">
-                        <th class="py-2.5 px-3 text-center w-12 font-black">م</th>
-                        <th class="py-2.5 px-4 font-black">اسم الطالب رباعي</th>
-                        <th class="py-2.5 px-3 text-center w-24 font-black print-only">ملاحظات</th>
+                        <th class="py-1 px-2 text-center w-8 font-black">م</th>
+                        <th class="py-1 px-3 font-black">اسم الطالب رباعي</th>
+                        <th class="py-1 px-2 text-center w-20 font-black print-only">ملاحظات</th>
                       </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-700/60">
-                      ${arStudents.length === 0 ? '<tr><td colspan="3" class="py-6 text-center text-slate-500 font-bold">لا يوجد طلاب مسجلين</td></tr>' : ''}
+                      ${arStudents.length === 0 ? '<tr><td colspan="3" class="py-3 text-center text-slate-500 font-bold">لا يوجد طلاب مسجلين</td></tr>' : ''}
                       ${arStudents.map((s, idx) => `
                         <tr class="hover:bg-slate-700/40 transition">
-                          <td class="py-2 px-3 text-center text-slate-400 font-bold">${idx + 1}</td>
-                          <td class="py-2 px-4 font-bold text-slate-900 print:text-slate-900">
-                            <div class="text-sm">${s.nameAr}</div>
+                          <td class="py-1 px-2 text-center text-slate-400 font-bold">${idx + 1}</td>
+                          <td class="py-1 px-3 font-bold text-slate-900 print:text-slate-900">
+                            <div>${s.nameAr}</div>
                           </td>
-                          <td class="py-2 px-3 text-center print-only"></td>
+                          <td class="py-1 px-2 text-center print-only"></td>
                         </tr>
                       `).join('')}
                       ${generateConsecutiveBlankRows(arStudents.length, printBlankRowsCount)}
@@ -3806,30 +3854,30 @@
 
               <!-- Languages Section -->
               <div class="lg:col-span-6 bg-slate-800/90 border border-slate-700 rounded-3xl overflow-hidden shadow-xl section-card print-languages-card">
-                <div class="bg-gradient-to-r from-blue-800 to-blue-700 px-5 py-3 flex items-center justify-between text-white print-section-header">
+                <div class="bg-gradient-to-r from-blue-800 to-blue-700 px-3 py-1.5 flex items-center justify-between text-white print-section-header">
                   <div class="flex items-center gap-2">
-                    <h3 class="font-black text-base print:text-lg">🌐 قسم اللغات</h3>
+                    <h3 class="font-black text-xs sm:text-sm">🌐 قسم اللغات</h3>
                   </div>
-                  <span class="bg-white/20 text-white text-xs font-black px-2.5 py-1 rounded-full border border-white/30">${lnStudents.length} طالب وطالبة</span>
+                  <span class="bg-white/20 text-white text-[10px] font-black px-2 py-0.5 rounded-full border border-white/30">${lnStudents.length} طالب وطالبة</span>
                 </div>
                 <div class="overflow-x-auto">
-                  <table class="w-full text-right text-xs sm:text-sm">
+                  <table class="w-full text-right text-xs">
                     <thead>
                       <tr class="bg-slate-900/60 text-slate-400 border-b border-slate-700">
-                        <th class="py-2.5 px-3 text-center w-12 font-black">م</th>
-                        <th class="py-2.5 px-4 font-black">اسم الطالب رباعي</th>
-                        <th class="py-2.5 px-3 text-center w-24 font-black print-only">ملاحظات</th>
+                        <th class="py-1 px-2 text-center w-8 font-black">م</th>
+                        <th class="py-1 px-3 font-black">اسم الطالب رباعي</th>
+                        <th class="py-1 px-2 text-center w-20 font-black print-only">ملاحظات</th>
                       </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-700/60">
-                      ${lnStudents.length === 0 ? '<tr><td colspan="3" class="py-6 text-center text-slate-500 font-bold">لا يوجد طلاب مسجلين</td></tr>' : ''}
+                      ${lnStudents.length === 0 ? '<tr><td colspan="3" class="py-3 text-center text-slate-500 font-bold">لا يوجد طلاب مسجلين</td></tr>' : ''}
                       ${lnStudents.map((s, idx) => `
                         <tr class="hover:bg-slate-700/40 transition">
-                          <td class="py-2 px-3 text-center text-slate-400 font-bold">${idx + 1}</td>
-                          <td class="py-2 px-4 font-bold text-slate-900 print:text-slate-900">
-                            <div class="text-sm">${s.nameAr}</div>
+                          <td class="py-1 px-2 text-center text-slate-400 font-bold">${idx + 1}</td>
+                          <td class="py-1 px-3 font-bold text-slate-900 print:text-slate-900">
+                            <div>${s.nameAr}</div>
                           </td>
-                          <td class="py-2 px-3 text-center print-only"></td>
+                          <td class="py-1 px-2 text-center print-only"></td>
                         </tr>
                       `).join('')}
                       ${generateConsecutiveBlankRows(lnStudents.length, printBlankRowsCount)}
