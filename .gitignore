@@ -11,3 +11,5 @@ test_*.pdf
 portal_*.png
 admission_form_*.png
 current_layout_print.png
+__pycache__/
+*.pyc

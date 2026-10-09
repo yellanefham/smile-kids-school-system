@@ -163,72 +163,6 @@
     <!-- ==================== VIEW 2: TEACHER DASHBOARD (WHEN LOGGED IN) ==================== -->
     <section id="view-dashboard" class="hidden flex-1 flex flex-col gap-5">
       
-      <!-- Smart Live Period Alert Banner -->
-      <div id="smart-period-banner" class="bg-gradient-to-r from-blue-950/70 via-slate-900/90 to-indigo-950/70 border border-blue-500/40 rounded-2xl p-4 sm:p-5 shadow-2xl relative overflow-hidden no-print">
-        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div class="flex items-start gap-3.5">
-            <div id="period-banner-icon" class="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center text-3xl shrink-0 shadow-lg">
-              ⚡
-            </div>
-            <div>
-              <div class="flex items-center gap-2 mb-1 flex-wrap">
-                <span id="period-status-badge" class="px-2.5 py-0.5 rounded-full text-xs font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.25)]">
-                  🟢 أنتِ في الحصة الآن!
-                </span>
-                <span id="period-time-range" class="text-xs text-amber-300 font-mono font-bold bg-slate-900/80 px-2 py-0.5 rounded-lg border border-slate-700">11:05 - 11:40 (الحصة السادسة)</span>
-                <span id="period-preview-tag" class="hidden text-[11px] font-bold text-sky-300 bg-sky-950/60 px-2 py-0.5 rounded-lg border border-sky-700/50">وضع المعاينة المباشر</span>
-              </div>
-              <h3 id="period-banner-title" class="text-base sm:text-lg font-black text-white">جاري تحديد الحصة وفصلك المعتمد...</h3>
-              <p id="period-banner-desc" class="text-xs text-slate-300 mt-0.5">مطابقة الجدول الأسبوعي مع توقيت الحصص الفعلي لمدرستكِ. انقري بالأسفل لتسجيل غياب الفصل فوراً.</p>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-2 self-start lg:self-center flex-wrap">
-            <button id="btn-quick-take-attendance" onclick="jumpToCurrentPeriodAttendance()" class="px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black rounded-xl text-xs sm:text-sm shadow-lg shadow-emerald-500/25 transition flex items-center gap-2 active:scale-95">
-              <span>⚡</span>
-              <span>تسجيل غياب الحصة الآن</span>
-            </button>
-            <button onclick="switchDashboardTab('schedule')" class="px-3.5 py-2.5 bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 border border-indigo-500/40 rounded-xl text-xs font-bold transition flex items-center gap-1.5 active:scale-95" title="عرض الحصة في جدولي الأسبوعي">
-              <span>📅</span>
-              <span>جدولي الأسبوعي</span>
-            </button>
-            <button onclick="switchDashboardTab('grades')" class="px-3.5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5 active:scale-95" title="رصد وإدخال الدرجات">
-              <span>📝</span>
-              <span>الدرجات</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Interactive Quick Period Simulation Strip -->
-        <div class="mt-3.5 pt-3 border-t border-slate-800 flex items-center justify-between flex-wrap gap-2 text-xs">
-          <div class="flex items-center gap-1.5 flex-wrap">
-            <span class="text-slate-400 font-bold text-[11px] ml-1">⚡ اختيار / تجربة أي حصة فوراً:</span>
-            <button type="button" onclick="setSimulatedPeriod(1)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px]" data-p="1">1 (07:30)</button>
-            <button type="button" onclick="setSimulatedPeriod(2)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px]" data-p="2">2 (08:10)</button>
-            <button type="button" onclick="setSimulatedPeriod(3)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px]" data-p="3">3 (08:50)</button>
-            <button type="button" onclick="setSimulatedPeriod('break')" class="period-quick-btn px-2 py-1 rounded-lg font-bold border transition text-[11px]" data-p="break">🥪 فسحة</button>
-            <button type="button" onclick="setSimulatedPeriod(4)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px]" data-p="4">4 (09:45)</button>
-            <button type="button" onclick="setSimulatedPeriod(5)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px]" data-p="5">5 (10:25)</button>
-            <button type="button" onclick="setSimulatedPeriod(6)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px] bg-amber-500/20 text-amber-300 border-amber-500/50 shadow" data-p="6">⭐ 6 (11:05)</button>
-            <button type="button" onclick="setSimulatedPeriod(7)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px]" data-p="7">7 (11:40)</button>
-            <button type="button" onclick="setSimulatedPeriod(8)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px]" data-p="8">8 (12:15)</button>
-            <button type="button" onclick="resetToLiveTime()" id="btn-live-clock-reset" class="px-2.5 py-1 rounded-lg font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white transition text-[11px]">⏰ التوقيت الفعلي</button>
-          </div>
-
-          <div class="flex items-center gap-2">
-            <span class="text-slate-400 font-bold text-[11px]">يوم الجدول:</span>
-            <select id="simulated-day-select" onchange="onSimulatedDayChange(this.value)" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-[11px] font-bold text-white focus:outline-none">
-              <option value="Sunday">الأحد</option>
-              <option value="Monday">الإثنين</option>
-              <option value="Tuesday">الثلاثاء</option>
-              <option value="Wednesday">الأربعاء</option>
-              <option value="Thursday">الخميس</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-
       <!-- Dashboard Tabs Navigation -->
       <div class="flex items-center justify-between border-b border-slate-800 pb-2 gap-2 overflow-x-auto custom-scroll no-print">
         <div class="flex items-center gap-1.5 sm:gap-2">
@@ -312,8 +246,8 @@
                   <option value="all">🌟 عرض كشف درجات الترم الأول كاملاً (شيت شامل)</option>
                 </optgroup>
                 <optgroup label="❄️ شهور وامتحانات الفصل الدراسي الأول (الترم الأول)">
-                  <option value="t1_sep">🌱 شهر سبتمبر (بداية العام والتقييمات التمهيدية)</option>
-                  <option value="t1_m1" selected>🍁 شهر أكتوبر (اختبار الشهر الأول)</option>
+                  <option value="t1_sep" selected>🌱 شهر سبتمبر (بداية العام والتقييمات التمهيدية)</option>
+                  <option value="t1_m1">🍁 شهر أكتوبر (اختبار الشهر الأول)</option>
                   <option value="t1_m2">🍂 شهر نوفمبر (اختبار الشهر الثاني)</option>
                   <option value="t1_tasks">📋 شهر ديسمبر (المهام والأنشطة الشهرية)</option>
                   <option value="t1_exam">❄️ شهر يناير (امتحان الميدتيرم Midterm Exam)</option>
@@ -455,6 +389,71 @@
       <!-- ==================== TAB 2: SMART PERIOD ATTENDANCE (غياب الحصص) ==================== -->
       <div id="tab-content-attendance" class="hidden flex-1 flex flex-col gap-4">
         
+        <!-- Smart Live Period Alert Banner (يظهر حصرياً داخل تبويب الغياب فقط) -->
+        <div id="smart-period-banner" class="bg-gradient-to-r from-blue-950/70 via-slate-900/90 to-indigo-950/70 border border-blue-500/40 rounded-2xl p-4 sm:p-5 shadow-2xl relative overflow-hidden no-print">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div class="flex items-start gap-3.5">
+              <div id="period-banner-icon" class="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center text-3xl shrink-0 shadow-lg">
+                ⚡
+              </div>
+              <div>
+                <div class="flex items-center gap-2 mb-1 flex-wrap">
+                  <span id="period-status-badge" class="px-2.5 py-0.5 rounded-full text-xs font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.25)]">
+                    🟢 أنتِ في الحصة الآن!
+                  </span>
+                  <span id="period-time-range" class="text-xs text-amber-300 font-mono font-bold bg-slate-900/80 px-2 py-0.5 rounded-lg border border-slate-700">11:05 - 11:40 (الحصة السادسة)</span>
+                  <span id="period-preview-tag" class="hidden text-[11px] font-bold text-sky-300 bg-sky-950/60 px-2 py-0.5 rounded-lg border border-sky-700/50">وضع المعاينة المباشر</span>
+                </div>
+                <h3 id="period-banner-title" class="text-base sm:text-lg font-black text-white">جاري تحديد الحصة وفصلك المعتمد...</h3>
+                <p id="period-banner-desc" class="text-xs text-slate-300 mt-0.5">مطابقة الجدول الأسبوعي مع توقيت الحصص الفعلي لمدرستكِ. انقري بالأسفل لتسجيل غياب الفصل فوراً.</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 self-start lg:self-center flex-wrap">
+              <button id="btn-quick-take-attendance" onclick="jumpToCurrentPeriodAttendance()" class="px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black rounded-xl text-xs sm:text-sm shadow-lg shadow-emerald-500/25 transition flex items-center gap-2 active:scale-95">
+                <span>⚡</span>
+                <span>تسجيل غياب الحصة الآن</span>
+              </button>
+              <button onclick="switchDashboardTab('schedule')" class="px-3.5 py-2.5 bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 border border-indigo-500/40 rounded-xl text-xs font-bold transition flex items-center gap-1.5 active:scale-95" title="عرض الحصة في جدولي الأسبوعي">
+                <span>📅</span>
+                <span>جدولي الأسبوعي</span>
+              </button>
+              <button onclick="switchDashboardTab('grades')" class="px-3.5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5 active:scale-95" title="العودة لرصد الدرجات">
+                <span>📝</span>
+                <span>رصد الدرجات</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Interactive Quick Period Simulation Strip -->
+          <div class="mt-3.5 pt-3 border-t border-slate-800 flex items-center justify-between flex-wrap gap-2 text-xs">
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span class="text-slate-400 font-bold text-[11px] ml-1">⚡ اختيار / تجربة أي حصة فوراً:</span>
+              <button type="button" onclick="setSimulatedPeriod(1)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px]" data-p="1">1 (07:30)</button>
+              <button type="button" onclick="setSimulatedPeriod(2)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px]" data-p="2">2 (08:10)</button>
+              <button type="button" onclick="setSimulatedPeriod(3)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px]" data-p="3">3 (08:50)</button>
+              <button type="button" onclick="setSimulatedPeriod('break')" class="period-quick-btn px-2 py-1 rounded-lg font-bold border transition text-[11px]" data-p="break">🥪 فسحة</button>
+              <button type="button" onclick="setSimulatedPeriod(4)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px]" data-p="4">4 (09:45)</button>
+              <button type="button" onclick="setSimulatedPeriod(5)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px]" data-p="5">5 (10:25)</button>
+              <button type="button" onclick="setSimulatedPeriod(6)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px] bg-amber-500/20 text-amber-300 border-amber-500/50 shadow" data-p="6">⭐ 6 (11:05)</button>
+              <button type="button" onclick="setSimulatedPeriod(7)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px]" data-p="7">7 (11:40)</button>
+              <button type="button" onclick="setSimulatedPeriod(8)" class="period-quick-btn px-2.5 py-1 rounded-lg font-bold border transition text-[11px]" data-p="8">8 (12:15)</button>
+              <button type="button" onclick="resetToLiveTime()" id="btn-live-clock-reset" class="px-2.5 py-1 rounded-lg font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white transition text-[11px]">⏰ التوقيت الفعلي</button>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <span class="text-slate-400 font-bold text-[11px]">يوم الجدول:</span>
+              <select id="simulated-day-select" onchange="onSimulatedDayChange(this.value)" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-[11px] font-bold text-white focus:outline-none">
+                <option value="Sunday">الأحد</option>
+                <option value="Monday">الإثنين</option>
+                <option value="Tuesday">الثلاثاء</option>
+                <option value="Wednesday">الأربعاء</option>
+                <option value="Thursday">الخميس</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
         <!-- Attendance Period Banner & Selectors -->
         <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-4 shadow-xl flex flex-wrap items-center justify-between gap-4">
           
@@ -6808,9 +6807,9 @@
         }
       }
 
-      // Default to attendance tab so teacher immediately sees the class she teaches and can update attendance!
-      activeDashboardTab = 'attendance';
-      switchDashboardTab('attendance');
+      // Default to grades tab (رصد الدرجات) as requested by administration!
+      activeDashboardTab = 'grades';
+      switchDashboardTab('grades');
     }
 
     function logoutTeacher() {
@@ -6887,7 +6886,7 @@
       `).join('');
 
       const curTerm = document.getElementById('term-select')?.value || 't1';
-      updateExamMonthOptions(curTerm);
+      updateExamMonthOptions(curTerm, 't1_sep');
 
       onGradeChange();
     }
@@ -6930,6 +6929,15 @@
 
     function switchDashboardTab(tabKey) {
       activeDashboardTab = tabKey;
+
+      const smartPeriodBanner = document.getElementById('smart-period-banner');
+      if (smartPeriodBanner) {
+        if (tabKey === 'attendance') {
+          smartPeriodBanner.classList.remove('hidden');
+        } else {
+          smartPeriodBanner.classList.add('hidden');
+        }
+      }
 
       const tabKeys = ['grades', 'attendance', 'schedule', 'history'];
       tabKeys.forEach(k => {
@@ -7426,10 +7434,12 @@
             <option value="t1_exam">❄️ شهر يناير (امتحان الميدتيرم Midterm Exam)</option>
           </optgroup>
         `;
-        if (curVal && (curVal.startsWith('t1') || curVal === 'all')) {
+        if (targetValue) {
+          sel.value = targetValue;
+        } else if (curVal && (curVal.startsWith('t1') || curVal === 'all')) {
           sel.value = curVal;
         } else {
-          sel.value = 't1_m1';
+          sel.value = 't1_sep';
         }
       }
     }

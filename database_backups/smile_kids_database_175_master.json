@@ -7133,5 +7133,32 @@
       "annual_total": 100
     },
     "subjectScores": {}
+  },
+  {
+    "grade": 4,
+    "track": "arabic",
+    "nameAr": "حمزة أحمد مصطفى",
+    "nameEn": "Hamza Ahmed Moustafa",
+    "parentName": "أحمد مصطفى كامل",
+    "parentPhone": "01012345678",
+    "parentWhatsApp": "01012345678",
+    "notes": "",
+    "photo": null,
+    "gender": "male",
+    "id": "SK-G4-AR-5389",
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 20,
+      "t1_m2": 20,
+      "t1_exam": 30,
+      "t1_total": 100,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 100,
+      "annual_total": 100
+    },
+    "subjectScores": {}
   }
 ]
