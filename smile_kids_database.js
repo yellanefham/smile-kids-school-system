@@ -28,11 +28,11 @@
     return false;
   }
 
-  const STORAGE_KEY = 'SMILE_KIDS_MASTER_DATABASE_2026_V4';
-  const LEGACY_STUDENT_KEYS = ['SMILE_KIDS_MASTER_DATABASE_2026_V3', 'SMILE_KIDS_MASTER_DATABASE_2026_V2', 'SMILE_KIDS_MASTER_DATABASE_2026', 'smile_kids_students_v7_custom', 'smilekids_school_v6'];
+  const STORAGE_KEY = 'SMILE_KIDS_MASTER_DATABASE_2026_V5';
+  const LEGACY_STUDENT_KEYS = ['SMILE_KIDS_MASTER_DATABASE_2026_V4', 'SMILE_KIDS_MASTER_DATABASE_2026_V3', 'SMILE_KIDS_MASTER_DATABASE_2026_V2', 'SMILE_KIDS_MASTER_DATABASE_2026', 'smile_kids_students_v7_custom', 'smilekids_school_v6'];
   const LEGACY_ATT_KEY = 'smile_kids_attendance_v7_data';
 
-  // Master Initial Verified Students (147 Students across 9 Grades)
+  // Master Initial Verified Students (174 Students across 9 Grades with Secure PINs)
   const MASTER_INITIAL_STUDENTS = [
   {
     "id": "SK-G1-AR-001",
@@ -148,7 +148,9 @@
           }
         }
       }
-    }
+    },
+    "pin": "3051",
+    "password": "3051"
   },
   {
     "id": "SK-G1-AR-002",
@@ -212,7 +214,9 @@
         },
         "m1": 30
       }
-    }
+    },
+    "pin": "6334",
+    "password": "6334"
   },
   {
     "id": "SK-G1-AR-003",
@@ -276,7 +280,9 @@
         },
         "m1": 30
       }
-    }
+    },
+    "pin": "9333",
+    "password": "9333"
   },
   {
     "id": "SK-G1-AR-004",
@@ -340,7 +346,9 @@
         },
         "m1": 30
       }
-    }
+    },
+    "pin": "9485",
+    "password": "9485"
   },
   {
     "id": "SK-G1-AR-005",
@@ -406,7 +414,9 @@
         },
         "m1": 30
       }
-    }
+    },
+    "pin": "2781",
+    "password": "2781"
   },
   {
     "id": "SK-G1-AR-006",
@@ -470,7 +480,9 @@
         },
         "m1": 30
       }
-    }
+    },
+    "pin": "4758",
+    "password": "4758"
   },
   {
     "id": "SK-G1-AR-007",
@@ -534,7 +546,9 @@
         },
         "m1": 30
       }
-    }
+    },
+    "pin": "7991",
+    "password": "7991"
   },
   {
     "id": "SK-G1-LN-001",
@@ -598,7 +612,9 @@
         },
         "m1": 30
       }
-    }
+    },
+    "pin": "9142",
+    "password": "9142"
   },
   {
     "id": "SK-G1-LN-002",
@@ -662,7 +678,9 @@
         },
         "m1": 30
       }
-    }
+    },
+    "pin": "8326",
+    "password": "8326"
   },
   {
     "id": "SK-G1-LN-003",
@@ -726,7 +744,9 @@
         },
         "m1": 30
       }
-    }
+    },
+    "pin": "5031",
+    "password": "5031"
   },
   {
     "id": "SK-G1-LN-004",
@@ -792,7 +812,9 @@
         },
         "m1": 30
       }
-    }
+    },
+    "pin": "1141",
+    "password": "1141"
   },
   {
     "id": "SK-G1-LN-005",
@@ -856,7 +878,9 @@
         },
         "m1": 30
       }
-    }
+    },
+    "pin": "2422",
+    "password": "2422"
   },
   {
     "id": "SK-G1-LN-006",
@@ -920,7 +944,9 @@
         },
         "m1": 30
       }
-    }
+    },
+    "pin": "2914",
+    "password": "2914"
   },
   {
     "id": "SK-G1-LN-007",
@@ -984,7 +1010,9 @@
         },
         "m1": 30
       }
-    }
+    },
+    "pin": "5806",
+    "password": "5806"
   },
   {
     "id": "SK-G1-LN-008",
@@ -1048,7 +1076,9 @@
         },
         "m1": 30
       }
-    }
+    },
+    "pin": "2706",
+    "password": "2706"
   },
   {
     "id": "SK-G1-LN-009",
@@ -1112,7 +1142,9 @@
         },
         "m1": 30
       }
-    }
+    },
+    "pin": "8467",
+    "password": "8467"
   },
   {
     "id": "SK-G1-LN-010",
@@ -1176,7 +1208,9 @@
         },
         "m1": 30
       }
-    }
+    },
+    "pin": "1288",
+    "password": "1288"
   },
   {
     "id": "SK-G2-AR-001",
@@ -1241,7 +1275,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "9132",
+    "password": "9132"
   },
   {
     "id": "SK-G2-AR-002",
@@ -1306,7 +1342,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "6248",
+    "password": "6248"
   },
   {
     "id": "SK-G2-AR-003",
@@ -1371,7 +1409,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "4544",
+    "password": "4544"
   },
   {
     "id": "SK-G2-AR-004",
@@ -1436,7 +1476,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "7608",
+    "password": "7608"
   },
   {
     "id": "SK-G2-AR-005",
@@ -1501,7 +1543,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "5220",
+    "password": "5220"
   },
   {
     "id": "SK-G2-AR-006",
@@ -1568,7 +1612,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "6796",
+    "password": "6796"
   },
   {
     "id": "SK-G2-AR-007",
@@ -1633,7 +1679,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "6943",
+    "password": "6943"
   },
   {
     "id": "SK-G2-AR-008",
@@ -1698,7 +1746,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "7266",
+    "password": "7266"
   },
   {
     "id": "SK-G2-LN-001",
@@ -1763,7 +1813,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "9514",
+    "password": "9514"
   },
   {
     "id": "SK-G2-LN-002",
@@ -1828,7 +1880,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "2350",
+    "password": "2350"
   },
   {
     "id": "SK-G2-LN-003",
@@ -1893,7 +1947,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "6677",
+    "password": "6677"
   },
   {
     "id": "SK-G2-LN-004",
@@ -1958,7 +2014,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "2569",
+    "password": "2569"
   },
   {
     "id": "SK-G2-LN-005",
@@ -2023,7 +2081,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "5886",
+    "password": "5886"
   },
   {
     "id": "SK-G2-LN-006",
@@ -2088,7 +2148,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "5812",
+    "password": "5812"
   },
   {
     "id": "SK-G2-LN-007",
@@ -2153,7 +2215,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "8594",
+    "password": "8594"
   },
   {
     "id": "SK-G2-LN-008",
@@ -2218,7 +2282,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "3408",
+    "password": "3408"
   },
   {
     "id": "SK-G2-LN-010",
@@ -2283,7 +2349,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "6162",
+    "password": "6162"
   },
   {
     "id": "SK-G2-LN-012",
@@ -2348,7 +2416,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "1505",
+    "password": "1505"
   },
   {
     "id": "SK-G2-LN-014",
@@ -2413,7 +2483,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "7143",
+    "password": "7143"
   },
   {
     "id": "SK-G2-LN-015",
@@ -2478,7 +2550,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "7056",
+    "password": "7056"
   },
   {
     "id": "SK-G2-LN-016",
@@ -2543,7 +2617,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "8654",
+    "password": "8654"
   },
   {
     "id": "SK-G2-LN-017",
@@ -2608,7 +2684,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "8017",
+    "password": "8017"
   },
   {
     "id": "SK-G2-LN-018",
@@ -2673,7 +2751,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "2585",
+    "password": "2585"
   },
   {
     "id": "SK-G2-LN-019",
@@ -2738,7 +2818,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "7633",
+    "password": "7633"
   },
   {
     "id": "SK-G3-AR-001",
@@ -2771,7 +2853,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9266",
+    "password": "9266"
   },
   {
     "id": "SK-G3-AR-002",
@@ -2804,7 +2888,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "3007",
+    "password": "3007"
   },
   {
     "id": "SK-G3-AR-003",
@@ -2837,7 +2923,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8070",
+    "password": "8070"
   },
   {
     "id": "SK-G3-AR-004",
@@ -2870,7 +2958,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9396",
+    "password": "9396"
   },
   {
     "id": "SK-G3-AR-005",
@@ -2903,7 +2993,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9145",
+    "password": "9145"
   },
   {
     "id": "SK-G3-LN-001",
@@ -2936,7 +3028,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "7623",
+    "password": "7623"
   },
   {
     "id": "SK-G3-LN-002",
@@ -2969,7 +3063,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9695",
+    "password": "9695"
   },
   {
     "id": "SK-G3-LN-003",
@@ -3002,7 +3098,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "5337",
+    "password": "5337"
   },
   {
     "id": "SK-G3-LN-004",
@@ -3035,7 +3133,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "7980",
+    "password": "7980"
   },
   {
     "id": "SK-G3-LN-005",
@@ -3068,7 +3168,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8951",
+    "password": "8951"
   },
   {
     "id": "SK-G3-LN-006",
@@ -3101,7 +3203,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9504",
+    "password": "9504"
   },
   {
     "id": "SK-G3-LN-007",
@@ -3134,7 +3238,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9586",
+    "password": "9586"
   },
   {
     "id": "SK-G3-LN-008",
@@ -3167,7 +3273,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "1515",
+    "password": "1515"
   },
   {
     "id": "SK-G3-LN-009",
@@ -3200,7 +3308,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "4778",
+    "password": "4778"
   },
   {
     "id": "SK-G3-LN-010",
@@ -3233,7 +3343,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "3213",
+    "password": "3213"
   },
   {
     "id": "SK-G3-LN-011",
@@ -3266,7 +3378,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "1900",
+    "password": "1900"
   },
   {
     "id": "SK-G3-LN-012",
@@ -3299,7 +3413,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9672",
+    "password": "9672"
   },
   {
     "id": "SK-G3-LN-013",
@@ -3332,7 +3448,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "2780",
+    "password": "2780"
   },
   {
     "id": "SK-G3-LN-014",
@@ -3365,7 +3483,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8135",
+    "password": "8135"
   },
   {
     "id": "SK-G3-LN-015",
@@ -3398,7 +3518,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8801",
+    "password": "8801"
   },
   {
     "id": "SK-G3-LN-016",
@@ -3431,7 +3553,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "3433",
+    "password": "3433"
   },
   {
     "id": "SK-G3-LN-017",
@@ -3464,7 +3588,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8998",
+    "password": "8998"
   },
   {
     "id": "SK-G3-LN-018",
@@ -3497,7 +3623,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "4850",
+    "password": "4850"
   },
   {
     "id": "SK-G4-AR-001",
@@ -3530,7 +3658,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "3099",
+    "password": "3099"
   },
   {
     "id": "SK-G4-AR-002",
@@ -3563,7 +3693,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8584",
+    "password": "8584"
   },
   {
     "id": "SK-G4-AR-003",
@@ -3596,7 +3728,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8790",
+    "password": "8790"
   },
   {
     "id": "SK-G4-AR-004",
@@ -3629,7 +3763,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "5212",
+    "password": "5212"
   },
   {
     "id": "SK-G4-AR-005",
@@ -3662,7 +3798,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "7687",
+    "password": "7687"
   },
   {
     "id": "SK-G4-AR-006",
@@ -3695,7 +3833,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "6140",
+    "password": "6140"
   },
   {
     "id": "SK-G4-LN-001",
@@ -3728,7 +3868,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9323",
+    "password": "9323"
   },
   {
     "id": "SK-G4-LN-002",
@@ -3761,7 +3903,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8946",
+    "password": "8946"
   },
   {
     "id": "SK-G4-LN-003",
@@ -3794,7 +3938,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "7685",
+    "password": "7685"
   },
   {
     "id": "SK-G4-LN-004",
@@ -3827,7 +3973,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8195",
+    "password": "8195"
   },
   {
     "id": "SK-G4-LN-005",
@@ -3860,7 +4008,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "4418",
+    "password": "4418"
   },
   {
     "id": "SK-G4-LN-006",
@@ -3893,7 +4043,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "5923",
+    "password": "5923"
   },
   {
     "id": "SK-G4-LN-007",
@@ -3926,7 +4078,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "5507",
+    "password": "5507"
   },
   {
     "id": "SK-G4-LN-008",
@@ -3959,7 +4113,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "1251",
+    "password": "1251"
   },
   {
     "id": "SK-G4-LN-009",
@@ -3992,7 +4148,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "1642",
+    "password": "1642"
   },
   {
     "id": "SK-G4-LN-010",
@@ -4025,7 +4183,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "3555",
+    "password": "3555"
   },
   {
     "id": "SK-G4-LN-011",
@@ -4058,7 +4218,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8607",
+    "password": "8607"
   },
   {
     "id": "SK-G4-LN-012",
@@ -4091,7 +4253,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9667",
+    "password": "9667"
   },
   {
     "id": "SK-G4-LN-013",
@@ -4124,7 +4288,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9120",
+    "password": "9120"
   },
   {
     "grade": 1,
@@ -4181,7 +4347,9 @@
         },
         "m1": 30
       }
-    }
+    },
+    "pin": "6997",
+    "password": "6997"
   },
   {
     "grade": 2,
@@ -4237,7 +4405,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "4374",
+    "password": "4374"
   },
   {
     "grade": 2,
@@ -4293,7 +4463,9 @@
         },
         "m1": 20
       }
-    }
+    },
+    "pin": "5361",
+    "password": "5361"
   },
   {
     "grade": 3,
@@ -4321,7 +4493,9 @@
       "t2_total": 100,
       "annual_total": 100
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9055",
+    "password": "9055"
   },
   {
     "id": "SK-G5-AR-001",
@@ -4354,7 +4528,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8745",
+    "password": "8745"
   },
   {
     "id": "SK-G5-AR-002",
@@ -4387,7 +4563,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9476",
+    "password": "9476"
   },
   {
     "id": "SK-G5-AR-003",
@@ -4420,7 +4598,9 @@
       "t2_total": 100,
       "annual_total": 100
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9245",
+    "password": "9245"
   },
   {
     "id": "SK-G5-AR-004",
@@ -4453,7 +4633,9 @@
       "t2_total": 100,
       "annual_total": 100
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8214",
+    "password": "8214"
   },
   {
     "id": "SK-G5-AR-005",
@@ -4486,7 +4668,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "1650",
+    "password": "1650"
   },
   {
     "id": "SK-G5-AR-006",
@@ -4519,7 +4703,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "5852",
+    "password": "5852"
   },
   {
     "id": "SK-G5-AR-007",
@@ -4552,7 +4738,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "6288",
+    "password": "6288"
   },
   {
     "id": "SK-G5-AR-008",
@@ -4585,7 +4773,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8598",
+    "password": "8598"
   },
   {
     "id": "SK-G5-AR-009",
@@ -4618,7 +4808,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "2711",
+    "password": "2711"
   },
   {
     "id": "SK-G5-AR-010",
@@ -4651,7 +4843,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8283",
+    "password": "8283"
   },
   {
     "id": "SK-G5-LN-001",
@@ -4684,7 +4878,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9540",
+    "password": "9540"
   },
   {
     "id": "SK-G5-LN-002",
@@ -4717,7 +4913,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "5340",
+    "password": "5340"
   },
   {
     "id": "SK-G5-LN-003",
@@ -4750,7 +4948,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8520",
+    "password": "8520"
   },
   {
     "id": "SK-G5-LN-004",
@@ -4783,7 +4983,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "4099",
+    "password": "4099"
   },
   {
     "id": "SK-G5-LN-005",
@@ -4816,7 +5018,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8075",
+    "password": "8075"
   },
   {
     "id": "SK-G5-LN-006",
@@ -4849,7 +5053,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8950",
+    "password": "8950"
   },
   {
     "id": "SK-G5-LN-007",
@@ -4882,7 +5088,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "2153",
+    "password": "2153"
   },
   {
     "id": "SK-G5-LN-008",
@@ -4915,7 +5123,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "5465",
+    "password": "5465"
   },
   {
     "id": "SK-G5-LN-009",
@@ -4948,7 +5158,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "7164",
+    "password": "7164"
   },
   {
     "id": "SK-G6-AR-001",
@@ -4981,7 +5193,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "2683",
+    "password": "2683"
   },
   {
     "id": "SK-G6-AR-002",
@@ -5014,7 +5228,9 @@
       "t2_total": 100,
       "annual_total": 100
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "4288",
+    "password": "4288"
   },
   {
     "id": "SK-G6-AR-003",
@@ -5047,7 +5263,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "7838",
+    "password": "7838"
   },
   {
     "id": "SK-G6-AR-004",
@@ -5080,7 +5298,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "3497",
+    "password": "3497"
   },
   {
     "id": "SK-G6-AR-005",
@@ -5113,7 +5333,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8462",
+    "password": "8462"
   },
   {
     "id": "SK-G6-LN-001",
@@ -5146,7 +5368,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "1329",
+    "password": "1329"
   },
   {
     "id": "SK-G6-LN-002",
@@ -5179,7 +5403,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "2610",
+    "password": "2610"
   },
   {
     "id": "SK-G6-LN-003",
@@ -5212,7 +5438,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "1103",
+    "password": "1103"
   },
   {
     "id": "SK-G6-LN-004",
@@ -5245,7 +5473,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8492",
+    "password": "8492"
   },
   {
     "id": "SK-G6-LN-005",
@@ -5278,7 +5508,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "2460",
+    "password": "2460"
   },
   {
     "id": "SK-G6-LN-006",
@@ -5311,7 +5543,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "4357",
+    "password": "4357"
   },
   {
     "id": "SK-G6-LN-007",
@@ -5344,7 +5578,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "5160",
+    "password": "5160"
   },
   {
     "id": "SK-G6-LN-008",
@@ -5377,7 +5613,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "3079",
+    "password": "3079"
   },
   {
     "id": "SK-G6-LN-009",
@@ -5410,7 +5648,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "1831",
+    "password": "1831"
   },
   {
     "id": "SK-G6-LN-010",
@@ -5443,7 +5683,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "5499",
+    "password": "5499"
   },
   {
     "id": "SK-G6-LN-011",
@@ -5476,7 +5718,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "6953",
+    "password": "6953"
   },
   {
     "id": "SK-G7-AR-001",
@@ -5509,7 +5753,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "3635",
+    "password": "3635"
   },
   {
     "id": "SK-G7-AR-002",
@@ -5542,7 +5788,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "1184",
+    "password": "1184"
   },
   {
     "id": "SK-G7-AR-003",
@@ -5575,7 +5823,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "6235",
+    "password": "6235"
   },
   {
     "id": "SK-G7-AR-004",
@@ -5608,7 +5858,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9160",
+    "password": "9160"
   },
   {
     "id": "SK-G7-AR-005",
@@ -5641,7 +5893,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "3309",
+    "password": "3309"
   },
   {
     "id": "SK-G7-AR-006",
@@ -5674,7 +5928,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "4752",
+    "password": "4752"
   },
   {
     "id": "SK-G7-LN-001",
@@ -5707,7 +5963,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8849",
+    "password": "8849"
   },
   {
     "id": "SK-G7-LN-002",
@@ -5740,7 +5998,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "3249",
+    "password": "3249"
   },
   {
     "id": "SK-G7-LN-003",
@@ -5773,7 +6033,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9369",
+    "password": "9369"
   },
   {
     "id": "SK-G7-LN-004",
@@ -5806,7 +6068,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "5862",
+    "password": "5862"
   },
   {
     "id": "SK-G7-LN-005",
@@ -5839,7 +6103,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "2483",
+    "password": "2483"
   },
   {
     "id": "SK-G7-LN-006",
@@ -5872,7 +6138,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "7944",
+    "password": "7944"
   },
   {
     "id": "SK-G7-LN-007",
@@ -5905,7 +6173,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "3723",
+    "password": "3723"
   },
   {
     "id": "SK-G7-LN-008",
@@ -5938,7 +6208,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "3317",
+    "password": "3317"
   },
   {
     "id": "SK-G8-AR-001",
@@ -5971,7 +6243,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "6113",
+    "password": "6113"
   },
   {
     "id": "SK-G8-AR-002",
@@ -6004,7 +6278,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9418",
+    "password": "9418"
   },
   {
     "id": "SK-G8-AR-003",
@@ -6037,7 +6313,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "7850",
+    "password": "7850"
   },
   {
     "id": "SK-G8-LN-001",
@@ -6070,7 +6348,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "7496",
+    "password": "7496"
   },
   {
     "id": "SK-G8-LN-002",
@@ -6103,7 +6383,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "3533",
+    "password": "3533"
   },
   {
     "id": "SK-G9-AR-001",
@@ -6136,7 +6418,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9620",
+    "password": "9620"
   },
   {
     "id": "SK-G9-AR-002",
@@ -6169,7 +6453,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "4322",
+    "password": "4322"
   },
   {
     "id": "SK-G9-AR-003",
@@ -6202,7 +6488,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "7260",
+    "password": "7260"
   },
   {
     "id": "SK-G9-LN-001",
@@ -6235,7 +6523,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "1331",
+    "password": "1331"
   },
   {
     "id": "SK-G9-LN-002",
@@ -6268,7 +6558,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "2838",
+    "password": "2838"
   },
   {
     "id": "SK-G2-LN-020",
@@ -6301,7 +6593,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "7479",
+    "password": "7479"
   },
   {
     "id": "SK-G2-LN-021",
@@ -6334,7 +6628,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "2303",
+    "password": "2303"
   },
   {
     "id": "SK-G2-LN-022",
@@ -6367,7 +6663,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "1941",
+    "password": "1941"
   },
   {
     "id": "SK-G2-LN-023",
@@ -6400,7 +6698,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "6785",
+    "password": "6785"
   },
   {
     "id": "SK-G2-LN-024",
@@ -6433,7 +6733,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "6890",
+    "password": "6890"
   },
   {
     "id": "SK-G2-LN-025",
@@ -6466,7 +6768,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "1522",
+    "password": "1522"
   },
   {
     "id": "SK-G2-AR-009",
@@ -6499,7 +6803,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "1519",
+    "password": "1519"
   },
   {
     "id": "SK-G1-LN-011",
@@ -6532,7 +6838,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9462",
+    "password": "9462"
   },
   {
     "id": "SK-G1-LN-012",
@@ -6565,7 +6873,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8899",
+    "password": "8899"
   },
   {
     "id": "SK-G1-LN-013",
@@ -6598,7 +6908,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "6470",
+    "password": "6470"
   },
   {
     "id": "SK-G1-LN-014",
@@ -6631,7 +6943,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "6075",
+    "password": "6075"
   },
   {
     "id": "SK-G1-LN-015",
@@ -6664,7 +6978,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8475",
+    "password": "8475"
   },
   {
     "id": "SK-G1-LN-016",
@@ -6697,7 +7013,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "6441",
+    "password": "6441"
   },
   {
     "id": "SK-G1-LN-017",
@@ -6730,7 +7048,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "3088",
+    "password": "3088"
   },
   {
     "id": "SK-G1-LN-018",
@@ -6763,7 +7083,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9252",
+    "password": "9252"
   },
   {
     "id": "SK-G1-LN-019",
@@ -6796,7 +7118,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8744",
+    "password": "8744"
   },
   {
     "id": "SK-G1-AR-008",
@@ -6829,7 +7153,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "3897",
+    "password": "3897"
   },
   {
     "id": "SK-G1-AR-009",
@@ -6862,7 +7188,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "3621",
+    "password": "3621"
   },
   {
     "id": "SK-G3-LN-019",
@@ -6895,7 +7223,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "9613",
+    "password": "9613"
   },
   {
     "id": "SK-G3-LN-020",
@@ -6928,7 +7258,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "4491",
+    "password": "4491"
   },
   {
     "id": "SK-G3-LN-021",
@@ -6961,7 +7293,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8204",
+    "password": "8204"
   },
   {
     "id": "SK-G3-LN-022",
@@ -6994,7 +7328,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "6611",
+    "password": "6611"
   },
   {
     "id": "SK-G3-AR-006",
@@ -7027,7 +7363,9 @@
       "t2_total": 98,
       "annual_total": 98
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "8617",
+    "password": "8617"
   },
   {
     "grade": 4,
@@ -7055,7 +7393,9 @@
       "t2_total": 100,
       "annual_total": 100
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "4922",
+    "password": "4922"
   },
   {
     "grade": 4,
@@ -7083,7 +7423,9 @@
       "t2_total": 100,
       "annual_total": 100
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "2238",
+    "password": "2238"
   },
   {
     "grade": 4,
@@ -7111,7 +7453,9 @@
       "t2_total": 100,
       "annual_total": 100
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "7639",
+    "password": "7639"
   },
   {
     "grade": 4,
@@ -7139,7 +7483,9 @@
       "t2_total": 100,
       "annual_total": 100
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "1659",
+    "password": "1659"
   },
   {
     "grade": 4,
@@ -7167,7 +7513,9 @@
       "t2_total": 100,
       "annual_total": 100
     },
-    "subjectScores": {}
+    "subjectScores": {},
+    "pin": "4302",
+    "password": "4302"
   }
 ];
 
