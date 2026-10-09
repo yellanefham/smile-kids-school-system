@@ -16,12 +16,13 @@
   // ضع بيانات مشروعك هنا من Firebase Console -> Project Settings -> General -> Web App
   // =======================================================================
   const DEFAULT_FIREBASE_CONFIG = {
-    apiKey: "YOUR_API_KEY_HERE",
+    apiKey: "AIzaSyDf3TZnC4AtwnaV_BXc2ko-QFcG7DVE8yQ",
     authDomain: "smile-kids-school.firebaseapp.com",
     projectId: "smile-kids-school",
-    storageBucket: "smile-kids-school.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    storageBucket: "smile-kids-school.firebasestorage.app",
+    messagingSenderId: "248226226890",
+    appId: "1:248226226890:web:3dd4ff3470691c2f334a33",
+    measurementId: "G-DQ1RFWLBK9"
   };
 
   // السماح بتمرير إعدادات من النافذة العامة إذا تم تعريفها مسبقاً
@@ -39,7 +40,7 @@
     const isPlaceholder = (val) => {
       if (!val || typeof val !== 'string') return true;
       const upper = val.toUpperCase();
-      return upper.includes('YOUR_') || upper.includes('PLACEHOLDER') || val === 'smile-kids-school';
+      return upper.includes('YOUR_') || upper.includes('PLACEHOLDER');
     };
     return (
       Boolean(cfg.apiKey) &&
