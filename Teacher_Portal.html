@@ -101,6 +101,10 @@
           <span>👑</span>
           <span class="hidden sm:inline">كشوف الطلاب والشهادات</span>
         </a>
+        <a id="btn-admin-credentials-link" href="Teachers_Credentials_Sheet.html" class="hidden px-3 py-1.5 bg-amber-600/20 hover:bg-amber-600/30 text-amber-300 border border-amber-500/40 rounded-xl text-xs font-black transition items-center gap-1.5 shadow-sm" title="كشف بأسماء وكلمات مرور المعلمات">
+          <span>🔑</span>
+          <span class="hidden sm:inline">كشف الباسوردات</span>
+        </a>
 
         <!-- Home Page Link -->
         <a href="index.html" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm" title="العودة للبوابة الرئيسية">
@@ -133,12 +137,16 @@
       </div>
 
       <!-- Master Admin Access Button -->
-      <div class="max-w-md mx-auto w-full mb-8 text-center">
+      <div class="max-w-md mx-auto w-full mb-8 flex flex-col gap-2.5 text-center">
         <button id="btn-admin-master-login" type="button" onclick="openAdminModal()" class="w-full py-3.5 px-6 bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-slate-950 font-black rounded-2xl shadow-xl hover:shadow-amber-500/25 transition-all duration-200 flex items-center justify-center gap-2 group text-sm sm:text-base border border-amber-400/50">
           <span class="text-xl group-hover:scale-125 transition-transform">👑</span>
           <span>دخول الإدارة العامة (Master Admin)</span>
           <span class="text-[11px] bg-black/20 text-slate-900 font-bold px-2 py-0.5 rounded-full mr-2">صلاحيات كاملة للمنظومة</span>
         </button>
+        <a href="Teachers_Credentials_Sheet.html" class="inline-flex items-center justify-center gap-2 py-2 px-4 bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-500/40 rounded-xl text-xs font-bold transition shadow-sm">
+          <span>🔑</span>
+          <span>كشف بأسماء وكلمات مرور المعلمات المعتمدة (خاص بالإدارة)</span>
+        </a>
       </div>
 
       <!-- Security Notice Bar -->
@@ -147,7 +155,7 @@
           <span>🔒</span>
           <span>تسجيل دخول محمي • يرجى إدخال رمز المرور الخاص بكِ للدخول</span>
         </div>
-        <p class="text-[11px] text-slate-400">يلزم تغيير كلمة المرور عند أول دخول لضمان خصوصية وسرية الدرجات، ويتم قفل الحساب مؤقتاً عند تكرار المحاولات الخاطئة.</p>
+        <p class="text-[11px] text-slate-400">يتم الدخول بالرقم السري المعتمد المسلم من إدارة المدرسة مباشرة لرصد الدرجات، ويتم قفل الحساب مؤقتاً عند تكرار المحاولات الخاطئة.</p>
       </div>
     </section>
 
@@ -6218,11 +6226,36 @@
       if (!localStorage.getItem(STORAGE_KEY_ATTENDANCE)) {
         localStorage.setItem(STORAGE_KEY_ATTENDANCE, JSON.stringify([]));
       }
-      if (!localStorage.getItem(STORAGE_KEY_PINS)) {
-        const initialPins = {};
-        TEACHERS_CATALOG.forEach(t => initialPins[t.id] = '1234');
-        initialPins['admin'] = '9999';
-        localStorage.setItem(STORAGE_KEY_PINS, JSON.stringify(initialPins));
+      const DEFAULT_TEACHER_PINS = {
+        't_asmaa': '2011',
+        't_yara': '2012',
+        't_nabila': '2013',
+        't_hend': '2014',
+        't_samar': '2015',
+        't_amira': '2016',
+        't_ola': '2017',
+        't_marwa': '2018',
+        't_kariman': '2019',
+        't_abeer': '2020',
+        't_basma': '2021',
+        't_german': '2022',
+        'admin': '9999'
+      };
+
+      let existingPins = {};
+      try {
+        existingPins = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
+      } catch (e) { existingPins = {}; }
+
+      let needsSave = false;
+      Object.keys(DEFAULT_TEACHER_PINS).forEach(tId => {
+        if (!existingPins[tId] || existingPins[tId] === '1234') {
+          existingPins[tId] = DEFAULT_TEACHER_PINS[tId];
+          needsSave = true;
+        }
+      });
+      if (needsSave || !localStorage.getItem(STORAGE_KEY_PINS)) {
+        localStorage.setItem(STORAGE_KEY_PINS, JSON.stringify(existingPins));
       }
       if (!localStorage.getItem(STORAGE_KEY_PIN_STATUS)) {
         localStorage.setItem(STORAGE_KEY_PIN_STATUS, JSON.stringify({}));
@@ -6527,28 +6560,13 @@
       try {
         pinsObj = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
       } catch (e) { pinsObj = {}; }
-      const expectedPin = pinsObj[teacherId] || '1234';
+      const expectedPin = pinsObj[teacherId] || (typeof DEFAULT_TEACHER_PINS !== 'undefined' ? DEFAULT_TEACHER_PINS[teacherId] : '2011');
 
       if (inputPin === expectedPin) {
         // PIN is correct! Clear failed attempts
         clearFailedLogin(teacherId);
 
-        // Check if forced PIN change is required (first login / default PIN '1234')
-        let pinStatus = {};
-        try {
-          pinStatus = JSON.parse(localStorage.getItem(STORAGE_KEY_PIN_STATUS)) || {};
-        } catch (e) { pinStatus = {}; }
-        const isTeacherChanged = pinStatus[teacherId] && pinStatus[teacherId].isChanged;
-
-        if (expectedPin === '1234' || !isTeacherChanged) {
-          // FORCED PIN CHANGE REQUIRED: DO NOT PROCEED TO DASHBOARD!
-          const teacher = selectedTeacherForLogin;
-          closePinModal();
-          openForceChangePinModal(teacher);
-          return;
-        }
-
-        // Custom PIN already set: proceed to dashboard
+        // Authenticate directly to dashboard without forcing password change
         const teacher = selectedTeacherForLogin;
         closePinModal();
         loginAsTeacher(teacher, false);
@@ -6768,8 +6786,9 @@
         if (periodSelect && activeCurrentPeriodInfo.periodNum) periodSelect.value = activeCurrentPeriodInfo.periodNum.toString();
       }
 
-      // Show Admin Roster shortcut button only if Master Admin
+      // Show Admin Roster & Credentials shortcut buttons only if Master Admin
       const adminRosterLink = document.getElementById('btn-admin-roster-link');
+      const adminCredsLink = document.getElementById('btn-admin-credentials-link');
       if (adminRosterLink) {
         if (isAdmin) {
           adminRosterLink.classList.remove('hidden');
@@ -6777,6 +6796,15 @@
         } else {
           adminRosterLink.classList.add('hidden');
           adminRosterLink.classList.remove('flex');
+        }
+      }
+      if (adminCredsLink) {
+        if (isAdmin) {
+          adminCredsLink.classList.remove('hidden');
+          adminCredsLink.classList.add('flex');
+        } else {
+          adminCredsLink.classList.add('hidden');
+          adminCredsLink.classList.remove('flex');
         }
       }
 
@@ -6794,6 +6822,11 @@
       if (adminRosterLink) {
         adminRosterLink.classList.add('hidden');
         adminRosterLink.classList.remove('flex');
+      }
+      const adminCredsLink = document.getElementById('btn-admin-credentials-link');
+      if (adminCredsLink) {
+        adminCredsLink.classList.add('hidden');
+        adminCredsLink.classList.remove('flex');
       }
 
       document.getElementById('view-login').classList.remove('hidden');

@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بوابة أولياء الأمور • مدرسة Smile Kids الخاصة للغات</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Cairo', 'Tajawal', sans-serif; }
+    .font-en { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    
+    body {
+      background-color: #060913;
+      background-image: 
+        radial-gradient(circle at 50% -10%, rgba(99, 102, 241, 0.28) 0%, transparent 60%),
+        radial-gradient(circle at 10% 40%, rgba(16, 185, 129, 0.16) 0%, transparent 45%),
+        radial-gradient(circle at 90% 30%, rgba(245, 158, 11, 0.16) 0%, transparent 45%),
+        radial-gradient(circle at 50% 100%, rgba(139, 92, 246, 0.18) 0%, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    .bg-grid-pattern {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    .glass-card {
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 1.25rem;
+    }
+
+    .glow-indigo {
+      box-shadow: 0 0 35px -5px rgba(99, 102, 241, 0.35);
+    }
+    .glow-amber {
+      box-shadow: 0 0 35px -5px rgba(245, 158, 11, 0.35);
+    }
+
+    /* Print styles for student timetable */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .print-area {
+        display: block !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        border: 2px solid #000 !important;
+      }
+    }
+  </style>
+  <script src="firebase_config.js"></script>
+  <script src="smile_kids_database.js?v=20261009"></script>
+</head>
+<body class="text-slate-100 min-h-screen selection:bg-indigo-500 selection:text-white flex flex-col bg-grid-pattern relative">
+
+  <!-- Ambient Glow Orbs -->
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-indigo-500/20 via-purple-500/10 to-transparent blur-[120px] pointer-events-none -z-10"></div>
+  <div class="fixed top-40 right-10 w-[450px] h-[350px] bg-emerald-500/15 blur-[130px] pointer-events-none -z-10"></div>
+
+  <!-- Header -->
+  <header class="border-b border-white/10 bg-slate-950/80 sticky top-0 z-50 backdrop-blur-xl shadow-2xl no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+      
+      <!-- Brand & School Info -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="relative group shrink-0">
+            <div class="absolute -inset-1 bg-gradient-to-r from-amber-400 to-indigo-500 rounded-2xl blur-sm opacity-70 group-hover:opacity-100 transition duration-300"></div>
+            <img src="smile_kids_logo.png" alt="Smile Kids Logo" class="relative w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white p-1 shadow-xl object-contain">
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-base sm:text-lg font-black text-white tracking-tight">بوابة أولياء الأمور</h1>
+              <span class="bg-gradient-to-r from-indigo-500/20 to-purple-500/20 text-indigo-300 border border-indigo-400/40 text-[10px] font-black px-2 py-0.5 rounded-full">Smile Kids SIS</span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-bold">تحديث بيانات وصور الطلاب • جدول الحصص الأسبوعي</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Header Navigation Actions -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <a href="index.html" class="px-3 py-1.5 rounded-xl bg-slate-900 border border-white/10 hover:border-white/25 text-slate-300 hover:text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+          <span>🏠</span>
+          <span class="hidden sm:inline">الرئيسية</span>
+        </a>
+        <div class="flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1.5 rounded-xl text-emerald-300 text-xs font-black">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="hidden md:inline">قاعدة البيانات متصلة</span>
+          <span class="md:hidden">متصل</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-10">
+
+    <!-- Hero Title & Guidance Banner -->
+    <div class="text-center max-w-2xl mx-auto mb-8 no-print">
+      <div class="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 px-3 py-1 rounded-full text-xs font-black mb-3">
+        <span>👨‍👩‍👧‍👦</span> خدمة أولياء الأمور الذاتية
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-black text-white">
+        بيانات الطالب وجدول الحصص
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-300 mt-2 font-medium">
+        يمكنكم هنا مراجعة الاسم باللغة العربية والإنجليزية بدقة، رفع الصورة الشخصية الحديثة، والاطلاع على جدول حصص الطالب الأسبوعي المعتمد.
+      </p>
+    </div>
+
+    <!-- Step 1: Student Lookup & Selection Card (If no student selected) -->
+    <div id="section-student-select" class="glass-card p-5 sm:p-7 max-w-2xl mx-auto mb-8 no-print">
+      <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="w-8 h-8 rounded-xl bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-black text-sm">1</span>
+          <h3 class="text-base sm:text-lg font-black text-white">اختر أو ابحث عن الطالب</h3>
+        </div>
+        <span id="badge-total-students" class="text-xs font-bold text-slate-400 bg-slate-900 px-2.5 py-1 rounded-lg border border-white/5">
+          جاري تحميل الطلاب...
+        </span>
+      </div>
+
+      <!-- Quick Search Form -->
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-black text-slate-300 mb-1.5">
+            البحث بكود الطالب (مثال: SK-G1-AR-001) أو بالاسم أو رقم الهاتف:
+          </label>
+          <div class="relative">
+            <input 
+              type="text" 
+              id="input-student-search" 
+              placeholder="اكتب كود الطالب، أو اسمه، أو رقم الهاتف..."
+              class="w-full bg-slate-900/90 border border-indigo-500/40 rounded-xl px-4 py-3 text-sm font-bold text-white placeholder-slate-500 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 transition"
+              oninput="handleSearchTyping(this.value)"
+              onkeydown="if(event.key === 'Enter') handleSearchSubmit()"
+            >
+            <button 
+              type="button" 
+              onclick="handleSearchSubmit()"
+              class="absolute left-2 top-2 bottom-2 px-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:brightness-110 text-white rounded-lg text-xs font-black transition flex items-center gap-1 shadow-md"
+            >
+              🔍 <span>بحث</span>
+            </button>
+          </div>
+          <!-- Live Search Autocomplete Results -->
+          <div id="search-autocomplete-box" class="mt-2 bg-slate-900 border border-white/15 rounded-xl divide-y divide-white/5 max-h-56 overflow-y-auto hidden shadow-2xl z-20"></div>
+        </div>
+
+        <!-- Or Dropdown Filter By Grade -->
+        <div class="pt-2 border-t border-white/10">
+          <label class="block text-xs font-bold text-slate-400 mb-1.5">
+            أو اختر الطالب مباشرة من الصف والفصل:
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <select id="select-grade" onchange="handleGradeChange(this.value)" class="w-full bg-slate-900 border border-white/15 rounded-xl px-3 py-2.5 text-xs font-bold text-white focus:outline-none focus:border-indigo-400">
+                <option value="">-- اختر الصف الدراسي --</option>
+                <option value="1">الصف الأول الابتدائي (Grade 1)</option>
+                <option value="2">الصف الثاني الابتدائي (Grade 2)</option>
+                <option value="3">الصف الثالث الابتدائي (Grade 3)</option>
+                <option value="4">الصف الرابع الابتدائي (Grade 4)</option>
+                <option value="5">الصف الخامس الابتدائي (Grade 5)</option>
+                <option value="6">الصف السادس الابتدائي (Grade 6)</option>
+                <option value="7">الصف الأول الإعدادي (Grade 7)</option>
+                <option value="8">الصف الثاني الإعدادي (Grade 8)</option>
+                <option value="9">الصف الثالث الإعدادي (Grade 9)</option>
+              </select>
+            </div>
+            <div>
+              <select id="select-student" onchange="handleStudentSelect(this.value)" disabled class="w-full bg-slate-900 border border-white/15 rounded-xl px-3 py-2.5 text-xs font-bold text-white focus:outline-none focus:border-indigo-400 disabled:opacity-50">
+                <option value="">-- اختر الطالب --</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Student Main Dashboard (Visible when a student is selected) -->
+    <div id="section-student-dashboard" class="hidden space-y-8">
+      
+      <!-- Top Action Bar for Selected Student -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 bg-indigo-950/40 border border-indigo-500/30 rounded-2xl p-3.5 sm:px-5 no-print">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">✓</span>
+          <div>
+            <div class="text-xs font-bold text-indigo-300">طالب تم اختياره حالياً:</div>
+            <div id="bar-student-name" class="text-sm font-black text-white">--</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="resetStudentSelection()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-bold rounded-xl border border-white/10 transition">
+            🔄 اختيار طالب آخر
+          </button>
+          <button onclick="window.print()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow transition flex items-center gap-1">
+            🖨️ طباعة
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Two Columns: Edit Form & Live Preview -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 no-print">
+        
+        <!-- Left Column: Edit Names & Photo Form (7 cols) -->
+        <div class="lg:col-span-7 glass-card p-5 sm:p-7 space-y-6">
+          <div class="flex items-center justify-between border-b border-white/10 pb-3">
+            <h3 class="text-base sm:text-lg font-black text-white flex items-center gap-2">
+              <span>✏️</span> تعديل وتدقيق بيانات الطالب
+            </h3>
+            <span class="text-[11px] bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded-full font-bold">
+              تحديث فوري للقاعدة
+            </span>
+          </div>
+
+          <form id="form-edit-student" onsubmit="handleFormSubmit(event)" class="space-y-5">
+            <input type="hidden" id="edit-student-id">
+
+            <!-- Readonly info pills -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+              <div class="bg-slate-900/80 p-2.5 rounded-xl border border-white/10">
+                <span class="block text-[10px] text-slate-400 font-bold">كود الطالب:</span>
+                <span id="display-student-id" class="text-xs font-mono font-black text-amber-400">--</span>
+              </div>
+              <div class="bg-slate-900/80 p-2.5 rounded-xl border border-white/10">
+                <span class="block text-[10px] text-slate-400 font-bold">الصف الدراسي:</span>
+                <span id="display-student-grade" class="text-xs font-black text-indigo-300">--</span>
+              </div>
+              <div class="bg-slate-900/80 p-2.5 rounded-xl border border-white/10 col-span-2 sm:col-span-1">
+                <span class="block text-[10px] text-slate-400 font-bold">القسم والمسار:</span>
+                <span id="display-student-track" class="text-xs font-black text-emerald-300">--</span>
+              </div>
+            </div>
+
+            <!-- Arabic Name Input -->
+            <div>
+              <label class="block text-xs font-black text-slate-200 mb-1.5 flex items-center justify-between">
+                <span>اسم الطالب باللغة العربية:</span>
+                <span class="text-[10px] text-slate-400 font-normal">كما هو مسجل في شهادة الميلاد</span>
+              </label>
+              <input 
+                type="text" 
+                id="edit-name-ar" 
+                required
+                class="w-full bg-slate-900 border border-white/20 rounded-xl px-3.5 py-2.5 text-sm font-bold text-white focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/40 transition"
+                oninput="updateLiveCard()"
+              >
+            </div>
+
+            <!-- English Name Input + Guidelines -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="text-xs font-black text-slate-200 flex items-center gap-1.5">
+                  <span class="text-amber-400">🔤</span>
+                  <span>اسم الطالب باللغة الإنجليزية (English Full Name):</span>
+                </label>
+                <button 
+                  type="button" 
+                  onclick="autoFormatEnglishName()"
+                  class="text-[10px] text-indigo-300 hover:text-white underline font-bold"
+                >
+                  تنسيق الحروف (Capitalize)
+                </button>
+              </div>
+
+              <input 
+                type="text" 
+                id="edit-name-en" 
+                dir="ltr"
+                placeholder="e.g. Talia Adel Khattab"
+                class="w-full font-en bg-slate-900 border border-indigo-500/50 rounded-xl px-3.5 py-2.5 text-sm font-bold text-white placeholder-slate-600 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 transition"
+                oninput="updateLiveCard()"
+              >
+
+              <!-- Helpful Note for Parents -->
+              <div class="mt-2 p-2.5 bg-amber-500/10 border border-amber-500/30 rounded-xl flex items-start gap-2 text-amber-200 text-xs">
+                <span class="text-sm shrink-0">⚠️</span>
+                <span class="leading-relaxed">
+                  <strong>تنبيه هام لأولياء الأمور:</strong> يرجى كتابة الاسم مطابقاً تماماً لما هو مكتوب في <strong>جواز السفر</strong> أو <strong>شهادة الميلاد</strong>، حيث يتم اعتماده رسميًا في شهادات التقدير وكارنيه المدرسة والامتحانات.
+                </span>
+              </div>
+            </div>
+
+            <!-- Student Photo Upload & Compression -->
+            <div class="pt-3 border-t border-white/10">
+              <label class="block text-xs font-black text-slate-200 mb-2 flex items-center justify-between">
+                <span>📸 صورة الطالب الشخصية:</span>
+                <span class="text-[10px] text-slate-400">صورة واضحة للوجه بخلفية سادة</span>
+              </label>
+
+              <div class="flex items-center gap-4">
+                <!-- Preview Thumbnail -->
+                <div class="relative w-20 h-24 rounded-2xl overflow-hidden bg-slate-900 border-2 border-indigo-500/40 shrink-0 shadow-lg flex items-center justify-center">
+                  <img id="photo-preview-img" src="" alt="Photo Preview" class="w-full h-full object-cover hidden">
+                  <span id="photo-preview-placeholder" class="text-2xl text-slate-500 font-bold">👦</span>
+                </div>
+
+                <!-- Upload & Remove Buttons -->
+                <div class="flex-1 space-y-2">
+                  <label class="cursor-pointer inline-flex items-center gap-2 px-3.5 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:brightness-110 text-white rounded-xl text-xs font-black shadow transition active:scale-95">
+                    <span>📤</span>
+                    <span>رفع أو التقاط صورة جديدة</span>
+                    <input type="file" id="input-photo-file" accept="image/*" class="hidden" onchange="handlePhotoUpload(event)">
+                  </label>
+                  <p class="text-[10px] text-slate-400">
+                    يتم ضغط الصورة وتنسيقها تلقائياً لتناسب كارنيه الطالب دون استهلاك مساحة.
+                  </p>
+                  <button 
+                    type="button" 
+                    id="btn-remove-photo" 
+                    onclick="removePhoto()" 
+                    class="hidden text-[10px] text-red-400 hover:text-red-300 font-bold underline"
+                  >
+                    🗑️ إزالة الصورة واستعادة الرمز الافتراضي
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button & Feedback Toast -->
+            <div class="pt-4 border-t border-white/10">
+              <button 
+                type="submit" 
+                id="btn-save-student"
+                class="w-full py-3 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 hover:brightness-110 text-white font-black text-sm rounded-xl shadow-[0_0_20px_rgba(16,185,129,0.35)] transition-all flex items-center justify-center gap-2 active:scale-95"
+              >
+                <span>💾</span>
+                <span>حفظ التعديلات وتحديث قاعدة البيانات فوراً</span>
+              </button>
+
+              <div id="save-success-alert" class="hidden mt-3 p-3 bg-emerald-500/20 border border-emerald-500/50 rounded-xl text-emerald-300 text-xs font-bold text-center flex items-center justify-center gap-2 animate-bounce">
+                <span>🎉</span>
+                <span>تم تحديث بيانات الطالب وحفظها في قاعدة بيانات Smile Kids SIS بنجاح!</span>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Right Column: Live Simulated Student ID Card (5 cols) -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="text-xs font-black text-slate-300 flex items-center justify-between">
+            <span>🪪 معاينة حية لكارنيه الطالب المعتمد:</span>
+            <span class="text-[10px] text-indigo-400">تحديث فوري مع الكتابة</span>
+          </div>
+
+          <!-- The ID Card UI Simulation -->
+          <div class="relative bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 border-2 border-indigo-500/40 rounded-3xl p-5 shadow-2xl overflow-hidden glow-indigo">
+            <!-- Subtle Watermark Ribbon -->
+            <div class="absolute -right-8 -top-8 w-28 h-28 bg-indigo-500/20 rounded-full blur-xl pointer-events-none"></div>
+            
+            <!-- Card Header -->
+            <div class="flex items-center justify-between border-b border-white/15 pb-3 mb-4">
+              <div class="flex items-center gap-2.5">
+                <img src="smile_kids_logo.png" alt="Logo" class="w-9 h-9 rounded-xl bg-white p-0.5 object-contain">
+                <div>
+                  <div class="text-[11px] font-black text-white">مدرسة Smile Kids الخاصة للغات</div>
+                  <div class="text-[9px] font-bold text-indigo-300">بطاقة تعريف الطالب • 2026 / 2027</div>
+                </div>
+              </div>
+              <span class="text-[9px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 px-2 py-0.5 rounded-full">SIS ID</span>
+            </div>
+
+            <!-- Card Body: Photo & Names -->
+            <div class="flex gap-4 items-center">
+              <!-- Photo on ID -->
+              <div class="w-20 h-24 rounded-xl overflow-hidden bg-slate-950 border-2 border-amber-400/80 shrink-0 shadow-md flex items-center justify-center">
+                <img id="card-photo" src="" alt="Student" class="w-full h-full object-cover hidden">
+                <span id="card-placeholder" class="text-3xl text-slate-500">👦</span>
+              </div>
+
+              <!-- Names & Details -->
+              <div class="flex-1 space-y-1.5 min-w-0">
+                <div class="text-[10px] text-slate-400 font-bold">الاسم بالعربية:</div>
+                <div id="card-name-ar" class="text-sm font-black text-white truncate">--</div>
+
+                <div class="text-[10px] text-slate-400 font-bold">Full Name (English):</div>
+                <div id="card-name-en" class="text-xs font-bold text-amber-300 font-en truncate">--</div>
+
+                <div class="pt-1 flex flex-wrap gap-1.5 text-[9px] font-bold">
+                  <span id="card-grade-badge" class="bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 px-2 py-0.5 rounded-md">--</span>
+                  <span id="card-track-badge" class="bg-emerald-500/30 text-emerald-200 border border-emerald-400/30 px-2 py-0.5 rounded-md">--</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Footer: Code & Barcode lookalike -->
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[10px]">
+              <span class="font-mono text-slate-400 font-bold" id="card-student-id">ID: --</span>
+              <span class="text-slate-500 font-mono tracking-widest text-[8px]">|||| | ||||| | || ||||</span>
+            </div>
+          </div>
+
+          <!-- Attendance Quick Summary Box -->
+          <div class="glass-card p-4 space-y-2">
+            <div class="flex items-center justify-between text-xs font-black text-white">
+              <span>📊 سجل الحضور والغياب:</span>
+              <span id="stat-attendance-rate" class="text-emerald-400 font-black">99% حضور</span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-medium">
+              يتم رصد الحضور والغياب يومياً عبر معلمات الفصول في منظومة Smile Kids SIS.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Student Class Timetable (جدول حصص الطالب) -->
+      <div class="glass-card p-5 sm:p-7 space-y-5 print-area">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xl">📅</span>
+              <h3 class="text-lg font-black text-white">
+                جدول الحصص الأسبوعي للطالب
+              </h3>
+              <span id="timetable-grade-tag" class="text-xs bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 px-2.5 py-0.5 rounded-full font-bold">
+                --
+              </span>
+            </div>
+            <p class="text-xs text-slate-300 mt-1 font-medium">
+              الجدول المدرسي المعتمد للعام الدراسي 2026 / 2027 • من الأحد إلى الخميس
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2 no-print">
+            <button onclick="window.print()" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black rounded-xl transition flex items-center gap-1.5 shadow">
+              <span>🖨️</span>
+              <span>طباعة الجدول</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Timetable Table -->
+        <div class="overflow-x-auto rounded-2xl border border-white/15 bg-slate-900/60 shadow-xl">
+          <table class="w-full text-right text-xs border-collapse">
+            <thead>
+              <tr class="bg-indigo-950/80 text-white font-black border-b border-indigo-500/30 text-center">
+                <th class="py-3 px-3 w-24">اليوم</th>
+                <th class="py-2.5 px-2 border-r border-indigo-500/20">
+                  <div>1</div>
+                  <div class="text-[9px] font-normal text-indigo-300">07:30 - 08:10</div>
+                </th>
+                <th class="py-2.5 px-2 border-r border-indigo-500/20">
+                  <div>2</div>
+                  <div class="text-[9px] font-normal text-indigo-300">08:10 - 08:50</div>
+                </th>
+                <th class="py-2.5 px-2 border-r border-indigo-500/20">
+                  <div>3</div>
+                  <div class="text-[9px] font-normal text-indigo-300">08:50 - 09:30</div>
+                </th>
+                <th class="py-2.5 px-2 border-r border-indigo-500/20 bg-amber-950/40 text-amber-300">
+                  <div>🥪 الفسحة</div>
+                  <div class="text-[9px] font-normal">09:30 - 09:45</div>
+                </th>
+                <th class="py-2.5 px-2 border-r border-indigo-500/20">
+                  <div>4</div>
+                  <div class="text-[9px] font-normal text-indigo-300">09:45 - 10:25</div>
+                </th>
+                <th class="py-2.5 px-2 border-r border-indigo-500/20">
+                  <div>5</div>
+                  <div class="text-[9px] font-normal text-indigo-300">10:25 - 11:05</div>
+                </th>
+                <th class="py-2.5 px-2 border-r border-indigo-500/20">
+                  <div>6</div>
+                  <div class="text-[9px] font-normal text-indigo-300">11:05 - 11:40</div>
+                </th>
+                <th class="py-2.5 px-2 border-r border-indigo-500/20">
+                  <div>7</div>
+                  <div class="text-[9px] font-normal text-indigo-300">11:40 - 12:15</div>
+                </th>
+                <th class="py-2.5 px-2 border-r border-indigo-500/20">
+                  <div>8 (انصراف)</div>
+                  <div class="text-[9px] font-normal text-indigo-300">12:15 - 12:50</div>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="timetable-body" class="divide-y divide-white/10 font-bold">
+              <!-- Rendered Dynamically -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="text-[11px] text-slate-400 flex items-center justify-between flex-wrap gap-2 pt-2">
+          <span>* مواعيد الحصص المدرسية محددة وفق الخطة الزمنية المعتمدة لإدارة Smile Kids.</span>
+          <span class="text-indigo-400 font-bold">مدرسة Smile Kids الخاصة للغات</span>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 bg-slate-950/90 py-6 text-center text-xs text-slate-400 no-print mt-auto">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <img src="smile_kids_logo.png" alt="Logo" class="w-6 h-6 object-contain bg-white rounded p-0.5">
+        <span class="font-bold text-white">مدرسة Smile Kids الخاصة للغات</span>
+        <span>• العام الدراسي 2026 - 2027</span>
+      </div>
+      <div class="text-slate-400 font-medium">
+        منظومة إدارة المدارس وشؤون الطلاب (Smile Kids SIS)
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script Logic -->
+  <script>
+    // Global State
+    let currentStudent = null;
+    let masterStudentsList = [];
+    let compressedPhotoBase64 = null;
+    let masterGradeSchedules = null;
+
+    const DAYS = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'];
+
+    // Initialize on Load
+    window.addEventListener('DOMContentLoaded', async () => {
+      await initDatabaseAndData();
+      await loadSchedulesData();
+      checkUrlParams();
+    });
+
+    async function initDatabaseAndData() {
+      if (window.SmileKidsDB) {
+        masterStudentsList = window.SmileKidsDB.getAllStudents() || [];
+      } else {
+        // Fallback retry
+        setTimeout(() => {
+          if (window.SmileKidsDB) {
+            masterStudentsList = window.SmileKidsDB.getAllStudents() || [];
+            updateTotalBadge();
+          }
+        }, 500);
+      }
+      updateTotalBadge();
+    }
+
+    function updateTotalBadge() {
+      const el = document.getElementById('badge-total-students');
+      if (el) {
+        el.innerText = `${masterStudentsList.length} طالب وطالبة مسجلين`;
+      }
+    }
+
+    async function loadSchedulesData() {
+      try {
+        const resp = await fetch('grades_master_schedules.json');
+        if (resp.ok) {
+          masterGradeSchedules = await resp.json();
+        }
+      } catch (e) {
+        console.warn('Could not load grades_master_schedules.json via fetch, using fallback generator', e);
+      }
+    }
+
+    // Check if query string has ?id=SK-G1-AR-001 or ?code=...
+    function checkUrlParams() {
+      const params = new URLSearchParams(window.location.search);
+      const studentId = params.get('id') || params.get('code');
+      if (studentId) {
+        const found = masterStudentsList.find(s => s.id && s.id.toLowerCase() === studentId.toLowerCase());
+        if (found) {
+          selectStudent(found);
+        }
+      }
+    }
+
+    // Grade Change -> Populate Students Dropdown
+    function handleGradeChange(gradeVal) {
+      const studentSelect = document.getElementById('select-student');
+      studentSelect.innerHTML = '<option value="">-- اختر الطالب --</option>';
+      if (!gradeVal) {
+        studentSelect.disabled = true;
+        return;
+      }
+
+      const gNum = parseInt(gradeVal);
+      const filtered = masterStudentsList.filter(s => s.grade === gNum);
+      
+      filtered.sort((a, b) => (a.nameAr || '').localeCompare(b.nameAr || '', 'ar'));
+
+      filtered.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.id;
+        opt.innerText = `${s.nameAr} (${s.id}) - ${s.track === 'languages' ? 'لغات' : 'عربي'}`;
+        studentSelect.appendChild(opt);
+      });
+
+      studentSelect.disabled = false;
+    }
+
+    function handleStudentSelect(id) {
+      if (!id) return;
+      const found = masterStudentsList.find(s => s.id === id);
+      if (found) selectStudent(found);
+    }
+
+    // Live Search Typing
+    function handleSearchTyping(query) {
+      const box = document.getElementById('search-autocomplete-box');
+      const q = (query || '').trim().toLowerCase();
+      if (!q || q.length < 2) {
+        box.classList.add('hidden');
+        box.innerHTML = '';
+        return;
+      }
+
+      const matches = masterStudentsList.filter(s => 
+        (s.id && s.id.toLowerCase().includes(q)) ||
+        (s.nameAr && s.nameAr.toLowerCase().includes(q)) ||
+        (s.nameEn && s.nameEn.toLowerCase().includes(q)) ||
+        (s.parentPhone && s.parentPhone.includes(q))
+      ).slice(0, 8);
+
+      if (matches.length === 0) {
+        box.innerHTML = '<div class="p-3 text-xs text-slate-400 text-center">لا توجد نتائج مطابقة لبحثك</div>';
+        box.classList.remove('hidden');
+        return;
+      }
+
+      box.innerHTML = matches.map(s => `
+        <div onclick="selectStudentById('${s.id}')" class="p-3 hover:bg-indigo-600/20 cursor-pointer flex items-center justify-between text-xs transition">
+          <div class="flex items-center gap-2">
+            <span class="text-base">${s.gender === 'female' ? '👧' : '👦'}</span>
+            <div>
+              <div class="font-black text-white">${s.nameAr}</div>
+              <div class="text-[10px] text-slate-400 font-en">${s.nameEn || 'No English Name'}</div>
+            </div>
+          </div>
+          <div class="text-left">
+            <div class="font-mono text-amber-400 font-bold">${s.id}</div>
+            <div class="text-[10px] text-indigo-300">الصف ${s.grade} (${s.track === 'languages' ? 'لغات' : 'عربي'})</div>
+          </div>
+        </div>
+      `).join('');
+      box.classList.remove('hidden');
+    }
+
+    function handleSearchSubmit() {
+      const q = (document.getElementById('input-student-search').value || '').trim().toLowerCase();
+      if (!q) return;
+      const found = masterStudentsList.find(s => 
+        (s.id && s.id.toLowerCase() === q) ||
+        (s.nameAr && s.nameAr.toLowerCase() === q) ||
+        (s.nameEn && s.nameEn.toLowerCase() === q) ||
+        (s.nameAr && s.nameAr.toLowerCase().includes(q))
+      );
+      if (found) {
+        selectStudent(found);
+      } else {
+        alert('لم يتم العثور على طالب مطابق. يرجى التأكد من كتابة الكود أو الاسم بدقة.');
+      }
+    }
+
+    function selectStudentById(id) {
+      const found = masterStudentsList.find(s => s.id === id);
+      if (found) selectStudent(found);
+    }
+
+    // Select Student and Populate All Sections
+    function selectStudent(st) {
+      currentStudent = st;
+      compressedPhotoBase64 = st.photo || null;
+
+      // Hide search autocomplete
+      document.getElementById('search-autocomplete-box').classList.add('hidden');
+
+      // Fill Readonly & Editable inputs
+      document.getElementById('edit-student-id').value = st.id;
+      document.getElementById('display-student-id').innerText = st.id;
+      document.getElementById('display-student-grade').innerText = `الصف ${st.grade} (Grade ${st.grade})`;
+      document.getElementById('display-student-track').innerText = st.track === 'languages' ? 'قسم اللغات (Languages)' : 'القسم العربي';
+      
+      document.getElementById('edit-name-ar').value = st.nameAr || '';
+      document.getElementById('edit-name-en').value = st.nameEn || '';
+
+      document.getElementById('bar-student-name').innerText = `${st.nameAr} • ${st.id}`;
+
+      // Photo Setup
+      updatePhotoPreviews(st.photo, st.gender);
+
+      // Live ID Card
+      updateLiveCard();
+
+      // Render Timetable
+      renderTimetable(st.grade, st.track);
+
+      // Show Dashboard, Hide Select Card
+      document.getElementById('section-student-select').classList.add('hidden');
+      document.getElementById('section-student-dashboard').classList.remove('hidden');
+
+      // Scroll to top
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+
+    function resetStudentSelection() {
+      currentStudent = null;
+      compressedPhotoBase64 = null;
+      document.getElementById('section-student-dashboard').classList.add('hidden');
+      document.getElementById('section-student-select').classList.remove('hidden');
+      document.getElementById('input-student-search').value = '';
+    }
+
+    // Live ID Card Updater
+    function updateLiveCard() {
+      if (!currentStudent) return;
+      const nameAr = document.getElementById('edit-name-ar').value || currentStudent.nameAr || '';
+      const nameEn = document.getElementById('edit-name-en').value || currentStudent.nameEn || '';
+
+      document.getElementById('card-name-ar').innerText = nameAr;
+      document.getElementById('card-name-en').innerText = nameEn || 'Not specified yet';
+      document.getElementById('card-student-id').innerText = `ID: ${currentStudent.id}`;
+      document.getElementById('card-grade-badge').innerText = `الصف ${currentStudent.grade} (G${currentStudent.grade})`;
+      document.getElementById('card-track-badge').innerText = currentStudent.track === 'languages' ? 'لغات' : 'عربي';
+    }
+
+    // Photo Preview updater
+    function updatePhotoPreviews(photoSrc, gender) {
+      const defaultIcon = gender === 'female' ? '👧' : '👦';
+      const formImg = document.getElementById('photo-preview-img');
+      const formPlaceholder = document.getElementById('photo-preview-placeholder');
+      const cardImg = document.getElementById('card-photo');
+      const cardPlaceholder = document.getElementById('card-placeholder');
+      const btnRemove = document.getElementById('btn-remove-photo');
+
+      formPlaceholder.innerText = defaultIcon;
+      cardPlaceholder.innerText = defaultIcon;
+
+      if (photoSrc) {
+        formImg.src = photoSrc;
+        formImg.classList.remove('hidden');
+        formPlaceholder.classList.add('hidden');
+
+        cardImg.src = photoSrc;
+        cardImg.classList.remove('hidden');
+        cardPlaceholder.classList.add('hidden');
+
+        btnRemove.classList.remove('hidden');
+      } else {
+        formImg.classList.add('hidden');
+        formPlaceholder.classList.remove('hidden');
+
+        cardImg.classList.add('hidden');
+        cardPlaceholder.classList.remove('hidden');
+
+        btnRemove.classList.add('hidden');
+      }
+    }
+
+    // Auto-Format English Name (Title Case)
+    function autoFormatEnglishName() {
+      const inp = document.getElementById('edit-name-en');
+      let val = (inp.value || '').trim();
+      if (!val) return;
+      // Capitalize each word
+      val = val.split(/\s+/).map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+      inp.value = val;
+      updateLiveCard();
+    }
+
+    // In-Browser Image Resizing and Compression via Canvas
+    function handlePhotoUpload(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+          // Compress & Resize on Canvas
+          const maxDim = 400; // Optimal for badges/ID cards
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > maxDim) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            }
+          } else {
+            if (height > maxDim) {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Get compressed Base64 (~30KB)
+          compressedPhotoBase64 = canvas.toDataURL('image/jpeg', 0.85);
+
+          updatePhotoPreviews(compressedPhotoBase64, currentStudent ? currentStudent.gender : 'male');
+          alert('✓ تم تجهيز الصورة وضغطها بنجاح! اضغط على زر حفظ التعديلات لاعتمادها.');
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removePhoto() {
+      if (confirm('هل أنت متأكد من رغبتك في إزالة صورة الطالب؟')) {
+        compressedPhotoBase64 = null;
+        updatePhotoPreviews(null, currentStudent ? currentStudent.gender : 'male');
+      }
+    }
+
+    // Handle Form Submit & Save to Database
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      if (!currentStudent) return;
+
+      const nameAr = (document.getElementById('edit-name-ar').value || '').trim();
+      const nameEn = (document.getElementById('edit-name-en').value || '').trim();
+
+      if (!nameAr) {
+        alert('يرجى كتابة اسم الطالب باللغة العربية.');
+        return;
+      }
+
+      if (!nameEn) {
+        if (!confirm('لم يتم إدخال الاسم باللغة الإنجليزية. هل ترغب في الاستمرار وحفظ البيانات بدون اسم إنجليزي؟')) {
+          return;
+        }
+      }
+
+      const patch = {
+        nameAr: nameAr,
+        nameEn: nameEn,
+        photo: compressedPhotoBase64,
+        parentUpdated: true,
+        parentUpdatedAt: new Date().toISOString()
+      };
+
+      if (window.SmileKidsDB) {
+        const updated = window.SmileKidsDB.updateStudent(currentStudent.id, patch);
+        if (updated) {
+          currentStudent = updated;
+          // Update in local master list
+          const idx = masterStudentsList.findIndex(s => s.id === updated.id);
+          if (idx !== -1) masterStudentsList[idx] = updated;
+
+          // Show Success Feedback
+          const alertEl = document.getElementById('save-success-alert');
+          alertEl.classList.remove('hidden');
+          setTimeout(() => {
+            alertEl.classList.add('hidden');
+          }, 4500);
+
+          updateLiveCard();
+          alert(`✓ تم بنجاح حفظ وتحديث بيانات الطالب "${updated.nameAr}" في قاعدة بيانات المدرسة!`);
+        } else {
+          alert('تعذر تحديث الطالب في قاعدة البيانات.');
+        }
+      } else {
+        alert('قاعدة البيانات غير متصلة.');
+      }
+    }
+
+    // Render Student Weekly Timetable
+    function renderTimetable(grade, track) {
+      const gNum = parseInt(grade) || 1;
+      const tag = document.getElementById('timetable-grade-tag');
+      if (tag) tag.innerText = `الصف ${gNum} • ${track === 'languages' ? 'قسم اللغات' : 'القسم العربي'}`;
+
+      const tbody = document.getElementById('timetable-body');
+      tbody.innerHTML = '';
+
+      const scheduleData = masterGradeSchedules && masterGradeSchedules[gNum];
+
+      DAYS.forEach(day => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-800/40 transition border-b border-white/10';
+
+        // Day column
+        let rowHtml = `
+          <td class="py-3 px-3 font-black text-amber-300 bg-slate-900/90 text-center border-l border-white/10">
+            ${day}
+          </td>
+        `;
+
+        for (let p = 1; p <= 8; p++) {
+          if (p === 4) {
+            // Break column (between period 3 and 4)
+            rowHtml += `
+              <td class="py-2.5 px-2 text-center bg-amber-950/20 text-amber-200/90 font-bold border-l border-white/10 text-[10px]">
+                فسحة مدرسية
+              </td>
+            `;
+          }
+
+          let cellContent = '<span class="text-slate-600 font-normal">-</span>';
+
+          if (scheduleData && scheduleData[day] && scheduleData[day][p]) {
+            const slot = scheduleData[day][p];
+            let chosen = null;
+
+            if (track === 'languages' && slot.languages) {
+              chosen = slot.languages;
+            } else if (track === 'arabic' && slot.arabic) {
+              chosen = slot.arabic;
+            } else if (slot.general) {
+              chosen = slot.general;
+            } else if (slot.all && slot.all.length > 0) {
+              chosen = slot.all[0];
+            }
+
+            if (chosen) {
+              cellContent = `
+                <div class="space-y-0.5">
+                  <div class="text-white font-black text-[11px] leading-tight">${chosen.subject || ''}</div>
+                  <div class="text-[9px] text-indigo-300 font-bold">${chosen.teacher || ''}</div>
+                </div>
+              `;
+            }
+          }
+
+          rowHtml += `
+            <td class="py-2.5 px-2 text-center border-l border-white/10">
+              ${cellContent}
+            </td>
+          `;
+        }
+
+        tr.innerHTML = rowHtml;
+        tbody.appendChild(tr);
+      });
+    }
+  </script>
+</body>
+</html>

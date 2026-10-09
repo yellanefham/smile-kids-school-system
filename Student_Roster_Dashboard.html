@@ -839,10 +839,17 @@
         <a href="Teacher_Portal.html" class="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md border border-emerald-400/30">
           <span>👩‍🏫 بوابة المعلمات</span>
         </a>
+        <a href="Teachers_Credentials_Sheet.html" class="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-1.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white shadow-md border border-amber-400/30" title="كشف بأسماء وكلمات مرور المعلمات المعتمدة">
+          <span>🔑 كشف الباسوردات</span>
+        </a>
       </div>
 
       <!-- Admin Status Pill & Logout Button -->
       <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="manualSyncFromCloud()" id="btn-manual-sync-cloud" class="px-3 py-1.5 rounded-xl text-xs font-black bg-sky-950/70 hover:bg-sky-900 border border-sky-500/40 text-sky-200 transition flex items-center gap-1.5 shadow" title="سحب وتحديث أحدث الدرجات فوراً من السحابة">
+          <span id="sync-cloud-icon">🔄</span>
+          <span class="hidden sm:inline">تحديث السحابة</span>
+        </button>
         <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-black shadow-sm">
           <span>👑</span>
           <span class="hidden sm:inline">لوحة الإدارة العامة</span>
@@ -2854,7 +2861,9 @@
             const trackBadge = st.track === 'languages' 
               ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-950 text-sky-400 border border-sky-800/60">لغات</span>'
               : '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/60">عربي</span>';
-            const genderAvatar = st.gender === 'female' ? '👧' : '👦';
+            const genderAvatar = st.photo 
+              ? `<img src="${st.photo}" class="w-6 h-6 rounded-full object-cover border border-amber-400 inline-block shadow-sm" alt="Photo">` 
+              : (st.gender === 'female' ? '👧' : '👦');
 
             html += `
               <tr class="hover:bg-slate-800/50 transition border-b border-slate-800/60">
@@ -2976,7 +2985,9 @@
           const trackBadge = st.track === 'languages' 
             ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-950 text-sky-400 border border-sky-800/60">لغات</span>'
             : '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/60">عربي</span>';
-          const genderAvatar = st.gender === 'female' ? '👧' : '👦';
+          const genderAvatar = st.photo 
+            ? `<img src="${st.photo}" class="w-6 h-6 rounded-full object-cover border border-amber-400 inline-block shadow-sm" alt="Photo">` 
+            : (st.gender === 'female' ? '👧' : '👦');
 
           pHtml += `
             <tr class="hover:bg-slate-800/50 transition border-b border-slate-800/60 ${st.isTeacherChild ? 'bg-amber-950/20' : ''}">
@@ -3604,8 +3615,14 @@
                     <tr class="hover:bg-slate-700/40 transition">
                       <td class="py-2.5 px-3 text-center text-slate-400 font-bold">${idx + 1}</td>
                       <td class="py-2.5 px-4 font-bold text-white">
-                        <div class="text-sm">${s.nameAr}</div>
-                        ${currentGrade === 0 ? `<div class="text-[10px] text-amber-400 font-semibold mt-0.5">${GRADE_CONFIG[s.grade]?.ar || 'الصف ' + s.grade}</div>` : ''}
+                        <div class="flex items-center gap-2">
+                          ${s.photo ? `<img src="${s.photo}" class="w-6 h-6 rounded-full object-cover border border-amber-400 shrink-0 shadow-sm" alt="Student Photo">` : ''}
+                          <div>
+                            <div class="text-sm">${s.nameAr}</div>
+                            ${s.nameEn ? `<div class="text-[10px] text-slate-400 font-en font-normal">${s.nameEn}</div>` : ''}
+                            ${currentGrade === 0 ? `<div class="text-[10px] text-amber-400 font-semibold mt-0.5">${GRADE_CONFIG[s.grade]?.ar || 'الصف ' + s.grade}</div>` : ''}
+                          </div>
+                        </div>
                       </td>
                       <td class="py-2.5 px-3 text-center no-print">
                         <span class="text-xs font-bold px-2 py-0.5 rounded-full ${
@@ -3663,8 +3680,14 @@
                     <tr class="hover:bg-slate-700/40 transition">
                       <td class="py-2.5 px-3 text-center text-slate-400 font-bold">${idx + 1}</td>
                       <td class="py-2.5 px-4 font-bold text-white">
-                        <div class="text-sm">${s.nameAr}</div>
-                        ${currentGrade === 0 ? `<div class="text-[10px] text-amber-400 font-semibold mt-0.5">${GRADE_CONFIG[s.grade]?.ar || 'الصف ' + s.grade}</div>` : ''}
+                        <div class="flex items-center gap-2">
+                          ${s.photo ? `<img src="${s.photo}" class="w-6 h-6 rounded-full object-cover border border-amber-400 shrink-0 shadow-sm" alt="Student Photo">` : ''}
+                          <div>
+                            <div class="text-sm">${s.nameAr}</div>
+                            ${s.nameEn ? `<div class="text-[10px] text-slate-400 font-en font-normal">${s.nameEn}</div>` : ''}
+                            ${currentGrade === 0 ? `<div class="text-[10px] text-amber-400 font-semibold mt-0.5">${GRADE_CONFIG[s.grade]?.ar || 'الصف ' + s.grade}</div>` : ''}
+                          </div>
+                        </div>
                       </td>
                       <td class="py-2.5 px-3 text-center no-print">
                         <span class="text-xs font-bold px-2 py-0.5 rounded-full ${
@@ -3735,8 +3758,14 @@
                   <tr class="hover:bg-slate-700/40 transition">
                     <td class="py-3 px-3 text-center text-slate-400 font-bold">${idx + 1}</td>
                     <td class="py-3 px-4 font-bold text-white text-base">
-                      <div>${s.nameAr}</div>
-                      ${currentGrade === 0 ? `<div class="text-[11px] text-amber-400 font-semibold mt-0.5">${GRADE_CONFIG[s.grade]?.ar || 'الصف ' + s.grade}</div>` : ''}
+                      <div class="flex items-center gap-2.5">
+                        ${s.photo ? `<img src="${s.photo}" class="w-7 h-7 rounded-full object-cover border border-amber-400 shrink-0 shadow-sm" alt="Student Photo">` : ''}
+                        <div>
+                          <div>${s.nameAr}</div>
+                          ${s.nameEn ? `<div class="text-xs text-slate-400 font-en font-normal">${s.nameEn}</div>` : ''}
+                          ${currentGrade === 0 ? `<div class="text-[11px] text-amber-400 font-semibold mt-0.5">${GRADE_CONFIG[s.grade]?.ar || 'الصف ' + s.grade}</div>` : ''}
+                        </div>
+                      </div>
                     </td>
                     <td class="py-3 px-3 text-center no-print">
                       <span class="text-xs font-bold px-2 py-0.5 rounded-full ${
@@ -6323,6 +6352,30 @@
       }
     }
 
+    async function manualSyncFromCloud() {
+      const btn = document.getElementById('btn-manual-sync-cloud');
+      const icon = document.getElementById('sync-cloud-icon');
+      if (icon) icon.className = 'animate-spin inline-block';
+      if (btn) btn.disabled = true;
+
+      try {
+        if (window.SmileKidsDB && typeof window.SmileKidsDB.syncFromCloud === 'function') {
+          await window.SmileKidsDB.syncFromCloud();
+        }
+        refreshStudentsFromDB();
+        syncAllTeacherGradesIntoStudents(false);
+        renderStudentsTable();
+        renderCertificatePreview();
+        alert('✓ تم بنجاح سحب وتحديث جميع الدرجات والبيانات من السحابة (Google Cloud) وتحديث الشهادات المدرسية!');
+      } catch (err) {
+        console.error('Manual sync from cloud error:', err);
+        alert('⚠️ حدث خطأ أثناء المزامنة السحابية. يرجى التأكد من اتصال الإنترنت.');
+      } finally {
+        if (icon) icon.className = '';
+        if (btn) btn.disabled = false;
+      }
+    }
+
     function getStudentSubjectScore(student, subjectId, periodKey) {
       if (!student) return null;
 
@@ -7052,8 +7105,10 @@
               </h2>
             </div>
 
-            <!-- Right Spacer for balance -->
-            <div class="cert-header-spacer" style="width: 140px;"></div>
+            <!-- Right Spacer or Student Photo -->
+            ${st.photo 
+              ? `<div class="cert-header-photo" style="width: 72px; height: 86px; border: 2px solid #2563eb; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.15); background: #f8fafc; margin-right: 5px;"><img src="${st.photo}" style="width: 100%; height: 100%; object-fit: cover;" alt="صورة الطالب"></div>` 
+              : '<div class="cert-header-spacer" style="width: 140px;"></div>'}
           </div>
 
           <!-- Student Name Line: Red bold with Name on left, 'اسم الطالب/ ة :' on right (exact layout) -->

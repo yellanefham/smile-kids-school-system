@@ -833,11 +833,36 @@
       if (!localStorage.getItem(STORAGE_KEY_ATTENDANCE)) {
         localStorage.setItem(STORAGE_KEY_ATTENDANCE, JSON.stringify([]));
       }
-      if (!localStorage.getItem(STORAGE_KEY_PINS)) {
-        const initialPins = {};
-        TEACHERS_CATALOG.forEach(t => initialPins[t.id] = '1234');
-        initialPins['admin'] = '9999';
-        localStorage.setItem(STORAGE_KEY_PINS, JSON.stringify(initialPins));
+      const DEFAULT_TEACHER_PINS = {
+        't_asmaa': '2011',
+        't_yara': '2012',
+        't_nabila': '2013',
+        't_hend': '2014',
+        't_samar': '2015',
+        't_amira': '2016',
+        't_ola': '2017',
+        't_marwa': '2018',
+        't_kariman': '2019',
+        't_abeer': '2020',
+        't_basma': '2021',
+        't_german': '2022',
+        'admin': '9999'
+      };
+
+      let existingPins = {};
+      try {
+        existingPins = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
+      } catch (e) { existingPins = {}; }
+
+      let needsSave = false;
+      Object.keys(DEFAULT_TEACHER_PINS).forEach(tId => {
+        if (!existingPins[tId] || existingPins[tId] === '1234') {
+          existingPins[tId] = DEFAULT_TEACHER_PINS[tId];
+          needsSave = true;
+        }
+      });
+      if (needsSave || !localStorage.getItem(STORAGE_KEY_PINS)) {
+        localStorage.setItem(STORAGE_KEY_PINS, JSON.stringify(existingPins));
       }
       if (!localStorage.getItem(STORAGE_KEY_PIN_STATUS)) {
         localStorage.setItem(STORAGE_KEY_PIN_STATUS, JSON.stringify({}));
@@ -1142,28 +1167,13 @@
       try {
         pinsObj = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
       } catch (e) { pinsObj = {}; }
-      const expectedPin = pinsObj[teacherId] || '1234';
+      const expectedPin = pinsObj[teacherId] || (typeof DEFAULT_TEACHER_PINS !== 'undefined' ? DEFAULT_TEACHER_PINS[teacherId] : '2011');
 
       if (inputPin === expectedPin) {
         // PIN is correct! Clear failed attempts
         clearFailedLogin(teacherId);
 
-        // Check if forced PIN change is required (first login / default PIN '1234')
-        let pinStatus = {};
-        try {
-          pinStatus = JSON.parse(localStorage.getItem(STORAGE_KEY_PIN_STATUS)) || {};
-        } catch (e) { pinStatus = {}; }
-        const isTeacherChanged = pinStatus[teacherId] && pinStatus[teacherId].isChanged;
-
-        if (expectedPin === '1234' || !isTeacherChanged) {
-          // FORCED PIN CHANGE REQUIRED: DO NOT PROCEED TO DASHBOARD!
-          const teacher = selectedTeacherForLogin;
-          closePinModal();
-          openForceChangePinModal(teacher);
-          return;
-        }
-
-        // Custom PIN already set: proceed to dashboard
+        // Authenticate directly to dashboard without forced password change
         const teacher = selectedTeacherForLogin;
         closePinModal();
         loginAsTeacher(teacher, false);
