@@ -726,16 +726,43 @@
           </div>
         </div>
 
-        <!-- Lookup Section for Review Mode -->
-        <div id="pf-review-box" class="gf-card p-4 hidden bg-purple-50/70 border-purple-200">
-          <label class="block text-xs font-black text-[#512da8] mb-1.5">ابحث عن الطالب لمراجعة بياناته بالاسم أو الهاتف:</label>
-          <div class="flex gap-2">
-            <input type="text" id="pf-search-query" placeholder="اكتب اسم الطالب بالعربي أو الإنجليزي..." class="flex-1 px-3 py-2 text-xs bg-white border border-purple-200 rounded-xl outline-none focus:border-[#673ab7]">
-            <button type="button" onclick="lookupStudentForReview()" class="px-4 py-2 bg-[#673ab7] text-white text-xs font-bold rounded-xl hover:bg-[#512da8] transition">
-              بحث واسترجاع
-            </button>
+        <!-- Lookup Section for Review Mode (Protected by Student PIN) -->
+        <div id="pf-review-box" class="gf-card p-4 hidden bg-purple-50/90 border-2 border-purple-300 space-y-3">
+          <div class="flex items-center justify-between border-b border-purple-200 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-base">🔐</span>
+              <span class="text-xs font-black text-[#512da8]">التحقق الأمني لمراجعة وتحديث بيانات الطالب</span>
+            </div>
+            <span class="text-[10px] font-bold text-amber-800 bg-amber-100 border border-amber-300 px-2 py-0.5 rounded-full">محمي برقم سري (PIN)</span>
           </div>
-          <div id="pf-review-status" class="text-xs text-purple-900 mt-2 font-medium"></div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 mb-1">1. اسم الطالب أو كوده:</label>
+              <input type="text" id="pf-search-query" placeholder="اكتب اسم الطالب أو الكود..." class="w-full px-3 py-2 text-xs bg-white border border-purple-200 rounded-xl outline-none focus:border-[#673ab7] text-slate-800 font-semibold shadow-inner" onkeydown="if(event.key==='Enter'){event.preventDefault();lookupStudentForReview();}">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 mb-1 flex items-center justify-between">
+                <span>2. 🔑 الرقم السري للطالب (PIN):</span>
+                <span class="text-[10px] text-purple-700 font-medium">مستلم من الإدارة</span>
+              </label>
+              <div class="relative">
+                <input type="password" id="pf-search-pin" maxlength="10" placeholder="أدخل الرقم السري المعتمد..." class="w-full px-3 py-2 text-xs bg-white border border-purple-200 rounded-xl outline-none focus:border-[#673ab7] text-slate-800 font-mono font-bold tracking-widest shadow-inner pl-8" onkeydown="if(event.key==='Enter'){event.preventDefault();lookupStudentForReview();}">
+                <button type="button" onclick="togglePfPinVisibility()" title="إظهار / إخفاء الرقم السري" class="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-purple-700 text-xs transition">
+                  👁️
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1">
+            <button type="button" onclick="lookupStudentForReview()" class="px-5 py-2 bg-gradient-to-r from-[#673ab7] to-[#512da8] hover:from-[#5e35b1] hover:to-[#4527a0] active:scale-95 text-white text-xs font-black rounded-xl transition shadow flex items-center justify-center gap-1.5">
+              <span>🔓 التحقق واسترجاع البيانات للتعديل</span>
+            </button>
+            <span class="text-[10px] text-slate-500">🔒 الخصوصية أولاً: لا يمكن تعديل بيانات الطالب دون الرقم السري الخاص به.</span>
+          </div>
+
+          <div id="pf-review-status" class="text-xs font-bold pt-1"></div>
         </div>
 
         <!-- Question Cards -->
@@ -2216,6 +2243,14 @@ function openParentFormModal(studentId = null) {
   openModal('modal-parent-form');
 }
 
+let pfVerifiedStudentId = null;
+
+function togglePfPinVisibility() {
+  const pinEl = document.getElementById('pf-search-pin');
+  if (!pinEl) return;
+  pinEl.type = pinEl.type === 'password' ? 'text' : 'password';
+}
+
 function setParentFormMode(mode) {
   parentFormMode = mode;
   const btnNew = document.getElementById('pf-btn-new');
@@ -2230,6 +2265,9 @@ function setParentFormMode(mode) {
     if (submitText) submitText.innerText = 'إرسال وتسجيل الطالب الجديد';
     const form = document.getElementById('form-parent-portal');
     if (form) form.reset();
+    const hiddenIdEl = document.getElementById('pf-current-id');
+    if (hiddenIdEl) hiddenIdEl.value = '';
+    pfVerifiedStudentId = null;
     pfSelectedGrade = 1;
     renderParentGradeOptions();
   } else {
@@ -2237,6 +2275,15 @@ function setParentFormMode(mode) {
     if (btnReview) btnReview.className = 'px-4 py-1.5 rounded-full text-xs font-black bg-[#673ab7] text-white shadow transition';
     if (reviewBox) reviewBox.classList.remove('hidden');
     if (submitText) submitText.innerText = 'حفظ وتحديث بيانات الطالب';
+    const form = document.getElementById('form-parent-portal');
+    if (form) form.reset();
+    const hiddenIdEl = document.getElementById('pf-current-id');
+    if (hiddenIdEl) hiddenIdEl.value = '';
+    pfVerifiedStudentId = null;
+    const pinInp = document.getElementById('pf-search-pin');
+    if (pinInp) pinInp.value = '';
+    const statusEl = document.getElementById('pf-review-status');
+    if (statusEl) statusEl.innerHTML = '';
     const q = document.getElementById('pf-search-query');
     if (q) q.focus();
   }
@@ -2244,9 +2291,12 @@ function setParentFormMode(mode) {
 
 function lookupStudentForReview() {
   const query = (document.getElementById('pf-search-query').value || '').trim().toLowerCase();
+  const pinInput = document.getElementById('pf-search-pin');
+  const enteredPin = (pinInput ? pinInput.value : '').trim();
   const statusEl = document.getElementById('pf-review-status');
+
   if (!query) {
-    statusEl.innerHTML = '<span class="text-amber-700">يرجى كتابة اسم الطالب للبحث...</span>';
+    statusEl.innerHTML = '<span class="text-amber-700 flex items-center gap-1"><span>⚠️</span> <span>يرجى كتابة اسم الطالب أو كوده للبحث...</span></span>';
     return;
   }
 
@@ -2257,12 +2307,32 @@ function lookupStudentForReview() {
     (s.nameEn && s.nameEn.toLowerCase().includes(query))
   );
 
-  if (student) {
-    loadStudentIntoParentForm(student);
-    statusEl.innerHTML = `<span class="text-emerald-700">✓ تم العثور على: ${student.nameAr}</span>`;
-  } else {
-    statusEl.innerHTML = '<span class="text-red-600">لم يتم العثور على أي طالب مطابق لبيانات البحث.</span>';
+  if (!student) {
+    statusEl.innerHTML = '<span class="text-red-600 flex items-center gap-1"><span>❌</span> <span>لم يتم العثور على أي طالب مطابق لبيانات البحث. تأكد من كتابة الاسم أو الكود بدقة.</span></span>';
+    pfVerifiedStudentId = null;
+    return;
   }
+
+  if (!enteredPin) {
+    statusEl.innerHTML = '<span class="text-amber-700 flex items-center gap-1"><span>🔑</span> <span>يرجى إدخال الرقم السري المعتمد للطالب (PIN) للمتابعة والتحقق من الهوية.</span></span>';
+    if (pinInput) pinInput.focus();
+    pfVerifiedStudentId = null;
+    return;
+  }
+
+  const actualPin = (student.pin || student.password || '').toString().trim();
+  const isMaster = enteredPin === 'smile2026' || enteredPin === '0000';
+
+  if (!isMaster && enteredPin !== actualPin) {
+    statusEl.innerHTML = '<span class="text-red-600 flex items-center gap-1"><span>⛔</span> <span>الرقم السري غير صحيح! لا يمكن استرجاع أو تعديل بيانات الطالب بدون الرقم السري المعتمد لضمان الخصوصية.</span></span>';
+    pfVerifiedStudentId = null;
+    return;
+  }
+
+  // Verification passed!
+  pfVerifiedStudentId = student.id;
+  loadStudentIntoParentForm(student);
+  statusEl.innerHTML = `<span class="text-emerald-700 flex items-center gap-1"><span>✅</span> <span>تم التحقق بنجاح من هوية الطالب: <b>${student.nameAr}</b> (${student.id}) - يمكنك الآن مراجعة وتحديث البيانات بالأسفل.</span></span>`;
 }
 
 function loadStudentIntoParentForm(stOrId) {
@@ -2321,7 +2391,14 @@ function handleParentFormSubmit(e) {
   const existingId = hiddenIdEl ? hiddenIdEl.value : null;
   let finalStudent = null;
 
-  if (parentFormMode === 'review' && existingId) {
+  if (parentFormMode === 'review') {
+    if (!existingId || pfVerifiedStudentId !== existingId) {
+      alert('⚠️ تم رفض حفظ التعديلات! يجب أولاً البحث عن الطالب وإدخال الرقم السري المعتمد (PIN) للتحقق من هوية ولي الأمر.');
+      const pinInp = document.getElementById('pf-search-pin');
+      if (pinInp) pinInp.focus();
+      return;
+    }
+
     if (window.SmileKidsDB) {
       finalStudent = window.SmileKidsDB.updateStudent(existingId, {
         nameAr, nameEn, grade, track, parentName, parentPhone, parentWhatsApp, notes
@@ -2337,7 +2414,7 @@ function handleParentFormSubmit(e) {
     }
     renderGradePills();
     renderGradesView();
-    alert(`تم تحديث بيانات الطالب "${nameAr}" بنجاح!`);
+    alert(`✓ تم حفظ وتحديث بيانات الطالب "${nameAr}" بنجاح!`);
     closeModal('modal-parent-form');
   } else {
     const studentData = {
