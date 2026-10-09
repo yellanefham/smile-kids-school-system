@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بوابة دخول الإدارة والمعلمات | مدرسة Smile Kids الخاصة للغات</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+    }
+    .font-en {
+      font-family: 'Outfit', sans-serif;
+    }
+    .bg-grid-pattern {
+      background-color: #060913;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+  </style>
+  <script src="smile_kids_database.js"></script>
+</head>
+<body class="bg-grid-pattern text-slate-100 min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- Header -->
+  <header class="border-b border-white/10 bg-slate-950/80 backdrop-blur-md py-4 px-6">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="smile_kids_logo.png" alt="Smile Kids" class="w-10 h-10 rounded-xl bg-white p-1 object-contain shadow">
+        <div>
+          <h1 class="text-sm sm:text-base font-black text-white">مدرسة Smile Kids الخاصة للغات</h1>
+          <p class="text-[11px] text-amber-400 font-bold">بوابة تسجيل الدخول الآمن للمعلمات والإدارة العامة • سري ومحمي 🔒</p>
+        </div>
+      </div>
+      <a href="index.html" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+        <span>←</span>
+        <span>العودة للرئيسية</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Login Container -->
+  <main class="flex-1 flex items-center justify-center p-4 py-10">
+    <div class="max-w-md w-full bg-slate-900/90 border-2 border-slate-700 rounded-3xl p-6 sm:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.8)] backdrop-blur-xl text-center relative animate-in fade-in">
+      
+      <!-- Icon & Title -->
+      <div id="auth-header-icon" class="w-16 h-16 rounded-2xl mx-auto mb-4 bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-3xl shadow-lg ring-4 ring-amber-500/20">
+        🔐
+      </div>
+
+      <h2 class="text-xl sm:text-2xl font-black text-white mb-1">تسجيل الدخول للنظام الداخلي</h2>
+      <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+        خاص بمعلمات وإدارة المدرسة فقط لمتابعة كشوف الدرجات، الشهادات الرسمية، وجداول الحصص.
+      </p>
+
+      <!-- Role Switcher -->
+      <div class="flex items-center gap-2 p-1.5 bg-slate-950 rounded-2xl border border-slate-800 mb-6">
+        <button type="button" id="tab-auth-teacher" onclick="setAuthRole('teacher')" class="flex-1 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow transition">
+          👩‍🏫 معلمات المواد
+        </button>
+        <button type="button" id="tab-auth-admin" onclick="setAuthRole('admin')" class="flex-1 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition">
+          👑 الإدارة العامة
+        </button>
+      </div>
+
+      <!-- Teacher Login View -->
+      <form id="form-auth-teacher" onsubmit="handleTeacherSubmit(event)" class="space-y-4 text-right">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">اختاري حساب المعلمة:</label>
+          <select id="select-teacher" onchange="onTeacherChange()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-3 text-xs text-white font-bold focus:outline-none focus:border-blue-500">
+            <!-- Populated by JS -->
+          </select>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1.5">
+            <label class="block text-xs font-bold text-slate-300">أدخلي رمز المرور الشخصي (PIN):</label>
+            <span id="label-teacher-name" class="text-xs font-black text-amber-300">مس / أسماء</span>
+          </div>
+          <input 
+            type="password" 
+            id="input-teacher-pin" 
+            maxlength="8" 
+            placeholder="••••" 
+            required
+            autocomplete="current-password"
+            class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-center text-xl font-mono tracking-widest text-white focus:outline-none focus:border-blue-500 shadow-inner"
+          >
+          <p id="teacher-error-msg" class="text-[11px] text-red-400 font-bold mt-2 text-center hidden"></p>
+          <p id="teacher-lockout-msg" class="text-[11px] text-amber-400 font-bold mt-2 text-center hidden"></p>
+        </div>
+
+        <button type="submit" id="btn-submit-teacher" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black rounded-xl text-sm shadow-xl shadow-blue-500/25 transition active:scale-95 flex items-center justify-center gap-2">
+          <span>دخول بوابة المعلمات 🚀</span>
+        </button>
+      </form>
+
+      <!-- Admin Login View -->
+      <form id="form-auth-admin" onsubmit="handleAdminSubmit(event)" class="space-y-4 text-right hidden">
+        <div class="p-3 bg-amber-950/30 border border-amber-500/30 rounded-xl text-center">
+          <span class="text-2xl block mb-1">👑</span>
+          <p class="text-xs font-black text-amber-300">دخول الإدارة العامة (Master Admin)</p>
+          <p class="text-[11px] text-slate-400 mt-1">صلاحيات كاملة لكشوف الطلاب، الشهادات، طلبات القبول، والجداول الرسمية</p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">رمز مرور الإدارة (Admin PIN):</label>
+          <input 
+            type="password" 
+            id="input-admin-pin" 
+            placeholder="••••" 
+            maxlength="8" 
+            required
+            autocomplete="current-password"
+            class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-center text-xl font-mono tracking-widest text-white focus:outline-none focus:border-amber-500 shadow-inner"
+          >
+          <p id="admin-error-msg" class="text-[11px] text-red-400 font-bold mt-2 text-center hidden"></p>
+          <p id="admin-lockout-msg" class="text-[11px] text-amber-400 font-bold mt-2 text-center hidden"></p>
+        </div>
+
+        <button type="submit" id="btn-submit-admin" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl text-sm shadow-xl shadow-amber-500/25 transition active:scale-95 flex items-center justify-center gap-2">
+          <span>دخول لوحة تحكم الإدارة 👑</span>
+        </button>
+
+        <div class="pt-2 text-center">
+          <a href="Teachers_Credentials_Sheet.html" class="inline-flex items-center justify-center gap-1.5 text-xs text-amber-400 hover:text-amber-300 font-bold transition">
+            <span>🔑</span>
+            <span>كشف كلمات مرور وبيانات المعلمات المعتمدة</span>
+          </a>
+        </div>
+      </form>
+
+      <div class="mt-6 pt-4 border-t border-slate-800 text-[11px] text-slate-500">
+        منظومة سرية ومحمية • يتم تسجيل وتأمين جميع عمليات الدخول
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 bg-slate-950/80 py-4 text-center text-xs text-slate-500">
+    مدرسة Smile Kids الخاصة للغات • العام الدراسي 2026 / 2027
+  </footer>
+
+  <script>
+    const TEACHERS_CATALOG = [
+      { id: "t_asmaa", nameAr: "مس / أسماء", nameEn: "Ms. Asmaa", title: "معلمة اللغة العربية والتربية الدينية" },
+      { id: "t_yara", nameAr: "مس / يارا", nameEn: "Ms. Yara", title: "معلمة اللغة الإنجليزية وتكنولوجيا المعلومات" },
+      { id: "t_nabila", nameAr: "مس / نبيلة", nameEn: "Ms. Nabila", title: "معلمة الرياضيات والحساب (الصفوف الأولى)" },
+      { id: "t_hend", nameAr: "مس / هند", nameEn: "Ms. Hend", title: "معلمة الرياضيات والـ Math (العليا والإعدادي)" },
+      { id: "t_samar", nameAr: "مس / سمر", nameEn: "Ms. Samar", title: "معلمة العلوم و Science" },
+      { id: "t_amira", nameAr: "مس / أميرة", nameEn: "Ms. Amira", title: "معلمة English و ICT (الصفوف العليا)" },
+      { id: "t_ola", nameAr: "مس / علا", nameEn: "Ms. Ola", title: "معلمة اللغة العربية والتربية الدينية (العليا والإعدادي)" },
+      { id: "t_marwa", nameAr: "مس / مروة", nameEn: "Ms. Marwa", title: "معلمة القرآن الكريم واللغة العربية" },
+      { id: "t_kariman", nameAr: "مس / كريمان", nameEn: "Ms. Kariman", title: "معلمة الدراسات الاجتماعية والتكنولوجيا" },
+      { id: "t_abeer", nameAr: "مس / عبير", nameEn: "Ms. Abeer", title: "معلمة التربية الرياضية (P.E) والأنشطة" },
+      { id: "t_basma", nameAr: "مس / بسمة", nameEn: "Ms. Basma", title: "معلمة التربية الفنية (Art) والإشراف" },
+      { id: "t_german", nameAr: "مس / نانسي (Frau Nancy)", nameEn: "Ms. Nancy (Frau Nancy)", title: "معلمة اللغة الألمانية (German)" }
+    ];
+
+    const STORAGE_KEY_PINS = 'smile_kids_teacher_pins';
+    const STORAGE_KEY_LOGIN_ATTEMPTS = 'smile_kids_login_attempts';
+    const STORAGE_KEY_SESSION = 'smile_kids_active_teacher_session';
+
+    const DEFAULT_TEACHER_PINS = {
+      't_asmaa': '2011',
+      't_yara': '2012',
+      't_nabila': '2013',
+      't_hend': '2014',
+      't_samar': '2015',
+      't_amira': '2016',
+      't_ola': '2017',
+      't_marwa': '2018',
+      't_kariman': '2019',
+      't_abeer': '2020',
+      't_basma': '2021',
+      't_german': '2022',
+      'admin': '9999'
+    };
+
+    const LOCKOUT_THRESHOLD = 5;
+    const LOCKOUT_DURATION_MS = 15 * 60 * 1000;
+
+    let currentRole = 'teacher';
+
+    function initPage() {
+      const select = document.getElementById('select-teacher');
+      if (select) {
+        select.innerHTML = TEACHERS_CATALOG.map(t => `<option value="${t.id}">${t.nameAr} - ${t.title}</option>`).join('');
+      }
+
+      // Check query param e.g. staff_login.html?role=admin
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('role') === 'admin') {
+        setAuthRole('admin');
+      } else {
+        setAuthRole('teacher');
+      }
+    }
+
+    function setAuthRole(role) {
+      currentRole = role;
+      const tabTeacher = document.getElementById('tab-auth-teacher');
+      const tabAdmin = document.getElementById('tab-auth-admin');
+      const formTeacher = document.getElementById('form-auth-teacher');
+      const formAdmin = document.getElementById('form-auth-admin');
+
+      if (role === 'teacher') {
+        tabTeacher.className = 'flex-1 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow transition';
+        tabAdmin.className = 'flex-1 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition';
+        formTeacher.classList.remove('hidden');
+        formAdmin.classList.add('hidden');
+        onTeacherChange();
+      } else {
+        tabTeacher.className = 'flex-1 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition';
+        tabAdmin.className = 'flex-1 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow transition';
+        formTeacher.classList.add('hidden');
+        formAdmin.classList.remove('hidden');
+        setTimeout(() => {
+          const inPin = document.getElementById('input-admin-pin');
+          if (inPin) inPin.focus();
+        }, 100);
+      }
+    }
+
+    function onTeacherChange() {
+      const select = document.getElementById('select-teacher');
+      const teacher = TEACHERS_CATALOG.find(t => t.id === select.value) || TEACHERS_CATALOG[0];
+      const lbl = document.getElementById('label-teacher-name');
+      if (lbl) lbl.innerText = teacher.nameAr;
+      const inPin = document.getElementById('input-teacher-pin');
+      if (inPin) inPin.focus();
+    }
+
+    function handleTeacherSubmit(e) {
+      e.preventDefault();
+      const teacherId = document.getElementById('select-teacher').value;
+      const pin = (document.getElementById('input-teacher-pin').value || '').trim();
+
+      let pinsObj = {};
+      try {
+        pinsObj = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
+      } catch (err) {}
+      const expectedPin = pinsObj[teacherId] || DEFAULT_TEACHER_PINS[teacherId] || '2011';
+
+      if (pin === expectedPin) {
+        sessionStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify({ teacherId, isAdmin: false }));
+        window.location.href = 'Teacher_Portal.html';
+      } else {
+        const err = document.getElementById('teacher-error-msg');
+        if (err) {
+          err.innerText = 'رمز المرور غير صحيح، يرجى المحاولة مرة أخرى.';
+          err.classList.remove('hidden');
+        }
+      }
+    }
+
+    function handleAdminSubmit(e) {
+      e.preventDefault();
+      const pin = (document.getElementById('input-admin-pin').value || '').trim();
+
+      let pinsObj = {};
+      try {
+        pinsObj = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
+      } catch (err) {}
+      const expectedPin = pinsObj['admin'] || DEFAULT_TEACHER_PINS['admin'] || '9999';
+
+      if (pin === expectedPin) {
+        sessionStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify({ teacherId: 'admin_master', isAdmin: true }));
+        window.location.href = 'Student_Roster_Dashboard.html';
+      } else {
+        const err = document.getElementById('admin-error-msg');
+        if (err) {
+          err.innerText = 'رمز المرور غير صحيح، يرجى المحاولة مرة أخرى.';
+          err.classList.remove('hidden');
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initPage);
+  </script>
+</body>
+</html>
