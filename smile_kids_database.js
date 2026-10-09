@@ -7597,6 +7597,37 @@
                   this._cache.push(cloudSt);
                   hasChanges = true;
                 } else {
+                  // Merge updated student profile fields from cloud (names, photo, parent info)
+                  if (cloudSt.photo && cloudSt.photo !== localSt.photo) {
+                    localSt.photo = cloudSt.photo;
+                    hasChanges = true;
+                  }
+                  if (cloudSt.nameEn && cloudSt.nameEn !== localSt.nameEn) {
+                    localSt.nameEn = cloudSt.nameEn;
+                    hasChanges = true;
+                  }
+                  if (cloudSt.nameAr && cloudSt.nameAr !== localSt.nameAr) {
+                    localSt.nameAr = cloudSt.nameAr;
+                    hasChanges = true;
+                  }
+                  if (cloudSt.parentName && cloudSt.parentName !== localSt.parentName) {
+                    localSt.parentName = cloudSt.parentName;
+                    hasChanges = true;
+                  }
+                  if (cloudSt.parentPhone && cloudSt.parentPhone !== localSt.parentPhone) {
+                    localSt.parentPhone = cloudSt.parentPhone;
+                    hasChanges = true;
+                  }
+                  if (cloudSt.parentWhatsApp && cloudSt.parentWhatsApp !== localSt.parentWhatsApp) {
+                    localSt.parentWhatsApp = cloudSt.parentWhatsApp;
+                    hasChanges = true;
+                  }
+                  if (cloudSt.parentEmail && cloudSt.parentEmail !== localSt.parentEmail) {
+                    localSt.parentEmail = cloudSt.parentEmail;
+                    localSt.email = cloudSt.parentEmail;
+                    hasChanges = true;
+                  }
+
                   // Merge attendance records without overwriting local marks
                   if (cloudSt.attendanceRecords && typeof cloudSt.attendanceRecords === 'object') {
                     localSt.attendanceRecords = localSt.attendanceRecords || {};
