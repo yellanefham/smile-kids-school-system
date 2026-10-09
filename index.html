@@ -102,18 +102,6 @@
       <!-- Action & Links Toolbar -->
       <div class="flex items-center justify-center sm:justify-end gap-2 sm:gap-2.5 w-full sm:w-auto flex-wrap">
 
-        <!-- Quick Login Button -->
-        <button onclick="openQuickLoginModal()" id="btn-quick-login-nav" class="px-3.5 py-1.5 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:brightness-110 text-slate-950 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 shadow-[0_0_15px_rgba(245,158,11,0.35)] active:scale-95 group whitespace-nowrap" title="بوابة تسجيل الدخول السريع للمعلمات والإدارة">
-          <span class="text-sm">⚡</span>
-          <span class="whitespace-nowrap">دخول المعلمات والإدارة</span>
-        </button>
-
-        <!-- Teacher Portal Button -->
-        <a href="Teacher_Portal.html" class="px-3.5 py-1.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 hover:brightness-110 text-white rounded-xl text-xs font-black transition-all flex items-center gap-1.5 shadow-[0_0_15px_rgba(16,185,129,0.35)] active:scale-95 group whitespace-nowrap" title="بوابة المعلمات والحصص ورصد الدرجات">
-          <span class="text-sm">👩‍🏫</span>
-          <span class="whitespace-nowrap">بوابة المعلمات</span>
-        </a>
-
         <!-- Parent Portal Button -->
         <a href="Parent_Portal.html" class="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:brightness-110 text-white rounded-xl text-xs font-black transition-all flex items-center gap-1.5 shadow-[0_0_15px_rgba(37,99,235,0.35)] active:scale-95 group whitespace-nowrap" title="بوابة أولياء الأمور لتعديل البيانات وجدول الحصص">
           <span class="text-sm">👨‍👩‍👧‍👦</span>
@@ -121,20 +109,10 @@
         </a>
 
         <!-- Registration Form Button -->
-        <button onclick="openParentFormModal()" class="px-3.5 py-1.5 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:brightness-110 text-white rounded-xl text-xs font-black transition-all flex items-center gap-1.5 shadow-[0_0_15px_rgba(147,51,234,0.35)] active:scale-95 group whitespace-nowrap" title="استمارة أولياء الأمور وتسجيل الطلاب">
+        <button onclick="openParentFormModal('new')" class="px-3.5 py-1.5 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:brightness-110 text-white rounded-xl text-xs font-black transition-all flex items-center gap-1.5 shadow-[0_0_15px_rgba(147,51,234,0.35)] active:scale-95 group whitespace-nowrap" title="استمارة أولياء الأمور وتسجيل الطلاب">
           <svg class="w-4 h-4 fill-none stroke-current group-hover:scale-110 transition-transform shrink-0" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
           <span class="whitespace-nowrap">📝 استمارة التسجيل</span>
         </button>
-
-        <!-- Total Students Glowing Badge & Cloud Sync Button -->
-        <div class="flex items-center gap-2 bg-slate-900/90 border border-indigo-500/40 px-3 py-1.5 rounded-xl shadow-[0_0_15px_rgba(99,102,241,0.2)] whitespace-nowrap">
-          <span class="text-xs font-bold text-slate-300 hidden sm:inline">الطلاب:</span>
-          <span id="header-student-count" class="text-xs font-black text-indigo-300">147 طالب وطالبة</span>
-          <button onclick="triggerManualCloudSync()" id="btn-cloud-sync" title="مزامنة سحابية فورية بين الهاتف واللابتوب" class="p-1 rounded-lg bg-indigo-500/20 hover:bg-indigo-500/40 text-indigo-300 hover:text-white transition active:scale-90 flex items-center gap-1 text-[11px] font-bold">
-            <span id="sync-icon">🔄</span>
-            <span class="hidden md:inline">مزامنة سحابية</span>
-          </button>
-        </div>
       </div>
     </div>
   </header>
@@ -199,141 +177,93 @@
         </div>
       </div>
 
-      <!-- Quick Login Majestic Dual-Portal Banner -->
-      <div class="max-w-5xl mx-auto mb-8 sm:mb-10">
-        <div class="glass-card relative bg-gradient-to-r from-amber-950/60 via-slate-900/90 to-blue-950/60 border-2 border-amber-500/40 hover:border-amber-400 rounded-3xl p-5 sm:p-6 shadow-[0_10px_35px_rgba(0,0,0,0.5)] flex flex-col md:flex-row items-center justify-between gap-5">
-          <div class="flex items-center gap-4 text-center sm:text-right">
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-3xl shadow-lg ring-4 ring-amber-500/20 shrink-0">
-              ⚡
-            </div>
+      <!-- About Smile Kids Section (نبذة تعريفية عامة عن المدرسة) -->
+      <div class="max-w-5xl mx-auto mb-10 sm:mb-14">
+        <div class="glass-card relative bg-gradient-to-br from-slate-900/90 via-indigo-950/40 to-slate-900/90 border border-white/15 rounded-3xl p-6 sm:p-8 shadow-2xl">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center text-2xl shadow-lg">🌟</span>
             <div>
-              <div class="flex items-center gap-2 justify-center sm:justify-start flex-wrap">
-                <h3 class="text-lg sm:text-xl font-black text-white">بوابات الدخول المعتمدة للمدرسة</h3>
-                <span class="bg-amber-500/20 text-amber-300 text-[10px] font-black px-2.5 py-0.5 rounded-full border border-amber-500/40">تسجيل دخول آمن ومحمي</span>
-              </div>
-              <p class="text-xs text-slate-300 mt-1">تسجيل دخول منفصل ومخصص للمعلمات لرصد المواد والحصص، وبوابة إدارة عامة بكامل الصلاحيات</p>
+              <h3 class="text-xl sm:text-2xl font-black text-white">عن مدرسة Smile Kids الخاصة للغات</h3>
+              <p class="text-xs text-amber-300 font-bold">رؤيتنا ورسالتنا التعليمية • بيئة رائدة للأجيال الواعدة</p>
             </div>
           </div>
-          
-          <div class="flex items-center gap-2.5 sm:gap-3 shrink-0 flex-wrap justify-center w-full md:w-auto">
-            <!-- Button 1: Teacher Login -->
-            <button onclick="openQuickLoginModal('teacher')" id="btn-quick-login-teacher" class="flex-1 md:flex-initial px-4 sm:px-5 py-3 bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 hover:brightness-110 text-white font-black rounded-2xl text-xs sm:text-sm shadow-xl shadow-cyan-600/25 transition-all flex items-center justify-center gap-2 active:scale-95 whitespace-nowrap border border-cyan-400/30">
-              <span>👩‍🏫 دخول المعلمات</span>
-            </button>
-            <!-- Button 2: Admin Login -->
-            <button onclick="openQuickLoginModal('admin')" id="btn-quick-login-admin" class="flex-1 md:flex-initial px-4 sm:px-5 py-3 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:brightness-110 text-slate-950 font-black rounded-2xl text-xs sm:text-sm shadow-xl shadow-amber-500/25 transition-all flex items-center justify-center gap-2 active:scale-95 whitespace-nowrap border border-amber-400/50">
-              <span>👑 دخول الإدارة العامة</span>
-            </button>
-            <!-- Button 3: Parent Portal -->
-            <a href="Parent_Portal.html" class="flex-1 md:flex-initial px-4 sm:px-5 py-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:brightness-110 text-white font-black rounded-2xl text-xs sm:text-sm shadow-xl shadow-indigo-600/25 transition-all flex items-center justify-center gap-2 active:scale-95 whitespace-nowrap border border-indigo-400/40">
-              <span>👨‍👩‍👧‍👦 بوابة أولياء الأمور</span>
-            </a>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium mb-6">
+            مرحباً بكم في الصرح التعليمي لمدرسة <strong>Smile Kids الخاصة للغات</strong>. نسعى دائماً لتقديم تجربة تعليمية وتربوية متكاملة تهدف إلى بناء شخصية الطالب وتطوير مهاراته العلمية واللغوية والتكنولوجية، من خلال بيئة تعليمية آمنة ومحفزة على الإبداع والتفوق، وبإشراف نخبة متميزة من الكوادر التعليمية.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+            <div class="p-4 rounded-2xl bg-slate-950/60 border border-white/10">
+              <span class="text-2xl block mb-1">📚</span>
+              <h4 class="font-bold text-white text-xs sm:text-sm">مناهج تعليمية متطورة</h4>
+              <p class="text-[11px] text-slate-400 mt-1">قسم لغات دولي وقسم عربي متكامل بأعلى معايير الجودة</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-slate-950/60 border border-white/10">
+              <span class="text-2xl block mb-1">🎨</span>
+              <h4 class="font-bold text-white text-xs sm:text-sm">أنشطة تفاعلية وتربوية</h4>
+              <p class="text-[11px] text-slate-400 mt-1">رعاية متكاملة للمواهب الرياضية، الفنية، والأنشطة الإثرائية</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-slate-950/60 border border-white/10">
+              <span class="text-2xl block mb-1">💻</span>
+              <h4 class="font-bold text-white text-xs sm:text-sm">تكنولوجيا وابتكار</h4>
+              <p class="text-[11px] text-slate-400 mt-1">وسائل تعليمية رقمية ومتابعة دورية مستمرة مع أولياء الأمور</p>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Portal App Cards Grid: 4 Magnificent Gem-Themed Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-        
-        <!-- Tab Card 1: Emerald Gem (Comprehensive Student Management Portal - ADMIN PROTECTED) -->
-        <div onclick="handleAdminCardAccess('Student_Roster_Dashboard.html')" class="glass-card relative bg-gradient-to-b from-emerald-950/40 via-slate-900/90 to-slate-950/95 border border-emerald-500/30 hover:border-emerald-400 rounded-3xl p-6 flex flex-col justify-between shadow-2xl hover:glow-emerald group transition-all duration-300 cursor-pointer">
-          <div class="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/15 rounded-full blur-2xl group-hover:bg-emerald-500/25 transition duration-500"></div>
-          <div>
-            <div class="flex items-center justify-between mb-5">
-              <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-600/30 border border-emerald-400/40 flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(16,185,129,0.3)] group-hover:scale-110 transition-transform">📋</span>
-              <span class="bg-red-500/20 text-red-300 text-xs font-black px-3 py-1 rounded-full border border-red-500/40 shadow-sm flex items-center gap-1">
-                <span>🔒</span>
-                <span>خاص بالإدارة فقط</span>
+      <!-- Main Public Portals Grid: 2 Grand Luxury Cards (Parent Portal + Student Admission Form) -->
+      <div class="max-w-5xl mx-auto mb-10 sm:mb-14">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          
+          <!-- Card 1: Parent Portal (بوابة أولياء الأمور) -->
+          <a href="Parent_Portal.html" class="glass-card relative bg-gradient-to-b from-blue-950/50 via-slate-900/95 to-slate-950/95 border-2 border-indigo-500/40 hover:border-indigo-400 rounded-3xl p-7 sm:p-8 flex flex-col justify-between shadow-2xl hover:glow-indigo group transition-all duration-300">
+            <div class="absolute -top-10 -right-10 w-36 h-36 bg-indigo-500/15 rounded-full blur-2xl group-hover:bg-indigo-500/25 transition duration-500"></div>
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-blue-600/30 border border-indigo-400/40 flex items-center justify-center text-3xl shadow-[0_0_20px_rgba(99,102,241,0.3)] group-hover:scale-110 transition-transform">👨‍👩‍👧‍👦</span>
+                <span class="bg-indigo-500/20 text-indigo-300 text-xs font-black px-3.5 py-1.5 rounded-full border border-indigo-400/40 shadow-sm">بوابة المتابعة</span>
+              </div>
+              <h3 class="text-2xl font-black text-white group-hover:text-indigo-300 transition-colors">
+                بوابة أولياء الأمور
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-300 font-bold mt-3 leading-relaxed">
+                متابعة بيانات الطالب • تدقيق الاسم باللغتين العربية والإنجليزية • رفع الصورة الشخصية للكارنيه • والاطلاع على جدول حصص الطالب الأسبوعي المعتمد.
+              </p>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-indigo-500/20 flex items-center justify-between">
+              <span class="text-indigo-300 font-black text-sm group-hover:translate-x-[-4px] transition-transform">الدخول إلى بوابة الطالب والجدول</span>
+              <span class="w-10 h-10 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-[0_0_15px_rgba(99,102,241,0.4)] group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </span>
             </div>
-            <h3 class="text-xl font-black text-white group-hover:text-emerald-300 transition-colors">
-              كشوف الطلاب والشهادات
-            </h3>
-            <p class="text-xs text-emerald-400/80 font-bold mt-2 leading-relaxed">
-              الفصول 1-9 • كشوف الطلاب • الغياب والحضور • الشهادات المدرسية
-            </p>
-          </div>
+          </a>
 
-          <div class="mt-6 pt-5 border-t border-emerald-500/20 flex items-center justify-between">
-            <span class="text-emerald-300 font-black text-xs sm:text-sm group-hover:translate-x-[-4px] transition-transform">دخول الإدارة العامة (PIN)</span>
-            <span class="w-8 h-8 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.4)] group-hover:scale-110 transition-transform">
-              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </span>
-          </div>
-        </div>
-
-        <!-- Tab Card 2: Cyan/Teal Gem (Teacher Portal) -->
-        <div onclick="openQuickLoginModal('teacher')" class="glass-card relative bg-gradient-to-b from-cyan-950/40 via-slate-900/90 to-slate-950/95 border border-cyan-500/30 hover:border-cyan-400 rounded-3xl p-6 flex flex-col justify-between shadow-2xl hover:glow-cyan group transition-all duration-300 cursor-pointer">
-          <div class="absolute -top-10 -right-10 w-32 h-32 bg-cyan-500/15 rounded-full blur-2xl group-hover:bg-cyan-500/25 transition duration-500"></div>
-          <div>
-            <div class="flex items-center justify-between mb-5">
-              <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-600/30 border border-cyan-400/40 flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(6,182,212,0.3)] group-hover:scale-110 transition-transform">👩‍🏫</span>
-              <span class="bg-cyan-500/20 text-cyan-300 text-xs font-black px-3 py-1 rounded-full border border-cyan-400/40 shadow-sm">بوابة المعلمات</span>
+          <!-- Card 2: Student Admission Form (استمارة تسجيل طالب جديد) -->
+          <div onclick="openParentFormModal('new')" class="glass-card relative bg-gradient-to-b from-purple-950/50 via-slate-900/95 to-slate-950/95 border-2 border-purple-500/40 hover:border-purple-400 rounded-3xl p-7 sm:p-8 flex flex-col justify-between shadow-2xl hover:glow-purple group cursor-pointer transition-all duration-300">
+            <div class="absolute -top-10 -right-10 w-36 h-36 bg-purple-500/15 rounded-full blur-2xl group-hover:bg-purple-500/25 transition duration-500"></div>
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-indigo-600/30 border border-purple-400/40 flex items-center justify-center text-3xl shadow-[0_0_20px_rgba(168,85,247,0.3)] group-hover:scale-110 transition-transform">📝</span>
+                <span class="bg-purple-500/20 text-purple-300 text-xs font-black px-3.5 py-1.5 rounded-full border border-purple-400/40 shadow-sm">بوابة القبول والتسجيل</span>
+              </div>
+              <h3 class="text-2xl font-black text-white group-hover:text-purple-300 transition-colors">
+                استمارة تسجيل طالب جديد
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-300 font-bold mt-3 leading-relaxed">
+                تقديم طلب التحاق جديد للعام الدراسي 2026 / 2027 م • تسجيل بيانات الطالب وأولياء الأمور • إشعار فوري قيد المراجعة والاعتماد الرسمي من إدارة المدرسة.
+              </p>
             </div>
-            <h3 class="text-xl font-black text-white group-hover:text-cyan-300 transition-colors">
-              رصد الدرجات وغياب الحصة
-            </h3>
-            <p class="text-xs text-cyan-400/80 font-bold mt-2 leading-relaxed">
-              دخول بالرمز PIN • كشف درجات كل مادة • كشف غياب الحصة بالجدول الحي
-            </p>
-          </div>
 
-          <div class="mt-6 pt-5 border-t border-cyan-500/20 flex items-center justify-between">
-            <span class="text-cyan-300 font-black text-xs sm:text-sm group-hover:translate-x-[-4px] transition-transform">دخول المعلمات</span>
-            <span class="w-8 h-8 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.4)] group-hover:scale-110 transition-transform">
-              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </span>
-          </div>
-        </div>
-
-        <!-- Tab Card 3: Solar Gold Gem (Timetable Dashboard) -->
-        <a href="Interactive_Timetable_Dashboard.html" class="glass-card relative bg-gradient-to-b from-amber-950/40 via-slate-900/90 to-slate-950/95 border border-amber-500/30 hover:border-amber-400 rounded-3xl p-6 flex flex-col justify-between shadow-2xl hover:glow-amber group transition-all duration-300">
-          <div class="absolute -top-10 -right-10 w-32 h-32 bg-amber-500/15 rounded-full blur-2xl group-hover:bg-amber-500/25 transition duration-500"></div>
-          <div>
-            <div class="flex items-center justify-between mb-5">
-              <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-600/30 border border-amber-400/40 flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(245,158,11,0.3)] group-hover:scale-110 transition-transform">📅</span>
-              <span class="bg-amber-500/20 text-amber-300 text-xs font-black px-3 py-1 rounded-full border border-amber-400/40 shadow-sm">الجدول المدرسي</span>
+            <div class="mt-8 pt-6 border-t border-purple-500/20 flex items-center justify-between">
+              <span class="text-purple-300 font-black text-sm group-hover:translate-x-[-4px] transition-transform">فتح استمارة التقديم والقبول</span>
+              <span class="w-10 h-10 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-500 text-white flex items-center justify-center shadow-[0_0_15px_rgba(168,85,247,0.4)] group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </span>
             </div>
-            <h3 class="text-xl font-black text-white group-hover:text-amber-300 transition-colors">
-              الجداول الأسبوعية
-            </h3>
-            <p class="text-xs text-amber-400/80 font-bold mt-2 leading-relaxed">
-              الأيام • الصفوف • المعلمات • مصفوفة الأنصبة وتفريغ المواد والأنشطة
-            </p>
           </div>
 
-          <div class="mt-6 pt-5 border-t border-amber-500/20 flex items-center justify-between">
-            <span class="text-amber-300 font-black text-xs sm:text-sm group-hover:translate-x-[-4px] transition-transform">فتح الجداول</span>
-            <span class="w-8 h-8 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-slate-950 font-black flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.4)] group-hover:scale-110 transition-transform">
-              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </span>
-          </div>
-        </a>
-
-        <!-- Tab Card 4: Royal Amethyst Gem (Student Registration & Parent Form) -->
-        <div onclick="openParentFormModal()" class="glass-card relative bg-gradient-to-b from-purple-950/40 via-slate-900/90 to-slate-950/95 border border-purple-500/30 hover:border-purple-400 rounded-3xl p-6 flex flex-col justify-between shadow-2xl hover:glow-purple group cursor-pointer transition-all duration-300">
-          <div class="absolute -top-10 -right-10 w-32 h-32 bg-purple-500/15 rounded-full blur-2xl group-hover:bg-purple-500/25 transition duration-500"></div>
-          <div>
-            <div class="flex items-center justify-between mb-5">
-              <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/20 to-indigo-600/30 border border-purple-400/40 flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(168,85,247,0.3)] group-hover:scale-110 transition-transform">📝</span>
-              <span class="bg-purple-500/20 text-purple-300 text-xs font-black px-3 py-1 rounded-full border border-purple-400/40 shadow-sm">بوابة القبول</span>
-            </div>
-            <h3 class="text-xl font-black text-white group-hover:text-purple-300 transition-colors">
-              استمارة تسجيل الطلاب
-            </h3>
-            <p class="text-xs text-purple-400/80 font-bold mt-2 leading-relaxed">
-              تسجيل طالب جديد • تدقيق بيانات أولياء الأمور • إيصال تسجيل فوري معتمد
-            </p>
-          </div>
-
-          <div class="mt-6 pt-5 border-t border-purple-500/20 flex items-center justify-between">
-            <span class="text-purple-300 font-black text-xs sm:text-sm group-hover:translate-x-[-4px] transition-transform">فتح الاستمارة</span>
-            <span class="w-8 h-8 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-500 text-white flex items-center justify-center shadow-[0_0_15px_rgba(168,85,247,0.4)] group-hover:scale-110 transition-transform">
-              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </span>
-          </div>
         </div>
-
       </div>
 
       <!-- Official Cinema Video Showcase Section (Vertical Reel Format) -->
@@ -494,6 +424,66 @@
       openModal('modal-parent-form');
     }
 
+    let pfCompressedPhoto = null;
+
+    function handlePfPhotoUpload(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+          const maxDim = 400;
+          let width = img.width;
+          let height = img.height;
+          if (width > height) {
+            if (width > maxDim) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            }
+          } else {
+            if (height > maxDim) {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          pfCompressedPhoto = canvas.toDataURL('image/jpeg', 0.85);
+          updatePfPhotoPreview(pfCompressedPhoto);
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function updatePfPhotoPreview(photoSrc) {
+      const img = document.getElementById('pf-photo-preview');
+      const placeholder = document.getElementById('pf-photo-placeholder');
+      const btnRemove = document.getElementById('pf-btn-remove-photo');
+      if (photoSrc) {
+        if (img) { img.src = photoSrc; img.classList.remove('hidden'); }
+        if (placeholder) placeholder.classList.add('hidden');
+        if (btnRemove) btnRemove.classList.remove('hidden');
+      } else {
+        if (img) { img.src = ''; img.classList.add('hidden'); }
+        if (placeholder) placeholder.classList.remove('hidden');
+        if (btnRemove) btnRemove.classList.add('hidden');
+      }
+    }
+
+    function removePfPhoto() {
+      pfCompressedPhoto = null;
+      const inp = document.getElementById('pf-photo-input');
+      if (inp) inp.value = '';
+      updatePfPhotoPreview(null);
+    }
+
     function setParentFormMode(mode) {
       parentFormMode = mode;
       const btnNew = document.getElementById('pf-btn-new');
@@ -510,6 +500,7 @@
         if (form) form.reset();
         document.getElementById('pf-current-id').value = '';
         currentSelectedGrade = 1;
+        removePfPhoto();
         renderParentGradeOptions();
       } else {
         if (btnNew) btnNew.className = 'px-4 py-1.5 rounded-full text-xs font-bold bg-white text-slate-700 border border-slate-300 hover:bg-purple-50 transition';
@@ -562,7 +553,12 @@
       document.getElementById('pf-parent-name').value = st.parentName || (st.nameAr ? st.nameAr.split(' ').slice(1).join(' ') : '');
       document.getElementById('pf-parent-phone').value = st.parentPhone || st.phone || '';
       document.getElementById('pf-parent-whatsapp').value = st.parentWhatsApp || st.whatsapp || '';
+      const emailInp = document.getElementById('pf-parent-email');
+      if (emailInp) emailInp.value = st.parentEmail || st.email || '';
       document.getElementById('pf-notes').value = st.notes || '';
+
+      pfCompressedPhoto = st.photo || null;
+      updatePfPhotoPreview(pfCompressedPhoto);
 
       currentSelectedGrade = parseInt(st.grade) || 1;
       renderParentGradeOptions();
@@ -586,6 +582,8 @@
       const parentName = (document.getElementById('pf-parent-name').value || '').trim();
       const parentPhone = (document.getElementById('pf-parent-phone').value || '').trim();
       const parentWhatsApp = (document.getElementById('pf-parent-whatsapp').value || '').trim();
+      const emailInp = document.getElementById('pf-parent-email');
+      const parentEmail = emailInp ? emailInp.value.trim() : '';
       const notes = (document.getElementById('pf-notes').value || '').trim();
 
       if (!nameAr || !nameEn) {
@@ -598,7 +596,7 @@
 
       if (parentFormMode === 'review' && existingId && window.SmileKidsDB) {
         finalStudent = window.SmileKidsDB.updateStudent(existingId, {
-          nameAr, nameEn, grade, track, parentName, parentPhone, parentWhatsApp, notes
+          nameAr, nameEn, grade, track, parentName, parentPhone, parentWhatsApp, parentEmail, email: parentEmail, notes, photo: pfCompressedPhoto
         });
         alert(`تم تحديث بيانات الطالب "${nameAr}" بنجاح!`);
         closeModal('modal-parent-form');
@@ -615,22 +613,45 @@
           parentName,
           parentPhone,
           parentWhatsApp,
+          parentEmail,
+          email: parentEmail,
           notes,
+          photo: pfCompressedPhoto,
           gender: nameAr.match(/(ة|ه|فاطمة|مريم|نور|تاليا|إيلاف|فيروز|سارة|جنى|ملك|حبيبة)$/i) ? 'female' : 'male'
         };
 
+        let pendingReq = null;
         if (window.SmileKidsDB) {
-          finalStudent = window.SmileKidsDB.addStudent(studentData);
+          pendingReq = window.SmileKidsDB.addPendingAdmission(studentData);
         } else {
-          finalStudent = Object.assign(studentData, { id: 'SK-NEW-' + Date.now().toString().slice(-4) });
+          pendingReq = Object.assign(studentData, { requestId: 'REQ-' + new Date().getFullYear() + '-' + Date.now().toString().slice(-4), status: 'pending' });
         }
 
         // Show receipt dialog
-        document.getElementById('receipt-title').innerText = 'تم تسجيل وقبول الطالب بنجاح!';
-        document.getElementById('receipt-id').innerText = finalStudent.id;
-        document.getElementById('receipt-name').innerText = finalStudent.nameAr;
-        document.getElementById('receipt-grade').innerText = `الصف ${finalStudent.grade} (Grade ${finalStudent.grade})`;
-        document.getElementById('receipt-track').innerText = finalStudent.track === 'languages' ? 'قسم اللغات' : 'قسم العربي';
+        document.getElementById('receipt-title').innerText = 'تم إرسال واستلام طلب التسجيل بنجاح!';
+        document.getElementById('receipt-id').innerText = pendingReq.requestId;
+        document.getElementById('receipt-name').innerText = pendingReq.nameAr;
+        document.getElementById('receipt-grade').innerText = `الصف ${pendingReq.grade} (Grade ${pendingReq.grade})`;
+        document.getElementById('receipt-track').innerText = pendingReq.track === 'languages' ? 'قسم اللغات' : 'قسم العربي';
+        
+        // Show pending notice on receipt dialog
+        const rSub = document.getElementById('receipt-subtitle');
+        if (rSub) {
+          rSub.innerHTML = `
+            <span class="text-amber-600 font-black block">⏳ الطلب قيد المراجعة والتدقيق من إدارة المدرسة</span>
+            <span class="text-[11px] text-slate-500 block mt-1">رقم الطلب: ${pendingReq.requestId} • لن يتم إدراج الطالب بالسيستم إلا بعد موافقة الإدارة.</span>
+          `;
+        }
+
+        // Setup notification button (Email alert to School Admin)
+        const btnNotify = document.getElementById('btn-receipt-notify');
+        if (btnNotify) {
+          const emailSubject = encodeURIComponent(`طلب تسجيل طالب جديد: ${pendingReq.nameAr} (${pendingReq.requestId})`);
+          const photoNote = pendingReq.photo ? 'تم إرفاق صورة شخصية للطالب' : 'لم يتم إرفاق صورة';
+          const emailBody = encodeURIComponent(`إدارة مدرسة Smile Kids المحترمين،\nتم تقديم طلب تسجيل جديد على المنظومة:\n\n- رقم الطلب: ${pendingReq.requestId}\n- اسم الطالب: ${pendingReq.nameAr}\n- الاسم الإنجليزي: ${pendingReq.nameEn}\n- الصف: الصف ${pendingReq.grade}\n- القسم: ${pendingReq.track === 'languages' ? 'لغات' : 'عربي'}\n- ولي الأمر: ${pendingReq.parentName}\n- الهاتف: ${pendingReq.parentPhone}\n- الواتساب: ${pendingReq.parentWhatsApp}\n- البريد الإلكتروني: ${pendingReq.parentEmail || 'غير محدد'}\n- الصورة: ${photoNote}\n\nيرجى مراجعة واعتماد الطلب من لوحة الإدارة.`);
+          btnNotify.href = `mailto:nabila.fakhry@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+          btnNotify.classList.remove('hidden');
+        }
         
         closeModal('modal-parent-form');
         openModal('modal-receipt-dialog');
@@ -638,519 +659,12 @@
     }
 
     // ========================================================
-    // Quick Teacher & Admin Login with Brute-Force & Forced PIN Change
-    // ========================================================
-    const TEACHERS_CATALOG = [
-      { id: "t_asmaa", nameAr: "مس / أسماء", nameEn: "Ms. Asmaa", title: "معلمة اللغة العربية والتربية الدينية", icon: "📚", color: "from-blue-600 to-indigo-700" },
-      { id: "t_yara", nameAr: "مس / يارا", nameEn: "Ms. Yara", title: "معلمة اللغة الإنجليزية وتكنولوجيا المعلومات", icon: "🔤", color: "from-emerald-600 to-teal-700" },
-      { id: "t_nabila", nameAr: "مس / نبيلة", nameEn: "Ms. Nabila", title: "معلمة الرياضيات والحساب (الصفوف الأولى)", icon: "🔢", color: "from-amber-600 to-orange-700" },
-      { id: "t_hend", nameAr: "مس / هند", nameEn: "Ms. Hend", title: "معلمة الرياضيات والـ Math (العليا والإعدادي)", icon: "📐", color: "from-purple-600 to-violet-700" },
-      { id: "t_samar", nameAr: "مس / سمر", nameEn: "Ms. Samar", title: "معلمة العلوم و Science", icon: "🔬", color: "from-cyan-600 to-blue-700" },
-      { id: "t_amira", nameAr: "مس / أميرة", nameEn: "Ms. Amira", title: "معلمة English و ICT (الصفوف العليا)", icon: "🌐", color: "from-rose-600 to-pink-700" },
-      { id: "t_ola", nameAr: "مس / علا", nameEn: "Ms. Ola", title: "معلمة اللغة العربية والتربية الدينية (العليا والإعدادي)", icon: "📜", color: "from-amber-700 to-red-800" },
-      { id: "t_marwa", nameAr: "مس / مروة", nameEn: "Ms. Marwa", title: "معلمة القرآن الكريم واللغة العربية", icon: "📖", color: "from-green-600 to-emerald-800" },
-      { id: "t_kariman", nameAr: "مس / كريمان", nameEn: "Ms. Kariman", title: "معلمة الدراسات الاجتماعية والتكنولوجيا", icon: "🌍", color: "from-teal-600 to-cyan-800" },
-      { id: "t_abeer", nameAr: "مس / عبير", nameEn: "Ms. Abeer", title: "معلمة التربية الرياضية (P.E) والأنشطة", icon: "⚽", color: "from-lime-600 to-green-700" },
-      { id: "t_basma", nameAr: "مس / بسمة", nameEn: "Ms. Basma", title: "معلمة التربية الفنية (Art) والإشراف", icon: "🎨", color: "from-fuchsia-600 to-pink-700" },
-      { id: "t_german", nameAr: "مس / نانسي (Frau Nancy)", nameEn: "Ms. Nancy (Frau Nancy)", title: "معلمة اللغة الألمانية (German)", icon: "🇩🇪", color: "from-amber-600 to-yellow-700" }
-    ];
-
-    const STORAGE_KEY_PINS = 'smile_kids_teacher_pins';
-    const STORAGE_KEY_PIN_STATUS = 'smile_kids_teacher_pin_status';
-    const STORAGE_KEY_LOGIN_ATTEMPTS = 'smile_kids_login_attempts';
-    const STORAGE_KEY_SESSION = 'smile_kids_active_teacher_session';
-
-    const LOCKOUT_THRESHOLD = 5;
-    const LOCKOUT_DURATION_MS = 15 * 60 * 1000; // 15 minutes
-    const LOCKOUT_ALERT_TEXT = '⚠️ تم قفل الحساب مؤقتاً لمدة 15 دقيقة بعد 5 محاولات خاطئة. يرجى مراجعة إدارة المدرسة.';
-
-    let quickAuthRole = 'teacher';
-    let selectedTeacherForLogin = TEACHERS_CATALOG[0];
-    let pendingTeacherForPinChange = null;
-    let pendingAdminRedirect = 'Student_Roster_Dashboard.html';
-
-    function handleAdminCardAccess(targetUrl) {
-      pendingAdminRedirect = targetUrl || 'Student_Roster_Dashboard.html';
-      try {
-        const session = JSON.parse(sessionStorage.getItem(STORAGE_KEY_SESSION) || '{}');
-        if (session && session.isAdmin === true) {
-          window.location.href = pendingAdminRedirect;
-          return;
-        }
-      } catch (e) {}
-      openQuickLoginModal('admin');
-    }
-
-    const DEFAULT_TEACHER_PINS = {
-      't_asmaa': '2011',
-      't_yara': '2012',
-      't_nabila': '2013',
-      't_hend': '2014',
-      't_samar': '2015',
-      't_amira': '2016',
-      't_ola': '2017',
-      't_marwa': '2018',
-      't_kariman': '2019',
-      't_abeer': '2020',
-      't_basma': '2021',
-      't_german': '2022',
-      'admin': '9999'
-    };
-
-    function initQuickAuthStores() {
-      let existingPins = {};
-      try {
-        existingPins = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
-      } catch (e) { existingPins = {}; }
-
-      let needsSave = false;
-      Object.keys(DEFAULT_TEACHER_PINS).forEach(tId => {
-        if (!existingPins[tId] || existingPins[tId] === '1234') {
-          existingPins[tId] = DEFAULT_TEACHER_PINS[tId];
-          needsSave = true;
-        }
-      });
-      if (needsSave || !localStorage.getItem(STORAGE_KEY_PINS)) {
-        localStorage.setItem(STORAGE_KEY_PINS, JSON.stringify(existingPins));
-      }
-      if (!localStorage.getItem(STORAGE_KEY_PIN_STATUS)) {
-        localStorage.setItem(STORAGE_KEY_PIN_STATUS, JSON.stringify({}));
-      }
-      if (!localStorage.getItem(STORAGE_KEY_LOGIN_ATTEMPTS)) {
-        localStorage.setItem(STORAGE_KEY_LOGIN_ATTEMPTS, JSON.stringify({}));
-      }
-    }
-
-    function renderQuickTeacherOptions() {
-      const select = document.getElementById('quick-teacher-select');
-      if (!select) return;
-      select.innerHTML = TEACHERS_CATALOG.map(t => `<option value="${t.id}">${t.nameAr} (${t.title})</option>`).join('');
-      if (selectedTeacherForLogin) {
-        select.value = selectedTeacherForLogin.id;
-      }
-    }
-
-    function onQuickTeacherSelectChanged() {
-      const select = document.getElementById('quick-teacher-select');
-      if (!select) return;
-      const teacher = TEACHERS_CATALOG.find(t => t.id === select.value) || TEACHERS_CATALOG[0];
-      selectTeacherForLogin(teacher.id);
-    }
-
-    function selectTeacherForLogin(teacherId) {
-      const teacher = TEACHERS_CATALOG.find(t => t.id === teacherId) || TEACHERS_CATALOG[0];
-      selectedTeacherForLogin = teacher;
-      
-      const select = document.getElementById('quick-teacher-select');
-      if (select && select.value !== teacher.id) select.value = teacher.id;
-
-      const nameEl = document.getElementById('modal-teacher-name');
-      if (nameEl) nameEl.innerText = teacher.nameAr;
-      const titleEl = document.getElementById('modal-teacher-title');
-      if (titleEl) titleEl.innerText = teacher.title;
-      const iconEl = document.getElementById('modal-teacher-icon');
-      if (iconEl) iconEl.innerText = teacher.icon;
-
-      const inPin = document.getElementById('input-pin');
-      if (inPin) inPin.value = '';
-      const errEl = document.getElementById('pin-error-msg');
-      if (errEl) errEl.classList.add('hidden');
-
-      const lockout = checkLockoutStatus(teacher.id);
-      applyTeacherLockoutUI(lockout.isLocked);
-
-      openModal('modal-quick-login');
-      if (!lockout.isLocked && inPin) {
-        setTimeout(() => inPin.focus(), 100);
-      }
-    }
-
-    function openQuickLoginModal(role = 'teacher') {
-      initQuickAuthStores();
-      renderQuickTeacherOptions();
-      setQuickAuthRole(role);
-      openModal('modal-quick-login');
-      if (role === 'teacher') {
-        selectTeacherForLogin(selectedTeacherForLogin ? selectedTeacherForLogin.id : TEACHERS_CATALOG[0].id);
-      } else {
-        const inAdmin = document.getElementById('input-admin-pin');
-        const lockout = checkLockoutStatus('admin');
-        applyAdminLockoutUI(lockout.isLocked);
-        if (!lockout.isLocked && inAdmin) {
-          setTimeout(() => inAdmin.focus(), 100);
-        }
-      }
-    }
-
-    function closeQuickLoginModal() {
-      closeModal('modal-quick-login');
-    }
-
-    function setQuickAuthRole(role) {
-      quickAuthRole = role;
-      const tabTeacher = document.getElementById('tab-auth-teacher');
-      const tabAdmin = document.getElementById('tab-auth-admin');
-      const viewTeacher = document.getElementById('view-auth-teacher');
-      const viewAdmin = document.getElementById('view-auth-admin');
-
-      if (role === 'teacher') {
-        if (tabTeacher) tabTeacher.className = 'flex-1 py-2 rounded-xl text-xs font-black bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow transition';
-        if (tabAdmin) tabAdmin.className = 'flex-1 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition';
-        if (viewTeacher) viewTeacher.classList.remove('hidden');
-        if (viewAdmin) viewAdmin.classList.add('hidden');
-        if (selectedTeacherForLogin) {
-          const lockout = checkLockoutStatus(selectedTeacherForLogin.id);
-          applyTeacherLockoutUI(lockout.isLocked);
-          const inPin = document.getElementById('input-pin');
-          if (!lockout.isLocked && inPin) setTimeout(() => inPin.focus(), 100);
-        }
-      } else {
-        if (tabTeacher) tabTeacher.className = 'flex-1 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition';
-        if (tabAdmin) tabAdmin.className = 'flex-1 py-2 rounded-xl text-xs font-black bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow transition';
-        if (viewTeacher) viewTeacher.classList.add('hidden');
-        if (viewAdmin) viewAdmin.classList.remove('hidden');
-        const lockout = checkLockoutStatus('admin');
-        applyAdminLockoutUI(lockout.isLocked);
-        const inAdmin = document.getElementById('input-admin-pin');
-        if (!lockout.isLocked && inAdmin) setTimeout(() => inAdmin.focus(), 100);
-      }
-    }
-
-    function getLoginAttemptsData() {
-      try {
-        return JSON.parse(localStorage.getItem(STORAGE_KEY_LOGIN_ATTEMPTS)) || {};
-      } catch (e) {
-        return {};
-      }
-    }
-
-    function saveLoginAttemptsData(data) {
-      try {
-        localStorage.setItem(STORAGE_KEY_LOGIN_ATTEMPTS, JSON.stringify(data));
-      } catch (e) {}
-    }
-
-    function checkLockoutStatus(targetId) {
-      const data = getLoginAttemptsData();
-      const entry = data[targetId] || { count: 0, attempts: 0, lockedUntil: 0 };
-      const now = Date.now();
-
-      if (entry.lockedUntil && now < entry.lockedUntil) {
-        const remainingMs = entry.lockedUntil - now;
-        const remainingMinutes = Math.max(1, Math.ceil(remainingMs / 60000));
-        return {
-          isLocked: true,
-          remainingMinutes,
-          message: LOCKOUT_ALERT_TEXT
-        };
-      }
-
-      if (entry.lockedUntil && now >= entry.lockedUntil) {
-        delete data[targetId];
-        if (data.lastTarget === targetId) {
-          delete data.count;
-          delete data.attempts;
-          delete data.lockedUntil;
-          delete data.lastTarget;
-        }
-        saveLoginAttemptsData(data);
-      }
-
-      return { isLocked: false, remainingMinutes: 0, count: entry.count || 0 };
-    }
-
-    function recordFailedLogin(targetId) {
-      const data = getLoginAttemptsData();
-      const entry = data[targetId] || { count: 0, attempts: 0, lockedUntil: 0 };
-      const now = Date.now();
-
-      if (entry.lockedUntil && now >= entry.lockedUntil) {
-        entry.count = 0;
-        entry.attempts = 0;
-        entry.lockedUntil = 0;
-      }
-
-      entry.count = (entry.count || 0) + 1;
-      entry.attempts = entry.count;
-      entry.lastAttempt = now;
-
-      if (entry.count >= LOCKOUT_THRESHOLD) {
-        entry.lockedUntil = now + LOCKOUT_DURATION_MS;
-      }
-
-      data[targetId] = entry;
-      data.count = entry.count;
-      data.attempts = entry.count;
-      data.lockedUntil = entry.lockedUntil;
-      data.lastTarget = targetId;
-
-      saveLoginAttemptsData(data);
-      return {
-        isLocked: entry.count >= LOCKOUT_THRESHOLD,
-        count: entry.count,
-        lockedUntil: entry.lockedUntil,
-        message: LOCKOUT_ALERT_TEXT
-      };
-    }
-
-    function clearFailedLogin(targetId) {
-      const data = getLoginAttemptsData();
-      if (data[targetId]) {
-        delete data[targetId];
-        if (data.lastTarget === targetId) {
-          delete data.count;
-          delete data.attempts;
-          delete data.lockedUntil;
-          delete data.lastTarget;
-        }
-        saveLoginAttemptsData(data);
-      }
-    }
-
-    function applyTeacherLockoutUI(isLocked) {
-      const inPin = document.getElementById('input-pin');
-      const btnSubmit = document.getElementById('btn-submit-pin');
-      const errEl = document.getElementById('pin-error-msg');
-      const lockoutEl = document.getElementById('pin-lockout-msg');
-
-      if (isLocked) {
-        if (inPin) {
-          inPin.disabled = true;
-          inPin.value = '';
-          inPin.placeholder = 'الحساب مقفل مؤقتاً';
-          inPin.classList.add('opacity-50', 'cursor-not-allowed', 'border-red-500');
-        }
-        if (btnSubmit) {
-          btnSubmit.disabled = true;
-          btnSubmit.classList.add('opacity-50', 'cursor-not-allowed');
-        }
-        if (errEl) errEl.classList.add('hidden');
-        if (lockoutEl) {
-          lockoutEl.innerText = LOCKOUT_ALERT_TEXT;
-          lockoutEl.classList.remove('hidden');
-        }
-      } else {
-        if (inPin) {
-          inPin.disabled = false;
-          inPin.placeholder = '••••';
-          inPin.classList.remove('opacity-50', 'cursor-not-allowed', 'border-red-500');
-        }
-        if (btnSubmit) {
-          btnSubmit.disabled = false;
-          btnSubmit.classList.remove('opacity-50', 'cursor-not-allowed');
-        }
-        if (lockoutEl) lockoutEl.classList.add('hidden');
-      }
-    }
-
-    function applyAdminLockoutUI(isLocked) {
-      const inPin = document.getElementById('input-admin-pin');
-      const btnSubmit = document.getElementById('btn-submit-admin-pin');
-      const errEl = document.getElementById('admin-error-msg');
-      const lockoutEl = document.getElementById('admin-lockout-msg');
-
-      if (isLocked) {
-        if (inPin) {
-          inPin.disabled = true;
-          inPin.value = '';
-          inPin.placeholder = 'الحساب مقفل مؤقتاً';
-          inPin.classList.add('opacity-50', 'cursor-not-allowed', 'border-red-500');
-        }
-        if (btnSubmit) {
-          btnSubmit.disabled = true;
-          btnSubmit.classList.add('opacity-50', 'cursor-not-allowed');
-        }
-        if (errEl) errEl.classList.add('hidden');
-        if (lockoutEl) {
-          lockoutEl.innerText = LOCKOUT_ALERT_TEXT;
-          lockoutEl.classList.remove('hidden');
-        }
-      } else {
-        if (inPin) {
-          inPin.disabled = false;
-          inPin.placeholder = '••••';
-          inPin.classList.remove('opacity-50', 'cursor-not-allowed', 'border-red-500');
-        }
-        if (btnSubmit) {
-          btnSubmit.disabled = false;
-          btnSubmit.classList.remove('opacity-50', 'cursor-not-allowed');
-        }
-        if (lockoutEl) lockoutEl.classList.add('hidden');
-      }
-    }
-
-    function verifyTeacherPin() {
-      if (!selectedTeacherForLogin) return;
-      const teacherId = selectedTeacherForLogin.id;
-
-      const lockout = checkLockoutStatus(teacherId);
-      if (lockout.isLocked) {
-        applyTeacherLockoutUI(true);
-        return;
-      }
-
-      const inputPin = (document.getElementById('input-pin').value || '').trim();
-      let pinsObj = {};
-      try {
-        pinsObj = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
-      } catch (e) { pinsObj = {}; }
-      const expectedPin = pinsObj[teacherId] || (typeof DEFAULT_TEACHER_PINS !== 'undefined' ? DEFAULT_TEACHER_PINS[teacherId] : '2011');
-
-      if (inputPin === expectedPin) {
-        clearFailedLogin(teacherId);
-
-        // Authenticate directly to portal dashboard without forcing password change
-        closeQuickLoginModal();
-        sessionStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify({ teacherId, isAdmin: false }));
-        window.location.href = 'Teacher_Portal.html';
-      } else {
-        const res = recordFailedLogin(teacherId);
-        if (res.isLocked) {
-          applyTeacherLockoutUI(true);
-        } else {
-          const remaining = LOCKOUT_THRESHOLD - res.count;
-          const errorMsg = document.getElementById('pin-error-msg');
-          if (errorMsg) {
-            errorMsg.innerText = `رمز المرور غير صحيح، يرجى المحاولة مرة أخرى (متبقي ${remaining} محاولات).`;
-            errorMsg.classList.remove('hidden');
-          }
-          const inPin = document.getElementById('input-pin');
-          if (inPin) inPin.classList.add('border-red-500');
-        }
-      }
-    }
-
-    function verifyAdminPin() {
-      const lockout = checkLockoutStatus('admin');
-      if (lockout.isLocked) {
-        applyAdminLockoutUI(true);
-        return;
-      }
-
-      const inputPin = (document.getElementById('input-admin-pin').value || '').trim();
-      let pinsObj = {};
-      try {
-        pinsObj = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
-      } catch (e) { pinsObj = {}; }
-      const expectedPin = pinsObj['admin'] || '9999';
-
-      if (inputPin === expectedPin) {
-        clearFailedLogin('admin');
-        closeQuickLoginModal();
-        sessionStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify({ teacherId: 'admin_master', isAdmin: true }));
-        const destination = pendingAdminRedirect || 'Student_Roster_Dashboard.html';
-        pendingAdminRedirect = 'Student_Roster_Dashboard.html';
-        window.location.href = destination;
-      } else {
-        const res = recordFailedLogin('admin');
-        if (res.isLocked) {
-          applyAdminLockoutUI(true);
-        } else {
-          const remaining = LOCKOUT_THRESHOLD - res.count;
-          const errorMsg = document.getElementById('admin-error-msg');
-          if (errorMsg) {
-            errorMsg.innerText = `رمز المرور غير صحيح، يرجى المحاولة مجدداً (متبقي ${remaining} محاولات).`;
-            errorMsg.classList.remove('hidden');
-          }
-          const inPin = document.getElementById('input-admin-pin');
-          if (inPin) inPin.classList.add('border-red-500');
-        }
-      }
-    }
-
-    function openForceChangePinModal(teacher) {
-      pendingTeacherForPinChange = teacher;
-      const nameEl = document.getElementById('force-change-teacher-name');
-      if (nameEl) nameEl.innerText = teacher.nameAr + ' — ' + teacher.title;
-
-      const inNew = document.getElementById('input-new-pin');
-      const inConfirm = document.getElementById('input-confirm-pin');
-      const errEl = document.getElementById('force-change-error');
-
-      if (inNew) inNew.value = '';
-      if (inConfirm) inConfirm.value = '';
-      if (errEl) {
-        errEl.innerText = '';
-        errEl.classList.add('hidden');
-      }
-
-      openModal('modal-force-change-pin');
-      if (inNew) setTimeout(() => inNew.focus(), 100);
-    }
-
-    function closeForceChangePinModal() {
-      closeModal('modal-force-change-pin');
-      pendingTeacherForPinChange = null;
-    }
-
-    function handleForceChangePinSubmit(event) {
-      if (event) event.preventDefault();
-      const teacher = pendingTeacherForPinChange || selectedTeacherForLogin;
-      if (!teacher) return;
-
-      const inNew = document.getElementById('input-new-pin');
-      const inConfirm = document.getElementById('input-confirm-pin');
-      const errEl = document.getElementById('force-change-error');
-
-      const newPin = (inNew ? inNew.value : '').trim();
-      const confirmPin = (inConfirm ? inConfirm.value : '').trim();
-
-      if (!/^\d{4,8}$/.test(newPin)) {
-        if (errEl) {
-          errEl.innerText = 'يجب أن يتكون رمز المرور الجديد من 4 إلى 8 أرقام.';
-          errEl.classList.remove('hidden');
-        }
-        return;
-      }
-
-      if (newPin === '1234') {
-        if (errEl) {
-          errEl.innerText = 'لا يمكن استخدام الرمز الافتراضي القديم. يرجى تعيين رمز جديد ومختلف.';
-          errEl.classList.remove('hidden');
-        }
-        return;
-      }
-
-      if (newPin !== confirmPin) {
-        if (errEl) {
-          errEl.innerText = 'تأكيد رمز المرور غير متطابق مع الرمز الجديد.';
-          errEl.classList.remove('hidden');
-        }
-        return;
-      }
-
-      let pinsObj = {};
-      try {
-        pinsObj = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {};
-      } catch (e) { pinsObj = {}; }
-      pinsObj[teacher.id] = newPin;
-      localStorage.setItem(STORAGE_KEY_PINS, JSON.stringify(pinsObj));
-
-      let pinStatus = {};
-      try {
-        pinStatus = JSON.parse(localStorage.getItem(STORAGE_KEY_PIN_STATUS)) || {};
-      } catch (e) { pinStatus = {}; }
-      pinStatus[teacher.id] = { isChanged: true, changedAt: new Date().toISOString() };
-      pinStatus.isChanged = true;
-      localStorage.setItem(STORAGE_KEY_PIN_STATUS, JSON.stringify(pinStatus));
-
-      closeForceChangePinModal();
-      sessionStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify({ teacherId: teacher.id, isAdmin: false }));
-      window.location.href = 'Teacher_Portal.html';
-    }
-
-    // Auto-init quick auth stores on page load
-    document.addEventListener('DOMContentLoaded', () => {
-      initQuickAuthStores();
-    });
-
-    // ========================================================
     // Global Esc Key Handler across whole page
     // ========================================================
     window.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' || e.keyCode === 27) {
         // 1. Check if any modal is currently visible
-        const modals = ['modal-quick-login', 'modal-force-change-pin', 'modal-parent-form', 'modal-receipt-dialog'];
+        const modals = ['modal-parent-form', 'modal-receipt-dialog'];
         let closedAny = false;
         modals.forEach(mid => {
           const m = document.getElementById(mid);
@@ -1249,6 +763,37 @@
             <input type="text" id="pf-name-en" required placeholder="e.g. Youssef Ahmed Mohamed Ali" class="w-full border-b-2 border-slate-200 focus:border-[#673ab7] py-2 px-1 outline-none transition bg-transparent text-sm font-bold font-en text-slate-800">
           </div>
 
+          <!-- Student Photo Card (Optional) -->
+          <div class="gf-card p-5">
+            <div class="flex items-center justify-between mb-2">
+              <label class="block font-bold text-slate-800 text-sm">
+                📸 صورة الطالب الشخصية <span class="text-xs text-slate-500 font-normal">(اختياري للشهادات المدرسية)</span>
+              </label>
+              <span class="text-[11px] text-purple-700 bg-purple-50 px-2 py-0.5 rounded-full font-bold">خلفية واضحة</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-3">يمكن رفع أو التقاط صورة واضحة للطالب ليتم إدراجها لاحقاً في شهادات التقدير الرسمية وكشوف الإدارة بعد مراجعتها واعتمادها.</p>
+            
+            <div class="flex items-center gap-4 bg-slate-50 p-3 rounded-2xl border border-dashed border-purple-200">
+              <div class="relative w-16 h-20 rounded-xl overflow-hidden bg-white border-2 border-purple-300 shrink-0 shadow-sm flex items-center justify-center">
+                <img id="pf-photo-preview" src="" alt="Student Preview" class="w-full h-full object-cover hidden">
+                <span id="pf-photo-placeholder" class="text-2xl text-slate-400">👦</span>
+              </div>
+              <div class="flex-1 space-y-2">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <label class="cursor-pointer inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition shadow-sm active:scale-95">
+                    <span>📷</span>
+                    <span>رفع أو اختيار صورة</span>
+                    <input type="file" id="pf-photo-input" accept="image/*" class="hidden" onchange="handlePfPhotoUpload(event)">
+                  </label>
+                  <button type="button" id="pf-btn-remove-photo" onclick="removePfPhoto()" class="hidden text-[11px] text-red-600 hover:text-red-700 font-bold underline px-2 py-1">
+                    🗑️ حذف الصورة
+                  </button>
+                </div>
+                <p class="text-[10px] text-slate-400">يتم ضغط الصورة وتنسيقها تلقائياً لتناسب الشهادة الرسمية بحجم خفيف وسريع.</p>
+              </div>
+            </div>
+          </div>
+
           <!-- Q3: Grade -->
           <div class="gf-card p-5">
             <label class="block font-bold text-slate-800 text-sm mb-2">
@@ -1298,9 +843,15 @@
                 <input type="tel" id="pf-parent-phone" required placeholder="010XXXXXXXX" class="w-full border-b-2 border-slate-200 focus:border-[#673ab7] py-1.5 px-1 outline-none transition bg-transparent text-xs sm:text-sm font-en font-semibold text-slate-800">
               </div>
             </div>
-            <div class="mt-3">
-              <span class="text-[11px] text-slate-500 block mb-1">رقم الواتساب للتواصل وإرسال التقارير:</span>
-              <input type="tel" id="pf-parent-whatsapp" placeholder="رقم الواتساب" class="w-full border-b-2 border-slate-200 focus:border-[#673ab7] py-1.5 px-1 outline-none transition bg-transparent text-xs sm:text-sm font-en font-semibold text-slate-800">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+              <div>
+                <span class="text-[11px] text-slate-500 block mb-1">رقم الواتساب للتواصل وإرسال التقارير:</span>
+                <input type="tel" id="pf-parent-whatsapp" placeholder="رقم الواتساب" class="w-full border-b-2 border-slate-200 focus:border-[#673ab7] py-1.5 px-1 outline-none transition bg-transparent text-xs sm:text-sm font-en font-semibold text-slate-800">
+              </div>
+              <div>
+                <span class="text-[11px] text-slate-500 block mb-1">البريد الإلكتروني لولي الأمر (اختياري):</span>
+                <input type="email" id="pf-parent-email" placeholder="e.g. parent@example.com" class="w-full border-b-2 border-slate-200 focus:border-[#673ab7] py-1.5 px-1 outline-none transition bg-transparent text-xs sm:text-sm font-en font-semibold text-slate-800">
+              </div>
             </div>
           </div>
 
@@ -1333,15 +884,18 @@
   <div id="modal-receipt-dialog" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl text-center border-2 border-emerald-400 text-slate-800 animate-in fade-in">
       <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4 shadow-inner">
-        ✅
+        📋
       </div>
-      <h3 class="text-xl font-black text-slate-900 mb-1" id="receipt-title">تم تسجيل الطالب بنجاح!</h3>
-      <p class="text-xs text-slate-500 mb-4">تم حفظ بيانات الطالب بقاعدة البيانات الموحدة لمدرسة Smile Kids</p>
+      <h3 class="text-xl font-black text-slate-900 mb-1" id="receipt-title">تم إرسال طلب التسجيل بنجاح!</h3>
+      <div id="receipt-subtitle" class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-800 mb-4">
+        <span class="text-amber-700 font-black block">⏳ الطلب قيد المراجعة والتدقيق من إدارة المدرسة</span>
+        <span class="text-[11px] text-slate-600 block mt-1">لن يتم إدراج الطالب بالسيستم إلا بعد مراجعة وقبول الإدارة.</span>
+      </div>
       
-      <div class="bg-slate-50 rounded-2xl p-4 text-right space-y-2 border border-slate-200 text-xs mb-6 font-semibold">
-        <div class="flex justify-between border-b pb-1.5 hidden">
-          <span class="text-slate-500">كود الطالب:</span>
-          <span class="font-mono font-bold text-indigo-600" id="receipt-id">SK-000</span>
+      <div class="bg-slate-50 rounded-2xl p-4 text-right space-y-2 border border-slate-200 text-xs mb-5 font-semibold">
+        <div class="flex justify-between border-b pb-1.5">
+          <span class="text-slate-500">رقم الطلب:</span>
+          <span class="font-mono font-bold text-indigo-600" id="receipt-id">REQ-000</span>
         </div>
         <div class="flex justify-between border-b pb-1.5">
           <span class="text-slate-500">اسم الطالب:</span>
@@ -1357,197 +911,22 @@
         </div>
       </div>
 
-      <div class="flex gap-2">
-        <button onclick="window.print()" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs rounded-xl shadow flex items-center justify-center gap-1.5 transition">
-          <span>🖨️ طباعة إيصال القبول</span>
-        </button>
-        <button onclick="closeModal('modal-receipt-dialog')" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl transition">
-          إتمام
-        </button>
+      <div class="space-y-2">
+        <a id="btn-receipt-notify" href="#" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs rounded-xl shadow flex items-center justify-center gap-2 transition">
+          <span>📧 إشعار الإدارة فورا بالبريد الإلكتروني</span>
+        </a>
+        <div class="flex gap-2">
+          <button onclick="window.print()" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs rounded-xl shadow flex items-center justify-center gap-1.5 transition">
+            <span>🖨️ طباعة إشعار التسجيل</span>
+          </button>
+          <button onclick="closeModal('modal-receipt-dialog')" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl transition">
+            إتمام
+          </button>
+        </div>
       </div>
     </div>
   </div>
 
 
-  <!-- ======================================================== -->
-  <!-- MODAL: Quick Login for Teachers & Admin                  -->
-  <!-- ======================================================== -->
-  <div id="modal-quick-login" class="fixed inset-0 z-50 hidden bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto" role="dialog" aria-modal="true">
-    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-sm sm:max-w-md w-full p-6 sm:p-7 shadow-2xl text-center relative animate-in fade-in text-white">
-      <button onclick="closeQuickLoginModal()" class="absolute top-4 left-4 text-slate-400 hover:text-white p-1 rounded-lg">
-        ✕
-      </button>
-
-      <!-- Header Icon & Title -->
-      <div id="modal-teacher-icon" class="w-16 h-16 rounded-2xl mx-auto mb-3 bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-3xl shadow-lg ring-4 ring-amber-500/20">
-        ⚡
-      </div>
-
-      <h3 id="modal-quick-login-title" class="text-lg sm:text-xl font-black text-white mb-1">بوابة تسجيل الدخول السريع للمعلمات والإدارة</h3>
-      <p id="modal-teacher-title" class="text-xs text-slate-400 mb-4">اختاري حساب المعلمة أو الإدارة وأدخلي رمز المرور للدخول المباشر</p>
-
-      <!-- Auth Role Switcher -->
-      <div class="flex items-center gap-2 p-1 bg-slate-800/80 rounded-2xl border border-slate-700 mb-4">
-        <button type="button" id="tab-auth-teacher" onclick="setQuickAuthRole('teacher')" class="flex-1 py-2 rounded-xl text-xs font-black bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow transition">
-          👩‍🏫 معلمات المواد
-        </button>
-        <button type="button" id="tab-auth-admin" onclick="setQuickAuthRole('admin')" class="flex-1 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition">
-          👑 الإدارة العامة
-        </button>
-      </div>
-
-      <!-- Teacher Selection & Login View -->
-      <div id="view-auth-teacher" class="space-y-4 text-right">
-        <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">اختاري المعلمة:</label>
-          <select id="quick-teacher-select" onchange="onQuickTeacherSelectChanged()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white font-bold focus:outline-none focus:border-blue-500">
-            <!-- Populated dynamically -->
-          </select>
-        </div>
-
-        <div>
-          <div class="flex justify-between items-center mb-1">
-            <label class="block text-xs font-bold text-slate-300">أدخلي رمز المرور (PIN):</label>
-            <span id="modal-teacher-name" class="text-xs font-black text-amber-300">مس / أسماء</span>
-          </div>
-          <div class="relative">
-            <input 
-              type="password" 
-              id="input-pin" 
-              maxlength="8" 
-              placeholder="••••" 
-              onkeydown="if(event.key==='Enter'||event.keyCode===13){event.preventDefault();verifyTeacherPin();}" 
-              class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-lg font-mono tracking-widest text-white focus:outline-none focus:border-blue-500 shadow-inner"
-            >
-          </div>
-          <p id="pin-error-msg" class="text-[11px] text-red-400 font-bold mt-1.5 hidden">رمز المرور غير صحيح، يرجى المحاولة مرة أخرى أو مراجعة إدارة المدرسة.</p>
-          <p id="pin-lockout-msg" class="text-[11px] text-amber-400 font-bold mt-1.5 hidden">⚠️ تم قفل الحساب مؤقتاً لمدة 15 دقيقة بعد 5 محاولات خاطئة. يرجى مراجعة إدارة المدرسة.</p>
-        </div>
-
-        <div class="flex items-center gap-2 pt-1">
-          <button id="btn-submit-pin" onclick="verifyTeacherPin()" class="flex-1 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-xl text-sm shadow-lg shadow-blue-500/25 transition active:scale-95">
-            دخول البوابة 🚀
-          </button>
-          <button onclick="closeQuickLoginModal()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition">
-            إلغاء
-          </button>
-        </div>
-      </div>
-
-      <!-- Admin Login View -->
-      <div id="view-auth-admin" class="space-y-4 text-right hidden">
-        <div class="p-3 bg-amber-950/30 border border-amber-500/30 rounded-xl text-center">
-          <span class="text-2xl block mb-1">👑</span>
-          <p class="text-xs font-black text-amber-300">دخول الإدارة العامة (Master Admin)</p>
-          <p class="text-[11px] text-slate-400 mt-0.5">صلاحيات كاملة لإدارة المدرسة: كشوف الطلاب، الشهادات المدرسية، السجلات الرسمية، وجداول الحصص</p>
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">رمز مدير النظام (Admin PIN):</label>
-          <input 
-            type="password" 
-            id="input-admin-pin" 
-            placeholder="••••" 
-            onkeydown="if(event.key==='Enter'||event.keyCode===13){event.preventDefault();verifyAdminPin();}" 
-            class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-base font-mono text-white focus:outline-none focus:border-amber-500 shadow-inner"
-          >
-          <p id="admin-error-msg" class="text-[11px] text-red-400 font-bold mt-1.5 hidden">رمز المرور غير صحيح، يرجى المحاولة مجدداً.</p>
-          <p id="admin-lockout-msg" class="text-[11px] text-amber-400 font-bold mt-1.5 hidden">⚠️ تم قفل الحساب مؤقتاً لمدة 15 دقيقة بعد 5 محاولات خاطئة. يرجى مراجعة إدارة المدرسة.</p>
-        </div>
-
-        <div class="flex items-center gap-2 pt-1">
-          <button id="btn-submit-admin-pin" onclick="verifyAdminPin()" class="flex-1 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black rounded-xl text-sm shadow transition active:scale-95">
-            دخول كمدير عام 👑
-          </button>
-          <button onclick="closeQuickLoginModal()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition">
-            إلغاء
-          </button>
-        </div>
-      </div>
-
-      <div class="mt-4 pt-3 border-t border-slate-800 text-[10px] text-slate-500">
-        منظومة سرية ومحمية • يتم تسجيل وتأمين جميع عمليات الدخول
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ======================================================== -->
-  <!-- MODAL: Forced PIN Change on First Login                  -->
-  <!-- ======================================================== -->
-  <div id="modal-force-change-pin" class="fixed inset-0 z-50 hidden bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto" role="dialog" aria-modal="true">
-    <div class="bg-slate-900 border-2 border-amber-500/60 rounded-3xl max-w-sm sm:max-w-md w-full p-6 shadow-2xl text-center relative animate-in fade-in text-white">
-      <button onclick="closeForceChangePinModal()" class="absolute top-4 left-4 text-slate-400 hover:text-white p-1 rounded-lg">
-        ✕
-      </button>
-
-      <div class="w-16 h-16 rounded-2xl mx-auto mb-3 bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-3xl shadow-lg ring-4 ring-amber-500/20">
-        🔐
-      </div>
-
-      <div class="inline-block px-3 py-1 bg-amber-500/20 text-amber-300 text-xs font-black rounded-full border border-amber-500/40 mb-2">
-        إجراء أمني إلزامي • أول تسجيل دخول
-      </div>
-
-      <h3 class="text-lg sm:text-xl font-black text-white mb-1">تعيين رمز مرور جديد للحساب</h3>
-      <p id="force-change-teacher-name" class="text-xs sm:text-sm font-bold text-blue-400 mb-3">مس / ...</p>
-
-      <div class="bg-amber-950/40 border border-amber-500/30 rounded-xl p-3 text-right text-xs text-amber-200 font-semibold mb-4 leading-relaxed">
-        ⚠️ لدواعي الأمان وسرية كشوف درجات الطلاب، يجب تغيير رمز المرور الافتراضي وتعيين رمز شخصي جديد خاص بكِ (من 4 إلى 8 أرقام) قبل المتابعة إلى لوحة التحكم.
-      </div>
-
-      <form id="form-force-change-pin" onsubmit="handleForceChangePinSubmit(event)" class="space-y-3.5 text-right">
-        <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">رمز المرور الجديد (4 - 8 أرقام):</label>
-          <input 
-            type="password" 
-            id="input-new-pin" 
-            maxlength="8" 
-            placeholder="أدخلي رمز المرور الجديد" 
-            required 
-            autocomplete="new-password"
-            class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-lg font-mono tracking-widest text-white focus:outline-none focus:border-amber-400 shadow-inner"
-          >
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">تأكيد رمز المرور الجديد:</label>
-          <input 
-            type="password" 
-            id="input-confirm-pin" 
-            maxlength="8" 
-            placeholder="أعيدي إدخال الرمز للتأكيد" 
-            required 
-            autocomplete="new-password"
-            class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-lg font-mono tracking-widest text-white focus:outline-none focus:border-amber-400 shadow-inner"
-          >
-        </div>
-
-        <p id="force-change-error" class="text-xs text-red-400 font-bold hidden"></p>
-
-        <div class="pt-2 flex items-center gap-2">
-          <button 
-            type="submit" 
-            id="btn-submit-change-pin" 
-            class="flex-1 py-3 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:brightness-110 text-slate-950 font-black rounded-xl text-sm shadow-lg shadow-amber-500/25 transition active:scale-95"
-          >
-            حفظ الرمز وتفعيل الحساب 🔒
-          </button>
-          <button 
-            type="button" 
-            onclick="closeForceChangePinModal()" 
-            class="px-4 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition"
-          >
-            إلغاء
-          </button>
-        </div>
-      </form>
-
-      <div class="mt-4 pt-3 border-t border-slate-800 text-[10px] text-slate-500">
-        سيتم حفظ الرمز وتشفيره محلياً في متصفحكِ، يرجى حفظه جيداً لعمليات الدخول القادمة.
-      </div>
-    </div>
-  </div>
-
-</body>
+  </body>
 </html>

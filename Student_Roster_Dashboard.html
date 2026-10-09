@@ -528,6 +528,11 @@
       .cert-tpl-1 .cert-header-spacer {
         display: none !important;
       }
+      .cert-tpl-1 .cert-header-photo {
+        width: 65px !important;
+        height: 80px !important;
+        margin-right: 0 !important;
+      }
 
       /* Student Name Row */
       .cert-tpl-1 .cert-student-row {
@@ -835,6 +840,10 @@
         <button onclick="switchMainTab('staff-kids')" id="tab-btn-staff-kids" class="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 text-amber-300 hover:text-white border border-amber-500/30 bg-amber-950/20" title="كشف إداري سري - خاص بالإدارة فقط">
           <span>👨‍👩‍👧‍👦 كشف أبناء المعلمين</span>
           <span class="text-[9px] bg-amber-500 text-slate-950 px-1.5 py-0.5 rounded-full font-black">إداري 🔒</span>
+        </button>
+        <button onclick="switchMainTab('admissions')" id="tab-btn-admissions" class="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 text-rose-300 hover:text-white border border-rose-500/30 bg-rose-950/30" title="طلبات التسجيل الإلكترونية الجديدة من أولياء الأمور">
+          <span>📥 طلبات التسجيل الجديدة</span>
+          <span id="badge-pending-admissions" class="text-[10px] bg-rose-500 text-white px-2 py-0.5 rounded-full font-black hidden">0</span>
         </button>
         <a href="Teacher_Portal.html" class="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md border border-emerald-400/30">
           <span>👩‍🏫 بوابة المعلمات</span>
@@ -1689,6 +1698,84 @@
       </div>
     </div>
 
+    <!-- SECTION: PENDING ADMISSIONS TAB CONTENT -->
+    <div id="section-admissions" class="hidden">
+      <!-- Admissions Header Banner -->
+      <div class="bg-gradient-to-r from-slate-900 via-rose-950/40 to-slate-900 border border-rose-900/50 rounded-3xl p-5 mb-6 shadow-xl flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-rose-500/20 text-rose-300 text-xs font-black rounded-full border border-rose-500/30 mb-2">
+            <span>📥 صندوق طلبات الالتحاق الإلكترونية</span>
+            <span>•</span>
+            <span id="admissions-banner-pending-count">0 طلبات جديدة</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-black text-white">إدارة طلبات تسجيل الطلاب الجدد (بوابة أولياء الأمور)</h2>
+          <p class="text-xs text-slate-400 mt-1">تتيح هذه اللوحة للإدارة مراجعة وتدقيق بيانات المتقدمين من أولياء الأمور واعتماد إضافتهم للكشوف الرسمية برقم كود معتمد.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="renderAdmissionsModule()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl border border-slate-700 transition flex items-center gap-1.5">
+            <span>🔄 تحديث الطلبات</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Controls: Filter by status + Search -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 mb-6 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-slate-400 font-bold">حالة الطلبات:</span>
+          <div class="bg-slate-950 p-1 rounded-xl border border-slate-800 flex items-center gap-1">
+            <button onclick="setAdmissionsFilter('pending')" id="btn-adm-filter-pending" class="px-3.5 py-1.5 rounded-lg text-xs font-black transition flex items-center gap-1.5 bg-rose-600 text-white shadow">
+              <span>قيد الانتظار والتدقيق</span>
+              <span id="badge-adm-filter-pending" class="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full">0</span>
+            </button>
+            <button onclick="setAdmissionsFilter('approved')" id="btn-adm-filter-approved" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-slate-400 hover:text-white">
+              <span>المقبولين والمعتمدين</span>
+              <span id="badge-adm-filter-approved" class="text-[10px] bg-slate-800 px-1.5 py-0.2 rounded-full">0</span>
+            </button>
+            <button onclick="setAdmissionsFilter('all')" id="btn-adm-filter-all" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-slate-400 hover:text-white">
+              <span>كل الطلبات</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex-1 min-w-[200px] max-w-sm relative">
+          <input type="text" id="admissions-search-input" oninput="handleAdmissionsSearch(this.value)" placeholder="ابحث باسم الطالب أو رقم الهاتف..." class="w-full bg-slate-950 border border-slate-700 rounded-xl pr-9 pl-4 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-rose-500 transition">
+          <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs">🔍</span>
+        </div>
+      </div>
+
+      <!-- Admissions Table -->
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-xl mb-6">
+        <div class="overflow-x-auto">
+          <table class="w-full text-right text-xs">
+            <thead class="bg-slate-950 text-slate-400 border-b border-slate-800 text-[11px] font-black uppercase tracking-wider">
+              <tr>
+                <th class="py-3.5 px-4 w-12 text-center">#</th>
+                <th class="py-3.5 px-4 w-28">رقم الطلب</th>
+                <th class="py-3.5 px-4">اسم الطالب (عربي / English)</th>
+                <th class="py-3.5 px-4">الصف الدراسي</th>
+                <th class="py-3.5 px-4">المسار</th>
+                <th class="py-3.5 px-4">ولي الأمر والتواصل</th>
+                <th class="py-3.5 px-4">تاريخ التقديم</th>
+                <th class="py-3.5 px-4 text-center">الحالة</th>
+                <th class="py-3.5 px-4 text-center no-print w-48">إجراءات الإدارة</th>
+              </tr>
+            </thead>
+            <tbody id="admissions-table-body" class="divide-y divide-slate-800/60">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <div id="admissions-empty-state" class="p-12 text-center hidden">
+          <div class="text-4xl mb-3">📭</div>
+          <h3 class="text-base font-bold text-white mb-1">لا توجد طلبات تسجيل جديدة في هذا القسم</h3>
+          <p class="text-xs text-slate-400 max-w-md mx-auto">
+            عند قيام أولياء الأمور بتسجيل طلاب جدد من بوابة المدرسة الرئيسية، ستظهر طلباتهم هنا فوراً للمراجعة والاعتماد.
+          </p>
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <!-- Edit Student Modal (تعديل بيانات الطالب لو فيه اسم غلط) -->
@@ -2396,6 +2483,8 @@
       const secCert = document.getElementById('section-certificates');
       const secStaffKids = document.getElementById('section-staff-kids');
       const btnStaffKids = document.getElementById('tab-btn-staff-kids');
+      const secAdmissions = document.getElementById('section-admissions');
+      const btnAdmissions = document.getElementById('tab-btn-admissions');
 
       // Reset all buttons to inactive
       const inactiveClass = 'px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 text-slate-400 hover:text-white';
@@ -2404,6 +2493,7 @@
       if (btnGrades) btnGrades.className = inactiveClass;
       if (btnCert) btnCert.className = inactiveClass;
       if (btnStaffKids) btnStaffKids.className = 'px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 text-amber-300 hover:text-white border border-amber-500/30 bg-amber-950/20';
+      if (btnAdmissions) btnAdmissions.className = 'px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 text-rose-300 hover:text-white border border-rose-500/30 bg-rose-950/30';
 
       // Hide all sections
       if (secRosters) secRosters.classList.add('hidden');
@@ -2411,6 +2501,7 @@
       if (secGrades) secGrades.classList.add('hidden');
       if (secCert) secCert.classList.add('hidden');
       if (secStaffKids) secStaffKids.classList.add('hidden');
+      if (secAdmissions) secAdmissions.classList.add('hidden');
 
       if (tab === 'rosters') {
         if (btnRosters) btnRosters.className = 'px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-1.5 bg-indigo-600 text-white shadow';
@@ -2441,6 +2532,12 @@
         if (btnStaffKids) btnStaffKids.className = 'px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-1.5 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-lg';
         if (secStaffKids) secStaffKids.classList.remove('hidden');
         renderStaffKidsModule();
+      } else if (tab === 'admissions') {
+        const btnAdmissions = document.getElementById('tab-btn-admissions');
+        const secAdmissions = document.getElementById('section-admissions');
+        if (btnAdmissions) btnAdmissions.className = 'px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-1.5 bg-rose-600 text-white shadow-lg';
+        if (secAdmissions) secAdmissions.classList.remove('hidden');
+        renderAdmissionsModule();
       }
     }
 
@@ -2469,6 +2566,8 @@
       if (elLnPct) elLnPct.innerText = `${lnPct}% من الطلاب`;
       const elArPct = document.getElementById('stat-pct-arabic');
       if (elArPct) elArPct.innerText = `${arPct}% من الطلاب`;
+
+      updatePendingAdmissionsBadge();
     }
 
     function renderGradePills() {
@@ -4892,6 +4991,22 @@
         nameEn = nameAr;
       }
 
+      // Protection against duplicate student additions
+      const normalizedName = nameAr.replace(/\s+/g, ' ');
+      const existingStudent = ALL_STUDENTS.find(s => s.nameAr && s.nameAr.trim().replace(/\s+/g, ' ') === normalizedName);
+      if (existingStudent) {
+        if (!confirm(`⚠️ تنبيه: يوجد طالب مسجل بالفعل بنفس الاسم "${nameAr}" في (الصف ${existingStudent.grade})!\n\nهل أنت متأكد من رغبتك في إضافته كطالب جديد منفصل؟`)) {
+          return;
+        }
+      }
+
+      // Disable submit button during processing to prevent rapid double-clicks
+      const submitBtn = document.getElementById('btn-save-add-student') || (e.target && e.target.querySelector('button[type="submit"]'));
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        setTimeout(() => { if (submitBtn) submitBtn.disabled = false; }, 4000);
+      }
+
       const studentData = {
         grade: grade,
         track: track,
@@ -7105,10 +7220,14 @@
               </h2>
             </div>
 
-            <!-- Right Spacer or Student Photo -->
+            <!-- Right: Student Photo or Official Photo Placeholder -->
             ${st.photo 
-              ? `<div class="cert-header-photo" style="width: 72px; height: 86px; border: 2px solid #2563eb; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.15); background: #f8fafc; margin-right: 5px;"><img src="${st.photo}" style="width: 100%; height: 100%; object-fit: cover;" alt="صورة الطالب"></div>` 
-              : '<div class="cert-header-spacer" style="width: 140px;"></div>'}
+              ? `<div class="cert-header-photo" style="width: 75px; height: 90px; border: 2.5px solid #2563eb; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.15); background: #f8fafc; margin-right: 5px; flex-shrink: 0;"><img src="${st.photo}" style="width: 100%; height: 100%; object-fit: cover;" alt="صورة الطالب"></div>` 
+              : `<div class="cert-header-photo" style="width: 75px; height: 90px; border: 2px dashed #3b82f6; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #eff6ff; margin-right: 5px; color: #1e40af; font-size: 11px; font-weight: bold; text-align: center; padding: 4px; flex-shrink: 0;">
+                  <span style="font-size: 24px; line-height: 1;">📷</span>
+                  <span style="margin-top: 4px; font-size: 10px; font-weight: 900; color: #1e40af;">مكان صورة الطالب</span>
+                  <span style="font-size: 8px; color: #64748b; margin-top: 2px;">(4 × 6)</span>
+                </div>`}
           </div>
 
           <!-- Student Name Line: Red bold with Name on left, 'اسم الطالب/ ة :' on right (exact layout) -->
@@ -8427,6 +8546,199 @@
     function adminLogout() {
       sessionStorage.removeItem(STORAGE_KEY_SESSION);
       window.location.href = 'index.html';
+    }
+
+    // ========================================================
+    // Admissions Module Logic (طلبات التسجيل الإلكترونية الجديدة)
+    // ========================================================
+    let currentAdmissionsFilter = 'pending'; // 'pending', 'approved', 'all'
+    let admissionsSearchQuery = '';
+
+    function updatePendingAdmissionsBadge() {
+      if (!window.SmileKidsDB) return;
+      const pendingList = window.SmileKidsDB.getPendingAdmissions().filter(r => r.status === 'pending');
+      const count = pendingList.length;
+      
+      const badgeNav = document.getElementById('badge-pending-admissions');
+      if (badgeNav) {
+        badgeNav.innerText = count;
+        if (count > 0) {
+          badgeNav.classList.remove('hidden');
+        } else {
+          badgeNav.classList.add('hidden');
+        }
+      }
+
+      const bannerCount = document.getElementById('admissions-banner-pending-count');
+      if (bannerCount) {
+        bannerCount.innerText = `${count} طلبات جديدة`;
+      }
+
+      const badgeFilterPending = document.getElementById('badge-adm-filter-pending');
+      if (badgeFilterPending) badgeFilterPending.innerText = count;
+
+      const approvedCount = window.SmileKidsDB.getPendingAdmissions().filter(r => r.status === 'approved').length;
+      const badgeFilterApproved = document.getElementById('badge-adm-filter-approved');
+      if (badgeFilterApproved) badgeFilterApproved.innerText = approvedCount;
+    }
+
+    function setAdmissionsFilter(filter) {
+      currentAdmissionsFilter = filter;
+      const btnPending = document.getElementById('btn-adm-filter-pending');
+      const btnApproved = document.getElementById('btn-adm-filter-approved');
+      const btnAll = document.getElementById('btn-adm-filter-all');
+
+      const inactive = 'px-3.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-slate-400 hover:text-white';
+      if (btnPending) btnPending.className = inactive;
+      if (btnApproved) btnApproved.className = inactive;
+      if (btnAll) btnAll.className = inactive;
+
+      if (filter === 'pending' && btnPending) {
+        btnPending.className = 'px-3.5 py-1.5 rounded-lg text-xs font-black transition flex items-center gap-1.5 bg-rose-600 text-white shadow';
+      } else if (filter === 'approved' && btnApproved) {
+        btnApproved.className = 'px-3.5 py-1.5 rounded-lg text-xs font-black transition flex items-center gap-1.5 bg-emerald-600 text-white shadow';
+      } else if (filter === 'all' && btnAll) {
+        btnAll.className = 'px-3.5 py-1.5 rounded-lg text-xs font-black transition flex items-center gap-1.5 bg-slate-700 text-white shadow';
+      }
+
+      renderAdmissionsModule();
+    }
+
+    function handleAdmissionsSearch(val) {
+      admissionsSearchQuery = (val || '').trim().toLowerCase();
+      renderAdmissionsModule();
+    }
+
+    function renderAdmissionsModule() {
+      if (!window.SmileKidsDB) return;
+      updatePendingAdmissionsBadge();
+
+      let requests = window.SmileKidsDB.getPendingAdmissions();
+
+      // Filter by status
+      if (currentAdmissionsFilter === 'pending') {
+        requests = requests.filter(r => r.status === 'pending');
+      } else if (currentAdmissionsFilter === 'approved') {
+        requests = requests.filter(r => r.status === 'approved');
+      }
+
+      // Filter by search query
+      if (admissionsSearchQuery) {
+        requests = requests.filter(r => {
+          const matchNameAr = (r.nameAr || '').toLowerCase().includes(admissionsSearchQuery);
+          const matchNameEn = (r.nameEn || '').toLowerCase().includes(admissionsSearchQuery);
+          const matchParent = (r.parentName || '').toLowerCase().includes(admissionsSearchQuery);
+          const matchPhone = (r.parentPhone || '').includes(admissionsSearchQuery);
+          const matchReq = (r.requestId || '').toLowerCase().includes(admissionsSearchQuery);
+          return matchNameAr || matchNameEn || matchParent || matchPhone || matchReq;
+        });
+      }
+
+      const tbody = document.getElementById('admissions-table-body');
+      const emptyState = document.getElementById('admissions-empty-state');
+      if (!tbody) return;
+
+      tbody.innerHTML = '';
+
+      if (requests.length === 0) {
+        if (emptyState) emptyState.classList.remove('hidden');
+        return;
+      }
+
+      if (emptyState) emptyState.classList.add('hidden');
+
+      requests.forEach((req, idx) => {
+        const isPending = req.status === 'pending';
+        const isApproved = req.status === 'approved';
+        const isRejected = req.status === 'rejected';
+
+        let statusBadge = '';
+        if (isPending) {
+          statusBadge = '<span class="px-2.5 py-1 rounded-full text-[11px] font-black bg-rose-500/20 text-rose-300 border border-rose-500/40 animate-pulse">⏳ قيد المراجعة</span>';
+        } else if (isApproved) {
+          statusBadge = `<span class="px-2.5 py-1 rounded-full text-[11px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">✓ معتمد (${req.studentId || ''})</span>`;
+        } else {
+          statusBadge = '<span class="px-2.5 py-1 rounded-full text-[11px] font-black bg-slate-800 text-slate-400 border border-slate-700">مرفوض</span>';
+        }
+
+        const dateStr = req.submittedAt ? new Date(req.submittedAt).toLocaleDateString('ar-EG', { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '---';
+
+        const tr = document.createElement('tr');
+        tr.className = `hover:bg-slate-800/40 transition border-b border-slate-800/60 ${isPending ? 'bg-rose-950/10' : ''}`;
+        tr.innerHTML = `
+          <td class="py-3 px-4 text-center font-mono text-slate-500 font-bold">${idx + 1}</td>
+          <td class="py-3 px-4 font-mono font-black text-rose-400 text-xs">${req.requestId}</td>
+          <td class="py-3 px-4">
+            <div class="font-black text-white text-sm">${req.nameAr}</div>
+            <div class="text-[11px] text-slate-400 font-en font-semibold">${req.nameEn || '---'}</div>
+          </td>
+          <td class="py-3 px-4 font-bold text-slate-300">
+            الصف ${req.grade}
+          </td>
+          <td class="py-3 px-4">
+            <span class="px-2 py-0.5 rounded-lg text-[11px] font-bold ${req.track === 'languages' ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'}">
+              ${req.track === 'languages' ? 'لغات 🌐' : 'عربي 📚'}
+            </span>
+          </td>
+          <td class="py-3 px-4 text-xs">
+            <div class="font-bold text-slate-200">${req.parentName || 'ولي الأمر'}</div>
+            <div class="flex items-center gap-2 mt-0.5">
+              <a href="tel:${req.parentPhone}" class="font-en text-slate-400 hover:text-white">${req.parentPhone || ''}</a>
+              ${req.parentWhatsApp ? `
+                <a href="https://wa.me/2${req.parentWhatsApp.replace(/^0+/, '')}" target="_blank" class="text-emerald-400 hover:text-emerald-300 text-[11px] font-bold inline-flex items-center gap-1" title="مراسلة ولي الأمر عبر واتساب">
+                  <span>💬 واتساب</span>
+                </a>
+              ` : ''}
+            </div>
+          </td>
+          <td class="py-3 px-4 text-[11px] text-slate-400 font-mono">${dateStr}</td>
+          <td class="py-3 px-4 text-center">${statusBadge}</td>
+          <td class="py-3 px-4 text-center no-print">
+            <div class="flex items-center justify-center gap-1.5">
+              ${isPending ? `
+                <button onclick="handleApproveAdmission('${req.requestId}')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-black rounded-xl text-xs shadow-md transition flex items-center gap-1">
+                  <span>اعتماد وقبول ✓</span>
+                </button>
+                <button onclick="handleRejectAdmission('${req.requestId}')" class="px-2.5 py-1.5 bg-slate-800 hover:bg-red-950 text-slate-400 hover:text-red-400 font-bold rounded-xl text-xs border border-slate-700 transition">
+                  ✕ رفض
+                </button>
+              ` : `
+                <span class="text-xs text-slate-500 font-bold">تم الإجراء</span>
+              `}
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function handleApproveAdmission(requestId) {
+      if (!window.SmileKidsDB) return;
+      const req = window.SmileKidsDB.getPendingAdmissions().find(r => r.requestId === requestId);
+      if (!req) return;
+
+      const confirmApprove = confirm(`هل تؤكدين اعتماد وقبول طلب الطالب "${req.nameAr}" بالصف ${req.grade}؟\nسيتم إضافة الطالب رسمياً إلى كشوف وسجلات المدرسة وإصدار كود طالب معتمد.`);
+      if (!confirmApprove) return;
+
+      const result = window.SmileKidsDB.approveAdmission(requestId);
+      if (result && (result.success || result.student)) {
+        const newStudent = result.student || result;
+        alert(`تم اعتماد الطالب بنجاح!\nكود الطالب المعتمد: ${newStudent.id}\nالاسم: ${newStudent.nameAr}`);
+        refreshStudentsFromDB();
+        updateGlobalKPIs();
+        renderAdmissionsModule();
+      } else {
+        alert(result && result.error ? result.error : 'تعذر اعتماد الطلب');
+      }
+    }
+
+    function handleRejectAdmission(requestId) {
+      if (!window.SmileKidsDB) return;
+      const confirmReject = confirm('هل أنتِ متأكدة من رفض طلب التسجيل هذا؟');
+      if (!confirmReject) return;
+
+      window.SmileKidsDB.rejectAdmission(requestId, 'مرفوض من الإدارة');
+      renderAdmissionsModule();
     }
 
     if (document.readyState === 'loading') {

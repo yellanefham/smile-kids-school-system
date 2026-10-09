@@ -61,6 +61,7 @@
   </style>
   <script src="firebase_config.js"></script>
   <script src="smile_kids_database.js?v=20261009"></script>
+  <script src="grades_master_schedules.js"></script>
 </head>
 <body class="text-slate-100 min-h-screen selection:bg-indigo-500 selection:text-white flex flex-col bg-grid-pattern relative">
 
@@ -433,16 +434,54 @@
             </p>
           </div>
 
-          <div class="flex items-center gap-2 no-print">
-            <button onclick="window.print()" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black rounded-xl transition flex items-center gap-1.5 shadow">
+          <div class="flex items-center gap-2 no-print flex-wrap">
+            <button onclick="switchTimetableView('image')" id="btn-view-image" class="px-3.5 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 text-xs font-black rounded-xl transition flex items-center gap-1.5 shadow">
+              <span>🖼️</span>
+              <span>عرض صورة الجدول الجاهز للطباعة</span>
+            </button>
+            <button onclick="switchTimetableView('table')" id="btn-view-table" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl transition flex items-center gap-1.5 border border-slate-700">
+              <span>📋</span>
+              <span>عرض الجدول الرقمي التفاعلي</span>
+            </button>
+            <button onclick="printStudentSchedule()" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black rounded-xl transition flex items-center gap-1.5 shadow">
               <span>🖨️</span>
-              <span>طباعة الجدول</span>
+              <span>طباعة الجدول المعتمد</span>
             </button>
           </div>
         </div>
 
-        <!-- Timetable Table -->
-        <div class="overflow-x-auto rounded-2xl border border-white/15 bg-slate-900/60 shadow-xl">
+        <!-- Printable Schedule Poster Card View (Mode 1: Official Image) -->
+        <div id="container-schedule-image-view" class="space-y-4">
+          <div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-2xl flex items-center justify-between flex-wrap gap-2 text-xs">
+            <div class="flex items-center gap-2 text-amber-300 font-bold">
+              <span>✨</span>
+              <span>صورة الجدول الأسبوعي الرسمي المعتمد والمصمم للطباعة المباشرة لولي الأمر والطالب.</span>
+            </div>
+            <div class="flex items-center gap-2 no-print">
+              <a id="btn-download-schedule-img" href="#" download="" class="px-3 py-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-lg transition flex items-center gap-1 text-[11px] shadow">
+                <span>⬇️</span>
+                <span>تحميل الصورة عالية الدقة</span>
+              </a>
+              <button onclick="openScheduleImageFull()" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-lg transition text-[11px] border border-slate-700">
+                <span>🔍</span>
+                <span>تكبير الصورة</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="relative w-full rounded-2xl overflow-hidden border-2 border-amber-500/30 bg-slate-950 shadow-2xl group flex items-center justify-center p-2 sm:p-4">
+            <img 
+              id="student-official-schedule-img" 
+              src="" 
+              alt="جدول الحصص المعتمد" 
+              class="w-full max-w-4xl h-auto rounded-xl shadow-2xl object-contain cursor-pointer hover:brightness-105 transition duration-300"
+              onclick="openScheduleImageFull()"
+            >
+          </div>
+        </div>
+
+        <!-- Timetable Table View (Mode 2: Interactive Digital Table) -->
+        <div id="container-schedule-table-view" class="overflow-x-auto rounded-2xl border border-white/15 bg-slate-900/60 shadow-xl hidden">
           <table class="w-full text-right text-xs border-collapse">
             <thead>
               <tr class="bg-indigo-950/80 text-white font-black border-b border-indigo-500/30 text-center">
@@ -554,14 +593,18 @@
       }
     }
 
-    async function loadSchedulesData() {
+    function loadSchedulesData() {
+      if (window.SMILE_KIDS_GRADE_SCHEDULES) {
+        masterGradeSchedules = window.SMILE_KIDS_GRADE_SCHEDULES;
+        return;
+      }
       try {
-        const resp = await fetch('grades_master_schedules.json');
-        if (resp.ok) {
-          masterGradeSchedules = await resp.json();
-        }
+        fetch('grades_master_schedules.json')
+          .then(resp => resp.json())
+          .then(data => { masterGradeSchedules = data; })
+          .catch(e => console.warn('Could not load grades_master_schedules.json', e));
       } catch (e) {
-        console.warn('Could not load grades_master_schedules.json via fetch, using fallback generator', e);
+        console.warn('Fetch schedule error', e);
       }
     }
 
@@ -872,16 +915,99 @@
       }
     }
 
+    const GRADE_SCHEDULE_IMAGES = {
+      1: "student_schedule_images/01_جدول_طالب_الأول_الابتدائي_G1.png",
+      2: "student_schedule_images/02_جدول_طالب_الثاني_الابتدائي_G2.png",
+      3: "student_schedule_images/03_جدول_طالب_الثالث_الابتدائي_G3.png",
+      4: "student_schedule_images/04_جدول_طالب_الرابع_الابتدائي_G4.png",
+      5: "student_schedule_images/05_جدول_طالب_الخامس_الابتدائي_G5.png",
+      6: "student_schedule_images/06_جدول_طالب_السادس_الابتدائي_G6.png",
+      7: "student_schedule_images/07_جدول_طالب_الأول_الإعدادي_G7.png",
+      8: "student_schedule_images/08_جدول_طالب_الثاني_الإعدادي_G8.png",
+      9: "student_schedule_images/09_جدول_طالب_الثالث_الإعدادي_G9.png"
+    };
+
+    let currentTimetableViewMode = 'image'; // 'image' or 'table'
+
+    function switchTimetableView(mode) {
+      currentTimetableViewMode = mode;
+      const btnImg = document.getElementById('btn-view-image');
+      const btnTbl = document.getElementById('btn-view-table');
+      const contImg = document.getElementById('container-schedule-image-view');
+      const contTbl = document.getElementById('container-schedule-table-view');
+
+      if (mode === 'image') {
+        if (btnImg) btnImg.className = 'px-3.5 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 text-xs font-black rounded-xl transition flex items-center gap-1.5 shadow';
+        if (btnTbl) btnTbl.className = 'px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl transition flex items-center gap-1.5 border border-slate-700';
+        if (contImg) contImg.classList.remove('hidden');
+        if (contTbl) contTbl.classList.add('hidden');
+      } else {
+        if (btnImg) btnImg.className = 'px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl transition flex items-center gap-1.5 border border-slate-700';
+        if (btnTbl) btnTbl.className = 'px-3.5 py-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:brightness-110 text-white text-xs font-black rounded-xl transition flex items-center gap-1.5 shadow';
+        if (contImg) contImg.classList.add('hidden');
+        if (contTbl) contTbl.classList.remove('hidden');
+      }
+    }
+
+    function openScheduleImageFull() {
+      const img = document.getElementById('student-official-schedule-img');
+      if (img && img.src) {
+        window.open(img.src, '_blank');
+      }
+    }
+
+    function printStudentSchedule() {
+      const img = document.getElementById('student-official-schedule-img');
+      if (currentTimetableViewMode === 'image' && img && img.src) {
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(`
+          <html dir="rtl">
+            <head>
+              <title>طباعة جدول الحصص المعتمد • مدرسة Smile Kids</title>
+              <style>
+                @page { size: A4 landscape; margin: 8mm; }
+                body { margin: 0; padding: 0; text-align: center; background: #fff; }
+                img { max-width: 100%; height: auto; max-height: 96vh; object-fit: contain; }
+              </style>
+            </head>
+            <body>
+              <img src="${img.src}" onload="window.print(); window.close();" />
+            </body>
+          </html>
+        `);
+        printWindow.document.close();
+      } else {
+        window.print();
+      }
+    }
+
     // Render Student Weekly Timetable
     function renderTimetable(grade, track) {
       const gNum = parseInt(grade) || 1;
       const tag = document.getElementById('timetable-grade-tag');
       if (tag) tag.innerText = `الصف ${gNum} • ${track === 'languages' ? 'قسم اللغات' : 'القسم العربي'}`;
 
+      // Update Printable Schedule Image
+      const imgSrc = GRADE_SCHEDULE_IMAGES[gNum] || GRADE_SCHEDULE_IMAGES[1];
+      const schedImg = document.getElementById('student-official-schedule-img');
+      const dlLink = document.getElementById('btn-download-schedule-img');
+      if (schedImg) {
+        schedImg.src = imgSrc;
+        schedImg.alt = `جدول الصف ${gNum} المعتمد للطباعة`;
+      }
+      if (dlLink) {
+        dlLink.href = imgSrc;
+        dlLink.download = `Smile_Kids_Schedule_Grade_${gNum}.png`;
+      }
+
+      // Default view mode: image
+      switchTimetableView('image');
+
       const tbody = document.getElementById('timetable-body');
       tbody.innerHTML = '';
 
-      const scheduleData = masterGradeSchedules && masterGradeSchedules[gNum];
+      const scheduleData = (masterGradeSchedules && masterGradeSchedules[gNum]) || 
+                           (window.SMILE_KIDS_GRADE_SCHEDULES && window.SMILE_KIDS_GRADE_SCHEDULES[gNum]);
 
       DAYS.forEach(day => {
         const tr = document.createElement('tr');
@@ -910,20 +1036,17 @@
             const slot = scheduleData[day][p];
             let chosen = null;
 
-            if (track === 'languages' && slot.languages) {
-              chosen = slot.languages;
-            } else if (track === 'arabic' && slot.arabic) {
-              chosen = slot.arabic;
-            } else if (slot.general) {
-              chosen = slot.general;
-            } else if (slot.all && slot.all.length > 0) {
-              chosen = slot.all[0];
+            if (track === 'languages') {
+              chosen = slot.languages || slot.general || (slot.all && slot.all[0]);
+            } else {
+              chosen = slot.arabic || slot.general || (slot.all && slot.all[0]);
             }
 
             if (chosen) {
+              const cleanSub = (chosen.subject || '').replace(/^G\d+\s*/i, '');
               cellContent = `
                 <div class="space-y-0.5">
-                  <div class="text-white font-black text-[11px] leading-tight">${chosen.subject || ''}</div>
+                  <div class="text-white font-black text-[11px] leading-tight">${cleanSub}</div>
                   <div class="text-[9px] text-indigo-300 font-bold">${chosen.teacher || ''}</div>
                 </div>
               `;
