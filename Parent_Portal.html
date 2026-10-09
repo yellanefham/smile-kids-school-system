@@ -61,6 +61,7 @@
   </style>
   <script src="firebase_config.js"></script>
   <script src="smile_kids_database.js?v=20261009"></script>
+  <script src="grades_master_schedules.js"></script>
 </head>
 <body class="text-slate-100 min-h-screen selection:bg-indigo-500 selection:text-white flex flex-col bg-grid-pattern relative">
 
@@ -554,14 +555,18 @@
       }
     }
 
-    async function loadSchedulesData() {
+    function loadSchedulesData() {
+      if (window.SMILE_KIDS_GRADE_SCHEDULES) {
+        masterGradeSchedules = window.SMILE_KIDS_GRADE_SCHEDULES;
+        return;
+      }
       try {
-        const resp = await fetch('grades_master_schedules.json');
-        if (resp.ok) {
-          masterGradeSchedules = await resp.json();
-        }
+        fetch('grades_master_schedules.json')
+          .then(resp => resp.json())
+          .then(data => { masterGradeSchedules = data; })
+          .catch(e => console.warn('Could not load grades_master_schedules.json', e));
       } catch (e) {
-        console.warn('Could not load grades_master_schedules.json via fetch, using fallback generator', e);
+        console.warn('Fetch schedule error', e);
       }
     }
 
@@ -881,7 +886,8 @@
       const tbody = document.getElementById('timetable-body');
       tbody.innerHTML = '';
 
-      const scheduleData = masterGradeSchedules && masterGradeSchedules[gNum];
+      const scheduleData = (masterGradeSchedules && masterGradeSchedules[gNum]) || 
+                           (window.SMILE_KIDS_GRADE_SCHEDULES && window.SMILE_KIDS_GRADE_SCHEDULES[gNum]);
 
       DAYS.forEach(day => {
         const tr = document.createElement('tr');
@@ -910,20 +916,17 @@
             const slot = scheduleData[day][p];
             let chosen = null;
 
-            if (track === 'languages' && slot.languages) {
-              chosen = slot.languages;
-            } else if (track === 'arabic' && slot.arabic) {
-              chosen = slot.arabic;
-            } else if (slot.general) {
-              chosen = slot.general;
-            } else if (slot.all && slot.all.length > 0) {
-              chosen = slot.all[0];
+            if (track === 'languages') {
+              chosen = slot.languages || slot.general || (slot.all && slot.all[0]);
+            } else {
+              chosen = slot.arabic || slot.general || (slot.all && slot.all[0]);
             }
 
             if (chosen) {
+              const cleanSub = (chosen.subject || '').replace(/^G\d+\s*/i, '');
               cellContent = `
                 <div class="space-y-0.5">
-                  <div class="text-white font-black text-[11px] leading-tight">${chosen.subject || ''}</div>
+                  <div class="text-white font-black text-[11px] leading-tight">${cleanSub}</div>
                   <div class="text-[9px] text-indigo-300 font-bold">${chosen.teacher || ''}</div>
                 </div>
               `;

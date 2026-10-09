@@ -10,8 +10,16 @@
 (function(window) {
   'use strict';
 
-    const BLACKLIST_DELETED_STUDENTS = new Set(['SK-G2-LN-013']);
-  const BLACKLIST_DELETED_NAMES = new Set(['ليان محمد أمين']);
+    const BLACKLIST_DELETED_STUDENTS = new Set([
+    'SK-G2-LN-013',
+    'SK-G4-AR-5389',
+    'SK-G4-AR-6602',
+    'SK-G4-AR-7167',
+    'SK-G4-AR-0432',
+    'SK-G4-AR-2978',
+    'SK-G4-AR-6460'
+  ]);
+  const BLACKLIST_DELETED_NAMES = new Set(['ليان محمد أمين', 'حمزة أحمد مصطفى']);
 
   function isStudentBlacklisted(s) {
     if (!s) return false;
@@ -56,6 +64,90 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "math": {
+        "subjectId": "math",
+        "scores": {
+          "t1_sep": {
+            "score": 20,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_m1": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          }
+        },
+        "m1": 30
+      },
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 18,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_m1": {
+            "score": 18,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          }
+        }
+      },
+      "arabic": {
+        "subjectId": "arabic",
+        "scores": {
+          "t1_m1": {
+            "score": 19.5,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "test_1791544878"
+          }
+        }
+      }
     }
   },
   {
@@ -88,6 +180,38 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "math": {
+        "subjectId": "math",
+        "scores": {
+          "t1_m1": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          }
+        },
+        "m1": 30
+      }
     }
   },
   {
@@ -120,6 +244,38 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "math": {
+        "subjectId": "math",
+        "scores": {
+          "t1_m1": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          }
+        },
+        "m1": 30
+      }
     }
   },
   {
@@ -152,6 +308,38 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "math": {
+        "subjectId": "math",
+        "scores": {
+          "t1_m1": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          }
+        },
+        "m1": 30
+      }
     }
   },
   {
@@ -186,7 +374,39 @@
       "annual_total": 98
     },
     "phone": "",
-    "notes": ""
+    "notes": "",
+    "subjectScores": {
+      "math": {
+        "subjectId": "math",
+        "scores": {
+          "t1_m1": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          }
+        },
+        "m1": 30
+      }
+    }
   },
   {
     "id": "SK-G1-AR-006",
@@ -218,6 +438,38 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "math": {
+        "subjectId": "math",
+        "scores": {
+          "t1_m1": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.270Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          }
+        },
+        "m1": 30
+      }
     }
   },
   {
@@ -250,6 +502,38 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "math": {
+        "subjectId": "math",
+        "scores": {
+          "t1_m1": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          }
+        },
+        "m1": 30
+      }
     }
   },
   {
@@ -282,6 +566,38 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "math": {
+        "subjectId": "math",
+        "scores": {
+          "t1_m1": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          }
+        },
+        "m1": 30
+      }
     }
   },
   {
@@ -314,6 +630,38 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "math": {
+        "subjectId": "math",
+        "scores": {
+          "t1_m1": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          }
+        },
+        "m1": 30
+      }
     }
   },
   {
@@ -346,6 +694,38 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "math": {
+        "subjectId": "math",
+        "scores": {
+          "t1_m1": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          }
+        },
+        "m1": 30
+      }
     }
   },
   {
@@ -380,7 +760,39 @@
       "annual_total": 98
     },
     "phone": "",
-    "notes": ""
+    "notes": "",
+    "subjectScores": {
+      "math": {
+        "subjectId": "math",
+        "scores": {
+          "t1_m1": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          }
+        },
+        "m1": 30
+      }
+    }
   },
   {
     "id": "SK-G1-LN-005",
@@ -412,6 +824,38 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "math": {
+        "subjectId": "math",
+        "scores": {
+          "t1_m1": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.271Z"
+          }
+        },
+        "m1": 30
+      }
     }
   },
   {
@@ -444,6 +888,38 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "math": {
+        "subjectId": "math",
+        "scores": {
+          "t1_m1": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          }
+        },
+        "m1": 30
+      }
     }
   },
   {
@@ -476,6 +952,38 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "math": {
+        "subjectId": "math",
+        "scores": {
+          "t1_m1": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          }
+        },
+        "m1": 30
+      }
     }
   },
   {
@@ -508,6 +1016,38 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "math": {
+        "subjectId": "math",
+        "scores": {
+          "t1_m1": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          }
+        },
+        "m1": 30
+      }
     }
   },
   {
@@ -540,6 +1080,38 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "math": {
+        "subjectId": "math",
+        "scores": {
+          "t1_m1": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          }
+        },
+        "m1": 30
+      }
     }
   },
   {
@@ -572,6 +1144,38 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "math": {
+        "subjectId": "math",
+        "scores": {
+          "t1_m1": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          }
+        },
+        "m1": 30
+      }
     }
   },
   {
@@ -604,6 +1208,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -636,6 +1273,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -668,6 +1338,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -700,6 +1403,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -732,6 +1468,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -766,7 +1535,40 @@
       "annual_total": 98
     },
     "phone": "",
-    "notes": ""
+    "notes": "",
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          }
+        },
+        "m1": 20
+      }
+    }
   },
   {
     "id": "SK-G2-AR-007",
@@ -798,6 +1600,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -830,6 +1665,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -862,6 +1730,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -894,6 +1795,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -926,6 +1860,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -958,6 +1925,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -990,6 +1990,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -1022,6 +2055,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -1054,6 +2120,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -1086,6 +2185,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -1118,6 +2250,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -1150,6 +2315,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -1182,6 +2380,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -1214,6 +2445,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -1246,6 +2510,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.273Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -1278,6 +2575,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -1310,6 +2640,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -1342,6 +2705,39 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -1374,7 +2770,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-AR-002",
@@ -1406,7 +2803,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-AR-003",
@@ -1438,7 +2836,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-AR-004",
@@ -1470,7 +2869,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-AR-005",
@@ -1502,7 +2902,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-001",
@@ -1534,7 +2935,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-002",
@@ -1566,7 +2968,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-003",
@@ -1598,7 +3001,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-004",
@@ -1630,7 +3034,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-005",
@@ -1662,7 +3067,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-006",
@@ -1694,7 +3100,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-007",
@@ -1726,7 +3133,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-008",
@@ -1758,7 +3166,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-009",
@@ -1790,7 +3199,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-010",
@@ -1822,7 +3232,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-011",
@@ -1854,7 +3265,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-012",
@@ -1886,7 +3298,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-013",
@@ -1918,7 +3331,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-014",
@@ -1950,7 +3364,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-015",
@@ -1982,7 +3397,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-016",
@@ -2014,7 +3430,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-017",
@@ -2046,7 +3463,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-018",
@@ -2078,7 +3496,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G4-AR-001",
@@ -2110,7 +3529,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G4-AR-002",
@@ -2142,7 +3562,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G4-AR-003",
@@ -2174,7 +3595,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G4-AR-004",
@@ -2206,7 +3628,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G4-AR-005",
@@ -2238,7 +3661,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G4-AR-006",
@@ -2270,7 +3694,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G4-LN-001",
@@ -2302,7 +3727,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G4-LN-002",
@@ -2334,7 +3760,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G4-LN-003",
@@ -2366,7 +3793,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G4-LN-004",
@@ -2398,7 +3826,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G4-LN-005",
@@ -2430,7 +3859,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G4-LN-006",
@@ -2462,7 +3892,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G4-LN-007",
@@ -2494,7 +3925,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G4-LN-008",
@@ -2526,7 +3958,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G4-LN-009",
@@ -2558,7 +3991,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G4-LN-010",
@@ -2590,7 +4024,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G4-LN-011",
@@ -2622,7 +4057,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G4-LN-012",
@@ -2654,7 +4090,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G4-LN-013",
@@ -2686,7 +4123,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "grade": 1,
@@ -2711,7 +4149,39 @@
       "annual_total": 100
     },
     "trackNameAr": "لغات (Math & Science)",
-    "trackNameEn": "Languages Track"
+    "trackNameEn": "Languages Track",
+    "subjectScores": {
+      "math": {
+        "subjectId": "math",
+        "scores": {
+          "t1_m1": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.272Z"
+          }
+        },
+        "m1": 30
+      }
+    }
   },
   {
     "grade": 2,
@@ -2734,6 +4204,39 @@
       "t2_exam": 30,
       "t2_total": 100,
       "annual_total": 100
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -2757,6 +4260,39 @@
       "t2_exam": 30,
       "t2_total": 100,
       "annual_total": 100
+    },
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_m1": {
+            "score": 20,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          },
+          "t1_m2": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          },
+          "t1_tasks": {
+            "score": 0,
+            "maxScore": 20,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          },
+          "t1_exam": {
+            "score": 0,
+            "maxScore": 50,
+            "isRecorded": true,
+            "updatedAt": "2026-10-04T19:13:45.274Z"
+          }
+        },
+        "m1": 20
+      }
     }
   },
   {
@@ -2784,7 +4320,8 @@
       "t2_exam": 30,
       "t2_total": 100,
       "annual_total": 100
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G5-AR-001",
@@ -2816,7 +4353,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G5-AR-002",
@@ -2848,7 +4386,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G5-AR-003",
@@ -2880,7 +4419,8 @@
       "t2_exam": 30,
       "t2_total": 100,
       "annual_total": 100
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G5-AR-004",
@@ -2912,7 +4452,8 @@
       "t2_exam": 30,
       "t2_total": 100,
       "annual_total": 100
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G5-AR-005",
@@ -2944,7 +4485,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G5-AR-006",
@@ -2976,7 +4518,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G5-AR-007",
@@ -3008,7 +4551,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G5-AR-008",
@@ -3040,7 +4584,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G5-AR-009",
@@ -3072,7 +4617,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G5-AR-010",
@@ -3104,7 +4650,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G5-LN-001",
@@ -3136,7 +4683,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G5-LN-002",
@@ -3168,7 +4716,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G5-LN-003",
@@ -3200,7 +4749,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G5-LN-004",
@@ -3232,7 +4782,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G5-LN-005",
@@ -3264,7 +4815,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G5-LN-006",
@@ -3296,7 +4848,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G5-LN-007",
@@ -3328,7 +4881,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G5-LN-008",
@@ -3360,7 +4914,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G5-LN-009",
@@ -3392,7 +4947,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G6-AR-001",
@@ -3424,7 +4980,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G6-AR-002",
@@ -3456,7 +5013,8 @@
       "t2_exam": 30,
       "t2_total": 100,
       "annual_total": 100
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G6-AR-003",
@@ -3488,7 +5046,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G6-AR-004",
@@ -3520,7 +5079,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G6-AR-005",
@@ -3552,7 +5112,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G6-LN-001",
@@ -3584,7 +5145,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G6-LN-002",
@@ -3616,7 +5178,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G6-LN-003",
@@ -3648,7 +5211,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G6-LN-004",
@@ -3680,7 +5244,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G6-LN-005",
@@ -3712,7 +5277,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G6-LN-006",
@@ -3744,7 +5310,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G6-LN-007",
@@ -3776,7 +5343,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G6-LN-008",
@@ -3808,7 +5376,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G6-LN-009",
@@ -3840,7 +5409,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G6-LN-010",
@@ -3872,7 +5442,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G6-LN-011",
@@ -3904,7 +5475,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G7-AR-001",
@@ -3936,7 +5508,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G7-AR-002",
@@ -3968,7 +5541,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G7-AR-003",
@@ -4000,7 +5574,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G7-AR-004",
@@ -4032,7 +5607,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G7-AR-005",
@@ -4064,7 +5640,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G7-AR-006",
@@ -4096,7 +5673,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G7-LN-001",
@@ -4128,7 +5706,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G7-LN-002",
@@ -4160,7 +5739,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G7-LN-003",
@@ -4192,7 +5772,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G7-LN-004",
@@ -4224,7 +5805,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G7-LN-005",
@@ -4256,7 +5838,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G7-LN-006",
@@ -4288,7 +5871,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G7-LN-007",
@@ -4320,7 +5904,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G7-LN-008",
@@ -4352,7 +5937,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G8-AR-001",
@@ -4384,7 +5970,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G8-AR-002",
@@ -4416,7 +6003,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G8-AR-003",
@@ -4448,7 +6036,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G8-LN-001",
@@ -4480,7 +6069,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G8-LN-002",
@@ -4512,7 +6102,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G9-AR-001",
@@ -4544,7 +6135,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G9-AR-002",
@@ -4576,7 +6168,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G9-AR-003",
@@ -4608,7 +6201,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G9-LN-001",
@@ -4640,7 +6234,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G9-LN-002",
@@ -4672,7 +6267,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G2-LN-020",
@@ -4704,7 +6300,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G2-LN-021",
@@ -4736,7 +6333,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G2-LN-022",
@@ -4768,7 +6366,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G2-LN-023",
@@ -4800,7 +6399,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G2-LN-024",
@@ -4832,7 +6432,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G2-LN-025",
@@ -4864,7 +6465,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G2-AR-009",
@@ -4896,7 +6498,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G1-LN-011",
@@ -4928,7 +6531,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G1-LN-012",
@@ -4960,7 +6564,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G1-LN-013",
@@ -4992,7 +6597,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G1-LN-014",
@@ -5024,7 +6630,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G1-LN-015",
@@ -5056,7 +6663,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G1-LN-016",
@@ -5088,7 +6696,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G1-LN-017",
@@ -5120,7 +6729,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G1-LN-018",
@@ -5152,7 +6762,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G1-LN-019",
@@ -5184,7 +6795,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G1-AR-008",
@@ -5216,7 +6828,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G1-AR-009",
@@ -5248,7 +6861,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-019",
@@ -5280,7 +6894,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-020",
@@ -5312,7 +6927,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-021",
@@ -5344,7 +6960,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-LN-022",
@@ -5376,7 +6993,8 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
   },
   {
     "id": "SK-G3-AR-006",
@@ -5408,7 +7026,148 @@
       "t2_exam": 30,
       "t2_total": 98,
       "annual_total": 98
-    }
+    },
+    "subjectScores": {}
+  },
+  {
+    "grade": 4,
+    "track": "arabic",
+    "gradeNameAr": "الصف 4",
+    "gradeNameEn": "Grade 4",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "مرام شريف رجب",
+    "nameEn": "Maram Sheref Ragab",
+    "gender": "female",
+    "phone": "",
+    "notes": "",
+    "id": "SK-G4-AR-9749",
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 20,
+      "t1_m2": 20,
+      "t1_exam": 30,
+      "t1_total": 100,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 100,
+      "annual_total": 100
+    },
+    "subjectScores": {}
+  },
+  {
+    "grade": 4,
+    "track": "arabic",
+    "gradeNameAr": "الصف 4",
+    "gradeNameEn": "Grade 4",
+    "trackNameAr": "عربي (حساب)",
+    "trackNameEn": "Arabic Track",
+    "nameAr": "لينا بهاء",
+    "nameEn": "Lina Bahaa",
+    "gender": "female",
+    "phone": "",
+    "notes": "",
+    "id": "SK-G4-AR-0026",
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 20,
+      "t1_m2": 20,
+      "t1_exam": 30,
+      "t1_total": 100,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 100,
+      "annual_total": 100
+    },
+    "subjectScores": {}
+  },
+  {
+    "grade": 4,
+    "track": "languages",
+    "gradeNameAr": "الصف 4",
+    "gradeNameEn": "Grade 4",
+    "trackNameAr": "لغات (Math & Science)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "يامن محمد رفعت",
+    "nameEn": "Yamen Mohamed Refaat",
+    "gender": "male",
+    "phone": "",
+    "notes": "",
+    "id": "SK-G4-EN-6708",
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 20,
+      "t1_m2": 20,
+      "t1_exam": 30,
+      "t1_total": 100,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 100,
+      "annual_total": 100
+    },
+    "subjectScores": {}
+  },
+  {
+    "grade": 4,
+    "track": "languages",
+    "gradeNameAr": "الصف 4",
+    "gradeNameEn": "Grade 4",
+    "trackNameAr": "لغات (Math & Science)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "روفان عمر عبد المقصود",
+    "nameEn": "Rovan Omar Abdelmaksoud",
+    "gender": "female",
+    "phone": "",
+    "notes": "",
+    "id": "SK-G4-EN-6103",
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 20,
+      "t1_m2": 20,
+      "t1_exam": 30,
+      "t1_total": 100,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 100,
+      "annual_total": 100
+    },
+    "subjectScores": {}
+  },
+  {
+    "grade": 4,
+    "track": "languages",
+    "gradeNameAr": "الصف 4",
+    "gradeNameEn": "Grade 4",
+    "trackNameAr": "لغات (Math & Science)",
+    "trackNameEn": "Languages Track",
+    "nameAr": "محمد مازن شلار",
+    "nameEn": "Mohamed Malaz Shalar",
+    "gender": "male",
+    "phone": "",
+    "notes": "",
+    "id": "SK-G4-EN-3027",
+    "attendanceRecords": {},
+    "attendanceNotes": {},
+    "termsScores": {
+      "t1_m1": 20,
+      "t1_m2": 20,
+      "t1_exam": 30,
+      "t1_total": 100,
+      "t2_m1": 20,
+      "t2_m2": 20,
+      "t2_exam": 30,
+      "t2_total": 100,
+      "annual_total": 100
+    },
+    "subjectScores": {}
   }
 ];
 
@@ -6200,9 +7959,21 @@
     },
 
     addStudent: function(studentData) {
+      if (!studentData || isStudentBlacklisted(studentData)) return null;
+
       const grade = parseInt(studentData.grade) || 1;
       const track = studentData.track || 'arabic';
       const trackCode = track === 'languages' ? 'EN' : 'AR';
+      const cleanName = (studentData.nameAr || '').trim();
+
+      // Debounce & duplicate protection: ignore duplicate submits within 6 seconds
+      const now = Date.now();
+      if (this._lastAdded && this._lastAdded.name === cleanName && this._lastAdded.grade === grade && (now - this._lastAdded.time < 6000)) {
+        console.warn('[SmileKids DB] منع إضافة طالب مكرر خلال نافذة الحماية (Debounce)');
+        return this.getAllStudents().find(s => s.nameAr && s.nameAr.trim() === cleanName && s.grade === grade) || studentData;
+      }
+      this._lastAdded = { name: cleanName, grade: grade, time: now };
+
       if (!studentData.id) {
         studentData.id = 'SK-G' + grade + '-' + trackCode + '-' + Date.now().toString().slice(-4);
       }
@@ -6230,6 +8001,77 @@
       }
 
       return studentData;
+    },
+
+    PENDING_ADMISSIONS_KEY: 'SMILE_KIDS_PENDING_ADMISSIONS_2026',
+
+    getPendingAdmissions: function() {
+      if (typeof localStorage === 'undefined') return [];
+      try {
+        const val = localStorage.getItem(this.PENDING_ADMISSIONS_KEY);
+        return val ? JSON.parse(val) : [];
+      } catch(e) {
+        return [];
+      }
+    },
+
+    savePendingAdmissions: function(list) {
+      if (typeof localStorage === 'undefined') return;
+      try {
+        localStorage.setItem(this.PENDING_ADMISSIONS_KEY, JSON.stringify(list));
+      } catch(e) {}
+    },
+
+    addPendingAdmission: function(applicantData) {
+      const list = this.getPendingAdmissions();
+      const requestId = 'REQ-' + new Date().getFullYear() + '-' + Date.now().toString().slice(-4);
+      const req = Object.assign({}, applicantData, {
+        requestId: requestId,
+        status: 'pending',
+        submittedAt: new Date().toISOString()
+      });
+      list.unshift(req);
+      this.savePendingAdmissions(list);
+      return req;
+    },
+
+    approveAdmission: function(requestId) {
+      const list = this.getPendingAdmissions();
+      const item = list.find(r => r.requestId === requestId);
+      if (!item) return { success: false, error: 'الطلب غير موجود' };
+      if (item.status === 'approved') return { success: false, error: 'تم اعتماد هذا الطلب مسبقاً' };
+
+      const studentData = {
+        grade: parseInt(item.grade) || 1,
+        track: item.track || 'arabic',
+        nameAr: item.nameAr,
+        nameEn: item.nameEn,
+        parentName: item.parentName || '',
+        parentPhone: item.parentPhone || item.phone || '',
+        parentWhatsApp: item.parentWhatsApp || item.whatsapp || '',
+        notes: item.notes || '',
+        photo: item.photo || null,
+        gender: item.gender || (item.nameAr && item.nameAr.match(/(ة|ه|فاطمة|مريم|نور|تاليا|إيلاف|فيروز|سارة|جنى|ملك|حبيبة)$/i) ? 'female' : 'male')
+      };
+
+      const added = this.addStudent(studentData);
+      item.status = 'approved';
+      item.approvedStudentId = added.id;
+      item.approvedAt = new Date().toISOString();
+      this.savePendingAdmissions(list);
+
+      return { success: true, student: added, request: item };
+    },
+
+    rejectAdmission: function(requestId, reason) {
+      const list = this.getPendingAdmissions();
+      const item = list.find(r => r.requestId === requestId);
+      if (!item) return false;
+      item.status = 'rejected';
+      item.rejectReason = reason || 'مرفوض من الإدارة';
+      item.rejectedAt = new Date().toISOString();
+      this.savePendingAdmissions(list);
+      return true;
     },
 
     deleteStudent: function(id) {
