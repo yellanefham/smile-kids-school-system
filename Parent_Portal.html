@@ -128,8 +128,9 @@
           <span class="w-8 h-8 rounded-xl bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-black text-sm">1</span>
           <h3 class="text-base sm:text-lg font-black text-white">اختر أو ابحث عن الطالب</h3>
         </div>
-        <span id="badge-total-students" class="text-xs font-bold text-slate-400 bg-slate-900 px-2.5 py-1 rounded-lg border border-white/5">
-          جاري تحميل الطلاب...
+        <span class="text-xs font-bold text-indigo-300 bg-slate-900/90 px-3 py-1 rounded-lg border border-indigo-500/20 shadow-sm flex items-center gap-1.5">
+          <span>🏫</span>
+          <span>بوابة أولياء الأمور</span>
         </span>
       </div>
 
@@ -587,10 +588,7 @@
     }
 
     function updateTotalBadge() {
-      const el = document.getElementById('badge-total-students');
-      if (el) {
-        el.innerText = `${masterStudentsList.length} طالب وطالبة مسجلين`;
-      }
+      // Intentionally hidden for privacy
     }
 
     function loadSchedulesData() {

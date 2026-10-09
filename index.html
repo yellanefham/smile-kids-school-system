@@ -314,39 +314,7 @@
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      if (window.SmileKidsDB) {
-        const updateMetrics = (students) => {
-          const headerCountEl = document.getElementById('header-student-count');
-          if (headerCountEl) headerCountEl.innerText = `${students.length} طالب وطالبة`;
-        };
 
-        const initialStudents = window.SmileKidsDB.getAllStudents();
-        updateMetrics(initialStudents);
-
-        window.SmileKidsDB.subscribe((updatedStudents) => {
-          updateMetrics(updatedStudents);
-        });
-      }
-    });
-
-    async function triggerManualCloudSync() {
-      const icon = document.getElementById('sync-icon');
-      if (icon) icon.classList.add('animate-spin');
-      if (window.SmileKidsDB) {
-        try {
-          await window.SmileKidsDB.forceCloudSync();
-          const total = window.SmileKidsDB.getAllStudents().length;
-          const countEl = document.getElementById('header-student-count');
-          if (countEl) countEl.innerText = `${total} طالب وطالبة`;
-          alert(`✓ تم مزامنة البيانات سحابياً بنجاح بين الهاتف واللابتوب!\nإجمالي عدد الطلاب المسجلين الآن: ${total} طالب وطالبة.`);
-        } catch(e) {
-          alert('تعذر استكمال المزامنة السحابية: ' + e.message);
-        } finally {
-          if (icon) icon.classList.remove('animate-spin');
-        }
-      }
-    }
       // Auto & Manual Banner Slider Script
     let currentSlide = 0;
     const slides = [
