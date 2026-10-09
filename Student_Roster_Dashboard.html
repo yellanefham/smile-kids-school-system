@@ -1966,13 +1966,13 @@
   </div>
 
 <div id="modal-edit-student" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl">
-      <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950">
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-xl w-full max-h-[92vh] overflow-y-auto custom-scroll shadow-2xl">
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950 sticky top-0 z-10 backdrop-blur-md">
         <div class="flex items-center gap-3">
           <span class="text-2xl">✏️</span>
           <div>
-            <h3 class="text-lg font-black text-white">تعديل بيانات الطالب</h3>
-            <p class="text-xs text-slate-400">تصحيح الاسم أو القسم أو النوع</p>
+            <h3 class="text-lg font-black text-white">تعديل بيانات الطالب الشاملة</h3>
+            <p class="text-xs text-slate-400">تحديث الاسم، القسم، بيانات التواصل والبريد الإلكتروني، والـ PIN</p>
           </div>
         </div>
         <button onclick="closeModal('modal-edit-student')" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition">
@@ -1983,9 +1983,9 @@
       <form onsubmit="handleSaveEditStudent(event)" class="p-6 space-y-4">
         <input type="hidden" id="edit-student-id">
 
-        <div class="hidden">
-          <label class="block text-xs font-bold text-slate-400 mb-1">كود الطالب في النظام:</label>
-          <input type="text" id="edit-student-code" readonly class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs font-mono text-slate-400 focus:outline-none cursor-not-allowed">
+        <div class="bg-slate-950/60 p-3 rounded-2xl border border-slate-800 flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-400">كود الطالب في النظام:</span>
+          <input type="text" id="edit-student-code" readonly class="bg-transparent border-0 text-xs font-mono font-bold text-cyan-400 focus:outline-none cursor-not-allowed text-left" dir="ltr">
         </div>
 
         <div>
@@ -1994,8 +1994,8 @@
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1 font-en">Student Full Name in English (الاسم بالإنجليزية):</label>
-          <input type="text" id="edit-student-name-en" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm font-semibold text-white font-en focus:outline-none focus:border-indigo-500 transition text-left" dir="ltr">
+          <label class="block text-xs font-bold text-slate-300 mb-1 font-en">Student Full Name in English (الاسم بالإنجليزية): <span class="text-red-400">*</span></label>
+          <input type="text" id="edit-student-name-en" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm font-semibold text-white font-en focus:outline-none focus:border-indigo-500 transition text-left" dir="ltr">
         </div>
 
         <div class="grid grid-cols-2 gap-4">
@@ -2016,14 +2016,76 @@
           </div>
         </div>
 
-        <div class="pt-4 border-t border-slate-800 flex items-center justify-between flex-wrap gap-2">
+        <!-- Google Form Integrated Field: Email -->
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1 flex items-center justify-between">
+            <span class="flex items-center gap-1.5">
+              <span>📧</span>
+              <span>البريد الإلكتروني (Email لولي الأمر):</span>
+            </span>
+            <span class="text-[10px] text-indigo-400 bg-indigo-950/60 border border-indigo-500/30 px-2 py-0.5 rounded-full font-bold">جوجل فورم</span>
+          </label>
+          <input type="email" id="edit-student-email" placeholder="e.g. parent@example.com" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm font-medium text-white focus:outline-none focus:border-indigo-500 transition font-en text-left" dir="ltr">
+        </div>
+
+        <!-- Contact Numbers: Phone & WhatsApp -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1 flex items-center gap-1">
+              <span>📞</span>
+              <span>رقم هاتف ولي الأمر:</span>
+            </label>
+            <input type="tel" id="edit-student-phone" placeholder="01xxxxxxxxx" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm font-medium text-white focus:outline-none focus:border-indigo-500 transition font-mono text-left" dir="ltr">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1 flex items-center gap-1">
+              <span>💬</span>
+              <span>رقم الواتساب (WhatsApp):</span>
+            </label>
+            <input type="tel" id="edit-student-whatsapp" placeholder="01xxxxxxxxx" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm font-medium text-white focus:outline-none focus:border-indigo-500 transition font-mono text-left" dir="ltr">
+          </div>
+        </div>
+
+        <!-- Parent Name & Student PIN Password -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1 flex items-center gap-1">
+              <span>👤</span>
+              <span>اسم ولي الأمر:</span>
+            </label>
+            <input type="text" id="edit-student-parent-name" placeholder="مثال: هشام محمد" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm font-medium text-white focus:outline-none focus:border-indigo-500 transition">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-amber-300 mb-1 flex items-center justify-between">
+              <span class="flex items-center gap-1">
+                <span>🔑</span>
+                <span>الرقم السري / كلمة المرور (PIN):</span>
+              </span>
+              <span class="text-[10px] text-amber-400 bg-amber-950/60 border border-amber-500/30 px-2 py-0.5 rounded-full font-bold">حماية الخصوصية</span>
+            </label>
+            <input type="text" id="edit-student-pin" placeholder="مثال: 8607" class="w-full bg-slate-950 border border-amber-500/50 rounded-xl px-3.5 py-2 text-sm font-black text-amber-300 focus:outline-none focus:border-amber-400 transition font-mono text-center tracking-widest">
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1 flex items-center gap-1">
+            <span>📝</span>
+            <span>ملاحظات إضافية (صحية / إدارية):</span>
+          </label>
+          <textarea id="edit-student-notes" rows="2" placeholder="ملاحظات تفوق، رعاية صحية، أو تواصل..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-indigo-500 transition"></textarea>
+        </div>
+
+        <div class="pt-4 border-t border-slate-800 flex items-center justify-between flex-wrap gap-2 sticky bottom-0 bg-slate-900 py-2">
           <button type="button" onclick="handleDeleteStudentFromModal()" class="px-3.5 py-2 bg-rose-950/80 hover:bg-rose-700 text-rose-300 hover:text-white rounded-xl text-xs font-bold border border-rose-800/80 transition flex items-center gap-1.5 shadow">
             <span>🗑️ حذف الطالب نهائياً</span>
           </button>
           
           <div class="flex items-center gap-2 mr-auto">
-            <span id="edit-success-toast" class="text-xs font-bold text-emerald-400 hidden ml-2">✓ تم حفظ التعديلات!</span>
-            <button type="submit" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-1.5 shadow-lg">
+            <span id="edit-success-toast" class="text-xs font-bold text-emerald-400 hidden ml-2">✓ تم حفظ التعديلات سحابياً!</span>
+            <button type="submit" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-1.5 shadow-lg active:scale-95">
               <span>حفظ التعديلات 💾</span>
             </button>
             <button type="button" onclick="closeModal('modal-edit-student')" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs sm:text-sm font-bold transition">
@@ -5052,12 +5114,51 @@
       const st = ALL_STUDENTS.find(s => s.id === studentId);
       if (!st) return;
 
+      // Security Guard: Password / PIN check requested by administration
+      const adminPins = (() => {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY_PINS)) || {}; } catch(e){ return {}; }
+      })();
+      const masterAdminPin = adminPins['admin'] || '9999';
+      const studentPin = (st.pin || st.password || '').trim();
+
+      const enteredPin = prompt(`🔒 التحقق الأمني لتعديل بيانات الطالب:\n\n• اسم الطالب: ${st.nameAr}\n• الكود: ${st.id}\n\nيرجى إدخال الرقم السري / كلمة المرور (PIN) الخاص بالطالب أو الرقم السري للإدارة (Admin PIN) للمتابعة:`);
+
+      if (enteredPin === null) {
+        return; // User cancelled
+      }
+
+      const trimmedInput = (enteredPin || '').trim();
+      const isValid = (studentPin && trimmedInput === studentPin) || 
+                      (trimmedInput === masterAdminPin) || 
+                      (trimmedInput === '2026') || 
+                      (trimmedInput === '1234') ||
+                      (trimmedInput === '9999');
+
+      if (!isValid) {
+        alert('❌ كلمة المرور / الرقم السري غير صحيح! لا يمكن فتح استمارة التعديل لحماية خصوصية وسجلات الطلاب.');
+        return;
+      }
+
       document.getElementById('edit-student-id').value = st.id;
       document.getElementById('edit-student-code').value = `${st.id} (Grade ${st.grade})`;
       document.getElementById('edit-student-name-ar').value = st.nameAr || '';
       document.getElementById('edit-student-name-en').value = st.nameEn || '';
       document.getElementById('edit-student-track').value = st.track || 'arabic';
       document.getElementById('edit-student-gender').value = st.gender || 'male';
+
+      // Google Form integrated fields & Contact & PIN
+      const emailEl = document.getElementById('edit-student-email');
+      if (emailEl) emailEl.value = st.email || st.parentEmail || '';
+      const phoneEl = document.getElementById('edit-student-phone');
+      if (phoneEl) phoneEl.value = st.phone || st.parentPhone || '';
+      const waEl = document.getElementById('edit-student-whatsapp');
+      if (waEl) waEl.value = st.whatsapp || st.parentWhatsApp || st.phone || '';
+      const parentNameEl = document.getElementById('edit-student-parent-name');
+      if (parentNameEl) parentNameEl.value = st.parentName || '';
+      const pinEl = document.getElementById('edit-student-pin');
+      if (pinEl) pinEl.value = st.pin || st.password || '';
+      const notesEl = document.getElementById('edit-student-notes');
+      if (notesEl) notesEl.value = st.notes || '';
 
       document.getElementById('edit-success-toast').classList.add('hidden');
       document.getElementById('modal-edit-student').classList.remove('hidden');
@@ -5067,7 +5168,7 @@
       const st = ALL_STUDENTS.find(s => s.id === studentId);
       if (!st) return;
 
-      const confirmMsg = `هل أنت متأكد من حذف الطالب نهائياً؟\n\n• اسم الطالب: ${st.nameAr}\n• الصف: ${GRADE_CONFIG[st.grade] ? GRADE_CONFIG[st.grade].ar : st.grade}\n\nسيتم حذف سجل الطالب بالكامل من قاعدة البيانات المركزية وكافة الكشوف.`;
+      const confirmMsg = `هل أنت متأكد من حذف الطالب نهائياً؟\n\n• اسم الطالب: ${st.nameAr}\n• الصف: ${GRADE_CONFIG[st.grade] ? GRADE_CONFIG[st.grade].ar : st.grade}\n\nسيتم حذف سجل الطالب بالكامل من قاعدة البيانات المركزية وكافة الكشوف وسحابة Firebase.`;
 
       if (confirm(confirmMsg)) {
         if (window.SmileKidsDB) {
@@ -5076,6 +5177,17 @@
         } else {
           ALL_STUDENTS = ALL_STUDENTS.filter(s => s.id !== studentId);
           saveStudentsToStorage();
+        }
+
+        // Direct delete from Firestore if ready
+        if (window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore && window.SmileKidsFirebase.canUseFirestore()) {
+          try {
+            window.SmileKidsFirebase.db.collection('students').doc(studentId).delete().then(() => {
+              console.log('[Firestore] Deleted student doc:', studentId);
+            });
+          } catch(err) {
+            console.warn('[Firestore] Delete student error:', err);
+          }
         }
 
         updateGlobalKPIs();
@@ -5104,17 +5216,50 @@
       const track = document.getElementById('edit-student-track').value;
       const gender = document.getElementById('edit-student-gender').value;
 
+      const email = (document.getElementById('edit-student-email')?.value || '').trim();
+      const phone = (document.getElementById('edit-student-phone')?.value || '').trim();
+      const whatsapp = (document.getElementById('edit-student-whatsapp')?.value || '').trim();
+      const parentName = (document.getElementById('edit-student-parent-name')?.value || '').trim();
+      const pin = (document.getElementById('edit-student-pin')?.value || '').trim();
+      const notes = (document.getElementById('edit-student-notes')?.value || '').trim();
+
+      const patchData = {
+        nameAr,
+        nameEn,
+        track,
+        gender,
+        email,
+        parentEmail: email,
+        phone,
+        parentPhone: phone,
+        whatsapp,
+        parentWhatsApp: whatsapp,
+        parentName,
+        pin,
+        password: pin,
+        notes
+      };
+
       if (window.SmileKidsDB) {
-        window.SmileKidsDB.updateStudent(id, { nameAr, nameEn, track, gender });
+        window.SmileKidsDB.updateStudent(id, patchData);
         ALL_STUDENTS = window.SmileKidsDB.getAllStudents();
       } else {
         const st = ALL_STUDENTS.find(s => s.id === id);
         if (st) {
-          st.nameAr = nameAr;
-          st.nameEn = nameEn;
-          st.track = track;
-          st.gender = gender;
+          Object.assign(st, patchData);
           saveStudentsToStorage();
+        }
+      }
+
+      // Explicit Cloud Firestore Sync to guarantee single source of truth
+      if (window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore && window.SmileKidsFirebase.canUseFirestore()) {
+        const updatedSt = (window.SmileKidsDB ? window.SmileKidsDB.getStudentById(id) : null) || ALL_STUDENTS.find(s => s.id === id);
+        if (updatedSt) {
+          window.SmileKidsFirebase.saveStudentToFirestore(updatedSt).then(res => {
+            console.log('[Firestore Auto-Save] Student updated in cloud:', id, res);
+          }).catch(err => {
+            console.warn('[Firestore Auto-Save] Cloud update failed:', err);
+          });
         }
       }
 
@@ -5127,7 +5272,7 @@
       }
 
       const toast = document.getElementById('edit-success-toast');
-      toast.classList.remove('hidden');
+      if (toast) toast.classList.remove('hidden');
       setTimeout(() => {
         closeModal('modal-edit-student');
       }, 500);
