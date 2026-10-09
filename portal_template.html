@@ -2483,10 +2483,12 @@
 
     function onGradeLiveCalc(inputEl) {
       const maxVal = parseFloat(inputEl.dataset.max) || 20;
-      let val = parseFloat(inputEl.value) || 0;
-      if (val > maxVal) inputEl.value = maxVal;
-      if (val < 0) inputEl.value = 0;
-
+      const rawText = inputEl.value.trim();
+      if (rawText !== '' && !isNaN(parseFloat(rawText))) {
+        let val = parseFloat(rawText);
+        if (val > maxVal) inputEl.value = maxVal;
+        if (val < 0) inputEl.value = 0;
+      }
       updateGradeStats();
     }
 
@@ -2497,14 +2499,20 @@
       const subjectId = inputEl.dataset.subjectId;
       const term = inputEl.dataset.term;
       const max = parseFloat(inputEl.dataset.max) || 20;
-      let val = parseFloat(inputEl.value) || 0;
-
-      if (val > max) val = max;
-      if (val < 0) val = 0;
-      inputEl.value = val;
+      const rawText = inputEl.value.trim();
+      
+      let val = null;
+      if (rawText !== '' && !isNaN(parseFloat(rawText))) {
+        val = parseFloat(rawText);
+        if (val > max) val = max;
+        if (val < 0) val = 0;
+        inputEl.value = val;
+      } else {
+        inputEl.value = '';
+      }
 
       const allGrades = getStoredGrades();
-      if (!allGrades[key]) allGrades[key] = { m1: 0, m2: 0, tasks: 0, exam: 0 };
+      if (!allGrades[key]) allGrades[key] = { m1: null, m2: null, tasks: null, exam: null, sep: null };
       allGrades[key][field] = val;
 
       saveStoredGrades(allGrades);

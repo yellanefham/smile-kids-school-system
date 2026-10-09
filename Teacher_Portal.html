@@ -332,28 +332,55 @@
             </div>
           </div>
 
-          <!-- Sheet Summary Cards -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4 text-xs no-print">
-            <div class="bg-slate-900/60 border border-slate-700/60 rounded-xl p-2.5 text-center">
-              <span class="text-slate-400 block mb-0.5">إجمالي طلاب الفصل</span>
+          <!-- Sheet Summary Cards (Clickable Filters) -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3.5 text-xs no-print">
+            <div onclick="setGradeFilter('all')" class="cursor-pointer bg-slate-900/80 hover:bg-slate-800 border-2 border-slate-700/80 hover:border-blue-500/60 rounded-xl p-2.5 text-center transition shadow group active:scale-95" title="عرض جميع طلاب الفصل">
+              <span class="text-slate-400 block mb-0.5 group-hover:text-blue-300 font-bold">إجمالي طلاب الفصل</span>
               <span id="stat-student-count" class="text-lg font-black text-white">0</span>
             </div>
-            <div class="bg-slate-900/60 border border-slate-700/60 rounded-xl p-2.5 text-center">
-              <span class="text-slate-400 block mb-0.5">تم رصد درجاتهم</span>
+            <div onclick="setGradeFilter('graded')" class="cursor-pointer bg-slate-900/80 hover:bg-slate-800 border-2 border-slate-700/80 hover:border-emerald-500/60 rounded-xl p-2.5 text-center transition shadow group active:scale-95" title="عرض الطلاب الذين تم رصد درجاتهم فقط">
+              <span class="text-slate-400 block mb-0.5 group-hover:text-emerald-300 font-bold">تم رصد درجاتهم ✅</span>
               <span id="stat-graded-count" class="text-lg font-black text-emerald-400">0</span>
             </div>
-            <div class="bg-slate-900/60 border border-slate-700/60 rounded-xl p-2.5 text-center">
-              <span class="text-slate-400 block mb-0.5">المتبقي بدون رصد</span>
+            <div onclick="setGradeFilter('pending')" class="cursor-pointer bg-slate-900/80 hover:bg-slate-800 border-2 border-slate-700/80 hover:border-amber-500/60 rounded-xl p-2.5 text-center transition shadow group active:scale-95 ring-1 ring-amber-500/20" title="عرض الطلاب الذين لم يتم رصد درجاتهم بعد">
+              <span class="text-slate-400 block mb-0.5 group-hover:text-amber-300 font-bold">المتبقي بدون رصد ⏳</span>
               <span id="stat-pending-count" class="text-lg font-black text-amber-400">0</span>
             </div>
             <div class="bg-slate-900/60 border border-slate-700/60 rounded-xl p-2.5 text-center">
-              <span class="text-slate-400 block mb-0.5">متوسط درجات الشهر</span>
+              <span class="text-slate-400 block mb-0.5 font-bold">متوسط درجات الشهر</span>
               <span id="stat-avg-score" class="text-lg font-black text-cyan-400">0</span>
             </div>
           </div>
 
           <!-- Month Focus Mode Banner -->
           <div id="month-focus-banner" class="mb-3.5 no-print"></div>
+
+          <!-- Roster Filter Bar (عرض الكل / غير المرصودين / المرصودين) -->
+          <div class="flex flex-wrap items-center justify-between gap-2.5 mb-3.5 bg-slate-900/90 border border-slate-700/80 rounded-2xl p-2.5 text-xs no-print shadow-lg">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-slate-400 font-bold text-xs ml-1 flex items-center gap-1">
+                <span>🔍</span>
+                <span>تصفية قائمة الطلاب:</span>
+              </span>
+              <button type="button" id="filter-btn-all" onclick="setGradeFilter('all')" class="px-3.5 py-1.5 rounded-xl font-bold bg-blue-600 text-white shadow transition flex items-center gap-1.5 active:scale-95">
+                <span>📋 جميع طلاب الفصل</span>
+                <span id="filter-badge-all" class="text-[11px] bg-white/20 px-2 py-0.2 rounded-full font-black">0</span>
+              </button>
+              <button type="button" id="filter-btn-pending" onclick="setGradeFilter('pending')" class="px-3.5 py-1.5 rounded-xl font-bold bg-slate-800 hover:bg-amber-950/40 text-amber-300 border border-amber-500/40 transition flex items-center gap-1.5 active:scale-95">
+                <span>⏳ لم يتم رصدهم بعد (المتبقي)</span>
+                <span id="filter-badge-pending" class="text-[11px] bg-amber-500/30 text-amber-200 border border-amber-400/30 px-2 py-0.2 rounded-full font-black">0</span>
+              </button>
+              <button type="button" id="filter-btn-graded" onclick="setGradeFilter('graded')" class="px-3.5 py-1.5 rounded-xl font-bold bg-slate-800 hover:bg-emerald-950/40 text-emerald-300 border border-emerald-500/40 transition flex items-center gap-1.5 active:scale-95">
+                <span>✅ تم رصدهم فقط</span>
+                <span id="filter-badge-graded" class="text-[11px] bg-emerald-500/30 text-emerald-200 border border-emerald-400/30 px-2 py-0.2 rounded-full font-black">0</span>
+              </button>
+            </div>
+            <div class="flex items-center gap-2 text-[11px] text-slate-400">
+              <button type="button" onclick="clearAllZeroGradesForActiveMonth()" class="px-3 py-1 bg-slate-800 hover:bg-rose-950/40 text-slate-300 hover:text-rose-300 border border-slate-700 hover:border-rose-500/40 rounded-xl transition font-bold flex items-center gap-1 active:scale-95" title="إزالة درجات الصفر المؤقتة غير المرصودة وتحويلها إلى (لم يُرصد)">
+                <span>🧹 تفريغ درجات الصفر المؤقتة</span>
+              </button>
+            </div>
+          </div>
 
           <!-- Excel-Style Grade Entry Table -->
           <div class="overflow-x-auto custom-scroll rounded-xl border border-slate-700 flex-1">
@@ -1890,7 +1917,6 @@
       't1_sep': {
         term: 't1',
         field: 'sep',
-        fallbackField: 'tasks',
         nameAr: 'شهر سبتمبر (بداية العام والتقييمات التمهيدية)',
         shortName: 'شهر سبتمبر',
         badge: '🌱 سبتمبر',
@@ -2140,6 +2166,113 @@
       renderGradeSheetTable();
     }
 
+    let currentGradeStatusFilter = 'all';
+
+    function setGradeFilter(mode) {
+      currentGradeStatusFilter = mode;
+      
+      const btnAll = document.getElementById('filter-btn-all');
+      const btnPending = document.getElementById('filter-btn-pending');
+      const btnGraded = document.getElementById('filter-btn-graded');
+
+      const activeCls = 'px-3.5 py-1.5 rounded-xl font-bold bg-blue-600 text-white shadow ring-2 ring-blue-400/40 transition flex items-center gap-1.5 active:scale-95';
+      const activePendingCls = 'px-3.5 py-1.5 rounded-xl font-bold bg-amber-600 text-white shadow ring-2 ring-amber-400/40 transition flex items-center gap-1.5 active:scale-95';
+      const activeGradedCls = 'px-3.5 py-1.5 rounded-xl font-bold bg-emerald-600 text-white shadow ring-2 ring-emerald-400/40 transition flex items-center gap-1.5 active:scale-95';
+      const inactiveCls = 'px-3.5 py-1.5 rounded-xl font-bold bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition flex items-center gap-1.5 active:scale-95';
+
+      if (btnAll) btnAll.className = (mode === 'all' ? activeCls : inactiveCls);
+      if (btnPending) btnPending.className = (mode === 'pending' ? activePendingCls : inactiveCls);
+      if (btnGraded) btnGraded.className = (mode === 'graded' ? activeGradedCls : inactiveCls);
+
+      renderGradeSheetTable();
+    }
+
+    function isStudentGradedForActiveView(st, isSingleMonth, monthDef, term, subjectId, allGrades) {
+      const gradeKey = 'st_' + st.id + '_' + term + '_' + subjectId;
+      const stSubj = (st.subjectScores && st.subjectScores[subjectId]) || {};
+      const stScores = stSubj.scores || {};
+      const storedRec = allGrades[gradeKey] || {};
+
+      const checkVal = (fld) => {
+        if (storedRec && storedRec[fld] !== undefined) {
+          if (storedRec[fld] === null || storedRec[fld] === '') return null;
+          const parsed = parseFloat(storedRec[fld]);
+          return isNaN(parsed) ? null : parsed;
+        }
+        const pKey = term + '_' + fld;
+        if (stScores && stScores[pKey] !== undefined && stScores[pKey] !== null) {
+          const sc = (typeof stScores[pKey] === 'object' && stScores[pKey] !== null) ? stScores[pKey].score : stScores[pKey];
+          if (sc !== undefined && sc !== null && sc !== '') {
+            const parsed = parseFloat(sc);
+            return isNaN(parsed) ? null : parsed;
+          }
+        }
+        if (stSubj && stSubj[fld] !== undefined && stSubj[fld] !== null && stSubj[fld] !== '') {
+          const parsed = parseFloat(stSubj[fld]);
+          return isNaN(parsed) ? null : parsed;
+        }
+        return null;
+      };
+
+      if (isSingleMonth && monthDef) {
+        const val = checkVal(monthDef.field);
+        return (val !== null && val !== undefined && !isNaN(val));
+      } else {
+        const m1 = checkVal('m1');
+        const m2 = checkVal('m2');
+        const tasks = checkVal('tasks');
+        const exam = checkVal('exam');
+        return [m1, m2, tasks, exam].some(v => v !== null && v !== undefined && !isNaN(v));
+      }
+    }
+
+    function clearSingleStudentGrade(gradeKey, field, studentId, subjectId, term, maxVal, btnEl) {
+      const allGrades = getStoredGrades();
+      if (!allGrades[gradeKey]) allGrades[gradeKey] = { m1: null, m2: null, tasks: null, exam: null, sep: null };
+      allGrades[gradeKey][field] = null;
+      saveStoredGrades(allGrades);
+
+      syncGradeToMasterDB(studentId, subjectId, term, field, null, maxVal);
+      flashSavePill();
+      renderGradeSheetTable();
+      showToast('تم إفراغ الدرجة وتحويل الطالب إلى (لم يتم رصده) ⏳', 'info');
+    }
+
+    function clearAllZeroGradesForActiveMonth() {
+      const selectedMonth = document.getElementById('exam-month-select')?.value;
+      if (!selectedMonth || selectedMonth === 'all') {
+        alert('يرجى تحديد شهر معين أولاً لإفراغ درجات الصفر المؤقتة فيه.');
+        return;
+      }
+      const grade = parseInt(document.getElementById('grade-select')?.value);
+      const subjectId = document.getElementById('subject-select')?.value;
+      const term = document.getElementById('term-select')?.value;
+      const def = MONTH_EXAMS_DEF[selectedMonth];
+      if (!def) return;
+
+      if (!confirm(`هل أنتِ متأكدة من تفريغ جميع درجات (0) في [${def.shortName}] لطلاب الصف ${grade} وتحويلها إلى (لم يُرصد)؟`)) {
+        return;
+      }
+
+      const students = getStoredStudents().filter(s => s.grade === grade);
+      const allGrades = getStoredGrades();
+      let clearedCount = 0;
+
+      students.forEach(st => {
+        const key = 'st_' + st.id + '_' + term + '_' + subjectId;
+        const rec = allGrades[key];
+        if (rec && (rec[def.field] === 0 || rec[def.field] === '0')) {
+          rec[def.field] = null;
+          syncGradeToMasterDB(st.id, subjectId, term, def.field, null, def.effectiveMax || def.max);
+          clearedCount++;
+        }
+      });
+
+      saveStoredGrades(allGrades);
+      renderGradeSheetTable();
+      showToast(`تم تحويل ${clearedCount} درجات صفر إلى (لم يُرصد) بنجاح 🧹✨`, 'success');
+    }
+
     function renderGradeSheetTable() {
       if (!currentTeacher) return;
 
@@ -2169,9 +2302,45 @@
       const students = getStoredStudents();
       const allGrades = getStoredGrades();
 
-      let filteredStudents = students.filter(s => s.grade === grade);
+      let rosterStudents = students.filter(s => s.grade === grade);
       if (track !== 'all') {
-        filteredStudents = filteredStudents.filter(s => s.track === track);
+        rosterStudents = rosterStudents.filter(s => s.track === track);
+      }
+
+      // Compute grade status statistics across current class & track
+      const totalRoster = rosterStudents.length;
+      let gradedRoster = 0;
+      let pendingRoster = 0;
+
+      rosterStudents.forEach(st => {
+        if (isStudentGradedForActiveView(st, isSingleMonth, monthDef, term, subjectId, allGrades)) {
+          gradedRoster++;
+        } else {
+          pendingRoster++;
+        }
+      });
+
+      // Update counters in Filter Bar & Summary Cards
+      const badgeAll = document.getElementById('filter-badge-all');
+      const badgePending = document.getElementById('filter-badge-pending');
+      const badgeGraded = document.getElementById('filter-badge-graded');
+      if (badgeAll) badgeAll.innerText = totalRoster;
+      if (badgePending) badgePending.innerText = pendingRoster;
+      if (badgeGraded) badgeGraded.innerText = gradedRoster;
+
+      const statTotal = document.getElementById('stat-student-count');
+      const statGraded = document.getElementById('stat-graded-count');
+      const statPending = document.getElementById('stat-pending-count');
+      if (statTotal) statTotal.innerText = totalRoster;
+      if (statGraded) statGraded.innerText = gradedRoster;
+      if (statPending) statPending.innerText = pendingRoster;
+
+      // Filter students list based on currentGradeStatusFilter
+      let filteredStudents = rosterStudents;
+      if (currentGradeStatusFilter === 'pending') {
+        filteredStudents = rosterStudents.filter(st => !isStudentGradedForActiveView(st, isSingleMonth, monthDef, term, subjectId, allGrades));
+      } else if (currentGradeStatusFilter === 'graded') {
+        filteredStudents = rosterStudents.filter(st => isStudentGradedForActiveView(st, isSingleMonth, monthDef, term, subjectId, allGrades));
       }
 
       const currentSub = currentTeacher.subjects.find(s => s.id === subjectId) || { nameAr: 'المادة' };
@@ -2294,10 +2463,21 @@
       // Render Table Body
       const tbody = document.getElementById('grade-sheet-tbody');
       if (filteredStudents.length === 0) {
+        const filterMsg = currentGradeStatusFilter === 'pending'
+          ? '🎉 رائع جداً! تم رصد درجات جميع طلاب هذا الفصل بالكامل ولا يوجد أي طالب متبقٍ بدون رصد.'
+          : currentGradeStatusFilter === 'graded'
+            ? 'لم يتم رصد درجات أي طالب بعد في هذا الشهر. يمكنك البدء بالرصد الآن.'
+            : 'لا يوجد طلاب مسجلين في هذا الصف والشعبة حالياً.';
+
         tbody.innerHTML = `
           <tr>
-            <td colspan="${isSingleMonth ? 4 : 7}" class="p-8 text-center text-slate-400 font-bold">
-              لا يوجد طلاب مسجلين في هذا الصف والشعبة حالياً.
+            <td colspan="${isSingleMonth ? 4 : 7}" class="p-8 text-center text-slate-300 font-bold bg-slate-900/40">
+              <div class="text-base mb-1">${filterMsg}</div>
+              ${currentGradeStatusFilter !== 'all' ? `
+                <button type="button" onclick="setGradeFilter('all')" class="mt-2 text-xs font-bold text-blue-400 hover:text-blue-300 underline">
+                  الرجوع لعرض جميع طلاب الفصل (${totalRoster})
+                </button>
+              ` : ''}
             </td>
           </tr>
         `;
@@ -2318,19 +2498,22 @@
         const storedRec = allGrades[gradeKey] || {};
 
         const getVal = (fld) => {
-          if (storedRec[fld] !== undefined && storedRec[fld] !== null && storedRec[fld] !== '') {
-            return parseFloat(storedRec[fld]);
+          if (storedRec && storedRec[fld] !== undefined) {
+            if (storedRec[fld] === null || storedRec[fld] === '') return null;
+            const parsed = parseFloat(storedRec[fld]);
+            return isNaN(parsed) ? null : parsed;
           }
           const pKey = term + '_' + fld;
-          if (stScores[pKey] !== undefined && stScores[pKey] !== null) {
+          if (stScores && stScores[pKey] !== undefined && stScores[pKey] !== null) {
             const sc = (typeof stScores[pKey] === 'object' && stScores[pKey] !== null) ? stScores[pKey].score : stScores[pKey];
-            if (sc !== undefined && sc !== null && sc !== '') return parseFloat(sc);
+            if (sc !== undefined && sc !== null && sc !== '') {
+              const parsed = parseFloat(sc);
+              return isNaN(parsed) ? null : parsed;
+            }
           }
-          if (stSubj[fld] !== undefined && stSubj[fld] !== null && stSubj[fld] !== '') {
-            return parseFloat(stSubj[fld]);
-          }
-          if (term === 't1' && st.termsScores && st.termsScores['t1_' + fld] !== undefined && st.termsScores['t1_' + fld] !== null && st.termsScores['t1_' + fld] !== '') {
-            return parseFloat(st.termsScores['t1_' + fld]);
+          if (stSubj && stSubj[fld] !== undefined && stSubj[fld] !== null && stSubj[fld] !== '') {
+            const parsed = parseFloat(stSubj[fld]);
+            return isNaN(parsed) ? null : parsed;
           }
           return null;
         };
@@ -2348,14 +2531,12 @@
           : '<span class="text-[10px] font-bold text-emerald-300 bg-emerald-900/40 px-2 py-0.5 rounded">عربي</span>';
 
         if (isSingleMonth) {
-          const rawVal = saved[monthDef.field] !== null && saved[monthDef.field] !== undefined 
-            ? saved[monthDef.field] 
-            : (saved[monthDef.fallbackField] !== null && saved[monthDef.fallbackField] !== undefined ? saved[monthDef.fallbackField] : null);
-          const fieldVal = (rawVal !== null && !isNaN(rawVal)) ? rawVal : '';
-          const hasScore = (fieldVal !== '');
+          const rawVal = saved[monthDef.field];
+          const hasScore = (rawVal !== null && rawVal !== undefined && rawVal !== '' && !isNaN(rawVal));
+          const fieldVal = hasScore ? rawVal : '';
 
           return `
-            <tr class="hover:bg-slate-700/30 transition border-b border-slate-700/50">
+            <tr class="hover:bg-slate-700/30 transition border-b border-slate-700/50 ${!hasScore ? 'bg-amber-950/10' : ''}">
               <td class="p-3 text-center text-slate-400 font-mono font-bold">${idx + 1}</td>
               <td class="p-3 font-bold text-white whitespace-nowrap">
                 <div class="text-sm">${st.nameAr}</div>
@@ -2363,22 +2544,53 @@
               </td>
               <td class="p-3 text-center">${trackBadge}</td>
               <td class="p-3 text-center bg-blue-950/20 border-x-2 border-blue-500/50">
-                <div class="flex items-center justify-center gap-2">
-                  <input type="number" min="0" max="${curMax}" step="0.5" value="${fieldVal}" placeholder="—"
-                    data-key="${gradeKey}" data-field="${monthDef.field}" data-row="${idx}" data-col="1" data-max="${curMax}"
-                    data-student-id="${st.id}" data-subject-id="${subjectId}" data-term="${term}"
-                    onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
-                    class="grade-input w-28 text-center font-black text-lg bg-slate-900 border-2 ${hasScore ? 'border-emerald-400 text-emerald-300' : 'border-blue-400 text-white'} focus:border-amber-400 focus:bg-blue-950 rounded-xl py-2 px-3 shadow-inner focus:outline-none focus:ring-2 focus:ring-amber-400/40 transition">
-                  <span class="text-sm font-black text-slate-400">/ ${curMax}</span>
+                <div class="flex items-center justify-center gap-3">
+                  <div class="relative inline-flex items-center">
+                    <input type="number" min="0" max="${curMax}" step="0.5" value="${fieldVal}" placeholder="لم يُرصد"
+                      data-key="${gradeKey}" data-field="${monthDef.field}" data-row="${idx}" data-col="1" data-max="${curMax}"
+                      data-student-id="${st.id}" data-subject-id="${subjectId}" data-term="${term}"
+                      onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
+                      class="grade-input w-28 text-center font-black text-base rounded-xl py-2 px-2.5 shadow-inner transition focus:outline-none focus:ring-2 ${hasScore ? 'border-2 border-emerald-400 bg-slate-900 text-emerald-300 focus:ring-emerald-400/40' : 'border-2 border-dashed border-amber-500/70 bg-amber-950/20 text-amber-200 placeholder-amber-400/60 focus:border-amber-400 focus:bg-slate-900 focus:ring-amber-400/40'}">
+                    <span class="text-xs font-black text-slate-400 mr-2">/ ${curMax}</span>
+                  </div>
+
+                  <div class="flex items-center gap-1.5 shrink-0">
+                    ${hasScore ? `
+                      <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 shadow-sm">
+                        <span>✅</span>
+                        <span>تم الرصد</span>
+                      </span>
+                      <button type="button" onclick="clearSingleStudentGrade('${gradeKey}', '${monthDef.field}', '${st.id}', '${subjectId}', '${term}', ${curMax}, this)" class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 rounded-lg transition" title="إفراغ الدرجة وتحويلها إلى (لم يُرصد)">
+                        <span>✕</span>
+                      </button>
+                    ` : `
+                      <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-400/40 shadow-sm animate-pulse">
+                        <span>⏳</span>
+                        <span>لم يتم رصده</span>
+                      </span>
+                      <button type="button" onclick="quickFillSingleStudentMax(this, '${monthDef.field}', ${curMax})" class="px-2 py-1 bg-blue-600/30 hover:bg-blue-600 text-blue-200 hover:text-white border border-blue-400/40 rounded-lg text-[10px] font-bold transition active:scale-95" title="رصد الدرجة الكاملة فوراً">
+                        <span>⭐ كاملة</span>
+                      </button>
+                    `}
+                  </div>
                 </div>
               </td>
             </tr>
           `;
         } else {
-          const m1Val = (saved.m1 !== null && !isNaN(saved.m1)) ? saved.m1 : '';
-          const m2Val = (saved.m2 !== null && !isNaN(saved.m2)) ? saved.m2 : '';
-          const tasksVal = (saved.tasks !== null && !isNaN(saved.tasks)) ? saved.tasks : '';
-          const examVal = (saved.exam !== null && !isNaN(saved.exam)) ? saved.exam : '';
+          const makeColInput = (fld, val, maxCol, colIdx) => {
+            const has = (val !== null && val !== undefined && val !== '' && !isNaN(val));
+            const displayVal = has ? val : '';
+            return `
+              <div class="inline-flex items-center justify-center">
+                <input type="number" min="0" max="${maxCol}" step="0.5" value="${displayVal}" placeholder="لم يُرصد"
+                  data-key="${gradeKey}" data-field="${fld}" data-row="${idx}" data-col="${colIdx}" data-max="${maxCol}"
+                  data-student-id="${st.id}" data-subject-id="${subjectId}" data-term="${term}"
+                  onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
+                  class="grade-input w-20 text-center font-bold text-xs rounded-lg py-1 px-1 focus:outline-none transition ${has ? 'border border-emerald-500/60 bg-slate-900 text-emerald-300' : 'border border-dashed border-amber-500/60 bg-amber-950/20 text-amber-200 placeholder-amber-400/50'}">
+              </div>
+            `;
+          };
 
           return `
             <tr class="hover:bg-slate-700/30 transition border-b border-slate-700/50">
@@ -2389,32 +2601,16 @@
               </td>
               <td class="p-3 text-center">${trackBadge}</td>
               <td class="p-2.5 text-center bg-blue-950/20 border-r border-slate-700/60">
-                <input type="number" min="0" max="${compM1Max}" step="0.5" value="${m1Val}" placeholder="—"
-                  data-key="${gradeKey}" data-field="m1" data-row="${idx}" data-col="1" data-max="${compM1Max}"
-                  data-student-id="${st.id}" data-subject-id="${subjectId}" data-term="${term}"
-                  onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
-                  class="grade-input w-20 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
+                ${makeColInput('m1', saved.m1, compM1Max, 1)}
               </td>
               <td class="p-2.5 text-center bg-blue-950/20 border-r border-slate-700/60">
-                <input type="number" min="0" max="${compM2Max}" step="0.5" value="${m2Val}" placeholder="—"
-                  data-key="${gradeKey}" data-field="m2" data-row="${idx}" data-col="2" data-max="${compM2Max}"
-                  data-student-id="${st.id}" data-subject-id="${subjectId}" data-term="${term}"
-                  onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
-                  class="grade-input w-20 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
+                ${makeColInput('m2', saved.m2, compM2Max, 2)}
               </td>
               <td class="p-2.5 text-center bg-indigo-950/20 border-r border-slate-700/60">
-                <input type="number" min="0" max="${compTasksMax}" step="0.5" value="${tasksVal}" placeholder="—"
-                  data-key="${gradeKey}" data-field="tasks" data-row="${idx}" data-col="3" data-max="${compTasksMax}"
-                  data-student-id="${st.id}" data-subject-id="${subjectId}" data-term="${term}"
-                  onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
-                  class="grade-input w-20 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
+                ${makeColInput('tasks', saved.tasks, compTasksMax, 3)}
               </td>
               <td class="p-2.5 text-center bg-purple-950/20 border-r border-slate-700/60">
-                <input type="number" min="0" max="${compExamMax}" step="0.5" value="${examVal}" placeholder="—"
-                  data-key="${gradeKey}" data-field="exam" data-row="${idx}" data-col="4" data-max="${compExamMax}"
-                  data-student-id="${st.id}" data-subject-id="${subjectId}" data-term="${term}"
-                  onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
-                  class="grade-input w-20 text-center font-bold text-sm bg-slate-900 border border-slate-700 rounded-lg py-1 px-1 text-white focus:outline-none">
+                ${makeColInput('exam', saved.exam, compExamMax, 4)}
               </td>
             </tr>
           `;
@@ -2441,6 +2637,9 @@
         }
       }
 
+      const isRecorded = (scoreVal !== null && scoreVal !== undefined && scoreVal !== '' && !isNaN(parseFloat(scoreVal)));
+      const cleanScore = isRecorded ? parseFloat(scoreVal) : null;
+
       // 1. Update in SmileKidsDB
       if (window.SmileKidsDB && typeof window.SmileKidsDB.getStudentById === 'function') {
         const student = window.SmileKidsDB.getStudentById(studentId);
@@ -2452,17 +2651,23 @@
             scores: {}
           };
           student.subjectScores[subjectId].scores = student.subjectScores[subjectId].scores || {};
-          const isRecorded = (scoreVal !== null && scoreVal !== undefined);
-          student.subjectScores[subjectId].scores[periodKey] = {
-            score: scoreVal,
-            maxScore: effectiveMax,
-            isRecorded: isRecorded,
-            recordedAt: new Date().toISOString()
-          };
-          student.subjectScores[subjectId][field] = scoreVal;
-
-          student.termsScores = student.termsScores || {};
-          student.termsScores[periodKey] = scoreVal;
+          if (isRecorded) {
+            student.subjectScores[subjectId].scores[periodKey] = {
+              score: cleanScore,
+              maxScore: effectiveMax,
+              isRecorded: true,
+              recordedAt: new Date().toISOString()
+            };
+            student.subjectScores[subjectId][field] = cleanScore;
+            student.termsScores = student.termsScores || {};
+            student.termsScores[periodKey] = cleanScore;
+          } else {
+            delete student.subjectScores[subjectId].scores[periodKey];
+            student.subjectScores[subjectId][field] = null;
+            if (student.termsScores) {
+              student.termsScores[periodKey] = null;
+            }
+          }
           if (typeof window.SmileKidsDB.updateStudent === 'function') {
             window.SmileKidsDB.updateStudent(studentId, student);
           }
@@ -2481,16 +2686,23 @@
             scores: {}
           };
           target.subjectScores[subjectId].scores = target.subjectScores[subjectId].scores || {};
-          target.subjectScores[subjectId].scores[periodKey] = {
-            score: scoreVal,
-            maxScore: effectiveMax,
-            isRecorded: true,
-            recordedAt: new Date().toISOString()
-          };
-          target.subjectScores[subjectId][field] = scoreVal;
-
-          target.termsScores = target.termsScores || {};
-          target.termsScores[periodKey] = scoreVal;
+          if (isRecorded) {
+            target.subjectScores[subjectId].scores[periodKey] = {
+              score: cleanScore,
+              maxScore: effectiveMax,
+              isRecorded: true,
+              recordedAt: new Date().toISOString()
+            };
+            target.subjectScores[subjectId][field] = cleanScore;
+            target.termsScores = target.termsScores || {};
+            target.termsScores[periodKey] = cleanScore;
+          } else {
+            delete target.subjectScores[subjectId].scores[periodKey];
+            target.subjectScores[subjectId][field] = null;
+            if (target.termsScores) {
+              target.termsScores[periodKey] = null;
+            }
+          }
           localStorage.setItem(STORAGE_KEY_STUDENTS, JSON.stringify(stList));
         }
       } catch (e) {
@@ -2513,15 +2725,23 @@
               scores: {}
             };
             st.subjectScores[subjectId].scores = st.subjectScores[subjectId].scores || {};
-            st.subjectScores[subjectId].scores[periodKey] = {
-              score: scoreVal,
-              maxScore: effectiveMax,
-              isRecorded: true,
-              recordedAt: new Date().toISOString()
-            };
-            st.subjectScores[subjectId][field] = scoreVal;
-            st.termsScores = st.termsScores || {};
-            st.termsScores[periodKey] = scoreVal;
+            if (isRecorded) {
+              st.subjectScores[subjectId].scores[periodKey] = {
+                score: cleanScore,
+                maxScore: effectiveMax,
+                isRecorded: true,
+                recordedAt: new Date().toISOString()
+              };
+              st.subjectScores[subjectId][field] = cleanScore;
+              st.termsScores = st.termsScores || {};
+              st.termsScores[periodKey] = cleanScore;
+            } else {
+              delete st.subjectScores[subjectId].scores[periodKey];
+              st.subjectScores[subjectId][field] = null;
+              if (st.termsScores) {
+                st.termsScores[periodKey] = null;
+              }
+            }
             localStorage.setItem(masterKey, JSON.stringify(dbData));
             // Keep all sister master keys synchronized for cross-portal consistency
             localStorage.setItem('SMILE_KIDS_MASTER_DATABASE_2026', JSON.stringify(dbData));
@@ -2541,10 +2761,12 @@
 
     function onGradeLiveCalc(inputEl) {
       const maxVal = parseFloat(inputEl.dataset.max) || 20;
-      let val = parseFloat(inputEl.value) || 0;
-      if (val > maxVal) inputEl.value = maxVal;
-      if (val < 0) inputEl.value = 0;
-
+      const rawText = inputEl.value.trim();
+      if (rawText !== '' && !isNaN(parseFloat(rawText))) {
+        let val = parseFloat(rawText);
+        if (val > maxVal) inputEl.value = maxVal;
+        if (val < 0) inputEl.value = 0;
+      }
       updateGradeStats();
     }
 
@@ -2563,22 +2785,18 @@
         if (val > max) val = max;
         if (val < 0) val = 0;
         inputEl.value = val;
-        inputEl.classList.add('border-emerald-400', 'text-emerald-300');
-        inputEl.classList.remove('border-blue-400', 'text-white');
       } else {
         inputEl.value = '';
-        inputEl.classList.remove('border-emerald-400', 'text-emerald-300');
-        inputEl.classList.add('border-blue-400', 'text-white');
       }
 
       const allGrades = getStoredGrades();
-      if (!allGrades[key]) allGrades[key] = { m1: null, m2: null, tasks: null, exam: null };
+      if (!allGrades[key]) allGrades[key] = { m1: null, m2: null, tasks: null, exam: null, sep: null };
       allGrades[key][field] = val;
 
       saveStoredGrades(allGrades);
       syncGradeToMasterDB(studentId, subjectId, term, field, val, max);
       flashSavePill();
-      updateGradeStats();
+      renderGradeSheetTable();
     }
 
     function flashSavePill() {
