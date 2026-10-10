@@ -629,6 +629,21 @@ function loadDatabaseFromStorage() {
  * Saves JSON database to Google Drive
  */
 function saveDatabaseToStorage(dbObj) {
+  // Canonical Student Identity Enforcement (protects against stale client uploads)
+  if (dbObj && Array.isArray(dbObj.students)) {
+    var CANONICAL_MAP = {
+      'SK-G8-AR-002': { nameAr: 'سعد محمود منصور', nameEn: 'Saad Mahmoud Mansour', gender: 'male' },
+      'SK-G1-AR-008': { nameAr: 'ماريا قتيبه علي', nameEn: 'Maria Qutaiba Ali', gender: 'female' }
+    };
+    dbObj.students.forEach(function(s) {
+      if (s && CANONICAL_MAP[s.id]) {
+        var c = CANONICAL_MAP[s.id];
+        s.nameAr = c.nameAr;
+        s.nameEn = c.nameEn;
+        if (c.gender) s.gender = c.gender;
+      }
+    });
+  }
   var folder = getOrCreateFolder();
   var content = JSON.stringify(dbObj, null, 2);
   var files = folder.getFilesByName(CONFIG.DRIVE_FILE_NAME);

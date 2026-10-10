@@ -32,6 +32,31 @@
   const LEGACY_STUDENT_KEYS = ['SMILE_KIDS_MASTER_DATABASE_2026_V3', 'SMILE_KIDS_MASTER_DATABASE_2026_V2', 'SMILE_KIDS_MASTER_DATABASE_2026', 'smile_kids_students_v7_custom', 'smilekids_school_v6'];
   const LEGACY_ATT_KEY = 'smile_kids_attendance_v7_data';
 
+  // Canonical Student Identity Overrides (Ironclad protection against legacy rollbacks)
+  const CANONICAL_STUDENT_OVERRIDES = {
+    'SK-G8-AR-002': {
+      nameAr: 'سعد محمود منصور',
+      nameEn: 'Saad Mahmoud Mansour',
+      gender: 'male'
+    },
+    'SK-G1-AR-008': {
+      nameAr: 'ماريا قتيبه علي',
+      nameEn: 'Maria Qutaiba Ali',
+      gender: 'female'
+    }
+  };
+
+  function enforceCanonicalStudent(s) {
+    if (!s || !s.id) return s;
+    const canon = CANONICAL_STUDENT_OVERRIDES[s.id];
+    if (canon) {
+      s.nameAr = canon.nameAr;
+      s.nameEn = canon.nameEn;
+      if (canon.gender) s.gender = canon.gender;
+    }
+    return s;
+  }
+
   // Master Initial Verified Students (147 Students across 9 Grades)
   const MASTER_INITIAL_STUDENTS = [
   {
@@ -5024,9 +5049,9 @@
     "track": "arabic",
     "trackNameAr": "عربي (رياضيات)",
     "trackNameEn": "Arabic Track",
-    "nameAr": "سجد محمود منصور",
-    "nameEn": "Saged Mahmoud Mansour",
-    "gender": "female",
+    "nameAr": "سعد محمود منصور",
+    "nameEn": "Saad Mahmoud Mansour",
+    "gender": "male",
     "sampleScores": {},
     "attendanceRecords": {},
     "attendanceNotes": {},
@@ -5875,7 +5900,7 @@
     "track": "arabic",
     "trackNameAr": "عربي (حساب)",
     "trackNameEn": "Arabic Track",
-    "nameAr": "ماريا قطيبه علي",
+    "nameAr": "ماريا قتيبه علي",
     "nameEn": "Maria Qutaiba Ali",
     "gender": "female",
     "sampleScores": {},
@@ -6293,6 +6318,14 @@
     _deletedIds: new Set(['SK-G2-LN-013']),
 
     init: function() {
+      // Auto-purge outdated legacy storage caches to prevent old sessions from resurrecting typos
+      if (typeof localStorage !== 'undefined') {
+        LEGACY_STUDENT_KEYS.forEach(k => {
+          try { localStorage.removeItem(k); } catch(e) {}
+        });
+        try { localStorage.removeItem(LEGACY_ATT_KEY); } catch(e) {}
+      }
+
       let raw = null;
       if (typeof localStorage !== 'undefined') {
         try {
@@ -6351,13 +6384,22 @@
       if (this._cache) {
         const existingIds = new Set(this._cache.map(s => s.id));
         let addedCount = 0;
+        let updatedFieldsCount = 0;
         MASTER_INITIAL_STUDENTS.forEach(defSt => {
           if (!existingIds.has(defSt.id) && !this._deletedIds.has(defSt.id)) {
             this._cache.push(this._clone(defSt));
             addedCount++;
+          } else if (existingIds.has(defSt.id)) {
+            const cachedSt = this._cache.find(s => s.id === defSt.id);
+            if (cachedSt && (cachedSt.nameAr !== defSt.nameAr || cachedSt.nameEn !== defSt.nameEn || cachedSt.gender !== defSt.gender)) {
+              cachedSt.nameAr = defSt.nameAr;
+              cachedSt.nameEn = defSt.nameEn;
+              cachedSt.gender = defSt.gender;
+              updatedFieldsCount++;
+            }
           }
         });
-        if (addedCount > 0) {
+        if (addedCount > 0 || updatedFieldsCount > 0) {
           this.save();
         }
       }
@@ -6425,6 +6467,18 @@
                 this._cache.push(remoteSt);
                 hasChanges = true;
               } else {
+                enforceCanonicalStudent(localSt);
+                enforceCanonicalStudent(remoteSt);
+                if (!CANONICAL_STUDENT_OVERRIDES[localSt.id]) {
+                  if (remoteSt.nameAr && remoteSt.nameAr !== localSt.nameAr) { localSt.nameAr = remoteSt.nameAr; hasChanges = true; }
+                  if (remoteSt.nameEn && remoteSt.nameEn !== localSt.nameEn) { localSt.nameEn = remoteSt.nameEn; hasChanges = true; }
+                  if (remoteSt.gender && remoteSt.gender !== localSt.gender) { localSt.gender = remoteSt.gender; hasChanges = true; }
+                } else {
+                  const c = CANONICAL_STUDENT_OVERRIDES[localSt.id];
+                  localSt.nameAr = c.nameAr;
+                  localSt.nameEn = c.nameEn;
+                  if (c.gender) localSt.gender = c.gender;
+                }
                 // دمج غير هدام: الحفاظ على أحدث التعديلات
                 const remoteTs = remoteSt._lastModified || 0;
                 const localTs = this._lastModified || 0;
@@ -6698,13 +6752,26 @@
                     localSt.photo = cloudSt.photo;
                     hasChanges = true;
                   }
-                  if (cloudSt.nameEn && cloudSt.nameEn !== localSt.nameEn) {
-                    localSt.nameEn = cloudSt.nameEn;
-                    hasChanges = true;
-                  }
-                  if (cloudSt.nameAr && cloudSt.nameAr !== localSt.nameAr) {
-                    localSt.nameAr = cloudSt.nameAr;
-                    hasChanges = true;
+                  enforceCanonicalStudent(localSt);
+                  enforceCanonicalStudent(cloudSt);
+                  if (!CANONICAL_STUDENT_OVERRIDES[localSt.id]) {
+                    if (cloudSt.nameEn && cloudSt.nameEn !== localSt.nameEn) {
+                      localSt.nameEn = cloudSt.nameEn;
+                      hasChanges = true;
+                    }
+                    if (cloudSt.nameAr && cloudSt.nameAr !== localSt.nameAr) {
+                      localSt.nameAr = cloudSt.nameAr;
+                      hasChanges = true;
+                    }
+                    if (cloudSt.gender && cloudSt.gender !== localSt.gender) {
+                      localSt.gender = cloudSt.gender;
+                      hasChanges = true;
+                    }
+                  } else {
+                    const c = CANONICAL_STUDENT_OVERRIDES[localSt.id];
+                    localSt.nameAr = c.nameAr;
+                    localSt.nameEn = c.nameEn;
+                    if (c.gender) localSt.gender = c.gender;
                   }
                   if (cloudSt.parentName && cloudSt.parentName !== localSt.parentName) {
                     localSt.parentName = cloudSt.parentName;
@@ -6871,7 +6938,7 @@
           exported_at: new Date(this._lastModified).toISOString(),
           total_students: this.getAllStudents().length
         };
-        payload.students = this.getAllStudents();
+        payload.students = this.getAllStudents().map(s => enforceCanonicalStudent(s));
 
         const resp = await fetch(postUrl, {
           method: 'POST',
@@ -7402,6 +7469,7 @@
     _ensureStudentFields: function() {
       if (!this._cache) return;
       this._cache.forEach(s => {
+        enforceCanonicalStudent(s);
         if (!s.attendanceRecords) s.attendanceRecords = {};
         if (!s.attendanceNotes) s.attendanceNotes = {};
         if (!s.subjectScores) s.subjectScores = {};

@@ -13390,6 +13390,12 @@ function switchMainTab(tabKey) {
   document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
   document.querySelectorAll('.subtabs-bar').forEach(bar => bar.style.display = 'none');
   
+  try {
+    sessionStorage.setItem('smile_kids_timetable_active_tab', tabKey);
+    localStorage.setItem('smile_kids_timetable_active_tab', tabKey);
+    if (history.replaceState) history.replaceState(null, '', '#' + tabKey);
+  } catch(e) {}
+
   const targetBtn = document.getElementById('btn-main-' + tabKey);
   const targetPane = document.getElementById('tab-' + tabKey);
   const targetSubbar = document.getElementById('subtabs-' + tabKey);
@@ -13398,11 +13404,12 @@ function switchMainTab(tabKey) {
   if (targetPane) targetPane.classList.add('active');
   if (targetSubbar) targetSubbar.style.display = 'block';
   
-  // Activate first subcard if available
-  if (tabKey === 'master') switchSubCard('master', 'Sun');
-  else if (tabKey === 'grades') switchSubCard('grades', 'G1');
-  else if (tabKey === 'students') switchSubCard('students', 'G1');
-  else if (tabKey === 'teachers') switchSubCard('teachers', 'Marwa');
+  // Activate saved or first subcard if available
+  const savedSub = sessionStorage.getItem('smile_kids_timetable_sub_' + tabKey);
+  if (tabKey === 'master') switchSubCard('master', savedSub || 'Sun');
+  else if (tabKey === 'grades') switchSubCard('grades', savedSub || 'G1');
+  else if (tabKey === 'students') switchSubCard('students', savedSub || 'G1');
+  else if (tabKey === 'teachers') switchSubCard('teachers', savedSub || 'Marwa');
   else if (tabKey === 'matrix') {
     document.querySelectorAll('.schedule-toolbar').forEach(tb => tb.classList.remove('active-toolbar'));
     const matrixTb = document.getElementById('toolbar-matrix');
@@ -13417,6 +13424,9 @@ function switchMainTab(tabKey) {
 
 // Sub Card Navigation
 function switchSubCard(group, key) {
+  try {
+    sessionStorage.setItem('smile_kids_timetable_sub_' + group, key);
+  } catch(e) {}
   // Update subtab buttons
   const bar = document.getElementById('subtabs-' + group);
   if (bar) {
@@ -13498,7 +13508,11 @@ function printBatch(type) {
 
 // Initialize on page load
 window.addEventListener('DOMContentLoaded', () => {
-  switchMainTab('master');
+  const savedTab = sessionStorage.getItem('smile_kids_timetable_active_tab') || localStorage.getItem('smile_kids_timetable_active_tab');
+  const hashTab = (window.location.hash || '').replace('#', '');
+  const validTabs = ['master', 'grades', 'students', 'teachers', 'matrix', 'breakdown'];
+  const initialTab = validTabs.includes(hashTab) ? hashTab : (validTabs.includes(savedTab) ? savedTab : 'master');
+  switchMainTab(initialTab);
 });
   </script>
 </body>
