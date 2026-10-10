@@ -1459,8 +1459,8 @@
               <span>📅 اختيار الاختبار / الشهر المراد رصده:</span>
             </label>
             <select id="grades-period-select" onchange="onGradesPeriodChange(this.value)" class="w-full bg-slate-900 border border-slate-700 text-white rounded-xl px-3 py-2 font-bold focus:outline-none focus:border-indigo-500">
-              <option value="t1_sep">تقييم شهر سبتمبر - SEPTEMBER REPORT</option>
-              <option value="t1_m1" selected>اختبار شهر أكتوبر (شهر 1) - FIRST MONTH REPORT</option>
+              <option value="t1_sep" selected>تقييم شهر سبتمبر - SEPTEMBER REPORT</option>
+              <option value="t1_m1">اختبار شهر أكتوبر (شهر 1) - FIRST MONTH REPORT</option>
               <option value="t1_m2">اختبار شهر نوفمبر (شهر 2) - SECOND MONTH REPORT</option>
               <option value="t1_tasks">المهام الأدائية (ديسمبر) - TASKS REPORT</option>
               <option value="t1_exam">امتحان منتصف العام (الفصل الأول) - FIRST TERM REPORT</option>
@@ -1606,8 +1606,8 @@
           <div>
             <label class="block text-xs font-bold text-slate-400 mb-1">الفترة التقييمية:</label>
             <select id="cert-period-select" onchange="renderCertificatePreview()" class="w-full bg-slate-900 border border-slate-800 text-white rounded-xl px-3 py-2 text-xs font-bold focus:outline-none focus:border-amber-500">
-              <option value="t1_sep">تقييم شهر سبتمبر - SEPTEMBER REPORT</option>
-              <option value="t1_m1" selected>اختبار شهر 1 (أكتوبر) - FIRST MONTH REPORT</option>
+              <option value="t1_sep" selected>تقييم شهر سبتمبر - SEPTEMBER REPORT</option>
+              <option value="t1_m1">اختبار شهر 1 (أكتوبر) - FIRST MONTH REPORT</option>
               <option value="t1_m2">اختبار شهر 2 (نوفمبر) - SECOND MONTH REPORT</option>
               <option value="t1_tasks">المهام الأدائية (ديسمبر) - TASKS REPORT</option>
               <option value="t1_exam">امتحان نصف العام (يناير) - FIRST TERM REPORT</option>
@@ -5780,8 +5780,8 @@
     let gradesSearchQuery = '';
     let certLanguage = 'arabic';
     let certCurrentStudentId = '';
-    let currentGradesPeriod = 't1_m1';
-    let currentGradesCustomTitle = '';
+    let currentGradesPeriod = 't1_sep';
+    let currentGradesCustomTitle = 'SEPTEMBER ASSESSMENT REPORT';
 
     // Custom Subject Max Scores Override (persisted in localStorage)
     let CUSTOM_SUBJECT_MAX = {};
@@ -8572,18 +8572,19 @@ Smile Kids school ☺`;
 
     // Period definition with progressive unlock order
     const GRADING_PERIODS_ORDER = [
-      { key: 't1_m1', titleAr: 'اختبار شهر 1 (الفصل الأول)', titleEn: 'Term 1: 1st Monthly Assessment', defaultMax: 20 },
-      { key: 't1_m2', titleAr: 'اختبار شهر 2 (الفصل الأول)', titleEn: 'Term 1: 2nd Monthly Assessment', defaultMax: 20, requires: 't1_m1', reqName: 'شهر 1 (ف1)' },
-      { key: 't1_exam', titleAr: 'امتحان نصف العام (الفصل الأول)', titleEn: 'Term 1 Final Examination', defaultMax: 30, requires: 't1_m2', reqName: 'شهر 2 (ف1)' },
-      { key: 't2_m1', titleAr: 'اختبار شهر 1 (الفصل الثاني)', titleEn: 'Term 2: 1st Monthly Assessment', defaultMax: 20, requires: 't1_exam', reqName: 'امتحان نصف العام' },
-      { key: 't2_m2', titleAr: 'اختبار شهر 2 (الفصل الثاني)', titleEn: 'Term 2: 2nd Monthly Assessment', defaultMax: 20, requires: 't2_m1', reqName: 'شهر 1 (ف2)' },
-      { key: 't2_exam', titleAr: 'امتحان نهاية العام (الفصل الثاني)', titleEn: 'Second Term Final Examination', defaultMax: 30, requires: 't2_m2', reqName: 'شهر 2 (ف2)' }
+      { key: 't1_sep', titleAr: 'تقييم شهر سبتمبر (التمهيدي)', titleEn: 'Term 1: September Assessment', defaultMax: 30 },
+      { key: 't1_m1', titleAr: 'اختبار شهر 1 (أكتوبر)', titleEn: 'Term 1: 1st Monthly Assessment', defaultMax: 20 },
+      { key: 't1_m2', titleAr: 'اختبار شهر 2 (نوفمبر)', titleEn: 'Term 1: 2nd Monthly Assessment', defaultMax: 20, requires: 't1_m1', reqName: 'شهر 1 (أكتوبر)' },
+      { key: 't1_exam', titleAr: 'امتحان نصف العام (الفصل الأول)', titleEn: 'Term 1 Final Examination', defaultMax: 30, requires: 't1_m2', reqName: 'شهر 2 (نوفمبر)' },
+      { key: 't2_m1', titleAr: 'اختبار شهر 1 (فبراير)', titleEn: 'Term 2: 1st Monthly Assessment', defaultMax: 20, requires: 't1_exam', reqName: 'امتحان نصف العام' },
+      { key: 't2_m2', titleAr: 'اختبار شهر 2 (مارس)', titleEn: 'Term 2: 2nd Monthly Assessment', defaultMax: 20, requires: 't2_m1', reqName: 'شهر 1 (فبراير)' },
+      { key: 't2_exam', titleAr: 'امتحان نهاية العام (الفصل الثاني)', titleEn: 'Second Term Final Examination', defaultMax: 30, requires: 't2_m2', reqName: 'شهر 2 (مارس)' }
     ];
 
     let currentTgTeacherId = 't_nabila';
     let currentTgSubjectId = 'math';
     let currentTgGrade = 1;
-    let currentTgPeriod = 't1_m1';
+    let currentTgPeriod = 't1_sep';
     let currentTgMaxScore = 20;
     let currentTgSearchQuery = '';
 

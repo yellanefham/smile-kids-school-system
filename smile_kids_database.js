@@ -6420,20 +6420,36 @@
             if (!Array.isArray(grades) || grades.length === 0) return;
             let updated = false;
             grades.forEach(g => {
-              if (g.studentId && g.subjectId && g.periodKey && g.score !== undefined) {
+              if (g.studentId && g.subjectId && g.periodKey && g.score !== undefined && g.score !== null) {
                 const st = this.getStudentById(g.studentId);
                 if (st) {
                   st.subjectScores = st.subjectScores || {};
-                  st.subjectScores[g.subjectId] = st.subjectScores[g.subjectId] || { scores: {} };
+                  st.subjectScores[g.subjectId] = st.subjectScores[g.subjectId] || { subjectId: g.subjectId, scores: {} };
                   st.subjectScores[g.subjectId].scores = st.subjectScores[g.subjectId].scores || {};
-                  if (st.subjectScores[g.subjectId].scores[g.periodKey] !== g.score) {
-                    st.subjectScores[g.subjectId].scores[g.periodKey] = g.score;
+                  const scNum = parseFloat(g.score);
+                  const mxNum = parseFloat(g.maxScore) || 20;
+                  if (!isNaN(scNum) && scNum > 0) {
+                    st.subjectScores[g.subjectId].scores[g.periodKey] = {
+                      score: scNum,
+                      maxScore: mxNum,
+                      isRecorded: true,
+                      updatedAt: g.updatedAt || new Date().toISOString()
+                    };
+                    const fld = g.periodKey.replace('t1_', '').replace('t2_', '');
+                    st.subjectScores[g.subjectId][fld] = scNum;
                     updated = true;
                   }
                 }
               }
             });
             if (updated) {
+              this._ensureStudentFields();
+              if (typeof localStorage !== 'undefined') {
+                try {
+                  localStorage.setItem(STORAGE_KEY, JSON.stringify(this._cache));
+                  localStorage.setItem(STORAGE_KEY + '_LAST_MODIFIED', String(Date.now()));
+                } catch(e) {}
+              }
               this._notifyListeners('firestore_grades');
             }
           },
