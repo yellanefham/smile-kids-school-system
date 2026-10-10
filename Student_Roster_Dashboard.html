@@ -7414,6 +7414,91 @@
         : (st.nameAr && st.nameAr.trim() ? st.nameAr : st.nameEn);
       const trackLabel = (st.track === 'languages') ? 'Language' : 'Arabic';
 
+      // Reusable High-End Face-Centered Student Photo Renderer
+      function renderCertPhoto(mode, customW, customH) {
+        const w = customW || 82;
+        const h = customH || 104;
+        const borderRadius = 12;
+        const innerRadius = 9;
+
+        // Styles per template theme
+        let containerBg = 'linear-gradient(135deg, #fbbf24 0%, #3b82f6 50%, #1e40af 100%)';
+        let boxShdw = '0 6px 18px rgba(37,99,235,0.28), 0 2px 6px rgba(0,0,0,0.12)';
+        let innerBorder = '1px solid rgba(251,191,36,0.6)';
+        let badgeBg = 'linear-gradient(to top, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.7) 70%, transparent 100%)';
+        let badgeTextColor = '#fbbf24';
+        let badgeText = '★ STAR ★';
+        let placeholderBg = 'linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%)';
+        let placeholderTextColor = '#1e40af';
+        let placeholderIcon = '🎓';
+
+        if (mode === 'royal') {
+          containerBg = 'linear-gradient(135deg, #f59e0b 0%, #fbbf24 45%, #b45309 100%)';
+          boxShdw = '0 8px 24px rgba(245,158,11,0.38), 0 0 0 1px rgba(251,191,36,0.5)';
+          innerBorder = '1.5px solid rgba(251,191,36,0.8)';
+          badgeBg = 'linear-gradient(to top, rgba(4,8,20,0.95) 0%, rgba(4,8,20,0.7) 75%, transparent 100%)';
+          badgeTextColor = '#fde68a';
+          badgeText = '👑 EXCELLENCE';
+          placeholderBg = 'linear-gradient(180deg, #091122 0%, #040814 100%)';
+          placeholderTextColor = '#fde68a';
+          placeholderIcon = '👑';
+        } else if (mode === 'modern') {
+          containerBg = 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #38bdf8 100%)';
+          boxShdw = '0 6px 20px rgba(99,102,241,0.35)';
+          innerBorder = '1px solid rgba(129,140,248,0.5)';
+          badgeBg = 'linear-gradient(to top, rgba(2,6,23,0.92) 0%, rgba(2,6,23,0.6) 70%, transparent 100%)';
+          badgeTextColor = '#38bdf8';
+          badgeText = 'SK · 2026';
+          placeholderBg = 'linear-gradient(180deg, #090d16 0%, #0f172a 100%)';
+          placeholderTextColor = '#818cf8';
+          placeholderIcon = '🎓';
+        } else if (mode === 'kids') {
+          containerBg = 'linear-gradient(135deg, #f43f5e 0%, #fbbf24 50%, #8b5cf6 100%)';
+          boxShdw = '0 6px 18px rgba(244,63,94,0.3)';
+          innerBorder = '1.5px solid #ffffff';
+          badgeBg = 'linear-gradient(to top, rgba(136,19,55,0.9) 0%, rgba(136,19,55,0.6) 70%, transparent 100%)';
+          badgeTextColor = '#fef08a';
+          badgeText = '⭐ SUPER STAR';
+          placeholderBg = 'linear-gradient(180deg, #fdf2f8 0%, #fce7f3 100%)';
+          placeholderTextColor = '#db2777';
+          placeholderIcon = '🌟';
+        }
+
+        if (st.photo) {
+          return `
+            <div class="cert-header-photo" style="position: relative; width: ${w}px; height: ${h}px; border-radius: ${borderRadius}px; padding: 2.5px; background: ${containerBg}; box-shadow: ${boxShdw}; flex-shrink: 0; box-sizing: border-box; overflow: visible;">
+              <!-- Outer Accent Corner Pin -->
+              <div style="position: absolute; top: -5px; right: -5px; width: 16px; height: 16px; border-radius: 50%; background: #fbbf24; border: 2px solid #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: center; font-size: 8px; z-index: 3;">✨</div>
+              
+              <div style="width: 100%; height: 100%; border-radius: ${innerRadius}px; overflow: hidden; background: #0f172a; position: relative; border: ${innerBorder}; box-sizing: border-box;">
+                <!-- Face-centered portrait image: optical zoom + upper-third focus -->
+                <img src="${st.photo}" 
+                     style="width: 100%; height: 100%; object-fit: cover; object-position: center 18%; transform: scale(1.12); transform-origin: center 20%; display: block;" 
+                     alt="صورة الطالب" 
+                     onerror="this.onerror=null; this.parentElement.innerHTML='<div style=\\'display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;font-size:11px;color:#1e40af;font-weight:bold;\\'>⭐<span style=\\'font-size:8px;\\'>Smile Kids</span></div>';">
+                
+                <!-- Bottom Chic Badge -->
+                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: ${badgeBg}; padding: 2px 0 2.5px; text-align: center; pointer-events: none; z-index: 2;">
+                  <span style="font-size: 7.5px; font-weight: 900; color: ${badgeTextColor}; letter-spacing: 0.6px; font-family: Arial, sans-serif; text-shadow: 0 1px 2px rgba(0,0,0,0.8);">${badgeText}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        } else {
+          return `
+            <div class="cert-header-photo" style="position: relative; width: ${w}px; height: ${h}px; border-radius: ${borderRadius}px; padding: 2.5px; background: ${containerBg}; box-shadow: ${boxShdw}; flex-shrink: 0; box-sizing: border-box;">
+              <div style="width: 100%; height: 100%; border-radius: ${innerRadius}px; background: ${placeholderBg}; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 4px; border: 1.5px dashed rgba(96,165,250,0.7); box-sizing: border-box;">
+                <div style="width: 30px; height: 30px; border-radius: 50%; background: #ffffff; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.15); margin-bottom: 3px;">
+                  <span style="font-size: 16px;">${placeholderIcon}</span>
+                </div>
+                <span style="font-size: 9.5px; font-weight: 900; color: ${placeholderTextColor}; line-height: 1.2;">${isEn ? 'Student Photo' : 'صورة الطالب'}</span>
+                <span style="font-size: 7.5px; font-weight: 700; color: #64748b; margin-top: 1px;">(4 × 6 cm)</span>
+              </div>
+            </div>
+          `;
+        }
+      }
+
       // ==========================================
       // TEMPLATE 2: ROYAL GOLD & NAVY PRESTIGE
       // ==========================================
@@ -7438,23 +7523,28 @@
               <div style="position: absolute; bottom: 6px; right: 8px; color: #fbbf24; font-size: 18px;">⚜️</div>
               <div style="position: absolute; bottom: 6px; left: 8px; color: #fbbf24; font-size: 18px;">⚜️</div>
 
-              <!-- Top Bar -->
-              <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1.5px solid rgba(251, 191, 36, 0.3); padding-bottom: 14px; margin-bottom: 14px;">
-                <div style="text-align: right;">
+              <!-- Top Bar with Face-Centered Photo Frame -->
+              <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1.5px solid rgba(251, 191, 36, 0.3); padding-bottom: 14px; margin-bottom: 14px; gap: 16px;">
+                <div style="text-align: right; flex: 1;">
                   <div style="font-size: 12px; color: #fcd34d; font-weight: 700;">جمهورية مصر العربية • وزارة التربية والتعليم</div>
                   <div style="font-size: 20px; font-weight: 900; color: #ffffff; margin-top: 2px;">مدارس سمايل كيدز الحديثة للغات</div>
                   <div style="font-size: 11px; color: #fbbf24;">Smile Kids International Language Schools</div>
                 </div>
 
                 <!-- Gold Wax Seal Emblem -->
-                <div style="width: 68px; height: 68px; border-radius: 50%; border: 2px solid #fbbf24; background: linear-gradient(135deg, #b45309, #f59e0b, #fef08a); padding: 3px; box-shadow: 0 0 20px rgba(245,158,11,0.4); display: flex; align-items: center; justify-content: center;">
+                <div style="width: 68px; height: 68px; border-radius: 50%; border: 2px solid #fbbf24; background: linear-gradient(135deg, #b45309, #f59e0b, #fef08a); padding: 3px; box-shadow: 0 0 20px rgba(245,158,11,0.4); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                   <div style="width: 100%; height: 100%; border-radius: 50%; background: #020617; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
                     <span style="font-size: 16px;">👑</span>
                     <span style="font-size: 7px; color: #fde68a; font-weight: 900; letter-spacing: 0.5px;">EXCELLENCE</span>
                   </div>
                 </div>
 
-                <div style="text-align: left; direction: ltr;">
+                <!-- Royal Face-Centered Photo Frame -->
+                <div style="flex-shrink: 0;">
+                  ${renderCertPhoto('royal', 78, 98)}
+                </div>
+
+                <div style="text-align: left; direction: ltr; flex: 1;">
                   <div style="font-size: 10px; color: #fcd34d; font-weight: 800; letter-spacing: 1px;">CERTIFICATE OF</div>
                   <div style="font-size: 18px; font-weight: 900; color: #fbbf24; letter-spacing: 1px;">EXCELLENCE</div>
                   <div style="font-size: 11px; color: #e2e8f0; font-weight: 700;">${reportHeaderTitle}</div>
@@ -7499,8 +7589,6 @@
                   </tr>
                 </tfoot>
               </table>
-
-
 
             </div>
           </div>
@@ -7547,12 +7635,10 @@
               </div>
             </div>
 
-            <!-- Student Profile Header Card -->
-            <div style="background: #020617; border: 1px solid #1e293b; border-radius: 16px; padding: 14px 18px; margin: 16px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
-              <div style="display: flex; align-items: center; gap: 12px;">
-                <div style="width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg, #7c3aed, #4f46e5); display: flex; align-items: center; justify-content: center; font-size: 26px;">
-                  🎓
-                </div>
+            <!-- Student Profile Header Card with Face-Centered Photo -->
+            <div style="background: #020617; border: 1px solid #1e293b; border-radius: 16px; padding: 12px 18px; margin: 16px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
+              <div style="display: flex; align-items: center; gap: 14px;">
+                ${renderCertPhoto('modern', 68, 86)}
                 <div>
                   <div style="font-size: 11px; color: #94a3b8; font-weight: 700;">${isEn ? 'Student Name:' : 'اسم الطالب رباعي:'}</div>
                   <div style="font-size: 20px; font-weight: 900; color: white;">${isEn ? (st.nameEn || st.nameAr) : (st.nameAr || st.nameEn)}</div>
@@ -7653,12 +7739,17 @@
               </div>
             </div>
 
-            <!-- Student Card -->
-            <div style="background: #ffffff; border: 2px solid #e9d5ff; border-radius: 16px; padding: 10px; text-align: center; margin: 12px 0;">
-              <div style="font-size: 11px; color: #64748b; font-weight: bold;">${isEn ? 'Super Star Name:' : 'اسم النجم الصغير:'}</div>
-              <div style="font-size: 22px; font-weight: 900; color: #6b21a8; margin-top: 2px;">${isEn ? (st.nameEn || st.nameAr) : (st.nameAr || st.nameEn)}</div>
-              <div style="display: inline-block; background: #fef3c7; border: 1px solid #fde68a; padding: 2px 12px; border-radius: 9999px; font-size: 11px; font-weight: 900; color: #92400e; margin-top: 4px;">
-                Grade ${st.grade} ${trackLabel}
+            <!-- Student Card with Face-Centered Photo -->
+            <div style="background: #ffffff; border: 2px solid #e9d5ff; border-radius: 16px; padding: 12px 18px; text-align: center; margin: 12px 0; display: flex; align-items: center; justify-content: center; gap: 20px;">
+              <div style="flex-shrink: 0;">
+                ${renderCertPhoto('kids', 76, 96)}
+              </div>
+              <div style="text-align: right;">
+                <div style="font-size: 11px; color: #64748b; font-weight: bold;">${isEn ? 'Super Star Name:' : 'اسم النجم الصغير:'}</div>
+                <div style="font-size: 23px; font-weight: 900; color: #6b21a8; margin-top: 2px;">${isEn ? (st.nameEn || st.nameAr) : (st.nameAr || st.nameEn)}</div>
+                <div style="display: inline-block; background: #fef3c7; border: 1px solid #fde68a; padding: 2px 12px; border-radius: 9999px; font-size: 11px; font-weight: 900; color: #92400e; margin-top: 4px;">
+                  Grade ${st.grade} ${trackLabel}
+                </div>
               </div>
             </div>
 
@@ -7740,25 +7831,8 @@
               </div>
             </div>
 
-            <!-- Right: Aesthetic Student Photo Box -->
-            ${st.photo 
-              ? `<div class="cert-header-photo" style="position: relative; width: 78px; height: 92px; border-radius: 12px; padding: 2.5px; background: linear-gradient(135deg, #fbbf24 0%, #2563eb 50%, #1e40af 100%); box-shadow: 0 4px 14px rgba(37,99,235,0.28); flex-shrink: 0;">
-                  <div style="width: 100%; height: 100%; border-radius: 9px; overflow: hidden; background: #f8fafc; position: relative;">
-                    <img src="${st.photo}" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="صورة الطالب" onerror="this.onerror=null; this.parentElement.innerHTML='<div style=\\'display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;font-size:11px;color:#1e40af;font-weight:bold;\\'>⭐<span style=\\'font-size:8px;\\'>Smile Kids</span></div>';">
-                    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(15,23,42,0.85) 0%, transparent 100%); padding: 1.5px 0; text-align: center;">
-                      <span style="font-size: 7.5px; font-weight: 900; color: #fbbf24; letter-spacing: 0.5px;">★ STAR ★</span>
-                    </div>
-                  </div>
-                </div>` 
-              : `<div class="cert-header-photo" style="position: relative; width: 78px; height: 92px; border-radius: 12px; padding: 2.5px; background: linear-gradient(135deg, #93c5fd 0%, #3b82f6 50%, #1d4ed8 100%); box-shadow: 0 4px 14px rgba(37,99,235,0.2); flex-shrink: 0;">
-                  <div style="width: 100%; height: 100%; border-radius: 9px; background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 3px; border: 1px dashed #60a5fa;">
-                    <div style="width: 28px; height: 28px; border-radius: 50%; background: #ffffff; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(37,99,235,0.2); margin-bottom: 2px;">
-                      <span style="font-size: 15px;">🎓</span>
-                    </div>
-                    <span style="font-size: 9.5px; font-weight: 900; color: #1e40af; line-height: 1.2;">${isEn ? 'Student Photo' : 'صورة الطالب'}</span>
-                    <span style="font-size: 7.5px; font-weight: 700; color: #64748b; margin-top: 1px;">(4 × 6 cm)</span>
-                  </div>
-                </div>`}
+            <!-- Right: Aesthetic Face-Centered Student Photo Box -->
+            ${renderCertPhoto('standard', 82, 102)}
           </div>
 
           <!-- Student Name Row: Red bold with Name & Label -->
