@@ -6914,9 +6914,10 @@
             const sc = parseFloat(tGrades[key][localFld]);
             if (!isNaN(sc)) {
               const maxSaved = localStorage.getItem('smile_kids_max_score_' + subjectId + '_' + student.grade + '_' + periodKey)
-                || localStorage.getItem('smile_kids_max_score_' + subjectId + '_' + student.grade + '_' + localFld);
-              const isExam = periodKey.includes('exam');
-              const defMax = isExam ? getDefaultSubjectMax(student.grade, subjectId) : 20;
+                || localStorage.getItem('smile_kids_max_score_' + subjectId + '_' + student.grade + '_' + localFld)
+                || localStorage.getItem('smile_kids_max_score_' + subjectId + '_g' + student.grade + '_' + periodKey)
+                || localStorage.getItem('smile_kids_max_score_' + subjectId + '_g' + student.grade + '_' + localFld);
+              const defMax = (configuredMax && configuredMax > 0) ? configuredMax : getDefaultSubjectMax(student.grade, subjectId);
               const finalMax = (configuredMax && configuredMax > 0) ? configuredMax : (maxSaved ? (parseFloat(maxSaved) || defMax) : defMax);
 
               // Cache immediately
@@ -6948,7 +6949,7 @@
           const scEntry = dbSt.subjectScores[subjectId].scores[periodKey];
           return {
             score: parseFloat(scEntry.score) || 0,
-            maxScore: configuredMax || parseFloat(scEntry.maxScore) || 20,
+            maxScore: (configuredMax && configuredMax > 0) ? configuredMax : (parseFloat(scEntry.maxScore) || getDefaultSubjectMax(student.grade, subjectId)),
             isRecorded: true
           };
         }
@@ -6967,25 +6968,24 @@
       let academicSubjectsCount = 0;
 
       subjects.forEach(sub => {
-        const scoreData = getStudentSubjectScore(student, sub.id, periodKey);
-        const isExam = periodKey && periodKey.includes('exam');
-        const configuredMax = (CUSTOM_SUBJECT_MAX && CUSTOM_SUBJECT_MAX[student.grade] && CUSTOM_SUBJECT_MAX[student.grade][sub.id] !== undefined)
-          ? parseFloat(CUSTOM_SUBJECT_MAX[student.grade][sub.id])
-          : null;
-        const effectiveMax = (scoreData && scoreData.maxScore > 0)
-          ? scoreData.maxScore
-          : (configuredMax && configuredMax > 0 ? configuredMax : (isExam ? sub.max : 20));
-
         // Religious studies (religion) is tested and appears on the certificate, but is NOT added to the Total Score (لا تضاف للمجموع)
         const isNonTotal = (sub.id === 'religion' || sub.isNonTotal);
+        if (isNonTotal) return;
 
-        if (!isNonTotal) {
-          totalMax += effectiveMax;
-          academicSubjectsCount++;
-          if (scoreData && scoreData.isRecorded) {
-            totalScore += scoreData.score;
-            recordedCount++;
-          }
+        const scoreData = getStudentSubjectScore(student, sub.id, periodKey);
+        const configuredMax = (CUSTOM_SUBJECT_MAX && CUSTOM_SUBJECT_MAX[student.grade] && CUSTOM_SUBJECT_MAX[student.grade][sub.id] !== undefined)
+          ? parseFloat(CUSTOM_SUBJECT_MAX[student.grade][sub.id])
+          : (sub.max || 20);
+
+        const effectiveMax = (scoreData && scoreData.maxScore > 0)
+          ? scoreData.maxScore
+          : (configuredMax > 0 ? configuredMax : (sub.max || 20));
+
+        totalMax += effectiveMax;
+        academicSubjectsCount++;
+        if (scoreData && scoreData.isRecorded) {
+          totalScore += scoreData.score;
+          recordedCount++;
         }
       });
 
@@ -7137,7 +7137,7 @@
       }
 
       const subjects = getGradeSubjectsConfig(st.grade, st.track);
-      const totalSubjects = subjects.length;
+      const totalSubjects = pTot.totalAcademicSubjects || subjects.filter(s => !s.isReligion && !s.isNonTotal).length || subjects.length;
 
       // If requireFullRecording is true and student has not completed all subjects
       if (config.requireFullRecording && pTot.recordedCount < totalSubjects) {
@@ -7330,9 +7330,18 @@
           pct: pct,
           apprec: apprec,
           isReligion: isReligion,
+          isNonTotal: isReligion || !!subj.isNonTotal,
           isRecorded: isRecorded
         };
       });
+
+      // Total calculations strictly for the subjects present in this certificate that count towards total
+      const academicProcessedSubjects = processedSubjects.filter(s => !s.isReligion && !s.isNonTotal);
+      const certTotalMax = academicProcessedSubjects.reduce((sum, s) => sum + (parseFloat(s.max) || 0), 0);
+      const certTotalScore = Math.round(academicProcessedSubjects.reduce((sum, s) => sum + (s.isRecorded ? (parseFloat(s.score) || 0) : 0), 0) * 10) / 10;
+      const certRecordedCount = academicProcessedSubjects.filter(s => s.isRecorded).length;
+      const certAcademicCount = academicProcessedSubjects.length;
+      const certPercentage = certTotalMax > 0 ? Math.round((certTotalScore / certTotalMax) * 1000) / 10 : 0;
 
       const rawRankTitle = calculateStudentClassRank(st, periodKey);
       let rankTitleDisplay = rawRankTitle;
@@ -7437,13 +7446,9 @@
                 <tfoot>
                   <tr style="border-top: 2px solid #fbbf24; background: rgba(245, 158, 11, 0.3); font-weight: 900; font-size: 14px; color: #ffffff;">
                     <td style="padding: 8px 12px; text-align: right;">المجموع الكلي والترتيب:</td>
-                    <td style="padding: 8px 12px; color: #fde68a;">${totalMax}</td>
-                    <td style="padding: 8px 12px; color: #ffffff; font-size: 16px;">${totalScore}</td>
+                    <td style="padding: 8px 12px; color: #fde68a;">${certTotalMax}</td>
+                    <td style="padding: 8px 12px; color: #ffffff; font-size: 16px;">${certTotalScore}</td>
                     <td style="padding: 8px 12px; color: #fef08a;">${rankTitle}</td>
-                  </tr>
-                  <tr style="border-top: 1px solid rgba(251, 191, 36, 0.3); background: rgba(15, 23, 42, 0.5); font-size: 12px; font-weight: 800;">
-                    <td style="padding: 6px 12px; text-align: right; color: #fbbf24;">سجل الحضور والغياب:</td>
-                    <td colspan="3" style="padding: 6px 12px; text-align: center; color: ${absentCount > 0 ? '#f87171' : '#4ade80'};">${attendanceStatusText}</td>
                   </tr>
                 </tfoot>
               </table>
@@ -7515,7 +7520,7 @@
                 </div>
                 <div style="background: #0f172a; border: 1px solid #334155; padding: 6px 12px; border-radius: 10px; text-align: center;">
                   <div style="font-size: 9px; color: #94a3b8;">النسبة</div>
-                  <div style="font-size: 12px; font-weight: 900; color: #34d399;">${overallPct}%</div>
+                  <div style="font-size: 12px; font-weight: 900; color: #34d399;">${certPercentage}%</div>
                 </div>
                 <div style="background: #0f172a; border: 1px solid #334155; padding: 6px 12px; border-radius: 10px; text-align: center;">
                   <div style="font-size: 9px; color: #94a3b8;">الترتيب</div>
@@ -7542,15 +7547,9 @@
                 </div>
               </div>
               <div style="text-align: left; font-family: Arial, sans-serif; direction: ltr;">
-                <div style="font-size: 20px; font-weight: 900; color: #34d399;">${totalScore} / ${totalMax}</div>
+                <div style="font-size: 20px; font-weight: 900; color: #34d399;">${certTotalScore} / ${certTotalMax}</div>
                 <div style="font-size: 10px; color: #94a3b8;">التقدير العام: ممتاز (A+)</div>
               </div>
-            </div>
-
-            <!-- Modern Attendance Banner -->
-            <div style="background: ${absentCount > 0 ? 'rgba(239,68,68,0.15)' : 'rgba(16,185,129,0.15)'}; border: 1px solid ${absentCount > 0 ? 'rgba(239,68,68,0.4)' : 'rgba(16,185,129,0.4)'}; border-radius: 12px; padding: 10px 16px; margin: 12px 0; display: flex; align-items: center; justify-content: space-between; font-size: 12px;">
-              <div style="font-weight: 800; color: #e2e8f0;">سجل الحضور والغياب:</div>
-              <div style="font-weight: 900; color: ${absentCount > 0 ? '#fca5a5' : '#6ee7b7'};">${attendanceStatusText}</div>
             </div>
 
             <!-- Modern Footer -->
@@ -7632,13 +7631,9 @@
               <tfoot>
                 <tr style="background: #fef3c7; font-weight: 900; font-size: 14px; border-top: 2px solid #fcd34d;">
                   <td style="padding: 8px 12px; text-align: right; color: #1e293b;">المجموع الكلي:</td>
-                  <td style="padding: 8px 12px; color: #64748b;">${totalMax}</td>
-                  <td style="padding: 8px 12px; color: #6b21a8; font-size: 16px;">${totalScore}</td>
+                  <td style="padding: 8px 12px; color: #64748b;">${certTotalMax}</td>
+                  <td style="padding: 8px 12px; color: #6b21a8; font-size: 16px;">${certTotalScore}</td>
                   <td style="padding: 8px 12px; color: #b45309;">${rankTitle}</td>
-                </tr>
-                <tr style="background: ${absentCount > 0 ? '#fee2e2' : '#ecfdf5'}; font-weight: 800; font-size: 12px; border-top: 1px dashed #fcd34d;">
-                  <td style="padding: 6px 12px; text-align: right; color: #1e293b;">سجل الحضور والغياب:</td>
-                  <td colspan="3" style="padding: 6px 12px; text-align: center; color: ${absentCount > 0 ? '#b91c1c' : '#047857'};">${attendanceStatusText}</td>
                 </tr>
               </tfoot>
             </table>
@@ -7766,12 +7761,12 @@
                 ${isEn ? 'Total Score' : 'المجموع الكلى'}
               </td>
               <td style="border: 1.5px solid #0f172a; padding: 5px 12px; font-size: 15px; font-weight: 900; color: #0f172a; text-align: center; font-family: Arial, sans-serif;">
-                ${totalMax}
+                ${certTotalMax}
               </td>
               <td style="border: 1.5px solid #0f172a; padding: 5px 12px; font-size: 15px; font-weight: 900; color: #0f172a; text-align: center; font-family: Arial, sans-serif;">
-                ${periodTotals.recordedCount < subjects.length && periodTotals.recordedCount > 0 
-                  ? `${totalScore} <span style="font-size: 11px; color: #d97706; font-weight: 800; font-family: 'Cairo', Arial, sans-serif;">(${isEn ? 'Partial' : 'رصد جزئي'})</span>` 
-                  : (periodTotals.recordedCount === 0 ? `<span style="font-size: 12px; color: #d97706; font-weight: 800;">${isEn ? 'Pending ⏳' : 'قيد الرصد ⏳'}</span>` : totalScore)}
+                ${certRecordedCount < certAcademicCount && certRecordedCount > 0 
+                  ? `${certTotalScore} <span style="font-size: 11px; color: #d97706; font-weight: 800; font-family: 'Cairo', Arial, sans-serif;">(${isEn ? 'Partial' : 'رصد جزئي'})</span>` 
+                  : (certRecordedCount === 0 ? `<span style="font-size: 12px; color: #d97706; font-weight: 800;">${isEn ? 'Pending ⏳' : 'قيد الرصد ⏳'}</span>` : certTotalScore)}
               </td>
             </tr>
 
@@ -7782,16 +7777,6 @@
               </td>
               <td colspan="2" style="border: 1.5px solid #0f172a; padding: 5px 12px; font-size: 18px; font-weight: 900; color: #d97706; text-shadow: 1px 1px 2px rgba(217,119,6,0.3); text-align: center;">
                 ${rankTitleDisplay}
-              </td>
-            </tr>
-
-            <!-- Attendance / Absence Row -->
-            <tr class="cert-attendance-row" style="background: ${absentCount > 0 ? '#fef2f2' : '#f0fdf4'}; border-top: 1.5px solid #0f172a;">
-              <td style="border: 1.5px solid #0f172a; padding: 5px 12px; font-size: 14.5px; font-weight: 900; color: #0f172a; text-align: center;">
-                ${isEn ? 'Attendance Record' : 'سجل الحضور والغياب'}
-              </td>
-              <td colspan="2" style="border: 1.5px solid #0f172a; padding: 5px 12px; font-size: 13.5px; font-weight: 800; color: ${absentCount > 0 ? '#dc2626' : '#15803d'}; text-align: center;">
-                ${attendanceStatusText}
               </td>
             </tr>
           </table>
