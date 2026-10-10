@@ -1459,11 +1459,14 @@
               <span>📅 اختيار الاختبار / الشهر المراد رصده:</span>
             </label>
             <select id="grades-period-select" onchange="onGradesPeriodChange(this.value)" class="w-full bg-slate-900 border border-slate-700 text-white rounded-xl px-3 py-2 font-bold focus:outline-none focus:border-indigo-500">
+              <option value="t1_sep">تقييم شهر سبتمبر - SEPTEMBER REPORT</option>
               <option value="t1_m1" selected>اختبار شهر أكتوبر (شهر 1) - FIRST MONTH REPORT</option>
               <option value="t1_m2">اختبار شهر نوفمبر (شهر 2) - SECOND MONTH REPORT</option>
+              <option value="t1_tasks">المهام الأدائية (ديسمبر) - TASKS REPORT</option>
               <option value="t1_exam">امتحان منتصف العام (الفصل الأول) - FIRST TERM REPORT</option>
               <option value="t2_m1">اختبار شهر فبراير (شهر 1 ف2) - TERM 2 FIRST MONTH REPORT</option>
               <option value="t2_m2">اختبار شهر مارس (شهر 2 ف2) - TERM 2 SECOND MONTH REPORT</option>
+              <option value="t2_tasks">المهام الأدائية (أبريل) - TERM 2 TASKS REPORT</option>
               <option value="t2_exam">امتحان نهاية العام الدراسي (الفصل الثاني)</option>
             </select>
           </div>
@@ -6064,6 +6067,12 @@
             displayName = 'تربية دينية';
           } else if (sub.id === 'arabic') {
             displayName = 'لغة عربية';
+          } else if (sub.id === 'german') {
+            displayName = 'German';
+            subDetail = 'لغة ألمانية';
+          } else if (sub.id === 'french') {
+            displayName = 'French';
+            subDetail = 'لغة فرنسية';
           }
 
           return `
@@ -6381,6 +6390,7 @@
         subs = [
           { id: 'arabic', name: 'اللغة العربية', max: 30 },
           { id: 'english_ol', name: 'لغة إنجليزية (Connect / OL)', max: 20 },
+          { id: 'english_al', name: 'لغة إنجليزية (Connect Plus / AL)', max: 20 },
           { id: 'math', name: isLang ? 'Math' : 'الرياضيات', max: 30 },
           { id: 'science', name: isLang ? 'Science' : 'العلوم', max: 30 },
           { id: 'social', name: 'الدراسات الاجتماعية', max: 20 },
@@ -7039,7 +7049,7 @@
       }
     }
 
-    async function manualSyncFromCloud() {
+    async function manualSyncFromCloud(silent = false) {
       const btn = document.getElementById('btn-manual-sync-cloud');
       const icon = document.getElementById('sync-cloud-icon');
       if (icon) icon.className = 'animate-spin inline-block';
@@ -7129,11 +7139,16 @@
         syncAllTeacherGradesIntoStudents(false);
         renderStudentsTable();
         renderCertificatePreview();
+        renderGradesModule();
         updatePrintSheetsPreview();
-        alert(`✓ تم بنجاح سحب وتحديث جميع الدرجات والبيانات من سحابة Firebase Firestore! (تم تحديث سجلات ${syncedCount || ALL_STUDENTS.length} طالب وتحديث الشهادات فورياً) 🟢`);
+        if (!silent) {
+          alert(`✓ تم بنجاح سحب وتحديث جميع الدرجات والبيانات من سحابة Firebase Firestore! (تم تحديث سجلات ${syncedCount || ALL_STUDENTS.length} طالب وتحديث الشهادات فورياً) 🟢`);
+        }
       } catch (err) {
         console.error('Manual sync from cloud error:', err);
-        alert('⚠️ حدث خطأ أثناء المزامنة السحابية. يرجى التأكد من اتصال الإنترنت.');
+        if (!silent) {
+          alert('⚠️ حدث خطأ أثناء المزامنة السحابية. يرجى التأكد من اتصال الإنترنت.');
+        }
       } finally {
         if (icon) icon.className = '';
         if (btn) btn.disabled = false;
@@ -9279,6 +9294,13 @@ Smile Kids school ☺`;
     window.addEventListener('DOMContentLoaded', () => {
       refreshStudentsFromDB();
       syncAllTeacherGradesIntoStudents();
+      if (window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore && window.SmileKidsFirebase.canUseFirestore()) {
+        manualSyncFromCloud(true);
+      }
+    });
+
+    window.addEventListener('smilekids_firebase_ready', () => {
+      manualSyncFromCloud(true);
     });
 
     if (window.SmileKidsDB && typeof window.SmileKidsDB.addListener === 'function') {

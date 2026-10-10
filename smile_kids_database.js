@@ -685,7 +685,20 @@
       "t2_total": null,
       "annual_total": null
     },
-    "subjectScores": {},
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "scores": {
+          "t1_sep": {
+            "score": 22,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T08:19:25.280Z"
+          }
+        },
+        "sep": 22
+      }
+    },
     "pin": "7608",
     "password": "7608"
   },
@@ -716,7 +729,20 @@
       "t2_total": null,
       "annual_total": null
     },
-    "subjectScores": {},
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "scores": {
+          "t1_sep": {
+            "score": 25,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T08:25:16.314Z"
+          }
+        },
+        "sep": 25
+      }
+    },
     "pin": "5220",
     "password": "5220"
   },
@@ -749,7 +775,20 @@
     },
     "phone": "",
     "notes": "",
-    "subjectScores": {},
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "scores": {
+          "t1_sep": {
+            "score": 23,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T08:25:23.128Z"
+          }
+        },
+        "sep": 23
+      }
+    },
     "pin": "6796",
     "password": "6796"
   },
@@ -780,7 +819,20 @@
       "t2_total": null,
       "annual_total": null
     },
-    "subjectScores": {},
+    "subjectScores": {
+      "arabic": {
+        "subjectId": "arabic",
+        "scores": {
+          "t1_sep": {
+            "score": 18,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T08:26:16.197Z"
+          }
+        },
+        "sep": 18
+      }
+    },
     "pin": "6943",
     "password": "6943"
   },
@@ -3847,7 +3899,20 @@
       "t2_total": null,
       "annual_total": null
     },
-    "subjectScores": {},
+    "subjectScores": {
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T10:02:40.048Z"
+          }
+        },
+        "sep": 30
+      }
+    },
     "pin": "3635",
     "password": "3635"
   },
@@ -3878,7 +3943,20 @@
       "t2_total": null,
       "annual_total": null
     },
-    "subjectScores": {},
+    "subjectScores": {
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T09:59:21.519Z"
+          }
+        },
+        "sep": 30
+      }
+    },
     "pin": "1184",
     "password": "1184"
   },
@@ -3909,7 +3987,20 @@
       "t2_total": null,
       "annual_total": null
     },
-    "subjectScores": {},
+    "subjectScores": {
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T09:59:32.835Z"
+          }
+        },
+        "sep": 30
+      }
+    },
     "pin": "6235",
     "password": "6235"
   },
@@ -3940,7 +4031,20 @@
       "t2_total": null,
       "annual_total": null
     },
-    "subjectScores": {},
+    "subjectScores": {
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T10:01:17.819Z"
+          }
+        },
+        "sep": 30
+      }
+    },
     "pin": "9160",
     "password": "9160"
   },
@@ -3971,7 +4075,20 @@
       "t2_total": null,
       "annual_total": null
     },
-    "subjectScores": {},
+    "subjectScores": {
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 29,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T10:00:38.938Z"
+          }
+        },
+        "sep": 29
+      }
+    },
     "pin": "3309",
     "password": "3309"
   },
@@ -4002,7 +4119,20 @@
       "t2_total": null,
       "annual_total": null
     },
-    "subjectScores": {},
+    "subjectScores": {
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T10:03:22.747Z"
+          }
+        },
+        "sep": 30
+      }
+    },
     "pin": "4752",
     "password": "4752"
   },
@@ -4033,7 +4163,20 @@
       "t2_total": null,
       "annual_total": null
     },
-    "subjectScores": {},
+    "subjectScores": {
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T10:00:55.650Z"
+          }
+        },
+        "sep": 30
+      }
+    },
     "pin": "8849",
     "password": "8849"
   },
@@ -4064,7 +4207,20 @@
       "t2_total": null,
       "annual_total": null
     },
-    "subjectScores": {},
+    "subjectScores": {
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T10:03:28.450Z"
+          }
+        },
+        "sep": 30
+      }
+    },
     "pin": "3249",
     "password": "3249"
   },
@@ -4095,7 +4251,20 @@
       "t2_total": null,
       "annual_total": null
     },
-    "subjectScores": {},
+    "subjectScores": {
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T10:02:16.455Z"
+          }
+        },
+        "sep": 30
+      }
+    },
     "pin": "9369",
     "password": "9369"
   },
@@ -4126,7 +4295,20 @@
       "t2_total": null,
       "annual_total": null
     },
-    "subjectScores": {},
+    "subjectScores": {
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T10:03:32.251Z"
+          }
+        },
+        "sep": 30
+      }
+    },
     "pin": "5862",
     "password": "5862"
   },
@@ -4157,7 +4339,20 @@
       "t2_total": null,
       "annual_total": null
     },
-    "subjectScores": {},
+    "subjectScores": {
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T09:59:44.130Z"
+          }
+        },
+        "sep": 30
+      }
+    },
     "pin": "2483",
     "password": "2483"
   },
@@ -4188,7 +4383,20 @@
       "t2_total": null,
       "annual_total": null
     },
-    "subjectScores": {},
+    "subjectScores": {
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T10:01:41.400Z"
+          }
+        },
+        "sep": 30
+      }
+    },
     "pin": "7944",
     "password": "7944"
   },
@@ -4250,7 +4458,20 @@
       "t2_total": null,
       "annual_total": null
     },
-    "subjectScores": {},
+    "subjectScores": {
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T10:01:58.761Z"
+          }
+        },
+        "sep": 30
+      }
+    },
     "pin": "3317",
     "password": "3317"
   },
