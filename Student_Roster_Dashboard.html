@@ -1988,6 +1988,30 @@
           <input type="text" id="edit-student-code" readonly class="bg-transparent border-0 text-xs font-mono font-bold text-cyan-400 focus:outline-none cursor-not-allowed text-left" dir="ltr">
         </div>
 
+        <!-- Student Profile Photo Section -->
+        <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800 flex items-center gap-4">
+          <div class="w-20 h-24 rounded-xl border-2 border-indigo-500/50 overflow-hidden bg-slate-900 flex items-center justify-center shrink-0 shadow-md relative group">
+            <img id="edit-student-photo-preview" src="" alt="صورة الطالب" class="w-full h-full object-cover hidden">
+            <div id="edit-student-photo-placeholder" class="text-center p-2">
+              <span class="text-2xl block">📷</span>
+              <span class="text-[9px] text-slate-400 font-bold mt-1 block">صورة الطالب</span>
+            </div>
+          </div>
+          <div class="flex-1 space-y-2">
+            <div class="flex items-center gap-2 flex-wrap">
+              <label class="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition shadow-sm active:scale-95">
+                <span>🖼️</span>
+                <span>رفع / تغيير صورة الطالب</span>
+                <input type="file" id="edit-student-photo-input" accept="image/*" class="hidden" onchange="handleEditStudentPhotoUpload(event)">
+              </label>
+              <button type="button" id="edit-student-btn-remove-photo" onclick="removeEditStudentPhoto()" class="hidden text-xs text-rose-400 hover:text-rose-300 font-bold px-2 py-1 bg-rose-950/40 rounded-lg border border-rose-900/50 transition">
+                🗑️ إزالة الصورة
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400">تظهر هذه الصورة فورياً على بطاقة الطالب (ID Card)، كشوف الدرجات، والشهادات المدرسية.</p>
+          </div>
+        </div>
+
         <div>
           <label class="block text-xs font-bold text-slate-300 mb-1">الاسم باللغة العربية (رباعي): <span class="text-red-400">*</span></label>
           <input type="text" id="edit-student-name-ar" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-sm font-bold text-white focus:outline-none focus:border-indigo-500 transition">
@@ -5110,6 +5134,66 @@
       alert(`✅ تم تسجيل وإضافة الطالب "${nameAr}" بنجاح في ${GRADE_CONFIG[grade].ar}!`);
     }
 
+    let editStudentCompressedPhoto = null;
+
+    function handleEditStudentPhotoUpload(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+          const maxDim = 400;
+          let width = img.width;
+          let height = img.height;
+          if (width > height) {
+            if (width > maxDim) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            }
+          } else {
+            if (height > maxDim) {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          editStudentCompressedPhoto = canvas.toDataURL('image/jpeg', 0.85);
+          updateEditStudentPhotoPreview(editStudentCompressedPhoto);
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function updateEditStudentPhotoPreview(photoSrc) {
+      const img = document.getElementById('edit-student-photo-preview');
+      const placeholder = document.getElementById('edit-student-photo-placeholder');
+      const btnRemove = document.getElementById('edit-student-btn-remove-photo');
+      if (photoSrc) {
+        if (img) { img.src = photoSrc; img.classList.remove('hidden'); }
+        if (placeholder) placeholder.classList.add('hidden');
+        if (btnRemove) btnRemove.classList.remove('hidden');
+      } else {
+        if (img) { img.src = ''; img.classList.add('hidden'); }
+        if (placeholder) placeholder.classList.remove('hidden');
+        if (btnRemove) btnRemove.classList.add('hidden');
+      }
+    }
+
+    function removeEditStudentPhoto() {
+      editStudentCompressedPhoto = null;
+      const inp = document.getElementById('edit-student-photo-input');
+      if (inp) inp.value = '';
+      updateEditStudentPhotoPreview(null);
+    }
+
     function openEditStudentModal(studentId) {
       const st = ALL_STUDENTS.find(s => s.id === studentId);
       if (!st) return;
@@ -5145,6 +5229,10 @@
       document.getElementById('edit-student-name-en').value = st.nameEn || '';
       document.getElementById('edit-student-track').value = st.track || 'arabic';
       document.getElementById('edit-student-gender').value = st.gender || 'male';
+
+      // Load & Preview student photo
+      editStudentCompressedPhoto = st.photo || null;
+      updateEditStudentPhotoPreview(editStudentCompressedPhoto);
 
       // Google Form integrated fields & Contact & PIN
       const emailEl = document.getElementById('edit-student-email');
@@ -5237,7 +5325,8 @@
         parentName,
         pin,
         password: pin,
-        notes
+        notes,
+        photo: editStudentCompressedPhoto
       };
 
       if (window.SmileKidsDB) {
@@ -6621,14 +6710,91 @@
       if (btn) btn.disabled = true;
 
       try {
+        let syncedCount = 0;
+
+        // 1. Guaranteed Direct Sync from Google Firebase Firestore
+        if (window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore && window.SmileKidsFirebase.canUseFirestore()) {
+          const res = await window.SmileKidsFirebase.fetchAllFromFirestore();
+          if (res && res.success) {
+            // Merge Students & Subject Scores
+            if (Array.isArray(res.students) && res.students.length > 0) {
+              const remoteMap = new Map();
+              res.students.forEach(s => remoteMap.set(s.id, s));
+
+              ALL_STUDENTS.forEach(localSt => {
+                const rem = remoteMap.get(localSt.id);
+                if (rem) {
+                  // Merge fields non-destructively
+                  Object.assign(localSt, rem);
+                  if (rem.subjectScores) {
+                    localSt.subjectScores = localSt.subjectScores || {};
+                    Object.keys(rem.subjectScores).forEach(subId => {
+                      localSt.subjectScores[subId] = Object.assign({}, localSt.subjectScores[subId] || {}, rem.subjectScores[subId]);
+                    });
+                  }
+                  if (rem.termsScores) {
+                    localSt.termsScores = Object.assign({}, localSt.termsScores || {}, rem.termsScores);
+                  }
+                }
+              });
+
+              // Add any students that exist in cloud but not locally
+              res.students.forEach(rem => {
+                if (!ALL_STUDENTS.some(s => s.id === rem.id)) {
+                  ALL_STUDENTS.push(rem);
+                }
+              });
+
+              syncedCount = res.students.length;
+            }
+
+            // Merge standalone grades collection
+            if (Array.isArray(res.grades) && res.grades.length > 0) {
+              res.grades.forEach(g => {
+                if (g.studentId && g.subjectId && g.periodKey && g.score !== undefined && g.score !== null) {
+                  const targetSt = ALL_STUDENTS.find(s => s.id === g.studentId);
+                  if (targetSt) {
+                    targetSt.subjectScores = targetSt.subjectScores || {};
+                    targetSt.subjectScores[g.subjectId] = targetSt.subjectScores[g.subjectId] || { subjectId: g.subjectId, scores: {} };
+                    targetSt.subjectScores[g.subjectId].scores = targetSt.subjectScores[g.subjectId].scores || {};
+                    const scNum = parseFloat(g.score) || 0;
+                    const mxNum = parseFloat(g.maxScore) || 20;
+                    targetSt.subjectScores[g.subjectId].scores[g.periodKey] = {
+                      score: scNum,
+                      maxScore: mxNum,
+                      isRecorded: true,
+                      updatedAt: g.updatedAt || new Date().toISOString()
+                    };
+                    const fld = g.periodKey.replace('t1_', '').replace('t2_', '');
+                    targetSt.subjectScores[g.subjectId][fld] = scNum;
+                  }
+                }
+              });
+            }
+
+            // Sync Custom Max Scores
+            if (res.customMaxScores && typeof res.customMaxScores === 'object') {
+              CUSTOM_SUBJECT_MAX = Object.assign({}, CUSTOM_SUBJECT_MAX || {}, res.customMaxScores);
+              try {
+                localStorage.setItem('smile_kids_custom_max_scores', JSON.stringify(CUSTOM_SUBJECT_MAX));
+              } catch(e) {}
+            }
+
+            saveStudentsToStorage();
+          }
+        }
+
+        // 2. Legacy fallback
         if (window.SmileKidsDB && typeof window.SmileKidsDB.syncFromCloud === 'function') {
           await window.SmileKidsDB.syncFromCloud();
         }
+
         refreshStudentsFromDB();
         syncAllTeacherGradesIntoStudents(false);
         renderStudentsTable();
         renderCertificatePreview();
-        alert('✓ تم بنجاح سحب وتحديث جميع الدرجات والبيانات من السحابة (Google Cloud) وتحديث الشهادات المدرسية!');
+        updatePrintSheetsPreview();
+        alert(`✓ تم بنجاح سحب وتحديث جميع الدرجات والبيانات من سحابة Firebase Firestore! (تم تحديث سجلات ${syncedCount || ALL_STUDENTS.length} طالب وتحديث الشهادات فورياً) 🟢`);
       } catch (err) {
         console.error('Manual sync from cloud error:', err);
         alert('⚠️ حدث خطأ أثناء المزامنة السحابية. يرجى التأكد من اتصال الإنترنت.');
@@ -6641,24 +6807,50 @@
     function getStudentSubjectScore(student, subjectId, periodKey) {
       if (!student) return null;
 
+      const fld = (periodKey || '').replace('t1_', '').replace('t2_', '');
+      const configuredMax = (CUSTOM_SUBJECT_MAX && CUSTOM_SUBJECT_MAX[student.grade] && CUSTOM_SUBJECT_MAX[student.grade][subjectId] !== undefined)
+        ? parseFloat(CUSTOM_SUBJECT_MAX[student.grade][subjectId])
+        : null;
+
       // 1. Check in-memory student.subjectScores
       if (student.subjectScores && student.subjectScores[subjectId]) {
         const subjEntry = student.subjectScores[subjectId];
-        if (subjEntry.scores && subjEntry.scores[periodKey] !== undefined) {
+        
+        // Priority A: check subjEntry.scores[periodKey]
+        if (subjEntry.scores && subjEntry.scores[periodKey] !== undefined && subjEntry.scores[periodKey] !== null) {
           const scoreEntry = subjEntry.scores[periodKey];
           if (typeof scoreEntry === 'object' && scoreEntry !== null) {
+            const sc = parseFloat(scoreEntry.score);
+            const mx = parseFloat(scoreEntry.maxScore) || configuredMax || 20;
+            if (!isNaN(sc) && (scoreEntry.isRecorded || sc > 0)) {
+              return {
+                score: sc,
+                maxScore: (configuredMax && configuredMax > 0) ? configuredMax : mx,
+                isRecorded: true
+              };
+            }
+          } else {
+            const sc = parseFloat(scoreEntry);
+            if (!isNaN(sc) && sc > 0) {
+              return {
+                score: sc,
+                maxScore: configuredMax || 20,
+                isRecorded: true
+              };
+            }
+          }
+        }
+
+        // Priority B: check direct field on subjEntry (e.g. subjEntry.m1 or subjEntry.sep)
+        if (fld && subjEntry[fld] !== undefined && subjEntry[fld] !== null && subjEntry[fld] !== '') {
+          const sc = parseFloat(subjEntry[fld]);
+          if (!isNaN(sc) && sc >= 0) {
             return {
-              score: parseFloat(scoreEntry.score) || 0,
-              maxScore: parseFloat(scoreEntry.maxScore) || 0,
+              score: sc,
+              maxScore: configuredMax || 20,
               isRecorded: true
             };
           }
-          const sc = parseFloat(scoreEntry);
-          return {
-            score: isNaN(sc) ? 0 : sc,
-            maxScore: 0,
-            isRecorded: true
-          };
         }
       }
 
@@ -6668,22 +6860,17 @@
         if (raw) {
           const tGrades = JSON.parse(raw);
           const term = (periodKey && periodKey.startsWith('t2')) ? 't2' : 't1';
-          let fld = 'm1';
-          if (periodKey.endsWith('sep')) fld = 'sep';
-          else if (periodKey.endsWith('m1')) fld = 'm1';
-          else if (periodKey.endsWith('m2')) fld = 'm2';
-          else if (periodKey.endsWith('tasks')) fld = 'tasks';
-          else if (periodKey.endsWith('exam')) fld = 'exam';
+          let localFld = fld || 'm1';
 
           const key = 'st_' + student.id + '_' + term + '_' + subjectId;
-          if (tGrades[key] && tGrades[key][fld] !== undefined && tGrades[key][fld] !== null && tGrades[key][fld] !== '') {
-            const sc = parseFloat(tGrades[key][fld]);
+          if (tGrades[key] && tGrades[key][localFld] !== undefined && tGrades[key][localFld] !== null && tGrades[key][localFld] !== '') {
+            const sc = parseFloat(tGrades[key][localFld]);
             if (!isNaN(sc)) {
               const maxSaved = localStorage.getItem('smile_kids_max_score_' + subjectId + '_' + student.grade + '_' + periodKey)
-                || localStorage.getItem('smile_kids_max_score_' + subjectId + '_' + student.grade + '_' + fld);
+                || localStorage.getItem('smile_kids_max_score_' + subjectId + '_' + student.grade + '_' + localFld);
               const isExam = periodKey.includes('exam');
               const defMax = isExam ? getDefaultSubjectMax(student.grade, subjectId) : 20;
-              const finalMax = maxSaved ? (parseFloat(maxSaved) || defMax) : defMax;
+              const finalMax = (configuredMax && configuredMax > 0) ? configuredMax : (maxSaved ? (parseFloat(maxSaved) || defMax) : defMax);
 
               // Cache immediately
               student.subjectScores = student.subjectScores || {};
@@ -6714,7 +6901,19 @@
           const scEntry = dbSt.subjectScores[subjectId].scores[periodKey];
           return {
             score: parseFloat(scEntry.score) || 0,
-            maxScore: parseFloat(scEntry.maxScore) || 0,
+            maxScore: configuredMax || parseFloat(scEntry.maxScore) || 20,
+            isRecorded: true
+          };
+        }
+      }
+
+      // 4. Check student.termsScores fallback
+      if (student.termsScores && student.termsScores[periodKey] !== undefined && student.termsScores[periodKey] !== null) {
+        const tSc = parseFloat(student.termsScores[periodKey]);
+        if (!isNaN(tSc) && tSc > 0) {
+          return {
+            score: tSc,
+            maxScore: configuredMax || 20,
             isRecorded: true
           };
         }
@@ -6969,19 +7168,34 @@
         ? `⚠️ تم تسجيل غياب (${absentCount} أيام: ${absentDates.slice(-3).join(', ')}) • نسبة الحضور: ${attRate}%`
         : `✅ منتظم • نسبة الحضور: ${attRate}%`;
       
-      // Determine Report Card Title based on period
-      const titleMap = {
+      // Determine Report Card Title dynamically linked to the month / exam name
+      const titleMapAr = {
+        't1_sep': 'اختبارات شهر سبتمبر والتقييم الأول',
+        't1_m1': 'اختبار شهر أكتوبر (الشهر الأول)',
+        't1_m2': 'اختبار شهر نوفمبر (الشهر الثاني)',
+        't1_tasks': 'تقرير المهام الأدائية والأنشطة (شهر ديسمبر)',
+        't1_exam': 'امتحان نصف العام الدراسي (الميدتيرم)',
+        't2_m1': 'اختبار شهر فبراير (الشهر الأول)',
+        't2_m2': 'اختبار شهر مارس (الشهر الثاني)',
+        't2_tasks': 'تقرير المهام الأدائية والأنشطة (شهر أبريل)',
+        't2_exam': 'امتحان نهاية العام الدراسي (Final Exam)'
+      };
+      const titleMapEn = {
         't1_sep': 'SEPTEMBER ASSESSMENT REPORT',
-        't1_m1': 'FIRST MONTH REPORT',
-        't1_m2': 'SECOND MONTH REPORT',
+        't1_m1': 'FIRST MONTH REPORT (OCTOBER)',
+        't1_m2': 'SECOND MONTH REPORT (NOVEMBER)',
         't1_tasks': 'PERFORMANCE TASKS REPORT',
-        't1_exam': 'FIRST TERM REPORT',
+        't1_exam': 'FIRST TERM MIDTERM REPORT',
         't2_m1': 'TERM 2 - FIRST MONTH REPORT',
         't2_m2': 'TERM 2 - SECOND MONTH REPORT',
-        't2_tasks': 'TERM 2 - TASKS REPORT',
+        't2_tasks': 'TERM 2 - PERFORMANCE TASKS',
         't2_exam': 'SECOND TERM FINAL REPORT'
       };
-      const reportHeaderTitle = (currentGradesCustomTitle && currentGradesCustomTitle.trim()) ? currentGradesCustomTitle : (titleMap[periodKey] || 'FIRST TERM REPORT');
+
+      const customTitle = (currentGradesCustomTitle && currentGradesCustomTitle.trim()) ? currentGradesCustomTitle.trim() : null;
+      const reportHeaderTitleAr = customTitle || (titleMapAr[periodKey] || 'تقرير نتائج تقييم الطالب');
+      const reportHeaderTitleEn = customTitle || (titleMapEn[periodKey] || 'ACADEMIC ASSESSMENT REPORT');
+      const reportHeaderTitle = (certLanguage === 'english') ? reportHeaderTitleEn : `${reportHeaderTitleAr} • ${reportHeaderTitleEn}`;
 
       // Subjects configuration for student's grade & track
       const subjects = getGradeSubjectsConfig(st.grade, st.track);
@@ -6997,9 +7211,15 @@
         const scoreData = getStudentSubjectScore(st, subj.id, periodKey);
         const subjScore = scoreData ? scoreData.score : 0;
         const isRecorded = scoreData && scoreData.isRecorded;
+
+        // Accurate maximum score: check custom max overrides per grade/subject first
+        const configuredMax = (CUSTOM_SUBJECT_MAX && CUSTOM_SUBJECT_MAX[st.grade] && CUSTOM_SUBJECT_MAX[st.grade][subj.id] !== undefined)
+          ? parseFloat(CUSTOM_SUBJECT_MAX[st.grade][subj.id])
+          : (subj.max || 20);
+
         const effectiveSubjMax = (scoreData && scoreData.maxScore > 0)
           ? scoreData.maxScore
-          : (isExam ? subj.max : 20);
+          : (configuredMax > 0 ? configuredMax : (isExam ? subj.max : 20));
 
         const displayScore = isRecorded ? subjScore : 'قيد الرصد';
         const pct = effectiveSubjMax > 0 ? Math.round((subjScore / effectiveSubjMax) * 100) : 0;
@@ -7361,10 +7581,13 @@
             </div>
 
             <!-- Center: 3D Boxed Title with outline/shadow (Matches exactly) -->
-            <div class="cert-title-box" style="margin: 0 auto; border: 2.5px solid #3b82f6; border-radius: 2px; padding: 6px 28px; background: #ffffff; box-shadow: 0 1px 4px rgba(59,130,246,0.15);">
-              <h2 class="cert-title-heading" style="margin: 0; font-family: Arial, -apple-system, sans-serif; font-size: 28px; font-weight: 900; letter-spacing: 2px; color: #1e40af; text-shadow: 2px 2px 0px #93c5fd, 3px 3px 0px #cbd5e1; text-transform: uppercase;">
-                ${reportHeaderTitle}
+            <div class="cert-title-box" style="margin: 0 auto; border: 2.5px solid #3b82f6; border-radius: 8px; padding: 6px 24px; background: #ffffff; box-shadow: 0 2px 8px rgba(59,130,246,0.18); text-align: center;">
+              <h2 class="cert-title-heading" style="margin: 0; font-family: 'Cairo', Arial, sans-serif; font-size: 22px; font-weight: 900; letter-spacing: 0.5px; color: #1e40af; text-shadow: 1px 1px 0px #93c5fd;">
+                ${reportHeaderTitleAr}
               </h2>
+              <div style="font-size: 11px; font-weight: 900; color: #2563eb; letter-spacing: 1.5px; margin-top: 2px; text-transform: uppercase; font-family: Arial, sans-serif;">
+                ${reportHeaderTitleEn}
+              </div>
             </div>
 
             <!-- Right: Student Photo or Official Photo Placeholder -->

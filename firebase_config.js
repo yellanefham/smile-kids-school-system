@@ -516,6 +516,86 @@
       }
     },
 
+    /**
+     * حفظ إعدادات النهايات العظمى للمواد في مجموعة 'settings'
+     */
+    saveCustomMaxScoresToFirestore: async function(maxScoresObj) {
+      if (!maxScoresObj || !this.canUseFirestore()) return { success: false, fallback: true };
+      try {
+        await this.db.collection('settings').doc('maxScores').set({
+          data: maxScoresObj,
+          _updatedAt: new Date().toISOString(),
+          _lastModified: Date.now()
+        }, { merge: true });
+        return { success: true };
+      } catch(err) {
+        console.warn('[SmileKids Firebase] خطأ في حفظ النهايات العظمى في Firestore:', err);
+        return { success: false, error: err.message };
+      }
+    },
+
+    /**
+     * سحب إعدادات النهايات العظمى للمواد من Firestore
+     */
+    fetchCustomMaxScoresFromFirestore: async function() {
+      if (!this.canUseFirestore()) return null;
+      try {
+        const doc = await this.db.collection('settings').doc('maxScores').get();
+        if (doc.exists && doc.data() && doc.data().data) {
+          return doc.data().data;
+        }
+        return null;
+      } catch(err) {
+        console.warn('[SmileKids Firebase] خطأ في جلب النهايات العظمى من Firestore:', err);
+        return null;
+      }
+    },
+
+    /**
+     * جلب شامل وفوري لجميع الطلاب والدرجات والإعدادات من سحابة Firestore
+     */
+    fetchAllFromFirestore: async function() {
+      if (!this.canUseFirestore()) {
+        return { success: false, fallback: true, message: 'Firebase غير متصل' };
+      }
+
+      try {
+        // 1. Fetch Students
+        const stSnapshot = await this.db.collection('students').get();
+        const students = [];
+        stSnapshot.forEach(doc => {
+          if (doc.exists) students.push(doc.data());
+        });
+
+        // 2. Fetch Grades
+        const gradesSnapshot = await this.db.collection('grades').get();
+        const grades = [];
+        gradesSnapshot.forEach(doc => {
+          if (doc.exists) grades.push(doc.data());
+        });
+
+        // 3. Fetch Settings / Max Scores
+        let customMaxScores = null;
+        try {
+          const sDoc = await this.db.collection('settings').doc('maxScores').get();
+          if (sDoc.exists && sDoc.data()) {
+            customMaxScores = sDoc.data().data;
+          }
+        } catch(e) {}
+
+        return {
+          success: true,
+          students: students,
+          grades: grades,
+          customMaxScores: customMaxScores,
+          count: students.length
+        };
+      } catch(err) {
+        console.error('[SmileKids Firebase] خطأ أثناء الجلب الشامل من Firestore:', err);
+        return { success: false, error: err.message };
+      }
+    },
+
     // =======================================================================
     // 5. خدمات المصادقة والأمان (Firebase Authentication)
     // =======================================================================

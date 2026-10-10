@@ -839,6 +839,54 @@
     const LOCKOUT_DURATION_MS = 15 * 60 * 1000; // 15 minutes
     const LOCKOUT_ALERT_TEXT = '⚠️ تم قفل الحساب مؤقتاً لمدة 15 دقيقة بعد 5 محاولات خاطئة. يرجى مراجعة إدارة المدرسة.';
 
+    // Synchronize with Cloud Firestore (Two-way cloud synchronization)
+    async function syncTeacherPortalWithFirestore() {
+      if (!window.SmileKidsFirebase || typeof window.SmileKidsFirebase.fetchAllFromFirestore !== 'function') return;
+      try {
+        const res = await window.SmileKidsFirebase.fetchAllFromFirestore();
+        if (res && res.success) {
+          let hasChanges = false;
+          // 1. Update students
+          if (Array.isArray(res.students) && res.students.length > 0) {
+            if (window.SmileKidsDB && typeof window.SmileKidsDB.loadStudentsFromCloud === 'function') {
+              window.SmileKidsDB.loadStudentsFromCloud(res.students);
+            } else {
+              localStorage.setItem(STORAGE_KEY_STUDENTS, JSON.stringify(res.students));
+            }
+            hasChanges = true;
+          }
+          // 2. Update custom max scores
+          if (res.customMaxScores && typeof res.customMaxScores === 'object') {
+            localStorage.setItem('smile_kids_custom_max_scores', JSON.stringify(res.customMaxScores));
+            hasChanges = true;
+          }
+          // 3. Update grades
+          if (Array.isArray(res.grades) && res.grades.length > 0) {
+            const storedGrades = getStoredGrades();
+            res.grades.forEach(g => {
+              if (g.studentId && g.subjectId && g.periodKey) {
+                const parts = g.periodKey.split('_');
+                const t = parts[0] || 't1';
+                const fld = parts[1] || 'm1';
+                const key = 'st_' + g.studentId + '_' + t + '_' + g.subjectId;
+                if (!storedGrades[key]) storedGrades[key] = {};
+                storedGrades[key][fld] = g.score;
+              }
+            });
+            saveStoredGrades(storedGrades);
+            hasChanges = true;
+          }
+
+          if (hasChanges && currentTeacher && activeDashboardTab === 'grades') {
+            renderGradeSheetTable();
+          }
+          console.log('[TeacherPortal] Synchronized with Cloud Firestore ☁️✨');
+        }
+      } catch(err) {
+        console.warn('[TeacherPortal] Firestore initial sync skipped:', err);
+      }
+    }
+
     // Initialize application on load
     window.addEventListener('DOMContentLoaded', () => {
       initDataStores();
@@ -846,6 +894,11 @@
       renderTeacherLoginCards();
       restoreSavedSession();
       setupKeyboardNavigation();
+      syncTeacherPortalWithFirestore();
+    });
+
+    window.addEventListener('smilekids_firebase_ready', () => {
+      syncTeacherPortalWithFirestore();
     });
 
     // Auto-refresh when grades/students change in other tabs or portals
@@ -2046,6 +2099,13 @@
         if (!customObj[curGrade]) customObj[curGrade] = {};
         customObj[curGrade][curSubj] = newMax;
         localStorage.setItem('smile_kids_custom_max_scores', JSON.stringify(customObj));
+
+        // Push to Cloud Firestore for cross-device synchronization (Admin & Certificates)
+        if (window.SmileKidsFirebase && typeof window.SmileKidsFirebase.saveCustomMaxScoresToFirestore === 'function') {
+          window.SmileKidsFirebase.saveCustomMaxScoresToFirestore(customObj).catch(err => {
+            console.warn('[TeacherPortal] Error saving custom max scores to Firestore:', err);
+          });
+        }
       } catch (e) {}
     }
 
@@ -2257,14 +2317,52 @@
       const students = getStoredStudents().filter(s => s.grade === grade);
       const allGrades = getStoredGrades();
       let clearedCount = 0;
+      const curMax = def.effectiveMax || def.max || 20;
 
       students.forEach(st => {
         const key = 'st_' + st.id + '_' + term + '_' + subjectId;
         const rec = allGrades[key];
-        if (rec && (rec[def.field] === 0 || rec[def.field] === '0')) {
-          rec[def.field] = null;
-          syncGradeToMasterDB(st.id, subjectId, term, def.field, null, def.effectiveMax || def.max);
+        
+        let hasZero = false;
+        if (rec && (rec[def.field] === 0 || rec[def.field] === '0' || parseFloat(rec[def.field]) === 0)) {
+          hasZero = true;
+        }
+
+        const stSubj = (st.subjectScores && st.subjectScores[subjectId]) || {};
+        const stScores = stSubj.scores || {};
+        const pScore = stScores[selectedMonth];
+        const pScoreVal = (typeof pScore === 'object' && pScore !== null) ? pScore.score : pScore;
+        if (pScoreVal === 0 || pScoreVal === '0' || parseFloat(pScoreVal) === 0) {
+          hasZero = true;
+        }
+        if (stSubj[def.field] === 0 || stSubj[def.field] === '0' || parseFloat(stSubj[def.field]) === 0) {
+          hasZero = true;
+        }
+        if (st.termsScores && (st.termsScores[selectedMonth] === 0 || st.termsScores[selectedMonth] === '0' || parseFloat(st.termsScores[selectedMonth]) === 0)) {
+          hasZero = true;
+        }
+
+        if (hasZero) {
+          if (!allGrades[key]) {
+            allGrades[key] = { m1: null, m2: null, tasks: null, exam: null, sep: null };
+          }
+          allGrades[key][def.field] = null;
+          syncGradeToMasterDB(st.id, subjectId, term, def.field, null, curMax);
           clearedCount++;
+        }
+      });
+
+      // Also reset any visible DOM input currently showing 0
+      const visibleInputs = document.querySelectorAll('.grade-input');
+      visibleInputs.forEach(inp => {
+        if (inp.value === '0' || parseFloat(inp.value) === 0) {
+          inp.value = '';
+          const stId = inp.getAttribute('data-student-id');
+          const k = inp.getAttribute('data-key');
+          const fld = inp.getAttribute('data-field') || def.field;
+          const mx = parseFloat(inp.getAttribute('data-max')) || curMax;
+          if (k && allGrades[k]) allGrades[k][fld] = null;
+          if (stId) syncGradeToMasterDB(stId, subjectId, term, fld, null, mx);
         }
       });
 
@@ -2423,10 +2521,9 @@
           const curMax = monthDef.effectiveMax || monthDef.max;
           thead.innerHTML = `
             <tr class="bg-slate-900 text-slate-300 border-b border-slate-700 font-bold text-sm">
-              <th class="p-3 w-12 text-center">#</th>
-              <th class="p-3 min-w-[220px]">اسم الطالب / الطالبة</th>
-              <th class="p-3 w-28 text-center">المسار</th>
-              <th class="p-3.5 min-w-[220px] text-center bg-blue-900/50 border-x-2 border-blue-400 text-white font-black text-sm shadow-inner">
+              <th class="p-3 w-10 text-center hidden sm:table-cell">#</th>
+              <th class="p-3 text-right">اسم الطالب / الطالبة</th>
+              <th class="p-3 text-center bg-blue-900/50 border-r border-blue-400 text-white font-black text-sm shadow-inner">
                 <div class="flex items-center justify-center gap-1.5">
                   <span>${monthDef.badge}</span>
                   <span class="text-amber-300 font-black">${monthDef.nameAr}</span>
@@ -2471,7 +2568,7 @@
 
         tbody.innerHTML = `
           <tr>
-            <td colspan="${isSingleMonth ? 4 : 7}" class="p-8 text-center text-slate-300 font-bold bg-slate-900/40">
+            <td colspan="${isSingleMonth ? 3 : 7}" class="p-8 text-center text-slate-300 font-bold bg-slate-900/40">
               <div class="text-base mb-1">${filterMsg}</div>
               ${currentGradeStatusFilter !== 'all' ? `
                 <button type="button" onclick="setGradeFilter('all')" class="mt-2 text-xs font-bold text-blue-400 hover:text-blue-300 underline">
@@ -2537,36 +2634,39 @@
 
           return `
             <tr class="hover:bg-slate-700/30 transition border-b border-slate-700/50 ${!hasScore ? 'bg-amber-950/10' : ''}">
-              <td class="p-3 text-center text-slate-400 font-mono font-bold">${idx + 1}</td>
-              <td class="p-3 font-bold text-white whitespace-nowrap">
-                <div class="text-sm">${st.nameAr}</div>
-                <span class="block text-[10px] text-slate-400 font-mono">${st.id}</span>
+              <td class="p-3 text-center text-slate-400 font-mono font-bold hidden sm:table-cell">${idx + 1}</td>
+              <td class="p-2 sm:p-3 font-bold text-white">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span class="text-xs text-slate-400 font-mono sm:hidden">#${idx + 1}</span>
+                  <span class="text-sm sm:text-base font-black text-white">${st.nameAr}</span>
+                  ${trackBadge}
+                </div>
+                <span class="block text-[10px] text-slate-400 font-mono mt-0.5">${st.id}</span>
               </td>
-              <td class="p-3 text-center">${trackBadge}</td>
-              <td class="p-3 text-center bg-blue-950/20 border-x-2 border-blue-500/50">
-                <div class="flex items-center justify-center gap-3">
+              <td class="p-2 sm:p-3 text-center bg-blue-950/20 border-r border-blue-500/50">
+                <div class="flex items-center justify-center sm:justify-start md:justify-center gap-2 sm:gap-3 flex-wrap sm:flex-nowrap">
                   <div class="relative inline-flex items-center">
                     <input type="number" min="0" max="${curMax}" step="0.5" value="${fieldVal}" placeholder="لم يُرصد"
                       data-key="${gradeKey}" data-field="${monthDef.field}" data-row="${idx}" data-col="1" data-max="${curMax}"
                       data-student-id="${st.id}" data-subject-id="${subjectId}" data-term="${term}"
                       onchange="onGradeInputChange(this)" oninput="onGradeLiveCalc(this)"
-                      class="grade-input w-28 text-center font-black text-base rounded-xl py-2 px-2.5 shadow-inner transition focus:outline-none focus:ring-2 ${hasScore ? 'border-2 border-emerald-400 bg-slate-900 text-emerald-300 focus:ring-emerald-400/40' : 'border-2 border-dashed border-amber-500/70 bg-amber-950/20 text-amber-200 placeholder-amber-400/60 focus:border-amber-400 focus:bg-slate-900 focus:ring-amber-400/40'}">
-                    <span class="text-xs font-black text-slate-400 mr-2">/ ${curMax}</span>
+                      class="grade-input w-24 sm:w-28 text-center font-black text-base rounded-xl py-1.5 sm:py-2 px-2 shadow-inner transition focus:outline-none focus:ring-2 ${hasScore ? 'border-2 border-emerald-400 bg-slate-900 text-emerald-300 focus:ring-emerald-400/40' : 'border-2 border-dashed border-amber-500/70 bg-amber-950/20 text-amber-200 placeholder-amber-400/60 focus:border-amber-400 focus:bg-slate-900 focus:ring-amber-400/40'}">
+                    <span class="text-xs font-black text-slate-400 mr-1.5">/ ${curMax}</span>
                   </div>
 
-                  <div class="flex items-center gap-1.5 shrink-0">
+                  <div class="flex items-center gap-1 shrink-0">
                     ${hasScore ? `
-                      <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 shadow-sm">
+                      <span class="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 shadow-sm">
                         <span>✅</span>
-                        <span>تم الرصد</span>
+                        <span class="hidden sm:inline">تم الرصد</span>
                       </span>
-                      <button type="button" onclick="clearSingleStudentGrade('${gradeKey}', '${monthDef.field}', '${st.id}', '${subjectId}', '${term}', ${curMax}, this)" class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 rounded-lg transition" title="إفراغ الدرجة وتحويلها إلى (لم يُرصد)">
+                      <button type="button" onclick="clearSingleStudentGrade('${gradeKey}', '${monthDef.field}', '${st.id}', '${subjectId}', '${term}', ${curMax}, this)" class="p-1 sm:p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 rounded-lg transition" title="إفراغ الدرجة وتحويلها إلى (لم يُرصد)">
                         <span>✕</span>
                       </button>
                     ` : `
-                      <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-400/40 shadow-sm animate-pulse">
+                      <span class="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-400/40 shadow-sm animate-pulse">
                         <span>⏳</span>
-                        <span>لم يتم رصده</span>
+                        <span class="hidden sm:inline">لم يتم رصده</span>
                       </span>
                       <button type="button" onclick="quickFillSingleStudentMax(this, '${monthDef.field}', ${curMax})" class="px-2 py-1 bg-blue-600/30 hover:bg-blue-600 text-blue-200 hover:text-white border border-blue-400/40 rounded-lg text-[10px] font-bold transition active:scale-95" title="رصد الدرجة الكاملة فوراً">
                         <span>⭐ كاملة</span>
@@ -2757,6 +2857,46 @@
       try {
         localStorage.setItem('smile_kids_last_grade_sync', Date.now().toString());
       } catch (e) {}
+
+      // 5. Direct Real-time Google Cloud Firestore Sync (Cross-Device & Certificates synchronization)
+      if (window.SmileKidsFirebase && typeof window.SmileKidsFirebase.canUseFirestore === 'function' && window.SmileKidsFirebase.canUseFirestore()) {
+        try {
+          let updatedStudentObj = null;
+          if (window.SmileKidsDB && typeof window.SmileKidsDB.getStudentById === 'function') {
+            updatedStudentObj = window.SmileKidsDB.getStudentById(studentId);
+          }
+          if (!updatedStudentObj) {
+            try {
+              const list = JSON.parse(localStorage.getItem(STORAGE_KEY_STUDENTS)) || [];
+              updatedStudentObj = list.find(s => s.id === studentId);
+            } catch(e) {}
+          }
+
+          const gradeRecord = {
+            studentId: String(studentId),
+            subjectId: subjectId,
+            periodKey: periodKey,
+            score: cleanScore,
+            maxScore: effectiveMax
+          };
+          if (updatedStudentObj) {
+            gradeRecord.termsScores = updatedStudentObj.termsScores || {};
+            gradeRecord.subjectScores = updatedStudentObj.subjectScores || {};
+          }
+
+          window.SmileKidsFirebase.saveGradeToFirestore(gradeRecord).catch(err => {
+            console.warn('[TeacherPortal] Firestore saveGrade error:', err);
+          });
+
+          if (updatedStudentObj) {
+            window.SmileKidsFirebase.saveStudentToFirestore(updatedStudentObj).catch(err => {
+              console.warn('[TeacherPortal] Firestore saveStudent error:', err);
+            });
+          }
+        } catch(cloudErr) {
+          console.warn('[TeacherPortal] Cloud Firestore sync error:', cloudErr);
+        }
+      }
     }
 
     function onGradeLiveCalc(inputEl) {
