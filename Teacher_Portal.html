@@ -916,6 +916,28 @@
       }
       if (!localStorage.getItem(STORAGE_KEY_GRADES)) {
         localStorage.setItem(STORAGE_KEY_GRADES, JSON.stringify({}));
+      } else {
+        // Automatically sanitize legacy zeros into null so they show as unrecorded
+        try {
+          const rawGrades = localStorage.getItem(STORAGE_KEY_GRADES);
+          if (rawGrades) {
+            const gObj = JSON.parse(rawGrades);
+            let modified = false;
+            Object.keys(gObj).forEach(k => {
+              if (gObj[k]) {
+                ['m1', 'm2', 'tasks', 'exam', 'sep'].forEach(f => {
+                  if (gObj[k][f] === 0 || gObj[k][f] === '0' || parseFloat(gObj[k][f]) === 0) {
+                    gObj[k][f] = null;
+                    modified = true;
+                  }
+                });
+              }
+            });
+            if (modified) {
+              localStorage.setItem(STORAGE_KEY_GRADES, JSON.stringify(gObj));
+            }
+          }
+        } catch(e) {}
       }
       if (!localStorage.getItem(STORAGE_KEY_ATTENDANCE)) {
         localStorage.setItem(STORAGE_KEY_ATTENDANCE, JSON.stringify([]));
@@ -2257,33 +2279,33 @@
         if (storedRec && storedRec[fld] !== undefined) {
           if (storedRec[fld] === null || storedRec[fld] === '') return null;
           const parsed = parseFloat(storedRec[fld]);
-          return isNaN(parsed) ? null : parsed;
+          return (isNaN(parsed) || parsed <= 0) ? null : parsed;
         }
         const pKey = term + '_' + fld;
         if (stScores && stScores[pKey] !== undefined && stScores[pKey] !== null) {
           const sc = (typeof stScores[pKey] === 'object' && stScores[pKey] !== null) ? stScores[pKey].score : stScores[pKey];
           if (sc !== undefined && sc !== null && sc !== '') {
             const parsed = parseFloat(sc);
-            return isNaN(parsed) ? null : parsed;
+            return (isNaN(parsed) || parsed <= 0) ? null : parsed;
           }
         }
         if (stSubj && stSubj[fld] !== undefined && stSubj[fld] !== null && stSubj[fld] !== '') {
           const parsed = parseFloat(stSubj[fld]);
-          return isNaN(parsed) ? null : parsed;
+          return (isNaN(parsed) || parsed <= 0) ? null : parsed;
         }
         return null;
       };
 
       if (isSingleMonth && monthDef) {
         const val = checkVal(monthDef.field);
-        return (val !== null && val !== undefined && !isNaN(val));
+        return (val !== null && val !== undefined && !isNaN(val) && val > 0);
       } else {
         const sep = term === 't1' ? checkVal('sep') : null;
         const m1 = checkVal('m1');
         const m2 = checkVal('m2');
         const tasks = checkVal('tasks');
         const exam = checkVal('exam');
-        return [sep, m1, m2, tasks, exam].some(v => v !== null && v !== undefined && !isNaN(v));
+        return [sep, m1, m2, tasks, exam].some(v => v !== null && v !== undefined && !isNaN(v) && v > 0);
       }
     }
 
@@ -2626,29 +2648,34 @@
           if (storedRec && storedRec[fld] !== undefined) {
             if (storedRec[fld] === null || storedRec[fld] === '') return null;
             const parsed = parseFloat(storedRec[fld]);
-            return isNaN(parsed) ? null : parsed;
+            return (isNaN(parsed) || parsed <= 0) ? null : parsed;
           }
           const pKey = term + '_' + fld;
           if (stScores && stScores[pKey] !== undefined && stScores[pKey] !== null) {
             const sc = (typeof stScores[pKey] === 'object' && stScores[pKey] !== null) ? stScores[pKey].score : stScores[pKey];
             if (sc !== undefined && sc !== null && sc !== '') {
               const parsed = parseFloat(sc);
-              return isNaN(parsed) ? null : parsed;
+              return (isNaN(parsed) || parsed <= 0) ? null : parsed;
             }
           }
           if (stSubj && stSubj[fld] !== undefined && stSubj[fld] !== null && stSubj[fld] !== '') {
             const parsed = parseFloat(stSubj[fld]);
-            return isNaN(parsed) ? null : parsed;
+            return (isNaN(parsed) || parsed <= 0) ? null : parsed;
           }
           return null;
+        };
+
+        const getSafeNum = (v) => {
+          const p = parseFloat(v);
+          return (!isNaN(p) && p > 0) ? p : null;
         };
 
         const saved = {
           m1: getVal('m1'),
           m2: getVal('m2'),
-          tasks: storedRec.tasks !== undefined && storedRec.tasks !== null && storedRec.tasks !== '' ? parseFloat(storedRec.tasks) : getVal('tasks'),
+          tasks: (storedRec.tasks !== undefined && storedRec.tasks !== null && storedRec.tasks !== '') ? getSafeNum(storedRec.tasks) : getVal('tasks'),
           exam: getVal('exam'),
-          sep: storedRec.sep !== undefined && storedRec.sep !== null && storedRec.sep !== '' ? parseFloat(storedRec.sep) : getVal('sep')
+          sep: (storedRec.sep !== undefined && storedRec.sep !== null && storedRec.sep !== '') ? getSafeNum(storedRec.sep) : getVal('sep')
         };
 
         const trackBadge = st.track === 'languages' 
@@ -2783,7 +2810,7 @@
         }
       }
 
-      const isRecorded = (scoreVal !== null && scoreVal !== undefined && scoreVal !== '' && !isNaN(parseFloat(scoreVal)));
+      const isRecorded = (scoreVal !== null && scoreVal !== undefined && scoreVal !== '' && !isNaN(parseFloat(scoreVal)) && parseFloat(scoreVal) > 0);
       const cleanScore = isRecorded ? parseFloat(scoreVal) : null;
 
       // 1. Update in SmileKidsDB
@@ -2954,8 +2981,13 @@
       if (rawText !== '' && !isNaN(parseFloat(rawText))) {
         val = parseFloat(rawText);
         if (val > max) val = max;
-        if (val < 0) val = 0;
-        inputEl.value = val;
+        if (val <= 0) {
+          val = null;
+          inputEl.value = '';
+          showToast('درجة الصفر تعتبر (لم يُرصد) ليتم مراجعة الطالب ورصد درجته الحقيقية ⚠️', 'info');
+        } else {
+          inputEl.value = val;
+        }
       } else {
         inputEl.value = '';
       }

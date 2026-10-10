@@ -5866,13 +5866,12 @@
           if (s.track === 'arabic' && sub.id === 'english_al') {
             return `<td class="py-2.5 px-1.5 text-center border-r border-slate-800/80 text-slate-500 font-mono font-bold text-sm bg-slate-950/40" title="مادة Connect Plus لقسم اللغات فقط">—</td>`;
           }
-          const isReligion = (sub.id === 'religion');
           const scoreData = getStudentSubjectScore(s, sub.id, currentGradesPeriod);
-          const val = scoreData ? scoreData.score : 0;
-          const isRecorded = Boolean(scoreData && scoreData.isRecorded && scoreData.score !== null && scoreData.score !== undefined);
+          const val = scoreData ? scoreData.score : null;
+          const isRecorded = Boolean(scoreData && scoreData.isRecorded && scoreData.score > 0);
           const cellBorder = isRecorded 
             ? 'border-emerald-500/80 bg-emerald-950/40 text-emerald-200 font-black shadow-[inset_0_0_8px_rgba(16,185,129,0.2)]' 
-            : 'border-slate-700 bg-slate-900 text-slate-400 font-bold hover:border-slate-500';
+            : 'border-dashed border-amber-500/60 bg-amber-950/10 text-amber-200 font-bold hover:border-amber-400';
           const inputVal = isRecorded ? val : '';
 
           return `
@@ -5883,7 +5882,7 @@
                 max="${sub.max}" 
                 step="0.5" 
                 value="${inputVal}" 
-                placeholder="—"
+                placeholder="لم يُرصد"
                 oninput="onStudentSubjectInput('${s.id}', '${sub.id}', this.value, ${sub.max})"
                 onfocus="this.select()"
                 onclick="this.select()"
@@ -5937,19 +5936,27 @@
     }
 
     function onStudentSubjectInput(studentId, subjectId, val, maxScore) {
-      let v = parseFloat(val) || 0;
-      if (v > maxScore) v = maxScore;
-
       const student = ALL_STUDENTS.find(s => s.id === studentId);
       if (!student) return;
 
+      const raw = String(val || '').trim();
+      let v = (raw === '' || isNaN(parseFloat(raw))) ? null : parseFloat(raw);
+      if (v !== null && v > maxScore) v = maxScore;
+      if (v !== null && v <= 0) v = null; // Zero is not an exam grade: convert to unrecorded
+
       student.subjectScores = student.subjectScores || {};
       student.subjectScores[subjectId] = student.subjectScores[subjectId] || { scores: {} };
-      student.subjectScores[subjectId].scores[currentGradesPeriod] = {
-        score: v,
-        maxScore: maxScore,
-        updatedAt: new Date().toISOString()
-      };
+
+      if (v !== null && v > 0) {
+        student.subjectScores[subjectId].scores[currentGradesPeriod] = {
+          score: v,
+          maxScore: maxScore,
+          isRecorded: true,
+          updatedAt: new Date().toISOString()
+        };
+      } else {
+        delete student.subjectScores[subjectId].scores[currentGradesPeriod];
+      }
 
       // Recalculate total for this student
       const pTot = getStudentPeriodTotal(student, currentGradesPeriod);
@@ -5982,7 +5989,7 @@
           't2_m1': 'm1', 't2_m2': 'm2', 't2_tasks': 'tasks', 't2_exam': 'exam'
         };
         const fld = fldMap[currentGradesPeriod] || 'm1';
-        tGrades[key][fld] = v;
+        tGrades[key][fld] = (v !== null && v > 0) ? v : null;
         localStorage.setItem('smile_kids_teacher_grades', JSON.stringify(tGrades));
       } catch(e) {}
     }
@@ -6648,8 +6655,38 @@
     }
 
     // ==================== AUTO-READ & COMPILE TEACHER PORTAL GRADES ====================
+    function purgeZeroGradesGlobally() {
+      try {
+        let changed = false;
+        const raw = localStorage.getItem('smile_kids_teacher_grades');
+        if (raw) {
+          const tGrades = JSON.parse(raw);
+          Object.keys(tGrades).forEach(key => {
+            const rec = tGrades[key];
+            if (rec && typeof rec === 'object') {
+              ['sep', 'm1', 'm2', 'tasks', 'exam'].forEach(fld => {
+                if (rec[fld] !== undefined && rec[fld] !== null && rec[fld] !== '') {
+                  const sc = parseFloat(rec[fld]);
+                  if (!isNaN(sc) && sc <= 0) {
+                    delete rec[fld];
+                    changed = true;
+                  }
+                }
+              });
+            }
+          });
+          if (changed) {
+            localStorage.setItem('smile_kids_teacher_grades', JSON.stringify(tGrades));
+          }
+        }
+      } catch (e) {
+        console.warn('purgeZeroGradesGlobally error:', e);
+      }
+    }
+
     function syncAllTeacherGradesIntoStudents(notifyUser = false) {
       let syncCount = 0;
+      purgeZeroGradesGlobally();
 
       // 1. Read from localStorage smile_kids_teacher_grades
       try {
@@ -6686,7 +6723,7 @@
             Object.entries(fieldMapping).forEach(([fld, pKey]) => {
               if (record[fld] !== undefined && record[fld] !== null && record[fld] !== '') {
                 const sc = parseFloat(record[fld]);
-                if (!isNaN(sc)) {
+                if (!isNaN(sc) && sc > 0) {
                   const maxSaved = localStorage.getItem('smile_kids_max_score_' + subjId + '_' + st.grade + '_' + pKey)
                     || localStorage.getItem('smile_kids_max_score_' + subjId + '_' + st.grade + '_' + fld);
                   const isExam = pKey.includes('exam');
@@ -6700,6 +6737,11 @@
                     updatedAt: new Date().toISOString()
                   };
                   syncCount++;
+                } else if (!isNaN(sc) && sc <= 0) {
+                  delete record[fld];
+                  if (st.subjectScores && st.subjectScores[subjId] && st.subjectScores[subjId].scores) {
+                    delete st.subjectScores[subjId].scores[pKey];
+                  }
                 }
               }
             });
@@ -6720,10 +6762,13 @@
               Object.keys(dbSt.subjectScores).forEach(subId => {
                 st.subjectScores[subId] = st.subjectScores[subId] || { subjectId: subId, scores: {} };
                 if (dbSt.subjectScores[subId].scores) {
-                  st.subjectScores[subId].scores = {
-                    ...(st.subjectScores[subId].scores || {}),
-                    ...dbSt.subjectScores[subId].scores
-                  };
+                  Object.entries(dbSt.subjectScores[subId].scores).forEach(([pKey, scObj]) => {
+                    if (scObj && typeof scObj === 'object' && scObj.isRecorded && parseFloat(scObj.score) > 0) {
+                      st.subjectScores[subId].scores[pKey] = scObj;
+                    } else if (st.subjectScores[subId].scores[pKey]) {
+                      delete st.subjectScores[subId].scores[pKey];
+                    }
+                  });
                 }
               });
             }
@@ -6869,7 +6914,7 @@
           if (typeof scoreEntry === 'object' && scoreEntry !== null) {
             const sc = parseFloat(scoreEntry.score);
             const mx = parseFloat(scoreEntry.maxScore) || configuredMax || 20;
-            if (!isNaN(sc) && (scoreEntry.isRecorded || sc > 0)) {
+            if (!isNaN(sc) && sc > 0) {
               return {
                 score: sc,
                 maxScore: (configuredMax && configuredMax > 0) ? configuredMax : mx,
@@ -6881,7 +6926,7 @@
             if (!isNaN(sc) && sc > 0) {
               return {
                 score: sc,
-                maxScore: configuredMax || 20,
+                maxScore: (configuredMax && configuredMax > 0) ? configuredMax : 20,
                 isRecorded: true
               };
             }
@@ -6891,10 +6936,10 @@
         // Priority B: check direct field on subjEntry (e.g. subjEntry.m1 or subjEntry.sep)
         if (fld && subjEntry[fld] !== undefined && subjEntry[fld] !== null && subjEntry[fld] !== '') {
           const sc = parseFloat(subjEntry[fld]);
-          if (!isNaN(sc) && sc >= 0) {
+          if (!isNaN(sc) && sc > 0) {
             return {
               score: sc,
-              maxScore: configuredMax || 20,
+              maxScore: (configuredMax && configuredMax > 0) ? configuredMax : getDefaultSubjectMax(student.grade, subjectId),
               isRecorded: true
             };
           }
@@ -6912,7 +6957,7 @@
           const key = 'st_' + student.id + '_' + term + '_' + subjectId;
           if (tGrades[key] && tGrades[key][localFld] !== undefined && tGrades[key][localFld] !== null && tGrades[key][localFld] !== '') {
             const sc = parseFloat(tGrades[key][localFld]);
-            if (!isNaN(sc)) {
+            if (!isNaN(sc) && sc > 0) {
               const maxSaved = localStorage.getItem('smile_kids_max_score_' + subjectId + '_' + student.grade + '_' + periodKey)
                 || localStorage.getItem('smile_kids_max_score_' + subjectId + '_' + student.grade + '_' + localFld)
                 || localStorage.getItem('smile_kids_max_score_' + subjectId + '_g' + student.grade + '_' + periodKey)
@@ -6947,11 +6992,14 @@
         const dbSt = window.SmileKidsDB.getStudentById(student.id);
         if (dbSt && dbSt.subjectScores && dbSt.subjectScores[subjectId]?.scores?.[periodKey]) {
           const scEntry = dbSt.subjectScores[subjectId].scores[periodKey];
-          return {
-            score: parseFloat(scEntry.score) || 0,
-            maxScore: (configuredMax && configuredMax > 0) ? configuredMax : (parseFloat(scEntry.maxScore) || getDefaultSubjectMax(student.grade, subjectId)),
-            isRecorded: true
-          };
+          const sc = parseFloat(scEntry.score);
+          if (!isNaN(sc) && sc > 0) {
+            return {
+              score: sc,
+              maxScore: (configuredMax && configuredMax > 0) ? configuredMax : (parseFloat(scEntry.maxScore) || getDefaultSubjectMax(student.grade, subjectId)),
+              isRecorded: true
+            };
+          }
         }
       }
 
@@ -7286,7 +7334,7 @@
         const isReligion = subj.id === 'religion';
         const scoreData = getStudentSubjectScore(st, subj.id, periodKey);
         const subjScore = scoreData ? scoreData.score : 0;
-        const isRecorded = scoreData && scoreData.isRecorded;
+        const isRecorded = Boolean(scoreData && scoreData.isRecorded && scoreData.score > 0);
 
         // Accurate maximum score: check custom max overrides per grade/subject first
         const configuredMax = (CUSTOM_SUBJECT_MAX && CUSTOM_SUBJECT_MAX[st.grade] && CUSTOM_SUBJECT_MAX[st.grade][subj.id] !== undefined)
@@ -7310,11 +7358,10 @@
           ? `<span style="font-weight: 900; font-size: 15.5px; color: #0f172a; font-family: Arial, sans-serif;">${subjScore}</span>` 
           : `<span style="font-size: 12px; font-weight: 800; color: #d97706; font-family: 'Cairo', Arial, sans-serif;">${isEn ? 'Pending ⏳' : 'قيد الرصد ⏳'}</span>`;
 
-        const pct = effectiveSubjMax > 0 ? Math.round((subjScore / effectiveSubjMax) * 100) : 0;
+        const pct = (effectiveSubjMax > 0 && isRecorded) ? Math.round((subjScore / effectiveSubjMax) * 100) : 0;
         
         let apprec = isEn ? 'Excellent 🌟' : 'ممتاز 🌟';
         if (!isRecorded) apprec = isEn ? 'Pending ⏳' : 'قيد الرصد ⏳';
-        else if (subjScore === 0) apprec = '0 ⏳';
         else if (pct < 50) apprec = isEn ? 'Pass 🟡' : 'مقبول 🟡';
         else if (pct < 65) apprec = isEn ? 'Good 🔵' : 'جيد 🔵';
         else if (pct < 85) apprec = isEn ? 'Very Good 🟢' : 'جيد جداً 🟢';
@@ -7338,10 +7385,10 @@
       // Total calculations strictly for the subjects present in this certificate that count towards total
       const academicProcessedSubjects = processedSubjects.filter(s => !s.isReligion && !s.isNonTotal);
       const certTotalMax = academicProcessedSubjects.reduce((sum, s) => sum + (parseFloat(s.max) || 0), 0);
-      const certTotalScore = Math.round(academicProcessedSubjects.reduce((sum, s) => sum + (s.isRecorded ? (parseFloat(s.score) || 0) : 0), 0) * 10) / 10;
-      const certRecordedCount = academicProcessedSubjects.filter(s => s.isRecorded).length;
+      const certTotalScore = Math.round(academicProcessedSubjects.reduce((sum, s) => sum + ((s.isRecorded && s.score > 0) ? (parseFloat(s.score) || 0) : 0), 0) * 10) / 10;
+      const certRecordedCount = academicProcessedSubjects.filter(s => s.isRecorded && s.score > 0).length;
       const certAcademicCount = academicProcessedSubjects.length;
-      const certPercentage = certTotalMax > 0 ? Math.round((certTotalScore / certTotalMax) * 1000) / 10 : 0;
+      const certPercentage = (certTotalMax > 0 && certRecordedCount > 0) ? Math.round((certTotalScore / certTotalMax) * 1000) / 10 : 0;
 
       const rawRankTitle = calculateStudentClassRank(st, periodKey);
       let rankTitleDisplay = rawRankTitle;
@@ -7794,8 +7841,8 @@
             <!-- Middle: Good Wishes Text -->
             <div class="cert-wish-text" style="text-align: center; color: #2563eb; font-weight: 800; font-size: 12.5px; line-height: 1.5; font-family: ${isEn ? 'Arial, sans-serif' : '\'Cairo\', sans-serif'};">
               ${isEn 
-                ? `With our best wishes for continued success and excellence<br><span style="font-size: 13.5px; color: #1e40af; font-weight: 900;">Smile Kids International School ☺</span>`
-                : `مع أطيب أمنياتنا بدوام النجاح والتفوق والتميز<br><span style="font-size: 13.5px; color: #1e40af; font-weight: 900;">إدارة مدرسة سمايل كيدز الدولية ☺</span>`
+                ? `With our best wishes for continued success and excellence<br><span style="font-size: 14px; color: #1e40af; font-weight: 900; font-family: Arial, sans-serif;">Smile Kids school ☺</span>`
+                : `مع أطيب أمنياتنا بدوام النجاح والتفوق والتميز<br><span style="font-size: 14px; color: #1e40af; font-weight: 900; font-family: Arial, sans-serif;">Smile Kids school ☺</span>`
               }
             </div>
 
