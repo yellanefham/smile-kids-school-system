@@ -2271,10 +2271,6 @@
           const parsed = parseFloat(stSubj[fld]);
           return isNaN(parsed) ? null : parsed;
         }
-        if (st.termsScores && st.termsScores[pKey] !== undefined && st.termsScores[pKey] !== null && st.termsScores[pKey] !== '') {
-          const parsed = parseFloat(st.termsScores[pKey]);
-          return isNaN(parsed) ? null : parsed;
-        }
         return null;
       };
 
@@ -2809,14 +2805,9 @@
               recordedAt: new Date().toISOString()
             };
             student.subjectScores[subjectId][field] = cleanScore;
-            student.termsScores = student.termsScores || {};
-            student.termsScores[periodKey] = cleanScore;
           } else {
             delete student.subjectScores[subjectId].scores[periodKey];
             student.subjectScores[subjectId][field] = null;
-            if (student.termsScores) {
-              student.termsScores[periodKey] = null;
-            }
           }
           if (typeof window.SmileKidsDB.updateStudent === 'function') {
             window.SmileKidsDB.updateStudent(studentId, student);
@@ -2844,14 +2835,9 @@
               recordedAt: new Date().toISOString()
             };
             target.subjectScores[subjectId][field] = cleanScore;
-            target.termsScores = target.termsScores || {};
-            target.termsScores[periodKey] = cleanScore;
           } else {
             delete target.subjectScores[subjectId].scores[periodKey];
             target.subjectScores[subjectId][field] = null;
-            if (target.termsScores) {
-              target.termsScores[periodKey] = null;
-            }
           }
           localStorage.setItem(STORAGE_KEY_STUDENTS, JSON.stringify(stList));
         }
@@ -2883,14 +2869,9 @@
                 recordedAt: new Date().toISOString()
               };
               st.subjectScores[subjectId][field] = cleanScore;
-              st.termsScores = st.termsScores || {};
-              st.termsScores[periodKey] = cleanScore;
             } else {
               delete st.subjectScores[subjectId].scores[periodKey];
               st.subjectScores[subjectId][field] = null;
-              if (st.termsScores) {
-                st.termsScores[periodKey] = null;
-              }
             }
             localStorage.setItem(masterKey, JSON.stringify(dbData));
             // Keep all sister master keys synchronized for cross-portal consistency
