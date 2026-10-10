@@ -2271,6 +2271,10 @@
           const parsed = parseFloat(stSubj[fld]);
           return isNaN(parsed) ? null : parsed;
         }
+        if (st.termsScores && st.termsScores[pKey] !== undefined && st.termsScores[pKey] !== null && st.termsScores[pKey] !== '') {
+          const parsed = parseFloat(st.termsScores[pKey]);
+          return isNaN(parsed) ? null : parsed;
+        }
         return null;
       };
 
@@ -2278,11 +2282,12 @@
         const val = checkVal(monthDef.field);
         return (val !== null && val !== undefined && !isNaN(val));
       } else {
+        const sep = term === 't1' ? checkVal('sep') : null;
         const m1 = checkVal('m1');
         const m2 = checkVal('m2');
         const tasks = checkVal('tasks');
         const exam = checkVal('exam');
-        return [m1, m2, tasks, exam].some(v => v !== null && v !== undefined && !isNaN(v));
+        return [sep, m1, m2, tasks, exam].some(v => v !== null && v !== undefined && !isNaN(v));
       }
     }
 
@@ -2533,27 +2538,53 @@
             </tr>
           `;
         } else {
-          const m1Title = term === 't1' ? 'أكتوبر (شهر 1)' : 'فبراير (شهر 1)';
-          const m2Title = term === 't1' ? 'نوفمبر (شهر 2)' : 'مارس (شهر 2)';
-          const tasksTitle = term === 't1' ? 'ديسمبر (أنشطة)' : 'أبريل (أنشطة)';
-          const examTitle = term === 't1' ? 'يناير (امتحان الميدتيرم Midterm Exam)' : 'مايو (امتحان نهاية العام Final Exam)';
-
+          const sepMax = getActiveMaxScore('t1_sep', subjectId, grade);
           const m1Max = getActiveMaxScore(term + '_m1', subjectId, grade);
           const m2Max = getActiveMaxScore(term + '_m2', subjectId, grade);
           const tasksMax = getActiveMaxScore(term + '_tasks', subjectId, grade);
           const examMax = getActiveMaxScore(term + '_exam', subjectId, grade);
 
-          thead.innerHTML = `
-            <tr class="bg-slate-900 text-slate-300 border-b border-slate-700 font-bold text-sm">
-              <th class="p-3 w-12 text-center">#</th>
-              <th class="p-3 min-w-[200px]">اسم الطالب / الطالبة</th>
-              <th class="p-3 w-24 text-center">المسار</th>
-              <th class="p-3 w-28 text-center bg-blue-950/40 border-r border-slate-700 cursor-pointer hover:bg-blue-900/40 transition" onclick="setExamMonth('${term}_m1')" title="انتقال لرصد هذا الشهر فقط">${m1Title} <span class="text-[10px] text-amber-300 font-bold block">من ${m1Max} 🔍</span></th>
-              <th class="p-3 w-28 text-center bg-blue-950/40 border-r border-slate-700 cursor-pointer hover:bg-blue-900/40 transition" onclick="setExamMonth('${term}_m2')" title="انتقال لرصد هذا الشهر فقط">${m2Title} <span class="text-[10px] text-amber-300 font-bold block">من ${m2Max} 🔍</span></th>
-              <th class="p-3 w-32 text-center bg-indigo-950/40 border-r border-slate-700 cursor-pointer hover:bg-indigo-900/40 transition" onclick="setExamMonth('${term}_tasks')" title="انتقال لرصد هذا الشهر فقط">${tasksTitle} <span class="text-[10px] text-amber-300 font-bold block">من ${tasksMax} 🔍</span></th>
-              <th class="p-3 w-32 text-center bg-purple-950/40 border-r border-slate-700 cursor-pointer hover:bg-purple-900/40 transition" onclick="setExamMonth('${term}_exam')" title="انتقال لرصد هذا الامتحان فقط">${examTitle} <span class="text-[10px] text-amber-300 font-bold block">من ${examMax} 🔍</span></th>
-            </tr>
-          `;
+          if (term === 't1') {
+            thead.innerHTML = `
+              <tr class="bg-slate-900 text-slate-300 border-b border-slate-700 font-bold text-sm">
+                <th class="p-3 w-10 text-center">#</th>
+                <th class="p-3 min-w-[190px]">اسم الطالب / الطالبة</th>
+                <th class="p-3 w-20 text-center">المسار</th>
+                <th class="p-3 w-28 text-center bg-emerald-950/40 border-r border-slate-700 cursor-pointer hover:bg-emerald-900/40 transition" onclick="setExamMonth('t1_sep')" title="انتقال لرصد شهر سبتمبر فقط">
+                  🌱 سبتمبر (تمهيدي) <span class="text-[10px] text-amber-300 font-bold block">من ${sepMax} 🔍</span>
+                </th>
+                <th class="p-3 w-28 text-center bg-blue-950/40 border-r border-slate-700 cursor-pointer hover:bg-blue-900/40 transition" onclick="setExamMonth('t1_m1')" title="انتقال لرصد هذا الشهر فقط">
+                  🍁 أكتوبر (شهر 1) <span class="text-[10px] text-amber-300 font-bold block">من ${m1Max} 🔍</span>
+                </th>
+                <th class="p-3 w-28 text-center bg-blue-950/40 border-r border-slate-700 cursor-pointer hover:bg-blue-900/40 transition" onclick="setExamMonth('t1_m2')" title="انتقال لرصد هذا الشهر فقط">
+                  🍂 نوفمبر (شهر 2) <span class="text-[10px] text-amber-300 font-bold block">من ${m2Max} 🔍</span>
+                </th>
+                <th class="p-3 w-32 text-center bg-indigo-950/40 border-r border-slate-700 cursor-pointer hover:bg-indigo-900/40 transition" onclick="setExamMonth('t1_tasks')" title="انتقال لرصد هذا الشهر فقط">
+                  📋 ديسمبر (أنشطة) <span class="text-[10px] text-amber-300 font-bold block">من ${tasksMax} 🔍</span>
+                </th>
+                <th class="p-3 w-32 text-center bg-purple-950/40 border-r border-slate-700 cursor-pointer hover:bg-purple-900/40 transition" onclick="setExamMonth('t1_exam')" title="انتقال لرصد هذا الامتحان فقط">
+                  ❄️ يناير (الميدتيرم Midterm) <span class="text-[10px] text-amber-300 font-bold block">من ${examMax} 🔍</span>
+                </th>
+              </tr>
+            `;
+          } else {
+            const m1Title = 'فبراير (شهر 1)';
+            const m2Title = 'مارس (شهر 2)';
+            const tasksTitle = 'أبريل (أنشطة)';
+            const examTitle = 'مايو (امتحان نهاية العام Final Exam)';
+
+            thead.innerHTML = `
+              <tr class="bg-slate-900 text-slate-300 border-b border-slate-700 font-bold text-sm">
+                <th class="p-3 w-10 text-center">#</th>
+                <th class="p-3 min-w-[190px]">اسم الطالب / الطالبة</th>
+                <th class="p-3 w-20 text-center">المسار</th>
+                <th class="p-3 w-28 text-center bg-blue-950/40 border-r border-slate-700 cursor-pointer hover:bg-blue-900/40 transition" onclick="setExamMonth('t2_m1')" title="انتقال لرصد هذا الشهر فقط">${m1Title} <span class="text-[10px] text-amber-300 font-bold block">من ${m1Max} 🔍</span></th>
+                <th class="p-3 w-28 text-center bg-blue-950/40 border-r border-slate-700 cursor-pointer hover:bg-blue-900/40 transition" onclick="setExamMonth('t2_m2')" title="انتقال لرصد هذا الشهر فقط">${m2Title} <span class="text-[10px] text-amber-300 font-bold block">من ${m2Max} 🔍</span></th>
+                <th class="p-3 w-32 text-center bg-indigo-950/40 border-r border-slate-700 cursor-pointer hover:bg-indigo-900/40 transition" onclick="setExamMonth('t2_tasks')" title="انتقال لرصد هذا الشهر فقط">${tasksTitle} <span class="text-[10px] text-amber-300 font-bold block">من ${tasksMax} 🔍</span></th>
+                <th class="p-3 w-32 text-center bg-purple-950/40 border-r border-slate-700 cursor-pointer hover:bg-purple-900/40 transition" onclick="setExamMonth('t2_exam')" title="انتقال لرصد هذا الامتحان فقط">${examTitle} <span class="text-[10px] text-amber-300 font-bold block">من ${examMax} 🔍</span></th>
+              </tr>
+            `;
+          }
         }
       }
 
@@ -2568,7 +2599,7 @@
 
         tbody.innerHTML = `
           <tr>
-            <td colspan="${isSingleMonth ? 3 : 7}" class="p-8 text-center text-slate-300 font-bold bg-slate-900/40">
+            <td colspan="${isSingleMonth ? 3 : (term === 't1' ? 8 : 7)}" class="p-8 text-center text-slate-300 font-bold bg-slate-900/40">
               <div class="text-base mb-1">${filterMsg}</div>
               ${currentGradeStatusFilter !== 'all' ? `
                 <button type="button" onclick="setGradeFilter('all')" class="mt-2 text-xs font-bold text-blue-400 hover:text-blue-300 underline">
@@ -2583,6 +2614,7 @@
       }
 
       const curMax = isSingleMonth ? (monthDef.effectiveMax || monthDef.max) : 20;
+      const compSepMax = getActiveMaxScore('t1_sep', subjectId, grade);
       const compM1Max = getActiveMaxScore(term + '_m1', subjectId, grade);
       const compM2Max = getActiveMaxScore(term + '_m2', subjectId, grade);
       const compTasksMax = getActiveMaxScore(term + '_tasks', subjectId, grade);
@@ -2700,18 +2732,36 @@
                 <span class="block text-[10px] text-slate-400 font-mono">${st.id}</span>
               </td>
               <td class="p-3 text-center">${trackBadge}</td>
-              <td class="p-2.5 text-center bg-blue-950/20 border-r border-slate-700/60">
-                ${makeColInput('m1', saved.m1, compM1Max, 1)}
-              </td>
-              <td class="p-2.5 text-center bg-blue-950/20 border-r border-slate-700/60">
-                ${makeColInput('m2', saved.m2, compM2Max, 2)}
-              </td>
-              <td class="p-2.5 text-center bg-indigo-950/20 border-r border-slate-700/60">
-                ${makeColInput('tasks', saved.tasks, compTasksMax, 3)}
-              </td>
-              <td class="p-2.5 text-center bg-purple-950/20 border-r border-slate-700/60">
-                ${makeColInput('exam', saved.exam, compExamMax, 4)}
-              </td>
+              ${term === 't1' ? `
+                <td class="p-2.5 text-center bg-emerald-950/20 border-r border-slate-700/60">
+                  ${makeColInput('sep', saved.sep, compSepMax, 1)}
+                </td>
+                <td class="p-2.5 text-center bg-blue-950/20 border-r border-slate-700/60">
+                  ${makeColInput('m1', saved.m1, compM1Max, 2)}
+                </td>
+                <td class="p-2.5 text-center bg-blue-950/20 border-r border-slate-700/60">
+                  ${makeColInput('m2', saved.m2, compM2Max, 3)}
+                </td>
+                <td class="p-2.5 text-center bg-indigo-950/20 border-r border-slate-700/60">
+                  ${makeColInput('tasks', saved.tasks, compTasksMax, 4)}
+                </td>
+                <td class="p-2.5 text-center bg-purple-950/20 border-r border-slate-700/60">
+                  ${makeColInput('exam', saved.exam, compExamMax, 5)}
+                </td>
+              ` : `
+                <td class="p-2.5 text-center bg-blue-950/20 border-r border-slate-700/60">
+                  ${makeColInput('m1', saved.m1, compM1Max, 1)}
+                </td>
+                <td class="p-2.5 text-center bg-blue-950/20 border-r border-slate-700/60">
+                  ${makeColInput('m2', saved.m2, compM2Max, 2)}
+                </td>
+                <td class="p-2.5 text-center bg-indigo-950/20 border-r border-slate-700/60">
+                  ${makeColInput('tasks', saved.tasks, compTasksMax, 3)}
+                </td>
+                <td class="p-2.5 text-center bg-purple-950/20 border-r border-slate-700/60">
+                  ${makeColInput('exam', saved.exam, compExamMax, 4)}
+                </td>
+              `}
             </tr>
           `;
         }
@@ -3015,10 +3065,24 @@
     function quickFillFullMark(btnEl) {
       const tr = btnEl.closest('tr');
       const inputs = tr.querySelectorAll('.grade-input');
-      if (inputs.length >= 4) {
-        const grade = document.getElementById('grade-select')?.value;
-        const subjectId = document.getElementById('subject-select')?.value;
-        const term = document.getElementById('term-select')?.value || 't1';
+      const grade = document.getElementById('grade-select')?.value;
+      const subjectId = document.getElementById('subject-select')?.value;
+      const term = document.getElementById('term-select')?.value || 't1';
+
+      if (inputs.length === 5 && term === 't1') {
+        const sepMax = getActiveMaxScore('t1_sep', subjectId, grade);
+        const m1Max = getActiveMaxScore('t1_m1', subjectId, grade);
+        const m2Max = getActiveMaxScore('t1_m2', subjectId, grade);
+        const tasksMax = getActiveMaxScore('t1_tasks', subjectId, grade);
+        const examMax = getActiveMaxScore('t1_exam', subjectId, grade);
+        inputs[0].value = sepMax; inputs[0].dataset.max = sepMax; inputs[0].max = sepMax;
+        inputs[1].value = m1Max; inputs[1].dataset.max = m1Max; inputs[1].max = m1Max;
+        inputs[2].value = m2Max; inputs[2].dataset.max = m2Max; inputs[2].max = m2Max;
+        inputs[3].value = tasksMax; inputs[3].dataset.max = tasksMax; inputs[3].max = tasksMax;
+        inputs[4].value = examMax; inputs[4].dataset.max = examMax; inputs[4].max = examMax;
+        inputs.forEach(inp => onGradeInputChange(inp));
+        onGradeLiveCalc(inputs[0]);
+      } else if (inputs.length >= 4) {
         const m1Max = getActiveMaxScore(term + '_m1', subjectId, grade);
         const m2Max = getActiveMaxScore(term + '_m2', subjectId, grade);
         const tasksMax = getActiveMaxScore(term + '_tasks', subjectId, grade);
@@ -3127,19 +3191,36 @@
           csv += `"${idx + 1}","${st.id}","${st.nameAr}","${st.track === 'languages' ? 'لغات' : 'عربي'}","${val}","${tot}","${rat}"\n`;
         });
       } else {
-        const m1Title = term === 't1' ? 'أكتوبر (من 20)' : 'فبراير (من 20)';
-        const m2Title = term === 't1' ? 'نوفمبر (من 20)' : 'مارس (من 20)';
-        const tasksTitle = term === 't1' ? 'أنشطة ديسمبر (من 20)' : 'أنشطة أبريل (من 20)';
-        const examTitle = term === 't1' ? 'امتحان نصف العام يناير (من 40)' : 'امتحان نهاية العام مايو (من 40)';
+        if (term === 't1') {
+          const sepMax = getActiveMaxScore('t1_sep', subjectId, grade);
+          const m1Max = getActiveMaxScore('t1_m1', subjectId, grade);
+          const m2Max = getActiveMaxScore('t1_m2', subjectId, grade);
+          const tasksMax = getActiveMaxScore('t1_tasks', subjectId, grade);
+          const examMax = getActiveMaxScore('t1_exam', subjectId, grade);
 
-        csv += `م,كود الطالب,اسم الطالب,المسار,${m1Title},${m2Title},${tasksTitle},${examTitle},المجموع (من 100),التقدير العام\n`;
-        filtered.forEach((st, idx) => {
-          const key = 'st_' + st.id + '_' + term + '_' + subjectId;
-          const saved = allGrades[key] || { m1: 0, m2: 0, tasks: 0, exam: 0 };
-          const tot = Math.min(100, Math.round(((parseFloat(saved.m1)||0) + (parseFloat(saved.m2)||0) + (parseFloat(saved.tasks)||0) + (parseFloat(saved.exam)||0)) * 10) / 10);
-          let rat = tot >= 85 ? 'ممتاز' : tot >= 75 ? 'جيد جدا' : tot >= 65 ? 'جيد' : tot >= 50 ? 'مقبول' : 'يحتاج دعم';
-          csv += `"${idx + 1}","${st.id}","${st.nameAr}","${st.track === 'languages' ? 'لغات' : 'عربي'}","${saved.m1||0}","${saved.m2||0}","${saved.tasks||0}","${saved.exam||0}","${tot}","${rat}"\n`;
-        });
+          csv += `م,كود الطالب,اسم الطالب,المسار,سبتمبر (من ${sepMax}),أكتوبر (من ${m1Max}),نوفمبر (من ${m2Max}),أنشطة ديسمبر (من ${tasksMax}),امتحان نصف العام يناير (من ${examMax}),المجموع (من 100),التقدير العام\n`;
+          filtered.forEach((st, idx) => {
+            const key = 'st_' + st.id + '_' + term + '_' + subjectId;
+            const saved = allGrades[key] || { sep: 0, m1: 0, m2: 0, tasks: 0, exam: 0 };
+            const tot = Math.min(100, Math.round(((parseFloat(saved.m1)||0) + (parseFloat(saved.m2)||0) + (parseFloat(saved.tasks)||0) + (parseFloat(saved.exam)||0)) * 10) / 10);
+            let rat = tot >= 85 ? 'ممتاز' : tot >= 75 ? 'جيد جدا' : tot >= 65 ? 'جيد' : tot >= 50 ? 'مقبول' : 'يحتاج دعم';
+            csv += `"${idx + 1}","${st.id}","${st.nameAr}","${st.track === 'languages' ? 'لغات' : 'عربي'}","${saved.sep||0}","${saved.m1||0}","${saved.m2||0}","${saved.tasks||0}","${saved.exam||0}","${tot}","${rat}"\n`;
+          });
+        } else {
+          const m1Title = 'فبراير (من 20)';
+          const m2Title = 'مارس (من 20)';
+          const tasksTitle = 'أنشطة أبريل (من 20)';
+          const examTitle = 'امتحان نهاية العام مايو (من 40)';
+
+          csv += `م,كود الطالب,اسم الطالب,المسار,${m1Title},${m2Title},${tasksTitle},${examTitle},المجموع (من 100),التقدير العام\n`;
+          filtered.forEach((st, idx) => {
+            const key = 'st_' + st.id + '_' + term + '_' + subjectId;
+            const saved = allGrades[key] || { m1: 0, m2: 0, tasks: 0, exam: 0 };
+            const tot = Math.min(100, Math.round(((parseFloat(saved.m1)||0) + (parseFloat(saved.m2)||0) + (parseFloat(saved.tasks)||0) + (parseFloat(saved.exam)||0)) * 10) / 10);
+            let rat = tot >= 85 ? 'ممتاز' : tot >= 75 ? 'جيد جدا' : tot >= 65 ? 'جيد' : tot >= 50 ? 'مقبول' : 'يحتاج دعم';
+            csv += `"${idx + 1}","${st.id}","${st.nameAr}","${st.track === 'languages' ? 'لغات' : 'عربي'}","${saved.m1||0}","${saved.m2||0}","${saved.tasks||0}","${saved.exam||0}","${tot}","${rat}"\n`;
+          });
+        }
       }
 
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
