@@ -3240,6 +3240,18 @@
           }
         },
         "sep": 30
+      },
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T12:35:22.970Z"
+          }
+        },
+        "sep": 30
       }
     },
     "pin": "9540",
@@ -3281,6 +3293,18 @@
             "maxScore": 30,
             "isRecorded": true,
             "updatedAt": "2026-10-10T11:59:51.312Z"
+          }
+        },
+        "sep": 30
+      },
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T12:35:26.398Z"
           }
         },
         "sep": 30
@@ -3328,6 +3352,18 @@
           }
         },
         "sep": 30
+      },
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T12:35:30.647Z"
+          }
+        },
+        "sep": 30
       }
     },
     "pin": "8520",
@@ -3369,6 +3405,18 @@
             "maxScore": 30,
             "isRecorded": true,
             "updatedAt": "2026-10-10T11:57:48.360Z"
+          }
+        },
+        "sep": 30
+      },
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T12:35:36.270Z"
           }
         },
         "sep": 30
@@ -3416,6 +3464,18 @@
           }
         },
         "sep": 30
+      },
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T12:35:40.558Z"
+          }
+        },
+        "sep": 30
       }
     },
     "pin": "8075",
@@ -3457,6 +3517,18 @@
             "maxScore": 30,
             "isRecorded": true,
             "updatedAt": "2026-10-10T11:58:56.993Z"
+          }
+        },
+        "sep": 30
+      },
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T12:35:44.263Z"
           }
         },
         "sep": 30
@@ -3504,6 +3576,18 @@
           }
         },
         "sep": 30
+      },
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T12:35:47.676Z"
+          }
+        },
+        "sep": 30
       }
     },
     "pin": "2153",
@@ -3548,6 +3632,18 @@
           }
         },
         "sep": 30
+      },
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 29,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T12:35:53.908Z"
+          }
+        },
+        "sep": 29
       }
     },
     "pin": "5465",
@@ -3589,6 +3685,18 @@
             "maxScore": 30,
             "isRecorded": true,
             "updatedAt": "2026-10-10T11:59:20.995Z"
+          }
+        },
+        "sep": 30
+      },
+      "english_al": {
+        "subjectId": "english_al",
+        "scores": {
+          "t1_sep": {
+            "score": 30,
+            "maxScore": 30,
+            "isRecorded": true,
+            "updatedAt": "2026-10-10T12:35:57.357Z"
           }
         },
         "sep": 30
