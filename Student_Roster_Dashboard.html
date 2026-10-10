@@ -6109,33 +6109,32 @@
       let subs = [];
       if (g <= 3) {
         subs = [
-          { id: 'arabic', name: 'لغة عربية', max: 30 },
-          { id: 'english_ol', name: 'لغة انجليزية (OL)', max: 20 },
-          { id: 'english_al', name: '( Connect Plus ) لغة انجليزية', max: 20 },
-          { id: 'math', name: isLang ? 'Math / رياضيات' : 'رياضيات / حساب', max: 30 },
-          { id: 'religion', name: 'ديـــــن', max: 20 }
+          { id: 'arabic', name: 'اللغة العربية', max: 30 },
+          { id: 'english_ol', name: 'لغة إنجليزية (Connect / OL)', max: 20 },
+          { id: 'english_al', name: 'لغة إنجليزية (Connect Plus / AL)', max: 20 },
+          { id: 'math', name: isLang ? 'Math' : 'الرياضيات', max: 30 },
+          { id: 'religion', name: 'التربية الدينية', max: 20, isNonTotal: true }
         ];
       } else if (g <= 6) {
         subs = [
-          { id: 'arabic', name: 'لغة عربية', max: 30 },
-          { id: 'english_ol', name: 'لغة انجليزية (OL)', max: 20 },
-          { id: 'english_al', name: '( Connect Plus ) لغة انجليزية', max: 20 },
-          { id: 'math', name: isLang ? 'Math / رياضيات' : 'رياضيات', max: 30 },
-          { id: 'science', name: isLang ? 'Science / علوم' : 'علوم', max: 30 },
-          { id: 'social', name: 'دراسات اجتماعية', max: 20 },
-          { id: 'ict', name: 'تكنولوجيا المعلومات (ICT)', max: 20 },
-          { id: 'religion', name: 'ديـــــن', max: 20 }
+          { id: 'arabic', name: 'اللغة العربية', max: 30 },
+          { id: 'english_ol', name: 'لغة إنجليزية (Connect / OL)', max: 20 },
+          { id: 'english_al', name: 'لغة إنجليزية (Connect Plus / AL)', max: 20 },
+          { id: 'math', name: isLang ? 'Math' : 'الرياضيات', max: 30 },
+          { id: 'science', name: isLang ? 'Science' : 'العلوم', max: 30 },
+          { id: 'social', name: 'الدراسات الاجتماعية', max: 20 },
+          { id: 'religion', name: 'التربية الدينية', max: 20, isNonTotal: true }
         ];
       } else {
         // Prep Grades (7, 8, 9)
         subs = [
-          { id: 'arabic', name: 'لغة عربية', max: 30 },
-          { id: 'english_ol', name: 'لغة انجليزية (OL)', max: 20 },
-          { id: 'math', name: isLang ? 'Math / رياضيات' : 'رياضيات', max: 30 },
-          { id: 'science', name: isLang ? 'Science / علوم' : 'علوم', max: 30 },
-          { id: 'social', name: 'دراسات اجتماعية', max: 20 },
-          { id: 'german', name: 'لغة ألمانية (German)', max: 20 },
-          { id: 'religion', name: 'تربية دينية', max: 20 }
+          { id: 'arabic', name: 'اللغة العربية', max: 30 },
+          { id: 'english_ol', name: 'لغة إنجليزية (Connect / OL)', max: 20 },
+          { id: 'math', name: isLang ? 'Math' : 'الرياضيات', max: 30 },
+          { id: 'science', name: isLang ? 'Science' : 'العلوم', max: 30 },
+          { id: 'social', name: 'الدراسات الاجتماعية', max: 20 },
+          { id: 'german', name: 'اللغة الألمانية (German)', max: 20 },
+          { id: 'religion', name: 'التربية الدينية', max: 20, isNonTotal: true }
         ];
       }
 
@@ -6965,18 +6964,28 @@
       let totalScore = 0;
       let totalMax = 0;
       let recordedCount = 0;
+      let academicSubjectsCount = 0;
 
       subjects.forEach(sub => {
         const scoreData = getStudentSubjectScore(student, sub.id, periodKey);
         const isExam = periodKey && periodKey.includes('exam');
+        const configuredMax = (CUSTOM_SUBJECT_MAX && CUSTOM_SUBJECT_MAX[student.grade] && CUSTOM_SUBJECT_MAX[student.grade][sub.id] !== undefined)
+          ? parseFloat(CUSTOM_SUBJECT_MAX[student.grade][sub.id])
+          : null;
         const effectiveMax = (scoreData && scoreData.maxScore > 0)
           ? scoreData.maxScore
-          : (isExam ? sub.max : 20);
+          : (configuredMax && configuredMax > 0 ? configuredMax : (isExam ? sub.max : 20));
 
-        totalMax += effectiveMax;
-        if (scoreData && scoreData.isRecorded) {
-          totalScore += scoreData.score;
-          if (scoreData.score > 0) recordedCount++;
+        // Religious studies (religion) is tested and appears on the certificate, but is NOT added to the Total Score (لا تضاف للمجموع)
+        const isNonTotal = (sub.id === 'religion' || sub.isNonTotal);
+
+        if (!isNonTotal) {
+          totalMax += effectiveMax;
+          academicSubjectsCount++;
+          if (scoreData && scoreData.isRecorded) {
+            totalScore += scoreData.score;
+            recordedCount++;
+          }
         }
       });
 
@@ -6986,8 +6995,8 @@
         totalMax: totalMax,
         percentage: percentage,
         recordedCount: recordedCount,
-        totalSubjects: subjects.length,
-        totalAcademicSubjects: subjects.length
+        totalSubjects: academicSubjectsCount,
+        totalAcademicSubjects: academicSubjectsCount
       };
     }
 
@@ -7248,15 +7257,15 @@
       const overallPct = periodTotals.percentage;
       const isExam = periodKey && periodKey.includes('exam');
 
+      const isLang = (st.track === 'languages');
       const subjNameMapAr = {
         'arabic': 'اللغة العربية',
         'english_ol': 'لغة إنجليزية (Connect / OL)',
         'english_al': 'لغة إنجليزية (Connect Plus / AL)',
-        'math': (st.track === 'languages') ? 'Math / رياضيات' : 'الرياضيات',
-        'science': (st.track === 'languages') ? 'Science / علوم' : 'العلوم',
+        'math': isLang ? 'Math' : 'الرياضيات',
+        'science': isLang ? 'Science' : 'العلوم',
         'social': 'الدراسات الاجتماعية',
         'religion': 'التربية الدينية',
-        'ict': 'تكنولوجيا المعلومات (ICT)',
         'german': 'اللغة الألمانية',
         'french': 'اللغة الفرنسية'
       };
@@ -7265,11 +7274,10 @@
         'arabic': 'Arabic Language',
         'english_ol': 'English (Connect / OL)',
         'english_al': 'English (Connect Plus / AL)',
-        'math': 'Mathematics',
+        'math': 'Math',
         'science': 'Science',
         'social': 'Social Studies',
         'religion': 'Religious Studies',
-        'ict': 'ICT / Technology',
         'german': 'German Language',
         'french': 'French Language'
       };
@@ -7289,9 +7297,13 @@
           ? scoreData.maxScore
           : (configuredMax > 0 ? configuredMax : (isExam ? subj.max : 20));
 
-        const effectiveSubjName = isEn 
+        const baseName = isEn 
           ? (subjNameMapEn[subj.id] || subj.nameEn || subj.name) 
           : (subjNameMapAr[subj.id] || subj.name);
+
+        const effectiveSubjName = isReligion 
+          ? `${baseName} <span style="font-size: 10.5px; font-weight: normal; color: #64748b; font-family: 'Cairo', Arial, sans-serif;">(${isEn ? 'Non-Total' : 'لا تضاف للمجموع'})</span>` 
+          : baseName;
 
         const displayScore = isRecorded ? subjScore : (isEn ? 'Pending ⏳' : 'قيد الرصد ⏳');
         const displayScoreHtml = isRecorded 
@@ -7402,9 +7414,8 @@
 
               <!-- Student Showcase Banner -->
               <div style="background: rgba(245, 158, 11, 0.1); border-top: 1px solid rgba(251, 191, 36, 0.4); border-bottom: 1px solid rgba(251, 191, 36, 0.4); padding: 10px; margin: 12px 0; text-align: center;">
-                <div style="font-size: 12px; color: #fde68a; font-weight: 700;">تُمنح هذه الشهادة بكل فخر واعتزاز للطالب / الطالبة:</div>
-                <div style="font-size: 24px; font-weight: 900; color: #ffffff; margin-top: 3px;">${st.nameAr}</div>
-                <div style="font-size: 13px; color: #fbbf24; font-weight: 700; direction: ltr;">${st.nameEn || ''}</div>
+                <div style="font-size: 12px; color: #fde68a; font-weight: 700;">${isEn ? 'This certificate is proudly presented to:' : 'تُمنح هذه الشهادة بكل فخر واعتزاز للطالب / الطالبة:'}</div>
+                <div style="font-size: 24px; font-weight: 900; color: #ffffff; margin-top: 3px;">${isEn ? (st.nameEn || st.nameAr) : (st.nameAr || st.nameEn)}</div>
                 <div style="display: inline-block; background: rgba(251, 191, 36, 0.2); border: 1px solid #fbbf24; padding: 3px 14px; border-radius: 9999px; font-size: 12px; font-weight: 800; color: #fef08a; margin-top: 6px;">
                   الصف: Grade ${st.grade} ${trackLabel}
                 </div>
@@ -7491,9 +7502,8 @@
                   🎓
                 </div>
                 <div>
-                  <div style="font-size: 11px; color: #94a3b8; font-weight: 700;">اسم الطالب رباعي:</div>
-                  <div style="font-size: 20px; font-weight: 900; color: white;">${st.nameAr}</div>
-                  <div style="font-size: 12px; color: #818cf8; direction: ltr; text-align: right;">${st.nameEn || ''}</div>
+                  <div style="font-size: 11px; color: #94a3b8; font-weight: 700;">${isEn ? 'Student Name:' : 'اسم الطالب رباعي:'}</div>
+                  <div style="font-size: 20px; font-weight: 900; color: white;">${isEn ? (st.nameEn || st.nameAr) : (st.nameAr || st.nameEn)}</div>
                 </div>
               </div>
 
@@ -7599,9 +7609,8 @@
 
             <!-- Student Card -->
             <div style="background: #ffffff; border: 2px solid #e9d5ff; border-radius: 16px; padding: 10px; text-align: center; margin: 12px 0;">
-              <div style="font-size: 11px; color: #64748b; font-weight: bold;">اسم النجم الصغير:</div>
-              <div style="font-size: 22px; font-weight: 900; color: #6b21a8; margin-top: 2px;">${st.nameAr}</div>
-              <div style="font-size: 12px; font-weight: 800; color: #ec4899; direction: ltr;">${st.nameEn || ''}</div>
+              <div style="font-size: 11px; color: #64748b; font-weight: bold;">${isEn ? 'Super Star Name:' : 'اسم النجم الصغير:'}</div>
+              <div style="font-size: 22px; font-weight: 900; color: #6b21a8; margin-top: 2px;">${isEn ? (st.nameEn || st.nameAr) : (st.nameAr || st.nameEn)}</div>
               <div style="display: inline-block; background: #fef3c7; border: 1px solid #fde68a; padding: 2px 12px; border-radius: 9999px; font-size: 11px; font-weight: 900; color: #92400e; margin-top: 4px;">
                 Grade ${st.grade} ${trackLabel}
               </div>
@@ -7715,10 +7724,10 @@
             <div class="cert-student-label" style="color: #dc2626; font-size: ${isEn ? '20px' : '22px'}; font-weight: 900; white-space: nowrap; ${isEn ? 'margin-right: 12px; font-family: Arial, sans-serif;' : 'margin-left: 12px; font-family: \'Cairo\', Arial, sans-serif;'}">
               ${isEn ? 'Student Name :' : 'اسم الطالب / الطالبة :'}
             </div>
-            <div class="cert-student-name" style="flex: 1; display: flex; align-items: baseline; gap: 8px; justify-content: flex-start; flex-wrap: wrap;">
+            <div class="cert-student-name" style="flex: 1; display: flex; align-items: baseline; gap: 8px; justify-content: flex-start;">
               ${isEn 
-                ? `<span style="color: #dc2626; font-size: 24px; font-weight: 900; font-family: Arial, sans-serif;">${st.nameEn || st.nameAr || '—'}</span>${(st.nameAr && st.nameAr.trim() && st.nameEn && st.nameEn.trim()) ? `<span style="font-size: 17px; color: #1e40af; font-weight: 800; font-family: 'Cairo', Arial, sans-serif; direction: rtl;">(${st.nameAr})</span>` : ''}`
-                : `<span style="color: #dc2626; font-size: 24px; font-weight: 900; font-family: 'Cairo', Arial, sans-serif;">${st.nameAr || st.nameEn || '—'}</span>${(st.nameEn && st.nameEn.trim() && st.nameAr && st.nameAr.trim()) ? `<span style="font-size: 17px; color: #1e40af; font-weight: 800; font-family: Arial, sans-serif; direction: ltr;">(${st.nameEn})</span>` : ''}`
+                ? `<span style="color: #dc2626; font-size: 25px; font-weight: 900; font-family: Arial, sans-serif;">${st.nameEn || st.nameAr || '—'}</span>` 
+                : `<span style="color: #dc2626; font-size: 25px; font-weight: 900; font-family: 'Cairo', Arial, sans-serif;">${st.nameAr || st.nameEn || '—'}</span>`
               }
             </div>
           </div>
