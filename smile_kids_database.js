@@ -3473,7 +3473,7 @@
     "track": "languages",
     "trackNameAr": "لغات (Math & Science)",
     "trackNameEn": "Languages Track",
-    "nameAr": "سلي�� محمد السعيد",
+    "nameAr": "سليم محمد السعيد",
     "nameEn": "Selim Mohamed El-Saeed",
     "gender": "male",
     "sampleScores": {},
@@ -3485,7 +3485,7 @@
       "t1_tasks": null,
       "t2_tasks": null,
       "t1_exam": 29.5,
-      "t1_sep": 30,
+      "t1_sep": 100.0,
       "t2_exam": 30,
       "annual_total": 98,
       "t2_m1": 20,
@@ -3502,8 +3502,16 @@
       "arabic": {
         "subjectId": "arabic",
         "m1": 20,
-        "scores": {},
-        "sep": 0,
+        "scores": {
+          "t1_sep": {
+            "score": 30.0,
+            "maxScore": 30.0,
+            "isRecorded": true,
+            "recordedAt": "2026-10-11T20:00:00.000Z",
+            "updatedAt": "2026-10-11T20:00:00.000Z"
+          }
+        },
+        "sep": 30.0,
         "teacherNameAr": "مس / أسماء"
       },
       "math": {
@@ -3518,6 +3526,48 @@
           }
         },
         "sep": 30
+      },
+      "english_ol": {
+        "subjectId": "english_ol",
+        "teacherNameAr": "مس / يارا",
+        "scores": {
+          "t1_sep": {
+            "score": 20.0,
+            "maxScore": 20.0,
+            "isRecorded": true,
+            "recordedAt": "2026-10-11T20:00:00.000Z",
+            "updatedAt": "2026-10-11T20:00:00.000Z"
+          }
+        },
+        "sep": 20.0
+      },
+      "english_al": {
+        "subjectId": "english_al",
+        "teacherNameAr": "مس / يارا",
+        "scores": {
+          "t1_sep": {
+            "score": 20.0,
+            "maxScore": 20.0,
+            "isRecorded": true,
+            "recordedAt": "2026-10-11T20:00:00.000Z",
+            "updatedAt": "2026-10-11T20:00:00.000Z"
+          }
+        },
+        "sep": 20.0
+      },
+      "religion": {
+        "subjectId": "religion",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_sep": {
+            "score": 20.0,
+            "maxScore": 20.0,
+            "isRecorded": true,
+            "recordedAt": "2026-10-11T20:00:00.000Z",
+            "updatedAt": "2026-10-11T20:00:00.000Z"
+          }
+        },
+        "sep": 20.0
       }
     },
     "pin": "6677",
@@ -7527,7 +7577,7 @@
       "t2_m2": 20,
       "t1_exam": 29.5,
       "t1_m1": 19.5,
-      "t1_sep": null,
+      "t1_sep": 210.0,
       "annual_total": 98,
       "t1_total": 98,
       "t2_total": 98,
@@ -7536,15 +7586,107 @@
     },
     "subjectScores": {
       "arabic": {
-        "sep": 0,
+        "sep": 50.0,
         "subjectId": "arabic",
-        "scores": {},
+        "scores": {
+          "t1_sep": {
+            "score": 50.0,
+            "maxScore": 50.0,
+            "isRecorded": true,
+            "recordedAt": "2026-10-11T20:00:00.000Z",
+            "updatedAt": "2026-10-11T20:00:00.000Z"
+          }
+        },
         "teacherNameAr": "مس / أسماء"
       },
       "term": {
         "scores": {
           "general": null
         }
+      },
+      "english_ol": {
+        "subjectId": "english_ol",
+        "teacherNameAr": "مس / يارا",
+        "scores": {
+          "t1_sep": {
+            "score": 30.0,
+            "maxScore": 30.0,
+            "isRecorded": true,
+            "recordedAt": "2026-10-11T20:00:00.000Z",
+            "updatedAt": "2026-10-11T20:00:00.000Z"
+          }
+        },
+        "sep": 30.0
+      },
+      "english_al": {
+        "subjectId": "english_al",
+        "teacherNameAr": "مس / يارا",
+        "scores": {
+          "t1_sep": {
+            "score": 30.0,
+            "maxScore": 30.0,
+            "isRecorded": true,
+            "recordedAt": "2026-10-11T20:00:00.000Z",
+            "updatedAt": "2026-10-11T20:00:00.000Z"
+          }
+        },
+        "sep": 30.0
+      },
+      "math": {
+        "subjectId": "math",
+        "teacherNameAr": "مس / هند",
+        "scores": {
+          "t1_sep": {
+            "score": 30.0,
+            "maxScore": 30.0,
+            "isRecorded": true,
+            "recordedAt": "2026-10-11T20:00:00.000Z",
+            "updatedAt": "2026-10-11T20:00:00.000Z"
+          }
+        },
+        "sep": 30.0
+      },
+      "science": {
+        "subjectId": "science",
+        "teacherNameAr": "مس / سمر",
+        "scores": {
+          "t1_sep": {
+            "score": 50.0,
+            "maxScore": 50.0,
+            "isRecorded": true,
+            "recordedAt": "2026-10-11T20:00:00.000Z",
+            "updatedAt": "2026-10-11T20:00:00.000Z"
+          }
+        },
+        "sep": 50.0
+      },
+      "social": {
+        "subjectId": "social",
+        "teacherNameAr": "مس / كريمان",
+        "scores": {
+          "t1_sep": {
+            "score": 20.0,
+            "maxScore": 20.0,
+            "isRecorded": true,
+            "recordedAt": "2026-10-11T20:00:00.000Z",
+            "updatedAt": "2026-10-11T20:00:00.000Z"
+          }
+        },
+        "sep": 20.0
+      },
+      "religion": {
+        "subjectId": "religion",
+        "teacherNameAr": "مس / أسماء",
+        "scores": {
+          "t1_sep": {
+            "score": 20.0,
+            "maxScore": 20.0,
+            "isRecorded": true,
+            "recordedAt": "2026-10-11T20:00:00.000Z",
+            "updatedAt": "2026-10-11T20:00:00.000Z"
+          }
+        },
+        "sep": 20.0
       }
     },
     "pin": "8790",
