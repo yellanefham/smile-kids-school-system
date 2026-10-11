@@ -28,8 +28,8 @@
     return false;
   }
 
-  const STORAGE_KEY = 'SMILE_KIDS_MASTER_DATABASE_2026_V6';
-  const LEGACY_STUDENT_KEYS = ['SMILE_KIDS_MASTER_DATABASE_2026_V5', 'SMILE_KIDS_MASTER_DATABASE_2026_V3', 'SMILE_KIDS_MASTER_DATABASE_2026_V2', 'SMILE_KIDS_MASTER_DATABASE_2026', 'smile_kids_students_v7_custom', 'smilekids_school_v6'];
+  const STORAGE_KEY = 'SMILE_KIDS_MASTER_DATABASE_2026_V7';
+  const LEGACY_STUDENT_KEYS = ['SMILE_KIDS_MASTER_DATABASE_2026_V6', 'SMILE_KIDS_MASTER_DATABASE_2026_V5', 'SMILE_KIDS_MASTER_DATABASE_2026_V4', 'SMILE_KIDS_MASTER_DATABASE_2026_V3', 'SMILE_KIDS_MASTER_DATABASE_2026_V2', 'SMILE_KIDS_MASTER_DATABASE_2026', 'smile_kids_students', 'smile_kids_students_v7_custom', 'smilekids_school_v6'];
   const LEGACY_ATT_KEY = 'smile_kids_attendance_v7_data';
 
   // Canonical Student Identity Overrides (Ironclad protection against legacy rollbacks)
@@ -21184,7 +21184,7 @@
   const SmileKidsDB = {
     DATABASE_NAME: 'قاعدة بيانات مدرسة Smile Kids الموحدة 2025/2026',
     DATABASE_CODE: 'SMILE_KIDS_MASTER_DB',
-    VERSION: '2.0.0',
+    VERSION: '7.0.0',
     STORAGE_KEY: STORAGE_KEY,
     FILE_NAME_JS: 'smile_kids_database.js',
     FILE_NAME_JSON: 'smile_kids_database.json',
@@ -21223,6 +21223,14 @@
     _deletedIds: new Set(['SK-G2-LN-013']),
 
     init: function() {
+      // Purge legacy storage versions to prevent stale unrecorded cache overrides
+      if (typeof localStorage !== 'undefined') {
+        const staleKeys = ['SMILE_KIDS_MASTER_DATABASE_2026_V6', 'SMILE_KIDS_MASTER_DATABASE_2026_V5', 'SMILE_KIDS_MASTER_DATABASE_2026_V4', 'SMILE_KIDS_MASTER_DATABASE_2026', 'smile_kids_students', 'smilekids_school_v6', 'smile_kids_students_v7_custom'];
+        staleKeys.forEach(k => {
+          try { localStorage.removeItem(k); } catch(e) {}
+        });
+      }
+
       // Auto-purge outdated legacy storage caches to prevent old sessions from resurrecting typos
       if (typeof localStorage !== 'undefined') {
         LEGACY_STUDENT_KEYS.forEach(k => {
@@ -21296,11 +21304,37 @@
             addedCount++;
           } else if (existingIds.has(defSt.id)) {
             const cachedSt = this._cache.find(s => s.id === defSt.id);
-            if (cachedSt && (cachedSt.nameAr !== defSt.nameAr || cachedSt.nameEn !== defSt.nameEn || cachedSt.gender !== defSt.gender)) {
-              cachedSt.nameAr = defSt.nameAr;
-              cachedSt.nameEn = defSt.nameEn;
-              cachedSt.gender = defSt.gender;
-              updatedFieldsCount++;
+            if (cachedSt) {
+              if (cachedSt.nameAr !== defSt.nameAr || cachedSt.nameEn !== defSt.nameEn || cachedSt.gender !== defSt.gender) {
+                cachedSt.nameAr = defSt.nameAr;
+                cachedSt.nameEn = defSt.nameEn;
+                cachedSt.gender = defSt.gender;
+                updatedFieldsCount++;
+              }
+              // Sync / update September scores from master if cached scores are missing or unrecorded
+              if (defSt.subjectScores) {
+                if (!cachedSt.subjectScores) cachedSt.subjectScores = {};
+                for (const subKey in defSt.subjectScores) {
+                  const defSub = defSt.subjectScores[subKey];
+                  const cachedSub = cachedSt.subjectScores[subKey];
+                  const cachedSep = cachedSub && cachedSub.scores && cachedSub.scores.t1_sep;
+                  const isCachedRecorded = cachedSep && cachedSep.isRecorded === true && cachedSep.score !== null;
+                  const defSep = defSub && defSub.scores && defSub.scores.t1_sep;
+                  const isDefRecorded = defSep && defSep.isRecorded === true && defSep.score !== null;
+
+                  if (isDefRecorded && (!isCachedRecorded || cachedSep.score !== defSep.score)) {
+                    cachedSt.subjectScores[subKey] = this._clone(defSub);
+                    updatedFieldsCount++;
+                  }
+                }
+              }
+              if (defSt.termsScores && defSt.termsScores.t1_sep) {
+                if (!cachedSt.termsScores) cachedSt.termsScores = {};
+                if (!cachedSt.termsScores.t1_sep || cachedSt.termsScores.t1_sep.totalScore === null || cachedSt.termsScores.t1_sep.totalScore === undefined) {
+                  cachedSt.termsScores.t1_sep = this._clone(defSt.termsScores.t1_sep);
+                  updatedFieldsCount++;
+                }
+              }
             }
           }
         });
