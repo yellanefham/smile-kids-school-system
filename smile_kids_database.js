@@ -85,7 +85,9 @@
       "t2_m1": 20,
       "t2_m2": 20,
       "t1_m2": 20,
-      "t1_sep": 74.0
+      "t1_sep": 74.0,
+      "t1_sep_pct": 98.67,
+      "t1_sep_max": 75.0
     },
     "subjectScores": {
       "english_al": {
@@ -238,7 +240,9 @@
       "t2_tasks": null,
       "annual_total": 98,
       "t1_exam": 29.5,
-      "t1_tasks": null
+      "t1_tasks": null,
+      "t1_sep_pct": 97.33,
+      "t1_sep_max": 75.0
     },
     "subjectScores": {
       "english_al": {
@@ -365,7 +369,9 @@
       "annual_total": 98,
       "t2_total": 98,
       "t2_tasks": null,
-      "t1_tasks": null
+      "t1_tasks": null,
+      "t1_sep_pct": 99.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "math": {
@@ -500,7 +506,9 @@
       "t2_tasks": null,
       "t1_tasks": null,
       "t2_total": 98,
-      "t1_total": 98
+      "t1_total": 98,
+      "t1_sep_pct": 97.33,
+      "t1_sep_max": 75.0
     },
     "subjectScores": {
       "arabic": {
@@ -628,7 +636,9 @@
       "t1_exam": 29.5,
       "t1_total": 98,
       "t2_total": 98,
-      "annual_total": 98
+      "annual_total": 98,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 75.0
     },
     "phone": "",
     "notes": "",
@@ -757,7 +767,9 @@
       "t1_m1": 19.5,
       "t2_total": 98,
       "t1_tasks": null,
-      "t2_tasks": null
+      "t2_tasks": null,
+      "t1_sep_pct": 98.67,
+      "t1_sep_max": 75.0
     },
     "subjectScores": {
       "arabic": {
@@ -884,7 +896,9 @@
       "t1_sep": 28.0,
       "t2_exam": 30,
       "t1_exam": 29.5,
-      "annual_total": 98
+      "annual_total": 98,
+      "t1_sep_pct": 93.33,
+      "t1_sep_max": 30.0
     },
     "subjectScores": {
       "math": {
@@ -983,7 +997,9 @@
       "t2_exam": 30,
       "t2_m2": 20,
       "t2_m1": 20,
-      "t1_m2": 20
+      "t1_m2": 20,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "english_ol": {
@@ -1120,7 +1136,9 @@
       "t2_exam": 30,
       "t2_tasks": null,
       "t1_exam": 29.5,
-      "t1_tasks": null
+      "t1_tasks": null,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "arabic": {
@@ -1256,7 +1274,9 @@
       "t1_m2": 20,
       "annual_total": 98,
       "t1_exam": 29.5,
-      "t2_exam": 30
+      "t2_exam": 30,
+      "t1_sep_pct": 98.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "math": {
@@ -1392,7 +1412,9 @@
       "t1_sep": 96.0,
       "t1_total": 98,
       "t2_tasks": null,
-      "t1_tasks": null
+      "t1_tasks": null,
+      "t1_sep_pct": 96.0,
+      "t1_sep_max": 100.0
     },
     "phone": "",
     "notes": "",
@@ -1530,7 +1552,9 @@
       "annual_total": 98,
       "t1_total": 98,
       "t2_tasks": null,
-      "t1_tasks": null
+      "t1_tasks": null,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "arabic": {
@@ -1666,7 +1690,9 @@
       "t1_sep": 67.0,
       "t2_tasks": null,
       "annual_total": 98,
-      "t1_m1": 19.5
+      "t1_m1": 19.5,
+      "t1_sep_pct": 95.71,
+      "t1_sep_max": 70.0
     },
     "subjectScores": {
       "arabic": {
@@ -1794,7 +1820,9 @@
       "t2_m2": 20,
       "t2_tasks": null,
       "t1_tasks": null,
-      "t1_sep": 97.0
+      "t1_sep": 97.0,
+      "t1_sep_pct": 97.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "term": {
@@ -1930,7 +1958,9 @@
       "t1_tasks": null,
       "t1_total": 98,
       "t2_total": 98,
-      "annual_total": 98
+      "annual_total": 98,
+      "t1_sep_pct": 95.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "arabic": {
@@ -2065,7 +2095,9 @@
       "t2_exam": 30,
       "t1_m1": 19.5,
       "t1_exam": 29.5,
-      "t1_sep": 82.0
+      "t1_sep": 82.0,
+      "t1_sep_pct": 96.47,
+      "t1_sep_max": 85.0
     },
     "subjectScores": {
       "term": {
@@ -2186,7 +2218,9 @@
       "t1_sep": 100.0,
       "t1_total": 98,
       "t2_tasks": null,
-      "t1_tasks": null
+      "t1_tasks": null,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "english_ol": {
@@ -2322,7 +2356,9 @@
       "t2_m2": 20,
       "t1_m1": 19.5,
       "t2_exam": 30,
-      "t1_exam": 29.5
+      "t1_exam": 29.5,
+      "t1_sep_pct": 97.5,
+      "t1_sep_max": 80.0
     },
     "subjectScores": {
       "term": {
@@ -2444,7 +2480,9 @@
       "t2_m2": 20,
       "t1_m2": 20,
       "t2_m1": 20,
-      "t1_sep": 79.0
+      "t1_sep": 79.0,
+      "t1_sep_pct": 98.75,
+      "t1_sep_max": 80.0
     },
     "subjectScores": {
       "arabic": {
@@ -2565,7 +2603,9 @@
       "t1_m2": 20,
       "t2_m2": 20,
       "annual_total": 98,
-      "t1_sep": 79.0
+      "t1_sep": 79.0,
+      "t1_sep_pct": 98.75,
+      "t1_sep_max": 80.0
     },
     "subjectScores": {
       "arabic": {
@@ -2686,7 +2726,9 @@
       "t2_tasks": null,
       "t1_sep": 80.0,
       "t2_total": 98,
-      "t1_total": 98
+      "t1_total": 98,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 80.0
     },
     "subjectScores": {
       "term": {
@@ -2808,7 +2850,9 @@
       "t1_m2": 20,
       "t2_m2": 20,
       "t2_exam": 30,
-      "t1_exam": 29.5
+      "t1_exam": 29.5,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 80.0
     },
     "subjectScores": {
       "term": {
@@ -2930,7 +2974,9 @@
       "t2_exam": 30,
       "t1_m1": 19.5,
       "t1_exam": 29.5,
-      "t1_sep": 52
+      "t1_sep": 52.0,
+      "t1_sep_pct": 86.67,
+      "t1_sep_max": 60.0
     },
     "phone": "",
     "notes": "",
@@ -3026,7 +3072,9 @@
       "annual_total": 98,
       "t1_total": 98,
       "t2_tasks": null,
-      "t1_tasks": null
+      "t1_tasks": null,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 80.0
     },
     "subjectScores": {
       "arabic": {
@@ -3148,7 +3196,9 @@
       "t2_total": 98,
       "t2_exam": 30,
       "t1_total": 98,
-      "t1_exam": 29.5
+      "t1_exam": 29.5,
+      "t1_sep_pct": 97.5,
+      "t1_sep_max": 80.0
     },
     "subjectScores": {
       "term": {
@@ -3245,7 +3295,9 @@
       "t1_sep": 100.0,
       "t1_tasks": null,
       "t2_total": 98,
-      "t1_total": 98
+      "t1_total": 98,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "term": {
@@ -3356,7 +3408,9 @@
       "t1_m1": 19.5,
       "t2_total": 98,
       "t1_sep": 99.0,
-      "t1_total": 98
+      "t1_total": 98,
+      "t1_sep_pct": 99.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "term": {
@@ -3491,7 +3545,9 @@
       "t2_m1": 20,
       "t1_m2": 20,
       "t2_m2": 20,
-      "t1_m1": 19.5
+      "t1_m1": 19.5,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "term": {
@@ -3602,7 +3658,9 @@
       "t1_sep": 92.0,
       "t1_total": 98,
       "t2_tasks": null,
-      "t1_tasks": null
+      "t1_tasks": null,
+      "t1_sep_pct": 92.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "term": {
@@ -3713,7 +3771,9 @@
       "t2_m2": 20,
       "annual_total": 98,
       "t1_exam": 29.5,
-      "t2_exam": 30
+      "t2_exam": 30,
+      "t1_sep_pct": 96.25,
+      "t1_sep_max": 80.0
     },
     "subjectScores": {
       "term": {
@@ -3810,7 +3870,9 @@
       "t2_exam": 30,
       "t2_tasks": null,
       "t1_exam": 29.5,
-      "t1_tasks": null
+      "t1_tasks": null,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "term": {
@@ -3921,7 +3983,9 @@
       "t2_exam": 30,
       "t1_m2": 20,
       "t2_m1": 20,
-      "t2_m2": 20
+      "t2_m2": 20,
+      "t1_sep_pct": 96.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "arabic": {
@@ -4032,7 +4096,9 @@
       "t2_tasks": null,
       "t2_exam": 30,
       "t1_sep": 91.0,
-      "t1_exam": 29.5
+      "t1_exam": 29.5,
+      "t1_sep_pct": 91.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "arabic": {
@@ -4143,7 +4209,9 @@
       "t2_m2": 20,
       "t1_m2": 20,
       "t2_m1": 20,
-      "t1_m1": 19.5
+      "t1_m1": 19.5,
+      "t1_sep_pct": 98.75,
+      "t1_sep_max": 80.0
     },
     "subjectScores": {
       "term": {
@@ -4240,7 +4308,9 @@
       "t1_m1": 19.5,
       "t2_total": 98,
       "t1_total": 98,
-      "t1_sep": 97.0
+      "t1_sep": 97.0,
+      "t1_sep_pct": 97.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "term": {
@@ -4351,7 +4421,9 @@
       "annual_total": 98,
       "t1_total": 98,
       "t2_exam": 30,
-      "t1_exam": 29.5
+      "t1_exam": 29.5,
+      "t1_sep_pct": 96.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "term": {
@@ -4462,7 +4534,9 @@
       "t1_sep": 99.0,
       "t1_tasks": null,
       "annual_total": 98,
-      "t2_tasks": null
+      "t2_tasks": null,
+      "t1_sep_pct": 99.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "arabic": {
@@ -4576,7 +4650,9 @@
       "t2_tasks": null,
       "t2_exam": 30,
       "t1_tasks": null,
-      "t1_exam": 29.5
+      "t1_exam": 29.5,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "arabic": {
@@ -4687,7 +4763,9 @@
       "t1_exam": 29.5,
       "t2_tasks": null,
       "t1_tasks": null,
-      "annual_total": 98
+      "annual_total": 98,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "term": {
@@ -4798,7 +4876,9 @@
       "t1_sep": 95.0,
       "t1_tasks": null,
       "t2_total": 98,
-      "t1_total": 98
+      "t1_total": 98,
+      "t1_sep_pct": 95.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "arabic": {
@@ -4909,7 +4989,9 @@
       "t1_m1": 19.5,
       "t2_tasks": null,
       "t1_tasks": null,
-      "annual_total": 98
+      "annual_total": 98,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "arabic": {
@@ -5020,7 +5102,9 @@
       "t1_tasks": null,
       "annual_total": 98,
       "t1_total": 98,
-      "t2_total": 98
+      "t2_total": 98,
+      "t1_sep_pct": 98.89,
+      "t1_sep_max": 90.0
     },
     "subjectScores": {
       "arabic": {
@@ -5116,7 +5200,9 @@
       "t1_m2": 20,
       "t2_m2": 20,
       "t1_sep": 87.0,
-      "annual_total": 98
+      "annual_total": 98,
+      "t1_sep_pct": 96.67,
+      "t1_sep_max": 90.0
     },
     "subjectScores": {
       "term": {
@@ -5198,7 +5284,9 @@
       "t1_m1": 19.5,
       "t2_m2": 20,
       "t1_m2": 20,
-      "t2_m1": 20
+      "t2_m1": 20,
+      "t1_sep_pct": 97.78,
+      "t1_sep_max": 90.0
     },
     "subjectScores": {
       "term": {
@@ -5294,7 +5382,9 @@
       "t1_exam": 29.5,
       "t2_tasks": null,
       "t1_tasks": null,
-      "t2_exam": 30
+      "t2_exam": 30,
+      "t1_sep_pct": 96.67,
+      "t1_sep_max": 90.0
     },
     "subjectScores": {
       "arabic": {
@@ -5390,7 +5480,9 @@
       "t2_tasks": null,
       "t2_exam": 30,
       "t1_tasks": null,
-      "annual_total": 98
+      "annual_total": 98,
+      "t1_sep_pct": 87.78,
+      "t1_sep_max": 90.0
     },
     "subjectScores": {
       "arabic": {
@@ -5486,7 +5578,9 @@
       "t1_tasks": null,
       "t2_tasks": null,
       "t2_exam": 30,
-      "t1_exam": 29.5
+      "t1_exam": 29.5,
+      "t1_sep_pct": 97.5,
+      "t1_sep_max": 120.0
     },
     "subjectScores": {
       "term": {
@@ -5596,7 +5690,9 @@
       "t2_exam": 30,
       "annual_total": 98,
       "t1_total": 98,
-      "t2_total": 98
+      "t2_total": 98,
+      "t1_sep_pct": 98.33,
+      "t1_sep_max": 120.0
     },
     "subjectScores": {
       "term": {
@@ -5753,7 +5849,9 @@
       "t1_sep": 108.0,
       "t1_total": 98,
       "t2_tasks": null,
-      "t1_tasks": null
+      "t1_tasks": null,
+      "t1_sep_pct": 90.0,
+      "t1_sep_max": 120.0
     },
     "subjectScores": {
       "arabic": {
@@ -5863,7 +5961,9 @@
       "annual_total": 98,
       "t2_tasks": null,
       "t1_tasks": null,
-      "t1_sep": 117.0
+      "t1_sep": 117.0,
+      "t1_sep_pct": 97.5,
+      "t1_sep_max": 120.0
     },
     "subjectScores": {
       "arabic": {
@@ -5973,7 +6073,9 @@
       "annual_total": 98,
       "t2_total": 98,
       "t1_sep": 119.0,
-      "t1_total": 98
+      "t1_total": 98,
+      "t1_sep_pct": 99.17,
+      "t1_sep_max": 120.0
     },
     "subjectScores": {
       "term": {
@@ -6083,7 +6185,9 @@
       "t2_total": 98,
       "annual_total": 98,
       "t1_tasks": null,
-      "t2_tasks": null
+      "t2_tasks": null,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 120.0
     },
     "subjectScores": {
       "arabic": {
@@ -6193,7 +6297,9 @@
       "t2_tasks": null,
       "t1_exam": 29.5,
       "t1_tasks": null,
-      "annual_total": 98
+      "annual_total": 98,
+      "t1_sep_pct": 95.83,
+      "t1_sep_max": 120.0
     },
     "subjectScores": {
       "term": {
@@ -6303,7 +6409,9 @@
       "t1_total": 98,
       "t2_total": 98,
       "t1_sep": 119.0,
-      "annual_total": 98
+      "annual_total": 98,
+      "t1_sep_pct": 99.17,
+      "t1_sep_max": 120.0
     },
     "subjectScores": {
       "term": {
@@ -6413,7 +6521,9 @@
       "annual_total": 98,
       "t1_tasks": null,
       "t2_total": 98,
-      "t1_total": 98
+      "t1_total": 98,
+      "t1_sep_pct": 97.5,
+      "t1_sep_max": 120.0
     },
     "subjectScores": {
       "arabic": {
@@ -6523,7 +6633,9 @@
       "annual_total": 98,
       "t2_exam": 30,
       "t2_total": 98,
-      "t1_exam": 29.5
+      "t1_exam": 29.5,
+      "t1_sep_pct": 95.83,
+      "t1_sep_max": 120.0
     },
     "subjectScores": {
       "arabic": {
@@ -6633,7 +6745,9 @@
       "t2_m1": 20,
       "annual_total": 98,
       "t1_exam": 29.5,
-      "t2_exam": 30
+      "t2_exam": 30,
+      "t1_sep_pct": 97.5,
+      "t1_sep_max": 120.0
     },
     "subjectScores": {
       "term": {
@@ -6741,9 +6855,11 @@
       "t2_m1": 20,
       "t2_tasks": null,
       "t1_exam": 29.5,
-      "t1_sep": 119.5,
+      "t1_sep": 120.0,
       "t2_total": 98,
-      "t1_total": 98
+      "t1_total": 98,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 120.0
     },
     "subjectScores": {
       "term": {
@@ -6773,7 +6889,8 @@
             "isRecorded": true,
             "maxScore": 30,
             "recordedAt": "2026-10-11T17:48:25.198Z",
-            "score": 29.5
+            "score": 30.0,
+            "updatedAt": "2026-10-12T00:25:00.000Z"
           }
         },
         "sep": 29.5
@@ -6839,7 +6956,9 @@
       "t1_m1": 19.5,
       "t2_m1": 20,
       "t1_m2": 20,
-      "t2_m2": 20
+      "t2_m2": 20,
+      "t1_sep_pct": 95.56,
+      "t1_sep_max": 90.0
     },
     "subjectScores": {
       "term": {
@@ -6935,7 +7054,9 @@
       "t1_m2": 20,
       "t1_total": 98,
       "t2_m2": 20,
-      "t1_sep": 119.0
+      "t1_sep": 119.0,
+      "t1_sep_pct": 99.17,
+      "t1_sep_max": 120.0
     },
     "subjectScores": {
       "arabic": {
@@ -7045,7 +7166,9 @@
       "annual_total": 98,
       "t1_m2": 20,
       "t2_m1": 20,
-      "t2_exam": 30
+      "t2_exam": 30,
+      "t1_sep_pct": 97.5,
+      "t1_sep_max": 120.0
     },
     "subjectScores": {
       "term": {
@@ -7155,7 +7278,9 @@
       "t2_m2": 20,
       "t1_exam": 29.5,
       "t1_m1": 19.5,
-      "t1_sep": 87.0
+      "t1_sep": 87.0,
+      "t1_sep_pct": 96.67,
+      "t1_sep_max": 90.0
     },
     "subjectScores": {
       "arabic": {
@@ -7251,7 +7376,9 @@
       "t2_total": 98,
       "t2_exam": 30,
       "t1_total": 98,
-      "t1_exam": 29.5
+      "t1_exam": 29.5,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 120.0
     },
     "subjectScores": {
       "arabic": {
@@ -7361,7 +7488,9 @@
       "t1_total": 98,
       "t1_m1": 19.5,
       "t1_sep": 141.0,
-      "t2_total": 98
+      "t2_total": 98,
+      "t1_sep_pct": 94.0,
+      "t1_sep_max": 150.0
     },
     "subjectScores": {
       "term": {
@@ -7471,7 +7600,9 @@
       "t2_m2": 20,
       "t1_m1": 19.5,
       "t1_tasks": null,
-      "t2_tasks": null
+      "t2_tasks": null,
+      "t1_sep_pct": 98.67,
+      "t1_sep_max": 150.0
     },
     "subjectScores": {
       "term": {
@@ -7582,7 +7713,9 @@
       "t1_total": 98,
       "t2_total": 98,
       "t2_tasks": null,
-      "t1_tasks": null
+      "t1_tasks": null,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "arabic": {
@@ -7721,7 +7854,9 @@
       "t1_m1": 19.5,
       "annual_total": 98,
       "t1_exam": 29.5,
-      "t2_exam": 30
+      "t2_exam": 30,
+      "t1_sep_pct": 98.89,
+      "t1_sep_max": 180.0
     },
     "subjectScores": {
       "term": {
@@ -7845,7 +7980,9 @@
       "t2_m2": 20,
       "t2_m1": 20,
       "t1_exam": 29.5,
-      "t1_sep": 177.0
+      "t1_sep": 177.0,
+      "t1_sep_pct": 98.33,
+      "t1_sep_max": 180.0
     },
     "subjectScores": {
       "arabic": {
@@ -7969,7 +8106,9 @@
       "t1_m2": 20,
       "t1_m1": 19.5,
       "t1_tasks": null,
-      "t2_tasks": null
+      "t2_tasks": null,
+      "t1_sep_pct": 96.92,
+      "t1_sep_max": 130.0
     },
     "subjectScores": {
       "term": {
@@ -8085,7 +8224,9 @@
       "t2_tasks": null,
       "t1_tasks": null,
       "t2_total": 98,
-      "t1_total": 98
+      "t1_total": 98,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "arabic": {
@@ -8224,7 +8365,9 @@
       "t2_m2": 20,
       "t2_m1": 20,
       "t1_total": 98,
-      "t1_sep": 209.0
+      "t1_sep": 209.0,
+      "t1_sep_pct": 99.52,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "term": {
@@ -8363,7 +8506,9 @@
       "t2_m1": 20,
       "annual_total": 98,
       "t1_exam": 29.5,
-      "t2_exam": 30
+      "t2_exam": 30,
+      "t1_sep_pct": 94.29,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "arabic": {
@@ -8502,7 +8647,9 @@
       "t2_exam": 30,
       "t1_sep": 209.0,
       "t1_total": 98,
-      "t2_total": 98
+      "t2_total": 98,
+      "t1_sep_pct": 99.52,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "term": {
@@ -8641,7 +8788,9 @@
       "t1_m1": 19.5,
       "t1_sep": 207.0,
       "t1_tasks": null,
-      "t2_tasks": null
+      "t2_tasks": null,
+      "t1_sep_pct": 98.57,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "arabic": {
@@ -8780,7 +8929,9 @@
       "t1_tasks": null,
       "t2_tasks": null,
       "t2_exam": 30,
-      "t1_exam": 29.5
+      "t1_exam": 29.5,
+      "t1_sep_pct": 97.14,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "arabic": {
@@ -8919,7 +9070,9 @@
       "t1_m1": 19.5,
       "t1_m2": 20,
       "t2_m2": 20,
-      "t2_m1": 20
+      "t2_m1": 20,
+      "t1_sep_pct": 97.62,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "term": {
@@ -9058,7 +9211,9 @@
       "t2_m2": 20,
       "t2_m1": 20,
       "t1_m2": 20,
-      "t1_m1": 19.5
+      "t1_m1": 19.5,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "arabic": {
@@ -9197,7 +9352,9 @@
       "t2_m2": 20,
       "t1_m2": 20,
       "t1_m1": 19.5,
-      "t1_sep": 204.0
+      "t1_sep": 204.0,
+      "t1_sep_pct": 97.14,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "term": {
@@ -9336,7 +9493,9 @@
       "t2_m1": 20,
       "t2_m2": 20,
       "t1_m2": 20,
-      "t2_total": 98
+      "t2_total": 98,
+      "t1_sep_pct": 97.14,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "term": {
@@ -9475,7 +9634,9 @@
       "t1_tasks": null,
       "t2_tasks": null,
       "t1_sep": 209.0,
-      "annual_total": 98
+      "annual_total": 98,
+      "t1_sep_pct": 99.52,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "arabic": {
@@ -9625,7 +9786,9 @@
       "t1_total": 98,
       "t1_exam": 29.5,
       "t1_m1": 19.5,
-      "t2_exam": 30
+      "t2_exam": 30,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "term": {
@@ -9757,14 +9920,16 @@
       "t1_tasks": null,
       "annual_total": 98,
       "t2_total": 98,
-      "t1_sep": 153.5,
+      "t1_sep": 154.0,
       "t1_exam": 29.5,
       "t1_total": 98,
       "t2_exam": 30,
       "t1_m1": 19.5,
       "t2_m1": 20,
       "t2_m2": 20,
-      "t1_m2": 20
+      "t1_m2": 20,
+      "t1_sep_pct": 96.25,
+      "t1_sep_max": 160.0
     },
     "subjectScores": {
       "term": {
@@ -9825,11 +9990,11 @@
         "teacherNameAr": "مس / سمر",
         "scores": {
           "t1_sep": {
-            "score": 49.5,
+            "score": 50.0,
             "maxScore": 50.0,
             "isRecorded": true,
             "recordedAt": "2026-10-11T20:00:00.000Z",
-            "updatedAt": "2026-10-11T20:00:00.000Z"
+            "updatedAt": "2026-10-12T00:25:00.000Z"
           }
         },
         "sep": 49.5
@@ -9892,7 +10057,9 @@
       "t1_m2": 20,
       "t2_m1": 20,
       "annual_total": 100,
-      "t1_sep": 96.0
+      "t1_sep": 96.0,
+      "t1_sep_pct": 96.0,
+      "t1_sep_max": 100.0
     },
     "trackNameAr": "لغات (Math & Science)",
     "trackNameEn": "Languages Track",
@@ -10030,7 +10197,9 @@
       "t2_m2": 20,
       "t1_m2": 20,
       "t2_m1": 20,
-      "t2_tasks": null
+      "t2_tasks": null,
+      "t1_sep_pct": 93.75,
+      "t1_sep_max": 80.0
     },
     "subjectScores": {
       "term": {
@@ -10129,7 +10298,9 @@
       "t2_exam": 30,
       "t1_exam": 30,
       "t2_total": 100,
-      "annual_total": 100
+      "annual_total": 100,
+      "t1_sep_pct": 94.0,
+      "t1_sep_max": 50.0
     },
     "subjectScores": {
       "arabic": {
@@ -10210,7 +10381,9 @@
       "t2_tasks": null,
       "annual_total": 100,
       "t1_total": 100,
-      "t2_total": 100
+      "t2_total": 100,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 90.0
     },
     "subjectScores": {
       "term": {
@@ -10307,7 +10480,9 @@
       "t1_m2": 20,
       "t2_m1": 20,
       "t2_m2": 20,
-      "t1_sep": 173.0
+      "t1_sep": 173.0,
+      "t1_sep_pct": 96.11,
+      "t1_sep_max": 180.0
     },
     "subjectScores": {
       "term": {
@@ -10433,7 +10608,9 @@
       "t2_tasks": null,
       "t1_tasks": null,
       "t2_exam": 30,
-      "t1_exam": 29.5
+      "t1_exam": 29.5,
+      "t1_sep_pct": 98.89,
+      "t1_sep_max": 180.0
     },
     "subjectScores": {
       "english_ol": {
@@ -10559,7 +10736,9 @@
       "t1_m1": 20,
       "t1_total": 100,
       "annual_total": 100,
-      "t1_sep": 30
+      "t1_sep": 30.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 30.0
     },
     "subjectScores": {
       "term": {
@@ -10666,7 +10845,9 @@
       "t1_sep": 180.0,
       "t1_tasks": null,
       "t2_total": 98,
-      "t1_total": 98
+      "t1_total": 98,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 180.0
     },
     "subjectScores": {
       "english_ol": {
@@ -10792,7 +10973,9 @@
       "t1_exam": 29.5,
       "t1_total": 98,
       "t2_total": 98,
-      "annual_total": 98
+      "annual_total": 98,
+      "t1_sep_pct": 99.44,
+      "t1_sep_max": 180.0
     },
     "subjectScores": {
       "term": {
@@ -10918,7 +11101,9 @@
       "t2_m1": 20,
       "annual_total": 98,
       "t1_exam": 29.5,
-      "t2_exam": 30
+      "t2_exam": 30,
+      "t1_sep_pct": 98.33,
+      "t1_sep_max": 180.0
     },
     "subjectScores": {
       "term": {
@@ -11044,7 +11229,9 @@
       "t2_m1": 20,
       "t2_m2": 20,
       "t1_sep": 178.0,
-      "t1_m1": 19.5
+      "t1_m1": 19.5,
+      "t1_sep_pct": 98.89,
+      "t1_sep_max": 180.0
     },
     "subjectScores": {
       "english_ol": {
@@ -11167,9 +11354,11 @@
       "t1_total": 98,
       "annual_total": 98,
       "t2_total": 98,
-      "t1_sep": 169.5,
+      "t1_sep": 170.0,
       "t2_tasks": null,
-      "t1_tasks": null
+      "t1_tasks": null,
+      "t1_sep_pct": 94.44,
+      "t1_sep_max": 180.0
     },
     "subjectScores": {
       "science": {
@@ -11237,11 +11426,11 @@
         "teacherNameAr": "مس / كريمان",
         "scores": {
           "t1_sep": {
-            "score": 19.5,
+            "score": 20.0,
             "maxScore": 20.0,
             "isRecorded": true,
             "recordedAt": "2026-10-11T20:00:00.000Z",
-            "updatedAt": "2026-10-11T20:00:00.000Z"
+            "updatedAt": "2026-10-12T00:25:00.000Z"
           }
         },
         "sep": 19.5
@@ -11295,7 +11484,9 @@
       "t2_tasks": null,
       "annual_total": 98,
       "t1_exam": 29.5,
-      "t2_exam": 30
+      "t2_exam": 30,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 180.0
     },
     "subjectScores": {
       "arabic": {
@@ -11421,7 +11612,9 @@
       "t1_m2": 20,
       "t2_m1": 20,
       "t1_sep": 207.0,
-      "annual_total": 98
+      "annual_total": 98,
+      "t1_sep_pct": 98.57,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "arabic": {
@@ -11563,7 +11756,9 @@
       "t2_m2": 20,
       "t1_m2": 20,
       "t2_m1": 20,
-      "t1_sep": 205.5
+      "t1_sep": 206.0,
+      "t1_sep_pct": 98.1,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "arabic": {
@@ -11632,11 +11827,11 @@
         "teacherNameAr": "مس / سمر",
         "scores": {
           "t1_sep": {
-            "score": 49.5,
+            "score": 50.0,
             "maxScore": 50.0,
             "isRecorded": true,
             "recordedAt": "2026-10-11T20:00:00.000Z",
-            "updatedAt": "2026-10-11T20:00:00.000Z"
+            "updatedAt": "2026-10-12T00:25:00.000Z"
           }
         },
         "sep": 49.5
@@ -11704,7 +11899,9 @@
       "t1_m2": 20,
       "t1_m1": 19.5,
       "t1_total": 98,
-      "t1_sep": 208.0
+      "t1_sep": 208.0,
+      "t1_sep_pct": 99.05,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "arabic": {
@@ -11845,7 +12042,9 @@
       "t1_total": 98,
       "annual_total": 98,
       "t2_tasks": null,
-      "t1_tasks": null
+      "t1_tasks": null,
+      "t1_sep_pct": 99.52,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "arabic": {
@@ -11986,7 +12185,9 @@
       "t1_m2": 20,
       "t2_m1": 20,
       "t1_m1": 19.5,
-      "t1_sep": 210.0
+      "t1_sep": 210.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "english_al": {
@@ -12127,7 +12328,9 @@
       "t1_m2": 20,
       "t2_m1": 20,
       "t1_exam": 29.5,
-      "t2_exam": 30
+      "t2_exam": 30,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "term": {
@@ -12268,7 +12471,9 @@
       "t2_m2": 20,
       "t1_m2": 20,
       "t1_m1": 19.5,
-      "t1_sep": 207.5
+      "t1_sep": 208.0,
+      "t1_sep_pct": 99.05,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "english_ol": {
@@ -12351,11 +12556,11 @@
         "teacherNameAr": "مس / كريمان",
         "scores": {
           "t1_sep": {
-            "score": 19.5,
+            "score": 20.0,
             "maxScore": 20.0,
             "isRecorded": true,
             "recordedAt": "2026-10-11T20:00:00.000Z",
-            "updatedAt": "2026-10-11T20:00:00.000Z"
+            "updatedAt": "2026-10-12T00:25:00.000Z"
           }
         },
         "sep": 19.5
@@ -12399,7 +12604,7 @@
     "attendanceNotes": {},
     "termsScores": {
       "annual_total": 98,
-      "t1_sep": 204.5,
+      "t1_sep": 205.0,
       "t2_exam": 30,
       "t1_exam": 29.5,
       "t1_total": 98,
@@ -12409,7 +12614,9 @@
       "t2_m2": 20,
       "t2_total": 98,
       "t1_tasks": null,
-      "t2_tasks": null
+      "t2_tasks": null,
+      "t1_sep_pct": 97.62,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "arabic": {
@@ -12492,11 +12699,11 @@
         "teacherNameAr": "مس / كريمان",
         "scores": {
           "t1_sep": {
-            "score": 19.5,
+            "score": 20.0,
             "maxScore": 20.0,
             "isRecorded": true,
             "recordedAt": "2026-10-11T20:00:00.000Z",
-            "updatedAt": "2026-10-11T20:00:00.000Z"
+            "updatedAt": "2026-10-12T00:25:00.000Z"
           }
         },
         "sep": 19.5
@@ -12550,7 +12757,9 @@
       "t2_total": 98,
       "t2_tasks": null,
       "t1_tasks": null,
-      "annual_total": 98
+      "annual_total": 98,
+      "t1_sep_pct": 98.57,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "term": {
@@ -12691,7 +12900,9 @@
       "t2_m2": 20,
       "t2_m1": 20,
       "t1_m1": 19.5,
-      "t1_sep": 190.0
+      "t1_sep": 190.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 190.0
     },
     "subjectScores": {
       "term": {
@@ -12818,7 +13029,9 @@
       "t2_m2": 20,
       "t1_m2": 20,
       "t2_m1": 20,
-      "t1_sep": 189.0
+      "t1_sep": 189.0,
+      "t1_sep_pct": 99.47,
+      "t1_sep_max": 190.0
     },
     "subjectScores": {
       "science": {
@@ -12939,7 +13152,9 @@
       "t2_total": 98,
       "t1_tasks": null,
       "t2_tasks": null,
-      "t1_sep": 189.0
+      "t1_sep": 189.0,
+      "t1_sep_pct": 99.47,
+      "t1_sep_max": 190.0
     },
     "subjectScores": {
       "term": {
@@ -13066,7 +13281,9 @@
       "t2_total": 98,
       "t1_tasks": null,
       "t2_tasks": null,
-      "t1_sep": 187.5
+      "t1_sep": 188.0,
+      "t1_sep_pct": 98.95,
+      "t1_sep_max": 190.0
     },
     "subjectScores": {
       "science": {
@@ -13135,11 +13352,11 @@
         "teacherNameAr": "مس / كريمان",
         "scores": {
           "t1_sep": {
-            "score": 19.5,
+            "score": 20.0,
             "maxScore": 20.0,
             "isRecorded": true,
             "recordedAt": "2026-10-11T20:00:00.000Z",
-            "updatedAt": "2026-10-11T20:00:00.000Z"
+            "updatedAt": "2026-10-12T00:25:00.000Z"
           }
         },
         "sep": 19.5
@@ -13193,7 +13410,9 @@
       "t2_m2": 20,
       "t1_m1": 19.5,
       "t2_total": 98,
-      "t1_sep": 84.0
+      "t1_sep": 84.0,
+      "t1_sep_pct": 93.33,
+      "t1_sep_max": 90.0
     },
     "subjectScores": {
       "arabic": {
@@ -13256,7 +13475,9 @@
       "t1_m2": 20,
       "t2_m1": 20,
       "t1_m1": 19.5,
-      "t1_sep": 220.0
+      "t1_sep": 220.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "science": {
@@ -13397,7 +13618,9 @@
       "t2_exam": 30,
       "t1_exam": 29.5,
       "annual_total": 98,
-      "t1_sep": 220.0
+      "t1_sep": 220.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "term": {
@@ -13538,7 +13761,9 @@
       "t2_total": 98,
       "t2_tasks": null,
       "t1_tasks": null,
-      "t1_sep": 220.0
+      "t1_sep": 220.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "science": {
@@ -13673,7 +13898,9 @@
       "t1_m2": 20,
       "t2_m1": 20,
       "t2_exam": 30,
-      "t1_sep": 220.0
+      "t1_sep": 220.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "english_ol": {
@@ -13814,7 +14041,9 @@
       "t1_m2": 20,
       "t2_m1": 20,
       "t2_exam": 30,
-      "t1_sep": 214.0
+      "t1_sep": 214.0,
+      "t1_sep_pct": 97.27,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "science": {
@@ -13949,7 +14178,9 @@
       "t1_tasks": null,
       "t1_m1": 19.5,
       "t2_tasks": null,
-      "t1_sep": 220.0
+      "t1_sep": 220.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "term": {
@@ -14090,7 +14321,9 @@
       "t2_m1": 20,
       "t1_m2": 20,
       "annual_total": 98,
-      "t1_sep": 220.0
+      "t1_sep": 220.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "science": {
@@ -14225,7 +14458,9 @@
       "t2_total": 98,
       "t1_total": 98,
       "annual_total": 98,
-      "t1_sep": 220.0
+      "t1_sep": 220.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "science": {
@@ -14366,7 +14601,9 @@
       "t1_tasks": null,
       "t2_total": 98,
       "t1_total": 98,
-      "t1_sep": 217.0
+      "t1_sep": 217.0,
+      "t1_sep_pct": 98.64,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "term": {
@@ -14507,7 +14744,9 @@
       "annual_total": 98,
       "t2_tasks": null,
       "t1_tasks": null,
-      "t1_sep": 213.0
+      "t1_sep": 213.0,
+      "t1_sep_pct": 96.82,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "science": {
@@ -14676,7 +14915,9 @@
       "t2_m2": 20,
       "t2_m1": 20,
       "t2_tasks": null,
-      "t1_sep": 220.0
+      "t1_sep": 220.0,
+      "t1_sep_pct": 104.76,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "english_al": {
@@ -14817,7 +15058,9 @@
       "t2_m1": 20,
       "t2_exam": 30,
       "t1_exam": 29.5,
-      "t1_sep": 220.0
+      "t1_sep": 220.0,
+      "t1_sep_pct": 104.76,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "english_ol": {
@@ -14958,7 +15201,9 @@
       "t2_tasks": null,
       "t1_tasks": null,
       "annual_total": 98,
-      "t1_sep": 213.0
+      "t1_sep": 213.0,
+      "t1_sep_pct": 101.43,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "term": {
@@ -15099,7 +15344,9 @@
       "t2_tasks": null,
       "annual_total": 98,
       "t1_tasks": null,
-      "t1_sep": 219.0
+      "t1_sep": 219.0,
+      "t1_sep_pct": 104.29,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "term": {
@@ -15240,7 +15487,9 @@
       "t1_total": 98,
       "t2_total": 98,
       "annual_total": 98,
-      "t1_sep": 210.0
+      "t1_sep": 210.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "english_ol": {
@@ -15381,7 +15630,9 @@
       "annual_total": 98,
       "t2_exam": 30,
       "t1_exam": 29.5,
-      "t1_sep": 215.0
+      "t1_sep": 215.0,
+      "t1_sep_pct": 102.38,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "science": {
@@ -15522,7 +15773,9 @@
       "t1_total": 98,
       "t2_exam": 30,
       "t1_exam": 29.5,
-      "t1_sep": 219.0
+      "t1_sep": 219.0,
+      "t1_sep_pct": 99.55,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "science": {
@@ -15664,7 +15917,9 @@
       "t1_total": 98,
       "t2_tasks": null,
       "t1_tasks": null,
-      "t1_sep": 220.0
+      "t1_sep": 220.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "english_al": {
@@ -15806,7 +16061,9 @@
       "t1_total": 98,
       "t2_total": 98,
       "annual_total": 98,
-      "t1_sep": 220.0
+      "t1_sep": 220.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "english_al": {
@@ -15948,7 +16205,9 @@
       "t2_exam": 30,
       "annual_total": 98,
       "t1_exam": 29.5,
-      "t1_sep": 220.0
+      "t1_sep": 220.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "english_ol": {
@@ -16090,7 +16349,9 @@
       "t1_exam": 29.5,
       "t2_tasks": null,
       "t1_tasks": null,
-      "t1_sep": 220.0
+      "t1_sep": 220.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "english_ol": {
@@ -16232,7 +16493,9 @@
       "t2_tasks": null,
       "t1_tasks": null,
       "annual_total": 98,
-      "t1_sep": 220.0
+      "t1_sep": 220.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "term": {
@@ -16374,7 +16637,9 @@
       "t1_m1": 19.5,
       "t2_total": 98,
       "t1_total": 98,
-      "t1_sep": 213.0
+      "t1_sep": 213.0,
+      "t1_sep_pct": 96.82,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "science": {
@@ -16525,7 +16790,9 @@
       "t1_total": 98,
       "t2_total": 98,
       "annual_total": 98,
-      "t1_sep": 220.0
+      "t1_sep": 220.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "english_ol": {
@@ -16667,7 +16934,9 @@
       "t2_m1": 20,
       "t1_exam": 29.5,
       "t2_exam": 30,
-      "t1_sep": 190.0
+      "t1_sep": 190.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 190.0
     },
     "subjectScores": {
       "science": {
@@ -16788,7 +17057,9 @@
       "t1_exam": 29.5,
       "t2_exam": 30,
       "t2_total": 98,
-      "t1_sep": 157.0
+      "t1_sep": 157.0,
+      "t1_sep_pct": 92.35,
+      "t1_sep_max": 170.0
     },
     "subjectScores": {
       "science": {
@@ -16895,7 +17166,9 @@
       "t2_total": 98,
       "t2_tasks": null,
       "t1_tasks": null,
-      "t1_sep": 181.0
+      "t1_sep": 181.0,
+      "t1_sep_pct": 95.26,
+      "t1_sep_max": 190.0
     },
     "subjectScores": {
       "science": {
@@ -17016,7 +17289,9 @@
       "t1_m2": 20,
       "t2_m2": 20,
       "t1_m1": 19.5,
-      "t1_sep": 220.0
+      "t1_sep": 220.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "science": {
@@ -17151,7 +17426,9 @@
       "annual_total": 98,
       "t1_exam": 29.5,
       "t2_exam": 30,
-      "t1_sep": 199.0
+      "t1_sep": 199.0,
+      "t1_sep_pct": 99.5,
+      "t1_sep_max": 200.0
     },
     "subjectScores": {
       "science": {
@@ -17272,7 +17549,9 @@
       "t2_m2": 20,
       "t1_m2": 20,
       "t2_m1": 20,
-      "t1_sep": 183.0
+      "t1_sep": 183.0,
+      "t1_sep_pct": 96.32,
+      "t1_sep_max": 190.0
     },
     "subjectScores": {
       "term": {
@@ -17399,7 +17678,9 @@
       "t2_total": 98,
       "t1_tasks": null,
       "t2_tasks": null,
-      "t1_sep": 187.5
+      "t1_sep": 188.0,
+      "t1_sep_pct": 98.95,
+      "t1_sep_max": 190.0
     },
     "subjectScores": {
       "science": {
@@ -17468,11 +17749,11 @@
         "teacherNameAr": "مس / كريمان",
         "scores": {
           "t1_sep": {
-            "score": 19.5,
+            "score": 20.0,
             "maxScore": 20.0,
             "isRecorded": true,
             "recordedAt": "2026-10-11T20:00:00.000Z",
-            "updatedAt": "2026-10-11T20:00:00.000Z"
+            "updatedAt": "2026-10-12T00:25:00.000Z"
           }
         },
         "sep": 19.5
@@ -17562,7 +17843,9 @@
       "t2_total": 98,
       "t1_total": 98,
       "annual_total": 98,
-      "t1_sep": 217.5
+      "t1_sep": 218.0,
+      "t1_sep_pct": 99.09,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "science": {
@@ -17645,11 +17928,11 @@
         "teacherNameAr": "مس / كريمان",
         "scores": {
           "t1_sep": {
-            "score": 19.5,
+            "score": 20.0,
             "maxScore": 20.0,
             "isRecorded": true,
             "recordedAt": "2026-10-11T20:00:00.000Z",
-            "updatedAt": "2026-10-11T20:00:00.000Z"
+            "updatedAt": "2026-10-12T00:25:00.000Z"
           }
         },
         "sep": 19.5
@@ -17704,7 +17987,9 @@
       "t1_total": 98,
       "t1_tasks": null,
       "t2_tasks": null,
-      "t1_sep": 220.0
+      "t1_sep": 220.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 220.0
     },
     "subjectScores": {
       "english_ol": {
@@ -17846,7 +18131,9 @@
       "t1_total": 98,
       "t1_sep": 99.0,
       "t1_tasks": null,
-      "t2_tasks": null
+      "t2_tasks": null,
+      "t1_sep_pct": 99.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "term": {
@@ -17956,7 +18243,9 @@
       "t1_sep": 97.0,
       "annual_total": 98,
       "t2_tasks": null,
-      "t1_tasks": null
+      "t1_tasks": null,
+      "t1_sep_pct": 97.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "arabic": {
@@ -18066,7 +18355,9 @@
       "t2_m2": 20,
       "t2_m1": 20,
       "t2_exam": 30,
-      "t1_exam": 29.5
+      "t1_exam": 29.5,
+      "t1_sep_pct": 95.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "arabic": {
@@ -18176,7 +18467,9 @@
       "t1_m1": 19.5,
       "t2_m1": 20,
       "t1_m2": 20,
-      "t2_m2": 20
+      "t2_m2": 20,
+      "t1_sep_pct": 94.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "term": {
@@ -18286,7 +18579,9 @@
       "t1_tasks": null,
       "t2_total": 98,
       "annual_total": 98,
-      "t1_total": 98
+      "t1_total": 98,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 80.0
     },
     "subjectScores": {
       "term": {
@@ -18382,7 +18677,9 @@
       "t2_m1": 20,
       "t2_m2": 20,
       "t2_total": 98,
-      "annual_total": 98
+      "annual_total": 98,
+      "t1_sep_pct": 94.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "term": {
@@ -18492,7 +18789,9 @@
       "t2_exam": 30,
       "t1_exam": 29.5,
       "t1_m1": 19.5,
-      "t1_sep": 44.0
+      "t1_sep": 44.0,
+      "t1_sep_pct": 88.0,
+      "t1_sep_max": 50.0
     },
     "subjectScores": {
       "arabic": {
@@ -18580,7 +18879,9 @@
       "t1_total": 98,
       "t2_exam": 30,
       "t2_total": 98,
-      "t1_exam": 29.5
+      "t1_exam": 29.5,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "english_al": {
@@ -18692,7 +18993,9 @@
       "t2_m2": 20,
       "t1_m2": 20,
       "t1_total": 98,
-      "t2_total": 98
+      "t2_total": 98,
+      "t1_sep_pct": 99.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "english_al": {
@@ -18803,7 +19106,9 @@
       "t1_sep": 97.0,
       "t2_total": 98,
       "t2_tasks": null,
-      "t1_tasks": null
+      "t1_tasks": null,
+      "t1_sep_pct": 97.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "term": {
@@ -18915,7 +19220,9 @@
       "t2_m1": 20,
       "t1_tasks": null,
       "t1_m1": 19.5,
-      "t2_tasks": null
+      "t2_tasks": null,
+      "t1_sep_pct": 99.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "arabic": {
@@ -19027,7 +19334,9 @@
       "annual_total": 98,
       "t1_exam": 29.5,
       "t2_exam": 30,
-      "t1_sep": 100.0
+      "t1_sep": 100.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "arabic": {
@@ -19139,7 +19448,9 @@
       "t2_m1": 20,
       "t2_m2": 20,
       "annual_total": 98,
-      "t1_m1": 19.5
+      "t1_m1": 19.5,
+      "t1_sep_pct": 98.57,
+      "t1_sep_max": 70.0
     },
     "subjectScores": {
       "english_ol": {
@@ -19243,7 +19554,9 @@
       "t2_m2": 20,
       "t2_m1": 20,
       "t1_m2": 20,
-      "t1_sep": 100.0
+      "t1_sep": 100.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "arabic": {
@@ -19354,7 +19667,9 @@
       "t2_exam": 30,
       "t1_exam": 29.5,
       "t1_sep": 100.0,
-      "annual_total": 98
+      "annual_total": 98,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "english_al": {
@@ -19466,7 +19781,9 @@
       "t1_total": 98,
       "t2_exam": 30,
       "t1_sep": 98.0,
-      "t1_exam": 29.5
+      "t1_exam": 29.5,
+      "t1_sep_pct": 98.0,
+      "t1_sep_max": 100.0
     },
     "subjectScores": {
       "arabic": {
@@ -19578,7 +19895,9 @@
       "t2_m1": 20,
       "t2_m2": 20,
       "t1_m2": 20,
-      "t1_tasks": null
+      "t1_tasks": null,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 60.0
     },
     "subjectScores": {
       "arabic": {
@@ -19660,7 +19979,9 @@
       "annual_total": 98,
       "t2_exam": 30,
       "t2_total": 98,
-      "t1_exam": 29.5
+      "t1_exam": 29.5,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 75.0
     },
     "subjectScores": {
       "arabic": {
@@ -19764,7 +20085,9 @@
       "t2_total": 98,
       "t2_tasks": null,
       "t1_tasks": null,
-      "annual_total": 98
+      "annual_total": 98,
+      "t1_sep_pct": 93.33,
+      "t1_sep_max": 120.0
     },
     "subjectScores": {
       "term": {
@@ -19874,7 +20197,9 @@
       "t2_m2": 20,
       "t1_m2": 20,
       "t2_tasks": null,
-      "t1_m1": 19.5
+      "t1_m1": 19.5,
+      "t1_sep_pct": 93.33,
+      "t1_sep_max": 90.0
     },
     "subjectScores": {
       "arabic": {
@@ -19976,7 +20301,9 @@
       "t1_m1": 19.5,
       "t2_total": 98,
       "t1_tasks": null,
-      "t2_tasks": null
+      "t2_tasks": null,
+      "t1_sep_pct": 92.22,
+      "t1_sep_max": 90.0
     },
     "subjectScores": {
       "arabic": {
@@ -20072,7 +20399,9 @@
       "t1_m2": 20,
       "t1_sep": 120.0,
       "t1_tasks": null,
-      "t2_tasks": null
+      "t2_tasks": null,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 120.0
     },
     "subjectScores": {
       "term": {
@@ -20182,7 +20511,9 @@
       "t2_total": 98,
       "t2_m1": 20,
       "t2_m2": 20,
-      "t1_m2": 20
+      "t1_m2": 20,
+      "t1_sep_pct": 97.78,
+      "t1_sep_max": 90.0
     },
     "subjectScores": {
       "term": {
@@ -20268,7 +20599,7 @@
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_sep": 173.5,
+      "t1_sep": 174.0,
       "t1_total": 100,
       "t1_m1": 20,
       "t1_m2": 20,
@@ -20279,7 +20610,9 @@
       "t2_tasks": null,
       "t2_exam": 30,
       "t1_exam": 30,
-      "annual_total": 100
+      "annual_total": 100,
+      "t1_sep_pct": 96.67,
+      "t1_sep_max": 180.0
     },
     "subjectScores": {
       "term": {
@@ -20347,11 +20680,11 @@
         "teacherNameAr": "مس / كريمان",
         "scores": {
           "t1_sep": {
-            "score": 19.5,
+            "score": 20.0,
             "maxScore": 20.0,
             "isRecorded": true,
             "recordedAt": "2026-10-11T20:00:00.000Z",
-            "updatedAt": "2026-10-11T20:00:00.000Z"
+            "updatedAt": "2026-10-12T00:25:00.000Z"
           }
         },
         "sep": 19.5
@@ -20405,7 +20738,9 @@
       "t1_m2": 20,
       "t2_m1": 20,
       "t1_exam": 30,
-      "t2_exam": 30
+      "t2_exam": 30,
+      "t1_sep_pct": 97.78,
+      "t1_sep_max": 180.0
     },
     "subjectScores": {
       "term": {
@@ -20531,7 +20866,9 @@
       "t1_tasks": null,
       "t2_total": 100,
       "annual_total": 100,
-      "t1_total": 100
+      "t1_total": 100,
+      "t1_sep_pct": 99.52,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "term": {
@@ -20658,7 +20995,9 @@
       "t1_sep": 209.0,
       "t2_total": 100,
       "t2_tasks": null,
-      "t1_tasks": null
+      "t1_tasks": null,
+      "t1_sep_pct": 99.52,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "arabic": {
@@ -20785,7 +21124,9 @@
       "t2_total": 100,
       "t1_total": 100,
       "t1_sep": 210.0,
-      "annual_total": 100
+      "annual_total": 100,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "arabic": {
@@ -20914,7 +21255,9 @@
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_sep": 210.0
+      "t1_sep": 210.0,
+      "t1_sep_pct": 100.0,
+      "t1_sep_max": 210.0
     },
     "subjectScores": {
       "arabic": {
@@ -21037,7 +21380,9 @@
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "t1_sep": 186.0
+      "t1_sep": 186.0,
+      "t1_sep_pct": 97.89,
+      "t1_sep_max": 190.0
     },
     "subjectScores": {
       "arabic": {
