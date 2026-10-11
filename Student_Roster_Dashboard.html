@@ -6092,8 +6092,8 @@
           let displayName = sub.name;
           let subDetail = '';
           if (sub.id === 'english_al') {
-            displayName = 'Connect Plus';
-            subDetail = 'لغة إنجليزية (AL)';
+            displayName = currentGrade >= 7 ? 'English (AL)' : 'Connect Plus';
+            subDetail = currentGrade >= 7 ? 'مستوى رفيع (AL)' : 'لغة إنجليزية (AL)';
           } else if (sub.id === 'english_ol') {
             displayName = 'لغة إنجليزية';
             subDetail = '(OL)';
@@ -6413,17 +6413,17 @@
       if (g <= 3) {
         subs = [
           { id: 'arabic', name: 'اللغة العربية', max: 30 },
-          { id: 'english_ol', name: 'لغة إنجليزية (Connect / OL)', max: 20 },
-          { id: 'english_al', name: 'لغة إنجليزية (Connect Plus / AL)', max: 20 },
+          { id: 'english_ol', name: 'لغة إنجليزية (Connect / OL)', max: g === 1 ? 15 : (g === 2 ? 20 : 30) },
+          { id: 'english_al', name: 'لغة إنجليزية (Connect Plus / AL)', max: g === 1 ? 25 : (g === 2 ? 20 : 30) },
           { id: 'math', name: isLang ? 'Math' : 'الرياضيات', max: 30 },
           { id: 'religion', name: 'التربية الدينية', max: 20, isNonTotal: true }
         ];
       } else if (g <= 6) {
         subs = [
           { id: 'arabic', name: 'اللغة العربية', max: 30 },
-          { id: 'english_ol', name: 'لغة إنجليزية (Connect / OL)', max: 20 },
-          { id: 'english_al', name: 'لغة إنجليزية (Connect Plus / AL)', max: 20 },
-          { id: 'math', name: isLang ? 'Math' : 'الرياضيات', max: 30 },
+          { id: 'english_ol', name: 'لغة إنجليزية (Connect / OL)', max: 30 },
+          { id: 'english_al', name: 'لغة إنجليزية (Connect Plus / AL)', max: 30 },
+          { id: 'math', name: isLang ? 'Math' : 'الرياضيات', max: g === 6 ? 40 : 30 },
           { id: 'science', name: isLang ? 'Science' : 'العلوم', max: 50 },
           { id: 'social', name: 'الدراسات الاجتماعية', max: 20 },
           { id: 'religion', name: 'التربية الدينية', max: 20, isNonTotal: true }
@@ -6432,9 +6432,9 @@
         // Prep Grades (7, 8, 9)
         subs = [
           { id: 'arabic', name: 'اللغة العربية', max: 30 },
-          { id: 'english_ol', name: 'لغة إنجليزية (Connect / OL)', max: 20 },
-          { id: 'english_al', name: 'لغة إنجليزية (Connect Plus / AL)', max: 20 },
-          { id: 'math', name: isLang ? 'Math' : 'الرياضيات', max: 30 },
+          { id: 'english_ol', name: 'لغة إنجليزية (Connect / OL)', max: 30 },
+          { id: 'english_al', name: 'لغة إنجليزية (English AL)', max: 30 },
+          { id: 'math', name: isLang ? 'Math' : 'الرياضيات', max: 40 },
           { id: 'science', name: isLang ? 'Science' : 'العلوم', max: 50 },
           { id: 'social', name: 'الدراسات الاجتماعية', max: 20 },
           { id: 'german', name: 'اللغة الألمانية (German)', max: 20 },
@@ -6672,11 +6672,12 @@
       container.innerHTML = generateManualGradingSheetHTML(g, examTitle, isBlank);
     }
 
-    function getCleanSubjectPrintName(sub, track) {
+    function getCleanSubjectPrintName(sub, track, grade) {
+      const g = parseInt(grade) || 0;
       if (track === 'arabic') {
         if (sub.id === 'arabic') return 'لغة عربية';
         if (sub.id === 'english_ol') return 'لغة إنجليزية';
-        if (sub.id === 'english_al') return 'Connect Plus';
+        if (sub.id === 'english_al') return (g >= 7) ? 'English (AL)' : 'Connect Plus';
         if (sub.id === 'math') return 'رياضيات';
         if (sub.id === 'science') return 'علوم';
         if (sub.id === 'social') return 'دراسات اجتماعية';
@@ -6687,7 +6688,7 @@
       } else {
         if (sub.id === 'arabic') return 'لغة عربية';
         if (sub.id === 'english_ol') return 'English (OL)';
-        if (sub.id === 'english_al') return 'Connect Plus';
+        if (sub.id === 'english_al') return (g >= 7) ? 'English (AL)' : 'Connect Plus';
         if (sub.id === 'math') return 'Math';
         if (sub.id === 'science') return 'Science';
         if (sub.id === 'social') return 'دراسات اجتماعية';
@@ -6704,7 +6705,7 @@
 
       // Headers for subjects
       const subjHeaders = subjects.map(s => {
-        const cleanName = getCleanSubjectPrintName(s, trackKey);
+        const cleanName = getCleanSubjectPrintName(s, trackKey, g);
         return `
           <th style="border: 2px solid #000000; padding: 7px 4px; text-align: center; vertical-align: middle; background: #f8fafc; min-width: 58px;">
             <div style="font-size: 13.5px; font-weight: 900; color: #000000; line-height: 1.2;">${cleanName}</div>
@@ -6838,7 +6839,7 @@
 
     function generateManualGradingSheetHTML(gradeNum, examTitle, isBlank) {
       const g = parseInt(gradeNum) || 1;
-      const gStudents = ALL_STUDENTS.filter(s => s.grade === g);
+      const gStudents = ALL_STUDENTS.filter(s => s.grade === g && !s.isCancelled && s.status !== 'withdrawn');
       const langStudents = gStudents.filter(s => s.track === 'languages');
       const arStudents = gStudents.filter(s => s.track === 'arabic');
 
@@ -7611,7 +7612,7 @@
       const subjNameMapAr = {
         'arabic': 'اللغة العربية',
         'english_ol': 'لغة إنجليزية (Connect / OL)',
-        'english_al': 'لغة إنجليزية (Connect Plus / AL)',
+        'english_al': (st.grade >= 7) ? 'لغة إنجليزية مستوى رفيع (English AL)' : 'لغة إنجليزية (Connect Plus / AL)',
         'math': isLang ? 'Math' : 'الرياضيات',
         'science': isLang ? 'Science' : 'العلوم',
         'social': 'الدراسات الاجتماعية',
@@ -7623,7 +7624,7 @@
       const subjNameMapEn = {
         'arabic': 'Arabic Language',
         'english_ol': 'English (Connect / OL)',
-        'english_al': 'English (Connect Plus / AL)',
+        'english_al': (st.grade >= 7) ? 'English (Advanced Level - AL)' : 'English (Connect Plus / AL)',
         'math': 'Math',
         'science': 'Science',
         'social': 'Social Studies',
