@@ -65,13 +65,13 @@
         width: 100% !important;
       }
 
-      /* Certificate Landscape 1-Page Dedicated Print Mode: FIT & FILL A4 */
+      /* Certificate Landscape 1-Page Dedicated Print Mode: FIT EXACTLY 1 A4 SHEET PER STUDENT */
       body.printing-certificate {
         background: #ffffff !important;
         padding: 0 !important;
         margin: 0 !important;
         width: 100% !important;
-        height: 100% !important;
+        height: auto !important;
       }
       body.printing-certificate header,
       body.printing-certificate main,
@@ -96,146 +96,109 @@
         page-break-after: always !important;
         break-after: page !important;
         width: 100% !important;
-        height: 198mm !important;
-        min-height: 198mm !important;
-        max-height: 198mm !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: stretch !important;
-        align-items: stretch !important;
         box-sizing: border-box !important;
         padding: 0 !important;
-        margin: 0 !important;
-        overflow: hidden !important;
+        margin: 0 auto !important;
+        display: block !important;
       }
       body.printing-certificate .cert-print-page:last-child {
-        page-break-after: auto !important;
-        break-after: auto !important;
+        page-break-after: avoid !important;
+        break-after: avoid !important;
       }
+
       body.printing-certificate .custom-report-card-container {
         width: 100% !important;
         max-width: 100% !important;
-        height: 100% !important;
-        min-height: 100% !important;
         box-sizing: border-box !important;
-        padding: 6mm 11mm 5mm 11mm !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: space-between !important;
-        border: 3.5px solid #1e3a8a !important;
-        border-radius: 14px !important;
-        box-shadow: none !important;
+        padding: 5mm 10mm 4mm 10mm !important;
         margin: 0 auto !important;
-        overflow: hidden !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
         background: #ffffff !important;
+        box-shadow: none !important;
       }
 
-      /* Inner Elements Fit & Fill */
+      /* Template 1 inner layout adjustments for crisp 1-page fit */
       body.printing-certificate .cert-top-header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
         margin-bottom: 2mm !important;
-        flex-shrink: 0 !important;
+        height: auto !important;
       }
       body.printing-certificate .cert-logo-wrapper img {
-        height: 50px !important;
-        max-width: 125px !important;
+        height: 44px !important;
+        max-width: 115px !important;
       }
       body.printing-certificate .cert-title-box {
-        padding: 4px 26px !important;
-        border-width: 2.5px !important;
+        padding: 3px 20px !important;
+        border-width: 2px !important;
         box-shadow: none !important;
       }
       body.printing-certificate .cert-title-heading {
-        font-size: 22px !important;
+        font-size: 19px !important;
+        margin: 0 !important;
       }
       body.printing-certificate .cert-header-photo {
-        width: 82px !important;
-        height: 102px !important;
+        width: 72px !important;
+        height: 90px !important;
       }
-
       body.printing-certificate .cert-student-row {
-        margin: 2mm 0 2mm 0 !important;
-        flex-shrink: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        margin: 2mm 0 !important;
+        height: auto !important;
       }
       body.printing-certificate .cert-student-label {
-        font-size: 22px !important;
+        font-size: 18px !important;
       }
       body.printing-certificate .cert-student-name span {
-        font-size: 26px !important;
+        font-size: 22px !important;
       }
-
-      /* Table: Flexible Expansion to Fill Full Page Height */
       body.printing-certificate .cert-table {
-        flex: 1 1 auto !important;
         width: 100% !important;
-        height: auto !important;
-        min-height: 88mm !important;
         border-collapse: collapse !important;
         border: 2px solid #0f172a !important;
-        margin: 0 !important;
-        display: table !important;
-      }
-      body.printing-certificate .cert-table tr {
-        height: auto !important;
+        margin: 1.5mm 0 !important;
       }
       body.printing-certificate .cert-table th,
       body.printing-certificate .cert-table td {
-        padding: 6px 14px !important;
-        font-size: 15.5px !important;
+        padding: 4px 10px !important;
+        font-size: 13.5px !important;
         vertical-align: middle !important;
         border-width: 1.5px !important;
       }
       body.printing-certificate .cert-grade-row td {
-        font-size: 19px !important;
-        padding: 6px 14px !important;
+        font-size: 16px !important;
+        padding: 4px 10px !important;
       }
       body.printing-certificate .cert-thead-row th {
-        font-size: 15px !important;
-        padding: 6px 14px !important;
+        font-size: 13px !important;
+        padding: 4px 10px !important;
         background: #f1f5f9 !important;
       }
       body.printing-certificate .cert-total-row td,
       body.printing-certificate .cert-rank-row td {
-        font-size: 16px !important;
-        padding: 6px 14px !important;
+        font-size: 14.5px !important;
+        padding: 4px 10px !important;
       }
-
-      /* Footer */
       body.printing-certificate .cert-separator {
-        margin: 2.5mm 0 2mm 0 !important;
+        margin: 2mm 0 1.5mm 0 !important;
         height: 1.5px !important;
-        flex-shrink: 0 !important;
       }
       body.printing-certificate .cert-greetings-row {
-        flex-shrink: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
         padding: 0 4mm !important;
+        height: auto !important;
       }
       body.printing-certificate .cert-congrats-text {
-        font-size: 36px !important;
+        font-size: 28px !important;
       }
       body.printing-certificate .cert-wish-text {
-        font-size: 13.5px !important;
-      }
-
-      /* Other Styles Fit & Fill */
-      body.printing-certificate .custom-report-card-container > div {
-        height: 100% !important;
-        min-height: 100% !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: space-between !important;
-        box-sizing: border-box !important;
-      }
-      body.printing-certificate .custom-report-card-container table {
-        flex: 1 1 auto !important;
-        width: 100% !important;
-        margin: 2mm 0 !important;
-      }
-      body.printing-certificate .custom-report-card-container table th,
-      body.printing-certificate .custom-report-card-container table td {
-        padding: 6px 12px !important;
-        font-size: 14.5px !important;
+        font-size: 12px !important;
       }
 
       /* Hide screen-only interactive elements */
@@ -5985,20 +5948,21 @@
     let maxScoresSelectedGrade = 1;
 
     // Custom Ranking Criteria by Lost Marks (persisted in localStorage)
+    // #1 = zero mistakes (full marks, maxLost: 0), #2 = max 2 mistakes (maxLost: 2), #3 = max 4 mistakes (maxLost: 4)
     const DEFAULT_RANKS_CONFIG = {
       mode: 'brackets', // 'brackets' or 'conditional_rank'
       requireFullRecording: true,
       ranks: [
-        { rank: 1, label: 'المركز الأول 🥇', maxLost: 2.0 },
-        { rank: 2, label: 'المركز الثاني 🥈', maxLost: 4.0 },
-        { rank: 3, label: 'المركز الثالث 🥉', maxLost: 6.0 },
-        { rank: 4, label: 'المركز الرابع 🎖️', maxLost: 8.0 },
-        { rank: 5, label: 'المركز الخامس 🎖️', maxLost: 10.0 },
-        { rank: 6, label: 'المركز السادس 🎖️', maxLost: 12.0 },
-        { rank: 7, label: 'المركز السابع 🎖️', maxLost: 14.0 },
-        { rank: 8, label: 'المركز الثامن 🎖️', maxLost: 16.0 },
-        { rank: 9, label: 'المركز التاسع 🎖️', maxLost: 18.0 },
-        { rank: 10, label: 'المركز العاشر 🎖️', maxLost: 20.0 }
+        { rank: 1, label: 'المركز الأول 🥇', maxLost: 0.0 },
+        { rank: 2, label: 'المركز الثاني 🥈', maxLost: 2.0 },
+        { rank: 3, label: 'المركز الثالث 🥉', maxLost: 4.0 },
+        { rank: 4, label: 'المركز الرابع 🎖️', maxLost: 6.0 },
+        { rank: 5, label: 'المركز الخامس 🎖️', maxLost: 8.0 },
+        { rank: 6, label: 'المركز السادس 🎖️', maxLost: 10.0 },
+        { rank: 7, label: 'المركز السابع 🎖️', maxLost: 12.0 },
+        { rank: 8, label: 'المركز الثامن 🎖️', maxLost: 14.0 },
+        { rank: 9, label: 'المركز التاسع 🎖️', maxLost: 16.0 },
+        { rank: 10, label: 'المركز العاشر 🎖️', maxLost: 18.0 }
       ]
     };
 
@@ -6008,7 +5972,20 @@
         try {
           const raw = localStorage.getItem('smile_kids_ranks_by_lost_marks');
           if (raw) {
-            CUSTOM_RANKS_CONFIG = JSON.parse(raw);
+            const parsed = JSON.parse(raw);
+            // If user had the legacy config where rank 1 allowed 2 lost marks, upgrade rank 1 to 0.0 (full marks)
+            if (parsed && Array.isArray(parsed.ranks)) {
+              const r1 = parsed.ranks.find(r => r.rank === 1);
+              if (r1 && r1.maxLost > 0) {
+                // Legacy config detected: auto-upgrade to new official standard (#1: 0, #2: 2, #3: 4...)
+                CUSTOM_RANKS_CONFIG = JSON.parse(JSON.stringify(DEFAULT_RANKS_CONFIG));
+                localStorage.setItem('smile_kids_ranks_by_lost_marks', JSON.stringify(CUSTOM_RANKS_CONFIG));
+              } else {
+                CUSTOM_RANKS_CONFIG = parsed;
+              }
+            } else {
+              CUSTOM_RANKS_CONFIG = parsed;
+            }
           }
         } catch(e) {
           CUSTOM_RANKS_CONFIG = null;
@@ -6625,8 +6602,9 @@
       const g = parseInt(grade) || 1;
       if (subjId === 'science') return 50;
       if (subjId === 'arabic') return 30;
-      if (subjId === 'math') return 30;
-      if (subjId === 'english_ol' || subjId === 'english_al') return 20;
+      if (subjId === 'math') return (g === 6 ? 40 : (g >= 7 ? 40 : 30));
+      if (subjId === 'english_ol') return (g === 1 ? 15 : (g === 2 ? 20 : 30));
+      if (subjId === 'english_al') return (g === 1 ? 25 : (g === 2 ? 20 : 30));
       if (subjId === 'social' || subjId === 'ict' || subjId === 'german' || subjId === 'religion') return 20;
       return 20;
     }
@@ -7249,9 +7227,13 @@
                 const sc = parseFloat(record[fld]);
                 if (!isNaN(sc) && sc > 0) {
                   const maxSaved = localStorage.getItem('smile_kids_max_score_' + subjId + '_' + st.grade + '_' + pKey)
-                    || localStorage.getItem('smile_kids_max_score_' + subjId + '_' + st.grade + '_' + fld);
-                  const isExam = pKey.includes('exam');
-                  const defMax = isExam ? getDefaultSubjectMax(st.grade, subjId) : 20;
+                    || localStorage.getItem('smile_kids_max_score_' + subjId + '_' + st.grade + '_' + fld)
+                    || localStorage.getItem('smile_kids_max_score_' + subjId + '_g' + st.grade + '_' + pKey)
+                    || localStorage.getItem('smile_kids_max_score_' + subjId + '_g' + st.grade + '_' + fld);
+                  const configuredGradeMax = (CUSTOM_SUBJECT_MAX && CUSTOM_SUBJECT_MAX[st.grade] && CUSTOM_SUBJECT_MAX[st.grade][subjId] !== undefined)
+                    ? parseFloat(CUSTOM_SUBJECT_MAX[st.grade][subjId])
+                    : null;
+                  const defMax = configuredGradeMax || getDefaultSubjectMax(st.grade, subjId);
                   const finalMax = maxSaved ? (parseFloat(maxSaved) || defMax) : defMax;
 
                   st.subjectScores[subjId].scores[pKey] = {
@@ -7440,14 +7422,20 @@
         // Priority A: check subjEntry.scores[periodKey]
         if (subjEntry.scores && subjEntry.scores[periodKey] !== undefined && subjEntry.scores[periodKey] !== null) {
           const scoreEntry = subjEntry.scores[periodKey];
+          const officialDefMax = getDefaultSubjectMax(student.grade, subjectId);
           if (typeof scoreEntry === 'object' && scoreEntry !== null) {
             let sc = parseFloat(scoreEntry.score);
             if (!isNaN(sc)) sc = Math.ceil(sc); // Round up half degrees (e.g. 19.5 -> 20, 49.5 -> 50)
-            const mx = parseFloat(scoreEntry.maxScore) || configuredMax || 20;
+            const rawMx = parseFloat(scoreEntry.maxScore);
+            // If rawMx is smaller than score or rawMx is default 20 while officialDefMax is larger (e.g. 30/50), use officialDefMax
+            const resolvedMx = (configuredMax && configuredMax > 0)
+              ? configuredMax
+              : ((!isNaN(rawMx) && rawMx >= sc && rawMx >= officialDefMax) ? rawMx : officialDefMax);
+
             if (!isNaN(sc) && sc > 0) {
               return {
                 score: sc,
-                maxScore: (configuredMax && configuredMax > 0) ? configuredMax : mx,
+                maxScore: resolvedMx,
                 isRecorded: true
               };
             }
@@ -7457,7 +7445,7 @@
             if (!isNaN(sc) && sc > 0) {
               return {
                 score: sc,
-                maxScore: (configuredMax && configuredMax > 0) ? configuredMax : 20,
+                maxScore: (configuredMax && configuredMax > 0) ? configuredMax : officialDefMax,
                 isRecorded: true
               };
             }
@@ -7557,9 +7545,10 @@
           ? parseFloat(CUSTOM_SUBJECT_MAX[student.grade][sub.id])
           : (sub.max || 20);
 
+        const officialSubMax = (configuredMax > 0 ? configuredMax : (sub.max || 20));
         const effectiveMax = (scoreData && scoreData.maxScore > 0)
-          ? scoreData.maxScore
-          : (configuredMax > 0 ? configuredMax : (sub.max || 20));
+          ? Math.max(scoreData.maxScore, officialSubMax)
+          : officialSubMax;
 
         totalMax += effectiveMax;
         academicSubjectsCount++;
@@ -7612,7 +7601,8 @@
 
       let html = '';
       for (let r = 1; r <= 10; r++) {
-        const item = (config.ranks && config.ranks.find(x => x.rank === r)) || { rank: r, maxLost: r * 2, label: `المركز ${r}` };
+        const defaultLostForRank = (r - 1) * 2;
+        const item = (config.ranks && config.ranks.find(x => x.rank === r)) || { rank: r, maxLost: defaultLostForRank, label: `المركز ${r}` };
         const medal = medals[r] || { icon: '🎖️', bg: 'bg-slate-800 text-slate-300 border-slate-700' };
 
         html += `
@@ -7665,12 +7655,13 @@
 
       const newRanks = [];
       for (let r = 1; r <= 10; r++) {
+        const defaultLostForRank = (r - 1) * 2;
         const inp = document.getElementById(`rank-max-lost-${r}`);
-        const val = inp ? parseFloat(inp.value) : (r * 2);
+        const val = inp ? parseFloat(inp.value) : defaultLostForRank;
         newRanks.push({
           rank: r,
           label: labels[r] || `المركز ${r}`,
-          maxLost: isNaN(val) ? (r * 2) : Math.max(0, val)
+          maxLost: isNaN(val) ? defaultLostForRank : Math.max(0, val)
         });
       }
 
@@ -7873,9 +7864,10 @@
           ? parseFloat(CUSTOM_SUBJECT_MAX[st.grade][subj.id])
           : (subj.max || 20);
 
+        const officialSubMax = (configuredMax > 0 ? configuredMax : (subj.max || 20));
         const effectiveSubjMax = (scoreData && scoreData.maxScore > 0)
-          ? scoreData.maxScore
-          : (configuredMax > 0 ? configuredMax : (isExam ? subj.max : 20));
+          ? Math.max(scoreData.maxScore, officialSubMax)
+          : officialSubMax;
 
         const baseName = isEn 
           ? (subjNameMapEn[subj.id] || subj.nameEn || subj.name) 
