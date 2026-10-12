@@ -61,6 +61,15 @@
     }
   };
 
+  const CANONICAL_DELETED_STUDENT_IDS = ['SK-G3-AR-001', 'SK-G9-AR-003'];
+
+  function isCanonicalDeletedStudent(s) {
+    if (!s) return false;
+    if (s.id && CANONICAL_DELETED_STUDENT_IDS.includes(s.id)) return true;
+    if (s.nameAr && (s.nameAr.includes('إسلام أحمد إسماعيل') || (s.nameAr.includes('النقاش') && s.nameAr.includes('محمد')))) return true;
+    return false;
+  }
+
   function enforceCanonicalStudent(s) {
     if (!s || !s.id) return s;
     const canon = CANONICAL_STUDENT_OVERRIDES[s.id];
@@ -17797,42 +17806,6 @@
     "subjectScores.science.scores.t1_sep": 50
   },
   {
-    "id": "SK-G9-AR-003",
-    "grade": 9,
-    "gradeNameAr": "الصف الثالث الإعدادي",
-    "gradeNameEn": "Grade 9 (Prep 3)",
-    "track": "arabic",
-    "trackNameAr": "عربي (رياضيات)",
-    "trackNameEn": "Arabic Track",
-    "nameAr": "محمد عبد الله النقاش",
-    "nameEn": "Mohamed Abdullah El-Nakkash",
-    "gender": "male",
-    "sampleScores": {},
-    "attendanceRecords": {},
-    "attendanceNotes": {},
-    "termsScores": {
-      "annual_total": 98,
-      "t1_exam": 29.5,
-      "t1_tasks": null,
-      "t2_tasks": null,
-      "t2_exam": 30,
-      "t2_m2": 20,
-      "t1_m2": 20,
-      "t2_m1": 20,
-      "t1_m1": 19.5,
-      "t2_total": 98,
-      "t1_total": 98
-    },
-    "subjectScores": {},
-    "pin": "7260",
-    "password": "7260",
-    "_migratedAt": "2026-10-10T18:37:59.566Z",
-    "_lastModified": 1791657479566,
-    "status": "withdrawn",
-    "isCancelled": true,
-    "notes": "مشطوب من كشف الدرجات الورقي المعتمد (منسحب / ملغي)"
-  },
-  {
     "id": "SK-G9-LN-001",
     "grade": 9,
     "gradeNameAr": "الصف الثالث الإعدادي",
@@ -22767,6 +22740,7 @@
 
     _ensureStudentFields: function() {
       if (!this._cache) return;
+      this._cache = this._cache.filter(s => !isCanonicalDeletedStudent(s));
       this._cache.forEach(s => {
         enforceCanonicalStudent(s);
         if (!s.enrollmentStatus) s.enrollmentStatus = (s.status === 'withdrawn' ? 'withdrawn' : 'active');
