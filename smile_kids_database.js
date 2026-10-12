@@ -43,6 +43,11 @@
       nameAr: 'ماريا قتيبه علي',
       nameEn: 'Maria Qutaiba Ali',
       gender: 'female'
+    },
+    'SK-G4-AR-0026': {
+      nameAr: 'لينا بهاء العاصي',
+      nameEn: 'Lina Bahaa El-Assi',
+      gender: 'female'
     }
   };
 
@@ -20718,8 +20723,8 @@
     "gradeNameEn": "Grade 4",
     "trackNameAr": "عربي (حساب)",
     "trackNameEn": "Arabic Track",
-    "nameAr": "لينا بهاء",
-    "nameEn": "Lina Bahaa",
+    "nameAr": "لينا بهاء العاصي",
+    "nameEn": "Lina Bahaa El-Assi",
     "gender": "female",
     "phone": "",
     "notes": "",
