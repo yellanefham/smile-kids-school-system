@@ -2967,8 +2967,10 @@
       
       const elTotal = document.getElementById('stat-total-students');
       if (elTotal) {
-        elTotal.innerHTML = `<span title="الطلاب المقيدون النشطون: ${activeTotal} (المستبعدون على جنب: ${interruptedCount})">${activeTotal}</span>` + 
-          (interruptedCount > 0 ? `<span class="text-xs text-rose-400 font-bold mr-1.5 cursor-pointer" onclick="toggleInterruptedStudentsFilter()" title="انقر لعرض الطلاب الموضوعين على جنب">(+${interruptedCount} على جنب)</span>` : '');
+        // Always display full 178 master enrolled count as primary big number
+        elTotal.innerHTML = `<span>${total}</span>` + 
+          (withdrawnCount > 0 ? `<span class="text-xs text-slate-400 font-normal mr-2">(${activeTotal} منتظم • ${withdrawnCount} منسحب)</span>` : '') +
+          (interruptedCount > 0 ? `<span class="text-xs text-rose-400 font-bold mr-1.5 cursor-pointer" onclick="toggleInterruptedStudentsFilter()" title="انقر لعرض الطلاب الموضوعين على جنب">(${interruptedCount} على جنب)</span>` : '');
       }
 
       const ln = ALL_STUDENTS.filter(s => s.track === 'languages').length;
