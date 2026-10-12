@@ -48,6 +48,16 @@
       nameAr: 'لينا بهاء العاصي',
       nameEn: 'Lina Bahaa El-Assi',
       gender: 'female'
+    },
+    'SK-G5-LN-006': {
+      nameAr: 'مليكة محمد نوار',
+      nameEn: 'Malika Mohamed Nawar',
+      gender: 'female'
+    },
+    'SK-G3-LN-013': {
+      nameAr: 'زين محمد نوار',
+      nameEn: 'Zein Mohamed Nawar',
+      gender: 'male'
     }
   };
 
@@ -6844,8 +6854,8 @@
     "track": "languages",
     "trackNameAr": "لغات (Math & Science)",
     "trackNameEn": "Languages Track",
-    "nameAr": "زين محمد نبيل نوار",
-    "nameEn": "Zein Mohamed Nabil Nawar",
+    "nameAr": "زين محمد نوار",
+    "nameEn": "Zein Mohamed Nawar",
     "gender": "male",
     "sampleScores": {},
     "attendanceRecords": {},
@@ -12315,8 +12325,8 @@
     "track": "languages",
     "trackNameAr": "لغات (Math)",
     "trackNameEn": "Languages Track",
-    "nameAr": "مليكة محمد نبيل نوار",
-    "nameEn": "Malika Mohamed Nabil Nawar",
+    "nameAr": "مليكة محمد نوار",
+    "nameEn": "Malika Mohamed Nawar",
     "gender": "female",
     "sampleScores": {},
     "attendanceRecords": {},
