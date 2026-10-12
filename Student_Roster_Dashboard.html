@@ -6290,10 +6290,14 @@
                 step="0.5" 
                 value="${inputVal}" 
                 placeholder="لم يُرصد"
-                oninput="onStudentSubjectInput('${s.id}', '${sub.id}', this.value, ${sub.max})"
+                data-st-id="${s.id}"
+                data-subj-id="${sub.id}"
+                oninput="onStudentSubjectInput('${s.id}', '${sub.id}', this.value, ${sub.max}, this)"
+                onchange="onStudentSubjectChange('${s.id}', '${sub.id}', this.value, ${sub.max}, this)"
+                onblur="flushStudentSubjectSave()"
+                onkeydown="handleGradeTableKeydown(event, this)"
                 onfocus="this.select()"
-                onclick="this.select()"
-                class="w-16 sm:w-20 text-center py-1.5 rounded-xl ${cellBorder} border text-sm sm:text-base font-black font-mono focus:border-amber-400 focus:bg-slate-800 focus:text-white focus:outline-none focus:ring-2 focus:ring-amber-400/50 transition-all shadow-sm"
+                class="grade-matrix-input w-16 sm:w-20 text-center py-1.5 rounded-xl ${cellBorder} border text-sm sm:text-base font-black font-mono focus:border-amber-400 focus:bg-slate-800 focus:text-white focus:outline-none focus:ring-2 focus:ring-amber-400/50 transition-all shadow-sm"
               >
             </td>
           `;
@@ -6342,14 +6346,29 @@
       if (honEl) honEl.innerText = honorsCount;
     }
 
-    function onStudentSubjectInput(studentId, subjectId, val, maxScore) {
+    let _gradeSaveDebounceTimer = null;
+
+    function flushStudentSubjectSave() {
+      if (_gradeSaveDebounceTimer) {
+        clearTimeout(_gradeSaveDebounceTimer);
+        _gradeSaveDebounceTimer = null;
+        saveStudentsToStorage();
+      }
+    }
+
+    function onStudentSubjectInput(studentId, subjectId, val, maxScore, inputEl) {
       const student = ALL_STUDENTS.find(s => s.id === studentId);
       if (!student) return;
 
       const raw = String(val || '').trim();
       let v = (raw === '' || isNaN(parseFloat(raw))) ? null : parseFloat(raw);
-      if (v !== null && v > maxScore) v = maxScore;
-      if (v !== null && v <= 0) v = null; // Zero is not an exam grade: convert to unrecorded
+      
+      // If user typed a value exceeding maxScore, clamp it
+      if (v !== null && v > maxScore) {
+        v = maxScore;
+        if (inputEl) inputEl.value = maxScore;
+      }
+      if (v !== null && v <= 0) v = null; // Zero is unrecorded
 
       student.subjectScores = student.subjectScores || {};
       student.subjectScores[subjectId] = student.subjectScores[subjectId] || { scores: {} };
@@ -6365,15 +6384,24 @@
         delete student.subjectScores[subjectId].scores[currentGradesPeriod];
       }
 
+      // Update input styling dynamically without stealing focus
+      if (inputEl) {
+        const isRecorded = (v !== null && v > 0);
+        if (isRecorded) {
+          inputEl.className = "grade-matrix-input w-16 sm:w-20 text-center py-1.5 rounded-xl border-emerald-500/80 bg-emerald-950/40 text-emerald-200 font-black shadow-[inset_0_0_8px_rgba(16,185,129,0.2)] border text-sm sm:text-base font-mono focus:border-amber-400 focus:bg-slate-800 focus:text-white focus:outline-none focus:ring-2 focus:ring-amber-400/50 transition-all shadow-sm";
+        } else {
+          inputEl.className = "grade-matrix-input w-16 sm:w-20 text-center py-1.5 rounded-xl border-dashed border-amber-500/60 bg-amber-950/10 text-amber-200 font-bold hover:border-amber-400 border text-sm sm:text-base font-mono focus:border-amber-400 focus:bg-slate-800 focus:text-white focus:outline-none focus:ring-2 focus:ring-amber-400/50 transition-all shadow-sm";
+        }
+      }
+
       // Recalculate total for this student
       const pTot = getStudentPeriodTotal(student, currentGradesPeriod);
-
       student.termsScores = student.termsScores || {};
       student.termsScores[currentGradesPeriod] = pTot.totalScore;
 
-      // Update live DOM cells
+      // Update live DOM cells without destroying the row or table
       const elTot = document.getElementById(`cell-tot-${studentId}`);
-      if (elTot) elTot.innerHTML = `${pTot.totalScore} <span class="text-[10px] text-slate-500 font-normal">/ ${pTot.totalMax}</span>`;
+      if (elTot) elTot.innerHTML = `${pTot.totalScore} <span class="text-[11px] text-slate-400 font-normal">/ ${pTot.totalMax}</span>`;
 
       const elPerc = document.getElementById(`cell-perc-${studentId}`);
       if (elPerc) elPerc.innerText = `${pTot.percentage}%`;
@@ -6382,9 +6410,7 @@
       const elRank = document.getElementById(`cell-rank-${studentId}`);
       if (elRank) elRank.innerHTML = rank;
 
-      saveStudentsToStorage();
-
-      // Bidirectional sync: also update smile_kids_teacher_grades so Teacher Portal reflects this grade instantly!
+      // Sync teacher grades memory
       try {
         const rawT = localStorage.getItem('smile_kids_teacher_grades');
         const tGrades = rawT ? JSON.parse(rawT) : {};
@@ -6399,6 +6425,46 @@
         tGrades[key][fld] = (v !== null && v > 0) ? v : null;
         localStorage.setItem('smile_kids_teacher_grades', JSON.stringify(tGrades));
       } catch(e) {}
+
+      // Debounce the heavy disk serialization by 600ms so typing multiple digits is instant & responsive
+      if (_gradeSaveDebounceTimer) clearTimeout(_gradeSaveDebounceTimer);
+      _gradeSaveDebounceTimer = setTimeout(() => {
+        _gradeSaveDebounceTimer = null;
+        saveStudentsToStorage();
+      }, 600);
+    }
+
+    function onStudentSubjectChange(studentId, subjectId, val, maxScore, inputEl) {
+      onStudentSubjectInput(studentId, subjectId, val, maxScore, inputEl);
+      flushStudentSubjectSave();
+    }
+
+    function handleGradeTableKeydown(e, currentInput) {
+      if (!currentInput) return;
+      const subjId = currentInput.getAttribute('data-subj-id');
+      if (!subjId) return;
+
+      if (e.key === 'Enter' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        flushStudentSubjectSave();
+        const allInputsForSubj = Array.from(document.querySelectorAll(`input[data-subj-id="${subjId}"]`));
+        const curIdx = allInputsForSubj.indexOf(currentInput);
+        if (curIdx >= 0 && curIdx < allInputsForSubj.length - 1) {
+          const nextInp = allInputsForSubj[curIdx + 1];
+          nextInp.focus();
+          nextInp.select();
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        flushStudentSubjectSave();
+        const allInputsForSubj = Array.from(document.querySelectorAll(`input[data-subj-id="${subjId}"]`));
+        const curIdx = allInputsForSubj.indexOf(currentInput);
+        if (curIdx > 0) {
+          const prevInp = allInputsForSubj[curIdx - 1];
+          prevInp.focus();
+          prevInp.select();
+        }
+      }
     }
 
     function applyUniformGradeForSubjectPrompt() {
@@ -6424,6 +6490,7 @@
       students.forEach(st => {
         onStudentSubjectInput(st.id, selSubj.id, val, selSubj.max);
       });
+      flushStudentSubjectSave();
       renderGradesModule();
     }
 
@@ -9513,7 +9580,15 @@ Smile Kids school ☺`;
     });
 
     if (window.SmileKidsDB && typeof window.SmileKidsDB.addListener === 'function') {
-      window.SmileKidsDB.addListener(() => {
+      window.SmileKidsDB.addListener((data, trigger) => {
+        // 1. Never re-render on our own local save
+        if (trigger === 'local_save') return;
+
+        // 2. If the user is actively typing in ANY input, do not destroy active element
+        if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
+          return;
+        }
+
         refreshStudentsFromDB();
         syncAllTeacherGradesIntoStudents();
         if (currentMainTab === 'certificates') {
@@ -9529,6 +9604,10 @@ Smile Kids school ☺`;
     }
 
     window.addEventListener('storage', (e) => {
+      // If user is actively typing, protect active input
+      if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
+        return;
+      }
       if (!e.key || e.key.includes('grade') || e.key.includes('DATABASE') || e.key.includes('score') || e.key.includes('attendance') || e.key.includes('students')) {
         refreshStudentsFromDB();
         syncAllTeacherGradesIntoStudents();
