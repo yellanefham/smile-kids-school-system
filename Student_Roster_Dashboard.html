@@ -1629,6 +1629,7 @@
               <option value="style-royal">👑 2. الشهادة الملكية الذهبية الفاخرة (Royal Gold)</option>
               <option value="style-modern">💎 3. التصميم العصري الحديث (Modern Studio)</option>
               <option value="style-kids">🎈 4. نمط أبطال كيدز المبهج (Cheerful Kids)</option>
+              <option value="style-appreciation">🌟 5. شهادة تقدير وتشجيع بدون درجات (حضور متأخر / معلق)</option>
             </select>
           </div>
 
@@ -1663,12 +1664,16 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
             <span>طباعة هذه الشهادة</span>
           </button>
-          <button onclick="printBatchCertificates(true)" class="px-3.5 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow-md active:scale-95" title="طباعة شهادات الطلاب المرصودة درجاتهم فقط وتخطي غير المرصودين والمعلقين">
-            <span>⚡</span>
-            <span>طباعة المرصود فقط (تخطي غير المرصود والتعليق)</span>
+          <button onclick="printBatchCertificates('appreciation')" class="px-3.5 py-2 bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-slate-950 rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow-md active:scale-95" title="طباعة شهادات التقدير والتشجيع بدون درجات للطلاب المعلقين والملتحقين حديثاً">
+            <span>🌟</span>
+            <span>شهادات التقدير (للمعلقين بدون درجات)</span>
           </button>
-          <button onclick="printBatchCertificates(false)" class="px-3.5 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow-md active:scale-95" title="طباعة جميع طلاب الصف">
-            <span>📜 طباعة كل طلاب الفصل</span>
+          <button onclick="printBatchCertificates(true)" class="px-3.5 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow-md active:scale-95" title="طباعة كروت الدرجات للطلاب المرصودة درجاتهم فقط">
+            <span>⚡</span>
+            <span>طباعة المرصود فقط</span>
+          </button>
+          <button onclick="printBatchCertificates(false)" class="px-3.5 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow-md active:scale-95" title="طباعة كروت الدرجات لجميع طلاب الفصل المنتظمين (تخطي المعلقين والمنسحبين)">
+            <span>📜 طباعة كروت درجات الفصل</span>
           </button>
         </div>
       </div>
@@ -4166,6 +4171,9 @@
                       </td>
                       <td class="py-2.5 px-2 text-center no-print whitespace-nowrap">
                         <div class="inline-flex items-center gap-1.5 justify-center">
+                          <button onclick="toggleStudentSuspension('${s.id}')" class="p-1.5 ${s.enrollmentStatus === 'suspended' ? 'bg-amber-500 text-slate-950 font-black' : 'bg-slate-700/80 hover:bg-amber-600 text-slate-300 hover:text-white'} rounded-lg transition text-xs font-bold" title="${s.enrollmentStatus === 'suspended' ? 'إلغاء تعليق الشهادة' : 'تعليق الشهادة (شهادة تقدير وتشجيع بدون درجات)'}">
+                            ⏳
+                          </button>
                           <button onclick="toggleStudentInterruption('${s.id}')" class="p-1.5 ${s.enrollmentStatus === 'interrupted' ? 'bg-emerald-700 hover:bg-emerald-600 text-white' : 'bg-slate-700/80 hover:bg-amber-600 text-slate-300 hover:text-white'} rounded-lg transition text-xs font-bold" title="${s.enrollmentStatus === 'interrupted' ? 'استعادة وتفعيل القيد' : 'انقطاع مؤقت (وضع على جنب)'}">
                             ${s.enrollmentStatus === 'interrupted' ? '▶️' : '⏸️'}
                           </button>
@@ -4238,6 +4246,9 @@
                       </td>
                       <td class="py-2.5 px-2 text-center no-print whitespace-nowrap">
                         <div class="inline-flex items-center gap-1.5 justify-center">
+                          <button onclick="toggleStudentSuspension('${s.id}')" class="p-1.5 ${s.enrollmentStatus === 'suspended' ? 'bg-amber-500 text-slate-950 font-black' : 'bg-slate-700/80 hover:bg-amber-600 text-slate-300 hover:text-white'} rounded-lg transition text-xs font-bold" title="${s.enrollmentStatus === 'suspended' ? 'إلغاء تعليق الشهادة' : 'تعليق الشهادة (شهادة تقدير وتشجيع بدون درجات)'}">
+                            ⏳
+                          </button>
                           <button onclick="toggleStudentInterruption('${s.id}')" class="p-1.5 ${s.enrollmentStatus === 'interrupted' ? 'bg-emerald-700 hover:bg-emerald-600 text-white' : 'bg-slate-700/80 hover:bg-amber-600 text-slate-300 hover:text-white'} rounded-lg transition text-xs font-bold" title="${s.enrollmentStatus === 'interrupted' ? 'استعادة وتفعيل القيد' : 'انقطاع مؤقت (وضع على جنب)'}">
                             ${s.enrollmentStatus === 'interrupted' ? '▶️' : '⏸️'}
                           </button>
@@ -4319,6 +4330,9 @@
                     </td>
                     <td class="py-3 px-2 text-center no-print whitespace-nowrap">
                       <div class="inline-flex items-center gap-1.5 justify-center">
+                        <button onclick="toggleStudentSuspension('${s.id}')" class="p-1.5 ${s.enrollmentStatus === 'suspended' ? 'bg-amber-500 text-slate-950 font-black' : 'bg-slate-700/80 hover:bg-amber-600 text-slate-300 hover:text-white'} rounded-lg transition text-xs font-bold" title="${s.enrollmentStatus === 'suspended' ? 'إلغاء تعليق الشهادة' : 'تعليق الشهادة (شهادة تقدير وتشجيع بدون درجات)'}">
+                          ⏳
+                        </button>
                         <button onclick="toggleStudentInterruption('${s.id}')" class="p-1.5 ${s.enrollmentStatus === 'interrupted' ? 'bg-emerald-700 hover:bg-emerald-600 text-white' : 'bg-slate-700/80 hover:bg-amber-600 text-slate-300 hover:text-white'} rounded-lg transition text-xs font-bold" title="${s.enrollmentStatus === 'interrupted' ? 'استعادة وتفعيل القيد' : 'انقطاع مؤقت (وضع على جنب)'}">
                           ${s.enrollmentStatus === 'interrupted' ? '▶️' : '⏸️'}
                         </button>
@@ -5910,6 +5924,30 @@
       }
     }
 
+    function toggleStudentSuspension(studentId) {
+      const st = ALL_STUDENTS.find(s => s.id === studentId);
+      if (!st) return;
+
+      const isSuspended = (st.enrollmentStatus === 'suspended');
+      if (isSuspended) {
+        if (confirm(`هل تريد إلغاء تعليق شهادة الطالب (${st.nameAr}) وإعادته للرصد الطبيعي وطباعة كارت الدرجات؟`)) {
+          st.enrollmentStatus = 'active';
+          saveStudentsToStorage();
+          updateGlobalKPIs();
+          renderContent();
+          alert(`تم إلغاء تعليق شهادة الطالب (${st.nameAr}). أصبح متاحاً للرصد وطباعة كارت الدرجات.`);
+        }
+      } else {
+        if (confirm(`هل تريد تفعيل «تعليق الشهادة» للطالب (${st.nameAr})؟\n\n• لن يُطبع له كارت درجات فارغ عند طباعة شهادات الفصل.\n• سيتم تخصيص «شهادة تقدير وتشجيع بدون درجات» له تكريماً لحضوره.`)) {
+          st.enrollmentStatus = 'suspended';
+          saveStudentsToStorage();
+          updateGlobalKPIs();
+          renderContent();
+          alert(`تم تفعيل حالة «تعليق الشهادة» للطالب (${st.nameAr}). تم استبعاده من كروت الدرجات وتخصيص شهادة تقدير بدون درجات له.`);
+        }
+      }
+    }
+
     function toggleInterruptedStudentsFilter() {
       currentInterruptedFilterOnly = !currentInterruptedFilterOnly;
       const btn = document.getElementById('btn-filter-interrupted-only');
@@ -6312,12 +6350,16 @@
           : '<span class="px-2 py-0.5 rounded-full text-[11px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 whitespace-nowrap">عربي</span>';
 
         return `
-          <tr id="row-st-${s.id}" class="hover:bg-slate-900/60 transition-colors">
+          <tr id="row-st-${s.id}" class="hover:bg-slate-900/60 transition-colors ${s.enrollmentStatus === 'suspended' ? 'bg-amber-950/15' : ''}">
             <td class="py-2.5 px-3 sticky right-0 bg-slate-950/95 backdrop-blur z-10 shadow-[-4px_0_8px_rgba(0,0,0,0.4)] border-l border-slate-800 whitespace-nowrap">
               <div class="flex items-center gap-2">
                 <span class="text-slate-400 font-mono text-xs font-bold">${idx + 1}.</span>
                 <div>
-                  <div class="font-black text-white text-sm sm:text-[15px] leading-snug">${s.nameAr}</div>
+                  <div class="font-black text-white text-sm sm:text-[15px] leading-snug flex items-center gap-1.5">
+                    <span>${s.nameAr}</span>
+                    ${s.enrollmentStatus === 'suspended' ? '<span class="px-1.5 py-0.5 rounded text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40">تعليق شهادة ⏸️</span>' : ''}
+                    ${s.enrollmentStatus === 'interrupted' ? '<span class="px-1.5 py-0.5 rounded text-[10px] font-black bg-rose-500/20 text-rose-300 border border-rose-500/40">انقطاع مؤقت 🛑</span>' : ''}
+                  </div>
                   ${s.nameEn ? `<div class="text-[11px] text-slate-400 font-en font-medium mt-0.5">${s.nameEn}</div>` : ''}
                 </div>
               </div>
@@ -6334,9 +6376,14 @@
               ${rank}
             </td>
             <td class="py-2.5 px-3 text-center no-print whitespace-nowrap">
-              <button onclick="openCertificateForStudent('${s.id}')" class="px-3 py-1 bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 font-black rounded-lg text-xs border border-amber-400/40 transition active:scale-95 flex items-center justify-center gap-1 mx-auto shadow-sm" title="عرض واستخراج الشهادة لهذا الاختبار">
-                <span>📜</span> <span>الشهادة</span>
-              </button>
+              <div class="inline-flex items-center gap-1.5 justify-center">
+                <button onclick="openCertificateForStudent('${s.id}')" class="px-2.5 py-1 bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 font-black rounded-lg text-xs border border-amber-400/40 transition active:scale-95 flex items-center justify-center gap-1 shadow-sm" title="عرض واستخراج الشهادة لهذا الاختبار">
+                  <span>📜</span> <span>الشهادة</span>
+                </button>
+                <button onclick="toggleStudentSuspension('${s.id}')" class="px-2 py-1 ${s.enrollmentStatus === 'suspended' ? 'bg-amber-500 text-slate-950 font-black shadow-sm' : 'bg-slate-800 text-slate-400 hover:text-white border border-slate-700'} rounded-lg text-xs transition" title="${s.enrollmentStatus === 'suspended' ? 'إلغاء تعليق الشهادة' : 'تعليق الشهادة (تحويل لشهادة تقدير وتشجيع بدون درجات)'}">
+                  ${s.enrollmentStatus === 'suspended' ? '⏸️ معلق' : '⏸️'}
+                </button>
+              </div>
             </td>
           </tr>
         `;
@@ -7998,6 +8045,148 @@
         }
       }
 
+      // ==============================================================
+      // TEMPLATE 5: APPRECIATION & ENCOURAGEMENT (NON-GRADED CERTIFICATE)
+      // شهادة تقدير وتشجيع واعتزاز بدون درجات (للتحاق حديث / تعليق شهادة)
+      // ==============================================================
+      if (activeStyle === 'style-appreciation' || (activeStyle === 'style-current' && currentSt.enrollmentStatus === 'suspended')) {
+        const isBoy = (st.gender === 'male');
+        const heroTitle = isBoy ? 'البطل المتميز' : 'البطلة المتميزة';
+        const pronounPrefix = isBoy ? 'له' : 'لها';
+        const pronounH = isBoy ? 'لحضوره الطيب، واجتهاده' : 'لحضورها الطيب، واجتهادها';
+        const pronounGreeting = isBoy ? 'أهلاً بك يا بطل' : 'أهلاً بكِ يا بطلة';
+        const gradeArabic = (typeof GRADE_CONFIG !== 'undefined' && GRADE_CONFIG[st.grade]?.ar) ? GRADE_CONFIG[st.grade].ar : `الصف ${st.grade}`;
+        const trackArabic = (st.track === 'languages') ? 'قسم اللغات (Languages)' : 'القسم العربي';
+
+        return `
+          <div class="custom-report-card-container cert-appreciation-card" style="background: #ffffff; border: 4px solid #b45309; outline: 3px solid #1e3a8a; outline-offset: -9px; border-radius: 18px; padding: 26px 32px; box-shadow: 0 18px 45px rgba(0,0,0,0.18); width: 100%; max-width: 880px; margin: 0 auto; direction: rtl; font-family: 'Cairo', Arial, sans-serif; position: relative; box-sizing: border-box; color: #0f172a;">
+            
+            <!-- Ornate Corner Emblems -->
+            <div style="position: absolute; top: 12px; right: 14px; font-size: 20px; color: #b45309;">⚜️</div>
+            <div style="position: absolute; top: 12px; left: 14px; font-size: 20px; color: #b45309;">⚜️</div>
+            <div style="position: absolute; bottom: 12px; right: 14px; font-size: 20px; color: #b45309;">⚜️</div>
+            <div style="position: absolute; bottom: 12px; left: 14px; font-size: 20px; color: #b45309;">⚜️</div>
+
+            <!-- Top Header with School Branding -->
+            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 14px; gap: 14px;">
+              <div style="text-align: right; flex: 1;">
+                <div style="font-size: 11px; font-weight: 800; color: #b45309;">جمهورية مصر العربية • وزارة التربية والتعليم</div>
+                <div style="font-size: 20px; font-weight: 900; color: #1e3a8a; line-height: 1.2; margin-top: 2px;">مدارس وحضانة سمايل كيدز للغات</div>
+                <div style="font-size: 11px; font-weight: 700; color: #64748b; font-family: Arial, sans-serif;">Smile Kids Language School • وحدة المتابعة التربوية</div>
+              </div>
+
+              <!-- Center Gold Medallion -->
+              <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0;">
+                <div style="width: 66px; height: 66px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706, #78350f); padding: 3px; box-shadow: 0 4px 16px rgba(217,119,6,0.35); display: flex; align-items: center; justify-content: center;">
+                  <div style="width: 100%; height: 100%; border-radius: 50%; background: #ffffff; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1.5px solid #fbbf24;">
+                    <span style="font-size: 20px; line-height: 1;">🌟</span>
+                    <span style="font-size: 7.5px; font-weight: 900; color: #b45309; letter-spacing: 0.5px; margin-top: 1px;">EXCELLENCE</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Student Photo Spacer or Frame -->
+              <div style="flex-shrink: 0; text-align: left;">
+                ${renderCertPhoto('standard', 74, 94)}
+              </div>
+
+              <div style="text-align: left; direction: ltr; flex: 1;">
+                <div style="font-size: 10px; font-weight: 800; color: #b45309; letter-spacing: 0.8px;">SMILE KIDS SCHOOL</div>
+                <div style="font-size: 17px; font-weight: 900; color: #1e3a8a; letter-spacing: 0.5px;">APPRECIATION</div>
+                <div style="font-size: 10.5px; font-weight: 700; color: #64748b;">العام الدراسي 2025 / 2026</div>
+              </div>
+            </div>
+
+            <!-- Grand Ribbon Title -->
+            <div style="text-align: center; margin: 10px 0 16px;">
+              <div style="display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(90deg, #1e3a8a, #d97706, #1e3a8a); color: #ffffff; padding: 7px 34px; border-radius: 9999px; box-shadow: 0 4px 15px rgba(217,119,6,0.3); border: 1.5px solid #fde68a;">
+                <span style="font-size: 18px;">✨</span>
+                <span style="font-size: 18px; font-weight: 900; letter-spacing: 0.5px;">شهـــــــادة تقديـــــــــر وتشجيـــــــــع واعتــــــزاز</span>
+                <span style="font-size: 18px;">✨</span>
+              </div>
+              <div style="font-size: 11px; font-weight: 800; color: #d97706; margin-top: 4px; font-family: Arial, sans-serif; letter-spacing: 1px;">
+                CERTIFICATE OF APPRECIATION & MERIT
+              </div>
+            </div>
+
+            <!-- Dedication Banner -->
+            <div style="text-align: center; margin: 12px auto; max-width: 780px;">
+              <div style="font-size: 13.5px; font-weight: 800; color: #475569;">
+                تتشرف إدارة مدرسة وحضانة <b style="color: #1e3a8a;">Smile Kids</b> بمنح هذه الشهادة بكل فخر وسرور إلى ${heroTitle}:
+              </div>
+              <div style="margin: 8px 0;">
+                <span style="font-size: 26px; font-weight: 900; color: #1e3a8a; border-bottom: 3px double #d97706; padding: 0 28px 4px; display: inline-block;">
+                  ${studentDisplayName}
+                </span>
+              </div>
+              <div style="display: inline-flex; align-items: center; gap: 8px; background: #f8fafc; border: 1px solid #cbd5e1; padding: 4px 16px; border-radius: 9999px; font-size: 12px; font-weight: 800; color: #334155; margin-top: 2px;">
+                <span>🎓 ${gradeArabic}</span>
+                <span>•</span>
+                <span style="color: #b45309;">${trackArabic}</span>
+              </div>
+            </div>
+
+            <!-- Citation Text Box (Without Grades) -->
+            <div style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fffbeb 100%); border: 1.5px solid #fde68a; border-radius: 16px; padding: 18px 24px; margin: 16px auto; max-width: 780px; text-align: center; box-shadow: inset 0 0 12px rgba(245,158,11,0.06);">
+              <p style="font-size: 14.5px; font-weight: 800; color: #78350f; line-height: 1.85; margin: 0;">
+                تقديراً ${pronounH} الملموس، وانضباط${isBoy ? 'ه' : 'ها'} وحسن خلق${isBoy ? 'ه' : 'ها'} وتفاعل${isBoy ? 'ه' : 'ها'} الإيجابي في رحاب مدرستنا،<br>
+                وإذ تسجل إدارة المدرسة اعتزازها بانتساب${isBoy ? 'ه' : 'ها'} الميمون لأسرة <span style="color: #1e3a8a; font-weight: 900;">Smile Kids</span>، فإننا نشيد بهذه البداية الطيبة والواعدة،<br>
+                مع أصدق دعواتنا القلبية ${pronounPrefix} بدوام التألق والنجاح، ومستقبل دراسي زاخر بأعلى مراتب التفوق والتميز.
+              </p>
+            </div>
+
+            <!-- Recognition Badges Row -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 780px; margin: 16px auto;">
+              <div style="background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 10px 14px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+                <div style="font-size: 22px;">🌟</div>
+                <div style="font-size: 12px; font-weight: 900; color: #1e3a8a; margin-top: 4px;">الانضباط وحسن الخلق</div>
+                <div style="font-size: 10px; color: #64748b; font-weight: 700; margin-top: 2px;">Exemplary Conduct</div>
+              </div>
+              <div style="background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 10px 14px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+                <div style="font-size: 22px;">🤝</div>
+                <div style="font-size: 12px; font-weight: 900; color: #1e3a8a; margin-top: 4px;">التفاعل والمشاركة</div>
+                <div style="font-size: 10px; color: #64748b; font-weight: 700; margin-top: 2px;">Active Engagement</div>
+              </div>
+              <div style="background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 10px 14px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+                <div style="font-size: 22px;">🚀</div>
+                <div style="font-size: 12px; font-weight: 900; color: #1e3a8a; margin-top: 4px;">بداية واعدة نحو القمة</div>
+                <div style="font-size: 10px; color: #64748b; font-weight: 700; margin-top: 2px;">Promising Future</div>
+              </div>
+            </div>
+
+            <!-- Welcome Slogan -->
+            <div style="text-align: center; margin: 14px 0 10px; font-size: 12px; font-weight: 900; color: #b45309;">
+              « العلم نور.. وبداية النجاح خطوة من الجد والمثابرة • ${pronounGreeting} في أسرة Smile Kids »
+            </div>
+
+            <!-- Signatures & Stamp Footer -->
+            <div style="margin-top: 18px; padding-top: 14px; border-top: 2px solid #e2e8f0; display: flex; align-items: flex-end; justify-content: space-between; max-width: 800px; margin-left: auto; margin-right: auto; text-align: center;">
+              
+              <div style="flex: 1;">
+                <div style="font-size: 12px; font-weight: 900; color: #334155;">رائد الفصل / المعلم</div>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 18px;">...........................</div>
+              </div>
+
+              <!-- Official Center Stamp -->
+              <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <div style="width: 72px; height: 72px; border: 2px dashed #b45309; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fffbeb; box-shadow: 0 0 10px rgba(217,119,6,0.15);">
+                  <span style="font-size: 10px; font-weight: 900; color: #b45309;">SMILE KIDS</span>
+                  <span style="font-size: 14px;">👑</span>
+                  <span style="font-size: 8px; font-weight: 900; color: #1e3a8a;">معتمد رسمياً</span>
+                </div>
+              </div>
+
+              <div style="flex: 1;">
+                <div style="font-size: 12px; font-weight: 900; color: #334155;">إدارة المدرسة</div>
+                <div style="font-size: 13px; font-weight: 900; color: #1e3a8a; margin-top: 4px;">Smile Kids school ☺</div>
+              </div>
+
+            </div>
+
+          </div>
+        `;
+      }
+
       // ==========================================
       // TEMPLATE 2: ROYAL GOLD & NAVY PRESTIGE
       // ==========================================
@@ -8459,6 +8648,14 @@
       if (certSel) certSel.value = currentGradesPeriod;
       const certStSel = document.getElementById('cert-student-select');
       if (certStSel) certStSel.value = st.id;
+      
+      // Auto-switch to appreciation certificate if student has suspended status
+      if (st.enrollmentStatus === 'suspended') {
+        selectedCertificateStyle = 'style-appreciation';
+        const styleSel = document.getElementById('cert-style-select');
+        if (styleSel) styleSel.value = 'style-appreciation';
+      }
+
       switchMainTab('certificates');
     }
 
@@ -8484,7 +8681,7 @@
       }
     }
 
-    function printBatchCertificates(onlyRecorded = false) {
+    function printBatchCertificates(mode = false) {
       let gradeStudents = ALL_STUDENTS.filter(s => s.grade === currentGrade);
       if (gradeStudents.length === 0) {
         alert('لا يوجد طلاب في هذا الصف للطباعة');
@@ -8494,15 +8691,58 @@
       const pKey = (document.getElementById('cert-period-select') && document.getElementById('cert-period-select').value) ? document.getElementById('cert-period-select').value : (currentGradesPeriod || 't1_m1');
       
       // Always filter out withdrawn or interrupted students from normal printing
-      const initialCount = gradeStudents.length;
       gradeStudents = gradeStudents.filter(s => s.enrollmentStatus !== 'interrupted' && s.enrollmentStatus !== 'withdrawn' && s.status !== 'withdrawn');
 
-      // If user requested only recorded students (skip unrecorded / suspended / new arrivals)
+      // MODE 1: Appreciation Certificates ONLY (for suspended students & new arrivals without grades)
+      if (mode === 'appreciation') {
+        const appreciationStudents = gradeStudents.filter(st => {
+          if (st.enrollmentStatus === 'suspended') return true;
+          let hasRecordedScore = false;
+          const subjs = st.subjectScores || {};
+          for (const subId in subjs) {
+            if (subId === 'religion' || subId === 'term') continue;
+            const sep = subjs[subId] && subjs[subId].scores && subjs[subId].scores[pKey];
+            if (sep && sep.isRecorded && sep.score !== null && sep.score !== undefined) {
+              hasRecordedScore = true;
+              break;
+            }
+          }
+          return !hasRecordedScore;
+        });
+
+        if (appreciationStudents.length === 0) {
+          alert('تنبيه: لا يوجد طلاب في حالة «تعليق شهادة» أو بدون درجات في الصف الحالي لطباعة شهادات تقدير لهم.');
+          return;
+        }
+
+        const printArea = document.getElementById('batch-certificates-print-area');
+        if (!printArea) return;
+
+        let batchHtml = '';
+        appreciationStudents.forEach((st, idx) => {
+          const cert = generateSingleCertificateHTML(st, certLanguage, pKey, 'style-appreciation');
+          const isLast = (idx === appreciationStudents.length - 1);
+          batchHtml += `<div class="cert-print-page" style="${isLast ? 'page-break-after: avoid; break-after: avoid;' : 'page-break-after: always; break-after: page;'}">${cert}</div>`;
+        });
+
+        printArea.innerHTML = batchHtml;
+        document.body.classList.add('printing-certificate');
+        printArea.classList.remove('hidden');
+        window.print();
+        setTimeout(() => {
+          document.body.classList.remove('printing-certificate');
+          printArea.classList.add('hidden');
+        }, 1200);
+        return;
+      }
+
+      // MODE 2 & 3: Normal Grade Cards (Regular & Recorded Only)
+      // CRITICAL: ALWAYS exclude suspended students so no blank grade report cards are ever printed!
+      gradeStudents = gradeStudents.filter(st => st.enrollmentStatus !== 'suspended');
+
+      const onlyRecorded = (mode === true || mode === 'recorded');
       if (onlyRecorded) {
         gradeStudents = gradeStudents.filter(st => {
-          if (st.enrollmentStatus === 'suspended') return false; // تعليق: لا تطبع له شهادة
-          
-          // Check if student has any recorded score for this period
           let hasRecordedScore = false;
           const subjs = st.subjectScores || {};
           for (const subId in subjs) {
@@ -8520,11 +8760,11 @@
           alert('تنبيه: لا يوجد طلاب مرصودة درجاتهم في هذا الصف حالياً للطباعة (تم تخطي غير المرصودين والمعلقين).');
           return;
         }
+      }
 
-        const skippedCount = initialCount - gradeStudents.length;
-        if (skippedCount > 0) {
-          console.log(`[Batch Print] Printing ${gradeStudents.length} recorded certificates (Skipped ${skippedCount} unrecorded/suspended students)`);
-        }
+      if (gradeStudents.length === 0) {
+        alert('لا يوجد طلاب مؤهلين لطباعة كروت الدرجات في هذا الصف.');
+        return;
       }
 
       const printArea = document.getElementById('batch-certificates-print-area');
