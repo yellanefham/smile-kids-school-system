@@ -6397,6 +6397,12 @@
       student.subjectScores = student.subjectScores || {};
       student.subjectScores[subjectId] = student.subjectScores[subjectId] || { scores: {} };
 
+      const fldMap = {
+        't1_sep': 'sep', 't1_m1': 'm1', 't1_m2': 'm2', 't1_tasks': 'tasks', 't1_exam': 'exam',
+        't2_m1': 'm1', 't2_m2': 'm2', 't2_tasks': 'tasks', 't2_exam': 'exam'
+      };
+      const fld = fldMap[currentGradesPeriod] || (currentGradesPeriod || '').replace('t1_', '').replace('t2_', '');
+
       if (v !== null && v > 0) {
         student.subjectScores[subjectId].scores[currentGradesPeriod] = {
           score: v,
@@ -6404,8 +6410,22 @@
           isRecorded: true,
           updatedAt: new Date().toISOString()
         };
+        if (fld) student.subjectScores[subjectId][fld] = v;
       } else {
-        delete student.subjectScores[subjectId].scores[currentGradesPeriod];
+        if (student.subjectScores[subjectId].scores) {
+          delete student.subjectScores[subjectId].scores[currentGradesPeriod];
+        }
+        if (fld && student.subjectScores[subjectId][fld] !== undefined) {
+          delete student.subjectScores[subjectId][fld];
+        }
+        // Also clean up window.SmileKidsDB cache if active
+        if (window.SmileKidsDB && typeof window.SmileKidsDB.getStudentById === 'function') {
+          const dbSt = window.SmileKidsDB.getStudentById(studentId);
+          if (dbSt && dbSt.subjectScores && dbSt.subjectScores[subjectId]) {
+            if (dbSt.subjectScores[subjectId].scores) delete dbSt.subjectScores[subjectId].scores[currentGradesPeriod];
+            if (fld && dbSt.subjectScores[subjectId][fld] !== undefined) delete dbSt.subjectScores[subjectId][fld];
+          }
+        }
       }
 
       // Update input styling dynamically without stealing focus
@@ -6441,12 +6461,11 @@
         const term = (currentGradesPeriod && currentGradesPeriod.startsWith('t2')) ? 't2' : 't1';
         const key = 'st_' + studentId + '_' + term + '_' + subjectId;
         tGrades[key] = tGrades[key] || { m1: null, m2: null, tasks: null, exam: null, sep: null };
-        const fldMap = {
-          't1_sep': 'sep', 't1_m1': 'm1', 't1_m2': 'm2', 't1_tasks': 'tasks', 't1_exam': 'exam',
-          't2_m1': 'm1', 't2_m2': 'm2', 't2_tasks': 'tasks', 't2_exam': 'exam'
-        };
-        const fld = fldMap[currentGradesPeriod] || 'm1';
-        tGrades[key][fld] = (v !== null && v > 0) ? v : null;
+        if (v !== null && v > 0) {
+          tGrades[key][fld] = v;
+        } else {
+          delete tGrades[key][fld];
+        }
         localStorage.setItem('smile_kids_teacher_grades', JSON.stringify(tGrades));
       } catch(e) {}
 
@@ -7245,8 +7264,9 @@
                   syncCount++;
                 } else if (!isNaN(sc) && sc <= 0) {
                   delete record[fld];
-                  if (st.subjectScores && st.subjectScores[subjId] && st.subjectScores[subjId].scores) {
-                    delete st.subjectScores[subjId].scores[pKey];
+                  if (st.subjectScores && st.subjectScores[subjId]) {
+                    if (st.subjectScores[subjId].scores) delete st.subjectScores[subjId].scores[pKey];
+                    if (st.subjectScores[subjId][fld] !== undefined) delete st.subjectScores[subjId][fld];
                   }
                 }
               }
@@ -7453,7 +7473,9 @@
         }
 
         // Priority B: check direct field on subjEntry (e.g. subjEntry.m1 or subjEntry.sep)
-        if (fld && subjEntry[fld] !== undefined && subjEntry[fld] !== null && subjEntry[fld] !== '') {
+        // ONLY if scores[periodKey] is not explicitly empty/unrecorded
+        const hasExplicitPeriodKey = (subjEntry.scores && periodKey in subjEntry.scores);
+        if (!hasExplicitPeriodKey && fld && subjEntry[fld] !== undefined && subjEntry[fld] !== null && subjEntry[fld] !== '' && parseFloat(subjEntry[fld]) > 0) {
           let sc = parseFloat(subjEntry[fld]);
           if (!isNaN(sc)) sc = Math.ceil(sc); // Round up half degrees
           if (!isNaN(sc) && sc > 0) {
@@ -8038,141 +8060,140 @@
       }
 
       // ==============================================================
-      // TEMPLATE 5: APPRECIATION & ENCOURAGEMENT (NON-GRADED CERTIFICATE)
+      // TEMPLATE 5: APPRECIATION & ENCOURAGEMENT (SUSPENDED / NON-GRADED)
       // شهادة تقدير وتشجيع واعتزاز بدون درجات (للتحاق حديث / تعليق شهادة)
       // ==============================================================
       if (activeStyle === 'style-appreciation' || (activeStyle === 'style-current' && currentSt.enrollmentStatus === 'suspended')) {
         const isBoy = (st.gender === 'male');
         const heroTitle = isBoy ? 'البطل المتميز' : 'البطلة المتميزة';
-        const pronounPrefix = isBoy ? 'له' : 'لها';
-        const pronounH = isBoy ? 'لحضوره الطيب، واجتهاده' : 'لحضورها الطيب، واجتهادها';
-        const pronounGreeting = isBoy ? 'أهلاً بك يا بطل' : 'أهلاً بكِ يا بطلة';
         const gradeArabic = (typeof GRADE_CONFIG !== 'undefined' && GRADE_CONFIG[st.grade]?.ar) ? GRADE_CONFIG[st.grade].ar : `الصف ${st.grade}`;
         const trackArabic = (st.track === 'languages') ? 'قسم اللغات (Languages)' : 'القسم العربي';
 
-        return `
-          <div class="custom-report-card-container cert-appreciation-card" style="background: #ffffff; border: 4px solid #b45309; outline: 3px solid #1e3a8a; outline-offset: -9px; border-radius: 18px; padding: 26px 32px; box-shadow: 0 18px 45px rgba(0,0,0,0.18); width: 100%; max-width: 880px; margin: 0 auto; direction: rtl; font-family: 'Cairo', Arial, sans-serif; position: relative; box-sizing: border-box; color: #0f172a;">
-            
-            <!-- Ornate Corner Emblems -->
-            <div style="position: absolute; top: 12px; right: 14px; font-size: 20px; color: #b45309;">⚜️</div>
-            <div style="position: absolute; top: 12px; left: 14px; font-size: 20px; color: #b45309;">⚜️</div>
-            <div style="position: absolute; bottom: 12px; right: 14px; font-size: 20px; color: #b45309;">⚜️</div>
-            <div style="position: absolute; bottom: 12px; left: 14px; font-size: 20px; color: #b45309;">⚜️</div>
+        const subjectRowsApprec = processedSubjects.map(subj => {
+          return `
+            <tr style="border-bottom: 1.5px solid #0284c7;">
+              <td style="border: 1.5px solid #0284c7; padding: 5px 12px; font-size: 13.5px; font-weight: 800; color: #0f172a; text-align: center;">
+                ${subj.displayName || subj.name}
+              </td>
+              <td style="border: 1.5px solid #0284c7; padding: 5px 12px; font-size: 14px; font-weight: 900; color: #0284c7; text-align: center; font-family: Arial, sans-serif;">
+                ${subj.max}
+              </td>
+              <td style="border: 1.5px solid #0284c7; padding: 5px 12px; font-size: 13.5px; font-weight: 900; color: #d97706; text-align: center;">
+                <span style="display: inline-flex; align-items: center; gap: 4px; background: #fef3c7; color: #b45309; padding: 2px 10px; border-radius: 9999px; font-size: 11.5px; font-weight: 900; border: 1px solid #fde68a;">
+                  ⭐ شهادة تقدير وتشجيع
+                </span>
+              </td>
+            </tr>
+          `;
+        }).join('');
 
-            <!-- Top Header with School Branding -->
-            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 14px; gap: 14px;">
-              <div style="text-align: right; flex: 1;">
-                <div style="font-size: 11px; font-weight: 800; color: #b45309;">جمهورية مصر العربية • وزارة التربية والتعليم</div>
-                <div style="font-size: 20px; font-weight: 900; color: #1e3a8a; line-height: 1.2; margin-top: 2px;">مدارس وحضانة سمايل كيدز للغات</div>
-                <div style="font-size: 11px; font-weight: 700; color: #64748b; font-family: Arial, sans-serif;">Smile Kids Language School • وحدة المتابعة التربوية</div>
+        return `
+          <div class="custom-report-card-container cert-appreciation-card" style="background: #ffffff; border: 3px solid #38bdf8; border-radius: 18px; padding: 14px 24px 12px; box-shadow: 0 10px 30px rgba(56,189,248,0.18); width: 100%; max-width: 880px; margin: 0 auto; direction: ${isEn ? 'ltr' : 'rtl'}; font-family: ${isEn ? 'Arial, sans-serif' : '\'Cairo\', \'Segoe UI\', Arial, sans-serif'}; position: relative; box-sizing: border-box; color: #0f172a;">
+            
+            <!-- Top Header: Smile Kids Logo on Left, Boxed Title in Center, Student Photo on Right -->
+            <div class="cert-top-header" style="display: flex; align-items: center; justify-content: space-between; position: relative; margin-bottom: 8px; direction: ltr;">
+              
+              <!-- Left: Tilted Smile Kids Logo Badge -->
+              <div class="cert-logo-wrapper" style="transform: rotate(-6deg); background: #ffffff; padding: 4px 12px; border-radius: 14px; box-shadow: 0 4px 12px rgba(56,189,248,0.2); border: 2px solid #bae6fd; display: inline-block;">
+                <img src="smile_kids_logo.png" style="height: 48px; max-width: 120px; object-fit: contain; display: block;" alt="Smile Kids Logo">
               </div>
 
-              <!-- Center Gold Medallion -->
-              <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0;">
-                <div style="width: 66px; height: 66px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706, #78350f); padding: 3px; box-shadow: 0 4px 16px rgba(217,119,6,0.35); display: flex; align-items: center; justify-content: center;">
-                  <div style="width: 100%; height: 100%; border-radius: 50%; background: #ffffff; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1.5px solid #fbbf24;">
-                    <span style="font-size: 20px; line-height: 1;">🌟</span>
-                    <span style="font-size: 7.5px; font-weight: 900; color: #b45309; letter-spacing: 0.5px; margin-top: 1px;">EXCELLENCE</span>
-                  </div>
+              <!-- Center: Cheerful Boxed Title with Hearts -->
+              <div class="cert-title-box" style="margin: 0 auto; border: 2.5px dashed #0284c7; border-radius: 12px; padding: 4px 22px; background: #f0f9ff; box-shadow: 0 3px 10px rgba(2,132,199,0.15); text-align: center; min-width: 280px;">
+                <div style="font-size: 11px; font-weight: 900; color: #0284c7; letter-spacing: 0.5px;">
+                  ♥ SEPTEMBER ASSESSMENT REPORT ♥
+                </div>
+                <h2 style="margin: 2px 0 0; font-size: 18px; font-weight: 900; color: #0369a1; letter-spacing: 0.5px;">
+                  شهـــــادة تقديـــــر وتشجيـــــع 🌟
+                </h2>
+                <div style="font-size: 10px; font-weight: 800; color: #e11d48; margin-top: 1px;">
+                  Smile Kids Language School
                 </div>
               </div>
 
-              <!-- Student Photo Spacer or Frame -->
-              <div style="flex-shrink: 0; text-align: left;">
+              <!-- Right: Face-Centered Student Photo Frame -->
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="text-align: center; background: #fef08a; border: 1.5px solid #facc15; padding: 4px 8px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.06);">
+                  <div style="font-size: 14px;">⭐</div>
+                  <div style="font-size: 9px; font-weight: 900; color: #854d0e; white-space: nowrap;">You Can Do It!</div>
+                </div>
                 ${renderCertPhoto('standard', 74, 94)}
               </div>
-
-              <div style="text-align: left; direction: ltr; flex: 1;">
-                <div style="font-size: 10px; font-weight: 800; color: #b45309; letter-spacing: 0.8px;">SMILE KIDS SCHOOL</div>
-                <div style="font-size: 17px; font-weight: 900; color: #1e3a8a; letter-spacing: 0.5px;">APPRECIATION</div>
-                <div style="font-size: 10.5px; font-weight: 700; color: #64748b;">العام الدراسي 2025 / 2026</div>
-              </div>
             </div>
 
-            <!-- Grand Ribbon Title -->
-            <div style="text-align: center; margin: 10px 0 16px;">
-              <div style="display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(90deg, #1e3a8a, #d97706, #1e3a8a); color: #ffffff; padding: 7px 34px; border-radius: 9999px; box-shadow: 0 4px 15px rgba(217,119,6,0.3); border: 1.5px solid #fde68a;">
-                <span style="font-size: 18px;">✨</span>
-                <span style="font-size: 18px; font-weight: 900; letter-spacing: 0.5px;">شهـــــــادة تقديـــــــــر وتشجيـــــــــع واعتــــــزاز</span>
-                <span style="font-size: 18px;">✨</span>
+            <!-- Student Name Row (Pink Pill Banner) -->
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 8px; margin-bottom: 8px; padding: 4px 14px; background: #fdf2f8; border: 1.5px solid #fbcfe8; border-radius: 12px; direction: ${isEn ? 'ltr' : 'rtl'};">
+              <div style="color: #db2777; font-size: 17px; font-weight: 900; white-space: nowrap; ${isEn ? 'margin-right: 10px;' : 'margin-left: 10px;'}">
+                ${isEn ? 'Student Name :' : 'اسم الطالب / الطالبة :'}
               </div>
-              <div style="font-size: 11px; font-weight: 800; color: #d97706; margin-top: 4px; font-family: Arial, sans-serif; letter-spacing: 1px;">
-                CERTIFICATE OF APPRECIATION & MERIT
-              </div>
-            </div>
-
-            <!-- Dedication Banner -->
-            <div style="text-align: center; margin: 12px auto; max-width: 780px;">
-              <div style="font-size: 13.5px; font-weight: 800; color: #475569;">
-                تتشرف إدارة مدرسة وحضانة <b style="color: #1e3a8a;">Smile Kids</b> بمنح هذه الشهادة بكل فخر وسرور إلى ${heroTitle}:
-              </div>
-              <div style="margin: 8px 0;">
-                <span style="font-size: 26px; font-weight: 900; color: #1e3a8a; border-bottom: 3px double #d97706; padding: 0 28px 4px; display: inline-block;">
-                  ${studentDisplayName}
+              <div style="flex: 1; text-align: ${isEn ? 'left' : 'right'};">
+                <span style="color: #be185d; font-size: 22px; font-weight: 900;">
+                  ${isEn ? (st.nameEn || st.nameAr || '—') : (st.nameAr || st.nameEn || '—')}
                 </span>
-              </div>
-              <div style="display: inline-flex; align-items: center; gap: 8px; background: #f8fafc; border: 1px solid #cbd5e1; padding: 4px 16px; border-radius: 9999px; font-size: 12px; font-weight: 800; color: #334155; margin-top: 2px;">
-                <span>🎓 ${gradeArabic}</span>
-                <span>•</span>
-                <span style="color: #b45309;">${trackArabic}</span>
+                <span style="font-size: 12px; font-weight: 800; color: #d97706; margin-right: 8px;">(${heroTitle})</span>
               </div>
             </div>
 
-            <!-- Citation Text Box (Without Grades) -->
-            <div style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fffbeb 100%); border: 1.5px solid #fde68a; border-radius: 16px; padding: 18px 24px; margin: 16px auto; max-width: 780px; text-align: center; box-shadow: inset 0 0 12px rgba(245,158,11,0.06);">
-              <p style="font-size: 14.5px; font-weight: 800; color: #78350f; line-height: 1.85; margin: 0;">
-                تقديراً ${pronounH} الملموس، وانضباط${isBoy ? 'ه' : 'ها'} وحسن خلق${isBoy ? 'ه' : 'ها'} وتفاعل${isBoy ? 'ه' : 'ها'} الإيجابي في رحاب مدرستنا،<br>
-                وإذ تسجل إدارة المدرسة اعتزازها بانتساب${isBoy ? 'ه' : 'ها'} الميمون لأسرة <span style="color: #1e3a8a; font-weight: 900;">Smile Kids</span>، فإننا نشيد بهذه البداية الطيبة والواعدة،<br>
-                مع أصدق دعواتنا القلبية ${pronounPrefix} بدوام التألق والنجاح، ومستقبل دراسي زاخر بأعلى مراتب التفوق والتميز.
-              </p>
-            </div>
+            <!-- The Table -->
+            <table class="cert-table" style="width: 100%; border-collapse: collapse; border: 2px solid #0284c7; text-align: center; direction: ${isEn ? 'ltr' : 'rtl'};">
+              <!-- Row 1: Grade Banner (Cyan Pill Style) -->
+              <tr style="background: #e0f2fe; border-bottom: 2px solid #0284c7;">
+                <td style="border: 2px solid #0284c7; padding: 5px 12px; font-size: 14px; font-weight: 900; width: 35%; color: #0369a1; text-align: center;">
+                  ${isEn ? 'Class / Grade :' : 'الصــــــف :'}
+                </td>
+                <td colspan="2" style="border: 2px solid #0284c7; padding: 5px 12px; font-size: 18px; font-weight: 900; color: #0284c7; font-family: Arial, sans-serif; text-align: center;">
+                  ⭐ Grade ${st.grade} ${trackLabel} ⭐
+                </td>
+              </tr>
 
-            <!-- Recognition Badges Row -->
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 780px; margin: 16px auto;">
-              <div style="background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 10px 14px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
-                <div style="font-size: 22px;">🌟</div>
-                <div style="font-size: 12px; font-weight: 900; color: #1e3a8a; margin-top: 4px;">الانضباط وحسن الخلق</div>
-                <div style="font-size: 10px; color: #64748b; font-weight: 700; margin-top: 2px;">Exemplary Conduct</div>
-              </div>
-              <div style="background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 10px 14px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
-                <div style="font-size: 22px;">🤝</div>
-                <div style="font-size: 12px; font-weight: 900; color: #1e3a8a; margin-top: 4px;">التفاعل والمشاركة</div>
-                <div style="font-size: 10px; color: #64748b; font-weight: 700; margin-top: 2px;">Active Engagement</div>
-              </div>
-              <div style="background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 10px 14px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
-                <div style="font-size: 22px;">🚀</div>
-                <div style="font-size: 12px; font-weight: 900; color: #1e3a8a; margin-top: 4px;">بداية واعدة نحو القمة</div>
-                <div style="font-size: 10px; color: #64748b; font-weight: 700; margin-top: 2px;">Promising Future</div>
-              </div>
-            </div>
+              <!-- Row 2: Headers (Pastel Soft Blue) -->
+              <tr style="background: #f0f9ff; border-bottom: 2px solid #0284c7;">
+                <th style="border: 1.5px solid #0284c7; padding: 5px 12px; font-size: 13.5px; font-weight: 900; width: 35%; color: #0369a1; text-align: center;">
+                  ${isEn ? 'Subject 📚' : 'المادة الدراسية 📚'}
+                </th>
+                <th style="border: 1.5px solid #0284c7; padding: 5px 12px; font-size: 13.5px; font-weight: 900; width: 30%; color: #0284c7; text-align: center;">
+                  ${isEn ? 'Maximum Score 🎯' : 'النهاية العظمى 🎯'}
+                </th>
+                <th style="border: 1.5px solid #0284c7; padding: 5px 12px; font-size: 13.5px; font-weight: 900; width: 35%; color: #d97706; text-align: center;">
+                  ${isEn ? 'Appreciation 🌟' : 'التقدير والتشجيع 🌟'}
+                </th>
+              </tr>
 
-            <!-- Welcome Slogan -->
-            <div style="text-align: center; margin: 14px 0 10px; font-size: 12px; font-weight: 900; color: #b45309;">
-              « العلم نور.. وبداية النجاح خطوة من الجد والمثابرة • ${pronounGreeting} في أسرة Smile Kids »
-            </div>
+              <!-- Subject Rows -->
+              ${subjectRowsApprec}
 
-            <!-- Signatures & Stamp Footer -->
-            <div style="margin-top: 18px; padding-top: 14px; border-top: 2px solid #e2e8f0; display: flex; align-items: flex-end; justify-content: space-between; max-width: 800px; margin-left: auto; margin-right: auto; text-align: center;">
-              
-              <div style="flex: 1;">
-                <div style="font-size: 12px; font-weight: 900; color: #334155;">رائد الفصل / المعلم</div>
-                <div style="font-size: 11px; color: #94a3b8; margin-top: 18px;">...........................</div>
+              <!-- Total & Rank Status Row -->
+              <tr style="border-top: 2px solid #0284c7; background: #fffbeb;">
+                <td style="border: 1.5px solid #0284c7; padding: 6px 12px; font-size: 14px; font-weight: 900; color: #b45309; text-align: center;">
+                  حالة التقييم والشهادة
+                </td>
+                <td colspan="2" style="border: 1.5px solid #0284c7; padding: 6px 12px; font-size: 14px; font-weight: 900; color: #b45309; text-align: center;">
+                  ✨ شهادة حضور وتشجيع واعتزاز • مع أطيب الأمنيات بدوام التوفيق والنجاح ✨
+                </td>
+              </tr>
+            </table>
+
+            <!-- Cheerful Footer Area -->
+            <div style="width: 100%; height: 2px; background: linear-gradient(to right, #38bdf8, #ec4899, #facc15, #38bdf8); margin-top: 10px; margin-bottom: 6px; border-radius: 9999px;"></div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 6px; direction: ltr;">
+              <!-- Left: Congratulations Art -->
+              <div style="font-family: 'Brush Script MT', 'Dancing Script', 'Pacifico', cursive; font-size: 30px; font-weight: bold; background: linear-gradient(45deg, #ec4899, #8b5cf6, #38bdf8, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                Congratulations!
               </div>
 
-              <!-- Official Center Stamp -->
-              <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                <div style="width: 72px; height: 72px; border: 2px dashed #b45309; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fffbeb; box-shadow: 0 0 10px rgba(217,119,6,0.15);">
-                  <span style="font-size: 10px; font-weight: 900; color: #b45309;">SMILE KIDS</span>
-                  <span style="font-size: 14px;">👑</span>
-                  <span style="font-size: 8px; font-weight: 900; color: #1e3a8a;">معتمد رسمياً</span>
+              <!-- Middle: Simple Concise Wish -->
+              <div style="text-align: center; color: #0284c7; font-weight: 900; font-size: 13px; line-height: 1.4; font-family: ${isEn ? 'Arial, sans-serif' : '\'Cairo\', sans-serif'};">
+                مع أطيب أمنياتنا بمزيد من التقدم والنجاح والتفوق<br>
+                <span style="font-size: 14px; color: #0369a1; font-weight: 900; font-family: Arial, sans-serif;">Smile Kids school ☺</span>
+              </div>
+
+              <!-- Right: Cute Star Ribbon Badge -->
+              <div style="display: flex; flex-direction: column; align-items: center; position: relative;">
+                <div style="background: linear-gradient(135deg, #38bdf8, #0284c7); color: white; font-weight: 900; font-size: 10.5px; padding: 3px 10px; border-radius: 8px; box-shadow: 0 3px 8px rgba(2,132,199,0.3); border: 1.5px solid white; transform: rotate(4deg);">
+                  WELL DONE ⭐
                 </div>
               </div>
-
-              <div style="flex: 1;">
-                <div style="font-size: 12px; font-weight: 900; color: #334155;">إدارة المدرسة</div>
-                <div style="font-size: 13px; font-weight: 900; color: #1e3a8a; margin-top: 4px;">Smile Kids school ☺</div>
-              </div>
-
             </div>
 
           </div>
