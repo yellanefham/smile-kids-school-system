@@ -1592,7 +1592,8 @@
               <option value="style-royal">👑 2. الشهادة الملكية الذهبية الفاخرة (Royal Gold)</option>
               <option value="style-modern">💎 3. التصميم العصري الحديث (Modern Studio)</option>
               <option value="style-kids">🎈 4. نمط أبطال كيدز المبهج (Cheerful Kids)</option>
-              <option value="style-appreciation">🌟 5. شهادة تقدير وتشجيع بدون درجات (حضور متأخر / معلق)</option>
+              <option value="style-appreciation">🌟 5. كارت التقييم والدرجات الملون (Colorful Assessment)</option>
+              <option value="style-cartoon-award">🎨 6. شهادة تقدير وتشجيع كرتونية ملونة بدون أرقام (Cartoon Award)</option>
             </select>
           </div>
 
@@ -8227,6 +8228,129 @@
           </div>
         `;
       }
+
+      // ==============================================================
+      // TEMPLATE 6: PLAYFUL CARTOON APPRECIATION AWARD (WITHOUT NUMBERS)
+      // شهادة تقدير وتشجيع كرتونية ملونة مبهجة بدون أرقام إطلاقاً
+      // ==============================================================
+      if (activeStyle === 'style-cartoon-award') {
+        const isBoy = (st.gender === 'male');
+        const heroTitle = isBoy ? 'البطل المتميز' : 'البطلة المتميزة';
+        const pronounPrefix = isBoy ? 'له' : 'لها';
+        const pronounGreeting = isBoy ? 'أهلاً بك يا بطل' : 'أهلاً بكِ يا بطلة';
+        const gradeArabic = (typeof GRADE_CONFIG !== 'undefined' && GRADE_CONFIG[st.grade]?.ar) ? GRADE_CONFIG[st.grade].ar : `الصف ${st.grade}`;
+        const trackArabic = (st.track === 'languages') ? 'قسم اللغات (Languages)' : 'القسم العربي';
+
+        const subjectPills = processedSubjects.map(subj => {
+          return `
+            <div style="background: #ffffff; border: 2px solid #bae6fd; border-radius: 14px; padding: 10px 12px; text-align: center; box-shadow: 0 4px 12px rgba(56,189,248,0.12); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;">
+              <div style="font-size: 20px; margin-bottom: 2px;">
+                ${subj.id === 'arabic' ? '📖' : (subj.id.includes('english') ? '🔤' : (subj.id === 'math' ? '🔢' : (subj.id === 'science' ? '🔬' : (subj.id === 'religion' ? '🕌' : '🎨'))))}
+              </div>
+              <div style="font-size: 13px; font-weight: 900; color: #0369a1; line-height: 1.2;">${subj.displayName || subj.name}</div>
+              <div style="margin-top: 6px; background: linear-gradient(135deg, #fef08a, #fde047); color: #854d0e; font-size: 11px; font-weight: 900; padding: 2px 10px; border-radius: 9999px; border: 1px solid #facc15; box-shadow: 0 2px 5px rgba(250,204,21,0.25);">
+                ⭐ تميز وإبداع
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div class="custom-report-card-container cert-cartoon-award-card" style="background: #ffffff; border: 4px solid #38bdf8; outline: 3px dashed #f472b6; outline-offset: -10px; border-radius: 24px; padding: 22px 28px 16px; box-shadow: 0 15px 40px rgba(56,189,248,0.22); width: 100%; max-width: 880px; margin: 0 auto; direction: ${isEn ? 'ltr' : 'rtl'}; font-family: ${isEn ? 'Arial, sans-serif' : '\'Cairo\', \'Segoe UI\', Arial, sans-serif'}; position: relative; box-sizing: border-box; color: #0f172a;">
+            
+            <!-- Floating Cartoon Emojis and Stars in Corners -->
+            <div style="position: absolute; top: 16px; right: 18px; font-size: 26px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">🎈</div>
+            <div style="position: absolute; top: 16px; left: 18px; font-size: 26px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">🌈</div>
+            <div style="position: absolute; bottom: 14px; right: 20px; font-size: 26px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">🚀</div>
+            <div style="position: absolute; bottom: 14px; left: 20px; font-size: 26px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">🎨</div>
+
+            <!-- Top Header: Logo on Left, Festive Ribbon Center, Mascot Badge on Right -->
+            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px dashed #bae6fd; padding-bottom: 12px; margin-bottom: 12px; direction: ltr;">
+              
+              <!-- Left: Smile Kids Logo -->
+              <div style="transform: rotate(-5deg); background: #ffffff; padding: 4px 12px; border-radius: 16px; box-shadow: 0 4px 12px rgba(56,189,248,0.25); border: 2px solid #7dd3fc; display: inline-block;">
+                <img src="smile_kids_logo.png" style="height: 50px; max-width: 120px; object-fit: contain; display: block;" alt="Smile Kids Logo">
+              </div>
+
+              <!-- Center: Cheerful Boxed Title with Hearts -->
+              <div style="text-align: center; margin: 0 auto; padding: 4px 20px; background: linear-gradient(135deg, #f0fdf4, #e0f2fe); border: 2.5px solid #38bdf8; border-radius: 16px; box-shadow: 0 4px 12px rgba(56,189,248,0.18);">
+                <div style="font-size: 11px; font-weight: 900; color: #0284c7; letter-spacing: 1px;">
+                  ♥ SMILE KIDS STAR OF EXCELLENCE ♥
+                </div>
+                <h2 style="margin: 2px 0 0; font-size: 22px; font-weight: 900; background: linear-gradient(45deg, #0284c7, #ec4899, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 0.5px;">
+                  شهـــــادة تقديـــــر وتشجيـــــع واعتـــــزاز 🌟
+                </h2>
+                <div style="font-size: 10.5px; font-weight: 800; color: #db2777; margin-top: 1px;">
+                  حضانة ومدرسة سمايل كيدز للغات • العام الدراسي 2025 / 2026
+                </div>
+              </div>
+
+              <!-- Right: Cute Sun / Star Mascot Badge -->
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="text-align: center; background: linear-gradient(135deg, #fef08a, #fed7aa); border: 2px solid #f59e0b; padding: 6px 12px; border-radius: 14px; box-shadow: 0 3px 10px rgba(245,158,11,0.25); transform: rotate(4deg);">
+                  <div style="font-size: 18px; line-height: 1;">🌟 🥳</div>
+                  <div style="font-size: 9.5px; font-weight: 900; color: #9a3412; white-space: nowrap; margin-top: 2px;">SUPER STAR!</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Student Name Hero Banner -->
+            <div style="text-align: center; margin: 10px auto 12px; max-width: 720px; background: linear-gradient(135deg, #fdf2f8 0%, #f0f9ff 100%); border: 2px solid #fbcfe8; border-radius: 18px; padding: 10px 20px; box-shadow: 0 4px 14px rgba(219,39,119,0.08);">
+              <div style="font-size: 13.5px; font-weight: 800; color: #475569;">
+                تمنح إدارة المدرسة هذه الشهادة المتميزة بكل فخر وسرور إلى ${heroTitle}:
+              </div>
+              <div style="margin: 4px 0 6px;">
+                <span style="font-size: 27px; font-weight: 900; color: #be185d; display: inline-block; text-shadow: 1px 1px 0px #fbcfe8;">
+                  ${isEn ? (st.nameEn || st.nameAr || '—') : (st.nameAr || st.nameEn || '—')}
+                </span>
+              </div>
+              <div style="display: inline-flex; align-items: center; gap: 8px; background: #ffffff; border: 1.5px solid #38bdf8; padding: 3px 18px; border-radius: 9999px; font-size: 12px; font-weight: 900; color: #0369a1; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+                <span>🎓 ⭐ Grade ${st.grade} ${trackLabel} ⭐</span>
+                <span>•</span>
+                <span style="color: #db2777;">${trackArabic}</span>
+              </div>
+            </div>
+
+            <!-- Warm Encouraging Words Box -->
+            <div style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fffbeb 100%); border: 2px solid #fde68a; border-radius: 16px; padding: 12px 20px; margin: 10px auto; max-width: 740px; text-align: center; box-shadow: 0 3px 10px rgba(245,158,11,0.08);">
+              <p style="font-size: 14px; font-weight: 800; color: #92400e; line-height: 1.7; margin: 0;">
+                تقديراً لحضور${isBoy ? 'ه' : 'ها'} الطيب، واجتهاد${isBoy ? 'ه' : 'ها'} وتفاعل${isBoy ? 'ه' : 'ها'} الإيجابي وحسن خلق${isBoy ? 'ه' : 'ها'} في رحاب مدرستنا،<br>
+                مع أصدق أمنياتنا القلبية ${pronounPrefix} بدوام التألق والإبداع، ومستقبل دراسي زاخر بأعلى مراتب النجاح والتفوق.
+              </p>
+            </div>
+
+            <!-- Subject Excellence Cards (Pure Colorful Badges Without Numbers) -->
+            <div style="display: grid; grid-template-columns: repeat(${Math.min(processedSubjects.length, 5)}, 1fr); gap: 10px; max-width: 740px; margin: 12px auto;">
+              ${subjectPills}
+            </div>
+
+            <!-- Bottom Wavy Rainbow Divider -->
+            <div style="width: 100%; height: 3px; background: linear-gradient(to right, #38bdf8, #ec4899, #facc15, #10b981, #38bdf8); margin-top: 14px; margin-bottom: 8px; border-radius: 9999px;"></div>
+
+            <!-- Footer: Congratulations Art + Wishes + Smile Kids school -->
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 10px; direction: ltr;">
+              <!-- Left: Congratulations Script -->
+              <div style="font-family: 'Brush Script MT', 'Dancing Script', 'Pacifico', cursive; font-size: 32px; font-weight: bold; background: linear-gradient(45deg, #ec4899, #8b5cf6, #38bdf8, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                Congratulations!
+              </div>
+
+              <!-- Center: English School Signature -->
+              <div style="text-align: center; color: #0284c7; font-weight: 900; font-size: 13px; line-height: 1.4; font-family: 'Cairo', Arial, sans-serif;">
+                مع أطيب أمنياتنا بمزيد من التقدم والنجاح والتفوق<br>
+                <span style="font-size: 14.5px; color: #0369a1; font-weight: 900; font-family: Arial, sans-serif;">Smile Kids school ☺</span>
+              </div>
+
+              <!-- Right: Stamp / Golden Star Emblem -->
+              <div style="display: flex; align-items: center; gap: 6px; background: #ffffff; border: 2px dashed #f59e0b; padding: 4px 12px; border-radius: 9999px; box-shadow: 0 2px 6px rgba(245,158,11,0.2);">
+                <span style="font-size: 16px;">👑</span>
+                <span style="font-size: 11px; font-weight: 900; color: #b45309;">نجم متميز</span>
+              </div>
+            </div>
+
+          </div>
+        `;
+      }
+
 
       // ==========================================
       // TEMPLATE 2: ROYAL GOLD & NAVY PRESTIGE
