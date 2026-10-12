@@ -22754,6 +22754,7 @@
       if (!this._cache) return;
       this._cache.forEach(s => {
         enforceCanonicalStudent(s);
+        if (!s.enrollmentStatus) s.enrollmentStatus = (s.status === 'withdrawn' ? 'withdrawn' : 'active');
         if (!s.attendanceRecords) s.attendanceRecords = {};
         if (!s.attendanceNotes) s.attendanceNotes = {};
         if (!s.subjectScores) s.subjectScores = {};

@@ -1663,7 +1663,11 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
             <span>طباعة هذه الشهادة</span>
           </button>
-          <button onclick="printBatchCertificates()" class="px-3.5 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow-md active:scale-95">
+          <button onclick="printBatchCertificates(true)" class="px-3.5 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow-md active:scale-95" title="طباعة شهادات الطلاب المرصودة درجاتهم فقط وتخطي غير المرصودين والمعلقين">
+            <span>⚡</span>
+            <span>طباعة المرصود فقط (تخطي غير المرصود والتعليق)</span>
+          </button>
+          <button onclick="printBatchCertificates(false)" class="px-3.5 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow-md active:scale-95" title="طباعة جميع طلاب الصف">
             <span>📜 طباعة كل طلاب الفصل</span>
           </button>
         </div>
@@ -2220,6 +2224,24 @@
               <option value="male">بنين (ولد) 👦</option>
               <option value="female">بنات (بنت) 👧</option>
             </select>
+          </div>
+        </div>
+
+        <!-- حالة القيد والانتظام الأكاديمي والشهادات -->
+        <div class="bg-slate-950/90 p-3.5 rounded-2xl border border-slate-800">
+          <label class="block text-xs font-black text-amber-400 mb-1.5 flex items-center gap-1.5">
+            <span>🏷️</span>
+            <span>حالة قيد الطالب والانتظام بالشهادات:</span>
+          </label>
+          <select id="edit-student-enrollment-status" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white focus:outline-none focus:border-amber-500 transition">
+            <option value="active">منتظم ومقيد بالكامل ✅ (تُطبع له شهادة)</option>
+            <option value="suspended">تعليق ⏸️ (طالب جديد / لم يمتحن — لا تُطبع له شهادة هذا الشهر)</option>
+            <option value="interrupted">انقطاع مؤقت 🛑 (متغيب لفترة — يُستبعد على جنب من الإجمالي)</option>
+            <option value="withdrawn">منسحب من المدرسة 🚫 (مشطوب رسمياً)</option>
+          </select>
+          <div class="text-[11px] text-slate-400 mt-2 space-y-1">
+            <p><strong class="text-amber-300">• تعليق:</strong> للطلاب الذين حضروا مؤخراً ولم يختبروا، لحجب طباعة الشهادة الفارغة لهم هذا الشهر.</p>
+            <p><strong class="text-rose-300">• انقطاع مؤقت:</strong> للمتغيبين لفترة لاستبعادهم على جنب من إجمالي المدرسة، مع إمكانية استعادتهم فوراً عند عودتهم.</p>
           </div>
         </div>
 
@@ -2938,9 +2960,16 @@
     }
 
     function updateGlobalKPIs() {
+      const interruptedCount = ALL_STUDENTS.filter(s => s.enrollmentStatus === 'interrupted').length;
+      const withdrawnCount = ALL_STUDENTS.filter(s => s.enrollmentStatus === 'withdrawn' || s.status === 'withdrawn').length;
+      const activeTotal = ALL_STUDENTS.filter(s => s.enrollmentStatus !== 'interrupted' && s.enrollmentStatus !== 'withdrawn' && s.status !== 'withdrawn').length;
       const total = ALL_STUDENTS.length;
+      
       const elTotal = document.getElementById('stat-total-students');
-      if (elTotal) elTotal.innerText = total;
+      if (elTotal) {
+        elTotal.innerHTML = `<span title="الطلاب المقيدون النشطون: ${activeTotal} (المستبعدون على جنب: ${interruptedCount})">${activeTotal}</span>` + 
+          (interruptedCount > 0 ? `<span class="text-xs text-rose-400 font-bold mr-1.5 cursor-pointer" onclick="toggleInterruptedStudentsFilter()" title="انقر لعرض الطلاب الموضوعين على جنب">(+${interruptedCount} على جنب)</span>` : '');
+      }
 
       const ln = ALL_STUDENTS.filter(s => s.track === 'languages').length;
       const ar = ALL_STUDENTS.filter(s => s.track === 'arabic').length;
@@ -3836,6 +3865,9 @@
         }
 
         let students = [...ALL_STUDENTS];
+        if (currentInterruptedFilterOnly) {
+          students = students.filter(s => s.enrollmentStatus === 'interrupted');
+        }
         if (currentTrackFilter !== 'all') {
           students = students.filter(s => s.track === currentTrackFilter);
         }
@@ -4113,7 +4145,11 @@
                         <div class="flex items-center gap-2">
                           ${s.photo ? `<img src="${s.photo}" class="w-6 h-6 rounded-full object-cover border border-amber-400 shrink-0 shadow-sm" alt="Student Photo">` : ''}
                           <div>
-                            <div class="text-sm">${s.nameAr}</div>
+                            <div class="text-sm flex items-center gap-1.5 flex-wrap">
+                              <span>${s.nameAr}</span>
+                              ${s.enrollmentStatus === 'suspended' ? '<span class="px-1.5 py-0.2 rounded text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40">تعليق ⏸️</span>' : ''}
+                              ${s.enrollmentStatus === 'interrupted' ? '<span class="px-1.5 py-0.2 rounded text-[10px] font-black bg-rose-500/20 text-rose-300 border border-rose-500/40">انقطاع مؤقت 🛑</span>' : ''}
+                            </div>
                             ${s.nameEn ? `<div class="text-[10px] text-slate-400 font-en font-normal">${s.nameEn}</div>` : ''}
                             ${currentGrade === 0 ? `<div class="text-[10px] text-amber-400 font-semibold mt-0.5">${GRADE_CONFIG[s.grade]?.ar || 'الصف ' + s.grade}</div>` : ''}
                           </div>
@@ -4128,6 +4164,9 @@
                       </td>
                       <td class="py-2.5 px-2 text-center no-print whitespace-nowrap">
                         <div class="inline-flex items-center gap-1.5 justify-center">
+                          <button onclick="toggleStudentInterruption('${s.id}')" class="p-1.5 ${s.enrollmentStatus === 'interrupted' ? 'bg-emerald-700 hover:bg-emerald-600 text-white' : 'bg-slate-700/80 hover:bg-amber-600 text-slate-300 hover:text-white'} rounded-lg transition text-xs font-bold" title="${s.enrollmentStatus === 'interrupted' ? 'استعادة وتفعيل القيد' : 'انقطاع مؤقت (وضع على جنب)'}">
+                            ${s.enrollmentStatus === 'interrupted' ? '▶️' : '⏸️'}
+                          </button>
                           <button onclick="openEditStudentModal('${s.id}')" class="p-1.5 bg-slate-700/80 hover:bg-indigo-600 text-slate-200 hover:text-white rounded-lg transition" title="تعديل اسم وبيانات الطالب">
                             ✏️
                           </button>
@@ -4178,7 +4217,11 @@
                         <div class="flex items-center gap-2">
                           ${s.photo ? `<img src="${s.photo}" class="w-6 h-6 rounded-full object-cover border border-amber-400 shrink-0 shadow-sm" alt="Student Photo">` : ''}
                           <div>
-                            <div class="text-sm">${s.nameAr}</div>
+                            <div class="text-sm flex items-center gap-1.5 flex-wrap">
+                              <span>${s.nameAr}</span>
+                              ${s.enrollmentStatus === 'suspended' ? '<span class="px-1.5 py-0.2 rounded text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40">تعليق ⏸️</span>' : ''}
+                              ${s.enrollmentStatus === 'interrupted' ? '<span class="px-1.5 py-0.2 rounded text-[10px] font-black bg-rose-500/20 text-rose-300 border border-rose-500/40">انقطاع مؤقت 🛑</span>' : ''}
+                            </div>
                             ${s.nameEn ? `<div class="text-[10px] text-slate-400 font-en font-normal">${s.nameEn}</div>` : ''}
                             ${currentGrade === 0 ? `<div class="text-[10px] text-amber-400 font-semibold mt-0.5">${GRADE_CONFIG[s.grade]?.ar || 'الصف ' + s.grade}</div>` : ''}
                           </div>
@@ -4193,6 +4236,9 @@
                       </td>
                       <td class="py-2.5 px-2 text-center no-print whitespace-nowrap">
                         <div class="inline-flex items-center gap-1.5 justify-center">
+                          <button onclick="toggleStudentInterruption('${s.id}')" class="p-1.5 ${s.enrollmentStatus === 'interrupted' ? 'bg-emerald-700 hover:bg-emerald-600 text-white' : 'bg-slate-700/80 hover:bg-amber-600 text-slate-300 hover:text-white'} rounded-lg transition text-xs font-bold" title="${s.enrollmentStatus === 'interrupted' ? 'استعادة وتفعيل القيد' : 'انقطاع مؤقت (وضع على جنب)'}">
+                            ${s.enrollmentStatus === 'interrupted' ? '▶️' : '⏸️'}
+                          </button>
                           <button onclick="openEditStudentModal('${s.id}')" class="p-1.5 bg-slate-700/80 hover:bg-indigo-600 text-slate-200 hover:text-white rounded-lg transition" title="تعديل اسم وبيانات الطالب">
                             ✏️
                           </button>
@@ -4271,6 +4317,9 @@
                     </td>
                     <td class="py-3 px-2 text-center no-print whitespace-nowrap">
                       <div class="inline-flex items-center gap-1.5 justify-center">
+                        <button onclick="toggleStudentInterruption('${s.id}')" class="p-1.5 ${s.enrollmentStatus === 'interrupted' ? 'bg-emerald-700 hover:bg-emerald-600 text-white' : 'bg-slate-700/80 hover:bg-amber-600 text-slate-300 hover:text-white'} rounded-lg transition text-xs font-bold" title="${s.enrollmentStatus === 'interrupted' ? 'استعادة وتفعيل القيد' : 'انقطاع مؤقت (وضع على جنب)'}">
+                          ${s.enrollmentStatus === 'interrupted' ? '▶️' : '⏸️'}
+                        </button>
                         <button onclick="openEditStudentModal('${s.id}')" class="p-1.5 bg-slate-700/80 hover:bg-indigo-600 text-slate-200 hover:text-white rounded-lg transition" title="تعديل اسم وبيانات الطالب">
                           ✏️
                         </button>
@@ -5544,6 +5593,12 @@
       editStudentCompressedPhoto = st.photo || null;
       updateEditStudentPhotoPreview(editStudentCompressedPhoto);
 
+      // Populate enrollment status (active, suspended, interrupted, withdrawn)
+      const enrollStatusEl = document.getElementById('edit-student-enrollment-status');
+      if (enrollStatusEl) {
+        enrollStatusEl.value = st.enrollmentStatus || (st.status === 'withdrawn' ? 'withdrawn' : 'active');
+      }
+
       // Google Form integrated fields & Contact & PIN
       const emailEl = document.getElementById('edit-student-email');
       if (emailEl) emailEl.value = st.email || st.parentEmail || '';
@@ -5621,11 +5676,14 @@
       const pin = (document.getElementById('edit-student-pin')?.value || '').trim();
       const notes = (document.getElementById('edit-student-notes')?.value || '').trim();
 
+      const enrollmentStatus = (document.getElementById('edit-student-enrollment-status')?.value || 'active');
+
       const patchData = {
         nameAr,
         nameEn,
         track,
         gender,
+        enrollmentStatus,
         email,
         parentEmail: email,
         phone,
@@ -5638,6 +5696,13 @@
         notes,
         photo: editStudentCompressedPhoto
       };
+
+      if (enrollmentStatus === 'withdrawn') {
+        patchData.status = 'withdrawn';
+        patchData.isCancelled = true;
+      } else {
+        patchData.status = 'active';
+      }
 
       if (window.SmileKidsDB) {
         window.SmileKidsDB.updateStudent(id, patchData);
@@ -5811,6 +5876,51 @@
         const printArea = document.getElementById('batch-certificates-print-area');
         if (printArea) printArea.classList.add('hidden');
       }
+    }
+
+    
+    // ========================================================
+    // ENROLLMENT STATUS & INTERRUPTED / SUSPENDED STUDENTS HELPERS
+    // ========================================================
+    let currentInterruptedFilterOnly = false;
+
+    function toggleStudentInterruption(studentId) {
+      const st = ALL_STUDENTS.find(s => s.id === studentId);
+      if (!st) return;
+
+      const isCurrentlyInterrupted = (st.enrollmentStatus === 'interrupted');
+      if (isCurrentlyInterrupted) {
+        if (confirm(`هل تريد استعادة الطالب (${st.nameAr}) من الانقطاع وإعادة تفعيل قيده ضمن قائمة المدرسة النشطة؟`)) {
+          st.enrollmentStatus = 'active';
+          saveStudentsToStorage();
+          updateGlobalKPIs();
+          renderContent();
+          alert(`تمت استعادة وتفعيل قيد الطالب (${st.nameAr}) بنجاح.`);
+        }
+      } else {
+        if (confirm(`هل تريد وضع الطالب (${st.nameAr}) في حالة «انقطاع مؤقت» واستبعاده على جنب من العدد الإجمالي النشط وطباعة الشهادات؟`)) {
+          st.enrollmentStatus = 'interrupted';
+          saveStudentsToStorage();
+          updateGlobalKPIs();
+          renderContent();
+          alert(`تم وضع الطالب (${st.nameAr}) على جنب في حالة «انقطاع مؤقت». يمكنك استعادته في أي وقت.`);
+        }
+      }
+    }
+
+    function toggleInterruptedStudentsFilter() {
+      currentInterruptedFilterOnly = !currentInterruptedFilterOnly;
+      const btn = document.getElementById('btn-filter-interrupted-only');
+      if (btn) {
+        if (currentInterruptedFilterOnly) {
+          btn.classList.add('bg-rose-600', 'text-white', 'shadow-md');
+          btn.classList.remove('bg-slate-800', 'text-rose-400');
+        } else {
+          btn.classList.remove('bg-rose-600', 'text-white', 'shadow-md');
+          btn.classList.add('bg-slate-800', 'text-rose-400');
+        }
+      }
+      renderContent();
     }
 
     window.onbeforeprint = handleBeforePrint;
@@ -8305,14 +8415,49 @@
       }
     }
 
-    function printBatchCertificates() {
-      const gradeStudents = ALL_STUDENTS.filter(s => s.grade === currentGrade);
+    function printBatchCertificates(onlyRecorded = false) {
+      let gradeStudents = ALL_STUDENTS.filter(s => s.grade === currentGrade);
       if (gradeStudents.length === 0) {
         alert('لا يوجد طلاب في هذا الصف للطباعة');
         return;
       }
 
       const pKey = (document.getElementById('cert-period-select') && document.getElementById('cert-period-select').value) ? document.getElementById('cert-period-select').value : (currentGradesPeriod || 't1_m1');
+      
+      // Always filter out withdrawn or interrupted students from normal printing
+      const initialCount = gradeStudents.length;
+      gradeStudents = gradeStudents.filter(s => s.enrollmentStatus !== 'interrupted' && s.enrollmentStatus !== 'withdrawn' && s.status !== 'withdrawn');
+
+      // If user requested only recorded students (skip unrecorded / suspended / new arrivals)
+      if (onlyRecorded) {
+        gradeStudents = gradeStudents.filter(st => {
+          if (st.enrollmentStatus === 'suspended') return false; // تعليق: لا تطبع له شهادة
+          
+          // Check if student has any recorded score for this period
+          let hasRecordedScore = false;
+          const subjs = st.subjectScores || {};
+          for (const subId in subjs) {
+            if (subId === 'religion' || subId === 'term') continue;
+            const sep = subjs[subId] && subjs[subId].scores && subjs[subId].scores[pKey];
+            if (sep && sep.isRecorded && sep.score !== null && sep.score !== undefined) {
+              hasRecordedScore = true;
+              break;
+            }
+          }
+          return hasRecordedScore;
+        });
+
+        if (gradeStudents.length === 0) {
+          alert('تنبيه: لا يوجد طلاب مرصودة درجاتهم في هذا الصف حالياً للطباعة (تم تخطي غير المرصودين والمعلقين).');
+          return;
+        }
+
+        const skippedCount = initialCount - gradeStudents.length;
+        if (skippedCount > 0) {
+          console.log(`[Batch Print] Printing ${gradeStudents.length} recorded certificates (Skipped ${skippedCount} unrecorded/suspended students)`);
+        }
+      }
+
       const printArea = document.getElementById('batch-certificates-print-area');
       if (!printArea) return;
 
