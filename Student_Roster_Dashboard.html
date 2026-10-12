@@ -7722,6 +7722,20 @@
 
       // Reusable High-End Face-Centered Student Photo Renderer
       function renderCertPhoto(mode, customW, customH) {
+        // Master switch: Disable student photo on certificates for the current month per administration request.
+        // Can be re-enabled next month by changing this flag to true.
+        const SHOW_CERTIFICATE_STUDENT_PHOTO = false;
+        if (!SHOW_CERTIFICATE_STUDENT_PHOTO) {
+          if (mode === 'standard') {
+            // Invisible balanced spacer to keep title perfectly centered against the logo
+            return '<div style="width: 120px; flex-shrink: 0;" class="no-print-photo-spacer"></div>';
+          }
+          if (mode === 'modern') {
+            return '<div style="width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, #7c3aed, #4f46e5); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;">🎓</div>';
+          }
+          return '';
+        }
+
         const w = customW || 82;
         const h = customH || 104;
         const borderRadius = 12;
