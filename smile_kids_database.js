@@ -15797,8 +15797,8 @@
       "t1_total": 98,
       "t2_exam": 30,
       "t1_exam": 29.5,
-      "t1_sep": 219.0,
-      "t1_sep_pct": 99.55,
+      "t1_sep": 220.0,
+      "t1_sep_pct": 100.0,
       "t1_sep_max": 220.0
     },
     "subjectScores": {
@@ -15854,14 +15854,14 @@
         "teacherNameAr": "مس / علا",
         "scores": {
           "t1_sep": {
-            "score": 49.0,
+            "score": 50.0,
             "maxScore": 50.0,
             "isRecorded": true,
             "recordedAt": "2026-10-11T20:00:00.000Z",
-            "updatedAt": "2026-10-11T20:00:00.000Z"
+            "updatedAt": "2026-10-13T06:50:00.000Z"
           }
         },
-        "sep": 49.0
+        "sep": 50.0
       },
       "math": {
         "subjectId": "math",
