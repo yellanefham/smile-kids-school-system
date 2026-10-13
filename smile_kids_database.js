@@ -40,23 +40,8 @@
       gender: 'male'
     },
     'SK-G1-AR-008': {
-      nameAr: 'ماريا قتيبه العلي',
-      nameEn: 'Maria Qutaiba El-Ali',
-      gender: 'female'
-    },
-    'SK-G4-LN-012': {
-      nameAr: 'لجين وليد محمد',
-      nameEn: 'Loujain Walid Mohamed',
-      gender: 'female'
-    },
-    'SK-G1-LN-012': {
-      nameAr: 'لجين ياسر محمد',
-      nameEn: 'Loujain Yasser Mohamed',
-      gender: 'female'
-    },
-    'SK-G1-LN-017': {
-      nameAr: 'لجين محمد رمضان',
-      nameEn: 'Loujain Mohamed Ramadan',
+      nameAr: 'ماريا قتيبه علي',
+      nameEn: 'Maria Qutaiba Ali',
       gender: 'female'
     },
     'SK-G4-AR-0026': {
@@ -5904,7 +5889,7 @@
           }
         },
         "teacherNameAr": "مس / أسماء",
-        "sep": 28.0,
+        "sep": 26.0,
         "subjectId": "arabic"
       },
       "term": {
@@ -21766,6 +21751,17 @@
                   localSt.nameEn = c.nameEn;
                   if (c.gender) localSt.gender = c.gender;
                 }
+
+                // دمج حالة القيد وتعليق الشهادات
+                if (remoteSt.enrollmentStatus && remoteSt.enrollmentStatus !== localSt.enrollmentStatus) {
+                  localSt.enrollmentStatus = remoteSt.enrollmentStatus;
+                  hasChanges = true;
+                }
+                if (remoteSt.status && remoteSt.status !== localSt.status) {
+                  localSt.status = remoteSt.status;
+                  hasChanges = true;
+                }
+
                 // دمج غير هدام: الحفاظ على أحدث التعديلات
                 const remoteTs = remoteSt._lastModified || 0;
                 const localTs = this._lastModified || 0;
@@ -22060,6 +22056,17 @@
                     localSt.nameEn = c.nameEn;
                     if (c.gender) localSt.gender = c.gender;
                   }
+
+                  // دمج حالة القيد وتعليق الشهادة السحابية
+                  if (cloudSt.enrollmentStatus && cloudSt.enrollmentStatus !== localSt.enrollmentStatus) {
+                    localSt.enrollmentStatus = cloudSt.enrollmentStatus;
+                    hasChanges = true;
+                  }
+                  if (cloudSt.status && cloudSt.status !== localSt.status) {
+                    localSt.status = cloudSt.status;
+                    hasChanges = true;
+                  }
+
                   if (cloudSt.parentName && cloudSt.parentName !== localSt.parentName) {
                     localSt.parentName = cloudSt.parentName;
                     hasChanges = true;
@@ -22369,44 +22376,6 @@
       }
     },
 
-    loadStudentsFromCloud: function(remoteStudents) {
-      if (!Array.isArray(remoteStudents) || remoteStudents.length === 0) return;
-      if (!this._cache) this.init();
-      const localMap = new Map();
-      this._cache.forEach(s => localMap.set(s.id, s));
-
-      remoteStudents.forEach(rem => {
-        if (!rem || !rem.id) return;
-        if (this._deletedIds && this._deletedIds.has(rem.id)) return;
-        const local = localMap.get(rem.id);
-        if (local) {
-          Object.assign(local, rem);
-          enforceCanonicalStudent(local);
-          if (rem.subjectScores) {
-            local.subjectScores = local.subjectScores || {};
-            Object.keys(rem.subjectScores).forEach(subId => {
-              if (!local.subjectScores[subId] || typeof local.subjectScores[subId] !== 'object') {
-                local.subjectScores[subId] = rem.subjectScores[subId];
-              } else {
-                Object.assign(local.subjectScores[subId], rem.subjectScores[subId]);
-                if (rem.subjectScores[subId].scores) {
-                  local.subjectScores[subId].scores = Object.assign({}, local.subjectScores[subId].scores || {}, rem.subjectScores[subId].scores);
-                }
-              }
-            });
-          }
-          if (rem.termsScores) {
-            local.termsScores = Object.assign({}, local.termsScores || {}, rem.termsScores);
-          }
-        } else {
-          enforceCanonicalStudent(rem);
-          this._cache.push(rem);
-        }
-      });
-      this.save();
-      this._notifyListeners('cloud_pull');
-    },
-
     getAllStudents: function() {
       if (!this._cache) this.init();
       return this._cache;
@@ -22424,6 +22393,54 @@
 
     getStudentById: function(id) {
       return this.getAllStudents().find(s => s.id === id) || null;
+    },
+
+    loadStudentsFromCloud: function(remoteStudents) {
+      if (!Array.isArray(remoteStudents) || remoteStudents.length === 0) return this.getAllStudents();
+      if (!this._cache) this._cache = this.getAllStudents();
+      const localMap = new Map();
+      this._cache.forEach(s => localMap.set(s.id, s));
+      let hasChanges = false;
+
+      remoteStudents.forEach(rem => {
+        if (!rem || !rem.id) return;
+        if (isStudentBlacklisted(rem) || isCanonicalDeletedStudent(rem)) return;
+        const localSt = localMap.get(rem.id);
+        if (!localSt) {
+          this._cache.push(rem);
+          hasChanges = true;
+        } else {
+          if (rem.enrollmentStatus && localSt.enrollmentStatus !== rem.enrollmentStatus) {
+            localSt.enrollmentStatus = rem.enrollmentStatus;
+            hasChanges = true;
+          }
+          if (rem.status && localSt.status !== rem.status) {
+            localSt.status = rem.status;
+            hasChanges = true;
+          }
+          // Non-destructive merge of profile and scores
+          Object.assign(localSt, rem);
+          if (rem.enrollmentStatus) {
+            localSt.enrollmentStatus = rem.enrollmentStatus;
+          }
+          if (rem.subjectScores) {
+            localSt.subjectScores = localSt.subjectScores || {};
+            Object.keys(rem.subjectScores).forEach(subId => {
+              localSt.subjectScores[subId] = Object.assign({}, localSt.subjectScores[subId] || {}, rem.subjectScores[subId]);
+            });
+          }
+          if (rem.termsScores) {
+            localSt.termsScores = Object.assign({}, localSt.termsScores || {}, rem.termsScores);
+          }
+          hasChanges = true;
+        }
+      });
+
+      this._ensureStudentFields();
+      if (hasChanges) {
+        this.save();
+      }
+      return this._cache;
     },
 
     updateStudent: function(idOrStudent, patchData) {

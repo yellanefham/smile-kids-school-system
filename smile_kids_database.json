@@ -3057,7 +3057,8 @@
       "subjectScores.arabic.scores.t1_sep": 23,
       "_migratedAt": "2026-10-10T18:37:59.549Z",
       "_lastModified": 1791657479549,
-      "_updatedAt": "2026-10-10T08:25:23.129Z"
+      "_updatedAt": "2026-10-10T08:25:23.129Z",
+      "enrollmentStatus": "suspended"
     },
     {
       "id": "SK-G2-AR-007",
@@ -5225,11 +5226,11 @@
         },
         "arabic": {
           "teacherNameAr": "مس / أسماء",
-          "sep": 28,
+          "sep": 50,
           "subjectId": "arabic",
           "scores": {
             "t1_sep": {
-              "score": 28,
+              "score": 50,
               "maxScore": 30,
               "isRecorded": true,
               "recordedAt": "2026-10-11T20:00:00.000Z",
@@ -5918,14 +5919,14 @@
           "teacherNameAr": "مس / يارا",
           "scores": {
             "t1_sep": {
-              "score": 24,
+              "score": 26,
               "maxScore": 30,
               "isRecorded": true,
               "recordedAt": "2026-10-11T20:00:00.000Z",
               "updatedAt": "2026-10-11T20:00:00.000Z"
             }
           },
-          "sep": 24
+          "sep": 26
         },
         "religion": {
           "subjectId": "religion",
@@ -10365,7 +10366,8 @@
       "gradeNameAr": "الصف 2",
       "trackNameAr": "عربي (حساب)",
       "gradeNameEn": "Grade 2",
-      "trackNameEn": "Arabic Track"
+      "trackNameEn": "Arabic Track",
+      "enrollmentStatus": "suspended"
     },
     {
       "grade": 3,
@@ -15786,8 +15788,8 @@
         "t1_total": 98,
         "t2_exam": 30,
         "t1_exam": 29.5,
-        "t1_sep": 220,
-        "t1_sep_pct": 100,
+        "t1_sep": 219,
+        "t1_sep_pct": 99.55,
         "t1_sep_max": 220
       },
       "subjectScores": {

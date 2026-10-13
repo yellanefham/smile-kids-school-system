@@ -4232,8 +4232,8 @@
                           <div>
                             <div class="text-sm flex items-center gap-1.5 flex-wrap">
                               <span>${s.nameAr}</span>
-                              ${s.enrollmentStatus === 'suspended' ? '<span class="px-1.5 py-0.2 rounded text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40">تعليق ⏸️</span>' : ''}
-                              ${s.enrollmentStatus === 'interrupted' ? '<span class="px-1.5 py-0.2 rounded text-[10px] font-black bg-rose-500/20 text-rose-300 border border-rose-500/40">انقطاع مؤقت 🛑</span>' : ''}
+                              ${s.enrollmentStatus === 'suspended' ? '<span class="px-1.5 py-0.5 rounded text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40 whitespace-nowrap">تعليق شهادة ⏸️</span>' : ''}
+                              ${s.enrollmentStatus === 'interrupted' ? '<span class="px-1.5 py-0.5 rounded text-[10px] font-black bg-rose-500/20 text-rose-300 border border-rose-500/40 whitespace-nowrap">انقطاع مؤقت 🛑</span>' : ''}
                             </div>
                             ${s.nameEn ? `<div class="text-[10px] text-slate-400 font-en font-normal">${s.nameEn}</div>` : ''}
                             ${currentGrade === 0 ? `<div class="text-[10px] text-amber-400 font-semibold mt-0.5">${GRADE_CONFIG[s.grade]?.ar || 'الصف ' + s.grade}</div>` : ''}
@@ -4307,8 +4307,8 @@
                           <div>
                             <div class="text-sm flex items-center gap-1.5 flex-wrap">
                               <span>${s.nameAr}</span>
-                              ${s.enrollmentStatus === 'suspended' ? '<span class="px-1.5 py-0.2 rounded text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40">تعليق ⏸️</span>' : ''}
-                              ${s.enrollmentStatus === 'interrupted' ? '<span class="px-1.5 py-0.2 rounded text-[10px] font-black bg-rose-500/20 text-rose-300 border border-rose-500/40">انقطاع مؤقت 🛑</span>' : ''}
+                              ${s.enrollmentStatus === 'suspended' ? '<span class="px-1.5 py-0.5 rounded text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40 whitespace-nowrap">تعليق شهادة ⏸️</span>' : ''}
+                              ${s.enrollmentStatus === 'interrupted' ? '<span class="px-1.5 py-0.5 rounded text-[10px] font-black bg-rose-500/20 text-rose-300 border border-rose-500/40 whitespace-nowrap">انقطاع مؤقت 🛑</span>' : ''}
                             </div>
                             ${s.nameEn ? `<div class="text-[10px] text-slate-400 font-en font-normal">${s.nameEn}</div>` : ''}
                             ${currentGrade === 0 ? `<div class="text-[10px] text-amber-400 font-semibold mt-0.5">${GRADE_CONFIG[s.grade]?.ar || 'الصف ' + s.grade}</div>` : ''}
@@ -4392,8 +4392,11 @@
                     <td class="py-3 px-4 font-bold text-white text-base">
                       <div class="flex items-center gap-2.5">
                         ${s.photo ? `<img src="${s.photo}" class="w-7 h-7 rounded-full object-cover border border-amber-400 shrink-0 shadow-sm" alt="Student Photo">` : ''}
-                        <div>
-                          <div>${s.nameAr}</div>
+                          <div class="flex items-center gap-1.5 flex-wrap">
+                            <span>${s.nameAr}</span>
+                            ${s.enrollmentStatus === 'suspended' ? '<span class="px-1.5 py-0.5 rounded text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40 whitespace-nowrap">تعليق شهادة ⏸️</span>' : ''}
+                            ${s.enrollmentStatus === 'interrupted' ? '<span class="px-1.5 py-0.5 rounded text-[10px] font-black bg-rose-500/20 text-rose-300 border border-rose-500/40 whitespace-nowrap">انقطاع مؤقت 🛑</span>' : ''}
+                          </div>
                           ${s.nameEn ? `<div class="text-xs text-slate-400 font-en font-normal">${s.nameEn}</div>` : ''}
                           ${currentGrade === 0 ? `<div class="text-[11px] text-amber-400 font-semibold mt-0.5">${GRADE_CONFIG[s.grade]?.ar || 'الصف ' + s.grade}</div>` : ''}
                         </div>
@@ -5983,22 +5986,29 @@
       if (!st) return;
 
       const isCurrentlyInterrupted = (st.enrollmentStatus === 'interrupted');
-      if (isCurrentlyInterrupted) {
-        if (confirm(`هل تريد استعادة الطالب (${st.nameAr}) من الانقطاع وإعادة تفعيل قيده ضمن قائمة المدرسة النشطة؟`)) {
-          st.enrollmentStatus = 'active';
-          saveStudentsToStorage();
-          updateGlobalKPIs();
-          renderContent();
-          alert(`تمت استعادة وتفعيل قيد الطالب (${st.nameAr}) بنجاح.`);
+      const newStatus = isCurrentlyInterrupted ? 'active' : 'interrupted';
+      const confirmMsg = isCurrentlyInterrupted
+        ? `هل تريد استعادة الطالب (${st.nameAr}) من الانقطاع وإعادة تفعيل قيده ضمن قائمة المدرسة النشطة؟`
+        : `هل تريد وضع الطالب (${st.nameAr}) في حالة «انقطاع مؤقت» واستبعاده على جنب من العدد الإجمالي النشط وطباعة الشهادات؟`;
+
+      if (confirm(confirmMsg)) {
+        st.enrollmentStatus = newStatus;
+        if (window.SmileKidsDB && typeof window.SmileKidsDB.updateStudent === 'function') {
+          window.SmileKidsDB.updateStudent(st.id, { enrollmentStatus: newStatus });
         }
-      } else {
-        if (confirm(`هل تريد وضع الطالب (${st.nameAr}) في حالة «انقطاع مؤقت» واستبعاده على جنب من العدد الإجمالي النشط وطباعة الشهادات؟`)) {
-          st.enrollmentStatus = 'interrupted';
-          saveStudentsToStorage();
-          updateGlobalKPIs();
-          renderContent();
-          alert(`تم وضع الطالب (${st.nameAr}) على جنب في حالة «انقطاع مؤقت». يمكنك استعادته في أي وقت.`);
+        saveStudentsToStorage();
+        if (window.SmileKidsFirebase && typeof window.SmileKidsFirebase.saveStudentToFirestore === 'function') {
+          const freshSt = (window.SmileKidsDB && typeof window.SmileKidsDB.getStudentById === 'function') ? window.SmileKidsDB.getStudentById(st.id) : st;
+          window.SmileKidsFirebase.saveStudentToFirestore(freshSt || st).catch(e => {
+            console.warn('[Interruption Sync] Cloud save error:', e);
+          });
         }
+        updateGlobalKPIs();
+        renderContent();
+        const successMsg = isCurrentlyInterrupted
+          ? `تمت استعادة وتفعيل قيد الطالب (${st.nameAr}) بنجاح.`
+          : `تم وضع الطالب (${st.nameAr}) على جنب في حالة «انقطاع مؤقت». يمكنك استعادته في أي وقت.`;
+        alert(successMsg);
       }
     }
 
@@ -6007,22 +6017,33 @@
       if (!st) return;
 
       const isSuspended = (st.enrollmentStatus === 'suspended');
-      if (isSuspended) {
-        if (confirm(`هل تريد إلغاء تعليق شهادة الطالب (${st.nameAr}) وإعادته للرصد الطبيعي وطباعة كارت الدرجات؟`)) {
-          st.enrollmentStatus = 'active';
-          saveStudentsToStorage();
-          updateGlobalKPIs();
-          renderContent();
-          alert(`تم إلغاء تعليق شهادة الطالب (${st.nameAr}). أصبح متاحاً للرصد وطباعة كارت الدرجات.`);
+      const newStatus = isSuspended ? 'active' : 'suspended';
+      const confirmMsg = isSuspended
+        ? `هل تريد إلغاء تعليق شهادة الطالب (${st.nameAr}) وإعادته للرصد الطبيعي وطباعة كارت الدرجات؟`
+        : `هل تريد تفعيل «تعليق الشهادة» للطالب (${st.nameAr})؟\n\n• لن يُطبع له كارت درجات فارغ عند طباعة شهادات الفصل.\n• سيتم تخصيص «شهادة تقدير وتشجيع بدون درجات» له تكريماً لحضوره.`;
+
+      if (confirm(confirmMsg)) {
+        st.enrollmentStatus = newStatus;
+        // 1. Immediately update SmileKidsDB local & storage master
+        if (window.SmileKidsDB && typeof window.SmileKidsDB.updateStudent === 'function') {
+          window.SmileKidsDB.updateStudent(st.id, { enrollmentStatus: newStatus });
         }
-      } else {
-        if (confirm(`هل تريد تفعيل «تعليق الشهادة» للطالب (${st.nameAr})؟\n\n• لن يُطبع له كارت درجات فارغ عند طباعة شهادات الفصل.\n• سيتم تخصيص «شهادة تقدير وتشجيع بدون درجات» له تكريماً لحضوره.`)) {
-          st.enrollmentStatus = 'suspended';
-          saveStudentsToStorage();
-          updateGlobalKPIs();
-          renderContent();
-          alert(`تم تفعيل حالة «تعليق الشهادة» للطالب (${st.nameAr}). تم استبعاده من كروت الدرجات وتخصيص شهادة تقدير بدون درجات له.`);
+        saveStudentsToStorage();
+        // 2. Immediately save to Firestore Cloud
+        if (window.SmileKidsFirebase && typeof window.SmileKidsFirebase.saveStudentToFirestore === 'function') {
+          const freshSt = (window.SmileKidsDB && typeof window.SmileKidsDB.getStudentById === 'function') ? window.SmileKidsDB.getStudentById(st.id) : st;
+          window.SmileKidsFirebase.saveStudentToFirestore(freshSt || st).then(res => {
+            console.log('[Firestore Auto-Save] Student suspension synced to cloud:', st.id, newStatus, res);
+          }).catch(e => {
+            console.warn('[Suspension Sync] Cloud save error:', e);
+          });
         }
+        updateGlobalKPIs();
+        renderContent();
+        const successMsg = isSuspended
+          ? `تم إلغاء تعليق شهادة الطالب (${st.nameAr}). أصبح متاحاً للرصد وطباعة كارت الدرجات.`
+          : `تم تفعيل حالة «تعليق الشهادة» للطالب (${st.nameAr}). تم استبعاده من كروت الدرجات وتخصيص شهادة تقدير بدون درجات له.`;
+        alert(successMsg);
       }
     }
 
@@ -6118,6 +6139,7 @@
     }
 
     function onGradesPeriodChange(val) {
+      flushStudentSubjectSave();
       currentGradesPeriod = val;
       const titleMap = {
         't1_sep': 'SEPTEMBER ASSESSMENT REPORT',
@@ -6268,12 +6290,14 @@
     }
 
     function setGradesGrade(g) {
+      flushStudentSubjectSave();
       currentGrade = g;
       renderGradesPills();
       renderGradesModule();
     }
 
     function setGradesTrackFilter(track) {
+      flushStudentSubjectSave();
       gradesTrackFilter = track;
       const bAll = document.getElementById('btn-grades-track-all');
       const bLang = document.getElementById('btn-grades-track-lang');
@@ -6495,12 +6519,60 @@
     }
 
     let _gradeSaveDebounceTimer = null;
+    let _pendingGradeSyncs = new Map();
+
+    function syncGradeToCloudAndDB(payload) {
+      if (!payload) return;
+      const { studentId, subjectId, periodKey, score, maxScore } = payload;
+      const student = payload.student || ALL_STUDENTS.find(s => s.id === studentId);
+      if (!student) return;
+
+      // 1. Immediately push to Firestore
+      if (window.SmileKidsFirebase && typeof window.SmileKidsFirebase.saveGradeToFirestore === 'function') {
+        window.SmileKidsFirebase.saveGradeToFirestore({
+          studentId: String(studentId),
+          subjectId: subjectId,
+          periodKey: periodKey,
+          score: score,
+          maxScore: maxScore,
+          termsScores: student.termsScores,
+          subjectScores: student.subjectScores
+        }).catch(err => {
+          console.warn('[GradeSync] Firestore saveGrade error:', err);
+        });
+      }
+
+      if (window.SmileKidsFirebase && typeof window.SmileKidsFirebase.saveStudentToFirestore === 'function') {
+        window.SmileKidsFirebase.saveStudentToFirestore(student).catch(err => {
+          console.warn('[GradeSync] Firestore saveStudent error:', err);
+        });
+      }
+
+      // 2. Also update SmileKidsDB
+      if (window.SmileKidsDB && typeof window.SmileKidsDB.updateStudent === 'function') {
+        try {
+          window.SmileKidsDB.updateStudent(student.id, {
+            subjectScores: student.subjectScores,
+            termsScores: student.termsScores
+          });
+        } catch(e) {
+          console.warn('[GradeSync] SmileKidsDB updateStudent error:', e);
+        }
+      }
+    }
 
     function flushStudentSubjectSave() {
       if (_gradeSaveDebounceTimer) {
         clearTimeout(_gradeSaveDebounceTimer);
         _gradeSaveDebounceTimer = null;
-        saveStudentsToStorage();
+      }
+      saveStudentsToStorage();
+
+      if (_pendingGradeSyncs && _pendingGradeSyncs.size > 0) {
+        _pendingGradeSyncs.forEach(payload => {
+          syncGradeToCloudAndDB(payload);
+        });
+        _pendingGradeSyncs.clear();
       }
     }
 
@@ -6593,11 +6665,22 @@
         localStorage.setItem('smile_kids_teacher_grades', JSON.stringify(tGrades));
       } catch(e) {}
 
-      // Debounce the heavy disk serialization by 600ms so typing multiple digits is instant & responsive
+      // Record pending sync payload
+      const syncKey = `${studentId}_${subjectId}_${currentGradesPeriod}`;
+      _pendingGradeSyncs.set(syncKey, {
+        studentId,
+        subjectId,
+        periodKey: currentGradesPeriod,
+        score: v,
+        maxScore,
+        student
+      });
+
+      // Debounce the heavy disk serialization and cloud sync by 600ms so typing multiple digits is instant & responsive
       if (_gradeSaveDebounceTimer) clearTimeout(_gradeSaveDebounceTimer);
       _gradeSaveDebounceTimer = setTimeout(() => {
         _gradeSaveDebounceTimer = null;
-        saveStudentsToStorage();
+        flushStudentSubjectSave();
       }, 600);
     }
 
@@ -6697,6 +6780,11 @@
         if (!certCurrentStudentId && gradeStudents.length > 0) {
           certCurrentStudentId = gradeStudents[0].id;
         }
+      }
+
+      const styleSel = document.getElementById('cert-style-select');
+      if (styleSel && selectedCertificateStyle) {
+        styleSel.value = selectedCertificateStyle;
       }
 
       renderCertificatePreview();
@@ -7456,111 +7544,146 @@
       try {
         let syncedCount = 0;
 
-        // 1. Await Firebase readiness if initial SDK loading is still pending
-        if (window.SmileKidsFirebase && window.SmileKidsFirebase.whenReady) {
-          try {
-            await Promise.race([
-              window.SmileKidsFirebase.whenReady,
-              new Promise(r => setTimeout(r, 2500))
-            ]);
-          } catch(e) {}
-        }
-
-        // 2. Guaranteed Sync from Google Firebase Firestore (SDK or REST Fallback)
-        let res = null;
+        // 1. Guaranteed Direct Sync from Google Firebase Firestore
         if (window.SmileKidsFirebase && typeof window.SmileKidsFirebase.fetchAllFromFirestore === 'function') {
-          res = await window.SmileKidsFirebase.fetchAllFromFirestore();
-        } else if (window.SmileKidsFirebase && typeof window.SmileKidsFirebase.fetchFromFirestoreRest === 'function') {
-          res = await window.SmileKidsFirebase.fetchFromFirestoreRest();
-        }
+          const res = await window.SmileKidsFirebase.fetchAllFromFirestore();
+          if (res && res.success) {
+            // Merge Students & Subject Scores
+            if (Array.isArray(res.students) && res.students.length > 0) {
+              const remoteMap = new Map();
+              res.students.forEach(s => remoteMap.set(s.id, s));
 
-        if (res && res.success) {
-          // Merge Students & Subject Scores
-          if (Array.isArray(res.students) && res.students.length > 0) {
-            const remoteMap = new Map();
-            res.students.forEach(s => { if (s && s.id) remoteMap.set(s.id, s); });
+              ALL_STUDENTS.forEach(localSt => {
+                const rem = remoteMap.get(localSt.id);
+                if (rem) {
+                  // Merge fields non-destructively
+                  if (rem.enrollmentStatus) localSt.enrollmentStatus = rem.enrollmentStatus;
+                  if (rem.status) localSt.status = rem.status;
+                  Object.assign(localSt, rem);
+                  if (rem.enrollmentStatus) localSt.enrollmentStatus = rem.enrollmentStatus;
+                  if (rem.subjectScores) {
+                    localSt.subjectScores = localSt.subjectScores || {};
+                    Object.keys(rem.subjectScores).forEach(subId => {
+                      localSt.subjectScores[subId] = Object.assign({}, localSt.subjectScores[subId] || {}, rem.subjectScores[subId]);
+                    });
+                  }
+                  if (rem.termsScores) {
+                    localSt.termsScores = Object.assign({}, localSt.termsScores || {}, rem.termsScores);
+                  }
+                }
+              });
 
-            ALL_STUDENTS.forEach(localSt => {
-              const rem = remoteMap.get(localSt.id);
-              if (rem) {
-                Object.assign(localSt, rem);
-                if (rem.subjectScores && typeof rem.subjectScores === 'object') {
-                  localSt.subjectScores = localSt.subjectScores || {};
-                  Object.keys(rem.subjectScores).forEach(subId => {
-                    if (!localSt.subjectScores[subId] || typeof localSt.subjectScores[subId] !== 'object') {
-                      localSt.subjectScores[subId] = rem.subjectScores[subId];
-                    } else {
-                      Object.assign(localSt.subjectScores[subId], rem.subjectScores[subId]);
-                      if (rem.subjectScores[subId].scores && typeof rem.subjectScores[subId].scores === 'object') {
-                        localSt.subjectScores[subId].scores = Object.assign({}, localSt.subjectScores[subId].scores || {}, rem.subjectScores[subId].scores);
-                      }
+              // Add any students that exist in cloud but not locally
+              res.students.forEach(rem => {
+                if (!ALL_STUDENTS.some(s => s.id === rem.id)) {
+                  ALL_STUDENTS.push(rem);
+                }
+              });
+
+              syncedCount = res.students.length;
+
+              // Immediately sync to SmileKidsDB master engine
+              if (window.SmileKidsDB && typeof window.SmileKidsDB.loadStudentsFromCloud === 'function') {
+                window.SmileKidsDB.loadStudentsFromCloud(res.students);
+              }
+            }
+
+            // Merge standalone grades collection
+            if (Array.isArray(res.grades) && res.grades.length > 0) {
+              res.grades.forEach(g => {
+                if (g.studentId && g.subjectId && g.periodKey && g.score !== undefined && g.score !== null) {
+                  const targetSt = ALL_STUDENTS.find(s => s.id === g.studentId);
+                  if (targetSt) {
+                    targetSt.subjectScores = targetSt.subjectScores || {};
+                    targetSt.subjectScores[g.subjectId] = targetSt.subjectScores[g.subjectId] || { subjectId: g.subjectId, scores: {} };
+                    targetSt.subjectScores[g.subjectId].scores = targetSt.subjectScores[g.subjectId].scores || {};
+                    const scNum = parseFloat(g.score) || 0;
+                    const mxNum = parseFloat(g.maxScore) || 20;
+                    targetSt.subjectScores[g.subjectId].scores[g.periodKey] = {
+                      score: scNum,
+                      maxScore: mxNum,
+                      isRecorded: true,
+                      updatedAt: g.updatedAt || new Date().toISOString()
+                    };
+                    const fld = g.periodKey.replace('t1_', '').replace('t2_', '');
+                    targetSt.subjectScores[g.subjectId][fld] = scNum;
+                  }
+                }
+              });
+            }
+
+            // Sync Custom Max Scores
+            if (res.customMaxScores && typeof res.customMaxScores === 'object') {
+              CUSTOM_SUBJECT_MAX = Object.assign({}, CUSTOM_SUBJECT_MAX || {}, res.customMaxScores);
+              try {
+                localStorage.setItem('smile_kids_custom_max_scores', JSON.stringify(CUSTOM_SUBJECT_MAX));
+              } catch(e) {}
+            }
+
+            // Sync App Settings (Certificate Style, etc.) from Firestore
+            const cloudSettings = res.appSettings || (res.settings && res.settings.appSettings);
+            const cloudCertStyle = (cloudSettings && cloudSettings.selectedCertificateStyle) || res.selectedCertificateStyle;
+            if (cloudCertStyle) {
+              selectedCertificateStyle = cloudCertStyle;
+              try {
+                localStorage.setItem('smile_kids_selected_certificate_style', cloudCertStyle);
+              } catch(e) {}
+              const styleSel = document.getElementById('cert-style-select');
+              if (styleSel) styleSel.value = cloudCertStyle;
+            }
+
+            // Sync into SmileKidsDB to ensure memory cache and DB subscribers are synchronized
+            if (window.SmileKidsDB && typeof window.SmileKidsDB.getAllStudents === 'function') {
+              const dbStudents = window.SmileKidsDB.getAllStudents();
+              const dbMap = new Map();
+              dbStudents.forEach(s => dbMap.set(s.id, s));
+
+              ALL_STUDENTS.forEach(st => {
+                const dbSt = dbMap.get(st.id);
+                if (dbSt) {
+                  Object.assign(dbSt, st);
+                  if (st.subjectScores) {
+                    dbSt.subjectScores = JSON.parse(JSON.stringify(st.subjectScores));
+                  }
+                  if (st.termsScores) {
+                    dbSt.termsScores = JSON.parse(JSON.stringify(st.termsScores));
+                  }
+                } else {
+                  dbStudents.push(JSON.parse(JSON.stringify(st)));
+                }
+              });
+              try { window.SmileKidsDB.save(); } catch(e) {}
+            }
+
+            // Sync into smile_kids_teacher_grades localStorage
+            try {
+              const rawT = localStorage.getItem('smile_kids_teacher_grades');
+              const tGrades = rawT ? JSON.parse(rawT) : {};
+              ALL_STUDENTS.forEach(st => {
+                if (st.subjectScores) {
+                  Object.entries(st.subjectScores).forEach(([subId, subData]) => {
+                    if (subData && subData.scores) {
+                      Object.entries(subData.scores).forEach(([pKey, pVal]) => {
+                        if (pVal && pVal.score > 0) {
+                          const term = pKey.startsWith('t2') ? 't2' : 't1';
+                          const fld = pKey.replace('t1_', '').replace('t2_', '');
+                          const key = 'st_' + st.id + '_' + term + '_' + subId;
+                          tGrades[key] = tGrades[key] || { m1: null, m2: null, tasks: null, exam: null, sep: null };
+                          tGrades[key][fld] = pVal.score;
+                        }
+                      });
                     }
                   });
                 }
-                if (rem.termsScores && typeof rem.termsScores === 'object') {
-                  localSt.termsScores = Object.assign({}, localSt.termsScores || {}, rem.termsScores);
-                }
-              }
-            });
-
-            // Add any students that exist in cloud but not locally
-            res.students.forEach(rem => {
-              if (rem && rem.id && !ALL_STUDENTS.some(s => s.id === rem.id)) {
-                ALL_STUDENTS.push(rem);
-              }
-            });
-
-            syncedCount = res.students.length;
-          }
-
-          // Merge standalone grades collection
-          if (Array.isArray(res.grades) && res.grades.length > 0) {
-            res.grades.forEach(g => {
-              if (g && g.studentId && g.subjectId && g.periodKey && g.score !== undefined && g.score !== null) {
-                const targetSt = ALL_STUDENTS.find(s => s.id === g.studentId);
-                if (targetSt) {
-                  targetSt.subjectScores = targetSt.subjectScores || {};
-                  if (!targetSt.subjectScores[g.subjectId] || typeof targetSt.subjectScores[g.subjectId] !== 'object') {
-                    targetSt.subjectScores[g.subjectId] = { subjectId: g.subjectId, scores: {} };
-                  }
-                  targetSt.subjectScores[g.subjectId].scores = targetSt.subjectScores[g.subjectId].scores || {};
-                  const scNum = parseFloat(g.score) || 0;
-                  const mxNum = parseFloat(g.maxScore) || 20;
-                  targetSt.subjectScores[g.subjectId].scores[g.periodKey] = {
-                    score: scNum,
-                    maxScore: mxNum,
-                    isRecorded: true,
-                    updatedAt: g.updatedAt || new Date().toISOString()
-                  };
-                  const fld = String(g.periodKey).replace('t1_', '').replace('t2_', '');
-                  targetSt.subjectScores[g.subjectId][fld] = scNum;
-                }
-              }
-            });
-          }
-
-          // Sync Custom Max Scores
-          if (res.customMaxScores && typeof res.customMaxScores === 'object') {
-            CUSTOM_SUBJECT_MAX = Object.assign({}, CUSTOM_SUBJECT_MAX || {}, res.customMaxScores);
-            try {
-              localStorage.setItem('smile_kids_custom_max_scores', JSON.stringify(CUSTOM_SUBJECT_MAX));
+              });
+              localStorage.setItem('smile_kids_teacher_grades', JSON.stringify(tGrades));
             } catch(e) {}
-          }
 
-          // Sync into SmileKidsDB instance
-          if (window.SmileKidsDB) {
-            if (typeof window.SmileKidsDB.loadStudentsFromCloud === 'function' && Array.isArray(res.students)) {
-              window.SmileKidsDB.loadStudentsFromCloud(res.students);
-            } else {
-              window.SmileKidsDB._cache = ALL_STUDENTS;
-              window.SmileKidsDB.save();
-            }
+            saveStudentsToStorage();
           }
-
-          saveStudentsToStorage();
         }
 
-        // 3. Legacy cloud fallback (Google Apps Script)
+        // 2. Legacy fallback (safe guarded)
         if (window.SmileKidsDB && typeof window.SmileKidsDB.syncFromCloud === 'function') {
           try {
             await window.SmileKidsDB.syncFromCloud();
@@ -7570,19 +7693,18 @@
         }
 
         refreshStudentsFromDB();
-        try { syncAllTeacherGradesIntoStudents(false); } catch(e) { console.warn(e); }
-        try { renderContent(); } catch(e) { console.warn(e); }
-        try { if (typeof renderGradesModule === 'function') renderGradesModule(); } catch(e) { console.warn(e); }
-        try { if (typeof renderCertificatePreview === 'function') renderCertificatePreview(); } catch(e) { console.warn(e); }
-        try { if (typeof updatePrintSheetsPreview === 'function') updatePrintSheetsPreview(); } catch(e) { console.warn(e); }
-
+        syncAllTeacherGradesIntoStudents(false);
+        renderStudentsTable();
+        renderCertificatePreview();
+        renderGradesModule();
+        updatePrintSheetsPreview();
         if (!silent) {
-          alert(`✓ تم بنجاح سحب وتحديث جميع الدرجات والبيانات من السحابة! (تم تحديث سجلات ${syncedCount || ALL_STUDENTS.length} طالب وتحديث الشهادات فورياً) 🟢`);
+          alert(`✓ تم بنجاح سحب وتحديث جميع الدرجات والبيانات من سحابة Firebase Firestore! (تم تحديث سجلات ${syncedCount || ALL_STUDENTS.length} طالب وتحديث الشهادات فورياً) 🟢`);
         }
       } catch (err) {
         console.error('Manual sync from cloud error:', err);
         if (!silent) {
-          alert('⚠️ حدث خطأ أثناء المزامنة: ' + (err.message || err));
+          alert('⚠️ حدث خطأ أثناء المزامنة السحابية. يرجى التأكد من اتصال الإنترنت.');
         }
       } finally {
         if (icon) icon.className = '';
@@ -7896,8 +8018,10 @@
       const totalSubjects = pTot.totalAcademicSubjects || subjects.filter(s => !s.isReligion && !s.isNonTotal).length || subjects.length;
 
       // If requireFullRecording is true and student has not completed all subjects
+      const isGirlRank = (st && st.gender === 'female');
+      const pronounRecorded = isGirlRank ? 'لها' : 'له';
       if (config.requireFullRecording && pTot.recordedCount < totalSubjects) {
-        return `<span class="text-slate-400 text-xs font-bold" title="رُصد له ${pTot.recordedCount} من ${totalSubjects} مادة">رصد غير مكتمل (${pTot.recordedCount}/${totalSubjects})</span>`;
+        return `<span class="text-slate-400 text-xs font-bold" title="رُصد ${pronounRecorded} ${pTot.recordedCount} من ${totalSubjects} مادة">رصد غير مكتمل (${pTot.recordedCount}/${totalSubjects})</span>`;
       }
 
       // Calculate lost marks: (totalMax - totalScore)
@@ -7934,14 +8058,40 @@
       }
 
       if (pTot.percentage >= 50) {
-        return `<span class="text-emerald-400 font-bold text-xs">ناجح</span> <span class="text-[10px] text-slate-500 font-mono">(نقص ${lostMarks})</span>`;
+        const passLabel = isGirlRank ? 'ناجحة' : 'ناجح';
+        return `<span class="text-emerald-400 font-bold text-xs">${passLabel}</span> <span class="text-[10px] text-slate-500 font-mono">(نقص ${lostMarks})</span>`;
       }
       return `<span class="text-rose-400 font-bold text-xs">يحتاج متابعة</span> <span class="text-[10px] text-slate-500 font-mono">(نقص ${lostMarks})</span>`;
     }
 
-    let selectedCertificateStyle = 'style-current';
+    let selectedCertificateStyle = (function() {
+      try {
+        return localStorage.getItem('smile_kids_selected_certificate_style') || 'style-current';
+      } catch(e) {
+        return 'style-current';
+      }
+    })();
+
     function onCertStyleChange(val) {
+      if (!val) return;
       selectedCertificateStyle = val;
+      try {
+        localStorage.setItem('smile_kids_selected_certificate_style', val);
+      } catch(e) {
+        console.warn('localStorage error:', e);
+      }
+      // Push to Firestore settings collection
+      if (window.SmileKidsFirebase) {
+        if (typeof window.SmileKidsFirebase.saveSettingsToFirestore === 'function') {
+          window.SmileKidsFirebase.saveSettingsToFirestore({ selectedCertificateStyle: val });
+        } else if (window.SmileKidsFirebase.canUseFirestore && window.SmileKidsFirebase.canUseFirestore() && window.SmileKidsFirebase.db) {
+          window.SmileKidsFirebase.db.collection('settings').doc('appSettings').set({
+            selectedCertificateStyle: val,
+            _updatedAt: new Date().toISOString(),
+            _lastModified: Date.now()
+          }, { merge: true }).catch(err => console.warn('[Firestore] settings save error:', err));
+        }
+      }
       renderCertificatePreview();
     }
 
@@ -8113,6 +8263,7 @@
           .replace(/المركز الثامن/g, '8th Place 🎖️')
           .replace(/المركز التاسع/g, '9th Place 🎖️')
           .replace(/المركز العاشر/g, '10th Place 🎖️')
+          .replace(/ناجحة/g, 'Passed ✅')
           .replace(/ناجح/g, 'Passed ✅')
           .replace(/يحتاج متابعة/g, 'Needs Support ⚠️')
           .replace(/نقص/g, 'lost');
@@ -8458,12 +8609,16 @@
             <!-- Student Name Hero Banner -->
             <div style="text-align: center; margin: 10px auto 12px; max-width: 720px; background: linear-gradient(135deg, #fdf2f8 0%, #f0f9ff 100%); border: 2px solid #fbcfe8; border-radius: 18px; padding: 10px 20px; box-shadow: 0 4px 14px rgba(219,39,119,0.08);">
               <div style="font-size: 13.5px; font-weight: 800; color: #475569;">
-                تمنح إدارة المدرسة هذه الشهادة المتميزة بكل فخر وسرور إلى ${heroTitle}:
+                ${isEn ? 'This certificate is proudly awarded to:' : (isGirl ? 'تمنح إدارة المدرسة هذه الشهادة المتميزة بكل فخر وسرور إلى الطالبة المتفوقة والبطلة المتميزة:' : 'تمنح إدارة المدرسة هذه الشهادة المتميزة بكل فخر وسرور إلى الطالب المتفوق والبطل المتميز:')}
               </div>
               <div style="margin: 4px 0 6px;">
+                <span style="font-size: 16px; font-weight: 900; color: ${isGirl ? '#db2777' : '#0284c7'}; margin-left: 6px;">
+                  ${isEn ? 'Student Name:' : (isGirl ? 'اسم الطالبة:' : 'اسم الطالب:')}
+                </span>
                 <span style="font-size: 27px; font-weight: 900; color: #be185d; display: inline-block; text-shadow: 1px 1px 0px #fbcfe8;">
                   ${isEn ? (st.nameEn || st.nameAr || '—') : (st.nameAr || st.nameEn || '—')}
                 </span>
+                ${!isEn ? `<span style="font-size: 14px; font-weight: 800; color: #d97706; margin-right: 6px;">(${isGirl ? 'المتفوقة' : 'المتفوق'})</span>` : ''}
               </div>
               <div style="display: inline-flex; align-items: center; gap: 8px; background: #ffffff; border: 1.5px solid #38bdf8; padding: 3px 18px; border-radius: 9999px; font-size: 12px; font-weight: 900; color: #0369a1; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
                 <span>🎓 ⭐ Grade ${st.grade} ${trackLabel} ⭐</span>
@@ -8488,11 +8643,11 @@
               </div>
               <div style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #fef08a, #fde047); border: 2px solid #facc15; padding: 8px 18px; border-radius: 9999px; box-shadow: 0 4px 12px rgba(250,204,21,0.25);">
                 <span style="font-size: 20px;">⭐</span>
-                <span style="font-size: 13.5px; font-weight: 900; color: #854d0e;">بطل التميز والإبداع</span>
+                <span style="font-size: 13.5px; font-weight: 900; color: #854d0e;">${isGirl ? 'بطلة التميز والإبداع' : 'بطل التميز والإبداع'}</span>
               </div>
               <div style="display: inline-flex; align-items: center; gap: 8px; background: #ffffff; border: 2px solid #fbcfe8; padding: 8px 18px; border-radius: 9999px; box-shadow: 0 4px 12px rgba(244,63,94,0.15);">
                 <span style="font-size: 20px;">🎖️</span>
-                <span style="font-size: 13.5px; font-weight: 900; color: #db2777;">نجم ساطع في سماء المدرسة</span>
+                <span style="font-size: 13.5px; font-weight: 900; color: #db2777;">${isGirl ? 'نجمة ساطعة في سماء المدرسة' : 'نجم ساطع في سماء المدرسة'}</span>
               </div>
             </div>
 
@@ -8515,7 +8670,7 @@
               <!-- Right: Stamp / Golden Star Emblem -->
               <div style="display: flex; align-items: center; gap: 6px; background: #ffffff; border: 2px dashed #f59e0b; padding: 4px 14px; border-radius: 9999px; box-shadow: 0 2px 6px rgba(245,158,11,0.2);">
                 <span style="font-size: 18px;">👑</span>
-                <span style="font-size: 11.5px; font-weight: 900; color: #b45309;">نجم متميز</span>
+                <span style="font-size: 11.5px; font-weight: 900; color: #b45309;">${isGirl ? 'نجمة متميزة' : 'نجم متميز'}</span>
               </div>
             </div>
 
@@ -8585,8 +8740,14 @@
 
               <!-- Student Showcase Banner -->
               <div style="background: rgba(245, 158, 11, 0.1); border-top: 1px solid rgba(251, 191, 36, 0.4); border-bottom: 1px solid rgba(251, 191, 36, 0.4); padding: 10px; margin: 12px 0; text-align: center;">
-                <div style="font-size: 12px; color: #fde68a; font-weight: 700;">${isEn ? 'This certificate is proudly presented to:' : (isGirl ? 'تُمنح هذه الشهادة بكل فخر واعتزاز للطالبة:' : 'تُمنح هذه الشهادة بكل فخر واعتزاز للطالب:')}</div>
-                <div style="font-size: 24px; font-weight: 900; color: #ffffff; margin-top: 3px;">${isEn ? (st.nameEn || st.nameAr) : (st.nameAr || st.nameEn)}</div>
+                <div style="font-size: 13px; color: #fde68a; font-weight: 800;">${isEn ? 'This certificate is proudly presented to:' : (isGirl ? 'تُمنح هذه الشهادة بكل فخر واعتزاز للطالبة المتفوقة:' : 'تُمنح هذه الشهادة بكل فخر واعتزاز للطالب المتفوق:')}</div>
+                <div style="font-size: 14px; color: #fbbf24; font-weight: 900; margin-top: 5px;">
+                  ${isEn ? 'Student Name:' : (isGirl ? 'اسم الطالبة:' : 'اسم الطالب:')}
+                </div>
+                <div style="font-size: 25px; font-weight: 900; color: #ffffff; margin-top: 2px;">
+                  ${isEn ? (st.nameEn || st.nameAr) : (st.nameAr || st.nameEn)}
+                </div>
+                ${!isEn ? `<div style="font-size: 12px; color: #fde68a; font-weight: 700; margin-top: 4px;">${isGirl ? 'حصلت على أعلى مراتب التفوق والتميز الأكاديمي' : 'حصل على أعلى مراتب التفوق والتميز الأكاديمي'}</div>` : ''}
                 <div style="display: inline-block; background: rgba(251, 191, 36, 0.2); border: 1px solid #fbbf24; padding: 3px 14px; border-radius: 9999px; font-size: 12px; font-weight: 800; color: #fef08a; margin-top: 6px;">
                   الصف: Grade ${st.grade} ${trackLabel}
                 </div>
@@ -8665,8 +8826,9 @@
               <div style="display: flex; align-items: center; gap: 14px;">
                 ${renderCertPhoto('modern', 68, 86)}
                 <div>
-                  <div style="font-size: 11px; color: #94a3b8; font-weight: 700;">${isEn ? 'Student Name:' : (isGirl ? 'اسم الطالبة:' : 'اسم الطالب:')}</div>
+                  <div style="font-size: 11px; color: #94a3b8; font-weight: 700;">${isEn ? 'Student Name:' : (isGirl ? 'اسم الطالبة المتفوقة:' : 'اسم الطالب المتفوق:')}</div>
                   <div style="font-size: 20px; font-weight: 900; color: white;">${isEn ? (st.nameEn || st.nameAr) : (st.nameAr || st.nameEn)}</div>
+                  ${!isEn ? `<div style="font-size: 11px; color: #38bdf8; font-weight: 700; margin-top: 2px;">${isGirl ? 'حصلت على درجات التميز والتقدير الأكاديمي' : 'حصل على درجات التميز والتقدير الأكاديمي'}</div>` : ''}
                 </div>
               </div>
 
@@ -8756,11 +8918,11 @@
             <div style="text-align: center; margin: 14px 0;">
               <div style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(90deg, #ec4899, #8b5cf6, #3b82f6); color: white; padding: 6px 24px; border-radius: 9999px; font-weight: 900; font-size: 16px; box-shadow: 0 4px 15px rgba(236,72,153,0.3);">
                 <span>🏆</span>
-                <span>شهـــــادة بطــــل التفـــــوق الصغيـــر</span>
+                <span>${isGirl ? 'شهـــــادة بطــــلة التفـــــوق الصغيـــرة' : 'شهـــــادة بطــــل التفـــــوق الصغيـــر'}</span>
                 <span>🎉</span>
               </div>
               <div style="font-size: 11px; font-weight: 700; color: #7c3aed; margin-top: 4px;">
-                نبارك لبطلنا المميز تفوقه وإبداعه الرائع في اختبارات هذا الفصل الدراسي
+                ${isGirl ? 'نبارك لبطلتنا المميزة تفوقها وإبداعها الرائع في اختبارات هذا الفصل الدراسي' : 'نبارك لبطلنا المميز تفوقه وإبداعه الرائع في اختبارات هذا الفصل الدراسي'}
               </div>
             </div>
 
@@ -8770,8 +8932,9 @@
                 ${renderCertPhoto('kids', 76, 96)}
               </div>
               <div style="text-align: right;">
-                <div style="font-size: 11px; color: #64748b; font-weight: bold;">${isEn ? 'Super Star Name:' : (isGirl ? 'اسم النجمة الصغيرة 🌸:' : 'اسم النجم الصغير ⭐:')}</div>
+                <div style="font-size: 11px; color: #64748b; font-weight: bold;">${isEn ? 'Super Star Name:' : (isGirl ? 'اسم الطالبة المتفوقة 🌸:' : 'اسم الطالب المتفوق ⭐:')}</div>
                 <div style="font-size: 23px; font-weight: 900; color: #6b21a8; margin-top: 2px;">${isEn ? (st.nameEn || st.nameAr) : (st.nameAr || st.nameEn)}</div>
+                ${!isEn ? `<div style="font-size: 11px; font-weight: 800; color: #db2777; margin-top: 2px;">${isGirl ? 'حصلت على درجات رائعة ومتميزة' : 'حصل على درجات رائعة ومتميزة'}</div>` : ''}
                 <div style="display: inline-block; background: #fef3c7; border: 1px solid #fde68a; padding: 2px 12px; border-radius: 9999px; font-size: 11px; font-weight: 900; color: #92400e; margin-top: 4px;">
                   Grade ${st.grade} ${trackLabel}
                 </div>
@@ -8784,7 +8947,7 @@
                 <tr style="background: #06b6d4; color: white; font-weight: 900;">
                   <th style="padding: 7px 12px; text-align: right;">المادة الممتعة 📚</th>
                   <th style="padding: 7px 12px;">الدرجة العظمى 🎯</th>
-                  <th style="padding: 7px 12px;">درجة البطل 🌟</th>
+                  <th style="padding: 7px 12px;">${isGirl ? 'درجة البطلة 🌟' : 'درجة البطل 🌟'}</th>
                   <th style="padding: 7px 12px;">التقدير 👏</th>
                 </tr>
               </thead>
@@ -8806,7 +8969,7 @@
               <div style="display: flex; align-items: center; gap: 8px;">
                 <span style="font-size: 26px;">🎖️</span>
                 <div style="text-align: center;">
-                  <div style="color: #db2777; font-weight: 900; font-size: 13px;">أحسنت يا بطل! استمر في التألق والنجاح 🌟</div>
+                  <div style="color: #db2777; font-weight: 900; font-size: 13px;">${isGirl ? 'أحسنتِ يا بطلة! استمري في التألق والنجاح 🌟' : 'أحسنت يا بطل! استمر في التألق والنجاح 🌟'}</div>
                   <div style="color: #64748b; font-size: 10px;">مع تمنيات أسرة حضانة ومدرسة سمايل كيدز للغات بدوام التميز والتفوق</div>
                 </div>
               </div>
@@ -8870,6 +9033,7 @@
                 ? `<span style="color: #dc2626; font-size: 25px; font-weight: 900; font-family: Arial, sans-serif;">${st.nameEn || st.nameAr || '—'}</span>` 
                 : `<span style="color: #dc2626; font-size: 25px; font-weight: 900; font-family: 'Cairo', Arial, sans-serif;">${st.nameAr || st.nameEn || '—'}</span>`
               }
+              ${!isEn ? `<span style="font-size: 14px; font-weight: 900; color: #b45309; margin-right: 8px; font-family: 'Cairo', Arial, sans-serif;">(${isGirl ? 'الطالبة المتفوقة' : 'الطالب المتفوق'})</span>` : ''}
             </div>
           </div>
 
@@ -8986,11 +9150,18 @@
       const certStSel = document.getElementById('cert-student-select');
       if (certStSel) certStSel.value = st.id;
       
-      // Auto-switch to appreciation certificate if student has suspended status
+      // Auto-switch to appreciation certificate if student has suspended status, otherwise restore saved style
       if (st.enrollmentStatus === 'suspended') {
         selectedCertificateStyle = 'style-appreciation';
         const styleSel = document.getElementById('cert-style-select');
         if (styleSel) styleSel.value = 'style-appreciation';
+      } else {
+        const savedPref = (function() {
+          try { return localStorage.getItem('smile_kids_selected_certificate_style'); } catch(e) { return null; }
+        })() || 'style-current';
+        selectedCertificateStyle = savedPref;
+        const styleSel = document.getElementById('cert-style-select');
+        if (styleSel) styleSel.value = savedPref;
       }
 
       switchMainTab('certificates');
@@ -9942,20 +10113,25 @@ Smile Kids school ☺`;
                 شَهَادَةُ تَقْدِيرٍ وَتَفَوُّقٍ فِي ${subjName}
               </h2>
               <p class="text-xs sm:text-sm text-slate-600 font-bold mt-1">
-                تتشرف إدارة المدرسة ومعلمة المادة بمنح هذه الشهادة المعتمدة للطالب المتميز:
+                ${st.gender === 'female' ? 'تتشرف إدارة المدرسة ومعلمة المادة بمنح هذه الشهادة المعتمدة للطالبة المتفوقة والمتميزة:' : 'تتشرف إدارة المدرسة ومعلمة المادة بمنح هذه الشهادة المعتمدة للطالب المتفوق والمتميز:'}
               </p>
             </div>
 
             <div class="my-1 sm:my-2">
               <div class="inline-block border-b-4 border-[#d4af37] pb-1 px-8">
-                <h1 class="text-2xl sm:text-3xl font-black text-indigo-950">${st.nameAr}</h1>
+                <span class="text-xs sm:text-sm font-bold text-amber-800 ml-2">${st.gender === 'female' ? 'اسم الطالبة:' : 'اسم الطالب:'}</span>
+                <h1 class="text-2xl sm:text-3xl font-black text-indigo-950 inline-block">${st.nameAr}</h1>
+                <span class="text-xs sm:text-sm font-black text-amber-700 mr-2">(${st.gender === 'female' ? 'المتفوقة' : 'المتفوق'})</span>
               </div>
               ${st.nameEn ? `<p class="text-xs sm:text-sm font-en text-slate-500 mt-1 font-semibold">${st.nameEn}</p>` : ''}
             </div>
 
             <div class="bg-amber-50/70 rounded-2xl p-3 sm:p-4 border border-amber-200/90 my-2 max-w-xl mx-auto shadow-inner">
               <p class="text-xs sm:text-sm text-slate-700 font-bold leading-relaxed">
-                تقديراً للاجتهاد والتألق في <span class="text-indigo-950 font-black">${periodTitle}</span> في مادة <span class="text-purple-950 font-black">${subjName}</span>
+                ${st.gender === 'female'
+                  ? `تقديراً لاجتهادها وتألقها وحصولها على أعلى التقديرات في <span class="text-indigo-950 font-black">${periodTitle}</span> في مادة <span class="text-purple-950 font-black">${subjName}</span>`
+                  : `تقديراً لاجتهاده وتألقه وحصوله على أعلى التقديرات في <span class="text-indigo-950 font-black">${periodTitle}</span> في مادة <span class="text-purple-950 font-black">${subjName}</span>`
+                }
               </p>
               <div class="flex items-center justify-center gap-6 mt-2 text-xs sm:text-sm">
                 <div>الدرجة المحققة: <span class="font-black text-indigo-950 font-mono text-base">${score} / ${maxScore}</span></div>
@@ -10145,15 +10321,29 @@ Smile Kids school ☺`;
 
     // Auto-sync teacher portal grades and attendance on startup, DB changes, and window storage events
     window.addEventListener('DOMContentLoaded', () => {
+      // Restore saved certificate style from localStorage immediately
+      try {
+        const savedCertStyle = localStorage.getItem('smile_kids_selected_certificate_style');
+        if (savedCertStyle) {
+          selectedCertificateStyle = savedCertStyle;
+          const styleSel = document.getElementById('cert-style-select');
+          if (styleSel) styleSel.value = savedCertStyle;
+        }
+      } catch(e) {}
+
       refreshStudentsFromDB();
       syncAllTeacherGradesIntoStudents();
-      if (window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore && window.SmileKidsFirebase.canUseFirestore()) {
+      if (window.SmileKidsFirebase && typeof window.SmileKidsFirebase.fetchAllFromFirestore === 'function') {
         manualSyncFromCloud(true);
       }
     });
 
     window.addEventListener('smilekids_firebase_ready', () => {
       manualSyncFromCloud(true);
+    });
+
+    window.addEventListener('beforeunload', () => {
+      flushStudentSubjectSave();
     });
 
     if (window.SmileKidsDB && typeof window.SmileKidsDB.addListener === 'function') {
