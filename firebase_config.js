@@ -185,6 +185,17 @@
     }
   })();
 
+  function cleanObjectForFirestore(obj) {
+    if (!obj || typeof obj !== 'object') return obj;
+    if (Array.isArray(obj)) return obj.map(cleanObjectForFirestore);
+    const res = {};
+    for (const key of Object.keys(obj)) {
+      if (key.includes('.')) continue;
+      res[key] = cleanObjectForFirestore(obj[key]);
+    }
+    return res;
+  }
+
   // =======================================================================
   // 4. الواجهة البرمجية الموحدة (Unified Public API)
   // =======================================================================
@@ -217,7 +228,8 @@
 
       try {
         const docRef = this.db.collection('students').doc(String(studentData.id));
-        const payload = Object.assign({}, studentData, {
+        const cleanData = cleanObjectForFirestore(studentData);
+        const payload = Object.assign({}, cleanData, {
           _lastModified: Date.now(),
           _updatedAt: new Date().toISOString()
         });
