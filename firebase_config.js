@@ -16,7 +16,7 @@
   // ضع بيانات مشروعك هنا من Firebase Console -> Project Settings -> General -> Web App
   // =======================================================================
   const DEFAULT_FIREBASE_CONFIG = {
-    apiKey: "AIzaSyAqDrK8cp9TApo_hqCJq9CSyGMJxPXPEMM",
+    apiKey: "AIzaSyDf3TZnC4AtwnaV_BXc2ko-QFcG7DVE8yQ",
     authDomain: "smile-kids-school.firebaseapp.com",
     projectId: "smile-kids-school",
     storageBucket: "smile-kids-school.firebasestorage.app",
