@@ -40,8 +40,23 @@
       gender: 'male'
     },
     'SK-G1-AR-008': {
-      nameAr: 'ماريا قتيبه علي',
-      nameEn: 'Maria Qutaiba Ali',
+      nameAr: 'ماريا قتيبه العلي',
+      nameEn: 'Maria Qutaiba El-Ali',
+      gender: 'female'
+    },
+    'SK-G4-LN-012': {
+      nameAr: 'لجين وليد محمد',
+      nameEn: 'Loujain Walid Mohamed',
+      gender: 'female'
+    },
+    'SK-G1-LN-012': {
+      nameAr: 'لجين ياسر محمد',
+      nameEn: 'Loujain Yasser Mohamed',
+      gender: 'female'
+    },
+    'SK-G1-LN-017': {
+      nameAr: 'لجين محمد رمضان',
+      nameEn: 'Loujain Mohamed Ramadan',
       gender: 'female'
     },
     'SK-G4-AR-0026': {
@@ -5889,7 +5904,7 @@
           }
         },
         "teacherNameAr": "مس / أسماء",
-        "sep": 26.0,
+        "sep": 28.0,
         "subjectId": "arabic"
       },
       "term": {
@@ -22352,6 +22367,44 @@
           this.syncToFirestore();
         }, 600);
       }
+    },
+
+    loadStudentsFromCloud: function(remoteStudents) {
+      if (!Array.isArray(remoteStudents) || remoteStudents.length === 0) return;
+      if (!this._cache) this.init();
+      const localMap = new Map();
+      this._cache.forEach(s => localMap.set(s.id, s));
+
+      remoteStudents.forEach(rem => {
+        if (!rem || !rem.id) return;
+        if (this._deletedIds && this._deletedIds.has(rem.id)) return;
+        const local = localMap.get(rem.id);
+        if (local) {
+          Object.assign(local, rem);
+          enforceCanonicalStudent(local);
+          if (rem.subjectScores) {
+            local.subjectScores = local.subjectScores || {};
+            Object.keys(rem.subjectScores).forEach(subId => {
+              if (!local.subjectScores[subId] || typeof local.subjectScores[subId] !== 'object') {
+                local.subjectScores[subId] = rem.subjectScores[subId];
+              } else {
+                Object.assign(local.subjectScores[subId], rem.subjectScores[subId]);
+                if (rem.subjectScores[subId].scores) {
+                  local.subjectScores[subId].scores = Object.assign({}, local.subjectScores[subId].scores || {}, rem.subjectScores[subId].scores);
+                }
+              }
+            });
+          }
+          if (rem.termsScores) {
+            local.termsScores = Object.assign({}, local.termsScores || {}, rem.termsScores);
+          }
+        } else {
+          enforceCanonicalStudent(rem);
+          this._cache.push(rem);
+        }
+      });
+      this.save();
+      this._notifyListeners('cloud_pull');
     },
 
     getAllStudents: function() {

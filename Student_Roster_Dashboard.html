@@ -7456,79 +7456,111 @@
       try {
         let syncedCount = 0;
 
-        // 1. Guaranteed Direct Sync from Google Firebase Firestore
-        if (window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore && window.SmileKidsFirebase.canUseFirestore()) {
-          const res = await window.SmileKidsFirebase.fetchAllFromFirestore();
-          if (res && res.success) {
-            // Merge Students & Subject Scores
-            if (Array.isArray(res.students) && res.students.length > 0) {
-              const remoteMap = new Map();
-              res.students.forEach(s => remoteMap.set(s.id, s));
-
-              ALL_STUDENTS.forEach(localSt => {
-                const rem = remoteMap.get(localSt.id);
-                if (rem) {
-                  // Merge fields non-destructively
-                  Object.assign(localSt, rem);
-                  if (rem.subjectScores) {
-                    localSt.subjectScores = localSt.subjectScores || {};
-                    Object.keys(rem.subjectScores).forEach(subId => {
-                      localSt.subjectScores[subId] = Object.assign({}, localSt.subjectScores[subId] || {}, rem.subjectScores[subId]);
-                    });
-                  }
-                  if (rem.termsScores) {
-                    localSt.termsScores = Object.assign({}, localSt.termsScores || {}, rem.termsScores);
-                  }
-                }
-              });
-
-              // Add any students that exist in cloud but not locally
-              res.students.forEach(rem => {
-                if (!ALL_STUDENTS.some(s => s.id === rem.id)) {
-                  ALL_STUDENTS.push(rem);
-                }
-              });
-
-              syncedCount = res.students.length;
-            }
-
-            // Merge standalone grades collection
-            if (Array.isArray(res.grades) && res.grades.length > 0) {
-              res.grades.forEach(g => {
-                if (g.studentId && g.subjectId && g.periodKey && g.score !== undefined && g.score !== null) {
-                  const targetSt = ALL_STUDENTS.find(s => s.id === g.studentId);
-                  if (targetSt) {
-                    targetSt.subjectScores = targetSt.subjectScores || {};
-                    targetSt.subjectScores[g.subjectId] = targetSt.subjectScores[g.subjectId] || { subjectId: g.subjectId, scores: {} };
-                    targetSt.subjectScores[g.subjectId].scores = targetSt.subjectScores[g.subjectId].scores || {};
-                    const scNum = parseFloat(g.score) || 0;
-                    const mxNum = parseFloat(g.maxScore) || 20;
-                    targetSt.subjectScores[g.subjectId].scores[g.periodKey] = {
-                      score: scNum,
-                      maxScore: mxNum,
-                      isRecorded: true,
-                      updatedAt: g.updatedAt || new Date().toISOString()
-                    };
-                    const fld = g.periodKey.replace('t1_', '').replace('t2_', '');
-                    targetSt.subjectScores[g.subjectId][fld] = scNum;
-                  }
-                }
-              });
-            }
-
-            // Sync Custom Max Scores
-            if (res.customMaxScores && typeof res.customMaxScores === 'object') {
-              CUSTOM_SUBJECT_MAX = Object.assign({}, CUSTOM_SUBJECT_MAX || {}, res.customMaxScores);
-              try {
-                localStorage.setItem('smile_kids_custom_max_scores', JSON.stringify(CUSTOM_SUBJECT_MAX));
-              } catch(e) {}
-            }
-
-            saveStudentsToStorage();
-          }
+        // 1. Await Firebase readiness if initial SDK loading is still pending
+        if (window.SmileKidsFirebase && window.SmileKidsFirebase.whenReady) {
+          try {
+            await Promise.race([
+              window.SmileKidsFirebase.whenReady,
+              new Promise(r => setTimeout(r, 2500))
+            ]);
+          } catch(e) {}
         }
 
-        // 2. Legacy fallback (safe guarded)
+        // 2. Guaranteed Sync from Google Firebase Firestore (SDK or REST Fallback)
+        let res = null;
+        if (window.SmileKidsFirebase && typeof window.SmileKidsFirebase.fetchAllFromFirestore === 'function') {
+          res = await window.SmileKidsFirebase.fetchAllFromFirestore();
+        } else if (window.SmileKidsFirebase && typeof window.SmileKidsFirebase.fetchFromFirestoreRest === 'function') {
+          res = await window.SmileKidsFirebase.fetchFromFirestoreRest();
+        }
+
+        if (res && res.success) {
+          // Merge Students & Subject Scores
+          if (Array.isArray(res.students) && res.students.length > 0) {
+            const remoteMap = new Map();
+            res.students.forEach(s => { if (s && s.id) remoteMap.set(s.id, s); });
+
+            ALL_STUDENTS.forEach(localSt => {
+              const rem = remoteMap.get(localSt.id);
+              if (rem) {
+                Object.assign(localSt, rem);
+                if (rem.subjectScores && typeof rem.subjectScores === 'object') {
+                  localSt.subjectScores = localSt.subjectScores || {};
+                  Object.keys(rem.subjectScores).forEach(subId => {
+                    if (!localSt.subjectScores[subId] || typeof localSt.subjectScores[subId] !== 'object') {
+                      localSt.subjectScores[subId] = rem.subjectScores[subId];
+                    } else {
+                      Object.assign(localSt.subjectScores[subId], rem.subjectScores[subId]);
+                      if (rem.subjectScores[subId].scores && typeof rem.subjectScores[subId].scores === 'object') {
+                        localSt.subjectScores[subId].scores = Object.assign({}, localSt.subjectScores[subId].scores || {}, rem.subjectScores[subId].scores);
+                      }
+                    }
+                  });
+                }
+                if (rem.termsScores && typeof rem.termsScores === 'object') {
+                  localSt.termsScores = Object.assign({}, localSt.termsScores || {}, rem.termsScores);
+                }
+              }
+            });
+
+            // Add any students that exist in cloud but not locally
+            res.students.forEach(rem => {
+              if (rem && rem.id && !ALL_STUDENTS.some(s => s.id === rem.id)) {
+                ALL_STUDENTS.push(rem);
+              }
+            });
+
+            syncedCount = res.students.length;
+          }
+
+          // Merge standalone grades collection
+          if (Array.isArray(res.grades) && res.grades.length > 0) {
+            res.grades.forEach(g => {
+              if (g && g.studentId && g.subjectId && g.periodKey && g.score !== undefined && g.score !== null) {
+                const targetSt = ALL_STUDENTS.find(s => s.id === g.studentId);
+                if (targetSt) {
+                  targetSt.subjectScores = targetSt.subjectScores || {};
+                  if (!targetSt.subjectScores[g.subjectId] || typeof targetSt.subjectScores[g.subjectId] !== 'object') {
+                    targetSt.subjectScores[g.subjectId] = { subjectId: g.subjectId, scores: {} };
+                  }
+                  targetSt.subjectScores[g.subjectId].scores = targetSt.subjectScores[g.subjectId].scores || {};
+                  const scNum = parseFloat(g.score) || 0;
+                  const mxNum = parseFloat(g.maxScore) || 20;
+                  targetSt.subjectScores[g.subjectId].scores[g.periodKey] = {
+                    score: scNum,
+                    maxScore: mxNum,
+                    isRecorded: true,
+                    updatedAt: g.updatedAt || new Date().toISOString()
+                  };
+                  const fld = String(g.periodKey).replace('t1_', '').replace('t2_', '');
+                  targetSt.subjectScores[g.subjectId][fld] = scNum;
+                }
+              }
+            });
+          }
+
+          // Sync Custom Max Scores
+          if (res.customMaxScores && typeof res.customMaxScores === 'object') {
+            CUSTOM_SUBJECT_MAX = Object.assign({}, CUSTOM_SUBJECT_MAX || {}, res.customMaxScores);
+            try {
+              localStorage.setItem('smile_kids_custom_max_scores', JSON.stringify(CUSTOM_SUBJECT_MAX));
+            } catch(e) {}
+          }
+
+          // Sync into SmileKidsDB instance
+          if (window.SmileKidsDB) {
+            if (typeof window.SmileKidsDB.loadStudentsFromCloud === 'function' && Array.isArray(res.students)) {
+              window.SmileKidsDB.loadStudentsFromCloud(res.students);
+            } else {
+              window.SmileKidsDB._cache = ALL_STUDENTS;
+              window.SmileKidsDB.save();
+            }
+          }
+
+          saveStudentsToStorage();
+        }
+
+        // 3. Legacy cloud fallback (Google Apps Script)
         if (window.SmileKidsDB && typeof window.SmileKidsDB.syncFromCloud === 'function') {
           try {
             await window.SmileKidsDB.syncFromCloud();
@@ -7538,18 +7570,19 @@
         }
 
         refreshStudentsFromDB();
-        syncAllTeacherGradesIntoStudents(false);
-        renderStudentsTable();
-        renderCertificatePreview();
-        renderGradesModule();
-        updatePrintSheetsPreview();
+        try { syncAllTeacherGradesIntoStudents(false); } catch(e) { console.warn(e); }
+        try { renderContent(); } catch(e) { console.warn(e); }
+        try { if (typeof renderGradesModule === 'function') renderGradesModule(); } catch(e) { console.warn(e); }
+        try { if (typeof renderCertificatePreview === 'function') renderCertificatePreview(); } catch(e) { console.warn(e); }
+        try { if (typeof updatePrintSheetsPreview === 'function') updatePrintSheetsPreview(); } catch(e) { console.warn(e); }
+
         if (!silent) {
-          alert(`✓ تم بنجاح سحب وتحديث جميع الدرجات والبيانات من سحابة Firebase Firestore! (تم تحديث سجلات ${syncedCount || ALL_STUDENTS.length} طالب وتحديث الشهادات فورياً) 🟢`);
+          alert(`✓ تم بنجاح سحب وتحديث جميع الدرجات والبيانات من السحابة! (تم تحديث سجلات ${syncedCount || ALL_STUDENTS.length} طالب وتحديث الشهادات فورياً) 🟢`);
         }
       } catch (err) {
         console.error('Manual sync from cloud error:', err);
         if (!silent) {
-          alert('⚠️ حدث خطأ أثناء المزامنة السحابية. يرجى التأكد من اتصال الإنترنت.');
+          alert('⚠️ حدث خطأ أثناء المزامنة: ' + (err.message || err));
         }
       } finally {
         if (icon) icon.className = '';

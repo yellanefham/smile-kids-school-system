@@ -564,48 +564,133 @@
     },
 
     /**
-     * جلب شامل وفوري لجميع الطلاب والدرجات والإعدادات من سحابة Firestore
+     * جلب مباشر عبر تقنية Firestore REST API (يعمل بدون أي مكتبات أو SDK خارجي)
      */
-    fetchAllFromFirestore: async function() {
-      if (!this.canUseFirestore()) {
-        return { success: false, fallback: true, message: 'Firebase غير متصل' };
-      }
-
+    fetchFromFirestoreRest: async function() {
+      if (typeof fetch === 'undefined') return { success: false, error: 'fetch API not available' };
       try {
-        // 1. Fetch Students
-        const stSnapshot = await this.db.collection('students').get();
-        const students = [];
-        stSnapshot.forEach(doc => {
-          if (doc.exists) students.push(doc.data());
-        });
+        const pId = (this.config && this.config.projectId) ? this.config.projectId : 'smile-kids-school';
 
-        // 2. Fetch Grades
-        const gradesSnapshot = await this.db.collection('grades').get();
-        const grades = [];
-        gradesSnapshot.forEach(doc => {
-          if (doc.exists) grades.push(doc.data());
-        });
+        function decodeVal(val) {
+          if (!val || typeof val !== 'object') return val;
+          if ('stringValue' in val) return val.stringValue;
+          if ('integerValue' in val) return parseInt(val.integerValue, 10);
+          if ('doubleValue' in val) return parseFloat(val.doubleValue);
+          if ('booleanValue' in val) return val.booleanValue;
+          if ('nullValue' in val) return null;
+          if ('timestampValue' in val) return val.timestampValue;
+          if ('mapValue' in val) {
+            const res = {};
+            const f = (val.mapValue && val.mapValue.fields) || {};
+            for (const k in f) res[k] = decodeVal(f[k]);
+            return res;
+          }
+          if ('arrayValue' in val) {
+            const arr = (val.arrayValue && val.arrayValue.values) || [];
+            return arr.map(decodeVal);
+          }
+          return val;
+        }
 
-        // 3. Fetch Settings / Max Scores
-        let customMaxScores = null;
+        function decodeDoc(doc) {
+          if (!doc || !doc.fields) return null;
+          const res = {};
+          for (const k in doc.fields) {
+            res[k] = decodeVal(doc.fields[k]);
+          }
+          if (!res.id && doc.name) {
+            res.id = doc.name.split('/').pop();
+          }
+          return res;
+        }
+
+        const urlSt = `https://firestore.googleapis.com/v1/projects/${pId}/databases/(default)/documents/students?pageSize=300`;
+        const respSt = await fetch(urlSt);
+        if (!respSt.ok) throw new Error('Firestore REST HTTP ' + respSt.status);
+        const dataSt = await respSt.json();
+        const students = (dataSt.documents || []).map(decodeDoc).filter(Boolean);
+
+        let grades = [];
         try {
-          const sDoc = await this.db.collection('settings').doc('maxScores').get();
-          if (sDoc.exists && sDoc.data()) {
-            customMaxScores = sDoc.data().data;
+          const urlGr = `https://firestore.googleapis.com/v1/projects/${pId}/databases/(default)/documents/grades?pageSize=1000`;
+          const respGr = await fetch(urlGr);
+          if (respGr.ok) {
+            const dataGr = await respGr.json();
+            grades = (dataGr.documents || []).map(decodeDoc).filter(Boolean);
           }
         } catch(e) {}
 
+        let customMaxScores = null;
+        try {
+          const urlSet = `https://firestore.googleapis.com/v1/projects/${pId}/databases/(default)/documents/settings/maxScores`;
+          const respSet = await fetch(urlSet);
+          if (respSet.ok) {
+            const dataSet = await respSet.json();
+            const decodedSet = decodeDoc(dataSet);
+            if (decodedSet && decodedSet.data) customMaxScores = decodedSet.data;
+          }
+        } catch(e) {}
+
+        console.info(`[SmileKids Firebase] تم جلب ${students.length} طالب عبر Firestore REST المباشر بنجاح 🟢`);
         return {
           success: true,
           students: students,
           grades: grades,
           customMaxScores: customMaxScores,
-          count: students.length
+          count: students.length,
+          source: 'rest'
         };
       } catch(err) {
-        console.error('[SmileKids Firebase] خطأ أثناء الجلب الشامل من Firestore:', err);
+        console.warn('[SmileKids Firebase] خطأ في Firestore REST Fallback:', err);
         return { success: false, error: err.message };
       }
+    },
+
+    /**
+     * جلب شامل وفوري لجميع الطلاب والدرجات والإعدادات من سحابة Firestore
+     */
+    fetchAllFromFirestore: async function() {
+      // 1. التجربة عبر Firebase Web SDK إن كان متصلاً
+      if (this.canUseFirestore()) {
+        try {
+          // 1. Fetch Students
+          const stSnapshot = await this.db.collection('students').get();
+          const students = [];
+          stSnapshot.forEach(doc => {
+            if (doc.exists) students.push(doc.data());
+          });
+
+          // 2. Fetch Grades
+          const gradesSnapshot = await this.db.collection('grades').get();
+          const grades = [];
+          gradesSnapshot.forEach(doc => {
+            if (doc.exists) grades.push(doc.data());
+          });
+
+          // 3. Fetch Settings / Max Scores
+          let customMaxScores = null;
+          try {
+            const sDoc = await this.db.collection('settings').doc('maxScores').get();
+            if (sDoc.exists && sDoc.data()) {
+              customMaxScores = sDoc.data().data;
+            }
+          } catch(e) {}
+
+          return {
+            success: true,
+            students: students,
+            grades: grades,
+            customMaxScores: customMaxScores,
+            count: students.length,
+            source: 'sdk'
+          };
+        } catch(err) {
+          console.warn('[SmileKids Firebase] خطأ أثناء الجلب عبر SDK، جاري التحويل لتقنية REST المباشرة:', err);
+        }
+      }
+
+      // 2. التحويل التلقائي المباشر لتقنية REST السريعة (تضمن المزامنة 100% حتى دون تحميل SDK)
+      return await this.fetchFromFirestoreRest();
     },
 
     // =======================================================================
