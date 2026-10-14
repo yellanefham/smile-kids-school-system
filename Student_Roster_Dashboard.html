@@ -29530,7 +29530,7 @@
         if (posIndex >= 1 && posIndex <= 10) {
           const rule = config.ranks.find(r => r.rank === posIndex);
           if (rule && lostMarks <= rule.maxLost) {
-            return `<span class="font-black text-amber-300 text-xs">${rule.label}</span> <span class="text-[10px] text-slate-400 font-mono">(نقص ${lostMarks})</span>`;
+            return `<span class="font-black text-amber-300 text-xs">${rule.label}</span>`;
           }
         }
       } else {
@@ -29538,16 +29538,16 @@
         for (let i = 0; i < config.ranks.length; i++) {
           const r = config.ranks[i];
           if (lostMarks <= r.maxLost) {
-            return `<span class="font-black text-amber-300 text-xs">${r.label}</span> <span class="text-[10px] text-slate-400 font-mono">(نقص ${lostMarks})</span>`;
+            return `<span class="font-black text-amber-300 text-xs">${r.label}</span>`;
           }
         }
       }
 
       if (pTot.percentage >= 50) {
         const passLabel = isGirlRank ? 'ناجحة' : 'ناجح';
-        return `<span class="text-emerald-400 font-bold text-xs">${passLabel}</span> <span class="text-[10px] text-slate-500 font-mono">(نقص ${lostMarks})</span>`;
+        return `<span class="text-emerald-400 font-bold text-xs">${passLabel}</span>`;
       }
-      return `<span class="text-rose-400 font-bold text-xs">يحتاج متابعة</span> <span class="text-[10px] text-slate-500 font-mono">(نقص ${lostMarks})</span>`;
+      return `<span class="text-rose-400 font-bold text-xs">يحتاج متابعة</span>`;
     }
 
     let selectedCertificateStyle = (function() {
