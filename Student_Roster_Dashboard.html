@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>كشوف وقوائم الطلاب والغياب والحضور — الفصول من الصف الأول حتى الصف التاسع | مدرسة Smile Kids للغات</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <script>
   // ========================================================
   // Global Esc Key Handler across whole page
@@ -178,44 +181,70 @@
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
-        margin: 2mm 0 !important;
+        margin: 2.5mm 0 !important;
         height: auto !important;
       }
       body.printing-certificate .cert-student-label {
-        font-size: 18px !important;
+        font-size: 20px !important;
+        font-weight: 900 !important;
       }
       body.printing-certificate .cert-student-name span {
-        font-size: 22px !important;
+        font-size: 24px !important;
+        font-weight: 900 !important;
       }
       body.printing-certificate .cert-table {
         width: 100% !important;
         border-collapse: collapse !important;
-        border: 2px solid #0f172a !important;
-        margin: 1.5mm 0 !important;
+        border: 2.5px solid #0f172a !important;
+        margin: 2mm 0 !important;
       }
       body.printing-certificate .cert-table th,
       body.printing-certificate .cert-table td {
-        padding: 4px 10px !important;
-        font-size: 13.5px !important;
+        padding: 6.5px 12px !important;
+        font-size: 16px !important;
         vertical-align: middle !important;
+        text-align: center !important;
         border-width: 1.5px !important;
       }
-      body.printing-certificate .cert-grade-row td {
+      body.printing-certificate .cert-sub-name {
         font-size: 16px !important;
-        padding: 4px 10px !important;
+        font-weight: 800 !important;
+        text-align: center !important;
+      }
+      body.printing-certificate .cert-sub-max {
+        font-size: 19px !important;
+        font-weight: 900 !important;
+        text-align: center !important;
+      }
+      body.printing-certificate .cert-sub-score,
+      body.printing-certificate .cert-sub-score span {
+        font-size: 19.5px !important;
+        font-weight: 900 !important;
+        text-align: center !important;
+      }
+      body.printing-certificate .cert-grade-row td {
+        font-size: 18.5px !important;
+        padding: 6.5px 12px !important;
+        text-align: center !important;
       }
       body.printing-certificate .cert-thead-row th {
-        font-size: 13px !important;
-        padding: 4px 10px !important;
+        font-size: 15.5px !important;
+        padding: 7px 12px !important;
+        text-align: center !important;
         background: #f1f5f9 !important;
       }
-      body.printing-certificate .cert-total-row td,
+      body.printing-certificate .cert-total-row td {
+        font-size: 17.5px !important;
+        padding: 7.5px 12px !important;
+        text-align: center !important;
+      }
       body.printing-certificate .cert-rank-row td {
-        font-size: 14.5px !important;
-        padding: 4px 10px !important;
+        font-size: 18px !important;
+        padding: 7.5px 12px !important;
+        text-align: center !important;
       }
       body.printing-certificate .cert-separator {
-        margin: 2mm 0 1.5mm 0 !important;
+        margin: 2.5mm 0 2mm 0 !important;
         height: 1.5px !important;
       }
       body.printing-certificate .cert-greetings-row {
@@ -226,10 +255,10 @@
         height: auto !important;
       }
       body.printing-certificate .cert-congrats-text {
-        font-size: 28px !important;
+        font-size: 30px !important;
       }
       body.printing-certificate .cert-wish-text {
-        font-size: 12px !important;
+        font-size: 13px !important;
       }
 
       /* Hide screen-only interactive elements */
@@ -29530,7 +29559,7 @@
         if (posIndex >= 1 && posIndex <= 10) {
           const rule = config.ranks.find(r => r.rank === posIndex);
           if (rule && lostMarks <= rule.maxLost) {
-            return `<span class="font-black text-amber-300 text-xs">${rule.label}</span>`;
+            return `<span class="font-black text-amber-500" style="font-size: 19px; color: #b45309; letter-spacing: 0.3px; font-family: 'Cairo', Arial, sans-serif;">${rule.label}</span>`;
           }
         }
       } else {
@@ -29538,16 +29567,16 @@
         for (let i = 0; i < config.ranks.length; i++) {
           const r = config.ranks[i];
           if (lostMarks <= r.maxLost) {
-            return `<span class="font-black text-amber-300 text-xs">${r.label}</span>`;
+            return `<span class="font-black text-amber-500" style="font-size: 19px; color: #b45309; letter-spacing: 0.3px; font-family: 'Cairo', Arial, sans-serif;">${r.label}</span>`;
           }
         }
       }
 
       if (pTot.percentage >= 50) {
         const passLabel = isGirlRank ? 'ناجحة' : 'ناجح';
-        return `<span class="text-emerald-400 font-bold text-xs">${passLabel}</span>`;
+        return `<span class="text-emerald-600 font-bold" style="font-size: 17.5px; color: #059669; font-family: 'Cairo', Arial, sans-serif;">${passLabel}</span>`;
       }
-      return `<span class="text-rose-400 font-bold text-xs">يحتاج متابعة</span>`;
+      return `<span class="text-rose-600 font-bold" style="font-size: 17.5px; color: #dc2626; font-family: 'Cairo', Arial, sans-serif;">يحتاج متابعة</span>`;
     }
 
     let selectedCertificateStyle = (function() {
@@ -29700,8 +29729,8 @@
 
         const displayScore = isRecorded ? subjScore : (isEn ? 'Pending ⏳' : 'قيد الرصد ⏳');
         const displayScoreHtml = isRecorded 
-          ? `<span style="font-weight: 900; font-size: 15.5px; color: #0f172a; font-family: Arial, sans-serif;">${subjScore}</span>` 
-          : `<span style="font-size: 12px; font-weight: 800; color: #d97706; font-family: 'Cairo', Arial, sans-serif;">${isEn ? 'Pending ⏳' : 'قيد الرصد ⏳'}</span>`;
+          ? `<span style="font-weight: 900; font-size: 20px; color: #0f172a; font-family: Arial, sans-serif; display: inline-block;">${subjScore}</span>` 
+          : `<span style="font-size: 13.5px; font-weight: 800; color: #d97706; font-family: 'Cairo', Arial, sans-serif;">${isEn ? 'Pending ⏳' : 'قيد الرصد ⏳'}</span>`;
 
         const pct = (effectiveSubjMax > 0 && isRecorded) ? Math.round((subjScore / effectiveSubjMax) * 100) : 0;
         
@@ -29878,18 +29907,18 @@
 
         const subjectRowsApprec = processedSubjects.map(subj => {
           const scoreText = subj.isRecorded 
-            ? `<span style="font-size: 15px; font-weight: 900; color: #0284c7; font-family: Arial, sans-serif;">${subj.score}</span>` 
-            : `<span style="font-size: 12px; font-weight: 800; color: #d97706;">قيد الرصد ⏳</span>`;
+            ? `<span style="font-size: 20px; font-weight: 900; color: #0284c7; font-family: Arial, sans-serif; display: inline-block;">${subj.score}</span>` 
+            : `<span style="font-size: 13.5px; font-weight: 800; color: #d97706; font-family: 'Cairo', Arial, sans-serif;">قيد الرصد ⏳</span>`;
 
           return `
             <tr style="border-bottom: 1.5px solid #0284c7;">
-              <td style="border: 1.5px solid #0284c7; padding: 6px 14px; font-size: 14px; font-weight: 800; color: #0f172a; text-align: center;">
+              <td style="border: 1.5px solid #0284c7; padding: 10px 16px; font-size: 16.5px; font-weight: 800; color: #0f172a; text-align: center; vertical-align: middle; font-family: 'Cairo', Arial, sans-serif;">
                 ${subj.displayName || subj.name}
               </td>
-              <td style="border: 1.5px solid #0284c7; padding: 6px 14px; font-size: 15px; font-weight: 900; color: #0284c7; text-align: center; font-family: Arial, sans-serif;">
+              <td style="border: 1.5px solid #0284c7; padding: 10px 16px; font-size: 19.5px; font-weight: 900; color: #0284c7; text-align: center; vertical-align: middle; font-family: Arial, sans-serif;">
                 ${subj.max}
               </td>
-              <td style="border: 1.5px solid #0284c7; padding: 6px 14px; font-size: 15px; font-weight: 900; color: #0f172a; text-align: center;">
+              <td style="border: 1.5px solid #0284c7; padding: 10px 16px; font-size: 20px; font-weight: 900; color: #0f172a; text-align: center; vertical-align: middle; font-family: Arial, sans-serif;">
                 ${scoreText}
               </td>
             </tr>
@@ -29897,7 +29926,7 @@
         }).join('');
 
         return `
-          <div class="custom-report-card-container cert-appreciation-card" style="background: #ffffff; border: 3px solid #38bdf8; border-radius: 18px; padding: 14px 24px 12px; box-shadow: 0 10px 30px rgba(56,189,248,0.18); width: 100%; max-width: 880px; margin: 0 auto; direction: ${isEn ? 'ltr' : 'rtl'}; font-family: ${isEn ? 'Arial, sans-serif' : '\'Cairo\', \'Segoe UI\', Arial, sans-serif'}; position: relative; box-sizing: border-box; color: #0f172a;">
+          <div class="custom-report-card-container cert-appreciation-card" style="background: #ffffff; border: 3px solid #38bdf8; border-radius: 18px; padding: 16px 26px 14px; box-shadow: 0 10px 30px rgba(56,189,248,0.18); width: 100%; max-width: 880px; margin: 0 auto; direction: ${isEn ? 'ltr' : 'rtl'}; font-family: ${isEn ? 'Arial, sans-serif' : '\'Cairo\', \'Segoe UI\', Arial, sans-serif'}; position: relative; box-sizing: border-box; color: #0f172a;">
             
             <!-- Top Header: Smile Kids Logo on Left, Boxed Title in Center, Student Photo on Right -->
             <div class="cert-top-header" style="display: flex; align-items: center; justify-content: space-between; position: relative; margin-bottom: 8px; direction: ltr;">
@@ -29914,14 +29943,14 @@
               </div>
 
               <!-- Center: Cheerful Boxed Title with Hearts -->
-              <div class="cert-title-box" style="margin: 0 auto; border: 2.5px dashed #0284c7; border-radius: 12px; padding: 4px 22px; background: #f0f9ff; box-shadow: 0 3px 10px rgba(2,132,199,0.15); text-align: center; min-width: 280px;">
-                <div style="font-size: 11px; font-weight: 900; color: #0284c7; letter-spacing: 0.5px;">
+              <div class="cert-title-box" style="margin: 0 auto; border: 2.5px dashed #0284c7; border-radius: 12px; padding: 5px 24px; background: #f0f9ff; box-shadow: 0 3px 10px rgba(2,132,199,0.15); text-align: center; min-width: 280px;">
+                <div style="font-size: 11.5px; font-weight: 900; color: #0284c7; letter-spacing: 0.6px; font-family: Arial, sans-serif;">
                   ♥ SEPTEMBER ASSESSMENT REPORT ♥
                 </div>
-                <h2 style="margin: 2px 0 0; font-size: 18px; font-weight: 900; color: #0369a1; letter-spacing: 0.5px;">
+                <h2 style="margin: 2px 0 0; font-size: 20px; font-weight: 900; color: #0369a1; letter-spacing: 0.5px; font-family: 'Cairo', Arial, sans-serif;">
                   شهـــــادة تقديـــــر وتفـــــوق 🌟
                 </h2>
-                <div style="font-size: 10px; font-weight: 800; color: #e11d48; margin-top: 1px;">
+                <div style="font-size: 10.5px; font-weight: 800; color: #e11d48; margin-top: 1px; font-family: 'Cairo', Arial, sans-serif;">
                   Smile Kids Language School
                 </div>
               </div>
@@ -29937,46 +29966,46 @@
             </div>
 
             <!-- Student Name Row (Customized Chic Banner for Girls and Boys) -->
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 8px; margin-bottom: 8px; padding: 5px 14px; background: ${isGirl ? 'linear-gradient(135deg, #fdf2f8 0%, #fff1f2 100%)' : 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)'}; border: 1.5px solid ${isGirl ? '#fbcfe8' : '#bae6fd'}; border-radius: 12px; direction: ${isEn ? 'ltr' : 'rtl'};">
-              <div style="display: flex; align-items: center; gap: 6px;">
-                <span style="font-size: 16px;">${isGirl ? '🌸' : '⭐'}</span>
-                <span style="color: ${isGirl ? '#db2777' : '#0284c7'}; font-size: 17px; font-weight: 900; white-space: nowrap;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 10px; margin-bottom: 10px; padding: 6px 16px; background: ${isGirl ? 'linear-gradient(135deg, #fdf2f8 0%, #fff1f2 100%)' : 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)'}; border: 1.5px solid ${isGirl ? '#fbcfe8' : '#bae6fd'}; border-radius: 12px; direction: ${isEn ? 'ltr' : 'rtl'};">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 18px;">${isGirl ? '🌸' : '⭐'}</span>
+                <span style="color: ${isGirl ? '#db2777' : '#0284c7'}; font-size: 18px; font-weight: 900; white-space: nowrap; font-family: 'Cairo', Arial, sans-serif;">
                   ${isEn ? 'Student Name :' : (isGirl ? 'اسم الطالبة :' : 'اسم الطالب :')}
                 </span>
               </div>
-              <div style="flex: 1; text-align: ${isEn ? 'left' : 'right'}; ${isEn ? 'padding-left: 10px;' : 'padding-right: 10px;'}">
-                <span style="color: ${isGirl ? '#be185d' : '#0369a1'}; font-size: 22px; font-weight: 900;">
+              <div style="flex: 1; text-align: ${isEn ? 'left' : 'right'}; ${isEn ? 'padding-left: 12px;' : 'padding-right: 12px;'}">
+                <span style="color: ${isGirl ? '#be185d' : '#0369a1'}; font-size: 24px; font-weight: 900; font-family: 'Cairo', Arial, sans-serif; letter-spacing: 0.3px;">
                   ${isEn ? (st.nameEn || st.nameAr || '—') : (st.nameAr || st.nameEn || '—')}
                 </span>
-                <span style="font-size: 12px; font-weight: 800; color: #d97706; margin-right: 8px; margin-left: 8px;">(${heroTitle})</span>
+                <span style="font-size: 13px; font-weight: 800; color: #d97706; margin-right: 8px; margin-left: 8px; font-family: 'Cairo', Arial, sans-serif;">(${heroTitle})</span>
               </div>
-              <div style="display: inline-flex; align-items: center; gap: 4px; background: ${isGirl ? 'linear-gradient(135deg, #fce7f3, #fed7aa)' : 'linear-gradient(135deg, #fef08a, #fed7aa)'}; border: 1.5px solid ${isGirl ? '#f472b6' : '#f59e0b'}; border-radius: 9999px; padding: 3px 10px; box-shadow: 0 2px 6px rgba(245,158,11,0.2); white-space: nowrap;">
-                <span style="font-size: 13px;">${isGirl ? '🎀' : '🏅'}</span>
-                <span style="font-size: 10px; font-weight: 900; color: ${isGirl ? '#9d174d' : '#9a3412'};">${isGirl ? 'بطلة التميز 👑' : 'بطل التميز 🎖️'}</span>
+              <div style="display: inline-flex; align-items: center; gap: 4px; background: ${isGirl ? 'linear-gradient(135deg, #fce7f3, #fed7aa)' : 'linear-gradient(135deg, #fef08a, #fed7aa)'}; border: 1.5px solid ${isGirl ? '#f472b6' : '#f59e0b'}; border-radius: 9999px; padding: 4px 12px; box-shadow: 0 2px 6px rgba(245,158,11,0.2); white-space: nowrap;">
+                <span style="font-size: 14px;">${isGirl ? '🎀' : '🏅'}</span>
+                <span style="font-size: 11px; font-weight: 900; color: ${isGirl ? '#9d174d' : '#9a3412'}; font-family: 'Cairo', Arial, sans-serif;">${isGirl ? 'بطلة التميز 👑' : 'بطل التميز 🎖️'}</span>
               </div>
             </div>
 
             <!-- The Table -->
-            <table class="cert-table" style="width: 100%; border-collapse: collapse; border: 2px solid #0284c7; text-align: center; direction: ${isEn ? 'ltr' : 'rtl'};">
+            <table class="cert-table" style="width: 100%; border-collapse: collapse; border: 2.5px solid #0284c7; text-align: center; direction: ${isEn ? 'ltr' : 'rtl'};">
               <!-- Row 1: Grade Banner (Cyan Pill Style) -->
-              <tr style="background: #e0f2fe; border-bottom: 2px solid #0284c7;">
-                <td style="border: 2px solid #0284c7; padding: 5px 12px; font-size: 14px; font-weight: 900; width: 34%; color: #0369a1; text-align: center;">
+              <tr style="background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); border-bottom: 2px solid #0284c7;">
+                <td style="border: 2px solid #0284c7; padding: 8px 14px; font-size: 16px; font-weight: 900; width: 34%; color: #0369a1; text-align: center; vertical-align: middle; font-family: 'Cairo', Arial, sans-serif;">
                   ${isEn ? 'Class / Grade :' : 'الصــــــف :'}
                 </td>
-                <td colspan="2" style="border: 2px solid #0284c7; padding: 5px 12px; font-size: 18px; font-weight: 900; color: #0284c7; font-family: Arial, sans-serif; text-align: center;">
+                <td colspan="2" style="border: 2px solid #0284c7; padding: 8px 14px; font-size: 20px; font-weight: 900; color: #0284c7; font-family: Arial, 'Cairo', sans-serif; text-align: center; vertical-align: middle; letter-spacing: 0.5px;">
                   ⭐ Grade ${st.grade} &nbsp;&nbsp; ${trackLabel} ⭐
                 </td>
               </tr>
 
               <!-- Row 2: Headers (Pastel Soft Blue) -->
-              <tr style="background: #f0f9ff; border-bottom: 2px solid #0284c7;">
-                <th style="border: 1.5px solid #0284c7; padding: 6px 12px; font-size: 14px; font-weight: 900; width: 44%; color: #0369a1; text-align: center;">
+              <tr style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-bottom: 2px solid #0284c7;">
+                <th style="border: 1.5px solid #0284c7; padding: 9px 14px; font-size: 16px; font-weight: 900; width: 44%; color: #0369a1; text-align: center; vertical-align: middle; font-family: 'Cairo', Arial, sans-serif;">
                   ${isEn ? 'Subject 📚' : 'المادة الدراسية 📚'}
                 </th>
-                <th style="border: 1.5px solid #0284c7; padding: 6px 12px; font-size: 14px; font-weight: 900; width: 28%; color: #0284c7; text-align: center;">
+                <th style="border: 1.5px solid #0284c7; padding: 9px 14px; font-size: 16px; font-weight: 900; width: 28%; color: #0284c7; text-align: center; vertical-align: middle; font-family: 'Cairo', Arial, sans-serif;">
                   ${isEn ? 'Maximum Score 🎯' : 'النهاية العظمى 🎯'}
                 </th>
-                <th style="border: 1.5px solid #0284c7; padding: 6px 12px; font-size: 14px; font-weight: 900; width: 28%; color: #0369a1; text-align: center;">
+                <th style="border: 1.5px solid #0284c7; padding: 9px 14px; font-size: 16px; font-weight: 900; width: 28%; color: #0369a1; text-align: center; vertical-align: middle; font-family: 'Cairo', Arial, sans-serif;">
                   ${isEn ? 'Score 🌟' : 'الدرجة 🌟'}
                 </th>
               </tr>
@@ -29985,36 +30014,36 @@
               ${subjectRowsApprec}
 
               <!-- Total Row -->
-              <tr style="border-top: 2px solid #0284c7; border-bottom: 1.5px solid #0284c7; background: #ffffff;">
-                <td style="border: 1.5px solid #0284c7; padding: 6px 12px; font-size: 14.5px; font-weight: 900; color: #0369a1; text-align: center;">
+              <tr style="border-top: 2.5px solid #0284c7; border-bottom: 2px solid #0284c7; background: #ffffff;">
+                <td style="border: 1.5px solid #0284c7; padding: 10px 14px; font-size: 17.5px; font-weight: 900; color: #0369a1; text-align: center; vertical-align: middle; font-family: 'Cairo', Arial, sans-serif;">
                   ${isEn ? 'Total Score' : 'المجموع الكلي'}
                 </td>
-                <td style="border: 1.5px solid #0284c7; padding: 6px 12px; font-size: 15px; font-weight: 900; color: #0284c7; text-align: center; font-family: Arial, sans-serif;">
+                <td style="border: 1.5px solid #0284c7; padding: 10px 14px; font-size: 20px; font-weight: 900; color: #0284c7; text-align: center; vertical-align: middle; font-family: Arial, sans-serif;">
                   ${certTotalMax}
                 </td>
-                <td style="border: 1.5px solid #0284c7; padding: 6px 12px; font-size: 15.5px; font-weight: 900; color: #0369a1; text-align: center; font-family: Arial, sans-serif;">
-                  ${certRecordedCount === 0 ? `<span style="font-size: 12px; color: #d97706; font-weight: 800;">قيد الرصد ⏳</span>` : certTotalScore}
+                <td style="border: 1.5px solid #0284c7; padding: 10px 14px; font-size: 21px; font-weight: 900; color: #0369a1; text-align: center; vertical-align: middle; font-family: Arial, sans-serif;">
+                  ${certRecordedCount === 0 ? `<span style="font-size: 13px; color: #d97706; font-weight: 800; font-family: 'Cairo', Arial, sans-serif;">قيد الرصد ⏳</span>` : certTotalScore}
                 </td>
               </tr>
 
               <!-- Ranking Row -->
-              <tr style="background: #fffbeb;">
-                <td style="border: 1.5px solid #0284c7; padding: 6px 12px; font-size: 14px; font-weight: 900; color: #b45309; text-align: center;">
+              <tr style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);">
+                <td style="border: 1.5px solid #0284c7; padding: 10px 14px; font-size: 17.5px; font-weight: 900; color: #b45309; text-align: center; vertical-align: middle; font-family: 'Cairo', Arial, sans-serif;">
                   ${isEn ? 'Class Rank' : 'الترتيــــــب'}
                 </td>
-                <td colspan="2" style="border: 1.5px solid #0284c7; padding: 6px 12px; font-size: 16px; font-weight: 900; color: #b45309; text-align: center;">
+                <td colspan="2" style="border: 1.5px solid #0284c7; padding: 10px 14px; font-size: 20px; font-weight: 900; color: #b45309; text-align: center; vertical-align: middle; font-family: 'Cairo', Arial, sans-serif;">
                   ${rankTitleDisplay}
                 </td>
               </tr>
             </table>
 
             <!-- Cheerful Footer Area with Stylish Badges & Stickers -->
-            <div style="width: 100%; height: 2px; background: linear-gradient(to right, #38bdf8, #ec4899, #facc15, #38bdf8); margin-top: 10px; margin-bottom: 6px; border-radius: 9999px;"></div>
+            <div style="width: 100%; height: 2.5px; background: linear-gradient(to right, #38bdf8, #ec4899, #facc15, #38bdf8); margin-top: 14px; margin-bottom: 8px; border-radius: 9999px;"></div>
 
             <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 6px; direction: ltr;">
               <!-- Left: Congratulations Art + Party Sticker -->
               <div style="display: flex; align-items: center; gap: 6px;">
-                <div style="font-family: 'Brush Script MT', 'Dancing Script', 'Pacifico', cursive; font-size: 30px; font-weight: bold; background: linear-gradient(45deg, #ec4899, #8b5cf6, #38bdf8, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                <div style="font-family: 'Dancing Script', 'Brush Script MT', 'Pacifico', cursive; font-size: 32px; font-weight: bold; background: linear-gradient(45deg, #ec4899, #8b5cf6, #38bdf8, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                   Congratulations!
                 </div>
                 <span style="font-size: 18px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">🎉</span>
@@ -30471,13 +30500,13 @@
       const subjectRowsHtml = processedSubjects.map(subj => {
         return `
           <tr class="cert-subject-row" style="border-bottom: 1.5px solid #1e293b;">
-            <td class="cert-sub-name" style="border: 1.5px solid #1e293b; padding: 5px 12px; font-size: 14px; font-weight: 800; color: #0f172a; text-align: center;">
+            <td class="cert-sub-name" style="border: 1.5px solid #1e293b; padding: 9px 14px; font-size: 16.5px; font-weight: 800; color: #0f172a; text-align: center; vertical-align: middle; font-family: 'Cairo', Arial, sans-serif;">
               ${subj.displayName || subj.name}
             </td>
-            <td class="cert-sub-max" style="border: 1.5px solid #1e293b; padding: 5px 12px; font-size: 14.5px; font-weight: 900; color: #dc2626; text-align: center; font-family: Arial, sans-serif;">
+            <td class="cert-sub-max" style="border: 1.5px solid #1e293b; padding: 9px 14px; font-size: 19.5px; font-weight: 900; color: #dc2626; text-align: center; vertical-align: middle; font-family: Arial, sans-serif;">
               ${subj.max}
             </td>
-            <td class="cert-sub-score" style="border: 1.5px solid #1e293b; padding: 5px 12px; font-size: 15px; font-weight: 900; color: #0f172a; text-align: center; font-family: Arial, sans-serif;">
+            <td class="cert-sub-score" style="border: 1.5px solid #1e293b; padding: 9px 14px; font-size: 20px; font-weight: 900; color: #0f172a; text-align: center; vertical-align: middle; font-family: Arial, sans-serif;">
               ${subj.displayScoreHtml || subj.displayScore}
             </td>
           </tr>
@@ -30485,7 +30514,7 @@
       }).join('');
 
       return `
-        <div class="custom-report-card-container cert-tpl-1" style="background: #ffffff; border: 2.5px solid #64748b; border-radius: 10px; padding: 12px 26px 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.12); width: 100%; max-width: 880px; margin: 0 auto; direction: ${isEn ? 'ltr' : 'rtl'}; font-family: ${isEn ? 'Arial, sans-serif' : '\'Cairo\', \'Segoe UI\', Arial, sans-serif'}; position: relative; box-sizing: border-box;">
+        <div class="custom-report-card-container cert-tpl-1" style="background: #ffffff; border: 2.5px solid #64748b; border-radius: 12px; padding: 14px 26px 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.12); width: 100%; max-width: 880px; margin: 0 auto; direction: ${isEn ? 'ltr' : 'rtl'}; font-family: ${isEn ? 'Arial, sans-serif' : '\'Cairo\', \'Segoe UI\', Arial, sans-serif'}; position: relative; box-sizing: border-box;">
           
           <!-- Top Row: Tilted Logo on Far Left, 3D Boxed Title in Center, Aesthetic Photo Frame on Right -->
           <div class="cert-top-header" style="display: flex; align-items: center; justify-content: space-between; position: relative; margin-bottom: 8px; direction: ltr;">
@@ -30496,11 +30525,11 @@
             </div>
 
             <!-- Center: 3D Boxed Title with outline/shadow -->
-            <div class="cert-title-box" style="margin: 0 auto; border: 2.5px solid #3b82f6; border-radius: 10px; padding: 4px 22px; background: #ffffff; box-shadow: 0 3px 10px rgba(59,130,246,0.18); text-align: center; min-width: 270px;">
-              <h2 class="cert-title-heading" style="margin: 0; font-family: ${isEn ? 'Arial, sans-serif' : '\'Cairo\', Arial, sans-serif'}; font-size: 20px; font-weight: 900; letter-spacing: 0.5px; color: #1e40af; text-shadow: 1px 1px 0px #93c5fd;">
+            <div class="cert-title-box" style="margin: 0 auto; border: 2.5px solid #3b82f6; border-radius: 12px; padding: 5px 24px; background: #ffffff; box-shadow: 0 3px 10px rgba(59,130,246,0.18); text-align: center; min-width: 275px;">
+              <h2 class="cert-title-heading" style="margin: 0; font-family: ${isEn ? 'Arial, sans-serif' : '\'Cairo\', Arial, sans-serif'}; font-size: 21px; font-weight: 900; letter-spacing: 0.5px; color: #1e40af; text-shadow: 1px 1px 0px #93c5fd;">
                 ${isEn ? reportHeaderTitleEn : reportHeaderTitleAr}
               </h2>
-              <div style="font-size: 11px; font-weight: 900; color: #2563eb; letter-spacing: 1.2px; margin-top: 1px; text-transform: uppercase; font-family: ${isEn ? '\'Cairo\', Arial, sans-serif' : 'Arial, sans-serif'};">
+              <div style="font-size: 11.5px; font-weight: 900; color: #2563eb; letter-spacing: 1.2px; margin-top: 1px; text-transform: uppercase; font-family: ${isEn ? '\'Cairo\', Arial, sans-serif' : 'Arial, sans-serif'};">
                 ${isEn ? reportHeaderTitleAr : reportHeaderTitleEn}
               </div>
             </div>
@@ -30510,40 +30539,40 @@
           </div>
 
           <!-- Student Name Row: Red bold with Name & Label -->
-          <div class="cert-student-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 8px; margin-bottom: 8px; padding: 0 4px; direction: ${isEn ? 'ltr' : 'rtl'};">
-            <div class="cert-student-label" style="color: #dc2626; font-size: ${isEn ? '20px' : '22px'}; font-weight: 900; white-space: nowrap; ${isEn ? 'margin-right: 12px; font-family: Arial, sans-serif;' : 'margin-left: 12px; font-family: \'Cairo\', Arial, sans-serif;'}">
+          <div class="cert-student-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 8px; margin-bottom: 8px; padding: 5px 14px; background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; direction: ${isEn ? 'ltr' : 'rtl'};">
+            <div class="cert-student-label" style="color: #dc2626; font-size: ${isEn ? '20px' : '20px'}; font-weight: 900; white-space: nowrap; ${isEn ? 'margin-right: 12px; font-family: Arial, sans-serif;' : 'margin-left: 12px; font-family: \'Cairo\', Arial, sans-serif;'}">
               ${isEn ? 'Student Name :' : (isGirl ? 'اسم الطالبة :' : 'اسم الطالب :')}
             </div>
-            <div class="cert-student-name" style="flex: 1; display: flex; align-items: baseline; gap: 8px; justify-content: flex-start;">
+            <div class="cert-student-name" style="flex: 1; display: flex; align-items: center; gap: 8px; justify-content: flex-start;">
               ${isEn 
                 ? `<span style="color: #dc2626; font-size: 25px; font-weight: 900; font-family: Arial, sans-serif;">${st.nameEn || st.nameAr || '—'}</span>` 
                 : `<span style="color: #dc2626; font-size: 25px; font-weight: 900; font-family: 'Cairo', Arial, sans-serif;">${st.nameAr || st.nameEn || '—'}</span>`
               }
-              ${!isEn ? `<span style="font-size: 14px; font-weight: 900; color: #b45309; margin-right: 8px; font-family: 'Cairo', Arial, sans-serif;">(${isGirl ? 'الطالبة المتفوقة' : 'الطالب المتفوق'})</span>` : ''}
+              ${!isEn ? `<span style="font-size: 13.5px; font-weight: 900; color: #b45309; margin-right: 8px; font-family: 'Cairo', Arial, sans-serif;">(${isGirl ? 'الطالبة المتفوقة 🌸' : 'الطالب المتفوق 🎖️'})</span>` : ''}
             </div>
           </div>
 
           <!-- The Table -->
-          <table class="cert-table" style="width: 100%; border-collapse: collapse; border: 2px solid #0f172a; text-align: center; direction: ${isEn ? 'ltr' : 'rtl'};">
+          <table class="cert-table" style="width: 100%; border-collapse: collapse; border: 2.5px solid #0f172a; text-align: center; direction: ${isEn ? 'ltr' : 'rtl'};">
             <!-- Row 1: Grade Banner -->
-            <tr class="cert-grade-row" style="border-bottom: 2px solid #0f172a;">
-              <td style="border: 2px solid #0f172a; padding: 5px 12px; font-size: 14.5px; font-weight: 900; width: 35%; color: #0f172a; text-align: center;">
+            <tr class="cert-grade-row" style="background: #f1f5f9; border-bottom: 2px solid #0f172a;">
+              <td style="border: 2px solid #0f172a; padding: 8px 14px; font-size: 16px; font-weight: 900; width: 34%; color: #0f172a; text-align: center; vertical-align: middle; font-family: 'Cairo', Arial, sans-serif;">
                 ${isEn ? 'Class / Grade :' : 'الصــــــف :'}
               </td>
-              <td colspan="2" style="border: 2px solid #0f172a; padding: 5px 12px; font-size: 19px; font-weight: 900; color: #2563eb; font-family: Arial, sans-serif; text-shadow: -1px -1px 0 #93c5fd, 1px -1px 0 #93c5fd, -1px 1px 0 #93c5fd, 1px 1px 0 #93c5fd; text-align: center;">
+              <td colspan="2" style="border: 2px solid #0f172a; padding: 8px 14px; font-size: 20px; font-weight: 900; color: #2563eb; font-family: Arial, 'Cairo', sans-serif; text-align: center; vertical-align: middle; letter-spacing: 0.5px;">
                 Grade ${st.grade} &nbsp;&nbsp; ${trackLabel}
               </td>
             </tr>
 
             <!-- Row 2: Headers -->
             <tr class="cert-thead-row" style="background: #f8fafc; border-bottom: 2px solid #0f172a;">
-              <th style="border: 1.5px solid #0f172a; padding: 5px 12px; font-size: 14px; font-weight: 900; width: 35%; color: #0f172a; text-align: center;">
+              <th style="border: 1.5px solid #0f172a; padding: 9px 14px; font-size: 16px; font-weight: 900; width: 44%; color: #0f172a; text-align: center; vertical-align: middle; font-family: 'Cairo', Arial, sans-serif;">
                 ${isEn ? 'Subject' : 'المادة الدراسية'}
               </th>
-              <th style="border: 1.5px solid #0f172a; padding: 5px 12px; font-size: 14px; font-weight: 900; width: 35%; color: #dc2626; text-align: center;">
+              <th style="border: 1.5px solid #0f172a; padding: 9px 14px; font-size: 16px; font-weight: 900; width: 28%; color: #dc2626; text-align: center; vertical-align: middle; font-family: 'Cairo', Arial, sans-serif;">
                 ${isEn ? 'Maximum Score' : 'النهاية العظمى'}
               </th>
-              <th style="border: 1.5px solid #0f172a; padding: 5px 12px; font-size: 14px; font-weight: 900; width: 30%; color: #0f172a; text-align: center;">
+              <th style="border: 1.5px solid #0f172a; padding: 9px 14px; font-size: 16px; font-weight: 900; width: 28%; color: #0f172a; text-align: center; vertical-align: middle; font-family: 'Cairo', Arial, sans-serif;">
                 ${isEn ? 'Student Score' : 'الدرجة'}
               </th>
             </tr>
@@ -30552,46 +30581,46 @@
             ${subjectRowsHtml}
 
             <!-- Total Row -->
-            <tr class="cert-total-row" style="border-top: 2px solid #0f172a; border-bottom: 1.5px solid #0f172a; background: #ffffff;">
-              <td style="border: 1.5px solid #0f172a; padding: 5px 12px; font-size: 14.5px; font-weight: 900; color: #0f172a; text-align: center;">
+            <tr class="cert-total-row" style="border-top: 2.5px solid #0f172a; border-bottom: 2px solid #0f172a; background: #ffffff;">
+              <td style="border: 1.5px solid #0f172a; padding: 10px 14px; font-size: 17.5px; font-weight: 900; color: #0f172a; text-align: center; vertical-align: middle; font-family: 'Cairo', Arial, sans-serif;">
                 ${isEn ? 'Total Score' : 'المجموع الكلى'}
               </td>
-              <td style="border: 1.5px solid #0f172a; padding: 5px 12px; font-size: 15px; font-weight: 900; color: #0f172a; text-align: center; font-family: Arial, sans-serif;">
+              <td style="border: 1.5px solid #0f172a; padding: 10px 14px; font-size: 20px; font-weight: 900; color: #0f172a; text-align: center; vertical-align: middle; font-family: Arial, sans-serif;">
                 ${certTotalMax}
               </td>
-              <td style="border: 1.5px solid #0f172a; padding: 5px 12px; font-size: 15px; font-weight: 900; color: #0f172a; text-align: center; font-family: Arial, sans-serif;">
+              <td style="border: 1.5px solid #0f172a; padding: 10px 14px; font-size: 21px; font-weight: 900; color: #0f172a; text-align: center; vertical-align: middle; font-family: Arial, sans-serif;">
                 ${certRecordedCount < certAcademicCount && certRecordedCount > 0 
-                  ? `${certTotalScore} <span style="font-size: 11px; color: #d97706; font-weight: 800; font-family: 'Cairo', Arial, sans-serif;">(${isEn ? 'Partial' : 'رصد جزئي'})</span>` 
-                  : (certRecordedCount === 0 ? `<span style="font-size: 12px; color: #d97706; font-weight: 800;">${isEn ? 'Pending ⏳' : 'قيد الرصد ⏳'}</span>` : certTotalScore)}
+                  ? `${certTotalScore} <span style="font-size: 12px; color: #d97706; font-weight: 800; font-family: 'Cairo', Arial, sans-serif;">(${isEn ? 'Partial' : 'رصد جزئي'})</span>` 
+                  : (certRecordedCount === 0 ? `<span style="font-size: 13px; color: #d97706; font-weight: 800; font-family: 'Cairo', Arial, sans-serif;">${isEn ? 'Pending ⏳' : 'قيد الرصد ⏳'}</span>` : certTotalScore)}
               </td>
             </tr>
 
             <!-- Ranking Row -->
-            <tr class="cert-rank-row" style="background: #ffffff;">
-              <td style="border: 1.5px solid #0f172a; padding: 5px 12px; font-size: 14.5px; font-weight: 900; color: #0f172a; text-align: center;">
+            <tr class="cert-rank-row" style="background: #fffbeb;">
+              <td style="border: 1.5px solid #0f172a; padding: 10px 14px; font-size: 17.5px; font-weight: 900; color: #0f172a; text-align: center; vertical-align: middle; font-family: 'Cairo', Arial, sans-serif;">
                 ${isEn ? 'Class Rank' : 'التـــــــرتيـــــــب'}
               </td>
-              <td colspan="2" style="border: 1.5px solid #0f172a; padding: 5px 12px; font-size: 18px; font-weight: 900; color: #d97706; text-shadow: 1px 1px 2px rgba(217,119,6,0.3); text-align: center;">
+              <td colspan="2" style="border: 1.5px solid #0f172a; padding: 10px 14px; font-size: 20px; font-weight: 900; color: #b45309; text-shadow: 1px 1px 2px rgba(217,119,6,0.2); text-align: center; vertical-align: middle; font-family: 'Cairo', Arial, sans-serif;">
                 ${rankTitleDisplay}
               </td>
             </tr>
           </table>
 
           <!-- Footer Area -->
-          <div class="cert-separator" style="width: 100%; height: 1.5px; background: linear-gradient(to right, #93c5fd, #60a5fa, #93c5fd); margin-top: 10px; margin-bottom: 8px;"></div>
+          <div class="cert-separator" style="width: 100%; height: 2px; background: linear-gradient(to right, #93c5fd, #60a5fa, #93c5fd); margin-top: 12px; margin-bottom: 8px; border-radius: 9999px;"></div>
 
           <div class="cert-greetings-row" style="display: flex; align-items: center; justify-content: space-between; padding: 0 8px; direction: ltr;">
             
             <!-- Left: Congratulations Art -->
-            <div class="cert-congrats-text" style="font-family: 'Brush Script MT', 'Dancing Script', 'Pacifico', cursive; font-size: 34px; font-weight: bold; background: linear-gradient(45deg, #ec4899, #8b5cf6, #3b82f6, #06b6d4, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.12));">
+            <div class="cert-congrats-text" style="font-family: 'Dancing Script', 'Brush Script MT', cursive; font-size: 34px; font-weight: bold; background: linear-gradient(45deg, #ec4899, #8b5cf6, #3b82f6, #06b6d4, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.12));">
               Congratulations
             </div>
 
             <!-- Middle: Good Wishes Text -->
-            <div class="cert-wish-text" style="text-align: center; color: #2563eb; font-weight: 800; font-size: 12.5px; line-height: 1.5; font-family: ${isEn ? 'Arial, sans-serif' : '\'Cairo\', sans-serif'};">
+            <div class="cert-wish-text" style="text-align: center; color: #2563eb; font-weight: 800; font-size: 13.5px; line-height: 1.5; font-family: ${isEn ? 'Arial, sans-serif' : '\'Cairo\', sans-serif'};">
               ${isEn 
-                ? `With our best wishes for continued success and excellence<br><span style="font-size: 14px; color: #1e40af; font-weight: 900; font-family: Arial, sans-serif;">Smile Kids school ☺</span>`
-                : `مع أطيب أمنياتنا بدوام النجاح والتفوق والتميز<br><span style="font-size: 14px; color: #1e40af; font-weight: 900; font-family: Arial, sans-serif;">Smile Kids school ☺</span>`
+                ? `With our best wishes for continued success and excellence<br><span style="font-size: 14.5px; color: #1e40af; font-weight: 900; font-family: Arial, sans-serif;">Smile Kids school ☺</span>`
+                : `مع أطيب أمنياتنا بدوام النجاح والتفوق والتميز<br><span style="font-size: 14.5px; color: #1e40af; font-weight: 900; font-family: Arial, sans-serif;">Smile Kids school ☺</span>`
               }
             </div>
 
