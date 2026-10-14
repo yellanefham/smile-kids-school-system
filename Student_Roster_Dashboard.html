@@ -69,19 +69,21 @@
         color: #0f172a !important;
         padding: 0 !important;
         margin: 0 !important;
-        min-height: auto !important;
+        min-height: 100% !important;
         width: 100% !important;
-        height: 100% !important;
-        overflow: hidden !important;
+        height: auto !important;
+        overflow: visible !important;
       }
 
-      /* Certificate Landscape 1-Page Dedicated Print Mode: FILLS THE ENTIRE A4 SHEET (1 EXACT PAGE) */
+      /* Certificate Landscape 1-Page Dedicated Print Mode: FILLS THE ENTIRE A4 SHEET (1 EXACT PAGE PER STUDENT) */
       body.printing-certificate {
         background: #ffffff !important;
         padding: 0 !important;
         margin: 0 !important;
         width: 100% !important;
-        height: 100% !important;
+        min-height: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
       }
       body.printing-certificate header,
       body.printing-certificate main,
@@ -97,9 +99,11 @@
       body.printing-certificate #batch-certificates-print-area {
         display: block !important;
         width: 100% !important;
-        height: 100% !important;
+        min-height: 100% !important;
+        height: auto !important;
         margin: 0 !important;
         padding: 0 !important;
+        overflow: visible !important;
       }
       body.printing-certificate .cert-print-page {
         page-break-inside: avoid !important;
@@ -30819,21 +30823,22 @@
       const c = document.getElementById('certificate-preview-container');
       if (!c) return;
       const printArea = document.getElementById('batch-certificates-print-area');
+      const cleanupPrint = () => {
+        document.body.classList.remove('printing-certificate');
+        if (printArea) printArea.classList.add('hidden');
+      };
+      window.addEventListener('afterprint', cleanupPrint, { once: true });
+
       if (printArea) {
         printArea.innerHTML = `<div class="cert-print-page" style="page-break-after: avoid; break-after: avoid;">${c.innerHTML}</div>`;
         document.body.classList.add('printing-certificate');
         printArea.classList.remove('hidden');
         window.print();
-        setTimeout(() => {
-          document.body.classList.remove('printing-certificate');
-          printArea.classList.add('hidden');
-        }, 1200);
+        setTimeout(cleanupPrint, 30000);
       } else {
         document.body.classList.add('printing-certificate');
         window.print();
-        setTimeout(() => {
-          document.body.classList.remove('printing-certificate');
-        }, 1200);
+        setTimeout(cleanupPrint, 30000);
       }
     }
 
@@ -30881,14 +30886,17 @@
           batchHtml += `<div class="cert-print-page" style="${isLast ? 'page-break-after: avoid; break-after: avoid;' : 'page-break-after: always; break-after: page;'}">${cert}</div>`;
         });
 
+        const cleanupBatch = () => {
+          document.body.classList.remove('printing-certificate');
+          printArea.classList.add('hidden');
+        };
+        window.addEventListener('afterprint', cleanupBatch, { once: true });
+
         printArea.innerHTML = batchHtml;
         document.body.classList.add('printing-certificate');
         printArea.classList.remove('hidden');
         window.print();
-        setTimeout(() => {
-          document.body.classList.remove('printing-certificate');
-          printArea.classList.add('hidden');
-        }, 1200);
+        setTimeout(cleanupBatch, 30000);
         return;
       }
 
@@ -30933,14 +30941,17 @@
         batchHtml += `<div class="cert-print-page" style="${isLast ? 'page-break-after: avoid; break-after: avoid;' : 'page-break-after: always; break-after: page;'}">${cert}</div>`;
       });
 
+      const cleanupBatchRegular = () => {
+        document.body.classList.remove('printing-certificate');
+        printArea.classList.add('hidden');
+      };
+      window.addEventListener('afterprint', cleanupBatchRegular, { once: true });
+
       printArea.innerHTML = batchHtml;
       document.body.classList.add('printing-certificate');
       printArea.classList.remove('hidden');
       window.print();
-      setTimeout(() => {
-        document.body.classList.remove('printing-certificate');
-        printArea.classList.add('hidden');
-      }, 1200);
+      setTimeout(cleanupBatchRegular, 30000);
     }
 
     // ==================== WHATSAPP APP CHOOSER LOGIC ====================
