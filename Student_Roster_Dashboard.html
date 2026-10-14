@@ -29520,12 +29520,13 @@
       }
     }
 
-    function calculateStudentClassRank(st, periodKey) {
+    function calculateStudentClassRank(st, periodKey, plainText = false) {
       if (!st) return '';
       const config = getRanksConfig();
       const pTot = getStudentPeriodTotal(st, periodKey);
 
       if (pTot.recordedCount === 0 || pTot.totalScore === 0) {
+        if (plainText) return 'في انتظار رصد الدرجات ⏳';
         return '<span class="text-amber-400 text-xs font-bold">في انتظار رصد الدرجات</span>';
       }
 
@@ -29536,6 +29537,7 @@
       const isGirlRank = (st && st.gender === 'female');
       const pronounRecorded = isGirlRank ? 'لها' : 'له';
       if (config.requireFullRecording && pTot.recordedCount < totalSubjects) {
+        if (plainText) return `رصد غير مكتمل (${pTot.recordedCount}/${totalSubjects})`;
         return `<span class="text-slate-400 text-xs font-bold" title="رُصد ${pronounRecorded} ${pTot.recordedCount} من ${totalSubjects} مادة">رصد غير مكتمل (${pTot.recordedCount}/${totalSubjects})</span>`;
       }
 
@@ -29559,6 +29561,7 @@
         if (posIndex >= 1 && posIndex <= 10) {
           const rule = config.ranks.find(r => r.rank === posIndex);
           if (rule && lostMarks <= rule.maxLost) {
+            if (plainText) return rule.label;
             return `<span class="font-black text-amber-500" style="font-size: 19px; color: #b45309; letter-spacing: 0.3px; font-family: 'Cairo', Arial, sans-serif;">${rule.label}</span>`;
           }
         }
@@ -29567,6 +29570,7 @@
         for (let i = 0; i < config.ranks.length; i++) {
           const r = config.ranks[i];
           if (lostMarks <= r.maxLost) {
+            if (plainText) return r.label;
             return `<span class="font-black text-amber-500" style="font-size: 19px; color: #b45309; letter-spacing: 0.3px; font-family: 'Cairo', Arial, sans-serif;">${r.label}</span>`;
           }
         }
@@ -29574,8 +29578,10 @@
 
       if (pTot.percentage >= 50) {
         const passLabel = isGirlRank ? 'ناجحة' : 'ناجح';
+        if (plainText) return passLabel;
         return `<span class="text-emerald-600 font-bold" style="font-size: 17.5px; color: #059669; font-family: 'Cairo', Arial, sans-serif;">${passLabel}</span>`;
       }
+      if (plainText) return 'يحتاج متابعة';
       return `<span class="text-rose-600 font-bold" style="font-size: 17.5px; color: #dc2626; font-family: 'Cairo', Arial, sans-serif;">يحتاج متابعة</span>`;
     }
 
@@ -29802,13 +29808,6 @@
         // Can be re-enabled next month by changing this flag to true.
         const SHOW_CERTIFICATE_STUDENT_PHOTO = false;
         if (!SHOW_CERTIFICATE_STUDENT_PHOTO) {
-          if (mode === 'standard') {
-            // Invisible balanced spacer to keep title perfectly centered against the logo
-            return '<div style="width: 120px; flex-shrink: 0;" class="no-print-photo-spacer"></div>';
-          }
-          if (mode === 'modern') {
-            return '<div style="width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, #7c3aed, #4f46e5); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;">🎓</div>';
-          }
           return '';
         }
 
@@ -29928,38 +29927,60 @@
         return `
           <div class="custom-report-card-container cert-appreciation-card" style="background: #ffffff; border: 3px solid #38bdf8; border-radius: 18px; padding: 16px 26px 14px; box-shadow: 0 10px 30px rgba(56,189,248,0.18); width: 100%; max-width: 880px; margin: 0 auto; direction: ${isEn ? 'ltr' : 'rtl'}; font-family: ${isEn ? 'Arial, sans-serif' : '\'Cairo\', \'Segoe UI\', Arial, sans-serif'}; position: relative; box-sizing: border-box; color: #0f172a;">
             
-            <!-- Top Header: Smile Kids Logo on Left, Boxed Title in Center, Student Photo on Right -->
+            <!-- Cheerful Floating Cartoon Emojis in Corners -->
+            <div style="position: absolute; top: 10px; right: 14px; font-size: 24px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12)); pointer-events: none; transform: rotate(10deg);">🎈</div>
+            <div style="position: absolute; top: 10px; left: 14px; font-size: 24px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12)); pointer-events: none; transform: rotate(-10deg);">🌈</div>
+            <div style="position: absolute; bottom: 10px; right: 14px; font-size: 22px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12)); pointer-events: none; transform: rotate(-8deg);">🎨</div>
+            <div style="position: absolute; bottom: 10px; left: 14px; font-size: 22px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12)); pointer-events: none; transform: rotate(8deg);">🚀</div>
+
+            <!-- Top Header: Smile Kids Logo on Left, Boxed Title in Center, Cheerful Cartoon Badges on Right -->
             <div class="cert-top-header" style="display: flex; align-items: center; justify-content: space-between; position: relative; margin-bottom: 8px; direction: ltr;">
               
-              <!-- Left: Tilted Smile Kids Logo Badge + Cheerful Mascot Sticker -->
-              <div style="display: flex; align-items: center; gap: 6px;">
-                <div class="cert-logo-wrapper" style="transform: rotate(-5deg); background: #ffffff; padding: 4px 12px; border-radius: 14px; box-shadow: 0 4px 12px rgba(56,189,248,0.2); border: 2px solid #bae6fd; display: inline-block;">
-                  <img src="smile_kids_logo.png" style="height: 48px; max-width: 120px; object-fit: contain; display: block;" alt="Smile Kids Logo">
+              <!-- Left: Tilted Smile Kids Logo Badge + Cheerful Keep Shining Cartoon Sticker -->
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div class="cert-logo-wrapper" style="transform: rotate(-4deg); background: #ffffff; padding: 5px 14px; border-radius: 16px; box-shadow: 0 4px 14px rgba(56,189,248,0.25); border: 2px solid #bae6fd; display: inline-block;">
+                  <img src="smile_kids_logo.png" style="height: 50px; max-width: 120px; object-fit: contain; display: block;" alt="Smile Kids Logo">
                 </div>
-                <div style="transform: rotate(-3deg); background: #fdf4ff; border: 1.5px solid #f0abfc; padding: 3px 8px; border-radius: 10px; box-shadow: 0 2px 6px rgba(217,70,239,0.15); display: flex; flex-direction: column; align-items: center; text-align: center;">
-                  <span style="font-size: 13px; line-height: 1;">✏️ ✨</span>
-                  <span style="font-size: 8.5px; font-weight: 900; color: #a21caf; font-family: Arial, sans-serif; white-space: nowrap; margin-top: 1px;">Keep Shining!</span>
+                <div style="transform: rotate(-3deg); background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%); border: 2px solid #e879f9; padding: 6px 12px; border-radius: 14px; box-shadow: 0 4px 12px rgba(217,70,239,0.22); display: flex; align-items: center; gap: 7px;">
+                  <span style="font-size: 22px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">✏️ ✨</span>
+                  <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15;">
+                    <span style="font-size: 11px; font-weight: 900; color: #a21caf; font-family: 'Cairo', Arial, sans-serif;">واصل التألق!</span>
+                    <span style="font-size: 9.5px; font-weight: 900; color: #c026d3; font-family: Arial, sans-serif; letter-spacing: 0.3px;">Keep Shining!</span>
+                  </div>
                 </div>
               </div>
 
               <!-- Center: Cheerful Boxed Title with Hearts -->
-              <div class="cert-title-box" style="margin: 0 auto; border: 2.5px dashed #0284c7; border-radius: 12px; padding: 5px 24px; background: #f0f9ff; box-shadow: 0 3px 10px rgba(2,132,199,0.15); text-align: center; min-width: 280px;">
-                <div style="font-size: 11.5px; font-weight: 900; color: #0284c7; letter-spacing: 0.6px; font-family: Arial, sans-serif;">
+              <div class="cert-title-box" style="margin: 0 auto; border: 2.5px dashed #0284c7; border-radius: 14px; padding: 6px 26px; background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%); box-shadow: 0 4px 14px rgba(2,132,199,0.18); text-align: center; min-width: 285px;">
+                <div style="font-size: 11.5px; font-weight: 900; color: #0284c7; letter-spacing: 0.8px; font-family: Arial, sans-serif;">
                   ♥ SEPTEMBER ASSESSMENT REPORT ♥
                 </div>
-                <h2 style="margin: 2px 0 0; font-size: 20px; font-weight: 900; color: #0369a1; letter-spacing: 0.5px; font-family: 'Cairo', Arial, sans-serif;">
+                <h2 style="margin: 2px 0 0; font-size: 22px; font-weight: 900; color: #0369a1; letter-spacing: 0.5px; font-family: 'Cairo', Arial, sans-serif;">
                   شهـــــادة تقديـــــر وتفـــــوق 🌟
                 </h2>
-                <div style="font-size: 10.5px; font-weight: 800; color: #e11d48; margin-top: 1px; font-family: 'Cairo', Arial, sans-serif;">
+                <div style="font-size: 11px; font-weight: 800; color: #e11d48; margin-top: 2px; font-family: 'Cairo', Arial, sans-serif;">
                   Smile Kids Language School
                 </div>
               </div>
 
-              <!-- Right: Authentic You Can Do It Badge + Face-Centered Student Photo Frame -->
+              <!-- Right: Cheerful Duo Cartoon Badges (You Can Do It! + Super Star!) -->
               <div style="display: flex; align-items: center; gap: 8px;">
-                <div style="background: #fff38a; border: 2px solid #facc15; border-radius: 13px; padding: 5px 11px; box-shadow: 0 4px 10px rgba(234,179,8,0.22); text-align: center; transform: rotate(3deg); display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                  <div style="font-size: 16px; line-height: 1; filter: drop-shadow(0 1px 2px rgba(202,138,4,0.35));">⭐</div>
-                  <div style="font-size: 9.5px; font-weight: 900; color: #713f12; font-family: Arial, sans-serif; margin-top: 2px; white-space: nowrap; letter-spacing: 0.2px;">You Can Do It!</div>
+                <!-- Sticker 1: You Can Do It! -->
+                <div style="background: linear-gradient(135deg, #fef08a 0%, #fed7aa 100%); border: 2px solid #f59e0b; border-radius: 14px; padding: 6px 12px; box-shadow: 0 4px 12px rgba(245,158,11,0.25); text-align: center; transform: rotate(3deg); display: flex; align-items: center; gap: 7px;">
+                  <span style="font-size: 22px; filter: drop-shadow(0 2px 4px rgba(202,138,4,0.35));">⭐ 🏆</span>
+                  <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15;">
+                    <span style="font-size: 11px; font-weight: 900; color: #713f12; font-family: 'Cairo', Arial, sans-serif;">أنت تستطيع!</span>
+                    <span style="font-size: 9.5px; font-weight: 900; color: #9a3412; font-family: Arial, sans-serif; letter-spacing: 0.3px;">You Can Do It!</span>
+                  </div>
+                </div>
+
+                <!-- Sticker 2: Super Star! -->
+                <div style="background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); border: 2px solid #0284c7; border-radius: 14px; padding: 6px 12px; box-shadow: 0 4px 12px rgba(2,132,199,0.22); text-align: center; transform: rotate(-2deg); display: flex; align-items: center; gap: 7px;">
+                  <span style="font-size: 22px; filter: drop-shadow(0 2px 4px rgba(2,132,199,0.3));">🚀 🌟</span>
+                  <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15;">
+                    <span style="font-size: 11px; font-weight: 900; color: #0369a1; font-family: 'Cairo', Arial, sans-serif;">نجم متألق!</span>
+                    <span style="font-size: 9.5px; font-weight: 900; color: #0284c7; font-family: Arial, sans-serif; letter-spacing: 0.3px;">Super Star!</span>
+                  </div>
                 </div>
                 ${renderCertPhoto('standard', 74, 94)}
               </div>
@@ -29979,9 +30000,9 @@
                 </span>
                 <span style="font-size: 13px; font-weight: 800; color: #d97706; margin-right: 8px; margin-left: 8px; font-family: 'Cairo', Arial, sans-serif;">(${heroTitle})</span>
               </div>
-              <div style="display: inline-flex; align-items: center; gap: 4px; background: ${isGirl ? 'linear-gradient(135deg, #fce7f3, #fed7aa)' : 'linear-gradient(135deg, #fef08a, #fed7aa)'}; border: 1.5px solid ${isGirl ? '#f472b6' : '#f59e0b'}; border-radius: 9999px; padding: 4px 12px; box-shadow: 0 2px 6px rgba(245,158,11,0.2); white-space: nowrap;">
-                <span style="font-size: 14px;">${isGirl ? '🎀' : '🏅'}</span>
-                <span style="font-size: 11px; font-weight: 900; color: ${isGirl ? '#9d174d' : '#9a3412'}; font-family: 'Cairo', Arial, sans-serif;">${isGirl ? 'بطلة التميز 👑' : 'بطل التميز 🎖️'}</span>
+              <div style="display: inline-flex; align-items: center; gap: 6px; background: ${isGirl ? 'linear-gradient(135deg, #fce7f3, #fed7aa)' : 'linear-gradient(135deg, #fef08a, #fed7aa)'}; border: 2px solid ${isGirl ? '#f472b6' : '#f59e0b'}; border-radius: 9999px; padding: 5px 14px; box-shadow: 0 3px 8px rgba(245,158,11,0.22); white-space: nowrap;">
+                <span style="font-size: 16px;">${isGirl ? '🎀 👑' : '🏅 🎖️'}</span>
+                <span style="font-size: 12px; font-weight: 900; color: ${isGirl ? '#9d174d' : '#9a3412'}; font-family: 'Cairo', Arial, sans-serif;">${isGirl ? 'بطلة التميز 👑' : 'بطل التميز 🎖️'}</span>
               </div>
             </div>
 
@@ -30397,95 +30418,173 @@
       }
 
       // ==========================================
-      // TEMPLATE 4: CHEERFUL KIDS & SUPER STAR
+      // TEMPLATE 4: CHEERFUL KIDS & SUPER STAR (أبطال كيدز المبهج)
       // ==========================================
       if (activeStyle === 'style-kids') {
-        const s4Rows = processedSubjects.map(s => `
-          <tr style="border-bottom: 1.5px solid #fce7f3; background: #ffffff;">
-            <td style="padding: 8px 12px; font-weight: 900; text-align: right; color: #581c87;">${s.name}</td>
-            <td style="padding: 8px 12px; font-weight: bold; color: #64748b; font-family: Arial, sans-serif;">${s.max}</td>
-            <td style="padding: 8px 12px; font-weight: 900; color: #db2777; font-family: Arial, sans-serif; font-size: 15px;">${s.displayScore}</td>
-            <td style="padding: 8px 12px; font-weight: 900; color: #d97706; font-size: 12px;">${s.apprec}</td>
-          </tr>
-        `).join('');
+        const s4Rows = processedSubjects.map(subj => {
+          const scoreText = subj.isRecorded 
+            ? `<span style="font-size: 20px; font-weight: 900; color: #0284c7; font-family: Arial, sans-serif; display: inline-block;">${subj.score}</span>` 
+            : `<span style="font-size: 13.5px; font-weight: 800; color: #d97706; font-family: 'Cairo', Arial, sans-serif;">قيد الرصد ⏳</span>`;
+
+          return `
+            <tr style="border-bottom: 1.5px solid #0284c7; background: #ffffff;">
+              <td style="border: 1.5px solid #0284c7; padding: 9px 14px; font-size: 16.5px; font-weight: 800; color: #0f172a; text-align: center; vertical-align: middle; font-family: 'Cairo', Arial, sans-serif;">
+                ${subj.displayName || subj.name}
+              </td>
+              <td style="border: 1.5px solid #0284c7; padding: 9px 14px; font-size: 19.5px; font-weight: 900; color: #0284c7; text-align: center; vertical-align: middle; font-family: Arial, sans-serif;">
+                ${subj.max}
+              </td>
+              <td style="border: 1.5px solid #0284c7; padding: 9px 14px; font-size: 20px; font-weight: 900; color: #0f172a; text-align: center; vertical-align: middle; font-family: Arial, sans-serif;">
+                ${scoreText}
+              </td>
+            </tr>
+          `;
+        }).join('');
 
         return `
-          <div class="custom-report-card-container" style="background: #fffdf9; border: 5px solid #fbbf24; border-radius: 24px; padding: 22px 28px; box-shadow: 0 15px 35px rgba(0,0,0,0.12); width: 100%; max-width: 880px; margin: 0 auto; direction: rtl; font-family: 'Cairo', sans-serif; position: relative; box-sizing: border-box; color: #1e293b;">
+          <div class="custom-report-card-container cert-kids-card" style="background: #ffffff; border: 4px solid #38bdf8; border-radius: 22px; padding: 14px 22px 12px; box-shadow: 0 12px 36px rgba(56,189,248,0.18); width: 100%; max-width: 880px; margin: 0 auto; direction: ${isEn ? 'ltr' : 'rtl'}; font-family: ${isEn ? 'Arial, sans-serif' : '\'Cairo\', \'Segoe UI\', Arial, sans-serif'}; position: relative; box-sizing: border-box; color: #1e293b;">
             
-            <!-- Cheerful Header -->
-            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px dashed #fcd34d; padding-bottom: 12px;">
+            <!-- Inner Cheerful Pink Dashed Frame Line (from User's reference) -->
+            <div style="position: absolute; inset: 5px; border: 2.5px dashed #f472b6; border-radius: 17px; pointer-events: none; z-index: 1;"></div>
+
+            <!-- Cheerful Floating Cartoon Emojis in 4 Corners -->
+            <div style="position: absolute; top: 12px; right: 14px; font-size: 24px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12)); pointer-events: none; transform: rotate(10deg); z-index: 2;">🎈</div>
+            <div style="position: absolute; top: 12px; left: 14px; font-size: 24px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12)); pointer-events: none; transform: rotate(-10deg); z-index: 2;">🌈</div>
+            <div style="position: absolute; bottom: 12px; right: 14px; font-size: 22px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12)); pointer-events: none; transform: rotate(-8deg); z-index: 2;">🎨</div>
+            <div style="position: absolute; bottom: 12px; left: 14px; font-size: 22px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12)); pointer-events: none; transform: rotate(8deg); z-index: 2;">🚀</div>
+
+            <!-- Top Header: Logo + Pinned Keep Shining on Left, Boxed Title Center, Pinned Super Star on Right -->
+            <div class="cert-top-header" style="display: flex; align-items: center; justify-content: space-between; position: relative; margin-bottom: 8px; direction: ltr; z-index: 2;">
+              
+              <!-- Left: Tilted Smile Kids Logo Badge + Cheerful Keep Shining Sticker with 3D Cyan Pin Ball -->
               <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 32px;">⭐</span>
-                <div>
-                  <div style="font-size: 18px; font-weight: 900; color: #db2777;">حضانة ومدرسة سمايل كيدز</div>
-                  <div style="font-size: 10px; font-weight: 800; color: #d97706;">Smile Kids Happy Learning School</div>
+                <div class="cert-logo-wrapper" style="transform: rotate(-5deg); background: #ffffff; padding: 4px 12px; border-radius: 14px; box-shadow: 0 4px 14px rgba(56,189,248,0.25); border: 2px solid #bae6fd; display: inline-block;">
+                  <img src="smile_kids_logo.png" style="height: 48px; max-width: 120px; object-fit: contain; display: block;" alt="Smile Kids Logo">
+                </div>
+                <div style="position: relative; display: inline-flex; align-items: center; gap: 7px; background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%); border: 2.5px solid #d946ef; border-radius: 14px; padding: 5px 12px 4px; box-shadow: 0 4px 14px rgba(217,70,239,0.25); transform: rotate(-3deg);">
+                  <!-- 3D Cyan Ball Pin on Top Edge -->
+                  <div style="position: absolute; top: -10px; left: 18px; width: 18px; height: 18px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #38bdf8 0%, #0284c7 65%, #0369a1 100%); box-shadow: 0 3px 6px rgba(2,132,199,0.45), inset -1px -1px 2px rgba(0,0,0,0.3); border: 2px solid #ffffff; z-index: 5;"></div>
+                  <span style="font-size: 20px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12));">✏️ ✨</span>
+                  <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15;">
+                    <span style="font-size: 11px; font-weight: 900; color: #86198f; font-family: 'Cairo', Arial, sans-serif;">واصل التألق!</span>
+                    <span style="font-size: 9.5px; font-weight: 900; color: #a21caf; font-family: Arial, sans-serif; letter-spacing: 0.3px;">Keep Shining!</span>
+                  </div>
                 </div>
               </div>
 
-              <div style="background: #fbbf24; color: #0f172a; padding: 4px 16px; border-radius: 12px; font-weight: 900; font-size: 13px;">
-                ${reportHeaderTitle}
-              </div>
-
-              <div style="font-size: 24px;">🎈 🌈</div>
-            </div>
-
-            <!-- Big Celebration Trophy Banner -->
-            <div style="text-align: center; margin: 14px 0;">
-              <div style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(90deg, #ec4899, #8b5cf6, #3b82f6); color: white; padding: 6px 24px; border-radius: 9999px; font-weight: 900; font-size: 16px; box-shadow: 0 4px 15px rgba(236,72,153,0.3);">
-                <span>🏆</span>
-                <span>${isGirl ? 'شهـــــادة بطــــلة التفـــــوق الصغيـــرة' : 'شهـــــادة بطــــل التفـــــوق الصغيـــر'}</span>
-                <span>🎉</span>
-              </div>
-              <div style="font-size: 11px; font-weight: 700; color: #7c3aed; margin-top: 4px;">
-                ${isGirl ? 'نبارك لبطلتنا المميزة تفوقها وإبداعها الرائع في اختبارات هذا الفصل الدراسي' : 'نبارك لبطلنا المميز تفوقه وإبداعه الرائع في اختبارات هذا الفصل الدراسي'}
-              </div>
-            </div>
-
-            <!-- Student Card with Face-Centered Photo -->
-            <div style="background: #ffffff; border: 2px solid #e9d5ff; border-radius: 16px; padding: 12px 18px; text-align: center; margin: 12px 0; display: flex; align-items: center; justify-content: center; gap: 20px;">
-              <div style="flex-shrink: 0;">
-                ${renderCertPhoto('kids', 76, 96)}
-              </div>
-              <div style="text-align: right;">
-                <div style="font-size: 11px; color: #64748b; font-weight: bold;">${isEn ? 'Super Star Name:' : (isGirl ? 'اسم الطالبة المتفوقة 🌸:' : 'اسم الطالب المتفوق ⭐:')}</div>
-                <div style="font-size: 23px; font-weight: 900; color: #6b21a8; margin-top: 2px;">${isEn ? (st.nameEn || st.nameAr) : (st.nameAr || st.nameEn)}</div>
-                ${!isEn ? `<div style="font-size: 11px; font-weight: 800; color: #db2777; margin-top: 2px;">${isGirl ? 'حصلت على درجات رائعة ومتميزة' : 'حصل على درجات رائعة ومتميزة'}</div>` : ''}
-                <div style="display: inline-block; background: #fef3c7; border: 1px solid #fde68a; padding: 2px 12px; border-radius: 9999px; font-size: 11px; font-weight: 900; color: #92400e; margin-top: 4px;">
-                  Grade ${st.grade} &nbsp;&nbsp; ${trackLabel}
+              <!-- Center: Cheerful Boxed Title with Hearts -->
+              <div class="cert-title-box" style="margin: 0 auto; border: 2.5px dashed #0284c7; border-radius: 14px; padding: 6px 24px; background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%); box-shadow: 0 4px 14px rgba(2,132,199,0.18); text-align: center; min-width: 275px;">
+                <div style="font-size: 11px; font-weight: 900; color: #0284c7; letter-spacing: 0.8px; font-family: Arial, sans-serif;">
+                  ♥ SEPTEMBER ASSESSMENT REPORT ♥
+                </div>
+                <h2 style="margin: 2px 0 0; font-size: 21px; font-weight: 900; color: #0369a1; letter-spacing: 0.5px; font-family: 'Cairo', Arial, sans-serif;">
+                  ${isGirl ? 'شهـــــادة بطــــلة التفـــــوق الصغيـــرة 🌟' : 'شهـــــادة بطــــل التفـــــوق الصغيـــر 🌟'}
+                </h2>
+                <div style="font-size: 11px; font-weight: 800; color: #e11d48; margin-top: 2px; font-family: 'Cairo', Arial, sans-serif;">
+                  Smile Kids Language School
                 </div>
               </div>
+
+              <!-- Right: SUPER STAR Sticker with 3D Red Ball Pin (from User's Image 1) + You Can Do It! -->
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <!-- Sticker 1: You Can Do It! -->
+                <div style="background: linear-gradient(135deg, #fef08a 0%, #fed7aa 100%); border: 2px solid #f59e0b; border-radius: 14px; padding: 5px 11px; box-shadow: 0 4px 12px rgba(245,158,11,0.25); text-align: center; transform: rotate(-2deg); display: flex; align-items: center; gap: 6px;">
+                  <span style="font-size: 20px; filter: drop-shadow(0 2px 4px rgba(202,138,4,0.35));">⭐ 🏆</span>
+                  <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15;">
+                    <span style="font-size: 10.5px; font-weight: 900; color: #713f12; font-family: 'Cairo', Arial, sans-serif;">أنت تستطيع!</span>
+                    <span style="font-size: 9px; font-weight: 900; color: #9a3412; font-family: Arial, sans-serif; letter-spacing: 0.3px;">You Can Do It!</span>
+                  </div>
+                </div>
+
+                <!-- Sticker 2: SUPER STAR with 3D Red Ball Pin (User Image 1) -->
+                <div style="position: relative; display: inline-flex; align-items: center; gap: 7px; background: linear-gradient(135deg, #fef08a 0%, #fde047 100%); border: 2.5px solid #f59e0b; border-radius: 14px; padding: 5px 12px 4px; box-shadow: 0 4px 14px rgba(245,158,11,0.3); transform: rotate(3deg);">
+                  <!-- 3D Red Ball Pin on Top Edge (from User Image 1) -->
+                  <div style="position: absolute; top: -10px; right: 18px; width: 19px; height: 19px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #ff4d6d 0%, #dc2626 65%, #991b1b 100%); box-shadow: 0 3px 6px rgba(185,28,28,0.45), inset -1px -1px 2px rgba(0,0,0,0.3); border: 2px solid #ffffff; z-index: 5;"></div>
+                  <span style="font-size: 20px; filter: drop-shadow(0 2px 4px rgba(202,138,4,0.35));">⭐ 🥳</span>
+                  <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15;">
+                    <span style="font-size: 11px; font-weight: 900; color: #713f12; font-family: 'Cairo', Arial, sans-serif;">سوبر ستار!</span>
+                    <span style="font-size: 9.5px; font-weight: 900; color: #c2410c; letter-spacing: 0.5px; font-family: Arial, sans-serif;">SUPER STAR!</span>
+                  </div>
+                </div>
+                ${renderCertPhoto('kids', 74, 94)}
+              </div>
             </div>
 
-            <!-- Cheerful Table -->
-            <table style="width: 100%; border-collapse: collapse; text-align: center; font-size: 13px; border-radius: 12px; overflow: hidden; margin: 12px 0;">
+            <!-- Student Name Row: Red bold with Name & User's Image 2 Dashed Rocket Capsule Badge -->
+            <div class="cert-student-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 8px; margin-bottom: 8px; padding: 5px 14px; background: #fffbeb; border: 2px solid #fde68a; border-radius: 12px; direction: ${isEn ? 'ltr' : 'rtl'}; position: relative; z-index: 2;">
+              <div style="display: flex; align-items: center; gap: 8px; flex: 1;">
+                <span style="color: #dc2626; font-size: 19px; font-weight: 900; white-space: nowrap; font-family: 'Cairo', Arial, sans-serif;">
+                  ${isEn ? 'Student Name :' : (isGirl ? 'اسم الطالبة :' : 'اسم الطالب :')}
+                </span>
+                <span style="color: #dc2626; font-size: 23px; font-weight: 900; font-family: 'Cairo', Arial, sans-serif;">
+                  ${studentDisplayName}
+                </span>
+                <span style="font-size: 13px; font-weight: 800; color: #d97706; margin-right: 8px; margin-left: 8px; font-family: 'Cairo', Arial, sans-serif;">
+                  (Grade ${st.grade} &nbsp;&nbsp; ${trackLabel})
+                </span>
+              </div>
+
+              <!-- Capsule Badge with Dashed Orange Border & Launching Rocket (User Image 2) -->
+              <div style="position: relative; display: inline-flex; align-items: center; gap: 6px; border: 2.5px dashed #f59e0b; border-radius: 9999px; padding: 4px 16px; background: #ffffff; box-shadow: 0 3px 10px rgba(245,158,11,0.22); white-space: nowrap;">
+                <span style="font-size: 17px; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));">👑</span>
+                <span style="font-size: 13.5px; font-weight: 900; color: #c2410c; font-family: 'Cairo', Arial, sans-serif;">${isGirl ? 'نجمة متميزة' : 'بطل متميز'}</span>
+                <span style="font-size: 20px; filter: drop-shadow(0 2px 4px rgba(234,88,12,0.35)); transform: rotate(-15deg); margin-right: -4px;">🚀</span>
+              </div>
+            </div>
+
+            <!-- The Cheerful Table -->
+            <table class="cert-table" style="width: 100%; border-collapse: collapse; border: 2.5px solid #0284c7; text-align: center; margin: 6px 0; direction: ${isEn ? 'ltr' : 'rtl'}; position: relative; z-index: 2;">
               <thead>
-                <tr style="background: #06b6d4; color: white; font-weight: 900;">
-                  <th style="padding: 7px 12px; text-align: right;">المادة الممتعة 📚</th>
-                  <th style="padding: 7px 12px;">الدرجة العظمى 🎯</th>
-                  <th style="padding: 7px 12px;">${isGirl ? 'درجة البطلة 🌟' : 'درجة البطل 🌟'}</th>
-                  <th style="padding: 7px 12px;">التقدير 👏</th>
+                <tr style="background: linear-gradient(135deg, #0284c7 0%, #06b6d4 100%); color: white; font-weight: 900;">
+                  <th style="border: 1.5px solid #0284c7; padding: 9px 14px; font-size: 16px; width: 44%; font-family: 'Cairo', Arial, sans-serif;">المادة الدراسية الممتعة 📚</th>
+                  <th style="border: 1.5px solid #0284c7; padding: 9px 14px; font-size: 16px; width: 28%; font-family: 'Cairo', Arial, sans-serif;">النهاية العظمى 🎯</th>
+                  <th style="border: 1.5px solid #0284c7; padding: 9px 14px; font-size: 16px; width: 28%; font-family: 'Cairo', Arial, sans-serif;">${isGirl ? 'درجة البطلة 🌟' : 'درجة البطل 🌟'}</th>
                 </tr>
               </thead>
               <tbody>
                 ${s4Rows}
               </tbody>
               <tfoot>
-                <tr style="background: #fef3c7; font-weight: 900; font-size: 14px; border-top: 2px solid #fcd34d;">
-                  <td style="padding: 8px 12px; text-align: right; color: #1e293b;">المجموع الكلي:</td>
-                  <td style="padding: 8px 12px; color: #64748b;">${certTotalMax}</td>
-                  <td style="padding: 8px 12px; color: #6b21a8; font-size: 16px;">${certTotalScore}</td>
-                  <td style="padding: 8px 12px; color: #b45309;">${rankTitle}</td>
+                <!-- Total Row -->
+                <tr style="background: #f0fdf4; border-top: 2.5px solid #0284c7;">
+                  <td style="border: 1.5px solid #0284c7; padding: 9px 14px; font-size: 17.5px; font-weight: 900; color: #15803d; font-family: 'Cairo', Arial, sans-serif;">المجموع الكلي 🏆</td>
+                  <td style="border: 1.5px solid #0284c7; padding: 9px 14px; font-size: 20px; font-weight: 900; color: #0284c7; font-family: Arial, sans-serif;">${certTotalMax}</td>
+                  <td style="border: 1.5px solid #0284c7; padding: 9px 14px; font-size: 21px; font-weight: 900; color: #15803d; font-family: Arial, sans-serif;">
+                    ${certRecordedCount < certAcademicCount && certRecordedCount > 0 
+                      ? `${certTotalScore} <span style="font-size: 12px; color: #d97706; font-weight: 800; font-family: 'Cairo', Arial, sans-serif;">(رصد جزئي)</span>` 
+                      : (certRecordedCount === 0 ? `<span style="font-size: 13px; color: #d97706; font-weight: 800; font-family: 'Cairo', Arial, sans-serif;">قيد الرصد ⏳</span>` : certTotalScore)}
+                  </td>
+                </tr>
+                <!-- Ranking Row -->
+                <tr style="background: #fffbeb; border-top: 1.5px solid #0284c7;">
+                  <td style="border: 1.5px solid #0284c7; padding: 9px 14px; font-size: 17.5px; font-weight: 900; color: #b45309; font-family: 'Cairo', Arial, sans-serif;">الترتيـــــــب 🎖️</td>
+                  <td colspan="2" style="border: 1.5px solid #0284c7; padding: 9px 14px; font-size: 20px; font-weight: 900; color: #b45309; font-family: 'Cairo', Arial, sans-serif;">${rankTitleDisplay}</td>
                 </tr>
               </tfoot>
             </table>
 
             <!-- Cheerful Footer -->
-            <div style="margin-top: 14px; padding-top: 10px; border-top: 2px dashed #fcd34d; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 4px 8px 2px; margin-top: 6px; direction: ltr; position: relative; z-index: 2;">
+              <!-- Left: Cheerful Wishes -->
               <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 26px;">🎖️</span>
-                <div style="text-align: center;">
-                  <div style="color: #db2777; font-weight: 900; font-size: 13px;">${isGirl ? 'أحسنتِ يا بطلة! استمري في التألق والنجاح 🌟' : 'أحسنت يا بطل! استمر في التألق والنجاح 🌟'}</div>
-                  <div style="color: #64748b; font-size: 10px;">مع تمنيات أسرة حضانة ومدرسة سمايل كيدز للغات بدوام التميز والتفوق</div>
+                <span style="font-size: 28px;">🎈</span>
+                <div style="text-align: left;">
+                  <div style="color: #db2777; font-weight: 900; font-size: 13.5px; font-family: 'Cairo', Arial, sans-serif;">
+                    ${isGirl ? 'أحسنتِ يا بطلة! استمري في التألق والنجاح 🌟' : 'أحسنت يا بطل! استمر في التألق والنجاح 🌟'}
+                  </div>
+                  <div style="color: #0284c7; font-size: 11px; font-weight: 800; font-family: 'Cairo', Arial, sans-serif;">
+                    مع تمنيات أسرة حضانة ومدرسة سمايل كيدز للغات بدوام التميز والتفوق ☺
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right: Symmetrical Cheerful Stickers (Top Performer + WELL DONE ⭐ 💯) -->
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 5px 13px; border-radius: 12px; font-size: 11.5px; font-weight: 900; border: 2px solid #a7f3d0; box-shadow: 0 4px 10px rgba(16,185,129,0.3); transform: rotate(-3deg); display: flex; align-items: center; gap: 4px; font-family: Arial, sans-serif;">
+                  <span>🏆</span> <span>Top Performer</span>
+                </div>
+                <div style="background: linear-gradient(135deg, #f43f5e, #fb7185); color: white; padding: 5px 13px; border-radius: 12px; font-size: 11.5px; font-weight: 900; border: 2px solid #fecdd3; box-shadow: 0 4px 10px rgba(244,63,94,0.3); transform: rotate(3deg); display: flex; align-items: center; gap: 4px; font-family: Arial, sans-serif;">
+                  <span>WELL DONE</span> <span>⭐ 💯</span>
                 </div>
               </div>
             </div>
@@ -30514,18 +30613,33 @@
       }).join('');
 
       return `
-        <div class="custom-report-card-container cert-tpl-1" style="background: #ffffff; border: 2.5px solid #64748b; border-radius: 12px; padding: 14px 26px 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.12); width: 100%; max-width: 880px; margin: 0 auto; direction: ${isEn ? 'ltr' : 'rtl'}; font-family: ${isEn ? 'Arial, sans-serif' : '\'Cairo\', \'Segoe UI\', Arial, sans-serif'}; position: relative; box-sizing: border-box;">
+        <div class="custom-report-card-container cert-tpl-1" style="background: #ffffff; border: 2.5px solid #64748b; border-radius: 14px; padding: 14px 26px 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.12); width: 100%; max-width: 880px; margin: 0 auto; direction: ${isEn ? 'ltr' : 'rtl'}; font-family: ${isEn ? 'Arial, sans-serif' : '\'Cairo\', \'Segoe UI\', Arial, sans-serif'}; position: relative; box-sizing: border-box;">
           
-          <!-- Top Row: Tilted Logo on Far Left, 3D Boxed Title in Center, Aesthetic Photo Frame on Right -->
+          <!-- Cheerful Floating Cartoon Emojis in Corners -->
+          <div style="position: absolute; top: 10px; right: 14px; font-size: 24px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12)); pointer-events: none; transform: rotate(10deg);">🎈</div>
+          <div style="position: absolute; top: 10px; left: 14px; font-size: 24px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12)); pointer-events: none; transform: rotate(-10deg);">🌈</div>
+          <div style="position: absolute; bottom: 10px; right: 14px; font-size: 22px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12)); pointer-events: none; transform: rotate(-8deg);">🎨</div>
+          <div style="position: absolute; bottom: 10px; left: 14px; font-size: 22px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12)); pointer-events: none; transform: rotate(8deg);">🚀</div>
+
+          <!-- Top Row: Tilted Logo & Cartoon Sticker on Left, 3D Boxed Title in Center, Cartoon Badges on Right -->
           <div class="cert-top-header" style="display: flex; align-items: center; justify-content: space-between; position: relative; margin-bottom: 8px; direction: ltr;">
             
-            <!-- Left: Tilted Smile Kids Badge -->
-            <div class="cert-logo-wrapper" style="transform: rotate(-8deg); background: #ffffff; padding: 4px 12px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); border: 1.5px solid #cbd5e1; display: inline-block;">
-              <img src="smile_kids_logo.png" style="height: 48px; max-width: 120px; object-fit: contain; display: block;" alt="Smile Kids Logo">
+            <!-- Left: Tilted Smile Kids Badge + Cheerful Keep Shining Sticker -->
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div class="cert-logo-wrapper" style="transform: rotate(-6deg); background: #ffffff; padding: 4px 12px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); border: 1.5px solid #cbd5e1; display: inline-block;">
+                <img src="smile_kids_logo.png" style="height: 48px; max-width: 120px; object-fit: contain; display: block;" alt="Smile Kids Logo">
+              </div>
+              <div style="transform: rotate(-3deg); background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%); border: 2px solid #e879f9; padding: 5px 11px; border-radius: 14px; box-shadow: 0 4px 12px rgba(217,70,239,0.22); display: flex; align-items: center; gap: 6px;">
+                <span style="font-size: 20px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">✏️ ✨</span>
+                <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15;">
+                  <span style="font-size: 10.5px; font-weight: 900; color: #a21caf; font-family: 'Cairo', Arial, sans-serif;">واصل التألق!</span>
+                  <span style="font-size: 9px; font-weight: 900; color: #c026d3; font-family: Arial, sans-serif; letter-spacing: 0.3px;">Keep Shining!</span>
+                </div>
+              </div>
             </div>
 
             <!-- Center: 3D Boxed Title with outline/shadow -->
-            <div class="cert-title-box" style="margin: 0 auto; border: 2.5px solid #3b82f6; border-radius: 12px; padding: 5px 24px; background: #ffffff; box-shadow: 0 3px 10px rgba(59,130,246,0.18); text-align: center; min-width: 275px;">
+            <div class="cert-title-box" style="margin: 0 auto; border: 2.5px solid #3b82f6; border-radius: 14px; padding: 6px 24px; background: #ffffff; box-shadow: 0 3px 10px rgba(59,130,246,0.18); text-align: center; min-width: 275px;">
               <h2 class="cert-title-heading" style="margin: 0; font-family: ${isEn ? 'Arial, sans-serif' : '\'Cairo\', Arial, sans-serif'}; font-size: 21px; font-weight: 900; letter-spacing: 0.5px; color: #1e40af; text-shadow: 1px 1px 0px #93c5fd;">
                 ${isEn ? reportHeaderTitleEn : reportHeaderTitleAr}
               </h2>
@@ -30534,8 +30648,27 @@
               </div>
             </div>
 
-            <!-- Right: Aesthetic Face-Centered Student Photo Box -->
-            ${renderCertPhoto('standard', 82, 102)}
+            <!-- Right: Cheerful Duo Cartoon Badges (You Can Do It! + Super Star!) -->
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <!-- Sticker 1: You Can Do It! -->
+              <div style="background: linear-gradient(135deg, #fef08a 0%, #fed7aa 100%); border: 2px solid #f59e0b; border-radius: 14px; padding: 5px 11px; box-shadow: 0 4px 12px rgba(245,158,11,0.25); text-align: center; transform: rotate(3deg); display: flex; align-items: center; gap: 6px;">
+                <span style="font-size: 20px; filter: drop-shadow(0 2px 4px rgba(202,138,4,0.35));">⭐ 🏆</span>
+                <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15;">
+                  <span style="font-size: 10.5px; font-weight: 900; color: #713f12; font-family: 'Cairo', Arial, sans-serif;">أنت تستطيع!</span>
+                  <span style="font-size: 9px; font-weight: 900; color: #9a3412; font-family: Arial, sans-serif; letter-spacing: 0.3px;">You Can Do It!</span>
+                </div>
+              </div>
+
+              <!-- Sticker 2: Super Star! -->
+              <div style="background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); border: 2px solid #0284c7; border-radius: 14px; padding: 5px 11px; box-shadow: 0 4px 12px rgba(2,132,199,0.22); text-align: center; transform: rotate(-2deg); display: flex; align-items: center; gap: 6px;">
+                <span style="font-size: 20px; filter: drop-shadow(0 2px 4px rgba(2,132,199,0.3));">🚀 🌟</span>
+                <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15;">
+                  <span style="font-size: 10.5px; font-weight: 900; color: #0369a1; font-family: 'Cairo', Arial, sans-serif;">نجم متألق!</span>
+                  <span style="font-size: 9px; font-weight: 900; color: #0284c7; font-family: Arial, sans-serif; letter-spacing: 0.3px;">Super Star!</span>
+                </div>
+              </div>
+              ${renderCertPhoto('standard', 74, 94)}
+            </div>
           </div>
 
           <!-- Student Name Row: Red bold with Name & Label -->
@@ -30549,6 +30682,10 @@
                 : `<span style="color: #dc2626; font-size: 25px; font-weight: 900; font-family: 'Cairo', Arial, sans-serif;">${st.nameAr || st.nameEn || '—'}</span>`
               }
               ${!isEn ? `<span style="font-size: 13.5px; font-weight: 900; color: #b45309; margin-right: 8px; font-family: 'Cairo', Arial, sans-serif;">(${isGirl ? 'الطالبة المتفوقة 🌸' : 'الطالب المتفوق 🎖️'})</span>` : ''}
+              <div style="margin-right: auto; margin-left: 8px; display: inline-flex; align-items: center; gap: 6px; background: ${isGirl ? 'linear-gradient(135deg, #fce7f3, #fed7aa)' : 'linear-gradient(135deg, #fef08a, #fed7aa)'}; border: 2px solid ${isGirl ? '#f472b6' : '#f59e0b'}; border-radius: 9999px; padding: 4px 12px; box-shadow: 0 2px 6px rgba(245,158,11,0.2); white-space: nowrap;">
+                <span style="font-size: 15px;">${isGirl ? '🎀 👑' : '🏅 🎖️'}</span>
+                <span style="font-size: 11.5px; font-weight: 900; color: ${isGirl ? '#9d174d' : '#9a3412'}; font-family: 'Cairo', Arial, sans-serif;">${isGirl ? 'بطلة التميز 👑' : 'بطل التميز 🎖️'}</span>
+              </div>
             </div>
           </div>
 
@@ -30626,12 +30763,12 @@
 
             <!-- Right: GOOD JOB Card/Badge with Shooting Stars -->
             <div class="cert-good-job-badge" style="display: flex; flex-direction: column; align-items: center; position: relative;">
-              <div style="position: absolute; top: -12px; right: -6px; font-size: 13px; color: #f59e0b;">✨</div>
-              <div style="position: absolute; top: -10px; left: -6px; font-size: 13px; color: #3b82f6;">⭐</div>
-              <div style="background: linear-gradient(135deg, #f43f5e, #fb7185); color: white; font-weight: 900; font-size: 10.5px; padding: 4px 10px; border-radius: 8px; box-shadow: 0 3px 10px rgba(244,63,94,0.35); border: 2px solid white; transform: rotate(5deg); letter-spacing: 0.5px;">
-                GOOD JOB
+              <div style="position: absolute; top: -14px; right: -8px; font-size: 16px; color: #f59e0b;">✨</div>
+              <div style="position: absolute; top: -12px; left: -8px; font-size: 16px; color: #3b82f6;">⭐</div>
+              <div style="background: linear-gradient(135deg, #f43f5e, #fb7185); color: white; font-weight: 900; font-size: 12px; padding: 5px 14px; border-radius: 10px; box-shadow: 0 4px 12px rgba(244,63,94,0.35); border: 2px solid white; transform: rotate(4deg); letter-spacing: 0.6px; display: flex; align-items: center; gap: 4px;">
+                <span>WELL DONE</span> ⭐
               </div>
-              <div style="font-size: 22px; margin-top: -5px;">💌</div>
+              <div style="font-size: 26px; margin-top: -4px;">💌 💯</div>
             </div>
 
           </div>
@@ -30935,7 +31072,8 @@
       };
       const reportTitle = titleMapAr[pKey] || 'تقرير تقييم الطالب الأكاديمي';
       const periodTotals = getStudentPeriodTotal(student, pKey);
-      const rankTitle = calculateStudentClassRank(student, pKey);
+      const rawRank = calculateStudentClassRank(student, pKey, true);
+      const rankTitle = (typeof rawRank === 'string' ? rawRank.replace(/<[^>]*>/g, '').trim() : '') || '—';
       const subjects = getGradeSubjectsConfig(student.grade, student.track);
 
       let msg = `السادة أولياء أمور الطالب/ة: ${student.nameAr} المحترمين 🌸\n`;
@@ -30946,7 +31084,8 @@
 
       subjects.forEach(subj => {
         const sc = getStudentSubjectScore(student, subj.id, pKey);
-        const subjName = subj.id === 'religion' ? `${subj.name} (لا تضاف للمجموع)` : subj.name;
+        const rawName = (subj.displayName || subj.name || '').replace(/<[^>]*>/g, '').trim();
+        const subjName = subj.id === 'religion' ? `${rawName} (لا تضاف للمجموع)` : rawName;
         if (sc && sc.isRecorded && sc.score > 0) {
           msg += `▫️ ${subjName}: *${sc.score}* من ${sc.maxScore || subj.max}\n`;
         } else {
@@ -30959,7 +31098,7 @@
       if (periodTotals.percentage > 0) {
         msg += `📈 *النسبة المئوية:* ${periodTotals.percentage}%\n`;
       }
-      msg += `🎖️ *الترتيب:* ${rankTitle}\n`;
+      msg += `🎖️ *الترتيب:* *${rankTitle}*\n`;
       msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
       msg += `مع أطيب أمنياتنا لأبطالنا بدوام التميز والتفوق العلمي 🌟\n`;
       msg += `Smile Kids school ☺`;
