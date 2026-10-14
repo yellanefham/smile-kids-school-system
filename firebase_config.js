@@ -101,7 +101,7 @@
   }
 
   async function ensureFirebaseSdk() {
-    if (typeof window === 'undefined') return false;
+    if (typeof window === 'undefined' || typeof document === 'undefined') return false;
     if (window.firebase && window.firebase.firestore && window.firebase.auth) {
       return true;
     }
@@ -196,6 +196,110 @@
     return res;
   }
 
+
+  // =======================================================================
+  // 3.5. محرك التزامن المباشر عبر واجهة Firestore REST API (REST Engine Fallback)
+  // يضمن اتصالاً ثنائياً وسحابياً 100% حتى لو تعذر تحميل SDK أو تم حجبه
+  // =======================================================================
+  function encodeFirestoreValue(val) {
+    if (val === null || val === undefined) return { nullValue: null };
+    if (typeof val === 'boolean') return { booleanValue: val };
+    if (typeof val === 'number') {
+      if (Number.isInteger(val)) return { integerValue: String(val) };
+      return { doubleValue: val };
+    }
+    if (typeof val === 'string') return { stringValue: val };
+    if (Array.isArray(val)) {
+      return { arrayValue: { values: val.map(encodeFirestoreValue) } };
+    }
+    if (typeof val === 'object') {
+      const fields = {};
+      for (const [k, v] of Object.entries(val)) {
+        if (!k.includes('.')) {
+          fields[k] = encodeFirestoreValue(v);
+        }
+      }
+      return { mapValue: { fields } };
+    }
+    return { stringValue: String(val) };
+  }
+
+  function decodeFirestoreValue(v) {
+    if (!v) return null;
+    if (v.stringValue !== undefined) return v.stringValue;
+    if (v.integerValue !== undefined) return parseInt(v.integerValue, 10);
+    if (v.doubleValue !== undefined) return Number(v.doubleValue);
+    if (v.booleanValue !== undefined) return v.booleanValue;
+    if (v.nullValue !== undefined) return null;
+    if (v.mapValue && v.mapValue.fields) {
+      const obj = {};
+      for (const [mk, mv] of Object.entries(v.mapValue.fields)) {
+        obj[mk] = decodeFirestoreValue(mv);
+      }
+      return obj;
+    }
+    if (v.arrayValue && v.arrayValue.values) {
+      return v.arrayValue.values.map(decodeFirestoreValue);
+    }
+    return null;
+  }
+
+  function decodeFirestoreDoc(doc) {
+    if (!doc || !doc.fields) return {};
+    const res = {};
+    for (const [k, v] of Object.entries(doc.fields)) {
+      res[k] = decodeFirestoreValue(v);
+    }
+    return res;
+  }
+
+  const REST_BASE_URL = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents`;
+
+  async function fetchCollectionREST(collectionName) {
+    let allDocs = [];
+    let pageToken = '';
+    do {
+      let url = `${REST_BASE_URL}/${collectionName}?pageSize=300&key=${firebaseConfig.apiKey}`;
+      if (pageToken) url += `&pageToken=${encodeURIComponent(pageToken)}`;
+      const resp = await fetch(url);
+      if (!resp.ok) throw new Error(`Firestore REST GET failed: ${resp.status}`);
+      const data = await resp.json();
+      if (Array.isArray(data.documents)) {
+        data.documents.forEach(doc => {
+          allDocs.push(decodeFirestoreDoc(doc));
+        });
+      }
+      pageToken = data.nextPageToken || '';
+    } while (pageToken);
+    return allDocs;
+  }
+
+  async function getDocREST(collectionName, docId) {
+    const url = `${REST_BASE_URL}/${collectionName}/${encodeURIComponent(docId)}?key=${firebaseConfig.apiKey}`;
+    const resp = await fetch(url);
+    if (resp.status === 404) return null;
+    if (!resp.ok) throw new Error(`Firestore REST GET doc failed: ${resp.status}`);
+    const data = await resp.json();
+    return decodeFirestoreDoc(data);
+  }
+
+  async function saveDocREST(collectionName, docId, data) {
+    const url = `${REST_BASE_URL}/${collectionName}/${encodeURIComponent(docId)}?key=${firebaseConfig.apiKey}`;
+    const fields = {};
+    for (const [k, v] of Object.entries(data)) {
+      if (!k.includes('.')) {
+        fields[k] = encodeFirestoreValue(v);
+      }
+    }
+    const resp = await fetch(url, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fields })
+    });
+    if (!resp.ok) throw new Error(`Firestore REST PATCH failed: ${resp.status}`);
+    return await resp.json();
+  }
+
   // =======================================================================
   // 4. الواجهة البرمجية الموحدة (Unified Public API)
   // =======================================================================
@@ -209,15 +313,22 @@
     auth: null,
     whenReady: readyPromise,
 
-    /**
-     * التحقق اللحظي من اتصال Firebase وجاهزيته
-     */
-    canUseFirestore: function() {
-      return Boolean(this.isConfigured && this.db);
+    // محرك REST المساعد المتاح للاستدعاء المباشر
+    rest: {
+      fetchCollection: fetchCollectionREST,
+      getDoc: getDocREST,
+      saveDoc: saveDocREST
     },
 
     /**
-     * حفظ / تحديث بيانات طالب في مجموعة 'students'
+     * التحقق اللحظي من اتصال Firebase وجاهزيته (يدعم كلاً من SDK و REST Fallback)
+     */
+    canUseFirestore: function() {
+      return Boolean(this.isConfigured && (this.db || typeof fetch === 'function'));
+    },
+
+    /**
+     * حفظ / تحديث بيانات طالب في مجموعة 'students' (يدعم SDK مع Fallback تلقائي إلى REST)
      * @param {Object} studentData بيانات الطالب الكاملة
      */
     saveStudentToFirestore: async function(studentData) {
@@ -229,19 +340,31 @@
         return { success: false, fallback: true, message: 'Firebase غير مهيأ، تم الحفظ محلياً' };
       }
 
-      try {
-        const docRef = this.db.collection('students').doc(String(studentData.id));
-        const cleanData = cleanObjectForFirestore(studentData);
-        const payload = Object.assign({}, cleanData, {
-          _lastModified: Date.now(),
-          _updatedAt: new Date().toISOString()
-        });
+      const cleanData = cleanObjectForFirestore(studentData);
+      const payload = Object.assign({}, cleanData, {
+        _lastModified: Date.now(),
+        _updatedAt: new Date().toISOString()
+      });
 
-        await docRef.set(payload, { merge: true });
-        return { success: true, id: studentData.id };
-      } catch(err) {
-        console.warn(`[SmileKids Firebase] خطأ أثناء حفظ الطالب ${studentData.id} في Firestore:`, err);
-        return { success: false, error: err.message };
+
+      // 1. Try Firebase SDK if available
+      if (this.db) {
+        try {
+          const docRef = this.db.collection('students').doc(String(studentData.id));
+          await docRef.set(payload, { merge: true });
+          return { success: true, id: studentData.id, source: 'sdk' };
+        } catch(err) {
+          console.warn(`[SmileKids Firebase] تعذر الحفظ عبر SDK للطالب ${studentData.id}، جاري التحويل إلى REST Fallback:`, err);
+        }
+      }
+
+      // 2. Fallback to Firestore REST API
+      try {
+        await saveDocREST('students', String(studentData.id), payload);
+        return { success: true, id: studentData.id, source: 'rest' };
+      } catch(restErr) {
+        console.warn(`[SmileKids Firebase] خطأ أثناء حفظ الطالب ${studentData.id} في Firestore عبر REST:`, restErr);
+        return { success: false, error: restErr.message };
       }
     },
 
@@ -337,9 +460,7 @@
         const period = gradeRecord.periodKey || 'general';
 
         const gradeDocId = `${stId}_${subId}_${period}`;
-        const gradeRef = this.db.collection('grades').doc(gradeDocId);
-
-        batch.set(gradeRef, {
+        const gradePayload = {
           studentId: stId,
           subjectId: subId,
           periodKey: period,
@@ -348,12 +469,9 @@
           details: gradeRecord.patch || {},
           updatedAt: nowIso,
           timestamp: nowTs
-        }, { merge: true });
+        };
 
-        // مزامنة سجل درجات الطالب في وثيقة الطالب
-        const stRef = this.db.collection('students').doc(stId);
         const stUpdate = { _lastModified: nowTs };
-
         if (gradeRecord.termsScores) {
           stUpdate.termsScores = gradeRecord.termsScores;
         }
@@ -364,9 +482,28 @@
           stUpdate[`subjectScores.${subId}.scores.${period}`] = gradeRecord.score;
         }
 
-        batch.set(stRef, stUpdate, { merge: true });
-        await batch.commit();
-        return { success: true, id: gradeDocId };
+        // 1. Try Firebase SDK if available
+        if (this.db) {
+          try {
+            const batch = this.db.batch();
+            const gradeRef = this.db.collection('grades').doc(gradeDocId);
+            batch.set(gradeRef, gradePayload, { merge: true });
+
+            const stRef = this.db.collection('students').doc(stId);
+            batch.set(stRef, stUpdate, { merge: true });
+            await batch.commit();
+            return { success: true, id: gradeDocId, source: 'sdk' };
+          } catch(sdkErr) {
+            console.warn(`[SmileKids Firebase] تعذر حفظ الدرجات عبر SDK للطالب ${stId}، جاري التحويل إلى REST Fallback:`, sdkErr);
+          }
+        }
+
+        // 2. Fallback to Firestore REST API
+        await saveDocREST('grades', gradeDocId, gradePayload);
+        try {
+          await saveDocREST('students', stId, stUpdate);
+        } catch(e) {}
+        return { success: true, id: gradeDocId, source: 'rest' };
       } catch(err) {
         console.warn(`[SmileKids Firebase] خطأ في حفظ الدرجات للطالب ${gradeRecord.studentId}:`, err);
         return { success: false, error: err.message };
@@ -575,37 +712,60 @@
      */
     saveSettingsToFirestore: async function(settingsObj) {
       if (!settingsObj || !this.canUseFirestore()) return { success: false, fallback: true };
+      const payload = Object.assign({}, settingsObj, {
+        _updatedAt: new Date().toISOString(),
+        _lastModified: Date.now()
+      });
+
+      // 1. Try Firebase SDK
+      if (this.db) {
+        try {
+          await this.db.collection('settings').doc('appSettings').set(payload, { merge: true });
+          return { success: true, source: 'sdk' };
+        } catch(err) {
+          console.warn('[SmileKids Firebase] تعذر حفظ الإعدادات عبر SDK، جاري التحويل إلى REST Fallback:', err);
+        }
+      }
+
+      // 2. Fallback to Firestore REST API
       try {
-        await this.db.collection('settings').doc('appSettings').set(Object.assign({}, settingsObj, {
-          _updatedAt: new Date().toISOString(),
-          _lastModified: Date.now()
-        }), { merge: true });
-        return { success: true };
+        await saveDocREST('settings', 'appSettings', payload);
+        return { success: true, source: 'rest' };
       } catch(err) {
-        console.warn('[SmileKids Firebase] خطأ في حفظ الإعدادات في Firestore:', err);
+        console.warn('[SmileKids Firebase] خطأ في حفظ الإعدادات في Firestore عبر REST:', err);
         return { success: false, error: err.message };
       }
     },
 
     /**
-     * سحب الإعدادات العامة للنظام من Firestore
+     * سحب الإعدادات العامة للنظام من Firestore (يدعم SDK مع Fallback إلى REST)
      */
     fetchSettingsFromFirestore: async function() {
       if (!this.canUseFirestore()) return null;
-      try {
-        const doc = await this.db.collection('settings').doc('appSettings').get();
-        if (doc.exists && doc.data()) {
-          return doc.data();
+
+      // 1. Try Firebase SDK
+      if (this.db) {
+        try {
+          const doc = await this.db.collection('settings').doc('appSettings').get();
+          if (doc.exists && doc.data()) {
+            return doc.data();
+          }
+        } catch(err) {
+          console.warn('[SmileKids Firebase] تعذر جلب الإعدادات عبر SDK، جاري التحويل إلى REST Fallback:', err);
         }
-        return null;
+      }
+
+      // 2. Fallback to Firestore REST API
+      try {
+        return await getDocREST('settings', 'appSettings');
       } catch(err) {
-        console.warn('[SmileKids Firebase] خطأ في جلب الإعدادات من Firestore:', err);
+        console.warn('[SmileKids Firebase] خطأ في جلب الإعدادات من Firestore عبر REST:', err);
         return null;
       }
     },
 
     /**
-     * جلب شامل وفوري لجميع الطلاب والدرجات والإعدادات من سحابة Firestore
+     * جلب شامل وفوري لجميع الطلاب والدرجات والإعدادات من سحابة Firestore (يدعم SDK مع Fallback إلى REST)
      */
     fetchAllFromFirestore: async function() {
       if (!this.canUseFirestore() && this.whenReady) {
@@ -615,39 +775,64 @@
         return { success: false, fallback: true, message: 'Firebase غير متصل' };
       }
 
+      // 1. Try Firebase SDK if available
+      if (this.db) {
+        try {
+          const stSnapshot = await this.db.collection('students').get();
+          const students = [];
+          stSnapshot.forEach(doc => {
+            if (doc.exists) students.push(doc.data());
+          });
+
+          const gradesSnapshot = await this.db.collection('grades').get();
+          const grades = [];
+          gradesSnapshot.forEach(doc => {
+            if (doc.exists) grades.push(doc.data());
+          });
+
+          let customMaxScores = null;
+          let appSettings = null;
+          try {
+            const sDoc = await this.db.collection('settings').doc('maxScores').get();
+            if (sDoc.exists && sDoc.data()) customMaxScores = sDoc.data().data;
+          } catch(e) {}
+          try {
+            const settDoc = await this.db.collection('settings').doc('appSettings').get();
+            if (settDoc.exists && settDoc.data()) appSettings = settDoc.data();
+          } catch(e) {}
+
+          return {
+            success: true,
+            source: 'sdk',
+            students: students,
+            grades: grades,
+            customMaxScores: customMaxScores,
+            appSettings: appSettings,
+            selectedCertificateStyle: appSettings ? appSettings.selectedCertificateStyle : null,
+            count: students.length
+          };
+        } catch(sdkErr) {
+          console.warn('[SmileKids Firebase] تعذر الجلب الشامل عبر SDK، جاري التحويل إلى REST Fallback المباشر:', sdkErr);
+        }
+      }
+
+      // 2. Fallback to Firestore REST API
       try {
-        // 1. Fetch Students
-        const stSnapshot = await this.db.collection('students').get();
-        const students = [];
-        stSnapshot.forEach(doc => {
-          if (doc.exists) students.push(doc.data());
-        });
-
-        // 2. Fetch Grades
-        const gradesSnapshot = await this.db.collection('grades').get();
-        const grades = [];
-        gradesSnapshot.forEach(doc => {
-          if (doc.exists) grades.push(doc.data());
-        });
-
-        // 3. Fetch Settings / Max Scores & App Settings
+        const students = await fetchCollectionREST('students');
+        const grades = await fetchCollectionREST('grades');
         let customMaxScores = null;
         let appSettings = null;
         try {
-          const sDoc = await this.db.collection('settings').doc('maxScores').get();
-          if (sDoc.exists && sDoc.data()) {
-            customMaxScores = sDoc.data().data;
-          }
+          const sDoc = await getDocREST('settings', 'maxScores');
+          if (sDoc && sDoc.data) customMaxScores = sDoc.data;
         } catch(e) {}
         try {
-          const settDoc = await this.db.collection('settings').doc('appSettings').get();
-          if (settDoc.exists && settDoc.data()) {
-            appSettings = settDoc.data();
-          }
+          appSettings = await getDocREST('settings', 'appSettings');
         } catch(e) {}
 
         return {
           success: true,
+          source: 'rest',
           students: students,
           grades: grades,
           customMaxScores: customMaxScores,
@@ -656,7 +841,7 @@
           count: students.length
         };
       } catch(err) {
-        console.error('[SmileKids Firebase] خطأ أثناء الجلب الشامل من Firestore:', err);
+        console.error('[SmileKids Firebase] خطأ أثناء الجلب الشامل من Firestore عبر REST:', err);
         return { success: false, error: err.message };
       }
     },
