@@ -53,7 +53,7 @@
     @media print {
       @page {
         size: A4 landscape;
-        margin: 6mm 8mm;
+        margin: 4mm 5mm;
       }
       
       * {
@@ -71,6 +71,8 @@
         margin: 0 !important;
         min-height: auto !important;
         width: 100% !important;
+        height: 100% !important;
+        overflow: hidden !important;
       }
 
       /* Certificate Landscape 1-Page Dedicated Print Mode: FILLS THE ENTIRE A4 SHEET (1 EXACT PAGE) */
@@ -79,7 +81,7 @@
         padding: 0 !important;
         margin: 0 !important;
         width: 100% !important;
-        height: auto !important;
+        height: 100% !important;
       }
       body.printing-certificate header,
       body.printing-certificate main,
@@ -95,6 +97,7 @@
       body.printing-certificate #batch-certificates-print-area {
         display: block !important;
         width: 100% !important;
+        height: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
       }
@@ -104,16 +107,16 @@
         page-break-after: always !important;
         break-after: page !important;
         width: 100% !important;
-        max-width: 278mm !important;
-        height: 100% !important;
-        max-height: 192mm !important;
+        max-width: 287mm !important;
+        height: 200mm !important;
+        max-height: 202mm !important;
         box-sizing: border-box !important;
         padding: 0 !important;
         margin: 0 auto !important;
         display: flex !important;
         flex-direction: column !important;
-        justify-content: center !important;
-        align-items: center !important;
+        justify-content: stretch !important;
+        align-items: stretch !important;
         overflow: visible !important;
       }
       body.printing-certificate .cert-print-page:last-child {
@@ -123,11 +126,12 @@
 
       body.printing-certificate .custom-report-card-container {
         width: 100% !important;
-        max-width: 275mm !important;
-        height: auto !important;
-        max-height: 188mm !important;
+        max-width: 100% !important;
+        height: 198mm !important;
+        min-height: 196mm !important;
+        max-height: 200mm !important;
         box-sizing: border-box !important;
-        padding: 5mm 8mm 4mm 8mm !important;
+        padding: 5mm 9mm 4mm 9mm !important;
         margin: 0 auto !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
@@ -222,16 +226,17 @@
       body.printing-certificate .cert-table {
         width: 100% !important;
         border-collapse: collapse !important;
-        border: 2.5px solid #0f172a !important;
+        flex: 1 1 auto !important;
         margin: 2mm 0 !important;
+        display: table !important;
       }
       body.printing-certificate .cert-table th,
       body.printing-certificate .cert-table td {
-        padding: 5px 10px !important;
-        font-size: 15.5px !important;
+        padding: 7px 12px !important;
+        font-size: 16px !important;
         vertical-align: middle !important;
         text-align: center !important;
-        border-width: 1.5px !important;
+        border-width: 2px !important;
       }
       body.printing-certificate .cert-sub-name {
         font-size: 16px !important;
@@ -29986,16 +29991,13 @@
                 </div>
               </div>
 
-              <!-- Center: Cheerful Boxed Title with Hearts -->
-              <div class="cert-title-box" style="margin: 0 auto; border: 2.5px dashed #0284c7; border-radius: 14px; padding: 6px 26px; background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%); box-shadow: 0 4px 14px rgba(2,132,199,0.18); text-align: center; min-width: 285px;">
-                <div style="font-size: 11.5px; font-weight: 900; color: #0284c7; letter-spacing: 0.8px; font-family: Arial, sans-serif;">
-                  ♥ SEPTEMBER ASSESSMENT REPORT ♥
-                </div>
-                <h2 style="margin: 2px 0 0; font-size: 22px; font-weight: 900; color: #0369a1; letter-spacing: 0.5px; font-family: 'Cairo', Arial, sans-serif;">
-                  شهـــــادة تقديـــــر وتفـــــوق 🌟
+              <!-- Center: Official 3D Boxed Title matching User's Spec -->
+              <div class="cert-title-box" style="margin: 0 auto; border: 2.5px solid #3b82f6; border-radius: 14px; padding: 6px 24px; background: #ffffff; box-shadow: 0 3px 10px rgba(59,130,246,0.18); text-align: center; min-width: 275px;">
+                <h2 class="cert-title-heading" style="margin: 0; font-family: ${isEn ? 'Arial, sans-serif' : '\'Cairo\', Arial, sans-serif'}; font-size: 21px; font-weight: 900; letter-spacing: 0.5px; color: #1e40af; text-shadow: 1px 1px 0px #93c5fd;">
+                  ${isEn ? reportHeaderTitleEn : reportHeaderTitleAr}
                 </h2>
-                <div style="font-size: 11px; font-weight: 800; color: #e11d48; margin-top: 2px; font-family: 'Cairo', Arial, sans-serif;">
-                  Smile Kids Language School
+                <div style="font-size: 11.5px; font-weight: 900; color: #2563eb; letter-spacing: 1.2px; margin-top: 1px; text-transform: uppercase; font-family: ${isEn ? '\'Cairo\', Arial, sans-serif' : 'Arial, sans-serif'};">
+                  ${isEn ? reportHeaderTitleAr : reportHeaderTitleEn}
                 </div>
               </div>
 
@@ -30497,16 +30499,13 @@
                 </div>
               </div>
 
-              <!-- Center: Cheerful Boxed Title with Hearts -->
-              <div class="cert-title-box" style="margin: 0 auto; border: 2.5px dashed #0284c7; border-radius: 14px; padding: 6px 24px; background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%); box-shadow: 0 4px 14px rgba(2,132,199,0.18); text-align: center; min-width: 275px;">
-                <div style="font-size: 11px; font-weight: 900; color: #0284c7; letter-spacing: 0.8px; font-family: Arial, sans-serif;">
-                  ♥ SEPTEMBER ASSESSMENT REPORT ♥
-                </div>
-                <h2 style="margin: 2px 0 0; font-size: 21px; font-weight: 900; color: #0369a1; letter-spacing: 0.5px; font-family: 'Cairo', Arial, sans-serif;">
-                  ${isGirl ? 'شهـــــادة بطــــلة التفـــــوق الصغيـــرة 🌟' : 'شهـــــادة بطــــل التفـــــوق الصغيـــر 🌟'}
+              <!-- Center: Official 3D Boxed Title matching User's Spec -->
+              <div class="cert-title-box" style="margin: 0 auto; border: 2.5px solid #3b82f6; border-radius: 14px; padding: 6px 24px; background: #ffffff; box-shadow: 0 3px 10px rgba(59,130,246,0.18); text-align: center; min-width: 275px;">
+                <h2 class="cert-title-heading" style="margin: 0; font-family: ${isEn ? 'Arial, sans-serif' : '\'Cairo\', Arial, sans-serif'}; font-size: 21px; font-weight: 900; letter-spacing: 0.5px; color: #1e40af; text-shadow: 1px 1px 0px #93c5fd;">
+                  ${isEn ? reportHeaderTitleEn : reportHeaderTitleAr}
                 </h2>
-                <div style="font-size: 11px; font-weight: 800; color: #e11d48; margin-top: 2px; font-family: 'Cairo', Arial, sans-serif;">
-                  Smile Kids Language School
+                <div style="font-size: 11.5px; font-weight: 900; color: #2563eb; letter-spacing: 1.2px; margin-top: 1px; text-transform: uppercase; font-family: ${isEn ? '\'Cairo\', Arial, sans-serif' : 'Arial, sans-serif'};">
+                  ${isEn ? reportHeaderTitleAr : reportHeaderTitleEn}
                 </div>
               </div>
 
