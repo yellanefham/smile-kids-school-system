@@ -67,8 +67,8 @@
   "database_info": {
     "name": "قاعدة بيانات مدرسة Smile Kids الموحدة 2025/2026",
     "version": "2.0.0",
-    "last_modified": 1791748800000,
-    "exported_at": "2026-10-11T17:48:58.653Z",
+    "last_modified": 1791991490198,
+    "exported_at": "2026-10-14T15:24:50.199Z",
     "total_students": 178
   },
   "students": [
@@ -5196,7 +5196,7 @@
       "track": "arabic",
       "trackNameAr": "عربي (حساب)",
       "trackNameEn": "Arabic Track",
-      "nameAr": "أرين أشرف مجدى",
+      "nameAr": "أرين أشرف مجدي",
       "nameEn": "Areen Ashraf Magdy",
       "gender": "female",
       "sampleScores": {},
@@ -5234,7 +5234,7 @@
               "maxScore": 30,
               "isRecorded": true,
               "recordedAt": "2026-10-11T20:00:00.000Z",
-              "updatedAt": "2026-10-11T20:00:00.000Z"
+              "updatedAt": "2026-10-14T15:24:50.198Z"
             }
           }
         },
@@ -5264,13 +5264,27 @@
             }
           },
           "sep": 30
+        },
+        "religion": {
+          "subjectId": "religion",
+          "teacherNameAr": "مس / أسماء",
+          "scores": {
+            "t1_sep": {
+              "score": 19,
+              "maxScore": 20,
+              "isRecorded": true,
+              "recordedAt": "2026-10-11T20:00:00.000Z",
+              "updatedAt": "2026-10-14T15:24:50.198Z"
+            }
+          },
+          "sep": 19
         }
       },
       "pin": "3007",
       "password": "3007",
       "_migratedAt": "2026-10-10T18:37:59.553Z",
-      "_updatedAt": "2026-10-09T18:05:27.951Z",
-      "_lastModified": 1791657479553
+      "_updatedAt": "2026-10-14T15:24:50.198Z",
+      "_lastModified": 1791991490198
     },
     {
       "id": "SK-G3-AR-003",
@@ -15788,8 +15802,8 @@
         "t1_total": 98,
         "t2_exam": 30,
         "t1_exam": 29.5,
-        "t1_sep": 219,
-        "t1_sep_pct": 99.55,
+        "t1_sep": 220,
+        "t1_sep_pct": 100,
         "t1_sep_max": 220
       },
       "subjectScores": {
@@ -15849,7 +15863,7 @@
               "maxScore": 50,
               "isRecorded": true,
               "recordedAt": "2026-10-11T20:00:00.000Z",
-              "updatedAt": "2026-10-11T20:00:00.000Z"
+              "updatedAt": "2026-10-14T15:24:50.198Z"
             }
           },
           "sep": 50
@@ -15899,9 +15913,9 @@
       },
       "pin": "8849",
       "password": "8849",
-      "_updatedAt": "2026-10-10T17:04:41.169Z",
+      "_updatedAt": "2026-10-14T15:24:50.198Z",
       "subjectScores.english_ol.scores.t1_sep": 30,
-      "_lastModified": 1791657479564,
+      "_lastModified": 1791991490198,
       "subjectScores.english_al.scores.t1_sep": 30,
       "_migratedAt": "2026-10-10T18:37:59.564Z",
       "subjectScores.science.scores.t1_sep": 50
@@ -17827,10 +17841,12 @@
       "pin": "7260",
       "password": "7260",
       "_migratedAt": "2026-10-10T18:37:59.566Z",
-      "_lastModified": 1791657479566,
-      "status": "withdrawn",
+      "_lastModified": 1791991490187,
+      "status": "interrupted",
       "isCancelled": true,
-      "notes": "مشطوب من كشف الدرجات الورقي المعتمد (منسحب / ملغي)"
+      "notes": "مشطوب من كشف الدرجات الورقي المعتمد (منسحب / ملغي)",
+      "enrollmentStatus": "interrupted",
+      "_updatedAt": "2026-10-14T15:24:50.184Z"
     },
     {
       "id": "SK-G9-LN-001",
@@ -19964,8 +19980,8 @@
       },
       "pin": "3897",
       "password": "3897",
-      "_updatedAt": "2026-10-09T18:05:16.991Z",
-      "_lastModified": 1791657479567,
+      "_updatedAt": "2026-10-14T15:24:50.198Z",
+      "_lastModified": 1791991490198,
       "_migratedAt": "2026-10-10T18:37:59.567Z"
     },
     {
