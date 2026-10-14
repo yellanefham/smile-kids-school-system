@@ -543,7 +543,10 @@
       if (!Array.isArray(studentsList) || studentsList.length === 0) {
         return { success: false, error: 'قائمة الطلاب فارغة' };
       }
-      if (!this.canUseFirestore()) {
+      if (!this.canUseFirestore() && this.whenReady) {
+        try { await this.whenReady; } catch(e) {}
+      }
+      if (!this.canUseFirestore() || !this.db) {
         return { success: false, fallback: true, count: studentsList.length };
       }
 

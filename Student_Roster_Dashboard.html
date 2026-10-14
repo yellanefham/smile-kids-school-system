@@ -29177,12 +29177,13 @@
           }
         }
 
-        refreshStudentsFromDB();
-        syncAllTeacherGradesIntoStudents(false);
-        renderStudentsTable();
-        renderCertificatePreview();
-        renderGradesModule();
-        updatePrintSheetsPreview();
+        if (typeof refreshStudentsFromDB === 'function') refreshStudentsFromDB();
+        if (typeof syncAllTeacherGradesIntoStudents === 'function') syncAllTeacherGradesIntoStudents(false);
+        if (typeof renderGradePills === 'function') renderGradePills();
+        if (typeof renderContent === 'function') renderContent();
+        if (typeof renderCertificatePreview === 'function') renderCertificatePreview();
+        if (typeof renderGradesModule === 'function') renderGradesModule();
+        if (typeof updatePrintSheetsPreview === 'function') updatePrintSheetsPreview();
         if (!silent) {
           alert(`✓ تم بنجاح سحب وتحديث جميع الدرجات والبيانات من سحابة Firebase Firestore! (تم تحديث سجلات ${syncedCount || ALL_STUDENTS.length} طالب وتحديث الشهادات فورياً) 🟢`);
         }
