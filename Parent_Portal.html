@@ -59,9 +59,12 @@
       }
     }
   </style>
-  <script src="firebase_config.js"></script>
-  <script src="smile_kids_database.js?v=20261009"></script>
-  <script src="grades_master_schedules.js"></script>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <script src="firebase_config.js?v=20261015_v8"></script>
+  <script src="smile_kids_database.js?v=20261015_v8"></script>
+  <script src="grades_master_schedules.js?v=20261015_v8"></script>
 </head>
 <body class="text-slate-100 min-h-screen selection:bg-indigo-500 selection:text-white flex flex-col bg-grid-pattern relative">
 
@@ -656,7 +659,36 @@
       await initDatabaseAndData();
       await loadSchedulesData();
       checkUrlParams();
+      syncParentPortalFromCloud();
     });
+
+    window.addEventListener('smilekids_firebase_ready', () => {
+      syncParentPortalFromCloud();
+    });
+
+    async function syncParentPortalFromCloud() {
+      if (window.SmileKidsFirebase && typeof window.SmileKidsFirebase.fetchAllFromFirestore === 'function') {
+        try {
+          const res = await window.SmileKidsFirebase.fetchAllFromFirestore();
+          if (res && res.success && Array.isArray(res.students) && res.students.length > 0) {
+            if (window.SmileKidsDB && typeof window.SmileKidsDB.loadStudentsFromCloud === 'function') {
+              window.SmileKidsDB.loadStudentsFromCloud(res.students);
+            }
+            masterStudentsList = (window.SmileKidsDB && window.SmileKidsDB.getAllStudents()) || res.students;
+            if (currentStudent) {
+              const fresh = masterStudentsList.find(s => s.id === currentStudent.id);
+              if (fresh) {
+                currentStudent = fresh;
+                if (typeof renderStudentProfileCard === 'function') renderStudentProfileCard(currentStudent);
+              }
+            }
+            console.log('[ParentPortal] Cloud data synchronized successfully ☁️');
+          }
+        } catch(e) {
+          console.warn('[ParentPortal] Cloud sync error:', e);
+        }
+      }
+    }
 
     async function initDatabaseAndData() {
       if (window.SmileKidsDB) {

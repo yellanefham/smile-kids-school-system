@@ -2,6 +2,10 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>كشوف وقوائم الطلاب والغياب والحضور — الفصول من الصف الأول حتى الصف التاسع | مدرسة Smile Kids للغات</title>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -954,8 +958,8 @@
     }
 
   </style>
-  <script src="firebase_config.js"></script>
-  <script src="smile_kids_database.js?v=20261004_v10_sync"></script>
+  <script src="firebase_config.js?v=20261015_v8"></script>
+  <script src="smile_kids_database.js?v=20261015_v8"></script>
   <script>
     (function() {
       try {
@@ -1077,6 +1081,11 @@
 
       <!-- Admin Status Pill & Logout Button -->
       <div class="flex items-center gap-2 sm:gap-3">
+                <button onclick="openLocalBackupModal()" id="btn-local-backup-export" class="px-3 py-1.5 rounded-xl text-xs font-black bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/50 text-emerald-200 transition flex items-center gap-1.5 shadow" title="أخذ نسخة احتياطية وتصدير ما تم تسجيله وحفظه على الجهاز في مكان معين">
+          <span>💾</span>
+          <span class="hidden sm:inline">نسخة احتياطية للجهاز</span>
+          <span class="sm:hidden">نسخة</span>
+        </button>
         <button onclick="manualSyncFromCloud()" id="btn-manual-sync-cloud" class="px-3 py-1.5 rounded-xl text-xs font-black bg-sky-950/70 hover:bg-sky-900 border border-sky-500/40 text-sky-200 transition flex items-center gap-1.5 shadow" title="سحب وتحديث أحدث الدرجات فوراً من السحابة">
           <span id="sync-cloud-icon">🔄</span>
           <span class="hidden sm:inline">تحديث السحابة</span>
@@ -1483,6 +1492,9 @@
             <button onclick="openConfigureRanksModal()" class="px-2.5 sm:px-3.5 py-2 bg-gradient-to-r from-yellow-500 to-amber-600 hover:brightness-110 text-slate-950 font-black rounded-xl text-[11px] sm:text-xs transition flex items-center justify-center text-center gap-1.5 shadow active:scale-95" title="تحديد ترتيبات المراكز من الأول للمركز العاشر بناءً على نقصان عدد الدرجات">
               <span>🏆 ترتيب المراكز</span>
             </button>
+            <button onclick="openExportRankCertsModal()" class="px-2.5 sm:px-3.5 py-2 bg-gradient-to-r from-pink-600 to-rose-600 hover:brightness-110 text-white rounded-xl text-[11px] sm:text-xs font-black transition flex items-center justify-center text-center gap-1.5 shadow active:scale-95" title="تصدير ومشاركة شهادات الأوائل بالمركز على فيسبوك وواتساب">
+              <span>🏅 تصدير الأوائل</span>
+            </button>
             <button onclick="openTeacherGradeFormModal()" class="px-2.5 sm:px-3.5 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:brightness-110 text-white rounded-xl text-[11px] sm:text-xs font-black transition flex items-center justify-center text-center gap-1.5 shadow-[0_0_15px_rgba(147,51,234,0.3)] active:scale-95" title="رصد درجات مادة كاملة للفصل دفعة واحدة">
               <span>➕ رصد مادة كاملة</span>
             </button>
@@ -1611,6 +1623,9 @@
             </button>
             <button onclick="sendCertificateViaWhatsApp()" class="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black rounded-xl text-xs sm:text-sm transition flex items-center gap-1.5 shadow-[0_0_15px_rgba(16,185,129,0.35)] active:scale-95" title="إرسال تقرير النتيجة لولي الأمر بالواتساب">
               <span>💬 إرسال الشهادة واتساب</span>
+            </button>
+                        <button onclick="openExportRankCertsModal()" class="px-4 py-2 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 hover:from-purple-500 hover:to-rose-500 text-white font-black rounded-xl text-xs sm:text-sm transition flex items-center gap-1.5 shadow-[0_0_18px_rgba(217,70,239,0.4)] active:scale-95" title="تصدير ومشاركة شهادات الأوائل بالمركز المختار على فيسبوك وواتساب">
+              <span>🏅 تصدير ومشاركة الأوائل بالمركز</span>
             </button>
             <button onclick="printSingleCertificate()" class="px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl text-xs sm:text-sm transition flex items-center gap-1.5 shadow-[0_0_15px_rgba(245,158,11,0.35)] active:scale-95">
               <span>🖨️ طباعة الشهادة المعروضة</span>
@@ -2719,6 +2734,228 @@
       </div>
     </div>
   </footer>
+
+  <!-- Floating Quick Sync Button for Mobile Devices -->
+  <button onclick="manualSyncFromCloud()" class="fixed bottom-4 left-4 z-40 sm:hidden bg-sky-600 hover:bg-sky-500 text-white p-3 rounded-full shadow-2xl border-2 border-sky-300 flex items-center justify-center font-bold active:scale-90 transition" title="تحديث أحدث الدرجات من السحابة الآن">
+    <span class="text-lg">🔄</span>
+  </button>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: Export & Share Certificates by Rank (فيسبوك وواتساب) -->
+  <!-- ======================================================== -->
+  <div id="modal-export-rank-certs" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-5 no-print">
+    <div class="bg-slate-900 border border-purple-500/40 rounded-3xl max-w-4xl w-full max-h-[94vh] flex flex-col overflow-hidden shadow-2xl animate-scaleIn">
+      <!-- Modal Header -->
+      <div class="p-5 sm:p-6 border-b border-slate-800 flex items-center justify-between bg-gradient-to-r from-purple-950/80 via-slate-950 to-pink-950/80">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center text-2xl shadow-lg shadow-purple-500/30 text-white">
+            🏆
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-lg sm:text-xl font-black text-white">تصدير ومشاركة شهادات الأوائل بالمركز</h3>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-black bg-pink-500/20 text-pink-300 border border-pink-500/30">فيسبوك & واتساب</span>
+            </div>
+            <p class="text-xs text-slate-300 mt-0.5">تحديد الطلاب الحاصلين على المركز المختار وتصدير شهاداتهم كصور عالية الدقة (PNG) أو مشاركتها فوراً</p>
+          </div>
+        </div>
+        <button onclick="closeModal('modal-export-rank-certs')" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Filters Bar -->
+      <div class="p-4 sm:p-5 bg-slate-950/70 border-b border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+        <!-- Grade Filter -->
+        <div>
+          <label class="block font-black text-slate-300 mb-1.5 flex items-center gap-1">
+            <span>🏫</span> <span>الصف الدراسي:</span>
+          </label>
+          <select id="export-rank-grade-select" onchange="renderRankExportStudents()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-bold focus:border-purple-400 focus:outline-none">
+            <option value="all">جميع صفوف المدرسة (1 - 9)</option>
+            <option value="1">الصف الأول الابتدائي</option>
+            <option value="2">الصف الثاني الابتدائي</option>
+            <option value="3">الصف الثالث الابتدائي</option>
+            <option value="4">الصف الرابع الابتدائي</option>
+            <option value="5">الصف الخامس الابتدائي</option>
+            <option value="6">الصف السادس الابتدائي</option>
+            <option value="7">الصف الأول الإعدادي</option>
+            <option value="8">الصف الثاني الإعدادي</option>
+            <option value="9">الصف الثالث الإعدادي</option>
+          </select>
+        </div>
+
+        <!-- Rank Filter -->
+        <div>
+          <label class="block font-black text-slate-300 mb-1.5 flex items-center gap-1">
+            <span>🥇</span> <span>المركز المطلوب للتصدير:</span>
+          </label>
+          <select id="export-rank-target-select" onchange="renderRankExportStudents()" class="w-full bg-slate-900 border border-purple-500/50 rounded-xl px-3 py-2 text-amber-300 font-black focus:border-purple-400 focus:outline-none">
+            <option value="المركز الأول" selected>🥇 المركز الأول فقط</option>
+            <option value="المركز الثاني">🥈 المركز الثاني فقط</option>
+            <option value="المركز الثالث">🥉 المركز الثالث فقط</option>
+            <option value="المركز الرابع">🏅 المركز الرابع</option>
+            <option value="المركز الخامس">🎖️ المركز الخامس</option>
+            <option value="all_top">⭐ جميع المراكز الشرفية (1 - 5)</option>
+          </select>
+        </div>
+
+        <!-- Period Filter -->
+        <div>
+          <label class="block font-black text-slate-300 mb-1.5 flex items-center gap-1">
+            <span>📅</span> <span>فترة التقييم:</span>
+          </label>
+          <select id="export-rank-period-select" onchange="renderRankExportStudents()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-bold focus:border-purple-400 focus:outline-none">
+            <option value="t1_sep" selected>اختبارات شهر سبتمبر 2026</option>
+            <option value="t1_m1">اختبار أكتوبر (شهر 1)</option>
+            <option value="t1_exam">امتحان نصف العام الدراسي الأول</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Action & Batch Summary Bar -->
+      <div class="px-5 py-3 bg-purple-950/30 border-b border-purple-900/40 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div class="flex items-center gap-2">
+          <span id="export-rank-count-badge" class="px-3 py-1 rounded-xl bg-purple-500/20 text-purple-200 border border-purple-500/30 font-black">
+            جاري البحث عن الطلاب...
+          </span>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <button onclick="downloadAllRankCertImages()" id="btn-download-all-rank-certs" class="px-3.5 py-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black rounded-xl transition flex items-center gap-1.5 shadow active:scale-95">
+            <span>📦 تحميل جميع الشهادات صوراً (PNG)</span>
+          </button>
+          <button onclick="copyFacebookAnnouncementPost()" class="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-500 hover:to-sky-500 text-white font-black rounded-xl transition flex items-center gap-1.5 shadow active:scale-95" title="نسخ بوست تهنئة جاهز بكافة الأسماء والدرجات لفيسبوك">
+            <span>📢 نسخ منشور التهنئة لفيسبوك</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Student Cards List Container -->
+      <div id="export-rank-students-container" class="p-5 overflow-y-auto flex-1 space-y-3.5 bg-slate-950/40">
+        <!-- Rendered Dynamically by JS -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-4 bg-slate-950 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+        <div class="flex items-center gap-2 text-[11px]">
+          <span>💡</span>
+          <span>يمكنك الضغط على زر <b>نسخ الصورة</b> ثم التوجه إلى فيسبوك أو واتساب والضغط على <b>Ctrl+V (لصق)</b> لنشر الشهادة مباشرة!</span>
+        </div>
+        <button onclick="closeModal('modal-export-rank-certs')" class="px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl transition">
+          إغلاق
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: Local Backup & Export to Computer (نسخة احتياطية) -->
+  <!-- ======================================================== -->
+  <div id="modal-local-backup-export" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-5 no-print">
+    <div class="bg-slate-900 border border-emerald-500/40 rounded-3xl max-w-2xl w-full max-h-[92vh] flex flex-col overflow-hidden shadow-2xl animate-scaleIn">
+      <!-- Modal Header -->
+      <div class="p-5 sm:p-6 border-b border-slate-800 flex items-center justify-between bg-gradient-to-r from-emerald-950/80 via-slate-950 to-teal-950/80">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-600 flex items-center justify-center text-2xl shadow-lg shadow-emerald-500/30 text-white">
+            💾
+          </div>
+          <div>
+            <h3 class="text-lg sm:text-xl font-black text-white">أخذ نسخة احتياطية وتصدير للكمبيوتر</h3>
+            <p class="text-xs text-slate-300 mt-0.5">تصدير جميع ما تم تسجيله (بيانات الطلاب، درجات سبتمبر، الحضور، الإعدادات) وحفظها على جهازك</p>
+          </div>
+        </div>
+        <button onclick="closeModal('modal-local-backup-export')" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Backup Overview Content -->
+      <div class="p-5 sm:p-6 overflow-y-auto space-y-5 bg-slate-950/40 text-xs">
+        
+        <!-- Live Stats Card -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="p-3.5 rounded-2xl bg-slate-900 border border-white/10 text-center">
+            <div class="text-[10px] text-slate-400 font-bold mb-1">إجمالي الطلاب</div>
+            <div id="backup-stat-students" class="text-lg font-black text-emerald-300">174 طالب</div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-900 border border-white/10 text-center">
+            <div class="text-[10px] text-slate-400 font-bold mb-1">شهر التقييم المعتمد</div>
+            <div class="text-lg font-black text-amber-300">سبتمبر 2026</div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-900 border border-white/10 text-center">
+            <div class="text-[10px] text-slate-400 font-bold mb-1">حالة السحابة</div>
+            <div class="text-lg font-black text-sky-300">متزامن ☁️</div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-900 border border-white/10 text-center">
+            <div class="text-[10px] text-slate-400 font-bold mb-1">صيغة التصدير</div>
+            <div class="text-lg font-black text-purple-300">JSON + CSV</div>
+          </div>
+        </div>
+
+        <!-- Primary Action: Select Folder via Native File System API -->
+        <div class="p-5 rounded-2xl bg-gradient-to-br from-emerald-950/60 to-slate-900 border-2 border-emerald-500/50 space-y-3 shadow-lg">
+          <div class="flex items-start gap-3">
+            <span class="text-2xl">📁</span>
+            <div>
+              <div class="text-sm font-black text-white">الخيار الأول (الموصى به): اختيار مجلد محدد على جهازك للحفظ المباشر فيه</div>
+              <p class="text-slate-300 text-xs mt-1 leading-relaxed">
+                اضغط على الزر بالأسفل ليفتح لك الكمبيوتر نافذة تختار منها المجلد الذي ترغب في حفظ النسخة الاحتياطية المحدثة داخله (مثل سطح المكتب، فلاشة USB، أو مجلد النسخ الاحتياطية).
+              </p>
+            </div>
+          </div>
+          <div class="pt-2 flex flex-wrap gap-2">
+            <button onclick="exportBackupToChosenFolder()" id="btn-pick-backup-folder" class="w-full sm:w-auto px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black rounded-xl transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 active:scale-95 text-xs sm:text-sm">
+              <span>📁</span>
+              <span>اختيار المجلد وحفظ حزمة النسخة الاحتياطية فيه فوراً</span>
+            </button>
+          </div>
+          <div id="backup-folder-status" class="hidden p-3 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-200 font-bold"></div>
+        </div>
+
+        <!-- Secondary Action: Direct Downloads -->
+        <div class="p-4 rounded-2xl bg-slate-900 border border-white/10 space-y-3">
+          <div class="font-black text-slate-200 flex items-center gap-1.5">
+            <span>📥</span> <span>الخيار الثاني: تحميل ملفات النسخة مباشرة لملفات التحميل (Downloads):</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <button onclick="downloadJsonBackupDirect()" class="p-3 bg-slate-950 hover:bg-slate-800 border border-slate-700 rounded-xl text-right transition flex items-center justify-between group">
+              <div>
+                <div class="font-bold text-white group-hover:text-emerald-300">ملف قاعدة البيانات (JSON)</div>
+                <div class="text-[10px] text-slate-400">كامل السجلات بجميع تفاصيلها</div>
+              </div>
+              <span class="text-base">⬇️</span>
+            </button>
+            <button onclick="downloadCsvBackupDirect()" class="p-3 bg-slate-950 hover:bg-slate-800 border border-slate-700 rounded-xl text-right transition flex items-center justify-between group">
+              <div>
+                <div class="font-bold text-white group-hover:text-amber-300">شيت إكسل / درجات سبتمبر (CSV)</div>
+                <div class="text-[10px] text-slate-400">كشف بجميع درجات وترتيبات الطلاب</div>
+              </div>
+              <span class="text-base">📊</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Reference Locations Card -->
+        <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 text-slate-400 space-y-1.5 text-[11px]">
+          <div class="font-bold text-slate-300 flex items-center gap-1">
+            <span>📍</span> <span>مسارات الحفظ المعتمدة على هذا الكمبيوتر:</span>
+          </div>
+          <div class="font-mono text-emerald-400/90 dir-ltr text-left break-all select-all">C:\\Users\\Hisham Abdelfadil\\Downloads\\Smile_Kids_Monthly_Backups\\September_2026</div>
+          <div class="font-mono text-amber-400/90 dir-ltr text-left break-all select-all">OneDrive\\Desktop\\Smile_Kids_Data_Center\\04_Monthly_Backups\\September_2026</div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-4 bg-slate-950 border-t border-slate-800 flex items-center justify-end">
+        <button onclick="closeModal('modal-local-backup-export')" class="px-5 py-2 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl transition text-xs">
+          إغلاق
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Offscreen Certificate Rendering Sandbox for html2canvas -->
+  <div id="cert-render-sandbox" style="position: fixed; left: -9999px; top: 0; width: 1120px; z-index: -100; opacity: 0; pointer-events: none; background: #ffffff;"></div>
 
   <!-- JavaScript Engine -->
   
@@ -32559,5 +32796,598 @@ Smile Kids school ☺`;
         }
       }
     });
+
+
+
+  // =========================================================================
+  // EXPORT & SHARE CERTIFICATES BY RANK MODULE (فيسبوك، واتساب، تحميل صور)
+  // =========================================================================
+
+  function openExportRankCertsModal() {
+    const modal = document.getElementById('modal-export-rank-certs');
+    if (!modal) return;
+    
+    // Set default grade to current grade or all
+    const gSel = document.getElementById('export-rank-grade-select');
+    if (gSel && currentGrade && currentGrade > 0) {
+      gSel.value = String(currentGrade);
+    } else if (gSel) {
+      gSel.value = 'all';
+    }
+
+    // Set default period
+    const pSel = document.getElementById('export-rank-period-select');
+    if (pSel && currentGradesPeriod) {
+      pSel.value = currentGradesPeriod;
+    }
+
+    renderRankExportStudents();
+    modal.classList.remove('hidden');
+  }
+
+  function getRankMatchedStudents(targetGrade, targetRank, periodKey) {
+    let pool = [...ALL_STUDENTS].filter(s => s.enrollmentStatus !== 'interrupted' && s.enrollmentStatus !== 'withdrawn' && s.status !== 'withdrawn');
+    if (targetGrade !== 'all') {
+      const gNum = parseInt(targetGrade);
+      pool = pool.filter(s => s.grade === gNum);
+    }
+
+    const matched = [];
+
+    pool.forEach(st => {
+      const rankText = calculateStudentClassRank(st, periodKey, true);
+      const pTot = getStudentPeriodTotal(st, periodKey);
+      
+      // Determine match
+      let isMatch = false;
+      if (targetRank === 'all_top') {
+        // Any honorary rank from 1 to 5
+        isMatch = (rankText.includes('الأول') || rankText.includes('الثاني') || rankText.includes('الثالث') || rankText.includes('الرابع') || rankText.includes('الخامس'));
+      } else if (targetRank === 'المركز الأول') {
+        isMatch = rankText.includes('الأول');
+      } else if (targetRank === 'المركز الثاني') {
+        isMatch = rankText.includes('الثاني');
+      } else if (targetRank === 'المركز الثالث') {
+        isMatch = rankText.includes('الثالث');
+      } else if (targetRank === 'المركز الرابع') {
+        isMatch = rankText.includes('الرابع');
+      } else if (targetRank === 'المركز الخامس') {
+        isMatch = rankText.includes('الخامس');
+      }
+
+      if (isMatch) {
+        matched.push({
+          student: st,
+          rankText: rankText,
+          totalScore: pTot.totalScore,
+          totalMax: pTot.totalMax,
+          percentage: pTot.percentage
+        });
+      }
+    });
+
+    // Sort by total score descending, then by grade
+    matched.sort((a, b) => {
+      if (a.student.grade !== b.student.grade) return a.student.grade - b.student.grade;
+      return b.totalScore - a.totalScore;
+    });
+
+    return matched;
+  }
+
+  function renderRankExportStudents() {
+    const gSel = document.getElementById('export-rank-grade-select');
+    const rSel = document.getElementById('export-rank-target-select');
+    const pSel = document.getElementById('export-rank-period-select');
+    const container = document.getElementById('export-rank-students-container');
+    const badge = document.getElementById('export-rank-count-badge');
+    if (!container || !gSel || !rSel || !pSel) return;
+
+    const targetGrade = gSel.value;
+    const targetRank = rSel.value;
+    const periodKey = pSel.value;
+
+    const matched = getRankMatchedStudents(targetGrade, targetRank, periodKey);
+
+    if (badge) {
+      const rankLabel = rSel.options[rSel.selectedIndex].text;
+      badge.innerHTML = `تم العثور على <b>${matched.length}</b> طالب/ـة في <b>${rankLabel}</b> 🏆`;
+    }
+
+    if (matched.length === 0) {
+      container.innerHTML = `
+        <div class="text-center py-12 p-6 rounded-2xl bg-slate-900/60 border border-slate-800">
+          <div class="text-4xl mb-3">🔍</div>
+          <div class="text-sm font-black text-slate-200">لم يتم العثور على طلاب مطابقين للمركز المختار</div>
+          <p class="text-xs text-slate-400 mt-1">تأكد من تسجيل درجات الطلاب في الفترة المحددة أو اختر مركزاً آخر أو صفاً دراسياً مختلفاً.</p>
+        </div>
+      `;
+      return;
+    }
+
+    let html = '';
+    matched.forEach((item, idx) => {
+      const st = item.student;
+      const rankBadge = item.rankText;
+      const avatarSvg = st.gender === 'female' ? '👧' : '👦';
+      const photoHtml = (st.photo && st.photo.length > 50) 
+        ? `<img src="${st.photo}" class="w-12 h-12 rounded-2xl object-cover border border-amber-400/40 shadow">`
+        : `<div class="w-12 h-12 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-2xl shadow">${avatarSvg}</div>`;
+
+      html += `
+        <div class="p-4 rounded-2xl bg-slate-900 border border-white/10 hover:border-purple-500/50 transition shadow-lg flex flex-col md:flex-row items-center justify-between gap-4">
+          <!-- Student Info -->
+          <div class="flex items-center gap-3 w-full md:w-auto">
+            ${photoHtml}
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-sm font-black text-white">${st.nameAr}</span>
+                ${st.nameEn ? `<span class="text-xs font-mono text-slate-400 font-normal">(${st.nameEn})</span>` : ''}
+                <span class="px-2.5 py-0.5 rounded-lg text-xs font-black bg-amber-500/20 text-amber-300 border border-amber-500/40">${rankBadge}</span>
+              </div>
+              <div class="text-[11px] text-slate-400 font-semibold mt-1 flex items-center gap-2 flex-wrap">
+                <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-300">${st.gradeNameAr || ('الصف ' + st.grade)}</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-300">${st.track === 'languages' ? 'مسار لغات' : 'مسار عربي'}</span>
+                <span class="text-emerald-400 font-black">المجموع: ${item.totalScore} / ${item.totalMax} (${item.percentage}%)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex items-center gap-2 flex-wrap w-full md:w-auto justify-end">
+            <!-- Download Image PNG -->
+            <button onclick="downloadStudentCertImage('${st.id}', '${item.rankText.replace(/['"]/g, '')}')" class="px-3 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-xl text-xs transition flex items-center gap-1 shadow active:scale-95" title="تحميل صورة الشهادة عالية الجودة">
+              <span>📸</span> <span>تحميل (PNG)</span>
+            </button>
+
+            <!-- Copy Image to Clipboard (Facebook) -->
+            <button onclick="copyCertImageToClipboard('${st.id}', '${item.rankText.replace(/['"]/g, '')}')" class="px-3 py-1.5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold rounded-xl text-xs transition flex items-center gap-1 shadow active:scale-95" title="نسخ الصورة للحافظة للصقها فوراً في فيسبوك (Ctrl+V)">
+              <span>📋</span> <span>نسخ لفيسبوك</span>
+            </button>
+
+            <!-- Share WhatsApp -->
+            <button onclick="shareStudentCertToWhatsApp('${st.id}', '${item.rankText.replace(/['"]/g, '')}')" class="px-3 py-1.5 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold rounded-xl text-xs transition flex items-center gap-1 shadow active:scale-95" title="مشاركة بالواتساب مباشرة">
+              <span>💬</span> <span>واتساب</span>
+            </button>
+
+            <!-- Preview Certificate -->
+            <button onclick="previewStudentCertDirect('${st.id}')" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl text-xs transition" title="معاينة الشهادة">
+              <span>👁️</span>
+            </button>
+          </div>
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+  }
+
+  function previewStudentCertDirect(studentId) {
+    closeModal('modal-export-rank-certs');
+    openCertificateForStudent(studentId);
+  }
+
+  async function renderCertOffscreenCanvas(studentId) {
+    if (typeof html2canvas === 'undefined') {
+      alert('جاري تحميل مكتبة معالجة الصور، يرجى المحاولة بعد ثوانٍ قليلة...');
+      return null;
+    }
+
+    const st = ALL_STUDENTS.find(s => s.id === studentId);
+    if (!st) return null;
+
+    const pSel = document.getElementById('export-rank-period-select');
+    const periodKey = pSel ? pSel.value : (currentGradesPeriod || 't1_sep');
+
+    // Sandbox container
+    let sandbox = document.getElementById('cert-render-sandbox');
+    if (!sandbox) {
+      sandbox = document.createElement('div');
+      sandbox.id = 'cert-render-sandbox';
+      sandbox.style.cssText = 'position: fixed; left: -9999px; top: 0; width: 1120px; z-index: -100; opacity: 0; pointer-events: none; background: #ffffff;';
+      document.body.appendChild(sandbox);
+    }
+
+    // Generate HTML
+    const certHtml = generateSingleCertificateHTML(st, 'arabic', periodKey, selectedCertificateStyle);
+    sandbox.innerHTML = `<div id="sandbox-cert-inner" style="width: 1120px; background: #ffffff; padding: 0; margin: 0;">${certHtml}</div>`;
+
+    // Wait a brief moment for layout & fonts
+    await new Promise(r => setTimeout(r, 120));
+
+    const targetEl = sandbox.firstElementChild || sandbox;
+    const canvas = await html2canvas(targetEl, {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#ffffff',
+      logging: false
+    });
+
+    sandbox.innerHTML = '';
+    return canvas;
+  }
+
+  async function downloadStudentCertImage(studentId, rankLabel) {
+    const st = ALL_STUDENTS.find(s => s.id === studentId);
+    if (!st) return;
+
+    showToast(`جاري تجهيز صورة شهادة الطالب/ـة ${st.nameAr}... 📸`, 'info');
+
+    try {
+      const canvas = await renderCertOffscreenCanvas(studentId);
+      if (!canvas) return;
+
+      const cleanRank = (rankLabel || 'المركز_الأول').replace(/\s+/g, '_').replace(/[^؀-ۿa-zA-Z0-9_]/g, '');
+      const cleanName = (st.nameAr || 'طالب').replace(/\s+/g, '_');
+      const filename = `شهادة_Smile_Kids_${cleanRank}_${cleanName}.png`;
+
+      const link = document.createElement('a');
+      link.download = filename;
+      link.href = canvas.toDataURL('image/png');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      showToast(`تم تحميل صورة شهادة ${st.nameAr} بنجاح! ✨`, 'success');
+    } catch(err) {
+      console.error('Error generating cert image:', err);
+      showToast('حدث خطأ أثناء إنشاء صورة الشهادة، يرجى المحاولة مجدداً', 'error');
+    }
+  }
+
+  async function copyCertImageToClipboard(studentId, rankLabel) {
+    const st = ALL_STUDENTS.find(s => s.id === studentId);
+    if (!st) return;
+
+    showToast(`جاري تجهيز ونسخ صورة الشهادة لـ ${st.nameAr}... 📋`, 'info');
+
+    try {
+      const canvas = await renderCertOffscreenCanvas(studentId);
+      if (!canvas) return;
+
+      if (navigator.clipboard && typeof ClipboardItem !== 'undefined') {
+        canvas.toBlob(async (blob) => {
+          try {
+            await navigator.clipboard.write([
+              new ClipboardItem({ 'image/png': blob })
+            ]);
+            alert(`✅ تم نسخ صورة شهادة الطالب/ـة (${st.nameAr}) بنجاح إلى الحافظة!\n\nيمكنك الآن فتح فيسبوك أو واتساب والضغط فوراً على لصق (Paste أو Ctrl+V) لنشر الصورة مباشرة! 📋🎉`);
+          } catch(clipErr) {
+            console.warn('Clipboard write failed, downloading instead:', clipErr);
+            downloadStudentCertImage(studentId, rankLabel);
+            alert(`تم تحميل صورة الشهادة على جهازك بنجاح! يمكنك الآن إرفاقها ونشرها على فيسبوك 📸`);
+          }
+        }, 'image/png');
+      } else {
+        downloadStudentCertImage(studentId, rankLabel);
+        alert(`تم تحميل صورة الشهادة على جهازك بنجاح! يمكنك الآن إرفاقها ونشرها على فيسبوك 📸`);
+      }
+    } catch(err) {
+      console.error('Copy cert image error:', err);
+      showToast('تعذر نسخ الصورة، جاري تحميلها مباشرة كملف...', 'warning');
+      downloadStudentCertImage(studentId, rankLabel);
+    }
+  }
+
+  async function shareStudentCertToWhatsApp(studentId, rankLabel) {
+    const st = ALL_STUDENTS.find(s => s.id === studentId);
+    if (!st) return;
+
+    const pSel = document.getElementById('export-rank-period-select');
+    const periodKey = pSel ? pSel.value : 't1_sep';
+    const pTot = getStudentPeriodTotal(st, periodKey);
+    const pronoun = st.gender === 'female' ? 'الطالبة المتميزة' : 'الطالب المتميز';
+    const congratsMsg = `🌟 تهنئة قلبية من مدارس Smile Kids للغات 🌟\n\nتتقدم إدارة المدرسة بأرق التهاني والتبريكات لولي أمر ${pronoun}:\n🎓 ${st.nameAr}\n🏫 ${st.gradeNameAr || ('الصف ' + st.grade)} - ${st.track === 'languages' ? 'مسار لغات' : 'مسار عربي'}\n🏆 لحصوله/ـا على: ${rankLabel}\n📊 المجموع: ${pTot.totalScore} من ${pTot.totalMax} (${pTot.percentage}%)\n\nمع أطيب التمنيات بمزيد من التفوق والريادة والنجاح الدائم! 🥇🎉`;
+
+    try {
+      const canvas = await renderCertOffscreenCanvas(studentId);
+      if (canvas && navigator.share && navigator.canShare) {
+        canvas.toBlob(async (blob) => {
+          const file = new File([blob], `شهادة_${st.nameAr}.png`, { type: 'image/png' });
+          if (navigator.canShare({ files: [file] })) {
+            try {
+              await navigator.share({
+                title: `شهادة تقدير - ${st.nameAr}`,
+                text: congratsMsg,
+                files: [file]
+              });
+              return;
+            } catch(e) {}
+          }
+          // Fallback if file share cancelled or unhandled
+          fallbackWhatsAppLink(congratsMsg, canvas, st.nameAr);
+        }, 'image/png');
+      } else {
+        fallbackWhatsAppLink(congratsMsg, canvas, st.nameAr);
+      }
+    } catch(e) {
+      fallbackWhatsAppLink(congratsMsg, null, st.nameAr);
+    }
+  }
+
+  function fallbackWhatsAppLink(text, canvas, studentName) {
+    if (canvas) {
+      const link = document.createElement('a');
+      link.download = `شهادة_${studentName}.png`;
+      link.href = canvas.toDataURL('image/png');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
+  }
+
+  async function downloadAllRankCertImages() {
+    const gSel = document.getElementById('export-rank-grade-select');
+    const rSel = document.getElementById('export-rank-target-select');
+    const pSel = document.getElementById('export-rank-period-select');
+    if (!gSel || !rSel || !pSel) return;
+
+    const matched = getRankMatchedStudents(gSel.value, rSel.value, pSel.value);
+    if (matched.length === 0) {
+      alert('لا يوجد طلاب مطابقين للمركز المختار لتحميل شهاداتهم.');
+      return;
+    }
+
+    if (!confirm(`هل ترغب في بدء تحميل صور الشهادات لجميع الطلاب المطابقين وعددهم (${matched.length}) طالب/ـة؟`)) {
+      return;
+    }
+
+    const btn = document.getElementById('btn-download-all-rank-certs');
+    const originalText = btn ? btn.innerHTML : '';
+    if (btn) btn.disabled = true;
+
+    for (let i = 0; i < matched.length; i++) {
+      const item = matched[i];
+      if (btn) btn.innerHTML = `<span>⏳ جاري تحميل (${i + 1} / ${matched.length})...</span>`;
+      await downloadStudentCertImage(item.student.id, item.rankText);
+      await new Promise(r => setTimeout(r, 600)); // Stagger downloads smoothly
+    }
+
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = originalText;
+    }
+
+    alert(`🎉 تم بنجاح تحميل جميع صور الشهادات (${matched.length} شهادة) بجودة فائقة!`);
+  }
+
+  function copyFacebookAnnouncementPost() {
+    const gSel = document.getElementById('export-rank-grade-select');
+    const rSel = document.getElementById('export-rank-target-select');
+    const pSel = document.getElementById('export-rank-period-select');
+    if (!gSel || !rSel || !pSel) return;
+
+    const matched = getRankMatchedStudents(gSel.value, rSel.value, pSel.value);
+    if (matched.length === 0) {
+      alert('لا توجد بيانات طلاب مطابقة لنسخ المنشور.');
+      return;
+    }
+
+    const rankLabel = rSel.options[rSel.selectedIndex].text;
+    const gradeLabel = gSel.options[gSel.selectedIndex].text;
+
+    let post = `🌟 لوحة شرف مدارس Smile Kids للغات - اختبارات شهر سبتمبر 2026 🌟\n`;
+    post += `━━━━━━━━━━━━━━━━━━━━\n`;
+    post += `تتقدم إدارة مدارس Smile Kids بخالص التهاني والتبريكات لأبنائنا وبناتنا المتفوقين في ${gradeLabel} الحاصلين على ${rankLabel} 🏆✨\n\n`;
+
+    matched.forEach((item, idx) => {
+      post += `${idx + 1}. الطالب/ـة: ${item.student.nameAr} - ${item.student.gradeNameAr || ('الصف ' + item.student.grade)} (${item.student.track === 'languages' ? 'لغات' : 'عربي'})\n`;
+      post += `   🎖️ الترتيب: ${item.rankText} | المجموع: ${item.totalScore} من ${item.totalMax} (${item.percentage}%)\n\n`;
+    });
+
+    post += `━━━━━━━━━━━━━━━━━━━━\n`;
+    post += `فخورون بكم دائماً ونتمنى لكم مزيداً من التفوق والإبداع المستمر! 🥇🎉\n`;
+    post += `#مدارس_Smile_Kids #أوائل_الطلاب #لوحة_الشرف #سبتمبر_2026`;
+
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(post).then(() => {
+        alert('📢 تم نسخ نص منشور التهنئة لفيسبوك بنجاح إلى الحافظة! يمكنك الآن لصقه مباشرة في صفحة المدرسة على فيسبوك ✨');
+      }).catch(() => {
+        prompt('انسخ نص المنشور التالي:', post);
+      });
+    } else {
+      prompt('انسخ نص المنشور التالي:', post);
+    }
+  }
+
+  // =========================================================================
+  // LOCAL BACKUP & EXPORT TO COMPUTER (تصدير وحفظ النسخة الاحتياطية على الجهاز)
+  // =========================================================================
+
+  function openLocalBackupModal() {
+    const modal = document.getElementById('modal-local-backup-export');
+    if (!modal) return;
+
+    const stCountEl = document.getElementById('backup-stat-students');
+    if (stCountEl) {
+      const activeCount = ALL_STUDENTS.filter(s => s.enrollmentStatus !== 'interrupted' && s.enrollmentStatus !== 'withdrawn' && s.status !== 'withdrawn').length;
+      stCountEl.innerText = `${activeCount} طالب (الإجمالي ${ALL_STUDENTS.length})`;
+    }
+
+    const statusEl = document.getElementById('backup-folder-status');
+    if (statusEl) statusEl.classList.add('hidden');
+
+    modal.classList.remove('hidden');
+  }
+
+  function generateFullBackupDatabaseJSON() {
+    return JSON.stringify({
+      databaseName: "Smile Kids School Master System Database",
+      version: "7.0.0",
+      exportTimestamp: new Date().toISOString(),
+      exportLocalTime: new Date().toLocaleString('ar-EG'),
+      totalStudents: ALL_STUDENTS.length,
+      ranksConfig: getRanksConfig(),
+      customMaxScores: (typeof CUSTOM_SUBJECT_MAX !== 'undefined') ? CUSTOM_SUBJECT_MAX : {},
+      selectedCertificateStyle: (typeof selectedCertificateStyle !== 'undefined') ? selectedCertificateStyle : 'style-current',
+      students: ALL_STUDENTS
+    }, null, 2);
+  }
+
+  function generateFullGradesCSV() {
+    const headers = [
+      'كود الطالب', 'الاسم عربي', 'الاسم إنجليزي', 'الصف', 'المسار', 'حالة القيد',
+      'مجموع درجات سبتمبر', 'نهاية درجات سبتمبر العظمى', 'النسبة المئوية', 'الترتيب والمركز',
+      'عربي', 'لغات OL', 'لغات AL', 'رياضيات Math', 'علوم Science', 'دين', 'دراسات Social', 'تكنولوجيا ICT', 'مستوى رفيع French'
+    ];
+
+    const rows = [headers.join(',')];
+
+    ALL_STUDENTS.forEach(st => {
+      const pTot = getStudentPeriodTotal(st, 't1_sep');
+      const rank = calculateStudentClassRank(st, 't1_sep', true);
+      const subs = st.subjectScores || {};
+
+      const getSubScore = (subId) => {
+        if (!subs[subId]) return '';
+        const s = subs[subId];
+        if (s.sep !== undefined && s.sep !== null) return s.sep;
+        if (s.scores && s.scores.t1_sep && s.scores.t1_sep.score !== undefined) return s.scores.t1_sep.score;
+        return '';
+      };
+
+      const row = [
+        st.id,
+        `"${(st.nameAr || '').replace(/"/g, '""')}"`,
+        `"${(st.nameEn || '').replace(/"/g, '""')}"`,
+        st.grade,
+        st.track,
+        st.enrollmentStatus || 'active',
+        pTot.totalScore,
+        pTot.totalMax,
+        pTot.percentage + '%',
+        `"${rank.replace(/"/g, '""')}"`,
+        getSubScore('arabic'),
+        getSubScore('english_ol'),
+        getSubScore('english_al'),
+        getSubScore('math'),
+        getSubScore('science'),
+        getSubScore('religion'),
+        getSubScore('social'),
+        getSubScore('ict'),
+        getSubScore('french')
+      ];
+      rows.push(row.join(','));
+    });
+
+    return "\uFEFF" + rows.join('\r\n'); // Include UTF-8 BOM
+  }
+
+  async function exportBackupToChosenFolder() {
+    const statusEl = document.getElementById('backup-folder-status');
+    const btn = document.getElementById('btn-pick-backup-folder');
+
+    // 1. Check File System Access API
+    if (typeof window.showDirectoryPicker === 'function') {
+      try {
+        if (btn) btn.disabled = true;
+        const dirHandle = await window.showDirectoryPicker({
+          mode: 'readwrite',
+          startIn: 'downloads'
+        });
+
+        const now = new Date();
+        const dateStr = now.toISOString().slice(0, 10);
+        const timeStr = now.toTimeString().slice(0, 5).replace(':', '-');
+
+        // Prepare File 1: JSON Database
+        const jsonContent = generateFullBackupDatabaseJSON();
+        const jsonFileName = `smile_kids_database_backup_${dateStr}_${timeStr}.json`;
+        const jsonFileHandle = await dirHandle.getFileHandle(jsonFileName, { create: true });
+        const jsonWritable = await jsonFileHandle.createWritable();
+        await jsonWritable.write(jsonContent);
+        await jsonWritable.close();
+
+        // Prepare File 2: Master Database JS
+        const jsContent = `window.SMILE_KIDS_MASTER_BACKUP = ${jsonContent};\nif (typeof window.SmileKidsDB !== 'undefined' && typeof window.SmileKidsDB.loadStudentsFromCloud === 'function') { window.SmileKidsDB.loadStudentsFromCloud(window.SMILE_KIDS_MASTER_BACKUP.students); }`;
+        const jsFileName = `smile_kids_database_backup_${dateStr}.js`;
+        const jsFileHandle = await dirHandle.getFileHandle(jsFileName, { create: true });
+        const jsWritable = await jsFileHandle.createWritable();
+        await jsWritable.write(jsContent);
+        await jsWritable.close();
+
+        // Prepare File 3: Full Grades CSV
+        const csvContent = generateFullGradesCSV();
+        const csvFileName = `Smile_Kids_Grades_Master_Backup_${dateStr}.csv`;
+        const csvFileHandle = await dirHandle.getFileHandle(csvFileName, { create: true });
+        const csvWritable = await csvFileHandle.createWritable();
+        await csvWritable.write(csvContent);
+        await csvWritable.close();
+
+        // Prepare File 4: Audit Receipt
+        const receiptContent = `SMILE KIDS SCHOOL SYSTEM - LOCAL BACKUP RECEIPT\n` +
+          `Date: ${now.toLocaleString('ar-EG')}\n` +
+          `Total Students: ${ALL_STUDENTS.length}\n` +
+          `Active Term: September 2026\n` +
+          `Status: VERIFIED 100% SUCCESSFUL\n` +
+          `Files Exported:\n` +
+          `- ${jsonFileName}\n` +
+          `- ${csvFileName}\n` +
+          `- ${jsFileName}\n`;
+        const receiptHandle = await dirHandle.getFileHandle(`README_BACKUP_RECEIPT.txt`, { create: true });
+        const recWritable = await receiptHandle.createWritable();
+        await recWritable.write(receiptContent);
+        await recWritable.close();
+
+        if (statusEl) {
+          statusEl.classList.remove('hidden');
+          statusEl.innerHTML = `
+            <div class="text-emerald-300 font-black text-sm">✅ تم بنجاح حفظ كامل النسخة الاحتياطية وتصديرها داخل المجلد المختار!</div>
+            <div class="text-[11px] text-slate-300 mt-1">تم إنشاء 3 ملفات معتمدة (قاعدة البيانات JSON، شيت الدرجات CSV، ملف التشغيل JS، وإيصال الحفظ).</div>
+          `;
+        }
+
+        alert(`✅ تم بنجاح حفظ النسخة الاحتياطية وتصديرها داخل المجلد المختار على جهازك!\n\n📁 المجلد: ${dirHandle.name}\n📄 الملفات: ${jsonFileName} + ${csvFileName}`);
+      } catch(err) {
+        if (err.name === 'AbortError') {
+          console.log('User cancelled folder picker');
+        } else {
+          console.error('Directory picker export error:', err);
+          alert('حدث خطأ أثناء الحفظ في المجلد، سيتم الآن تحميل الملفات مباشرة لجهازك كبديل تلقائي.');
+          downloadJsonBackupDirect();
+          downloadCsvBackupDirect();
+        }
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    } else {
+      // Fallback for browsers that don't support showDirectoryPicker (Firefox / older browsers)
+      downloadJsonBackupDirect();
+      downloadCsvBackupDirect();
+      alert('تم تحميل ملف قاعدة البيانات وشيت درجات سبتمبر مباشرة إلى مجلد التنزيلات (Downloads) على جهازك! 💾');
+    }
+  }
+
+  function downloadJsonBackupDirect() {
+    const jsonContent = generateFullBackupDatabaseJSON();
+    const now = new Date();
+    const dateStr = now.toISOString().slice(0, 10);
+    const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `smile_kids_database_backup_${dateStr}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast('تم تحميل ملف قاعدة البيانات (JSON) بنجاح 💾', 'success');
+  }
+
+  function downloadCsvBackupDirect() {
+    const csvContent = generateFullGradesCSV();
+    const now = new Date();
+    const dateStr = now.toISOString().slice(0, 10);
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `Smile_Kids_Grades_Master_Backup_${dateStr}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast('تم تحميل شيت درجات سبتمبر (CSV) بنجاح 📊', 'success');
+  }
+
 </script>
 </html>

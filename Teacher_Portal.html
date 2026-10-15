@@ -4,9 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>بوابة المعلمات الذكية • مدرسة Smile Kids الخاصة للغات</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
-  <script src="firebase_config.js"></script>
-  <script src="smile_kids_database.js?v=20261004_v10_sync"></script>
+  <script src="firebase_config.js?v=20261015_v8"></script>
+  <script src="smile_kids_database.js?v=20261015_v8"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -875,6 +878,36 @@
             } else {
               localStorage.setItem(STORAGE_KEY_STUDENTS, JSON.stringify(res.students));
             }
+
+            // مزامنة درجات المواد من كائنات الطلاب السحابية إلى سجل درجات المعلم فوراً
+            const storedGrades = getStoredGrades();
+            res.students.forEach(st => {
+              if (st && st.subjectScores) {
+                Object.entries(st.subjectScores).forEach(([subId, subData]) => {
+                  if (subData) {
+                    ['sep', 'm1', 'm2', 'tasks', 'exam'].forEach(fld => {
+                      if (subData[fld] !== undefined && subData[fld] !== null && subData[fld] > 0) {
+                        const key = 'st_' + st.id + '_t1_' + subId;
+                        if (!storedGrades[key]) storedGrades[key] = {};
+                        storedGrades[key][fld] = subData[fld];
+                      }
+                    });
+                    if (subData.scores && typeof subData.scores === 'object') {
+                      Object.entries(subData.scores).forEach(([pKey, pVal]) => {
+                        if (pVal && pVal.score !== undefined && pVal.score !== null && pVal.score > 0) {
+                          const t = pKey.startsWith('t2') ? 't2' : 't1';
+                          const fld = pKey.replace('t1_', '').replace('t2_', '');
+                          const key = 'st_' + st.id + '_' + t + '_' + subId;
+                          if (!storedGrades[key]) storedGrades[key] = {};
+                          storedGrades[key][fld] = pVal.score;
+                        }
+                      });
+                    }
+                  }
+                });
+              }
+            });
+            saveStoredGrades(storedGrades);
             hasChanges = true;
           }
           // 2. Update custom max scores
@@ -882,7 +915,7 @@
             localStorage.setItem('smile_kids_custom_max_scores', JSON.stringify(res.customMaxScores));
             hasChanges = true;
           }
-          // 3. Update grades
+          // 3. Update grades from standalone collection
           if (Array.isArray(res.grades) && res.grades.length > 0) {
             const storedGrades = getStoredGrades();
             res.grades.forEach(g => {

@@ -174,14 +174,22 @@
       // إشعار التطبيق بجاهزية Firebase
       if (typeof window.dispatchEvent === 'function') {
         window.dispatchEvent(new CustomEvent('smilekids_firebase_ready', {
-          detail: { projectId: firebaseConfig.projectId }
+          detail: { projectId: firebaseConfig.projectId, mode: 'sdk' }
         }));
       }
 
       return true;
     } catch(err) {
-      console.error('[SmileKids Firebase] خطأ أثناء تهيئة Firebase:', err);
+      console.warn('[SmileKids Firebase] تعذر تهيئة Firebase SDK، سيتم استخدام محرك REST التلقائي:', err);
       return false;
+    } finally {
+      SmileKidsFirebase.isReady = true;
+      // ضمان إشعار جميع بوابات الموبايل والكمبيوتر بجاهزية الاتصال السحابي دائماً
+      if (typeof window.dispatchEvent === 'function') {
+        window.dispatchEvent(new CustomEvent('smilekids_firebase_ready', {
+          detail: { projectId: firebaseConfig.projectId, mode: dbInstance ? 'sdk' : 'rest' }
+        }));
+      }
     }
   })();
 
@@ -248,7 +256,19 @@
     if (!doc || !doc.fields) return {};
     const res = {};
     for (const [k, v] of Object.entries(doc.fields)) {
-      res[k] = decodeFirestoreValue(v);
+      const decodedVal = decodeFirestoreValue(v);
+      if (k.includes('.')) {
+        // فك مفاتيح التنقيط التلقائية مثل subjectScores.arabic.scores.t1_sep
+        const parts = k.split('.');
+        let cur = res;
+        for (let i = 0; i < parts.length - 1; i++) {
+          cur[parts[i]] = cur[parts[i]] || {};
+          cur = cur[parts[i]];
+        }
+        cur[parts[parts.length - 1]] = decodedVal;
+      } else {
+        res[k] = decodedVal;
+      }
     }
     return res;
   }
