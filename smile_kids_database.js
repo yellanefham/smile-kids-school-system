@@ -18840,26 +18840,34 @@
     "attendanceRecords": {},
     "attendanceNotes": {},
     "termsScores": {
-      "annual_total": 98,
+      "annual_total": 91,
       "t1_tasks": null,
       "t2_tasks": null,
-      "t2_total": 98,
-      "t1_total": 98,
+      "t2_total": 91,
+      "t1_total": 91,
       "t2_m2": 20,
       "t2_m1": 20,
       "t1_m2": 20,
       "t2_exam": 30,
       "t1_exam": 29.5,
       "t1_m1": 19.5,
-      "t1_sep": 44,
-      "t1_sep_pct": 88,
-      "t1_sep_max": 50
+      "t1_sep": 91,
+      "t1_sep_pct": 91,
+      "t1_sep_max": 100
     },
     "subjectScores": {
       "arabic": {
         "subjectId": "arabic",
-        "sep": 0,
-        "scores": {},
+        "sep": 28,
+        "scores": {
+          "t1_sep": {
+            "score": 28,
+            "maxScore": 30,
+            "isRecorded": true,
+            "recordedAt": "2026-10-11T20:00:00.000Z",
+            "updatedAt": "2026-10-15T20:48:00.000Z"
+          }
+        },
         "teacherNameAr": "مس / أسماء"
       },
       "term": {
