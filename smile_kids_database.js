@@ -22500,17 +22500,50 @@
             hasChanges = true;
           }
           // Non-destructive merge of profile and scores
-          Object.assign(localSt, rem);
-          if (rem.enrollmentStatus) {
-            localSt.enrollmentStatus = rem.enrollmentStatus;
-          }
-          if (rem.subjectScores) {
+          if (rem.nameAr) localSt.nameAr = rem.nameAr;
+          if (rem.nameEn) localSt.nameEn = rem.nameEn;
+          if (rem.gender) localSt.gender = rem.gender;
+          if (rem.track) localSt.track = rem.track;
+          if (rem.enrollmentStatus) localSt.enrollmentStatus = rem.enrollmentStatus;
+          if (rem.status) localSt.status = rem.status;
+
+          // SAFE NON-DESTRUCTIVE MERGE: NEVER overwrite a valid local score (> 0) with zero, null, or empty!
+          if (rem.subjectScores && typeof rem.subjectScores === 'object') {
             localSt.subjectScores = localSt.subjectScores || {};
             Object.keys(rem.subjectScores).forEach(subId => {
-              localSt.subjectScores[subId] = Object.assign({}, localSt.subjectScores[subId] || {}, rem.subjectScores[subId]);
+              const remSub = rem.subjectScores[subId];
+              if (!remSub || typeof remSub !== 'object') return;
+
+              if (!localSt.subjectScores[subId]) {
+                localSt.subjectScores[subId] = JSON.parse(JSON.stringify(remSub));
+                return;
+              }
+
+              const locSub = localSt.subjectScores[subId];
+              if (remSub.teacherNameAr) locSub.teacherNameAr = remSub.teacherNameAr;
+              if (remSub.subjectId) locSub.subjectId = remSub.subjectId;
+
+              locSub.scores = locSub.scores || {};
+              if (remSub.scores && typeof remSub.scores === 'object') {
+                Object.keys(remSub.scores).forEach(pKey => {
+                  const remP = remSub.scores[pKey];
+                  const locP = locSub.scores[pKey];
+                  if (remP && (remP.isRecorded || remP.score > 0)) {
+                    locSub.scores[pKey] = Object.assign({}, locP || {}, remP);
+                  }
+                });
+              }
+
+              ['sep', 'm1', 'm2', 'tasks', 'exam'].forEach(fld => {
+                const remVal = parseFloat(remSub[fld]);
+                if (!isNaN(remVal) && remVal > 0) {
+                  locSub[fld] = remVal;
+                }
+              });
             });
           }
-          if (rem.termsScores) {
+
+          if (rem.termsScores && typeof rem.termsScores === 'object') {
             localSt.termsScores = Object.assign({}, localSt.termsScores || {}, rem.termsScores);
           }
           hasChanges = true;
