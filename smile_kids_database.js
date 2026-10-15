@@ -58,6 +58,26 @@
       nameAr: 'زين محمد نوار',
       nameEn: 'Zein Mohamed Nawar',
       gender: 'male'
+    },
+    'SK-G2-AR-007': {
+      nameAr: 'إيلين أحمد زيدان',
+      nameEn: 'Ellen Ahmed Zeidan',
+      gender: 'female'
+    },
+    'SK-G2-LN-004': {
+      nameAr: 'معتز محمد أطاها',
+      nameEn: 'Moataz Mohamed Ataha',
+      gender: 'male'
+    },
+    'SK-G4-LN-010': {
+      nameAr: 'ميرا محمد أطاها',
+      nameEn: 'Mira Mohamed Ataha',
+      gender: 'female'
+    },
+    'SK-G9-AR-001': {
+      nameAr: 'ساره محمد أطاها',
+      nameEn: 'Sara Mohamed Ataha',
+      gender: 'female'
     }
   };
 
@@ -3079,8 +3099,8 @@
     "track": "arabic",
     "trackNameAr": "عربي (حساب)",
     "trackNameEn": "Arabic Track",
-    "nameAr": "إيلين أحمد زيران",
-    "nameEn": "Ellen Ahmed Zayran",
+    "nameAr": "إيلين أحمد زيدان",
+    "nameEn": "Ellen Ahmed Zeidan",
     "gender": "female",
     "sampleScores": {},
     "attendanceRecords": {},
@@ -3665,7 +3685,7 @@
     "track": "languages",
     "trackNameAr": "لغات (Math & Science)",
     "trackNameEn": "Languages Track",
-    "nameAr": "معتز محمد عطاها",
+    "nameAr": "معتز محمد أطاها",
     "nameEn": "Moataz Mohamed Ataha",
     "gender": "male",
     "sampleScores": {},
@@ -9514,7 +9534,7 @@
     "track": "languages",
     "trackNameAr": "لغات (Math & Science)",
     "trackNameEn": "Languages Track",
-    "nameAr": "ميرا محمد عطاها",
+    "nameAr": "ميرا محمد أطاها",
     "nameEn": "Mira Mohamed Ataha",
     "gender": "female",
     "sampleScores": {},
@@ -17571,7 +17591,7 @@
     "track": "arabic",
     "trackNameAr": "عربي (حساب)",
     "trackNameEn": "Arabic Track",
-    "nameAr": "ساره محمد عطاها",
+    "nameAr": "ساره محمد أطاها",
     "nameEn": "Sara Mohamed Ataha",
     "gender": "female",
     "sampleScores": {},

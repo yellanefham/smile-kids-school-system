@@ -1543,8 +1543,8 @@
     "track": "arabic",
     "trackNameAr": "عربي (حساب)",
     "trackNameEn": "Arabic Track",
-    "nameAr": "إيلين أحمد زيران",
-    "nameEn": "Ellen Ahmed Zayran",
+    "nameAr": "إيلين أحمد زيدان",
+    "nameEn": "Ellen Ahmed Zeidan",
     "gender": "female",
     "sampleScores": {
       "month1": 19.5,
@@ -1868,7 +1868,7 @@
     "track": "languages",
     "trackNameAr": "لغات (Math & Science)",
     "trackNameEn": "Languages Track",
-    "nameAr": "معتز محمد عطاها",
+    "nameAr": "معتز محمد أطاها",
     "nameEn": "Moataz Mohamed Ataha",
     "gender": "male",
     "sampleScores": {
@@ -3967,7 +3967,7 @@
     "track": "languages",
     "trackNameAr": "لغات (Math & Science)",
     "trackNameEn": "Languages Track",
-    "nameAr": "ميرا محمد عطاها",
+    "nameAr": "ميرا محمد أطاها",
     "nameEn": "Mira Mohamed Ataha",
     "gender": "female",
     "sampleScores": {
@@ -6078,7 +6078,7 @@
     "track": "arabic",
     "trackNameAr": "عربي (حساب)",
     "trackNameEn": "Arabic Track",
-    "nameAr": "ساره محمد عطاها",
+    "nameAr": "ساره محمد أطاها",
     "nameEn": "Sara Mohamed Ataha",
     "gender": "female",
     "sampleScores": {

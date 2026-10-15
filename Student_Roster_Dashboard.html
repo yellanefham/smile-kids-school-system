@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+  <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>كشوف وقوائم الطلاب والغياب والحضور — الفصول من الصف الأول حتى الصف التاسع | مدرسة Smile Kids للغات</title>
@@ -2978,6 +2978,15 @@
               if (updatedRaw.includes('ماريا قطيبه علي')) {
                 updatedRaw = updatedRaw.split('ماريا قطيبه علي').join('ماريا قتيبه العلي');
               }
+              if (updatedRaw.includes('زيران') || updatedRaw.includes('Zayran')) {
+                updatedRaw = updatedRaw.split('إيلين أحمد زيران').join('إيلين أحمد زيدان').split('Ellen Ahmed Zayran').join('Ellen Ahmed Zeidan');
+              }
+              if (updatedRaw.includes('عطاها')) {
+                updatedRaw = updatedRaw.split('معتز محمد عطاها').join('معتز محمد أطاها')
+                  .split('ميرا محمد عطاها').join('ميرا محمد أطاها')
+                  .split('ساره محمد عطاها').join('ساره محمد أطاها')
+                  .split('سارة محمد عطاها').join('سارة محمد أطاها');
+              }
               const arr = JSON.parse(updatedRaw);
               if (Array.isArray(arr)) {
                 let modified = false;
@@ -3018,6 +3027,31 @@
                   if (s.id === 'SK-G1-LN-017') {
                     if (s.nameAr !== 'لجين محمد رمضان') {
                       s.nameAr = 'لجين محمد رمضان';
+                      modified = true;
+                    }
+                  }
+                  if (s.id === 'SK-G2-AR-007') {
+                    if (s.nameAr !== 'إيلين أحمد زيدان' || s.nameEn !== 'Ellen Ahmed Zeidan') {
+                      s.nameAr = 'إيلين أحمد زيدان';
+                      s.nameEn = 'Ellen Ahmed Zeidan';
+                      modified = true;
+                    }
+                  }
+                  if (s.id === 'SK-G2-LN-004') {
+                    if (s.nameAr !== 'معتز محمد أطاها') {
+                      s.nameAr = 'معتز محمد أطاها';
+                      modified = true;
+                    }
+                  }
+                  if (s.id === 'SK-G4-LN-010') {
+                    if (s.nameAr !== 'ميرا محمد أطاها') {
+                      s.nameAr = 'ميرا محمد أطاها';
+                      modified = true;
+                    }
+                  }
+                  if (s.id === 'SK-G9-AR-001') {
+                    if (s.nameAr !== 'ساره محمد أطاها') {
+                      s.nameAr = 'ساره محمد أطاها';
                       modified = true;
                     }
                   }
@@ -6090,8 +6124,8 @@
     "track": "arabic",
     "trackNameAr": "عربي (حساب)",
     "trackNameEn": "Arabic Track",
-    "nameAr": "إيلين أحمد زيران",
-    "nameEn": "Ellen Ahmed Zayran",
+    "nameAr": "إيلين أحمد زيدان",
+    "nameEn": "Ellen Ahmed Zeidan",
     "gender": "female",
     "sampleScores": {},
     "attendanceRecords": {},
@@ -6676,7 +6710,7 @@
     "track": "languages",
     "trackNameAr": "لغات (Math & Science)",
     "trackNameEn": "Languages Track",
-    "nameAr": "معتز محمد عطاها",
+    "nameAr": "معتز محمد أطاها",
     "nameEn": "Moataz Mohamed Ataha",
     "gender": "male",
     "sampleScores": {},
@@ -12525,7 +12559,7 @@
     "track": "languages",
     "trackNameAr": "لغات (Math & Science)",
     "trackNameEn": "Languages Track",
-    "nameAr": "ميرا محمد عطاها",
+    "nameAr": "ميرا محمد أطاها",
     "nameEn": "Mira Mohamed Ataha",
     "gender": "female",
     "sampleScores": {},
@@ -20582,7 +20616,7 @@
     "track": "arabic",
     "trackNameAr": "عربي (حساب)",
     "trackNameEn": "Arabic Track",
-    "nameAr": "ساره محمد عطاها",
+    "nameAr": "ساره محمد أطاها",
     "nameEn": "Sara Mohamed Ataha",
     "gender": "female",
     "sampleScores": {},
@@ -32968,44 +33002,76 @@ Smile Kids school ☺`;
   }
 
   async function renderCertOffscreenCanvas(studentId) {
-    if (typeof html2canvas === 'undefined') {
-      alert('جاري تحميل مكتبة معالجة الصور، يرجى المحاولة بعد ثوانٍ قليلة...');
-      return null;
-    }
-
     const st = ALL_STUDENTS.find(s => s.id === studentId);
     if (!st) return null;
 
     const pSel = document.getElementById('export-rank-period-select');
     const periodKey = pSel ? pSel.value : (currentGradesPeriod || 't1_sep');
 
+    // Wait for fonts to ensure crystal-clear text rendering
+    if (document.fonts && document.fonts.ready) {
+      try { await document.fonts.ready; } catch(e) {}
+    }
+
     // Sandbox container
     let sandbox = document.getElementById('cert-render-sandbox');
     if (!sandbox) {
       sandbox = document.createElement('div');
       sandbox.id = 'cert-render-sandbox';
-      sandbox.style.cssText = 'position: fixed; left: -9999px; top: 0; width: 1120px; z-index: -100; opacity: 0; pointer-events: none; background: #ffffff;';
+      sandbox.style.cssText = 'position: fixed; left: -9999px; top: 0; width: 1080px; z-index: -100; opacity: 0; pointer-events: none; background: #ffffff;';
       document.body.appendChild(sandbox);
     }
 
     // Generate HTML
     const certHtml = generateSingleCertificateHTML(st, 'arabic', periodKey, selectedCertificateStyle);
-    sandbox.innerHTML = `<div id="sandbox-cert-inner" style="width: 1120px; background: #ffffff; padding: 0; margin: 0;">${certHtml}</div>`;
+    sandbox.innerHTML = `<div id="sandbox-cert-inner" style="width: 1080px; background: #ffffff; padding: 6px; margin: 0; direction: rtl; font-family: 'Cairo', Arial, sans-serif;">${certHtml}</div>`;
 
-    // Wait a brief moment for layout & fonts
-    await new Promise(r => setTimeout(r, 120));
+    // Wait a brief moment for layout & styles
+    await new Promise(r => setTimeout(r, 160));
 
     const targetEl = sandbox.firstElementChild || sandbox;
-    const canvas = await html2canvas(targetEl, {
-      scale: 2,
-      useCORS: true,
-      allowTaint: true,
-      backgroundColor: '#ffffff',
-      logging: false
-    });
+
+    // 1. Primary Engine: htmlToImage (رسم أصلي عبر المتصفح يضمن تشبيك وجمال الحروف العربية 100% بدون أي تفكيك)
+    if (typeof htmlToImage !== 'undefined') {
+      try {
+        const dataUrl = await htmlToImage.toPng(targetEl, {
+          quality: 1.0,
+          pixelRatio: 2,
+          backgroundColor: '#ffffff'
+        });
+        const img = new Image();
+        await new Promise((res, rej) => {
+          img.onload = res;
+          img.onerror = rej;
+          img.src = dataUrl;
+        });
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        sandbox.innerHTML = '';
+        return canvas;
+      } catch(htiErr) {
+        console.warn('htmlToImage capture error, fallback to html2canvas:', htiErr);
+      }
+    }
+
+    // 2. Fallback to html2canvas if htmlToImage is unavailable
+    if (typeof html2canvas !== 'undefined') {
+      const canvas = await html2canvas(targetEl, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#ffffff',
+        logging: false
+      });
+      sandbox.innerHTML = '';
+      return canvas;
+    }
 
     sandbox.innerHTML = '';
-    return canvas;
+    return null;
   }
 
   async function downloadStudentCertImage(studentId, rankLabel) {
