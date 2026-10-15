@@ -2965,6 +2965,10 @@
     (function purgeDeletedStudentStorage() {
       try {
         const BLACKLIST_IDS = ['SK-G2-LN-013', 'SK-G3-AR-001', 'SK-G9-AR-003'];
+        try {
+          const storedDels = JSON.parse(localStorage.getItem('smile_kids_deleted_student_ids_v1') || '[]');
+          if (Array.isArray(storedDels)) storedDels.forEach(id => { if (!BLACKLIST_IDS.includes(id)) BLACKLIST_IDS.push(id); });
+        } catch(e) {}
         const BLACKLIST_NAMES = ['ليان محمد أمين', 'إسلام أحمد إسماعيل', 'محمد عبد الله النقاش', 'محمد عبدالله النقاش'];
         const KEYS = ['SMILE_KIDS_MASTER_DATABASE_2026_V7', 'SMILE_KIDS_MASTER_DATABASE_2026_V7', 'SMILE_KIDS_MASTER_DATABASE_2026', 'smile_kids_students', 'smilekids_school_v6', 'smile_kids_students_v7_custom'];
         KEYS.forEach(function(k) {
@@ -27543,9 +27547,20 @@
       const st = ALL_STUDENTS.find(s => s.id === studentId);
       if (!st) return;
 
-      const confirmMsg = `هل أنت متأكد من حذف الطالب نهائياً؟\n\n• اسم الطالب: ${st.nameAr}\n• الصف: ${GRADE_CONFIG[st.grade] ? GRADE_CONFIG[st.grade].ar : st.grade}\n\nسيتم حذف سجل الطالب بالكامل من قاعدة البيانات المركزية وكافة الكشوف وسحابة Firebase.`;
+      const confirmMsg = `هل أنت متأكد من حذف الطالب نهائياً؟\n\n• اسم الطالب: ${st.nameAr}\n• الصف: ${GRADE_CONFIG[st.grade] ? GRADE_CONFIG[st.grade].ar : st.grade}\n\nسيتم حذف سجل الطالب بالكامل من قاعدة البيانات المركزية وكافة الكشوف وسحابة Firebase ولن يعود عند التحديث أو إعادة التحميل.`;
 
       if (confirm(confirmMsg)) {
+        // 1. Permanent Tombstone in localStorage
+        try {
+          const rawDel = localStorage.getItem('smile_kids_deleted_student_ids_v1');
+          const delArr = rawDel ? JSON.parse(rawDel) : [];
+          if (!delArr.includes(studentId)) {
+            delArr.push(studentId);
+            localStorage.setItem('smile_kids_deleted_student_ids_v1', JSON.stringify(delArr));
+          }
+        } catch(e) {}
+
+        // 2. Remove from SmileKidsDB & local state
         if (window.SmileKidsDB) {
           window.SmileKidsDB.deleteStudent(studentId);
           ALL_STUDENTS = window.SmileKidsDB.getAllStudents();
@@ -27554,8 +27569,10 @@
           saveStudentsToStorage();
         }
 
-        // Direct delete from Firestore if ready
-        if (window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore && window.SmileKidsFirebase.canUseFirestore()) {
+        // 3. Direct delete from Firestore via SDK or REST Fallback
+        if (window.SmileKidsFirebase && typeof window.SmileKidsFirebase.deleteStudentFromFirestore === 'function') {
+          window.SmileKidsFirebase.deleteStudentFromFirestore(studentId);
+        } else if (window.SmileKidsFirebase && window.SmileKidsFirebase.db) {
           try {
             window.SmileKidsFirebase.db.collection('students').doc(studentId).delete().then(() => {
               console.log('[Firestore] Deleted student doc:', studentId);
@@ -29398,12 +29415,37 @@
                 }
               });
 
-              // Add any students that exist in cloud but not locally
+              // Filter out permanently deleted students (Tombstones) so they are NEVER resurrected on refresh
+              const deletedIdSet = new Set(['SK-G2-LN-013', 'SK-G3-AR-001', 'SK-G9-AR-003']);
+              try {
+                const storedDels = JSON.parse(localStorage.getItem('smile_kids_deleted_student_ids_v1') || '[]');
+                if (Array.isArray(storedDels)) storedDels.forEach(id => deletedIdSet.add(id));
+              } catch(e) {}
+              if (window.SmileKidsDB && window.SmileKidsDB._deletedIds) {
+                window.SmileKidsDB._deletedIds.forEach(id => deletedIdSet.add(id));
+              }
+
+              // Purge any deleted students returned by Firestore
+              res.students = res.students.filter(s => {
+                if (deletedIdSet.has(s.id)) {
+                  // Purge from cloud in background
+                  if (window.SmileKidsFirebase && typeof window.SmileKidsFirebase.deleteStudentFromFirestore === 'function') {
+                    window.SmileKidsFirebase.deleteStudentFromFirestore(s.id);
+                  }
+                  return false;
+                }
+                return true;
+              });
+
+              // Add any students that exist in cloud but not locally (strictly respecting deleted set)
               res.students.forEach(rem => {
-                if (!ALL_STUDENTS.some(s => s.id === rem.id)) {
+                if (!deletedIdSet.has(rem.id) && !ALL_STUDENTS.some(s => s.id === rem.id)) {
                   ALL_STUDENTS.push(rem);
                 }
               });
+
+              // Ensure ALL_STUDENTS also strictly excludes any deleted IDs
+              ALL_STUDENTS = ALL_STUDENTS.filter(s => !deletedIdSet.has(s.id));
 
               syncedCount = res.students.length;
 

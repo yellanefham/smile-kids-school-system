@@ -320,6 +320,22 @@
     return await resp.json();
   }
 
+  async function deleteDocREST(collectionName, docId) {
+    const url = `${REST_BASE_URL}/${collectionName}/${encodeURIComponent(docId)}?key=${firebaseConfig.apiKey}`;
+    try {
+      const resp = await fetch(url, { method: 'DELETE' });
+      if (resp.status === 404) return true; // Already deleted
+      if (!resp.ok) {
+        console.warn(`[SmileKids Firebase] Firestore REST DELETE error (${resp.status}) for ${collectionName}/${docId}`);
+        return false;
+      }
+      return true;
+    } catch(err) {
+      console.warn(`[SmileKids Firebase] Network error in deleteDocREST for ${collectionName}/${docId}:`, err);
+      return false;
+    }
+  }
+
   // =======================================================================
   // 4. الواجهة البرمجية الموحدة (Unified Public API)
   // =======================================================================
@@ -385,6 +401,61 @@
       } catch(restErr) {
         console.warn(`[SmileKids Firebase] خطأ أثناء حفظ الطالب ${studentData.id} في Firestore عبر REST:`, restErr);
         return { success: false, error: restErr.message };
+      }
+    },
+
+    /**
+     * حذف مستند طالب من مجموعة 'students' في Firestore نهائياً (يدعم SDK و REST Fallback المباشر)
+     * @param {string} studentId معرف الطالب المراد حذفه
+     */
+    deleteStudentFromFirestore: async function(studentId) {
+      if (!studentId) return { success: false, error: 'معرف الطالب مفقود' };
+      const stId = String(studentId);
+
+      // 1. Try Firebase SDK if available
+      if (this.db) {
+        try {
+          await this.db.collection('students').doc(stId).delete();
+          console.log(`[SmileKids Firebase] تم حذف الطالب ${stId} من Firestore بنجاح عبر SDK`);
+          return { success: true, id: stId, source: 'sdk' };
+        } catch(sdkErr) {
+          console.warn(`[SmileKids Firebase] تعذر حذف الطالب ${stId} عبر SDK، جاري المحاولة عبر REST Fallback:`, sdkErr);
+        }
+      }
+
+      // 2. Fallback to REST DELETE
+      try {
+        const ok = await deleteDocREST('students', stId);
+        if (ok) {
+          console.log(`[SmileKids Firebase] تم حذف الطالب ${stId} من Firestore بنجاح عبر REST API`);
+          return { success: true, id: stId, source: 'rest' };
+        }
+        return { success: false, error: 'فشل حذف المستند عبر REST' };
+      } catch(restErr) {
+        console.error(`[SmileKids Firebase] خطأ في حذف الطالب ${stId} عبر REST:`, restErr);
+        return { success: false, error: restErr.message };
+      }
+    },
+
+    /**
+     * حذف مستند عام من أي مجموعة في Firestore
+     * @param {string} collectionName
+     * @param {string} docId
+     */
+    deleteDocFromFirestore: async function(collectionName, docId) {
+      if (!collectionName || !docId) return { success: false, error: 'بيانات غير صالحة' };
+      const dId = String(docId);
+      if (this.db) {
+        try {
+          await this.db.collection(collectionName).doc(dId).delete();
+          return { success: true, source: 'sdk' };
+        } catch(e) {}
+      }
+      try {
+        const ok = await deleteDocREST(collectionName, dId);
+        return { success: ok, source: 'rest' };
+      } catch(e) {
+        return { success: false, error: e.message };
       }
     },
 

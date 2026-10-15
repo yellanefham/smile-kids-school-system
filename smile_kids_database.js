@@ -22479,6 +22479,13 @@
       remoteStudents.forEach(rem => {
         if (!rem || !rem.id) return;
         if (isStudentBlacklisted(rem) || isCanonicalDeletedStudent(rem)) return;
+        if (this._deletedIds && this._deletedIds.has(rem.id)) {
+          // Permanently block resurrection of deleted students & purge from Firestore in background
+          if (typeof window !== 'undefined' && window.SmileKidsFirebase && typeof window.SmileKidsFirebase.deleteStudentFromFirestore === 'function') {
+            window.SmileKidsFirebase.deleteStudentFromFirestore(rem.id);
+          }
+          return;
+        }
         const localSt = localMap.get(rem.id);
         if (!localSt) {
           this._cache.push(rem);
@@ -22710,11 +22717,15 @@
           deleted_student_ids: Array.from(this._deletedIds)
         });
 
-        // Instant Firestore Sync for deleted student
-        if (typeof window !== 'undefined' && window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore()) {
-          window.SmileKidsFirebase.db.collection('students').doc(String(id)).delete().catch(e => {
-            console.warn('[SmileKids DB] Firestore deleteStudent error:', e);
-          });
+        // Instant Firestore Sync for deleted student (both SDK and REST Fallback)
+        if (typeof window !== 'undefined' && window.SmileKidsFirebase) {
+          if (typeof window.SmileKidsFirebase.deleteStudentFromFirestore === 'function') {
+            window.SmileKidsFirebase.deleteStudentFromFirestore(String(id));
+          } else if (window.SmileKidsFirebase.canUseFirestore && window.SmileKidsFirebase.canUseFirestore() && window.SmileKidsFirebase.db) {
+            window.SmileKidsFirebase.db.collection('students').doc(String(id)).delete().catch(e => {
+              console.warn('[SmileKids DB] Firestore deleteStudent error:', e);
+            });
+          }
         }
 
         return removed;
