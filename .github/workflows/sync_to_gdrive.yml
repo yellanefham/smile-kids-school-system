@@ -1,0 +1,31 @@
+name: Auto Sync Database to Google Drive
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'smile_kids_database.json'
+      - 'smile_kids_database.js'
+      - '.github/workflows/sync_to_gdrive.yml'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Send Database to Google Drive Webhook
+        if: ${{ secrets.GDRIVE_WEBHOOK_URL != '' }}
+        run: |
+          echo "Sending updated database to Google Drive..."
+          curl -X POST -H "Content-Type: application/json" -d @smile_kids_database.json "${{ secrets.GDRIVE_WEBHOOK_URL }}"
+          echo "Sync completed successfully!"
+
+      - name: Check Status
+        if: ${{ secrets.GDRIVE_WEBHOOK_URL == '' }}
+        run: |
+          echo "Notice: GDRIVE_WEBHOOK_URL secret is not set yet in GitHub Repository Secrets."
+          echo "To activate automatic Google Drive syncing, please add GDRIVE_WEBHOOK_URL in GitHub Settings -> Secrets."
