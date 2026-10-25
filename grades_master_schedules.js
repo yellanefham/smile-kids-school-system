@@ -3950,9 +3950,29 @@ window.SMILE_KIDS_GRADE_SCHEDULES = {
       "4": {
         "arabic": null,
         "languages": {
-          "subject": "G6 Math",
+          "subject": "G6 رياضيات",
           "teacher": "مس / هند",
-          "raw": "G6 Math"
+          "raw": "G6 رياضيات"
+        },
+        "general": {
+          "subject": "G6 رياضيات",
+          "teacher": "مس / هند",
+          "raw": "G6 رياضيات"
+        },
+        "all": [
+          {
+            "subject": "G6 رياضيات",
+            "teacher": "مس / هند",
+            "raw": "G6 رياضيات"
+          }
+        ]
+      },
+      "5": {
+        "arabic": null,
+        "languages": {
+          "subject": "G6 علوم",
+          "teacher": "مس / سمر",
+          "raw": "G6 علوم"
         },
         "general": {
           "subject": "G6 Math",
@@ -3969,31 +3989,6 @@ window.SMILE_KIDS_GRADE_SCHEDULES = {
             "subject": "G6 علوم",
             "teacher": "مس / سمر",
             "raw": "G6 علوم"
-          }
-        ]
-      },
-      "5": {
-        "arabic": null,
-        "languages": {
-          "subject": "G6 Science",
-          "teacher": "مس / سمر",
-          "raw": "G6 Science"
-        },
-        "general": {
-          "subject": "G6 رياضيات",
-          "teacher": "مس / هند",
-          "raw": "G6 رياضيات"
-        },
-        "all": [
-          {
-            "subject": "G6 رياضيات",
-            "teacher": "مس / هند",
-            "raw": "G6 رياضيات"
-          },
-          {
-            "subject": "G6 Science",
-            "teacher": "مس / سمر",
-            "raw": "G6 Science"
           }
         ]
       },
@@ -4717,6 +4712,11 @@ window.SMILE_KIDS_GRADE_SCHEDULES = {
             "subject": "G7 English AL",
             "teacher": "مس / أميرة",
             "raw": "G7 English AL"
+          },
+          {
+            "subject": "G7 علوم",
+            "teacher": "مس / سمر",
+            "raw": "G7 علوم"
           }
         ]
       },
