@@ -145,7 +145,7 @@
       const ref = db.collection('public_view').doc(id);
       const snap = await ref.get();
       if (!snap.exists) {
-        await ref.set({ id: st.id, nameAr: st.nameAr || '', nameEn: st.nameEn || '', grade: st.grade, track: st.track || '', gender: st.gender || '', photo: st.photo || null, parentUpdated: false });
+        await ref.set({ id: st.id, nameAr: st.nameAr || '', nameEn: st.nameEn || '', grade: st.grade, track: st.track || '', gender: st.gender || '', photo: null, parentUpdated: false });
       } else {
         const cur = snap.data() || {};
         if (cur.grade !== st.grade || (cur.track || '') !== (st.track || '') || (cur.gender || '') !== (st.gender || '')) {
@@ -161,10 +161,13 @@
       for (const d of qs.docs) {
         const v = d.data();
         if (!v.id) continue;
-        await db.collection('students').doc(String(v.id)).set({
-          nameAr: v.nameAr || '', nameEn: v.nameEn || '', photo: v.photo || null,
+        const patch = {
+          nameAr: v.nameAr || '', nameEn: v.nameEn || '',
           parentUpdated: true, parentUpdatedAt: v.parentUpdatedAt || null, _updatedAt: new Date().toISOString()
-        }, { merge: true });
+        };
+        // A name-only parent update may have no portrait. Never erase a staff-only photo.
+        if (typeof v.photo === 'string' && v.photo.trim()) patch.photo = v.photo;
+        await db.collection('students').doc(String(v.id)).set(patch, { merge: true });
         await d.ref.set({ parentUpdated: false }, { merge: true });
       }
     } catch (e) { console.warn('[SmileKids] merge parent updates:', e && e.message); }
