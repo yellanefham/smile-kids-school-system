@@ -8,8 +8,9 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
-  <script src="firebase_config.js?v=20261024_auth5"></script>
-  <script src="smile_kids_database.js?v=20261015_v8"></script>
+  <script src="firebase_config.js?v=20261027_sync1"></script>
+  <script src="smile_kids_database.js?v=20261027_sync1"></script>
+  <script src="school_sync.js?v=20261027_sync1"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -66,7 +67,7 @@
               <span class="font-black text-white text-sm sm:text-base tracking-tight">مدرسة Smile Kids الخاصة</span>
               <span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-bold px-2 py-0.5 rounded-full">بوابة المعلمات</span>
             </div>
-            <p class="text-[11px] text-slate-400 font-medium">نظام إدخال الدرجات ورصد غياب الحصص الذكي</p>
+            <p class="text-[11px] text-slate-400 font-medium">نظام إدخال الدرجات وتسجيل غياب اليوم الكامل</p>
           </div>
         </a>
       </div>
@@ -171,7 +172,7 @@
 
           <button id="tab-btn-attendance" onclick="switchDashboardTab('attendance')" class="px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700">
             <span>⏱️</span>
-            <span>غياب الحصص الذكي</span>
+            <span>غياب اليوم الكامل</span>
           </button>
 
           <button id="tab-btn-schedule" onclick="switchDashboardTab('schedule')" class="px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700">
@@ -291,7 +292,7 @@
           <div class="flex items-center gap-2">
             <div id="save-status-pill" class="text-xs px-3 py-1.5 rounded-xl font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5">
               <span>✓</span>
-              <span>الحفظ التلقائي مفعّل</span>
+              <span>الحفظ أونلاين يحتاج تأكيد الاتصال</span>
             </div>
 
             <button onclick="exportGradesToCSV()" class="px-3.5 py-1.5 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow" title="تصدير ملف إكسل">
@@ -410,7 +411,7 @@
       </div>
 
 
-      <!-- ==================== TAB 2: SMART PERIOD ATTENDANCE (غياب الحصص) ==================== -->
+      <!-- ==================== TAB 2: DAILY ATTENDANCE (غياب اليوم الكامل) ==================== -->
       <div id="tab-content-attendance" class="hidden flex-1 flex flex-col gap-4">
         
         <!-- Smart Live Period Alert Banner (يظهر حصرياً داخل تبويب الغياب فقط) -->
@@ -483,49 +484,20 @@
           
           <div class="flex flex-wrap items-center gap-3">
             <div>
-              <label class="block text-[11px] font-bold text-slate-400 mb-1">اليوم:</label>
-              <select id="att-day-select" onchange="loadAttendanceRoster()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none">
-                <option value="Sunday">الأحد</option>
-                <option value="Monday">الإثنين</option>
-                <option value="Tuesday">الثلاثاء</option>
-                <option value="Wednesday">الأربعاء</option>
-                <option value="Thursday">الخميس</option>
-              </select>
+              <label class="block text-xs text-slate-400 mb-1" for="att-date-select">تاريخ اليوم:</label>
+              <input type="date" id="att-date-select" onchange="loadAttendanceRoster()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white">
             </div>
-
             <div>
-              <label class="block text-[11px] font-bold text-slate-400 mb-1">الحصة المقررة:</label>
-              <select id="att-period-select" onchange="loadAttendanceRoster()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none">
-                <option value="1">الحصة الأولى (07:30 - 08:10)</option>
-                <option value="2">الحصة الثانية (08:10 - 08:50)</option>
-                <option value="3">الحصة الثالثة (08:50 - 09:30)</option>
-                <option value="4">الحصة الرابعة (09:45 - 10:25)</option>
-                <option value="5">الحصة الخامسة (10:25 - 11:05)</option>
-                <option value="6">الحصة السادسة (11:05 - 11:40)</option>
-                <option value="7">الحصة السابعة (11:40 - 12:15)</option>
-                <option value="8">الحصة الثامنة (12:15 - 12:50)</option>
-              </select>
+              <label class="block text-xs text-slate-400 mb-1" for="att-grade-select">الصف:</label>
+              <select id="att-grade-select" onchange="loadAttendanceRoster()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white"></select>
             </div>
-
             <div>
-              <label class="block text-[11px] font-bold text-slate-400 mb-1">الفصل المخصص لكِ:</label>
-              <div id="att-target-class-badge" class="px-3.5 py-1.5 rounded-xl bg-blue-500/20 text-blue-300 border border-blue-500/30 text-xs font-black">
-                جاري التحميل...
-              </div>
+              <label class="block text-xs text-slate-400 mb-1" for="att-track-select">القسم:</label>
+              <select id="att-track-select" onchange="loadAttendanceRoster()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white"><option value="all">الكل</option><option value="languages">لغات</option><option value="arabic">عربي</option></select>
             </div>
-
-            <!-- Quick Period Jump Pills in Attendance Toolbar -->
-            <div class="border-r border-slate-700 pr-3 hidden sm:flex items-center gap-1">
-              <span class="text-[10px] font-bold text-slate-400 ml-1">انتقال سريع:</span>
-              <button type="button" onclick="quickJumpAttendancePeriod(1)" class="att-quick-p-btn px-2 py-1 rounded-lg text-[11px] font-bold bg-slate-900 border border-slate-700 text-slate-300 hover:text-white" data-p="1">1</button>
-              <button type="button" onclick="quickJumpAttendancePeriod(2)" class="att-quick-p-btn px-2 py-1 rounded-lg text-[11px] font-bold bg-slate-900 border border-slate-700 text-slate-300 hover:text-white" data-p="2">2</button>
-              <button type="button" onclick="quickJumpAttendancePeriod(3)" class="att-quick-p-btn px-2 py-1 rounded-lg text-[11px] font-bold bg-slate-900 border border-slate-700 text-slate-300 hover:text-white" data-p="3">3</button>
-              <button type="button" onclick="quickJumpAttendancePeriod(4)" class="att-quick-p-btn px-2 py-1 rounded-lg text-[11px] font-bold bg-slate-900 border border-slate-700 text-slate-300 hover:text-white" data-p="4">4</button>
-              <button type="button" onclick="quickJumpAttendancePeriod(5)" class="att-quick-p-btn px-2 py-1 rounded-lg text-[11px] font-bold bg-slate-900 border border-slate-700 text-slate-300 hover:text-white" data-p="5">5</button>
-              <button type="button" onclick="quickJumpAttendancePeriod(6)" class="att-quick-p-btn px-2 py-1 rounded-lg text-[11px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/50 shadow" data-p="6">⭐ 6 (11:05)</button>
-              <button type="button" onclick="quickJumpAttendancePeriod(7)" class="att-quick-p-btn px-2 py-1 rounded-lg text-[11px] font-bold bg-slate-900 border border-slate-700 text-slate-300 hover:text-white" data-p="7">7</button>
-              <button type="button" onclick="quickJumpAttendancePeriod(8)" class="att-quick-p-btn px-2 py-1 rounded-lg text-[11px] font-bold bg-slate-900 border border-slate-700 text-slate-300 hover:text-white" data-p="8">8</button>
-            </div>
+            <div id="att-target-class-badge" class="text-emerald-300 text-sm font-bold">غياب اليوم الكامل</div>
+            <select id="att-day-select" hidden><option value="Sunday">Sunday</option><option value="Monday">Monday</option><option value="Tuesday">Tuesday</option><option value="Wednesday">Wednesday</option><option value="Thursday">Thursday</option></select>
+            <select id="att-period-select" hidden><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option></select>
           </div>
 
           <!-- Quick Bulk Actions -->
@@ -536,7 +508,7 @@
             </button>
             <button onclick="saveCurrentPeriodAttendance()" class="px-5 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black rounded-xl text-xs sm:text-sm shadow-lg shadow-emerald-500/25 transition flex items-center gap-2 active:scale-95">
               <span>💾</span>
-              <span>اعتماد وحفظ غياب الحصة</span>
+              <span>اعتماد وحفظ غياب اليوم</span>
             </button>
           </div>
 
@@ -567,7 +539,7 @@
           <div class="flex items-center justify-between mb-3">
             <h4 class="text-sm font-black text-white flex items-center gap-2">
               <span>📋</span>
-              <span>كشف تحضير الطلاب للحصة</span>
+              <span>كشف غياب اليوم الكامل</span>
             </h4>
             <span class="text-xs text-slate-400">اضغطي على حالة الطالب لتعديلها مباشرة</span>
           </div>
@@ -619,7 +591,7 @@
       <div id="tab-content-history" class="hidden flex-1 flex flex-col gap-4">
         <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-4 shadow-xl flex items-center justify-between">
           <div>
-            <h3 class="text-base font-black text-white">سجل غياب الحصص المعتمد</h3>
+            <h3 class="text-base font-black text-white">سجل غياب اليوم الكامل المعتمد</h3>
             <p class="text-xs text-slate-400">جميع الحصص التي قمتِ بتسجيل حضورها وغيابها مع توثيق التوقيت</p>
           </div>
           <button onclick="clearAttendanceHistory()" class="text-xs text-red-400 hover:text-red-300 font-bold underline">
@@ -990,6 +962,32 @@
 
     window.addEventListener('smilekids_firebase_ready', () => {
       syncTeacherPortalWithFirestore();
+    });
+
+    window.addEventListener('smilekids_db_updated', () => {
+      if (!window.SmileKidsDB) return;
+      const grades = getStoredGrades();
+      window.SmileKidsDB.getAllStudents().forEach(st => {
+        Object.entries(st.subjectScores || {}).forEach(([subjectId, subject]) => {
+          Object.entries(subject.scores || {}).forEach(([period, value]) => {
+            const term = period.startsWith('t2_') ? 't2' : 't1';
+            const field = period.replace(/^t[12]_/, '');
+            const key = 'st_' + st.id + '_' + term + '_' + subjectId;
+            grades[key] = grades[key] || {};
+            grades[key][field] = value && typeof value === 'object' ? value.score : value;
+          });
+        });
+      });
+      saveStoredGrades(grades);
+      if (currentTeacher && activeDashboardTab === 'grades' && !document.activeElement?.classList?.contains('grade-input')) renderGradeSheetTable();
+      if (currentTeacher && activeDashboardTab === 'attendance' && typeof currentAttendanceState !== 'undefined') {
+        const date = document.getElementById('att-date-select').value;
+        Object.keys(currentAttendanceState).forEach(id => {
+          if (currentAttendanceState[id] !== attendanceBaseline[id]) return; // preserve unsaved local edits
+          const value = window.SmileKidsDB.getStudentById(id)?.attendanceRecords?.[date];
+          if (value) {setStudentAttendance(id,value);attendanceBaseline[id]=value;}
+        });
+      }
     });
 
     // Auto-refresh when grades/students change in other tabs or portals
@@ -1617,6 +1615,13 @@
       populateTeacherSelectors();
       runPeriodDetection();
 
+      const attGrades = document.getElementById('att-grade-select');
+      if (attGrades) {
+        const available = isAdmin ? [1,2,3,4,5,6,7,8,9] : Array.from(new Set((currentTeacher.subjects || []).flatMap(sub => sub.grades || []))).sort((a,b)=>a-b);
+        attGrades.innerHTML = available.map(g => `<option value="${g}">Grade ${g}</option>`).join('');
+      }
+      const attDate = document.getElementById('att-date-select');
+      if (attDate && !attDate.value) attDate.value = schoolLocalDate();
       // Ensure day & period selectors in attendance tab are synced to the active period
       if (activeCurrentPeriodInfo) {
         const daySelect = document.getElementById('att-day-select');
@@ -1799,7 +1804,7 @@
       const smartPeriodBanner = document.getElementById('smart-period-banner');
       if (smartPeriodBanner) {
         if (tabKey === 'attendance') {
-          smartPeriodBanner.classList.remove('hidden');
+          smartPeriodBanner.classList.add('hidden'); // attendance is full-day, not timetable lesson
         } else {
           smartPeriodBanner.classList.add('hidden');
         }
@@ -2443,14 +2448,14 @@
       }
     }
 
-    function clearSingleStudentGrade(gradeKey, field, studentId, subjectId, term, maxVal, btnEl) {
+    async function clearSingleStudentGrade(gradeKey, field, studentId, subjectId, term, maxVal, btnEl) {
       const allGrades = getStoredGrades();
       if (!allGrades[gradeKey]) allGrades[gradeKey] = { m1: null, m2: null, tasks: null, exam: null, sep: null };
       allGrades[gradeKey][field] = null;
       saveStoredGrades(allGrades);
 
-      syncGradeToMasterDB(studentId, subjectId, term, field, null, maxVal);
-      flashSavePill();
+      const confirmed = await syncGradeToMasterDB(studentId, subjectId, term, field, null, maxVal);
+      if (confirmed && confirmed.success) flashSavePill();
       renderGradeSheetTable();
       showToast('تم إفراغ الدرجة وتحويل الطالب إلى (لم يتم رصده) ⏳', 'info');
     }
@@ -2525,7 +2530,7 @@
 
       saveStoredGrades(allGrades);
       renderGradeSheetTable();
-      showToast(`تم تحويل ${clearedCount} درجات صفر إلى (لم يُرصد) بنجاح 🧹✨`, 'success');
+      showToast(`تم تعديل ${clearedCount} درجات محلياً. راجعي تأكيد الحفظ أونلاين أسفل الصفحة.`, 'success');
     }
 
     function renderGradeSheetTable() {
@@ -2921,7 +2926,7 @@
       updateGradeStats();
     }
 
-    function syncGradeToMasterDB(studentId, subjectId, term, field, scoreVal, maxVal) {
+    async function syncGradeToMasterDB(studentId, subjectId, term, field, scoreVal, maxVal) {
       if (!studentId) return;
 
       const selectedMonth = document.getElementById('exam-month-select')?.value;
@@ -2965,7 +2970,7 @@
             student.subjectScores[subjectId][field] = null;
           }
           if (typeof window.SmileKidsDB.updateStudent === 'function') {
-            window.SmileKidsDB.updateStudent(studentId, student);
+            window.SmileKidsDB.save(); // local mirror only; field-scoped write below
           }
         }
       }
@@ -3044,45 +3049,11 @@
         localStorage.setItem('smile_kids_last_grade_sync', Date.now().toString());
       } catch (e) {}
 
-      // 5. Direct Real-time Google Cloud Firestore Sync (Cross-Device & Certificates synchronization)
-      if (window.SmileKidsFirebase && typeof window.SmileKidsFirebase.canUseFirestore === 'function' && window.SmileKidsFirebase.canUseFirestore()) {
-        try {
-          let updatedStudentObj = null;
-          if (window.SmileKidsDB && typeof window.SmileKidsDB.getStudentById === 'function') {
-            updatedStudentObj = window.SmileKidsDB.getStudentById(studentId);
-          }
-          if (!updatedStudentObj) {
-            try {
-              const list = JSON.parse(localStorage.getItem(STORAGE_KEY_STUDENTS)) || [];
-              updatedStudentObj = list.find(s => s.id === studentId);
-            } catch(e) {}
-          }
-
-          const gradeRecord = {
-            studentId: String(studentId),
-            subjectId: subjectId,
-            periodKey: periodKey,
-            score: cleanScore,
-            maxScore: effectiveMax
-          };
-          if (updatedStudentObj) {
-            gradeRecord.termsScores = updatedStudentObj.termsScores || {};
-            gradeRecord.subjectScores = updatedStudentObj.subjectScores || {};
-          }
-
-          window.SmileKidsFirebase.saveGradeToFirestore(gradeRecord).catch(err => {
-            console.warn('[TeacherPortal] Firestore saveGrade error:', err);
-          });
-
-          if (updatedStudentObj) {
-            window.SmileKidsFirebase.saveStudentToFirestore(updatedStudentObj).catch(err => {
-              console.warn('[TeacherPortal] Firestore saveStudent error:', err);
-            });
-          }
-        } catch(cloudErr) {
-          console.warn('[TeacherPortal] Cloud Firestore sync error:', cloudErr);
-        }
-      }
+      // 5. Confirm only the edited student/subject/period, never the whole student.
+      if (!window.SmileKidsSync) return {success:false,error:'محرك الحفظ غير جاهز'};
+      return await window.SmileKidsSync.enqueue('grade', {
+        studentId:String(studentId),subjectId,periodKey,score:cleanScore,maxScore:effectiveMax
+      });
     }
 
     function onGradeLiveCalc(inputEl) {
@@ -3096,7 +3067,7 @@
       updateGradeStats();
     }
 
-    function onGradeInputChange(inputEl) {
+    async function onGradeInputChange(inputEl) {
       const key = inputEl.dataset.key;
       const field = inputEl.dataset.field;
       const studentId = inputEl.dataset.studentId;
@@ -3125,15 +3096,15 @@
       allGrades[key][field] = val;
 
       saveStoredGrades(allGrades);
-      syncGradeToMasterDB(studentId, subjectId, term, field, val, max);
-      flashSavePill();
+      const confirmed = await syncGradeToMasterDB(studentId, subjectId, term, field, val, max);
+      if (confirmed && confirmed.success) flashSavePill();
       renderGradeSheetTable();
     }
 
     function flashSavePill() {
       const savePill = document.getElementById('save-status-pill');
       if (savePill) {
-        savePill.innerHTML = `<span>✓</span><span>تم الحفظ تلقائياً!</span>`;
+        savePill.innerHTML = `<span>✓</span><span>تم تأكيد الحفظ أونلاين!</span>`;
         savePill.className = 'text-xs px-3 py-1.5 rounded-xl font-bold bg-emerald-500/30 text-emerald-200 border border-emerald-400 flex items-center gap-1.5 transition';
         setTimeout(() => {
           savePill.className = 'text-xs px-3 py-1.5 rounded-xl font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5 transition';
@@ -3374,60 +3345,24 @@
     }
 
 
-    // ==================== TAB 2: SMART PERIOD ATTENDANCE ====================
+    // ==================== TAB 2: DAILY ATTENDANCE ====================
 
+    function schoolLocalDate() { const parts = new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Riyadh',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()); const p = Object.fromEntries(parts.map(x=>[x.type,x.value])); return p.year + '-' + p.month + '-' + p.day; }
     let currentAttendanceState = {};
+    let attendanceBaseline = {};
 
     function loadAttendanceRoster() {
       if (!currentTeacher) return;
 
-      const daySelect = document.getElementById('att-day-select');
-      const periodSelect = document.getElementById('att-period-select');
-      const dayArabicMap = {
-        'Sunday': 'الأحد',
-        'Monday': 'الإثنين',
-        'Tuesday': 'الثلاثاء',
-        'Wednesday': 'الأربعاء',
-        'Thursday': 'الخميس'
-      };
-      const selectedDayAr = dayArabicMap[daySelect.value] || 'الأحد';
-      const selectedPeriod = parseInt(periodSelect.value) || 1;
-
-      let assignedClassStr = '-';
-      if (TIMETABLE_DATA.schedules[currentTeacher.id]) {
-        const teacherSched = TIMETABLE_DATA.schedules[currentTeacher.id];
-        const daySched = teacherSched[selectedDayAr];
-        if (daySched && daySched[selectedPeriod]) {
-          assignedClassStr = daySched[selectedPeriod];
-        }
-      }
-
+      const date = document.getElementById('att-date-select').value;
+      if (window.SmileKidsSync?.pendingCount()) showToast('توجد تعديلات غير مؤكدة. راجعي حالة الحفظ أسفل الصفحة.', 'info');
+      const gradeNum = Number(document.getElementById('att-grade-select').value);
+      const track = document.getElementById('att-track-select').value;
       const classBadge = document.getElementById('att-target-class-badge');
       const container = document.getElementById('att-students-list');
-
-      if (!assignedClassStr || assignedClassStr === '-' || assignedClassStr.includes('Break')) {
-        classBadge.innerText = 'لا توجد حصة مسجلة في هذا التوقيت';
-        classBadge.className = 'px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-400 border border-slate-700 text-xs font-bold';
-        container.innerHTML = `
-          <div class="col-span-2 text-center py-12 text-slate-400">
-            <span class="text-4xl block mb-2">☕</span>
-            <span class="text-sm font-bold">لا توجد حصة مسجلة لـ ${currentTeacher.nameAr} في هذا التوقيت (${selectedDayAr} - الحصة ${selectedPeriod}).</span>
-            <p class="text-xs text-slate-500 mt-1">يمكنك اختيار حصة أخرى من القائمة بالأعلى لتسجيلها.</p>
-          </div>
-        `;
-        updateAttendanceStats(0, 0, 0);
-        return;
-      }
-
-      const parts = assignedClassStr.split(' ');
-      const gradeCode = parts[0];
-      const gradeNum = parseInt(gradeCode.replace('G', '')) || 1;
-      const subjectName = parts.slice(1).join(' ');
-
-      classBadge.innerText = `الصف ${gradeCode} • مادة: ${subjectName}`;
-      classBadge.className = 'px-3.5 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-black';
-
-      const students = getStoredStudents().filter(s => s.grade === gradeNum);
+      if (!date || !gradeNum) { container.innerHTML = ''; return; }
+      classBadge.innerText = `Grade ${gradeNum} • غياب اليوم الكامل ${date}`;
+      const students = getStoredStudents().filter(st => st.grade === gradeNum && (track === 'all' || st.track === track));
       currentAttendanceState = {};
 
       if (students.length === 0) {
@@ -3437,7 +3372,7 @@
       }
 
       container.innerHTML = students.map((st, idx) => {
-        currentAttendanceState[st.id] = 'present';
+        currentAttendanceState[st.id] = st.attendanceRecords?.[date] || 'present';
         return `
           <div id="att-card-${st.id}" class="bg-slate-900/80 border border-slate-700/80 rounded-xl p-3 flex items-center justify-between gap-3 shadow transition">
             <div class="flex items-center gap-2.5">
@@ -3469,7 +3404,8 @@
         `;
       }).join('');
 
-      updateAttendanceStats(students.length, 0, 0);
+      students.forEach(st => setStudentAttendance(st.id, currentAttendanceState[st.id]));
+      attendanceBaseline = {...currentAttendanceState};
     }
 
     function setStudentAttendance(studentId, status) {
@@ -3519,23 +3455,14 @@
       document.getElementById('att-stat-late').innerText = late;
     }
 
-    function saveCurrentPeriodAttendance() {
+    async function saveCurrentPeriodAttendance() {
       if (!currentTeacher) return;
 
-      const daySelect = document.getElementById('att-day-select');
-      const periodSelect = document.getElementById('att-period-select');
-      const dayArabicMap = {
-        'Sunday': 'الأحد',
-        'Monday': 'الإثنين',
-        'Tuesday': 'الثلاثاء',
-        'Wednesday': 'الأربعاء',
-        'Thursday': 'الخميس'
-      };
-      const selectedDayAr = dayArabicMap[daySelect.value] || 'الأحد';
-      const selectedPeriod = parseInt(periodSelect.value) || 1;
-
-      const dateStr = new Date().toISOString().split('T')[0];
-      const recordKey = `att_${currentTeacher.id}_${selectedDayAr}_p${selectedPeriod}_${dateStr}`;
+      const dateStr = document.getElementById('att-date-select').value;
+      if (!dateStr) {showToast('اختاري تاريخ اليوم', 'error'); return;}
+      const selectedDayAr = new Intl.DateTimeFormat('ar-EG',{weekday:'long',timeZone:'Asia/Riyadh'}).format(new Date(dateStr + 'T12:00:00+03:00'));
+      const selectedPeriod = 0;
+      const recordKey = 'att_day_' + currentTeacher.id + '_' + document.getElementById('att-grade-select').value + '_' + dateStr;
       const attendanceList = getStoredAttendance();
 
       const presentCount = Object.values(currentAttendanceState).filter(s => s === 'present').length;
@@ -3553,7 +3480,7 @@
         timestamp: new Date().toLocaleString('ar-EG'),
         dayAr: selectedDayAr,
         periodNum: selectedPeriod,
-        periodName: `الحصة ${selectedPeriod}`,
+        periodName: 'اليوم الكامل',
         teacherId: currentTeacher.id,
         teacherName: currentTeacher.nameAr,
         classBadge: document.getElementById('att-target-class-badge').innerText,
@@ -3567,53 +3494,17 @@
       updatedList.unshift(newRecord);
       localStorage.setItem(STORAGE_KEY_ATTENDANCE, JSON.stringify(updatedList));
 
-      // 2. Immediately update each student's attendanceRecords in SmileKidsDB
-      if (window.SmileKidsDB && typeof window.SmileKidsDB.getAllStudents === 'function') {
-        const dbStudents = window.SmileKidsDB.getAllStudents();
-        Object.entries(currentAttendanceState).forEach(([stId, status]) => {
-          const student = dbStudents.find(s => s.id === stId);
-          if (student) {
-            if (!student.attendanceRecords) student.attendanceRecords = {};
-            if (status === 'absent') {
-              student.attendanceRecords[dateStr] = 'absent';
-            } else if (status === 'late') {
-              student.attendanceRecords[dateStr] = 'late';
-            } else {
-              student.attendanceRecords[dateStr] = 'present';
-            }
-          }
-        });
-        // Trigger window.SmileKidsDB.save() so it synchronizes to cloud & updates Student_Roster_Dashboard.html
-        window.SmileKidsDB.save();
-      }
+      // Daily attendance: only changed rows, no full-roster upload.
+      const changedRecords = Object.fromEntries(Object.entries(currentAttendanceState).filter(([id, value]) => value !== attendanceBaseline[id] || !window.SmileKidsDB?.getStudentById(id)?.attendanceRecords?.[dateStr]));
+      if (!Object.keys(changedRecords).length) {showToast('لا توجد تعديلات جديدة للحفظ', 'info'); return;}
+      const result = window.SmileKidsSync ? await window.SmileKidsSync.enqueue('attendance', {
+        isBatch:true,dateStr,
+        teacherId:currentTeacher.id,records:changedRecords
+      }) : {success:false};
+      if (result.success) {attendanceBaseline = {...currentAttendanceState}; Object.entries(changedRecords).forEach(([id,value])=>{const st=window.SmileKidsDB?.getStudentById(id); if(st){st.attendanceRecords=st.attendanceRecords||{};st.attendanceRecords[dateStr]=value;}});window.SmileKidsDB?.save();}
+      if (result.success) showToast(`تم تأكيد حفظ غياب اليوم أونلاين (حاضر: ${presentCount} ، غياب: ${absentCount})`, 'success');
+      else showToast('لم يتأكد الحفظ أونلاين. راجعي تنبيه الحفظ أسفل الصفحة.', 'error');
 
-      // 3. Immediately update each student's attendanceRecords in localStorage[STORAGE_KEY_STUDENTS]
-      try {
-        const rawLocalStudents = localStorage.getItem(STORAGE_KEY_STUDENTS);
-        if (rawLocalStudents) {
-          const localStudents = JSON.parse(rawLocalStudents);
-          if (Array.isArray(localStudents)) {
-            Object.entries(currentAttendanceState).forEach(([stId, status]) => {
-              const student = localStudents.find(s => s.id === stId);
-              if (student) {
-                if (!student.attendanceRecords) student.attendanceRecords = {};
-                if (status === 'absent') {
-                  student.attendanceRecords[dateStr] = 'absent';
-                } else if (status === 'late') {
-                  student.attendanceRecords[dateStr] = 'late';
-                } else {
-                  student.attendanceRecords[dateStr] = 'present';
-                }
-              }
-            });
-            localStorage.setItem(STORAGE_KEY_STUDENTS, JSON.stringify(localStudents));
-          }
-        }
-      } catch (e) {
-        console.error('Error updating localStorage students attendance:', e);
-      }
-
-      showToast(`تم اعتماد وحفظ غياب الحصة بنجاح! (حاضر: ${presentCount} ، غياب: ${absentCount})`, 'success');
     }
 
 
@@ -3855,7 +3746,7 @@
           <td class="p-3 font-black text-red-400">${r.absentCount} طالب</td>
           <td class="p-3 font-black text-amber-400">${r.lateCount} طالب</td>
           <td class="p-3 text-center">
-            <span class="text-xs text-emerald-400 font-bold bg-emerald-950/60 border border-emerald-700/60 px-2 py-0.5 rounded">معتمد ✓</span>
+            <span class="text-xs text-emerald-400 font-bold bg-emerald-950/60 border border-emerald-700/60 px-2 py-0.5 rounded">سجل محلي</span>
           </td>
         </tr>
       `).join('');

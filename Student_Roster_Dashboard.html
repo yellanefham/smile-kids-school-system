@@ -958,8 +958,9 @@
     }
 
   </style>
-  <script src="firebase_config.js?v=20261024_auth5"></script>
-  <script src="smile_kids_database.js?v=20261015_v8"></script>
+  <script src="firebase_config.js?v=20261027_sync1"></script>
+  <script src="smile_kids_database.js?v=20261027_sync1"></script>
+  <script src="school_sync.js?v=20261027_sync1"></script>
   <script>
     (function() {
       try {
@@ -3154,7 +3155,7 @@
     })();
     const DEFAULT_STUDENTS = [];
 
-    // Master Database Integration (smile_kids_database.js)
+    // Master Database Integration (smile_kids_database.js?v=20261027_sync1)
     let ALL_STUDENTS = (window.SmileKidsDB) ? window.SmileKidsDB.getAllStudents() : JSON.parse(JSON.stringify(DEFAULT_STUDENTS));
 
     function refreshStudentsFromDB() {
@@ -6898,44 +6899,10 @@
     let _gradeSaveDebounceTimer = null;
     let _pendingGradeSyncs = new Map();
 
-    function syncGradeToCloudAndDB(payload) {
-      if (!payload) return;
-      const { studentId, subjectId, periodKey, score, maxScore } = payload;
-      const student = payload.student || ALL_STUDENTS.find(s => s.id === studentId);
-      if (!student) return;
-
-      // 1. Immediately push to Firestore
-      if (window.SmileKidsFirebase && typeof window.SmileKidsFirebase.saveGradeToFirestore === 'function') {
-        window.SmileKidsFirebase.saveGradeToFirestore({
-          studentId: String(studentId),
-          subjectId: subjectId,
-          periodKey: periodKey,
-          score: score,
-          maxScore: maxScore,
-          termsScores: student.termsScores,
-          subjectScores: student.subjectScores
-        }).catch(err => {
-          console.warn('[GradeSync] Firestore saveGrade error:', err);
-        });
-      }
-
-      if (window.SmileKidsFirebase && typeof window.SmileKidsFirebase.saveStudentToFirestore === 'function') {
-        window.SmileKidsFirebase.saveStudentToFirestore(student).catch(err => {
-          console.warn('[GradeSync] Firestore saveStudent error:', err);
-        });
-      }
-
-      // 2. Also update SmileKidsDB
-      if (window.SmileKidsDB && typeof window.SmileKidsDB.updateStudent === 'function') {
-        try {
-          window.SmileKidsDB.updateStudent(student.id, {
-            subjectScores: student.subjectScores,
-            termsScores: student.termsScores
-          });
-        } catch(e) {
-          console.warn('[GradeSync] SmileKidsDB updateStudent error:', e);
-        }
-      }
+    async function syncGradeToCloudAndDB(payload) {
+      if (!payload || !window.SmileKidsSync) return {success:false};
+      const {studentId,subjectId,periodKey,score,maxScore} = payload;
+      return await window.SmileKidsSync.enqueue('grade', {studentId:String(studentId),subjectId,periodKey,score,maxScore});
     }
 
     function flushStudentSubjectSave() {
@@ -8208,6 +8175,9 @@
           }
         }
       }
+
+      // Explicit cleared value is authoritative, never resurrect a stale local-storage grade.
+      if (student.subjectScores?.[subjectId]?.scores && periodKey in student.subjectScores[subjectId].scores) return null;
 
       // 2. Direct live fallback to teacher portal grades in localStorage
       try {
@@ -10511,7 +10481,7 @@ Smile Kids school ☺`;
       }, 4500);
     }
 
-    function saveTeacherGradeForm() {
+    async function saveTeacherGradeForm() {
       const teacher = TEACHERS_CATALOG.find(t => t.id === currentTgTeacherId) || TEACHERS_CATALOG[0];
       const subj = teacher.subjects.find(s => s.id === currentTgSubjectId) || teacher.subjects[0];
       const pDef = GRADING_PERIODS_ORDER.find(p => p.key === currentTgPeriod) || GRADING_PERIODS_ORDER[0];
@@ -10549,11 +10519,13 @@ Smile Kids school ☺`;
         }
       });
 
-      // Save to storage and cloud
+      // Confirm each edited subject field; never upload whole student snapshots.
       saveStudentsToStorage();
-      if (window.SmileKidsDB) {
-        window.SmileKidsDB.syncToCloud();
-      }
+      const results = await Promise.all(students.filter(st => document.getElementById('tg-in-' + st.id)).map(st => {
+        const value = st.subjectScores[currentTgSubjectId].scores[currentTgPeriod];
+        return window.SmileKidsSync.enqueue('grade',{studentId:st.id,subjectId:currentTgSubjectId,periodKey:currentTgPeriod,score:value.score > 0 ? value.score : null,maxScore:currentTgMaxScore});
+      }));
+      if (results.some(r => !r.success)) {alert('لم يتأكد حفظ كل الدرجات أونلاين. راجعي تنبيه الحفظ ثم أعيدي المحاولة.'); return;}
 
       // Close the modal
       closeModal('modal-teacher-grade-form');

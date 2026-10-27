@@ -344,6 +344,7 @@
                   if (c.gender) localSt.gender = c.gender;
                 }
 
+                if (remoteSt.photo !== undefined && remoteSt.photo !== localSt.photo) {localSt.photo = remoteSt.photo; hasChanges = true;}
                 // دمج حالة القيد وتعليق الشهادات
                 if (remoteSt.enrollmentStatus && remoteSt.enrollmentStatus !== localSt.enrollmentStatus) {
                   localSt.enrollmentStatus = remoteSt.enrollmentStatus;
@@ -433,7 +434,7 @@
             if (!Array.isArray(records) || records.length === 0) return;
             let updated = false;
             records.forEach(rec => {
-              if (rec.studentId && rec.dateStr && rec.status) {
+              if (!rec.periodKey && rec.studentId && rec.dateStr && rec.status) {
                 const st = this.getStudentById(rec.studentId);
                 if (st) {
                   st.attendanceRecords = st.attendanceRecords || {};
@@ -457,19 +458,19 @@
             if (!Array.isArray(grades) || grades.length === 0) return;
             let updated = false;
             grades.forEach(g => {
-              if (g.studentId && g.subjectId && g.periodKey && g.score !== undefined && g.score !== null) {
+              if (g.studentId && g.subjectId && g.periodKey && g.score !== undefined) {
                 const st = this.getStudentById(g.studentId);
                 if (st) {
                   st.subjectScores = st.subjectScores || {};
                   st.subjectScores[g.subjectId] = st.subjectScores[g.subjectId] || { subjectId: g.subjectId, scores: {} };
                   st.subjectScores[g.subjectId].scores = st.subjectScores[g.subjectId].scores || {};
-                  const scNum = parseFloat(g.score);
+                  const scNum = g.score === null ? null : parseFloat(g.score);
                   const mxNum = parseFloat(g.maxScore) || 20;
-                  if (!isNaN(scNum) && scNum > 0) {
+                  if (scNum === null || (!isNaN(scNum) && scNum >= 0)) {
                     st.subjectScores[g.subjectId].scores[g.periodKey] = {
                       score: scNum,
                       maxScore: mxNum,
-                      isRecorded: true,
+                      isRecorded: scNum !== null,
                       updatedAt: g.updatedAt || new Date().toISOString()
                     };
                     const fld = g.periodKey.replace('t1_', '').replace('t2_', '');
@@ -953,19 +954,8 @@
 
       this._notifyListeners('local_save');
 
-      // Trigger debounced cloud sync to Google Drive
-      if (this._syncDebounceTimer) clearTimeout(this._syncDebounceTimer);
-      this._syncDebounceTimer = setTimeout(() => {
-        this.syncToCloud();
-      }, 500);
+      // Local persistence only. Cloud writes must carry an explicit changed-record payload.
 
-      // Trigger debounced cloud sync to Firebase Firestore
-      if (typeof window !== 'undefined' && window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore()) {
-        if (this._fbDebounceTimer) clearTimeout(this._fbDebounceTimer);
-        this._fbDebounceTimer = setTimeout(() => {
-          this.syncToFirestore();
-        }, 600);
-      }
     },
 
     getAllStudents: function() {
@@ -1019,6 +1009,8 @@
           }
           // Cloud is the source of truth for the parent PIN
           if (rem.pin && localSt.pin !== rem.pin) { localSt.pin = rem.pin; localSt.password = rem.pin; hasChanges = true; }
+          if (rem.attendanceRecords) localSt.attendanceRecords = Object.assign({},localSt.attendanceRecords || {},rem.attendanceRecords);
+          if (rem.photo !== undefined) localSt.photo = rem.photo;
           // Non-destructive merge of profile and scores
           if (rem.nameAr) localSt.nameAr = rem.nameAr;
           if (rem.nameEn) localSt.nameEn = rem.nameEn;
@@ -1048,7 +1040,7 @@
                 Object.keys(remSub.scores).forEach(pKey => {
                   const remP = remSub.scores[pKey];
                   const locP = locSub.scores[pKey];
-                  if (remP && (remP.isRecorded || remP.score > 0)) {
+                  if (remP && typeof remP === 'object' && 'score' in remP) {
                     locSub.scores[pKey] = Object.assign({}, locP || {}, remP);
                   }
                 });
@@ -1097,32 +1089,11 @@
       this._ensureStudentFields();
       this.save();
 
-      // Instant Cloud Sync for student / grades update (Google Drive)
-      this.syncToCloud({
-        action: 'sync_grades',
-        studentId: id,
-        patch: patch,
-        instant: true
-      });
-
-      // Instant Firestore Sync for student / grades update
-      if (typeof window !== 'undefined' && window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore()) {
-        window.SmileKidsFirebase.saveStudentToFirestore(st).catch(e => {
-          console.warn('[SmileKids DB] Firestore saveStudent error:', e);
-        });
-        if (patch.termsScores || patch.subjectScores || patch.score !== undefined) {
-          window.SmileKidsFirebase.saveGradeToFirestore({
-            studentId: id,
-            subjectId: patch.subjectId,
-            periodKey: patch.periodKey,
-            score: patch.score,
-            patch: patch,
-            termsScores: st.termsScores,
-            subjectScores: st.subjectScores
-          }).catch(e => {
-            console.warn('[SmileKids DB] Firestore saveGrade error:', e);
-          });
-        }
+      // Metadata edits are narrow. Grade/attendance paths use their own confirmed queue.
+      const metadata = {};
+      Object.keys(patch).filter(k => !['subjectScores','termsScores','attendanceRecords','attendanceNotes','score','subjectId','periodKey','id','_lastModified','_updatedAt'].includes(k)).forEach(k => metadata[k] = patch[k]);
+      if (Object.keys(metadata).length && typeof window !== 'undefined' && window.SmileKidsFirebase) {
+        window.SmileKidsFirebase.saveStudentToFirestore(Object.assign({id}, metadata));
       }
 
       return st;
@@ -1305,77 +1276,21 @@
       }
       this.save();
 
-      // Instant Cloud Sync for single attendance record (Google Drive)
-      this.syncToCloud({
-        action: 'sync_attendance',
-        studentId: studentId,
-        dateStr: dateStr,
-        status: status,
-        note: note,
-        instant: true
-      });
-
-      // Instant Firestore Sync for single attendance record
-      if (typeof window !== 'undefined' && window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore()) {
-        window.SmileKidsFirebase.saveAttendanceToFirestore({
-          studentId: studentId,
-          dateStr: dateStr,
-          status: status,
-          note: note
-        }).catch(e => {
-          console.warn('[SmileKids DB] Firestore saveAttendance error:', e);
-        });
-      }
-
-      return true;
+      return window.SmileKidsSync ? window.SmileKidsSync.enqueue('attendance', {studentId,dateStr,status,note}) : Promise.resolve({success:false,error:'محرك الحفظ غير جاهز'});
     },
 
     setBatchAttendance: function(studentIds, dateStr, status) {
-      const all = this.getAllStudents();
-      const recordsMap = {};
+      const records = {};
       studentIds.forEach(id => {
-        const st = all.find(s => s.id === id);
-        if (st) {
-          if (!st.attendanceRecords) st.attendanceRecords = {};
-          st.attendanceRecords[dateStr] = status;
-          recordsMap[id] = status;
-        }
+        const st = this.getStudentById(id);
+        if (st) { st.attendanceRecords = st.attendanceRecords || {}; st.attendanceRecords[dateStr] = status; records[id] = status; }
       });
       this.save();
-
-      // Instant Cloud Sync for batch attendance record (Google Drive)
-      this.syncToCloud({
-        action: 'sync_attendance',
-        dateStr: dateStr,
-        records: recordsMap,
-        instant: true
-      });
-
-      // Instant Firestore Sync for batch attendance record
-      if (typeof window !== 'undefined' && window.SmileKidsFirebase && window.SmileKidsFirebase.canUseFirestore()) {
-        window.SmileKidsFirebase.saveAttendanceToFirestore({
-          studentIds: studentIds,
-          dateStr: dateStr,
-          status: status,
-          isBatch: true,
-          records: recordsMap
-        }).catch(e => {
-          console.warn('[SmileKids DB] Firestore saveBatchAttendance error:', e);
-        });
-      }
+      return window.SmileKidsSync ? window.SmileKidsSync.enqueue('attendance', {isBatch:true,dateStr,records}) : Promise.resolve({success:false,error:'محرك الحفظ غير جاهز'});
     },
 
     syncToFirestore: async function() {
-      if (typeof window === 'undefined' || !window.SmileKidsFirebase || !window.SmileKidsFirebase.canUseFirestore()) {
-        return { success: false, fallback: true, message: 'Firestore غير متصل أو يعمل محلياً' };
-      }
-      try {
-        const all = this.getAllStudents();
-        return await window.SmileKidsFirebase.batchSaveStudents(all);
-      } catch(err) {
-        console.warn('[SmileKids DB] خطأ أثناء مزامنة Firestore المجمعة:', err);
-        return { success: false, error: err.message };
-      }
+      return {success:false,error:'الحفظ الجماعي الشامل غير متاح. احفظ التعديلات المحددة فقط.'};
     },
 
     saveTimetableToFirestore: async function(teacherId, scheduleData) {

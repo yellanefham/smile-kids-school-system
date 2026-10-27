@@ -466,12 +466,18 @@
   async function saveDocREST(collectionName, docId, data) {
     const url = `${REST_BASE_URL}/${collectionName}/${encodeURIComponent(docId)}?key=${firebaseConfig.apiKey}`;
     const fields = {};
+    const mask = [];
     for (const [k, v] of Object.entries(data)) {
-      if (!k.includes('.')) {
-        fields[k] = encodeFirestoreValue(v);
-      }
+      const parts = k.split('.');
+      mask.push(parts.map(x => '`' + x.replace(/`/g, '\\`') + '`').join('.'));
+      let target = fields;
+      parts.forEach((part, i) => {
+        if (i === parts.length - 1) target[part] = encodeFirestoreValue(v);
+        else { target[part] = target[part] || { mapValue: { fields: {} } }; target = target[part].mapValue.fields; }
+      });
     }
-    const resp = await skAuthedFetch(url, {
+    const maskedUrl = url + mask.map(k => '&updateMask.fieldPaths=' + encodeURIComponent(k)).join('');
+    const resp = await skAuthedFetch(maskedUrl, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ fields })
@@ -520,7 +526,7 @@
      * التحقق اللحظي من اتصال Firebase وجاهزيته (يدعم كلاً من SDK و REST Fallback)
      */
     canUseFirestore: function() {
-      return Boolean(this.isConfigured && (this.db || typeof fetch === 'function'));
+      return Boolean(this.isConfigured && this.isReady && this.db && (window.SK_PUBLIC_PAGE || (this.auth && this.auth.currentUser)));
     },
 
     /**
@@ -537,17 +543,8 @@
       }
 
       const cleanData = cleanObjectForFirestore(studentData);
-      // Skip identical re-saves (saves free-plan write quota)
-      try {
-        const sig = JSON.stringify(cleanData, (k, v) => (k === '_lastModified' || k === '_updatedAt') ? undefined : v);
-        if (!window.__skSaved) { try { window.__skSaved = JSON.parse(localStorage.getItem('sk_saved_sig') || '{}'); } catch (e2) { window.__skSaved = {}; } }
-        const sid = String(studentData.id);
-        let hsh = 0; for (let i = 0; i < sig.length; i++) { hsh = (hsh * 31 + sig.charCodeAt(i)) | 0; }
-        const key = sig.length + ':' + hsh;
-        if (window.__skSaved[sid] === key) return { success: true, id: studentData.id, source: 'dedupe' };
-        window.__skSaved[sid] = key;
-        clearTimeout(window.__skSavedT); window.__skSavedT = setTimeout(() => { try { localStorage.setItem('sk_saved_sig', JSON.stringify(window.__skSaved)); } catch (e3) {} }, 1500);
-      } catch (e) {}
+      // Academic records only use their scoped atomic writers, never profile snapshots.
+      ['subjectScores','termsScores','attendanceRecords','attendanceNotes'].forEach(k => delete cleanData[k]);
       const payload = Object.assign({}, cleanData, {
         _lastModified: Date.now(),
         _updatedAt: new Date().toISOString()
@@ -636,141 +633,59 @@
      * @param {Object} record { studentId, dateStr, status, note, isBatch, records }
      */
     saveAttendanceToFirestore: async function(record) {
-      if (!record) return { success: false, error: 'سجل الحضور فارغ' };
-      if (!this.canUseFirestore()) {
-        return { success: false, fallback: true, message: 'Firebase غير مهيأ، تم الحفظ محلياً' };
-      }
-
+      if (!record || !record.dateStr) return { success: false, error: 'بيانات الحضور غير مكتملة' };
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(record.dateStr)) return {success:false,error:'تاريخ غير صالح'};
       try {
+        await this.whenReady;
+        if (!this.db || !this.auth || !this.auth.currentUser) throw new Error('يلزم تسجيل الدخول والاتصال بالسحابة');
+        const records = record.isBatch ? record.records : { [record.studentId]: record.status };
+        const entries = Object.entries(records || {});
+        if (!entries.length || entries.length > 200) throw new Error('دفعة حضور غير صالحة');
         const batch = this.db.batch();
-        const nowIso = new Date().toISOString();
-        const nowTs = Date.now();
-
-        if (record.isBatch && record.records && record.dateStr) {
-          // تسجيل دفعة كاملة لفصل / صف
-          const dateStr = record.dateStr;
-          Object.entries(record.records).forEach(([stId, status]) => {
-            const attDocId = `${stId}_${dateStr}`;
-            const attRef = this.db.collection('attendance').doc(attDocId);
-            batch.set(attRef, {
-              studentId: stId,
-              dateStr: dateStr,
-              status: status,
-              updatedAt: nowIso,
-              timestamp: nowTs
-            }, { merge: true });
-
-            // تحديث سجل الطالب مباشرة في كائن الطالب
-            const stRef = this.db.collection('students').doc(String(stId));
-            const updateObj = {
-              _lastModified: nowTs
-            };
-            updateObj[`attendanceRecords.${dateStr}`] = status;
-            batch.set(stRef, updateObj, { merge: true });
-          });
-
-          await batch.commit();
-          return { success: true, count: Object.keys(record.records).length };
-        } else if (record.studentId && record.dateStr) {
-          // تسجيل فردي لطالب
-          const attDocId = `${record.studentId}_${record.dateStr}`;
-          const attRef = this.db.collection('attendance').doc(attDocId);
-          const attData = {
-            studentId: record.studentId,
-            dateStr: record.dateStr,
-            status: record.status || 'present',
-            note: record.note || '',
-            updatedAt: nowIso,
-            timestamp: nowTs
-          };
-          batch.set(attRef, attData, { merge: true });
-
-          const stRef = this.db.collection('students').doc(String(record.studentId));
-          const stUpdate = { _lastModified: nowTs };
-          if (record.status !== undefined) stUpdate[`attendanceRecords.${record.dateStr}`] = record.status;
-          if (record.note !== undefined) stUpdate[`attendanceNotes.${record.dateStr}`] = record.note;
-          batch.set(stRef, stUpdate, { merge: true });
-
-          await batch.commit();
-          return { success: true, id: attDocId };
-        }
-        return { success: false, error: 'بيانات غير مطابقة' };
-      } catch(err) {
-        console.warn('[SmileKids Firebase] خطأ في حفظ الحضور في Firestore:', err);
-        return { success: false, error: err.message };
-      }
+        const now = new Date().toISOString();
+        entries.forEach(([id, status]) => {
+          if (!id || !['present','absent','late'].includes(status)) throw new Error('حالة حضور غير صالحة');
+          const lesson = record.periodKey || '';
+          const docId = `${id}_${record.dateStr}${lesson ? '_' + encodeURIComponent(lesson) : ''}`;
+          const payload = {studentId:id,dateStr:record.dateStr,status,updatedAt:now,timestamp:Date.now(),periodKey:lesson,teacherId:record.teacherId || '',note:record.note || ''};
+          batch.set(this.db.collection('attendance').doc(docId), payload, {merge:true});
+          if (!lesson) {
+            const patch = {_lastModified:Date.now()};
+            patch[`attendanceRecords.${record.dateStr}`] = status;
+            if (record.note !== undefined) patch[`attendanceNotes.${record.dateStr}`] = record.note;
+            batch.update(this.db.collection('students').doc(String(id)), patch);
+          }
+        });
+        await batch.commit();
+        return {success:true,count:entries.length};
+      } catch (err) { return {success:false,error:err.message}; }
     },
 
     /**
      * حفظ رصد درجات مادة / اختبار في مجموعة 'grades' وتحديث سجل الطالب
      * @param {Object} gradeRecord { studentId, subjectId, periodKey, score, maxScore, patch, termsScores }
      */
-    saveGradeToFirestore: async function(gradeRecord) {
-      if (!gradeRecord || !gradeRecord.studentId) return { success: false, error: 'بيانات الدرجة غير صالحة' };
-      if (!this.canUseFirestore() && this.whenReady) {
-        try { await this.whenReady; } catch(e) {}
-      }
-      if (!this.canUseFirestore()) {
-        return { success: false, fallback: true, message: 'Firebase غير مهيأ، تم الحفظ محلياً' };
-      }
-
+    saveGradeToFirestore: async function(g) {
+      if (!g || !g.studentId || !g.subjectId || !g.periodKey) return {success:false,error:'بيانات الدرجة غير مكتملة'};
       try {
+        await this.whenReady;
+        if (!this.db || !this.auth || !this.auth.currentUser) throw new Error('يلزم تسجيل الدخول والاتصال بالسحابة');
+        if (![g.subjectId,g.periodKey].every(x => /^[A-Za-z0-9_-]+$/.test(x))) throw new Error('معرف مادة أو فترة غير صالح');
+        const score = g.score === null || g.score === '' || g.score === undefined ? null : Number(g.score);
+        const max = Number(g.maxScore) || 20;
+        if (score !== null && (!Number.isFinite(score) || score < 0 || score > max)) throw new Error('درجة غير صالحة');
+        const now = new Date().toISOString();
+        const value = {score,maxScore:max,isRecorded:score !== null,updatedAt:now};
+        const payload = {studentId:String(g.studentId),subjectId:g.subjectId,periodKey:g.periodKey,score,maxScore:max,updatedAt:now,timestamp:Date.now()};
+        const patch = {_lastModified:Date.now()};
+        patch[`subjectScores.${g.subjectId}.scores.${g.periodKey}`] = value;
+        // Do not write term totals or other subjects from a possibly stale client.
         const batch = this.db.batch();
-        const nowTs = Date.now();
-        const nowIso = new Date().toISOString();
-        const stId = String(gradeRecord.studentId);
-        const subId = gradeRecord.subjectId || 'term';
-        const period = gradeRecord.periodKey || 'general';
-
-        const gradeDocId = `${stId}_${subId}_${period}`;
-        const gradePayload = {
-          studentId: stId,
-          subjectId: subId,
-          periodKey: period,
-          score: gradeRecord.score !== undefined ? gradeRecord.score : null,
-          maxScore: gradeRecord.maxScore !== undefined ? gradeRecord.maxScore : null,
-          details: gradeRecord.patch || {},
-          updatedAt: nowIso,
-          timestamp: nowTs
-        };
-
-        const stUpdate = { _lastModified: nowTs };
-        if (gradeRecord.termsScores) {
-          stUpdate.termsScores = gradeRecord.termsScores;
-        }
-        if (gradeRecord.subjectScores) {
-          stUpdate.subjectScores = gradeRecord.subjectScores;
-        }
-        if (gradeRecord.score !== undefined && subId && period) {
-          stUpdate[`subjectScores.${subId}.scores.${period}`] = gradeRecord.score;
-        }
-
-        // 1. Try Firebase SDK if available
-        if (this.db) {
-          try {
-            const batch = this.db.batch();
-            const gradeRef = this.db.collection('grades').doc(gradeDocId);
-            batch.set(gradeRef, gradePayload, { merge: true });
-
-            const stRef = this.db.collection('students').doc(stId);
-            batch.set(stRef, stUpdate, { merge: true });
-            await batch.commit();
-            return { success: true, id: gradeDocId, source: 'sdk' };
-          } catch(sdkErr) {
-            console.warn(`[SmileKids Firebase] تعذر حفظ الدرجات عبر SDK للطالب ${stId}، جاري التحويل إلى REST Fallback:`, sdkErr);
-          }
-        }
-
-        // 2. Fallback to Firestore REST API
-        await saveDocREST('grades', gradeDocId, gradePayload);
-        try {
-          await saveDocREST('students', stId, stUpdate);
-        } catch(e) {}
-        return { success: true, id: gradeDocId, source: 'rest' };
-      } catch(err) {
-        console.warn(`[SmileKids Firebase] خطأ في حفظ الدرجات للطالب ${gradeRecord.studentId}:`, err);
-        return { success: false, error: err.message };
-      }
+        batch.set(this.db.collection('grades').doc(`${g.studentId}_${g.subjectId}_${g.periodKey}`), payload, {merge:true});
+        batch.update(this.db.collection('students').doc(String(g.studentId)), patch);
+        await batch.commit();
+        return {success:true,id:`${g.studentId}_${g.subjectId}_${g.periodKey}`};
+      } catch (err) { return {success:false,error:err.message}; }
     },
 
     /**
