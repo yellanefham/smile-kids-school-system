@@ -74,7 +74,7 @@
 
       <!-- Center: Live Clock & Period Badge -->
       <div class="hidden md:flex items-center gap-3 bg-slate-800/80 border border-slate-700/80 px-3.5 py-1.5 rounded-2xl shadow-inner">
-        <span class="text-xl">⏱️</span>
+        <span class="text-xl"></span>
         <div class="text-center">
           <div id="top-live-clock" class="font-mono text-xs sm:text-sm font-bold text-amber-400">00:00:00</div>
           <div id="top-live-day" class="text-[10px] text-slate-400 font-semibold">اليوم الدراسي</div>
@@ -89,7 +89,7 @@
       <div class="flex items-center gap-2">
         <div id="logged-teacher-pill" class="hidden items-center gap-2.5 bg-slate-800 border border-slate-700 rounded-xl px-3 py-1.5 shadow">
           <div id="logged-teacher-avatar" class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-sm font-bold shadow">
-            👩‍🏫
+            
           </div>
           <div class="text-right">
             <div id="logged-teacher-name" class="text-xs font-black text-white">مس / ...</div>
@@ -102,14 +102,14 @@
 
         <!-- Admin Shortcut Link to SIS Roster & Certificates (Admin only) -->
         <a id="btn-admin-roster-link" href="Student_Roster_Dashboard.html" class="hidden px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 rounded-xl text-xs font-black transition items-center gap-1.5 shadow-sm" title="الانتقال إلى كشوف الطلاب والشهادات">
-          <span>👑</span>
+          <span></span>
           <span class="hidden sm:inline">كشوف الطلاب والشهادات</span>
         </a>
         
 
         <!-- Home Page Link -->
         <a href="index.html" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm" title="العودة للبوابة الرئيسية">
-          <span>🏠</span>
+          <span></span>
           <span class="hidden sm:inline">الرئيسية</span>
         </a>
       </div>
@@ -125,7 +125,7 @@
     <section id="view-login" class="flex-1 flex flex-col justify-center py-4">
       <div class="text-center max-w-2xl mx-auto mb-8">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold mb-3">
-          <span>✨</span>
+          <span></span>
           <span>منظومة الحماية والخصوصية المدرسية</span>
         </div>
         <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2">مرحباً بكِ في بوابة معلمات مدرسة Smile Kids</h2>
@@ -140,7 +140,7 @@
       <!-- Master Admin Access Button -->
       <div class="max-w-md mx-auto w-full mb-8 flex flex-col gap-2.5 text-center">
         <button id="btn-admin-master-login" type="button" onclick="openAdminModal()" class="w-full py-3.5 px-6 bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-slate-950 font-black rounded-2xl shadow-xl hover:shadow-amber-500/25 transition-all duration-200 flex items-center justify-center gap-2 group text-sm sm:text-base border border-amber-400/50">
-          <span class="text-xl group-hover:scale-125 transition-transform">👑</span>
+          <span class="text-xl group-hover:scale-125 transition-transform"></span>
           <span>دخول الإدارة العامة (Master Admin)</span>
           <span class="text-[11px] bg-black/20 text-slate-900 font-bold px-2 py-0.5 rounded-full mr-2">صلاحيات كاملة للمنظومة</span>
         </button>
@@ -150,7 +150,7 @@
       <!-- Security Notice Bar -->
       <div class="max-w-2xl mx-auto bg-slate-800/60 border border-slate-700/60 rounded-2xl p-4 text-center">
         <div class="flex items-center justify-center gap-2 text-xs text-amber-300 font-bold mb-1">
-          <span>🔒</span>
+          <span></span>
           <span>تسجيل دخول محمي • يرجى إدخال رمز المرور الخاص بكِ للدخول</span>
         </div>
         <p class="text-[11px] text-slate-400">يتم الدخول بالرقم السري المعتمد المسلم من إدارة المدرسة مباشرة لرصد الدرجات، ويتم قفل الحساب مؤقتاً عند تكرار المحاولات الخاطئة.</p>
@@ -166,22 +166,22 @@
         <div class="flex items-center gap-1.5 sm:gap-2">
           
           <button id="tab-btn-grades" onclick="switchDashboardTab('grades')" class="px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-blue-600 text-white shadow-lg shadow-blue-500/25">
-            <span>📝</span>
+            <span></span>
             <span>رصد وإدخال الدرجات</span>
           </button>
 
           <button id="tab-btn-attendance" onclick="switchDashboardTab('attendance')" class="px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700">
-            <span>⏱️</span>
+            <span></span>
             <span>غياب اليوم الكامل</span>
           </button>
 
           <button id="tab-btn-schedule" onclick="switchDashboardTab('schedule')" class="px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700">
-            <span>📅</span>
+            <span></span>
             <span>جدولي الأسبوعي</span>
           </button>
 
           <button id="tab-btn-history" onclick="switchDashboardTab('history')" class="px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700">
-            <span>📋</span>
+            <span></span>
             <span>سجل الغياب المحفوظ</span>
           </button>
         </div>
@@ -237,17 +237,17 @@
             <!-- Target Exam Month (شهر الامتحان المراد رصده) -->
             <div>
               <label class="block text-[11px] font-bold text-amber-300 mb-1 flex items-center gap-1">
-                <span>🗓️ الشهر / الامتحان المراد رصده:</span>
+                <span> الشهر / الامتحان المراد رصده:</span>
               </label>
               <select id="exam-month-select" onchange="onExamMonthSelectChange()" class="bg-slate-900 border border-amber-500/50 rounded-xl px-3 py-1.5 text-xs font-black text-amber-300 focus:outline-none focus:border-amber-400 shadow-[0_0_12px_rgba(245,158,11,0.2)]">
-                <optgroup label="📋 شيت شامل للترم الأول">
-                  <option value="all">🌟 عرض كشف درجات الترم الأول كاملاً (شيت شامل)</option>
+                <optgroup label=" شيت شامل للترم الأول">
+                  <option value="all"> عرض كشف درجات الترم الأول كاملاً (شيت شامل)</option>
                 </optgroup>
                 <optgroup label="❄️ شهور وامتحانات الفصل الدراسي الأول (الترم الأول)">
                   <option value="t1_sep" selected>🌱 شهر سبتمبر (بداية العام والتقييمات التمهيدية)</option>
                   <option value="t1_m1">🍁 شهر أكتوبر (اختبار الشهر الأول)</option>
                   <option value="t1_m2">🍂 شهر نوفمبر (اختبار الشهر الثاني)</option>
-                  <option value="t1_tasks">📋 شهر ديسمبر (المهام والأنشطة الشهرية)</option>
+                  <option value="t1_tasks"> شهر ديسمبر (المهام والأنشطة الشهرية)</option>
                   <option value="t1_exam">❄️ شهر يناير (امتحان الميدتيرم Midterm Exam)</option>
                 </optgroup>
               </select>
@@ -301,7 +301,7 @@
             </button>
 
             <button onclick="window.print()" class="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow" title="طباعة كشف الدرجات">
-              <span>🖨️</span>
+              <span></span>
               <span class="hidden sm:inline">طباعة الكشف</span>
             </button>
           </div>
@@ -337,7 +337,7 @@
               <span id="stat-student-count" class="text-lg font-black text-white">0</span>
             </div>
             <div onclick="setGradeFilter('graded')" class="cursor-pointer bg-slate-900/80 hover:bg-slate-800 border-2 border-slate-700/80 hover:border-emerald-500/60 rounded-xl p-2.5 text-center transition shadow group active:scale-95" title="عرض الطلاب الذين تم رصد درجاتهم فقط">
-              <span class="text-slate-400 block mb-0.5 group-hover:text-emerald-300 font-bold">تم رصد درجاتهم ✅</span>
+              <span class="text-slate-400 block mb-0.5 group-hover:text-emerald-300 font-bold">تم رصد درجاتهم </span>
               <span id="stat-graded-count" class="text-lg font-black text-emerald-400">0</span>
             </div>
             <div onclick="setGradeFilter('pending')" class="cursor-pointer bg-slate-900/80 hover:bg-slate-800 border-2 border-slate-700/80 hover:border-amber-500/60 rounded-xl p-2.5 text-center transition shadow group active:scale-95 ring-1 ring-amber-500/20" title="عرض الطلاب الذين لم يتم رصد درجاتهم بعد">
@@ -361,7 +361,7 @@
                 <span>تصفية قائمة الطلاب:</span>
               </span>
               <button type="button" id="filter-btn-all" onclick="setGradeFilter('all')" class="px-3.5 py-1.5 rounded-xl font-bold bg-blue-600 text-white shadow transition flex items-center gap-1.5 active:scale-95">
-                <span>📋 جميع طلاب الفصل</span>
+                <span> جميع طلاب الفصل</span>
                 <span id="filter-badge-all" class="text-[11px] bg-white/20 px-2 py-0.2 rounded-full font-black">0</span>
               </button>
               <button type="button" id="filter-btn-pending" onclick="setGradeFilter('pending')" class="px-3.5 py-1.5 rounded-xl font-bold bg-slate-800 hover:bg-amber-950/40 text-amber-300 border border-amber-500/40 transition flex items-center gap-1.5 active:scale-95">
@@ -369,13 +369,13 @@
                 <span id="filter-badge-pending" class="text-[11px] bg-amber-500/30 text-amber-200 border border-amber-400/30 px-2 py-0.2 rounded-full font-black">0</span>
               </button>
               <button type="button" id="filter-btn-graded" onclick="setGradeFilter('graded')" class="px-3.5 py-1.5 rounded-xl font-bold bg-slate-800 hover:bg-emerald-950/40 text-emerald-300 border border-emerald-500/40 transition flex items-center gap-1.5 active:scale-95">
-                <span>✅ تم رصدهم فقط</span>
+                <span> تم رصدهم فقط</span>
                 <span id="filter-badge-graded" class="text-[11px] bg-emerald-500/30 text-emerald-200 border border-emerald-400/30 px-2 py-0.2 rounded-full font-black">0</span>
               </button>
             </div>
             <div class="flex items-center gap-2 text-[11px] text-slate-400">
               <button type="button" onclick="clearAllZeroGradesForActiveMonth()" class="px-3 py-1 bg-slate-800 hover:bg-rose-950/40 text-slate-300 hover:text-rose-300 border border-slate-700 hover:border-rose-500/40 rounded-xl transition font-bold flex items-center gap-1 active:scale-95" title="إزالة درجات الصفر المؤقتة غير المرصودة وتحويلها إلى (لم يُرصد)">
-                <span>🧹 تفريغ درجات الصفر المؤقتة</span>
+                <span> تفريغ درجات الصفر المؤقتة</span>
               </button>
             </div>
           </div>
@@ -440,11 +440,11 @@
                 <span>تسجيل غياب الحصة الآن</span>
               </button>
               <button onclick="switchDashboardTab('schedule')" class="px-3.5 py-2.5 bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 border border-indigo-500/40 rounded-xl text-xs font-bold transition flex items-center gap-1.5 active:scale-95" title="عرض الحصة في جدولي الأسبوعي">
-                <span>📅</span>
+                <span></span>
                 <span>جدولي الأسبوعي</span>
               </button>
               <button onclick="switchDashboardTab('grades')" class="px-3.5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5 active:scale-95" title="العودة لرصد الدرجات">
-                <span>📝</span>
+                <span></span>
                 <span>رصد الدرجات</span>
               </button>
             </div>
@@ -503,11 +503,11 @@
           <!-- Quick Bulk Actions -->
           <div class="flex items-center gap-2">
             <button onclick="setAllAttendance('present')" class="px-3.5 py-1.5 bg-emerald-600/30 hover:bg-emerald-600/40 text-emerald-300 border border-emerald-500/30 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
-              <span>✅</span>
+              <span></span>
               <span>تحضير الكل حاضر</span>
             </button>
             <button onclick="saveCurrentPeriodAttendance()" class="px-5 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black rounded-xl text-xs sm:text-sm shadow-lg shadow-emerald-500/25 transition flex items-center gap-2 active:scale-95">
-              <span>💾</span>
+              <span></span>
               <span>اعتماد وحفظ غياب اليوم</span>
             </button>
           </div>
@@ -521,15 +521,15 @@
             <span id="att-stat-total" class="text-lg font-black text-white">0</span>
           </div>
           <div class="bg-emerald-950/40 border border-emerald-800/40 rounded-xl p-3 text-center">
-            <span class="text-emerald-300 block mb-0.5">الحاضرون ✅</span>
+            <span class="text-emerald-300 block mb-0.5">الحاضرون </span>
             <span id="att-stat-present" class="text-lg font-black text-emerald-400">0</span>
           </div>
           <div class="bg-red-950/40 border border-red-800/40 rounded-xl p-3 text-center">
-            <span class="text-red-300 block mb-0.5">الغياب ❌</span>
+            <span class="text-red-300 block mb-0.5">الغياب </span>
             <span id="att-stat-absent" class="text-lg font-black text-red-400">0</span>
           </div>
           <div class="bg-amber-950/40 border border-amber-800/40 rounded-xl p-3 text-center">
-            <span class="text-amber-300 block mb-0.5">المتأخرون ⏱️</span>
+            <span class="text-amber-300 block mb-0.5">المتأخرون </span>
             <span id="att-stat-late" class="text-lg font-black text-amber-400">0</span>
           </div>
         </div>
@@ -538,7 +538,7 @@
         <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-4 sm:p-5 shadow-2xl flex-1 flex flex-col">
           <div class="flex items-center justify-between mb-3">
             <h4 class="text-sm font-black text-white flex items-center gap-2">
-              <span>📋</span>
+              <span></span>
               <span>كشف غياب اليوم الكامل</span>
             </h4>
             <span class="text-xs text-slate-400">اضغطي على حالة الطالب لتعديلها مباشرة</span>
@@ -563,7 +563,7 @@
             <p class="text-xs text-slate-400">حصصك الرسمية من الأحد إلى الخميس مع تمييز لوني لكل مادة لسهولة المتابعة</p>
           </div>
           <button onclick="window.print()" class="px-4 py-2 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/30">
-            <span>🖨️</span>
+            <span></span>
             <span>طباعة الجدول</span>
           </button>
         </div>
@@ -571,12 +571,12 @@
         <!-- Palette / Color Legend -->
         <div class="flex items-center justify-center gap-2 flex-wrap py-2 px-3 bg-slate-900/80 rounded-xl border border-slate-800 text-[11px] shadow-sm">
           <span class="text-slate-400 font-bold ml-1">دليل المواد:</span>
-          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-emerald-950/60 text-emerald-300 border border-emerald-500/30 font-bold">📚 عربي</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-emerald-950/60 text-emerald-300 border border-emerald-500/30 font-bold"> عربي</span>
           <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-teal-950/60 text-teal-300 border border-teal-500/30 font-bold">🕌 دين</span>
-          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-sky-950/60 text-sky-300 border border-sky-500/30 font-bold">🔤 English</span>
-          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-amber-950/60 text-amber-300 border border-amber-500/30 font-bold">🔢 Math</span>
-          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-lime-950/60 text-lime-300 border border-lime-500/30 font-bold">🔬 Science</span>
-          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-orange-950/60 text-orange-300 border border-orange-500/30 font-bold">🌍 دراسات</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-sky-950/60 text-sky-300 border border-sky-500/30 font-bold"> English</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-amber-950/60 text-amber-300 border border-amber-500/30 font-bold"> Math</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-lime-950/60 text-lime-300 border border-lime-500/30 font-bold"> Science</span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-orange-950/60 text-orange-300 border border-orange-500/30 font-bold"> دراسات</span>
           <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-purple-950/60 text-purple-300 border border-purple-500/30 font-bold">💻 ICT</span>
         </div>
 
@@ -633,7 +633,7 @@
       </button>
 
       <div id="modal-teacher-icon" class="w-16 h-16 rounded-2xl mx-auto mb-3 bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-3xl shadow-lg">
-        👩‍🏫
+        
       </div>
 
       <h3 id="modal-teacher-name" class="text-lg font-black text-white">مس / ...</h3>
@@ -645,7 +645,7 @@
           <input type="password" id="input-pin" maxlength="8" placeholder="••••" onkeydown="if(event.key==='Enter'||event.keyCode===13){event.preventDefault();verifyTeacherPin();}" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-lg font-mono tracking-widest text-white focus:outline-none focus:border-blue-500 shadow-inner">
         </div>
         <p id="pin-error-msg" class="text-[11px] text-red-400 font-bold mt-1.5 hidden">رمز المرور غير صحيح، يرجى المحاولة مرة أخرى أو مراجعة إدارة المدرسة.</p>
-        <p id="pin-lockout-msg" class="text-[11px] text-amber-400 font-bold mt-1.5 hidden">⚠️ تم قفل الحساب مؤقتاً لمدة 15 دقيقة بعد 5 محاولات خاطئة. يرجى مراجعة إدارة المدرسة.</p>
+        <p id="pin-lockout-msg" class="text-[11px] text-amber-400 font-bold mt-1.5 hidden"> تم قفل الحساب مؤقتاً لمدة 15 دقيقة بعد 5 محاولات خاطئة. يرجى مراجعة إدارة المدرسة.</p>
       </div>
 
       <div class="flex items-center gap-2">
@@ -672,7 +672,7 @@
       </button>
 
       <div class="w-14 h-14 rounded-2xl mx-auto mb-3 bg-gradient-to-tr from-amber-500 to-amber-700 flex items-center justify-center text-2xl shadow-lg">
-        👑
+        
       </div>
 
       <h3 class="text-lg font-black text-white">دخول الإدارة العامة للمدرسة</h3>
@@ -682,12 +682,12 @@
         <label class="block text-xs font-bold text-slate-300 mb-1">رمز مدير النظام (Admin PIN):</label>
         <input type="password" id="input-admin-pin" placeholder="••••" onkeydown="if(event.key==='Enter'||event.keyCode===13){event.preventDefault();verifyAdminPin();}" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-base font-mono text-white focus:outline-none focus:border-amber-500">
         <p id="admin-error-msg" class="text-[11px] text-red-400 font-bold mt-1.5 hidden">رمز المرور غير صحيح، يرجى المحاولة مجدداً.</p>
-        <p id="admin-lockout-msg" class="text-[11px] text-amber-400 font-bold mt-1.5 hidden">⚠️ تم قفل الحساب مؤقتاً لمدة 15 دقيقة بعد 5 محاولات خاطئة. يرجى مراجعة إدارة المدرسة.</p>
+        <p id="admin-lockout-msg" class="text-[11px] text-amber-400 font-bold mt-1.5 hidden"> تم قفل الحساب مؤقتاً لمدة 15 دقيقة بعد 5 محاولات خاطئة. يرجى مراجعة إدارة المدرسة.</p>
       </div>
 
       <div class="flex items-center gap-2">
         <button id="btn-submit-admin-pin" onclick="verifyAdminPin()" class="flex-1 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black rounded-xl text-sm shadow transition">
-          دخول كمدير عام 👑
+          دخول كمدير عام 
         </button>
         <button onclick="closeAdminModal()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition">
           إلغاء
@@ -716,7 +716,7 @@
       <p id="force-change-teacher-name" class="text-xs sm:text-sm font-bold text-blue-400 mb-3">مس / ...</p>
 
       <div class="bg-amber-950/40 border border-amber-500/30 rounded-xl p-3 text-right text-xs text-amber-200 font-semibold mb-4 leading-relaxed">
-        ⚠️ لدواعي الأمان وسرية كشوف درجات الطلاب، يجب تغيير رمز المرور الافتراضي وتعيين رمز شخصي جديد خاص بكِ (من 4 إلى 8 أرقام) قبل المتابعة إلى لوحة التحكم.
+         لدواعي الأمان وسرية كشوف درجات الطلاب، يجب تغيير رمز المرور الافتراضي وتعيين رمز شخصي جديد خاص بكِ (من 4 إلى 8 أرقام) قبل المتابعة إلى لوحة التحكم.
       </div>
 
       <form id="form-force-change-pin" onsubmit="handleForceChangePinSubmit(event)" class="space-y-3.5 text-right">
@@ -754,7 +754,7 @@
             id="btn-submit-change-pin" 
             class="flex-1 py-3 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:brightness-110 text-slate-950 font-black rounded-xl text-sm shadow-lg shadow-amber-500/25 transition active:scale-95"
           >
-            حفظ الرمز وتفعيل الحساب 🔒
+            حفظ الرمز وتفعيل الحساب 
           </button>
           <button 
             type="button" 
@@ -822,7 +822,7 @@
     })();
 
     // Embedded Data Stores
-    const TEACHERS_CATALOG = [{"id": "t_asmaa", "nameAr": "مس / أسماء", "nameEn": "Ms. Asmaa", "title": "معلمة اللغة العربية والتربية الدينية", "icon": "📚", "color": "from-blue-600 to-indigo-700", "subjects": [{"id": "arabic", "nameAr": "اللغة العربية", "nameEn": "Arabic Language", "grades": [2, 3, 4, 5]}, {"id": "religion", "nameAr": "التربية الدينية الإسلامية", "nameEn": "Religious Studies", "grades": [2, 3, 4, 5]}]}, {"id": "t_yara", "nameAr": "مس / يارا", "nameEn": "Ms. Yara", "title": "معلمة اللغة الإنجليزية وتكنولوجيا المعلومات", "icon": "🔤", "color": "from-emerald-600 to-teal-700", "subjects": [{"id": "english_al", "nameAr": "English (Connect Plus / AL)", "nameEn": "English (Connect Plus / AL)", "grades": [1, 2, 3, 4]}, {"id": "english_ol", "nameAr": "English (Connect / OL)", "nameEn": "English (Connect / OL)", "grades": [1, 2, 3, 4]}, {"id": "ict", "nameAr": "تكنولوجيا المعلومات (ICT)", "nameEn": "Information Technology (ICT)", "grades": [4]}]}, {"id": "t_nabila", "nameAr": "مس / نبيلة", "nameEn": "Ms. Nabila", "title": "معلمة الرياضيات والحساب (الصفوف الأولى)", "icon": "🔢", "color": "from-amber-600 to-orange-700", "subjects": [{"id": "math", "nameAr": "الرياضيات والحساب / Math", "nameEn": "Mathematics (Math)", "grades": [1, 2, 3, 4, 5]}]}, {"id": "t_hend", "nameAr": "مس / هند", "nameEn": "Ms. Hend", "title": "معلمة الرياضيات والـ Math (العليا والإعدادي)", "icon": "📐", "color": "from-purple-600 to-violet-700", "subjects": [{"id": "math", "nameAr": "الرياضيات / Math", "nameEn": "Mathematics (Math)", "grades": [4, 5, 6, 7, 8, 9]}]}, {"id": "t_samar", "nameAr": "مس / سمر", "nameEn": "Ms. Samar", "title": "معلمة العلوم و Science", "icon": "🔬", "color": "from-cyan-600 to-blue-700", "subjects": [{"id": "science", "nameAr": "العلوم / Science", "nameEn": "Science", "grades": [4, 5, 6, 7, 8, 9]}]}, {"id": "t_amira", "nameAr": "مس / أميرة", "nameEn": "Ms. Amira", "title": "معلمة English و ICT (الصفوف العليا)", "icon": "🌐", "color": "from-rose-600 to-pink-700", "subjects": [{"id": "english_al", "nameAr": "English (Connect Plus / AL)", "nameEn": "English (Connect Plus / AL)", "grades": [5, 6, 7, 8, 9]}, {"id": "english_ol", "nameAr": "English (Connect / OL)", "nameEn": "English (Connect / OL)", "grades": [5, 6, 7, 8, 9]}, {"id": "ict", "nameAr": "تكنولوجيا المعلومات (ICT)", "nameEn": "Information Technology (ICT)", "grades": [5, 6]}]}, {"id": "t_ola", "nameAr": "مس / علا", "nameEn": "Ms. Ola", "title": "معلمة اللغة العربية والتربية الدينية (العليا والإعدادي)", "icon": "📜", "color": "from-amber-700 to-red-800", "subjects": [{"id": "arabic", "nameAr": "اللغة العربية", "nameEn": "Arabic Language", "grades": [6, 7, 8, 9]}, {"id": "religion", "nameAr": "التربية الدينية الإسلامية", "nameEn": "Religious Studies", "grades": [6, 7, 8, 9]}, {"id": "quran", "nameAr": "القرآن الكريم", "nameEn": "Holy Quran", "grades": [6, 7, 8, 9]}]}, {"id": "t_marwa", "nameAr": "مس / مروة", "nameEn": "Ms. Marwa", "title": "معلمة القرآن الكريم واللغة العربية", "icon": "📖", "color": "from-green-600 to-emerald-800", "subjects": [{"id": "arabic", "nameAr": "اللغة العربية", "nameEn": "Arabic Language", "grades": [1]}, {"id": "religion", "nameAr": "التربية الدينية الإسلامية", "nameEn": "Religious Studies", "grades": [1]}, {"id": "quran", "nameAr": "القرآن الكريم", "nameEn": "Holy Quran", "grades": [1, 2, 3, 4, 5, 6, 7, 8, 9]}]}, {"id": "t_kariman", "nameAr": "مس / كريمان", "nameEn": "Ms. Kariman", "title": "معلمة الدراسات الاجتماعية والتكنولوجيا", "icon": "🌍", "color": "from-teal-600 to-cyan-800", "subjects": [{"id": "social", "nameAr": "الدراسات الاجتماعية", "nameEn": "Social Studies", "grades": [4, 5, 6, 7, 8, 9]}, {"id": "ict", "nameAr": "التكنولوجيا والأنشطة", "nameEn": "Technology & Activities", "grades": [3, 4, 5, 6, 8]}]}, {"id": "t_abeer", "nameAr": "مس / عبير", "nameEn": "Ms. Abeer", "title": "معلمة التربية الرياضية (P.E) والأنشطة", "icon": "⚽", "color": "from-lime-600 to-green-700", "subjects": [{"id": "pe", "nameAr": "التربية الرياضية (P.E)", "nameEn": "Physical Education", "grades": [2, 3, 4, 5, 6, 7, 8, 9]}, {"id": "art", "nameAr": "التربية الفنية (Art)", "nameEn": "Visual Arts", "grades": [2, 5, 6, 7, 8, 9]}]}, {"id": "t_basma", "nameAr": "مس / بسمة", "nameEn": "Ms. Basma", "title": "معلمة التربية الفنية (Art) والإشراف", "icon": "🎨", "color": "from-fuchsia-600 to-pink-700", "subjects": [{"id": "art", "nameAr": "التربية الفنية (Art)", "nameEn": "Visual Arts", "grades": [1]}, {"id": "pe", "nameAr": "التربية الرياضية (P.E)", "nameEn": "Physical Education", "grades": [1]}]}, {"id": "t_german", "nameAr": "مس / نانسي (Frau Nancy)", "nameEn": "Ms. Nancy (Frau Nancy)", "title": "معلمة اللغة الألمانية (German)", "icon": "🇩🇪", "color": "from-amber-600 to-yellow-700", "subjects": [{"id": "german", "nameAr": "اللغة الألمانية (German)", "nameEn": "German Language", "grades": [3, 4, 5, 6, 7, 8, 9]}]}];
+    const TEACHERS_CATALOG = [{"id": "t_asmaa", "nameAr": "مس / أسماء", "nameEn": "Ms. Asmaa", "title": "معلمة اللغة العربية والتربية الدينية", "icon": "", "color": "from-blue-600 to-indigo-700", "subjects": [{"id": "arabic", "nameAr": "اللغة العربية", "nameEn": "Arabic Language", "grades": [2, 3, 4, 5]}, {"id": "religion", "nameAr": "التربية الدينية الإسلامية", "nameEn": "Religious Studies", "grades": [2, 3, 4, 5]}]}, {"id": "t_yara", "nameAr": "مس / يارا", "nameEn": "Ms. Yara", "title": "معلمة اللغة الإنجليزية وتكنولوجيا المعلومات", "icon": "", "color": "from-emerald-600 to-teal-700", "subjects": [{"id": "english_al", "nameAr": "English (Connect Plus / AL)", "nameEn": "English (Connect Plus / AL)", "grades": [1, 2, 3, 4]}, {"id": "english_ol", "nameAr": "English (Connect / OL)", "nameEn": "English (Connect / OL)", "grades": [1, 2, 3, 4]}, {"id": "ict", "nameAr": "تكنولوجيا المعلومات (ICT)", "nameEn": "Information Technology (ICT)", "grades": [4]}]}, {"id": "t_nabila", "nameAr": "مس / نبيلة", "nameEn": "Ms. Nabila", "title": "معلمة الرياضيات والحساب (الصفوف الأولى)", "icon": "", "color": "from-amber-600 to-orange-700", "subjects": [{"id": "math", "nameAr": "الرياضيات والحساب / Math", "nameEn": "Mathematics (Math)", "grades": [1, 2, 3, 4, 5]}]}, {"id": "t_hend", "nameAr": "مس / هند", "nameEn": "Ms. Hend", "title": "معلمة الرياضيات والـ Math (العليا والإعدادي)", "icon": "", "color": "from-purple-600 to-violet-700", "subjects": [{"id": "math", "nameAr": "الرياضيات / Math", "nameEn": "Mathematics (Math)", "grades": [4, 5, 6, 7, 8, 9]}]}, {"id": "t_samar", "nameAr": "مس / سمر", "nameEn": "Ms. Samar", "title": "معلمة العلوم و Science", "icon": "", "color": "from-cyan-600 to-blue-700", "subjects": [{"id": "science", "nameAr": "العلوم / Science", "nameEn": "Science", "grades": [4, 5, 6, 7, 8, 9]}]}, {"id": "t_amira", "nameAr": "مس / أميرة", "nameEn": "Ms. Amira", "title": "معلمة English و ICT (الصفوف العليا)", "icon": "", "color": "from-rose-600 to-pink-700", "subjects": [{"id": "english_al", "nameAr": "English (Connect Plus / AL)", "nameEn": "English (Connect Plus / AL)", "grades": [5, 6, 7, 8, 9]}, {"id": "english_ol", "nameAr": "English (Connect / OL)", "nameEn": "English (Connect / OL)", "grades": [5, 6, 7, 8, 9]}, {"id": "ict", "nameAr": "تكنولوجيا المعلومات (ICT)", "nameEn": "Information Technology (ICT)", "grades": [5, 6]}]}, {"id": "t_ola", "nameAr": "مس / علا", "nameEn": "Ms. Ola", "title": "معلمة اللغة العربية والتربية الدينية (العليا والإعدادي)", "icon": "", "color": "from-amber-700 to-red-800", "subjects": [{"id": "arabic", "nameAr": "اللغة العربية", "nameEn": "Arabic Language", "grades": [6, 7, 8, 9]}, {"id": "religion", "nameAr": "التربية الدينية الإسلامية", "nameEn": "Religious Studies", "grades": [6, 7, 8, 9]}, {"id": "quran", "nameAr": "القرآن الكريم", "nameEn": "Holy Quran", "grades": [6, 7, 8, 9]}]}, {"id": "t_marwa", "nameAr": "مس / مروة", "nameEn": "Ms. Marwa", "title": "معلمة القرآن الكريم واللغة العربية", "icon": "", "color": "from-green-600 to-emerald-800", "subjects": [{"id": "arabic", "nameAr": "اللغة العربية", "nameEn": "Arabic Language", "grades": [1]}, {"id": "religion", "nameAr": "التربية الدينية الإسلامية", "nameEn": "Religious Studies", "grades": [1]}, {"id": "quran", "nameAr": "القرآن الكريم", "nameEn": "Holy Quran", "grades": [1, 2, 3, 4, 5, 6, 7, 8, 9]}]}, {"id": "t_kariman", "nameAr": "مس / كريمان", "nameEn": "Ms. Kariman", "title": "معلمة الدراسات الاجتماعية والتكنولوجيا", "icon": "", "color": "from-teal-600 to-cyan-800", "subjects": [{"id": "social", "nameAr": "الدراسات الاجتماعية", "nameEn": "Social Studies", "grades": [4, 5, 6, 7, 8, 9]}, {"id": "ict", "nameAr": "التكنولوجيا والأنشطة", "nameEn": "Technology & Activities", "grades": [3, 4, 5, 6, 8]}]}, {"id": "t_abeer", "nameAr": "مس / عبير", "nameEn": "Ms. Abeer", "title": "معلمة التربية الرياضية (P.E) والأنشطة", "icon": "", "color": "from-lime-600 to-green-700", "subjects": [{"id": "pe", "nameAr": "التربية الرياضية (P.E)", "nameEn": "Physical Education", "grades": [2, 3, 4, 5, 6, 7, 8, 9]}, {"id": "art", "nameAr": "التربية الفنية (Art)", "nameEn": "Visual Arts", "grades": [2, 5, 6, 7, 8, 9]}]}, {"id": "t_basma", "nameAr": "مس / بسمة", "nameEn": "Ms. Basma", "title": "معلمة التربية الفنية (Art) والإشراف", "icon": "", "color": "from-fuchsia-600 to-pink-700", "subjects": [{"id": "art", "nameAr": "التربية الفنية (Art)", "nameEn": "Visual Arts", "grades": [1]}, {"id": "pe", "nameAr": "التربية الرياضية (P.E)", "nameEn": "Physical Education", "grades": [1]}]}, {"id": "t_german", "nameAr": "مس / نانسي (Frau Nancy)", "nameEn": "Ms. Nancy (Frau Nancy)", "title": "معلمة اللغة الألمانية (German)", "icon": "", "color": "from-amber-600 to-yellow-700", "subjects": [{"id": "german", "nameAr": "اللغة الألمانية (German)", "nameEn": "German Language", "grades": [3, 4, 5, 6, 7, 8, 9]}]}];
     const TIMETABLE_DATA = {"periodTimes": [{"period": 1, "nameAr": "الحصة الأولى", "start": "07:30", "end": "08:10"}, {"period": 2, "nameAr": "الحصة الثانية", "start": "08:10", "end": "08:50"}, {"period": 3, "nameAr": "الحصة الثالثة", "start": "08:50", "end": "09:30"}, {"period": "break", "nameAr": "الفسحة المدرسية", "start": "09:30", "end": "09:45"}, {"period": 4, "nameAr": "الحصة الرابعة", "start": "09:45", "end": "10:25"}, {"period": 5, "nameAr": "الحصة الخامسة", "start": "10:25", "end": "11:05"}, {"period": 6, "nameAr": "الحصة السادسة", "start": "11:05", "end": "11:40"}, {"period": 7, "nameAr": "الحصة السابعة", "start": "11:40", "end": "12:15"}, {"period": 8, "nameAr": "الحصة الثامنة / انصراف", "start": "12:15", "end": "12:50"}], "schedules": {"t_asmaa": {"الأحد": {"1": "G2 عربى", "2": "G2 عربى", "3": "G3 عربى", "break": "🥪 Break", "4": "G3 عربى", "5": "G5 عربى", "6": "G4 عربى", "7": "G4 دين"}, "الإثنين": {"1": "G3 عربى", "2": "G3 دين", "3": "G5 عربى", "break": "🥪 Break", "4": "G5 دين", "5": "G4 عربى", "6": "G2 عربى", "7": "G2 دين"}, "الثلاثاء": {"1": "G4 عربى", "2": "G5 عربى", "3": "G3 عربى", "break": "🥪 Break", "4": "G2 عربى", "5": "G2 عربى", "6": "G3 عربى", "7": "G2 دين"}, "الأربعاء": {"1": "G5 عربى", "2": "G5 دين", "3": "G4 عربى", "break": "🥪 Break", "4": "G4 عربى", "5": "G2 عربى", "6": "G3 عربى", "7": "G3 عربى"}, "الخميس": {"1": "G4 عربى", "2": "G5 عربى", "3": "G2 عربى", "break": "🥪 Break", "4": "G4 دين", "5": "G3 عربى", "6": "G3 دين", "7": "G5 عربى"}}, "t_yara": {"الأحد": {"1": "G4 English AL", "2": "G3 English AL", "3": "G2 English AL", "break": "🥪 Break", "4": "G2 English OL", "5": "G4 English OL", "6": "G3 English OL", "7": "G1 English OL"}, "الإثنين": {"1": "G1 English AL", "2": "G1 English OL", "3": "G4 English AL", "break": "🥪 Break", "4": "G2 English AL", "5": "G2 English OL", "6": "G3 English AL", "7": "G3 English OL"}, "الثلاثاء": {"1": "G2 English AL", "2": "G2 English OL", "3": "G4 English OL", "break": "🥪 Break", "4": "G3 English AL", "5": "G4 English AL (لغات)", "6": "G1 English AL", "7": "G1 English OL"}, "الأربعاء": {"1": "G3 English AL", "2": "G3 English OL", "3": "G2 English AL", "break": "🥪 Break", "4": "G1 English AL", "5": "G1 English OL", "6": "G2 English OL", "7": "G4 English AL (لغات)"}, "الخميس": {"1": "G2 English AL", "2": "G2 English OL", "3": "G4 ICT", "break": "🥪 Break", "4": "G3 English OL", "5": "G1 English AL", "6": "G1 English OL", "7": "G4 English OL"}}, "t_nabila": {"الأحد": {"1": "G3 Math", "2": "G4 رياضيات", "3": "G5 رياضيات", "break": "🥪 Break", "4": "G1 حساب", "5": "G1 Math", "6": "G2 Math", "7": "G2 حساب"}, "الإثنين": {"1": "G2 Math", "2": "G2 حساب", "3": "G3 Math", "break": "🥪 Break", "4": "G3 حساب", "5": "G1 Math", "6": "G5 رياضيات", "7": "G4 رياضيات"}, "الثلاثاء": {"1": "G3 Math", "2": "G3 حساب", "3": "G1 Math", "break": "🥪 Break", "4": "G1 حساب", "5": "G4 رياضيات", "6": "G2 Math", "7": "G5 رياضيات"}, "الأربعاء": {"1": "G2 Math", "2": "G2 حساب", "3": "G1 حساب", "break": "🥪 Break", "4": "G3 Math", "5": "G3 حساب", "6": "G5 رياضيات", "7": "G4 رياضيات"}, "الخميس": {"1": "G3 Math", "2": "G3 حساب", "3": "G1 حساب", "break": "🥪 Break", "4": "G1 Math", "5": "G4 رياضيات", "6": "G5 رياضيات", "7": "G2 حساب"}}, "t_hend": {"الأحد": {"1": "G5 Math", "2": "G8 Math", "3": "G4 Math", "break": "🥪 Break", "4": "G6 رياضيات", "5": "G6 Math", "6": "G7 رياضيات", "7": "G7 Math", "8": "G9 Math"}, "الإثنين": {"1": "G4 Math", "2": "G5 Math", "3": "G6 رياضيات", "break": "🥪 Break", "4": "G6 Math", "5": "G9 Math", "6": "G8 رياضيات", "7": "G7 Math", "8": "G9 رياضيات"}, "الثلاثاء": {"1": "G5 Math", "2": "G4 Math", "3": "G7 رياضيات", "break": "🥪 Break", "4": "G6 Math", "5": "G6 رياضيات", "6": "G8 Math", "7": "G9 Math", "8": "G8 رياضيات"}, "الأربعاء": {"1": "G7 Math", "2": "G7 رياضيات", "3": "G6 Math", "break": "🥪 Break", "4": "G5 Math", "5": "G4 Math", "6": "G9 رياضيات", "7": "G8 رياضيات", "8": "G8 Math"}, "الخميس": {"1": "G7 Math", "2": "G7 رياضيات", "3": "G6 رياضيات", "break": "🥪 Break", "4": "G6 Math", "5": "G4 Math", "6": "G5 Math", "7": "G9 رياضيات", "8": "—"}}, "t_samar": {"الأحد": {"1": "G5 علوم", "2": "G4 Science", "3": "G5 Science", "break": "🥪 Break", "4": "G7 علوم", "5": "G6 علوم", "6": "G7 Science", "7": "G9 Science", "8": "G9 علوم"}, "الإثنين": {"1": "G4 علوم", "2": "G5 علوم", "3": "G6 Science", "break": "🥪 Break", "4": "G6 علوم", "5": "G8 Science", "6": "G9 علوم", "7": "G4 Science", "8": "G9 Science"}, "الثلاثاء": {"1": "G5 علوم", "2": "G7 علوم", "3": "G7 Science", "break": "🥪 Break", "4": "G4 Science", "5": "G5 Science", "6": "G9 علوم", "7": "G8 علوم", "8": "G8 Science"}, "الأربعاء": {"1": "G7 علوم", "2": "G7 Science", "3": "G5 Science", "break": "🥪 Break", "4": "G8 Science", "5": "G4 علوم", "6": "G4 Science", "7": "G6 Science", "8": "G8 علوم"}, "الخميس": {"1": "G7 علوم", "2": "G7 Science", "3": "G6 Science", "break": "🥪 Break", "4": "G6 علوم", "5": "G9 Science", "6": "G4 علوم", "7": "G8 علوم", "8": "—"}}, "t_amira": {"الأحد": {"1": "G9 English AL", "2": "G6 English OL", "3": "G8 English AL", "break": "🥪 Break", "4": "G7 English AL", "5": "G8 English OL", "6": "G5 English AL", "7": "G5 English OL"}, "الإثنين": {"1": "G5 English AL", "2": "G7 English AL", "3": "G7 English OL", "break": "🥪 Break", "4": "G9 English OL", "5": "G5 English OL", "6": "G6 English AL", "7": "G8 English OL"}, "الثلاثاء": {"1": "G8 English AL", "2": "G8 English OL", "3": "G6 English OL", "break": "🥪 Break", "4": "G9 English AL", "5": "G6 ICT (لغات)", "6": "G5 English OL", "7": "G7 English OL"}, "الأربعاء": {"1": "G6 English AL", "2": "G6 English OL", "3": "G7 English AL", "break": "🥪 Break", "4": "G7 English OL", "5": "G8 English AL", "6": "G5 English AL", "7": "G9 English OL"}, "الخميس": {"1": "G6 English AL", "2": "G9 English AL", "3": "G5 English OL", "break": "🥪 Break", "4": "G5 ICT", "5": "G7 English AL", "6": "G9 English OL", "7": "G6 English OL"}}, "t_ola": {"الأحد": {"1": "G8 عربى", "2": "G7 عربى", "3": "G9 عربى", "break": "🥪 Break", "4": "G8 دين", "5": "G7 عربى", "6": "G9 عربى", "7": "G6 عربى"}, "الإثنين": {"1": "G9 عربى", "2": "G6 عربى", "3": "G8 عربى", "break": "🥪 Break", "4": "G8 عربى", "5": "G7 عربى", "6": "G7 دين", "7": "G6 عربى"}, "الثلاثاء": {"1": "G6 عربى", "2": "G9 عربى", "3": "G8 عربى", "break": "🥪 Break", "4": "G8 دين", "5": "G9 عربى", "6": "G7 عربى", "7": "G6 دين"}, "الأربعاء": {"1": "G9 عربى", "2": "G9 دين", "3": "G8 عربى", "break": "🥪 Break", "4": "G6 عربى", "5": "G7 عربى", "6": "G6 دين", "7": "G7 عربى"}, "الخميس": {"1": "G9 دين", "2": "G8 دين", "3": "G9 عربى", "break": "🥪 Break", "4": "G8 عربى", "5": "G6 عربى", "6": "G7 عربى", "7": "G7 دين"}}, "t_marwa": {"الأحد": {"1": "G1 عربى", "2": "G1 عربى", "3": "KG3 قرآن", "break": "🥪 Break", "4": "G9 قران", "5": "G3 قران", "6": "G1 دين", "7": "KG3 قرآن وانصراف"}, "الإثنين": {"1": "KG3 كجي 3", "2": "KG3 كجي 3", "3": "KG3 كجي 3", "break": "🥪 Break", "4": "KG3 كجي 3", "5": "KG3 كجي 3", "6": "G1 عربى", "7": "G1 عربى"}, "الثلاثاء": {"1": "G1 عربى", "2": "G1 عربى", "3": "G5 قران", "break": "🥪 Break", "4": "G4 قرآن (عربي)", "5": "G7 قران", "6": "G6 قران", "7": "G3 قران"}, "الأربعاء": {"1": "KG3 كجي 3", "2": "KG3 كجي 3", "3": "KG3 كجي 3", "break": "🥪 Break", "4": "KG3 كجي 3", "5": "KG3 كجي 3", "6": "G1 عربى", "7": "G1 دين"}, "الخميس": {"1": "G1 عربى", "2": "G1 دين", "3": "G8 قران", "break": "🥪 Break", "4": "G2 قران", "5": "G2 قران", "6": "G4 قرآن (لغات)", "7": "G1 قران"}}, "t_kariman": {"الأحد": {"1": "G7 دراسات", "2": "G5 دراسات", "3": "G6 دراسات", "break": "🥪 Break", "4": "G4 دراسات", "5": "G9 دراسات", "6": "G6 تكنولوجيا", "7": "G8 دراسات"}, "الإثنين": {"1": "G7 دراسات", "2": "G8 دراسات", "3": "G9 دراسات", "break": "🥪 Break", "4": "G4 دراسات", "5": "G6 دراسات", "6": "G4 دراسات", "7": "G5 دراسات"}, "الثلاثاء": {"1": "G7 دراسات", "2": "G6 دراسات", "3": "G9 دراسات", "break": "🥪 Break", "4": "G5 دراسات", "5": "G8 دراسات", "6": "G4 تكنولوجيا", "7": "G4 دراسات"}, "الأربعاء": {"1": "G4 دراسات", "2": "G8 دراسات", "3": "G3 Art", "break": "🥪 Break", "4": "G9 دراسات", "5": "G5 دراسات", "6": "G7 دراسات", "7": "G5 تكنولوجيا"}, "الخميس": {"1": "G8 دراسات", "2": "G6 دراسات", "3": "G7 دراسات", "break": "🥪 Break", "4": "G9 دراسات", "5": "G5 دراسات", "6": "G8 أنشطة", "7": "G3 Art"}}, "t_abeer": {"الأحد": {"1": "G6 Art", "2": "G9 Art", "3": "G7 Art", "break": "🥪 Break", "4": "G5 P.E", "5": "G2 Art", "6": "G8 P.E", "7": "G3 Art"}, "الإثنين": {"1": "G6 + G8 P.E", "2": "G4 + G9 P.E", "3": "G2 P.E", "break": "🥪 Break", "4": "G7 P.E", "5": "G3 P.E", "6": "G5 Art (لغات)", "7": "G9 Art"}, "الثلاثاء": {"1": "G9 Art", "2": "—", "3": "G2 Art", "break": "🥪 Break", "4": "G7 Art", "5": "G3 P.E", "6": "G4 لغات PE", "7": "G5 Art (لغات)"}, "الأربعاء": {"1": "G8 Art", "2": "G4 Art", "3": "G9 Art", "break": "🥪 Break", "4": "G2 P.E", "5": "G6 + G9 P.E", "6": "G8 P.E", "7": "G2 Art"}, "الخميس": {"1": "—", "2": "—", "3": "—", "break": "🥪 Break", "4": "—", "5": "—", "6": "—", "7": "KG3 انصراف"}}, "t_basma": {"الأحد": {"1": "G3 إشراف (عربي)", "2": "G1 إشراف", "3": "G1 Art (رسم)", "break": "🥪 Break", "4": "G1 إشراف (لغات)", "5": "G1 إشراف (عربي)", "6": "G2 إشراف (عربي)", "7": "G2 إشراف (لغات)"}, "الإثنين": {"1": "G2 إشراف (عربي)", "2": "G2 إشراف (لغات)", "3": "G1 Art (رسم)", "break": "🥪 Break", "4": "G1 P.E", "5": "G1 إشراف (عربي)", "6": "G1 إشراف", "7": "KG3 انصراف"}, "الثلاثاء": {"1": "G3 إشراف (عربي)", "2": "G3 إشراف (لغات)", "3": "G1 إشراف (عربي)", "break": "🥪 Break", "4": "G1 إشراف (لغات)", "5": "G1 Art (رسم)", "6": "G2 إشراف (عربي)", "7": "KG3 انصراف"}, "الأربعاء": {"1": "G1 Art", "2": "G1 P.E", "3": "G1 إشراف", "break": "🥪 Break", "4": "G3 إشراف (عربي)", "5": "G3 إشراف (لغات)", "6": "G1 إشراف", "7": "KG3 انصراف"}, "الخميس": {"1": "G3 إشراف (عربي)", "2": "G3 إشراف (لغات)", "3": "G1 إشراف (لغات)", "break": "🥪 Break", "4": "G1 إشراف (عربي)", "5": "G1 إشراف", "6": "G2 Art (رسم)", "7": "G2 إشراف (لغات)"}}, "t_german": {"الأحد": {"1": "—", "2": "—", "3": "—", "break": "🥪 Break", "4": "—", "5": "—", "6": "—", "7": "—"}, "الإثنين": {"1": "—", "2": "—", "3": "—", "break": "🥪 Break", "4": "—", "5": "—", "6": "—", "7": "—"}, "الثلاثاء": {"1": "—", "2": "—", "3": "—", "break": "🥪 Break", "4": "—", "5": "—", "6": "—", "7": "—"}, "الأربعاء": {"1": "—", "2": "—", "3": "—", "break": "🥪 Break", "4": "—", "5": "—", "6": "—", "7": "—"}, "الخميس": {"1": "G5 German", "2": "G4 German", "3": "G3 German", "break": "🥪 Break", "4": "G7 German", "5": "G8 German", "6": "G6 German", "7": "G9 German (لغات)"}}}};
     const DEFAULT_STUDENTS_LIST = [];
 
@@ -848,7 +848,7 @@
 
     const LOCKOUT_THRESHOLD = 5;
     const LOCKOUT_DURATION_MS = 15 * 60 * 1000; // 15 minutes
-    const LOCKOUT_ALERT_TEXT = '⚠️ تم قفل الحساب مؤقتاً لمدة 15 دقيقة بعد 5 محاولات خاطئة. يرجى مراجعة إدارة المدرسة.';
+    const LOCKOUT_ALERT_TEXT = ' تم قفل الحساب مؤقتاً لمدة 15 دقيقة بعد 5 محاولات خاطئة. يرجى مراجعة إدارة المدرسة.';
 
     // [CRITICAL AUTO-PATCH] Ensure cached students in localStorage are synchronized
     (function sanitizeTeacherPortalStorage() {
@@ -943,7 +943,7 @@
           if (hasChanges && currentTeacher && activeDashboardTab === 'grades') {
             renderGradeSheetTable();
           }
-          console.log('[TeacherPortal] Synchronized with Cloud Firestore ☁️✨');
+          console.log('[TeacherPortal] Synchronized with Cloud Firestore ');
         }
       } catch(err) {
         console.warn('[TeacherPortal] Firestore initial sync skipped:', err);
@@ -1134,7 +1134,7 @@
               <p class="text-xs text-slate-400 font-medium mb-3">${t.title}</p>
               
               <div class="text-[11px] text-blue-300 font-bold bg-blue-950/30 border border-blue-800/30 rounded-lg p-2 mb-3">
-                📖 ${subjectsSummary}
+                 ${subjectsSummary}
               </div>
             </div>
 
@@ -1145,7 +1145,7 @@
               </div>
               <div class="w-full py-2 bg-slate-700/50 group-hover:bg-blue-600 text-slate-300 group-hover:text-white rounded-xl text-xs font-bold text-center transition flex items-center justify-center gap-1.5">
                 <span>دخول الحساب</span>
-                <span class="text-xs">🔑</span>
+                <span class="text-xs"></span>
               </div>
             </div>
           </div>
@@ -1416,12 +1416,12 @@
           id: 'admin_master',
           nameAr: 'الإدارة العامة (Master Admin)',
           title: 'مدير النظام • صلاحيات كاملة لكل المعلمات والمواد',
-          icon: '👑',
+          icon: '',
           color: 'from-amber-600 to-yellow-600',
           subjects: TEACHERS_CATALOG.flatMap(t => t.subjects)
         };
         loginAsTeacher(masterAdminTeacher, true);
-        showToast('تم الدخول بصلاحيات الإدارة العامة الكاملة 👑', 'success');
+        showToast('تم الدخول بصلاحيات الإدارة العامة الكاملة ', 'success');
         return;
       }
       if (__idn) { showToast('الدخول بصلاحيات الإدارة متاح لحساب الإدارة فقط', 'error'); return; }
@@ -1465,13 +1465,13 @@
           id: 'admin_master',
           nameAr: 'الإدارة العامة (Master Admin)',
           title: 'مدير النظام • صلاحيات كاملة لكل المعلمات والمواد',
-          icon: '👑',
+          icon: '',
           color: 'from-amber-600 to-yellow-600',
           subjects: TEACHERS_CATALOG.flatMap(t => t.subjects)
         };
         loginAsTeacher(masterAdminTeacher, true);
         closeAdminModal();
-        showToast('تم الدخول بصلاحيات الإدارة العامة الكاملة 👑', 'success');
+        showToast('تم الدخول بصلاحيات الإدارة العامة الكاملة ', 'success');
       } else {
         const res = recordFailedLogin('admin');
         if (res.isLocked) {
@@ -1580,7 +1580,7 @@
       localStorage.setItem(STORAGE_KEY_PIN_STATUS, JSON.stringify(pinStatus));
 
       closeForceChangePinModal();
-      showToast('تم تعيين رمز المرور الجديد وتأمين حسابكِ بنجاح! 🔒', 'success');
+      showToast('تم تعيين رمز المرور الجديد وتأمين حسابكِ بنجاح! ', 'success');
 
       // Now proceed to dashboard
       loginAsTeacher(teacher, false);
@@ -1695,7 +1695,7 @@
               id: 'admin_master',
               nameAr: 'الإدارة العامة (Master Admin)',
               title: 'مدير النظام • صلاحيات كاملة',
-              icon: '👑',
+              icon: '',
               color: 'from-amber-600 to-yellow-600',
               subjects: TEACHERS_CATALOG.flatMap(t => t.subjects)
             };
@@ -2161,7 +2161,7 @@
         field: 'tasks',
         nameAr: 'شهر ديسمبر (المهام الأدائية والأنشطة الشهرية)',
         shortName: 'شهر ديسمبر',
-        badge: '📋 ديسمبر',
+        badge: ' ديسمبر',
         max: 20,
         desc: 'المهام الأدائية وكشكول الحصة والمواظبة لشهر ديسمبر'
       },
@@ -2199,7 +2199,7 @@
         field: 'tasks',
         nameAr: 'شهر أبريل (المهام الأدائية والأنشطة الشهرية)',
         shortName: 'شهر أبريل',
-        badge: '📋 أبريل',
+        badge: ' أبريل',
         max: 20,
         desc: 'المهام الأدائية وكشكول الحصة والمواظبة لشهر أبريل'
       },
@@ -2307,13 +2307,13 @@
 
       if (term === 't2') {
         sel.innerHTML = `
-          <optgroup label="📋 شيت شامل للترم الثاني">
-            <option value="all">🌟 عرض كشف درجات الترم الثاني كاملاً (شيت شامل)</option>
+          <optgroup label=" شيت شامل للترم الثاني">
+            <option value="all"> عرض كشف درجات الترم الثاني كاملاً (شيت شامل)</option>
           </optgroup>
           <optgroup label="🌸 شهور وامتحانات الفصل الدراسي الثاني (الترم الثاني)">
             <option value="t2_m1">🌱 شهر فبراير (اختبار الشهر الأول بالترم 2)</option>
             <option value="t2_m2">🌷 شهر مارس (اختبار الشهر الثاني بالترم 2)</option>
-            <option value="t2_tasks">📋 شهر أبريل (المهام والأنشطة الشهرية)</option>
+            <option value="t2_tasks"> شهر أبريل (المهام والأنشطة الشهرية)</option>
             <option value="t2_exam">☀️ شهر مايو (امتحان نهاية العام Final Exam)</option>
           </optgroup>
         `;
@@ -2325,14 +2325,14 @@
       } else {
         // Term 1 (Default)
         sel.innerHTML = `
-          <optgroup label="📋 شيت شامل للترم الأول">
-            <option value="all">🌟 عرض كشف درجات الترم الأول كاملاً (شيت شامل)</option>
+          <optgroup label=" شيت شامل للترم الأول">
+            <option value="all"> عرض كشف درجات الترم الأول كاملاً (شيت شامل)</option>
           </optgroup>
           <optgroup label="❄️ شهور وامتحانات الفصل الدراسي الأول (الترم الأول)">
             <option value="t1_sep">🌱 شهر سبتمبر (بداية العام والتقييمات التمهيدية)</option>
             <option value="t1_m1">🍁 شهر أكتوبر (اختبار الشهر الأول)</option>
             <option value="t1_m2">🍂 شهر نوفمبر (اختبار الشهر الثاني)</option>
-            <option value="t1_tasks">📋 شهر ديسمبر (المهام والأنشطة الشهرية)</option>
+            <option value="t1_tasks"> شهر ديسمبر (المهام والأنشطة الشهرية)</option>
             <option value="t1_exam">❄️ شهر يناير (امتحان الميدتيرم Midterm Exam)</option>
           </optgroup>
         `;
@@ -2630,7 +2630,7 @@
                     <span class="bg-amber-500/20 text-amber-300 border border-amber-400/40 text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-sm">الدرجة العظمى المحددة: من ${curMax}</span>
                   </div>
                   <div class="text-[11px] text-slate-300 mt-0.5">
-                    ✨ تم إخفاء بقية الشهور للتركيز. يمكنك تعديل الدرجة العظمى من الخانة بالأعلى في أي وقت. اضغطي <kbd class="px-1.5 py-0.5 bg-slate-800 text-amber-300 rounded font-mono font-bold text-[10px] border border-slate-700">Enter</kbd> أو <kbd class="px-1.5 py-0.5 bg-slate-800 text-amber-300 rounded font-mono font-bold text-[10px] border border-slate-700">↓</kbd> للتنقل.
+                     تم إخفاء بقية الشهور للتركيز. يمكنك تعديل الدرجة العظمى من الخانة بالأعلى في أي وقت. اضغطي <kbd class="px-1.5 py-0.5 bg-slate-800 text-amber-300 rounded font-mono font-bold text-[10px] border border-slate-700">Enter</kbd> أو <kbd class="px-1.5 py-0.5 bg-slate-800 text-amber-300 rounded font-mono font-bold text-[10px] border border-slate-700">↓</kbd> للتنقل.
                   </div>
                 </div>
               </div>
@@ -2643,7 +2643,7 @@
                   <span>⭐ الدرجة الكاملة (${curMax})</span>
                 </button>
                 <button onclick="setExamMonth('all')" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold rounded-xl transition flex items-center gap-1 text-xs">
-                  <span>📋 عرض الكشف الشامل</span>
+                  <span> عرض الكشف الشامل</span>
                 </button>
               </div>
             </div>
@@ -2652,7 +2652,7 @@
           bannerEl.innerHTML = `
             <div class="bg-slate-900/60 border border-slate-700/60 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-300">
               <div class="flex items-center gap-2">
-                <span class="text-base">📊</span>
+                <span class="text-base"></span>
                 <span class="font-bold text-slate-200">الكشف الشامل لجميع الشهور والامتحانات (${subTermTitle})</span>
                 <span class="text-[11px] text-slate-400">• يمكنك اختيار شهر محدد من القائمة بالأعلى لفلترة خانته وتحديد درجته العظمى</span>
               </div>
@@ -2717,7 +2717,7 @@
                   🍂 نوفمبر (شهر 2) <span class="text-[10px] text-amber-300 font-bold block">من ${m2Max} 🔍</span>
                 </th>
                 <th class="p-3 w-32 text-center bg-indigo-950/40 border-r border-slate-700 cursor-pointer hover:bg-indigo-900/40 transition" onclick="setExamMonth('t1_tasks')" title="انتقال لرصد هذا الشهر فقط">
-                  📋 ديسمبر (أنشطة) <span class="text-[10px] text-amber-300 font-bold block">من ${tasksMax} 🔍</span>
+                   ديسمبر (أنشطة) <span class="text-[10px] text-amber-300 font-bold block">من ${tasksMax} 🔍</span>
                 </th>
                 <th class="p-3 w-32 text-center bg-purple-950/40 border-r border-slate-700 cursor-pointer hover:bg-purple-900/40 transition" onclick="setExamMonth('t1_exam')" title="انتقال لرصد هذا الامتحان فقط">
                   ❄️ يناير (الميدتيرم Midterm) <span class="text-[10px] text-amber-300 font-bold block">من ${examMax} 🔍</span>
@@ -2845,7 +2845,7 @@
                   <div class="flex items-center gap-1 shrink-0">
                     ${hasScore ? `
                       <span class="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 shadow-sm">
-                        <span>✅</span>
+                        <span></span>
                         <span class="hidden sm:inline">تم الرصد</span>
                       </span>
                       <button type="button" onclick="clearSingleStudentGrade('${gradeKey}', '${monthDef.field}', '${st.id}', '${subjectId}', '${term}', ${curMax}, this)" class="p-1 sm:p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 rounded-lg transition" title="إفراغ الدرجة وتحويلها إلى (لم يُرصد)">
@@ -3083,7 +3083,7 @@
         if (val <= 0) {
           val = null;
           inputEl.value = '';
-          showToast('درجة الصفر تعتبر (لم يُرصد) ليتم مراجعة الطالب ورصد درجته الحقيقية ⚠️', 'info');
+          showToast('درجة الصفر تعتبر (لم يُرصد) ليتم مراجعة الطالب ورصد درجته الحقيقية ', 'info');
         } else {
           inputEl.value = val;
         }
@@ -3171,7 +3171,7 @@
         onGradeInputChange(inp);
         onGradeLiveCalc(inp);
       });
-      showToast(`تم تعبئة درجة (${val}) لجميع الطلاب في ${monthTitle} بنجاح ✨`, 'success');
+      showToast(`تم تعبئة درجة (${val}) لجميع الطلاب في ${monthTitle} بنجاح `, 'success');
     }
 
     function quickFillFullMark(btnEl) {
@@ -3391,13 +3391,13 @@
 
             <div class="flex items-center gap-1.5">
               <button onclick="setStudentAttendance('${st.id}', 'present')" id="btn-att-${st.id}-present" class="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow">
-                حاضر ✅
+                حاضر 
               </button>
               <button onclick="setStudentAttendance('${st.id}', 'absent')" id="btn-att-${st.id}-absent" class="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:text-white">
-                غائب ❌
+                غائب 
               </button>
               <button onclick="setStudentAttendance('${st.id}', 'late')" id="btn-att-${st.id}-late" class="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:text-white">
-                متأخر ⏱️
+                متأخر 
               </button>
             </div>
           </div>
@@ -3444,7 +3444,7 @@
       Object.keys(currentAttendanceState).forEach(id => {
         setStudentAttendance(id, status);
       });
-      showToast('تم ضبط حالة جميع الطلاب: حاضر ✅', 'info');
+      showToast('تم ضبط حالة جميع الطلاب: حاضر ', 'info');
     }
 
     function updateAttendanceStats(present, absent, late) {

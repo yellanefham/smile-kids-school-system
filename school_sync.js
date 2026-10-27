@@ -24,7 +24,10 @@
       bar.dataset.state = kind;
       document.getElementById('sk-cloud-save-label').textContent = message;
       document.getElementById('sk-cloud-save-retry').style.display = kind === 'failed' ? '' : 'none';
-      document.body.style.paddingBottom = Math.max(100,bar.offsetHeight + 28) + 'px';
+      const space = Math.max(100,bar.offsetHeight + 28);
+      document.body.style.paddingBottom = space + 'px';
+      document.querySelectorAll('main, #dashboard-view').forEach(el=>{el.style.paddingBottom=space+'px';});
+      document.getElementById('att-students-list')?.style.setProperty('margin-bottom',space+'px');
       bar.style.border = '2px solid ' + ({saved:'#34d399',saving:'#fbbf24',failed:'#fb7185'}[kind] || '#94a3b8');
     }
     window.dispatchEvent(new CustomEvent('smilekids_cloud_save_status', {detail:{kind,message,pending:pending.length}}));
