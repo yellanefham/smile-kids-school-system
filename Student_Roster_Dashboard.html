@@ -1519,9 +1519,8 @@
               <span>📅 اختيار الاختبار / الشهر المراد رصده:</span>
             </label>
             <select id="grades-period-select" onchange="onGradesPeriodChange(this.value)" class="w-full bg-slate-900 border border-slate-700 text-white rounded-xl px-3 py-2 font-bold focus:outline-none focus:border-indigo-500">
-              <option value="t1_sep" selected>تقييم شهر سبتمبر - SEPTEMBER REPORT</option>
-              <option value="t1_m1">اختبار شهر أكتوبر (شهر 1) - FIRST MONTH REPORT</option>
-              <option value="t1_m2">اختبار شهر نوفمبر (شهر 2) - SECOND MONTH REPORT</option>
+              <option value="t1_sep">تقييم شهر سبتمبر - SEPTEMBER REPORT</option>
+              <option value="t1_octnov" selected>اختبار أكتوبر ونوفمبر (المجمع) - OCT-NOV REPORT</option>
               <option value="t1_tasks">المهام الأدائية (ديسمبر) - TASKS REPORT</option>
               <option value="t1_exam">امتحان منتصف العام (الفصل الأول) - FIRST TERM REPORT</option>
               <option value="t2_m1">اختبار شهر فبراير (شهر 1 ف2) - TERM 2 FIRST MONTH REPORT</option>
@@ -1669,9 +1668,8 @@
           <div>
             <label class="block text-xs font-bold text-slate-400 mb-1">الفترة التقييمية:</label>
             <select id="cert-period-select" onchange="renderCertificatePreview()" class="w-full bg-slate-900 border border-slate-800 text-white rounded-xl px-3 py-2 text-xs font-bold focus:outline-none focus:border-amber-500">
-              <option value="t1_sep" selected>تقييم شهر سبتمبر - SEPTEMBER REPORT</option>
-              <option value="t1_m1">اختبار شهر 1 (أكتوبر) - FIRST MONTH REPORT</option>
-              <option value="t1_m2">اختبار شهر 2 (نوفمبر) - SECOND MONTH REPORT</option>
+              <option value="t1_sep">تقييم شهر سبتمبر - SEPTEMBER REPORT</option>
+              <option value="t1_octnov" selected>اختبار أكتوبر ونوفمبر (المجمع) - OCT-NOV REPORT</option>
               <option value="t1_tasks">المهام الأدائية (ديسمبر) - TASKS REPORT</option>
               <option value="t1_exam">امتحان نصف العام (يناير) - FIRST TERM REPORT</option>
               <option value="t2_m1">اختبار شهر 1 (فبراير) - TERM 2 FIRST MONTH REPORT</option>
@@ -2805,8 +2803,8 @@
             <span>📅</span> <span>فترة التقييم:</span>
           </label>
           <select id="export-rank-period-select" onchange="renderRankExportStudents()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-bold focus:border-purple-400 focus:outline-none">
-            <option value="t1_sep" selected>اختبارات شهر سبتمبر 2026</option>
-            <option value="t1_m1">اختبار أكتوبر (شهر 1)</option>
+            <option value="t1_sep">اختبارات شهر سبتمبر 2026</option>
+            <option value="t1_octnov" selected>اختبار أكتوبر ونوفمبر (المجمع)</option>
             <option value="t1_exam">امتحان نصف العام الدراسي الأول</option>
           </select>
         </div>
@@ -6449,8 +6447,8 @@
     let gradesSearchQuery = '';
     let certLanguage = 'arabic';
     let certCurrentStudentId = '';
-    let currentGradesPeriod = 't1_sep';
-    let currentGradesCustomTitle = 'SEPTEMBER ASSESSMENT REPORT';
+    let currentGradesPeriod = 't1_octnov';
+    let currentGradesCustomTitle = 'OCTOBER-NOVEMBER COMBINED ASSESSMENT REPORT';
 
     // Custom Subject Max Scores Override (persisted in localStorage)
     let CUSTOM_SUBJECT_MAX = {};
@@ -6521,6 +6519,7 @@
       currentGradesPeriod = val;
       const titleMap = {
         't1_sep': 'SEPTEMBER ASSESSMENT REPORT',
+        't1_octnov': 'OCTOBER-NOVEMBER COMBINED ASSESSMENT REPORT',
         't1_m1': 'OCTOBER MONTHLY REPORT (MONTH 1)',
         't1_m2': 'NOVEMBER MONTHLY REPORT (MONTH 2)',
         't1_tasks': 'DECEMBER PERFORMANCE TASKS REPORT',
@@ -6634,6 +6633,7 @@
     function getPeriodTitle(pKey, lang) {
       const isAr = (lang === 'arabic');
       const map = {
+        t1_octnov: { ar: 'اختبار أكتوبر ونوفمبر المجمع (الفصل الأول)', en: 'Term 1: October-November Combined Assessment' },
         t1_m1: { ar: 'اختبار شهر 1 (الفصل الأول)', en: 'Term 1: 1st Monthly Assessment' },
         t1_m2: { ar: 'اختبار شهر 2 (الفصل الأول)', en: 'Term 1: 2nd Monthly Assessment' },
         t1_exam: { ar: 'امتحان منتصف العام ونهاية الفصل الأول', en: 'First Term Final Examination' },
@@ -6774,7 +6774,7 @@
             <th class="py-3 px-2 text-center border-r border-slate-800 min-w-[95px] whitespace-nowrap">
               <div class="font-black text-white text-xs sm:text-[13px] leading-tight">${displayName}</div>
               ${subDetail ? `<div class="text-[10px] text-slate-400 font-medium leading-none mt-0.5">${subDetail}</div>` : ''}
-              <div class="text-[10px] font-black ${isRel ? 'text-slate-400' : 'text-amber-400'} mt-1 font-mono bg-slate-950/70 py-0.5 px-2 rounded-md inline-block">العظمى: ${sub.max}</div>
+              <div class="text-[10px] font-black ${isRel ? 'text-slate-400' : 'text-amber-400'} mt-1 font-mono bg-slate-950/70 py-0.5 px-2 rounded-md inline-block">العظمى: ${currentGradesPeriod === 't1_octnov' ? getOctNovSubjectMax(currentGrade, sub.id, sub.name) : sub.max}</div>
             </th>
           `;
         }).join('');
@@ -6814,6 +6814,7 @@
           if (s.track === 'arabic' && sub.id === 'english_al') {
             return `<td class="py-2.5 px-1.5 text-center border-r border-slate-800/80 text-slate-500 font-mono font-bold text-sm bg-slate-950/40" title="مادة Connect Plus لقسم اللغات فقط">—</td>`;
           }
+          const subMax = (currentGradesPeriod === 't1_octnov') ? getOctNovSubjectMax(s.grade, sub.id, sub.name) : sub.max;
           const scoreData = getStudentSubjectScore(s, sub.id, currentGradesPeriod);
           const val = scoreData ? scoreData.score : null;
           const isRecorded = Boolean(scoreData && scoreData.isRecorded && scoreData.score > 0);
@@ -6827,14 +6828,14 @@
               <input 
                 type="number" 
                 min="0" 
-                max="${sub.max}" 
+                max="${subMax}" 
                 step="0.5" 
                 value="${inputVal}" 
                 placeholder="لم يُرصد"
                 data-st-id="${s.id}"
                 data-subj-id="${sub.id}"
-                oninput="onStudentSubjectInput('${s.id}', '${sub.id}', this.value, ${sub.max}, this)"
-                onchange="onStudentSubjectChange('${s.id}', '${sub.id}', this.value, ${sub.max}, this)"
+                oninput="onStudentSubjectInput('${s.id}', '${sub.id}', this.value, ${subMax}, this)"
+                onchange="onStudentSubjectChange('${s.id}', '${sub.id}', this.value, ${subMax}, this)"
                 onblur="flushStudentSubjectSave()"
                 onkeydown="handleGradeTableKeydown(event, this)"
                 onfocus="this.select()"
@@ -7173,6 +7174,19 @@
 
     
     // ==================== REPORT CARD SUBJECT & RANKING ENGINE ====================
+    // قواعد النهاية العظمى لاختبار أكتوبر ونوفمبر المجمع: الرياضيات واللغة العربية 30 لكل الصفوف، التربية الدينية 20، وباقي المواد = درجة سبتمبر
+    function getOctNovSubjectMax(grade, subjId, subjName) {
+      const nm = (subjName || '').toLowerCase();
+      const isMath = subjId === 'math' || nm.includes('رياض') || nm.includes('حساب') || nm.includes('math');
+      const isArabic = subjId === 'arabic' || nm.includes('عربي');
+      const isReligion = subjId === 'religion' || nm.includes('دينية') || nm.includes('islam');
+      if (isMath || isArabic) return 30;
+      if (isReligion) return 20;
+      const custom = (CUSTOM_SUBJECT_MAX && CUSTOM_SUBJECT_MAX[grade] && CUSTOM_SUBJECT_MAX[grade][subjId] !== undefined)
+        ? parseFloat(CUSTOM_SUBJECT_MAX[grade][subjId]) : null;
+      return (custom && custom > 0) ? custom : getDefaultSubjectMax(grade, subjId);
+    }
+
     function getDefaultSubjectMax(grade, subjId) {
       const g = parseInt(grade) || 1;
       if (subjId === 'science') return 50;
@@ -8119,9 +8133,13 @@
       if (!student) return null;
 
       const fld = (periodKey || '').replace('t1_', '').replace('t2_', '');
-      const configuredMax = (CUSTOM_SUBJECT_MAX && CUSTOM_SUBJECT_MAX[student.grade] && CUSTOM_SUBJECT_MAX[student.grade][subjectId] !== undefined)
+      let configuredMax = (CUSTOM_SUBJECT_MAX && CUSTOM_SUBJECT_MAX[student.grade] && CUSTOM_SUBJECT_MAX[student.grade][subjectId] !== undefined)
         ? parseFloat(CUSTOM_SUBJECT_MAX[student.grade][subjectId])
         : null;
+      if (periodKey === 't1_octnov') {
+        const octCfgSub = (getGradeSubjectsConfig(student.grade, student.track) || []).find(s => s.id === subjectId);
+        configuredMax = getOctNovSubjectMax(student.grade, subjectId, octCfgSub ? octCfgSub.name : '');
+      }
 
       // 1. Check in-memory student.subjectScores
       if (student.subjectScores && student.subjectScores[subjectId]) {
@@ -8254,9 +8272,11 @@
         if (isNonTotal) return;
 
         const scoreData = getStudentSubjectScore(student, sub.id, periodKey);
-        const configuredMax = (CUSTOM_SUBJECT_MAX && CUSTOM_SUBJECT_MAX[student.grade] && CUSTOM_SUBJECT_MAX[student.grade][sub.id] !== undefined)
-          ? parseFloat(CUSTOM_SUBJECT_MAX[student.grade][sub.id])
-          : (sub.max || 20);
+        const configuredMax = (periodKey === 't1_octnov')
+          ? getOctNovSubjectMax(student.grade, sub.id, sub.name)
+          : ((CUSTOM_SUBJECT_MAX && CUSTOM_SUBJECT_MAX[student.grade] && CUSTOM_SUBJECT_MAX[student.grade][sub.id] !== undefined)
+            ? parseFloat(CUSTOM_SUBJECT_MAX[student.grade][sub.id])
+            : (sub.max || 20));
 
         const officialSubMax = (configuredMax > 0 ? configuredMax : (sub.max || 20));
         const effectiveMax = (scoreData && scoreData.maxScore > 0)
@@ -8541,6 +8561,7 @@
       // Determine Report Card Title dynamically linked to the month / exam name
       const titleMapAr = {
         't1_sep': 'اختبارات شهر سبتمبر',
+        't1_octnov': 'اختبار أكتوبر ونوفمبر (الاختبار الشهري المجمع)',
         't1_m1': 'اختبار شهر أكتوبر (الشهر الأول)',
         't1_m2': 'اختبار شهر نوفمبر (الشهر الثاني)',
         't1_tasks': 'تقرير المهام الأدائية والأنشطة (شهر ديسمبر)',
@@ -8552,6 +8573,7 @@
       };
       const titleMapEn = {
         't1_sep': 'SEPTEMBER ASSESSMENT REPORT',
+        't1_octnov': 'OCTOBER-NOVEMBER COMBINED ASSESSMENT REPORT',
         't1_m1': 'OCTOBER MONTHLY REPORT (MONTH 1)',
         't1_m2': 'NOVEMBER MONTHLY REPORT (MONTH 2)',
         't1_tasks': 'DECEMBER PERFORMANCE TASKS REPORT',
@@ -9639,7 +9661,7 @@
         return;
       }
 
-      const pKey = (document.getElementById('cert-period-select') && document.getElementById('cert-period-select').value) ? document.getElementById('cert-period-select').value : (currentGradesPeriod || 't1_m1');
+      const pKey = (document.getElementById('cert-period-select') && document.getElementById('cert-period-select').value) ? document.getElementById('cert-period-select').value : (currentGradesPeriod || 't1_octnov');
       container.innerHTML = generateSingleCertificateHTML(student, certLanguage, pKey);
     }
 
@@ -9700,7 +9722,7 @@
         return;
       }
 
-      const pKey = (document.getElementById('cert-period-select') && document.getElementById('cert-period-select').value) ? document.getElementById('cert-period-select').value : (currentGradesPeriod || 't1_m1');
+      const pKey = (document.getElementById('cert-period-select') && document.getElementById('cert-period-select').value) ? document.getElementById('cert-period-select').value : (currentGradesPeriod || 't1_octnov');
       
       // Always filter out withdrawn or interrupted students from normal printing
       gradeStudents = gradeStudents.filter(s => s.enrollmentStatus !== 'interrupted' && s.enrollmentStatus !== 'withdrawn' && s.status !== 'withdrawn');
@@ -9916,9 +9938,10 @@
         alert('يرجى اختيار طالب أولاً');
         return;
       }
-      const pKey = (document.getElementById('cert-period-select') && document.getElementById('cert-period-select').value) ? document.getElementById('cert-period-select').value : (currentGradesPeriod || 't1_m1');
+      const pKey = (document.getElementById('cert-period-select') && document.getElementById('cert-period-select').value) ? document.getElementById('cert-period-select').value : (currentGradesPeriod || 't1_octnov');
       const titleMapAr = {
         't1_sep': 'اختبارات شهر سبتمبر',
+        't1_octnov': 'اختبار أكتوبر ونوفمبر (الاختبار الشهري المجمع)',
         't1_m1': 'اختبار شهر أكتوبر (الشهر الأول)',
         't1_m2': 'اختبار شهر نوفمبر (الشهر الثاني)',
         't1_tasks': 'تقرير المهام الأدائية والأنشطة (شهر ديسمبر)',
@@ -10108,9 +10131,8 @@ Smile Kids school ☺`;
     // Period definition with progressive unlock order
     const GRADING_PERIODS_ORDER = [
       { key: 't1_sep', titleAr: 'تقييم شهر سبتمبر (التمهيدي)', titleEn: 'Term 1: September Assessment', defaultMax: 30 },
-      { key: 't1_m1', titleAr: 'اختبار شهر 1 (أكتوبر)', titleEn: 'Term 1: 1st Monthly Assessment', defaultMax: 20 },
-      { key: 't1_m2', titleAr: 'اختبار شهر 2 (نوفمبر)', titleEn: 'Term 1: 2nd Monthly Assessment', defaultMax: 20, requires: 't1_m1', reqName: 'شهر 1 (أكتوبر)' },
-      { key: 't1_exam', titleAr: 'امتحان نصف العام (الفصل الأول)', titleEn: 'Term 1 Final Examination', defaultMax: 30, requires: 't1_m2', reqName: 'شهر 2 (نوفمبر)' },
+      { key: 't1_octnov', titleAr: 'اختبار أكتوبر ونوفمبر (المجمع)', titleEn: 'Term 1: October-November Combined Assessment', defaultMax: 30 },
+      { key: 't1_exam', titleAr: 'امتحان نصف العام (الفصل الأول)', titleEn: 'Term 1 Final Examination', defaultMax: 30, requires: 't1_octnov', reqName: 'اختبار أكتوبر ونوفمبر' },
       { key: 't2_m1', titleAr: 'اختبار شهر 1 (فبراير)', titleEn: 'Term 2: 1st Monthly Assessment', defaultMax: 20, requires: 't1_exam', reqName: 'امتحان نصف العام' },
       { key: 't2_m2', titleAr: 'اختبار شهر 2 (مارس)', titleEn: 'Term 2: 2nd Monthly Assessment', defaultMax: 20, requires: 't2_m1', reqName: 'شهر 1 (فبراير)' },
       { key: 't2_exam', titleAr: 'امتحان نهاية العام (الفصل الثاني)', titleEn: 'Second Term Final Examination', defaultMax: 30, requires: 't2_m2', reqName: 'شهر 2 (مارس)' }
@@ -10201,7 +10223,7 @@ Smile Kids school ☺`;
       const selPeriod = document.getElementById('tg-period-select');
       if (!selPeriod) return;
 
-      let firstUnlockedPeriod = 't1_m1';
+      let firstUnlockedPeriod = 't1_octnov';
       let html = '';
 
       GRADING_PERIODS_ORDER.forEach((p, idx) => {
@@ -10225,7 +10247,7 @@ Smile Kids school ☺`;
       // Ensure valid period selection
       const currOption = selPeriod.querySelector(`option[value="${currentTgPeriod}"]`);
       if (!currOption || currOption.disabled) {
-        currentTgPeriod = firstUnlockedPeriod || 't1_m1';
+        currentTgPeriod = firstUnlockedPeriod || 't1_octnov';
         selPeriod.value = currentTgPeriod;
       }
 
@@ -10243,7 +10265,7 @@ Smile Kids school ☺`;
         // If current value is untouched or default, adjust
         if (!maxInp.dataset.userEdited) {
           const cfg = getGradeSubjectsConfig(currentTgGrade, 'languages').find(s => s.id === currentTgSubjectId);
-          const defScore = cfg ? cfg.max : pDef.defaultMax;
+          const defScore = (currentTgPeriod === 't1_octnov') ? getOctNovSubjectMax(currentTgGrade, currentTgSubjectId, cfg ? cfg.name : '') : (cfg ? cfg.max : pDef.defaultMax);
           maxInp.value = defScore;
           currentTgMaxScore = defScore;
         } else {
@@ -10541,6 +10563,7 @@ Smile Kids school ☺`;
       if (certPeriodSel) certPeriodSel.value = currentTgPeriod;
 
       const titleMap = {
+        't1_octnov': 'OCT-NOV COMBINED REPORT',
         't1_m1': 'FIRST MONTH REPORT',
         't1_m2': 'SECOND MONTH REPORT',
         't1_exam': 'FIRST TERM REPORT',
