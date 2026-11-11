@@ -8628,10 +8628,12 @@
         const subjScore = scoreData ? scoreData.score : 0;
         const isRecorded = Boolean(scoreData && scoreData.isRecorded && scoreData.score > 0);
 
-        // Accurate maximum score: check custom max overrides per grade/subject first
-        const configuredMax = (CUSTOM_SUBJECT_MAX && CUSTOM_SUBJECT_MAX[st.grade] && CUSTOM_SUBJECT_MAX[st.grade][subj.id] !== undefined)
-          ? parseFloat(CUSTOM_SUBJECT_MAX[st.grade][subj.id])
-          : (subj.max || 20);
+        // Accurate maximum score: octnov combined exam has its own max rules; otherwise custom max overrides per grade/subject first
+        const configuredMax = (periodKey === 't1_octnov')
+          ? getOctNovSubjectMax(st.grade, subj.id, subj.name)
+          : ((CUSTOM_SUBJECT_MAX && CUSTOM_SUBJECT_MAX[st.grade] && CUSTOM_SUBJECT_MAX[st.grade][subj.id] !== undefined)
+            ? parseFloat(CUSTOM_SUBJECT_MAX[st.grade][subj.id])
+            : (subj.max || 20));
 
         const officialSubMax = (configuredMax > 0 ? configuredMax : (subj.max || 20));
         const effectiveSubjMax = (scoreData && scoreData.maxScore > 0)
