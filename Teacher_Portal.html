@@ -244,7 +244,8 @@
                   <option value="all"> عرض كشف درجات الترم الأول كاملاً (شيت شامل)</option>
                 </optgroup>
                 <optgroup label="❄️ شهور وامتحانات الفصل الدراسي الأول (الترم الأول)">
-                  <option value="t1_sep" selected>🌱 شهر سبتمبر (بداية العام والتقييمات التمهيدية)</option>
+                  <option value="t1_octnov" selected>🍁 شهر أكتوبر ونوفمبر (الاختبار الشهري المجمع)</option>
+                  <option value="t1_sep">🌱 شهر سبتمبر (بداية العام والتقييمات التمهيدية)</option>
                   <option value="t1_m1">🍁 شهر أكتوبر (اختبار الشهر الأول)</option>
                   <option value="t1_m2">🍂 شهر نوفمبر (اختبار الشهر الثاني)</option>
                   <option value="t1_tasks"> شهر ديسمبر (المهام والأنشطة الشهرية)</option>
@@ -1736,7 +1737,7 @@
       `).join('');
 
       const curTerm = document.getElementById('term-select')?.value || 't1';
-      updateExamMonthOptions(curTerm, 't1_sep');
+      updateExamMonthOptions(curTerm, 't1_octnov');
 
       onGradeChange();
     }
@@ -2138,6 +2139,15 @@
         max: 20,
         desc: 'تقييمات وأنشطة شهر سبتمبر التمهيدية'
       },
+      't1_octnov': {
+        term: 't1',
+        field: 'octnov',
+        nameAr: 'شهر أكتوبر ونوفمبر (الاختبار الشهري المجمع)',
+        shortName: 'شهر أكتوبر ونوفمبر',
+        badge: '🍁 أكتوبر ونوفمبر',
+        max: 30,
+        desc: 'الاختبار الشهري المجمع لشهري أكتوبر ونوفمبر: الرياضيات والحساب واللغة العربية من 30، التربية الدينية من 20، وباقي المواد بنفس درجة امتحان شهر سبتمبر'
+      },
       't1_m1': {
         term: 't1',
         field: 'm1',
@@ -2235,6 +2245,17 @@
         return parseFloat(saved);
       }
 
+      // October-November combined exam (school-approved maximums):
+      // Math/رياضيات/حساب and Arabic = 30 in every grade (G1-G9); religion (دين) = 20;
+      // every other subject keeps the same max as September's monthly exam until teachers send changes.
+      if (monthKey === 't1_octnov') {
+        const os = String(curSubj || '').toLowerCase();
+        if (os.includes('math') || os.includes('حساب') || os.includes('رياض')) return 30;
+        if (os.includes('arabic') || os.includes('عرب')) return 30;
+        if (os.includes('religion') || os.includes('دين') || os.includes('islam')) return 20;
+        return getActiveMaxScore('t1_sep', curSubj, curGrade);
+      }
+
       // Check custom max scores per grade
       try {
         const customObj = JSON.parse(localStorage.getItem('smile_kids_custom_max_scores') || '{}');
@@ -2329,6 +2350,7 @@
             <option value="all"> عرض كشف درجات الترم الأول كاملاً (شيت شامل)</option>
           </optgroup>
           <optgroup label="❄️ شهور وامتحانات الفصل الدراسي الأول (الترم الأول)">
+            <option value="t1_octnov">🍁 شهر أكتوبر ونوفمبر (الاختبار الشهري المجمع)</option>
             <option value="t1_sep">🌱 شهر سبتمبر (بداية العام والتقييمات التمهيدية)</option>
             <option value="t1_m1">🍁 شهر أكتوبر (اختبار الشهر الأول)</option>
             <option value="t1_m2">🍂 شهر نوفمبر (اختبار الشهر الثاني)</option>
@@ -2341,7 +2363,7 @@
         } else if (curVal && (curVal.startsWith('t1') || curVal === 'all')) {
           sel.value = curVal;
         } else {
-          sel.value = 't1_sep';
+          sel.value = 't1_octnov';
         }
       }
     }
@@ -2659,6 +2681,7 @@
               <div class="flex items-center gap-1.5">
                 <span class="text-slate-400 text-[11px]">انتقال سريع:</span>
                 ${term === 't1' ? `
+                  <button onclick="setExamMonth('t1_octnov')" class="px-2 py-0.5 bg-amber-900/60 hover:bg-amber-600 text-amber-200 hover:text-white rounded text-[11px] font-black border border-amber-600/50">أكتوبر ونوفمبر 🍁</button>
                   <button onclick="setExamMonth('t1_sep')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">سبتمبر</button>
                   <button onclick="setExamMonth('t1_m1')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">أكتوبر</button>
                   <button onclick="setExamMonth('t1_m2')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded text-[11px] font-bold border border-slate-700">نوفمبر</button>
@@ -3293,7 +3316,7 @@
 
       let csv = '\uFEFF';
       if (isSingleMonth) {
-        csv += `م,كود الطالب,اسم الطالب,المسار,درجة ${def.shortName} (من ${def.max}),المجموع التراكمي للترم (من 100),التقدير العام\n`;
+        csv += `م,كود الطالب,اسم الطالب,المسار,درجة ${def.shortName} (من ${getActiveMaxScore(selectedMonth, subjectId, grade)}),المجموع التراكمي للترم (من 100),التقدير العام\n`;
         filtered.forEach((st, idx) => {
           const key = 'st_' + st.id + '_' + term + '_' + subjectId;
           const saved = allGrades[key] || { m1: 0, m2: 0, tasks: 0, exam: 0 };
