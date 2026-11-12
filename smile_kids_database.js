@@ -207,7 +207,7 @@
           const rawDel = localStorage.getItem(this.DELETED_IDS_KEY);
           if (rawDel) {
             const arr = JSON.parse(rawDel);
-            if (Array.isArray(arr)) arr.forEach(id => this._deletedIds.add(id));
+            if (Array.isArray(arr)) arr.filter(id => id !== 'SK-G3-AR-001').forEach(id => this._deletedIds.add(id));
           }
           localStorage.setItem(this.DELETED_IDS_KEY, JSON.stringify(Array.from(this._deletedIds)));
         } catch(e) {}

@@ -958,8 +958,8 @@
     }
 
   </style>
-  <script src="firebase_config.js?v=20261027_privacy1"></script>
-  <script src="smile_kids_database.js?v=20261027_sync2"></script>
+  <script src="firebase_config.js?v=20261112_restore1"></script>
+  <script src="smile_kids_database.js?v=20261112_restore1"></script>
   <script src="school_sync.js?v=20261027_sync2"></script>
   <script>
     (function() {
@@ -1078,6 +1078,13 @@
         
       </div>
 
+      <details class="text-xs p-2 bg-slate-900 rounded-xl border border-amber-500/40">
+        <summary class="cursor-pointer">استرجاع السجل المعتمد</summary>
+        <p class="my-2">للإدارة فقط: استرجاع السجل الأصلي المعتمد دون إنشاء كود جديد.</p>
+        <input type="file" id="approved-restore-file" accept="application/json,.json" aria-label="ملف السجل الأصلي المعتمد">
+        <button type="button" class="p-2 bg-amber-700 rounded-lg" onclick="restoreApprovedOriginalStudent()">تأكيد استرجاع السجل الأصلي</button>
+        <p id="approved-restore-status" role="status" class="p-2"></p>
+      </details>
       <!-- Admin Status Pill & Logout Button -->
       <div class="flex items-center gap-2 sm:gap-3">
                 <button onclick="openLocalBackupModal()" id="btn-local-backup-export" class="px-3 py-1.5 rounded-xl text-xs font-black bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/50 text-emerald-200 transition flex items-center gap-1.5 shadow" title="أخذ نسخة احتياطية وتصدير ما تم تسجيله وحفظه على الجهاز في مكان معين">
@@ -2961,7 +2968,11 @@
     // [CRITICAL SANITIZER] Immediate purge of deleted student SK-G2-LN-013 & auto-update student names from localStorage before any DB init
     (function purgeDeletedStudentStorage() {
       try {
-        const BLACKLIST_IDS = ['SK-G2-LN-013', 'SK-G3-AR-001', 'SK-G9-AR-003', 'SK-G2-AR-006', 'SK-G5-AR-003'];
+        // Approved restoration: clear only this original ID, never other withdrawals.
+        const restoredIds = new Set(['SK-G3-AR-001']);
+        const oldDeleted = JSON.parse(localStorage.getItem('smile_kids_deleted_student_ids_v1') || '[]');
+        if (Array.isArray(oldDeleted)) localStorage.setItem('smile_kids_deleted_student_ids_v1', JSON.stringify(oldDeleted.filter(id => !restoredIds.has(id))));
+        const BLACKLIST_IDS = ['SK-G2-LN-013', 'SK-G9-AR-003', 'SK-G2-AR-006', 'SK-G5-AR-003'];
         try {
           const storedDels = JSON.parse(localStorage.getItem('smile_kids_deleted_student_ids_v1') || '[]');
           if (Array.isArray(storedDels)) storedDels.forEach(id => { if (!BLACKLIST_IDS.includes(id)) BLACKLIST_IDS.push(id); });
@@ -5874,6 +5885,49 @@
     // EDIT STUDENT ENGINE
     // =========================================================
 
+    async function restoreApprovedOriginalStudent() {
+      const status = document.getElementById('approved-restore-status');
+      try {
+        const user = window.firebase && firebase.auth().currentUser;
+        if (!user || !['admin@smilekids.school','nabila.fakhry@gmail.com'].includes(user.email)) throw new Error('يلزم دخول الإدارة');
+        const file = document.getElementById('approved-restore-file').files[0];
+        if (!file) throw new Error('اختاري ملف السجل الأصلي أولاً');
+        const raw = JSON.parse(await file.text());
+        const source = raw.student || raw;
+        if (source.id !== 'SK-G3-AR-001' || source.grade !== 3 || source.track !== 'arabic' || typeof source.nameAr !== 'string') throw new Error('الملف لا يطابق السجل المعتمد للاسترجاع');
+        const db = firebase.firestore();
+        const ref = db.collection('students').doc(source.id);
+        const before = await ref.get({source:'server'});
+        if (before.exists) throw new Error('السجل موجود بالفعل في السحابة. لن تتم الكتابة فوقه أو إنشاء نسخة أخرى.');
+        const duplicates = await db.collection('students').where('nameAr','==',source.nameAr).get({source:'server'});
+        if (!duplicates.empty) throw new Error('يوجد سجل بنفس الاسم. توقّف الاسترجاع لمنع التكرار.');
+        const student = {};
+        ['id','nameAr','nameEn','grade','gradeNameAr','gradeNameEn','track','trackNameAr','trackNameEn','gender','pin','password'].forEach(k => { if (source[k] !== undefined) student[k] = source[k]; });
+        student.enrollmentStatus = 'active';
+        student.attendanceRecords = {}; student.attendanceNotes = {};
+        student.subjectScores = {}; student.termsScores = {};
+        const verified = raw.approvedScores;
+        if (!Array.isArray(verified) || verified.length !== 6 || verified.some(r => !Array.isArray(r) || !['arabic','english_ol','math','religion'].includes(r[0]) || !['t1_sep','t1_octnov'].includes(r[1]) || !Number.isFinite(r[2]) || !Number.isFinite(r[3]) || r[2] < 0 || r[2] > r[3])) throw new Error('درجات الاسترجاع غير صالحة');
+        const now = new Date().toISOString();
+        const gradeWrites = [];
+        verified.forEach(([subjectId,periodKey,score,maxScore]) => {
+          if (periodKey === 't1_sep' && source.subjectScores?.[subjectId]?.scores?.t1_sep?.score !== score) throw new Error('درجات المصدر لا تطابق النسخة المعتمدة');
+          const subject = student.subjectScores[subjectId] || (student.subjectScores[subjectId] = {subjectId,scores:{}});
+          subject.scores[periodKey] = {score,maxScore,isRecorded:true,updatedAt:now};
+          if (periodKey === 't1_sep') subject.sep = score;
+          gradeWrites.push({ref:db.collection('grades').doc(`${source.id}_${subjectId}_${periodKey}`),value:{studentId:source.id,subjectId,periodKey,score,maxScore,updatedAt:now,timestamp:Date.now()}});
+        });
+        student._restoredAt = now; student._updatedAt = now; student._lastModified = Date.now();
+        student._restorationSource = 'Approved original record, historical snapshot 2026-10-24; October-November Arabic from teacher sheet 2026-11-12';
+        student._archivedLegacyTermsScores = source.termsScores || {};
+        // Atomic create-only transaction check prevents a late concurrent record overwrite.
+        await db.runTransaction(async tx => { const existing = await tx.get(ref); if (existing.exists) throw new Error('السجل موجود الآن، لن تتم الكتابة فوقه'); tx.set(ref,student); gradeWrites.forEach(w => tx.set(w.ref,w.value,{merge:true})); });
+        const saved = await ref.get({source:'server'});
+        if (!saved.exists || saved.data().subjectScores?.arabic?.scores?.t1_octnov?.score !== 30) throw new Error('تعذر تأكيد الاسترجاع أونلاين');
+        status.textContent = 'تم تأكيد استرجاع السجل الأصلي ودرجاته المعتمدة أونلاين. حدّثي الصفحة لظهوره.';
+      } catch (err) { status.textContent = 'لم يكتمل الاسترجاع: ' + err.message; }
+    }
+
     function openAddStudentModal() {
       const form = document.getElementById('form-add-student');
       if (form) form.reset();
@@ -8114,7 +8168,7 @@
               });
 
               // Filter out permanently deleted students (Tombstones) so they are NEVER resurrected on refresh
-              const deletedIdSet = new Set(['SK-G2-LN-013', 'SK-G3-AR-001', 'SK-G9-AR-003']);
+              const deletedIdSet = new Set(['SK-G2-LN-013', 'SK-G9-AR-003']);
               try {
                 const storedDels = JSON.parse(localStorage.getItem('smile_kids_deleted_student_ids_v1') || '[]');
                 if (Array.isArray(storedDels)) storedDels.forEach(id => deletedIdSet.add(id));

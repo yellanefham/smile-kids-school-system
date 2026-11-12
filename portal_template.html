@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>بوابة المعلمات الذكية • مدرسة Smile Kids الخاصة للغات</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
-  <script src="firebase_config.js?v=20261027_privacy1"></script>
-  <script src="smile_kids_database.js?v=20261004_v10_sync"></script>
+  <script src="firebase_config.js?v=20261112_restore1"></script>
+  <script src="smile_kids_database.js?v=20261112_restore1"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -780,7 +780,11 @@
     // [CRITICAL SANITIZER] Immediate purge of deleted student records from localStorage
     (function purgeDeletedStudentStorage() {
       try {
-        const BLACKLIST_IDS = ['SK-G2-LN-013', 'SK-G3-AR-001', 'SK-G9-AR-003', 'SK-G2-AR-006', 'SK-G5-AR-003'];
+        // Approved restoration: clear only this original ID, never other withdrawals.
+        const restoredIds = new Set(['SK-G3-AR-001']);
+        const oldDeleted = JSON.parse(localStorage.getItem('smile_kids_deleted_student_ids_v1') || '[]');
+        if (Array.isArray(oldDeleted)) localStorage.setItem('smile_kids_deleted_student_ids_v1', JSON.stringify(oldDeleted.filter(id => !restoredIds.has(id))));
+        const BLACKLIST_IDS = ['SK-G2-LN-013', 'SK-G9-AR-003', 'SK-G2-AR-006', 'SK-G5-AR-003'];
         try {
           const storedDels = JSON.parse(localStorage.getItem('smile_kids_deleted_student_ids_v1') || '[]');
           if (Array.isArray(storedDels)) {
