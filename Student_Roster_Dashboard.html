@@ -11006,11 +11006,19 @@ Smile Kids school ☺`;
       syncAllTeacherGradesIntoStudents();
       if (window.SmileKidsFirebase && typeof window.SmileKidsFirebase.fetchAllFromFirestore === 'function') {
         manualSyncFromCloud(true);
+        // سحب مؤجل (قراءة فقط) لضمان التقاط أحدث الحالات بعد اكتمال تسجيل الدخول
+        setTimeout(() => { try { manualSyncFromCloud(true); } catch(e) {} }, 4000);
+        setTimeout(() => { try { manualSyncFromCloud(true); } catch(e) {} }, 10000);
       }
     });
 
     window.addEventListener('smilekids_firebase_ready', () => {
       manualSyncFromCloud(true);
+      setTimeout(() => { try { manualSyncFromCloud(true); } catch(e) {} }, 3000);
+    });
+
+    window.addEventListener('smilekids_staff_signed_in', () => {
+      setTimeout(() => { try { manualSyncFromCloud(true); } catch(e) {} }, 1500);
     });
 
     window.addEventListener('beforeunload', () => {
