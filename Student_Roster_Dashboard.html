@@ -4183,7 +4183,7 @@
     }
 
     async function printStaffKidsRoster() {
-      await window.skWaitForFresh();
+      if (!(await window.skGuardFreshPrint())) return;
       refreshStudentsFromDB();
       const staffKids = ALL_STUDENTS.filter(s => s.isTeacherChild === true);
       if (staffKids.length === 0) {
@@ -4811,7 +4811,7 @@
     }
 
     async function printAllGradeRostersConsecutively() {
-      await window.skWaitForFresh();
+      if (!(await window.skGuardFreshPrint())) return;
       const container = document.getElementById('content-container');
       if (!container) return;
 
@@ -5754,7 +5754,7 @@
     }
 
     async function printStudentAbsenceNotice() {
-      await window.skWaitForFresh();
+      if (!(await window.skGuardFreshPrint())) return;
       const content = document.getElementById('student-absence-notice-content');
       if (!content) return;
       const printWin = window.open('', '_blank');
@@ -6400,7 +6400,7 @@
     }
 
     async function printInterruptedStudentsReport() {
-      await window.skWaitForFresh();
+      if (!(await window.skGuardFreshPrint())) return;
       if (typeof refreshStudentsFromDB === 'function') refreshStudentsFromDB();
       const rep = buildInterruptedStudentsReportHTML();
       if (rep.list.length === 0) {
@@ -7790,7 +7790,7 @@
     }
 
     async function executePrintGradingSheets() {
-      await window.skWaitForFresh();
+      if (!(await window.skGuardFreshPrint())) return;
       const scopeRadio = document.querySelector('input[name="print-scope"]:checked');
       const scope = scopeRadio ? scopeRadio.value : 'current';
       const titleInp = document.getElementById('print-sheet-exam-title');
@@ -8029,8 +8029,15 @@
       }
       return window.__skCloudSyncFresh;
     };
+    window.__SK_STALE_MSG = '⚠️ تعذر تأكيد تحديث البيانات من السحابة، فتم إيقاف العملية حفاظًا على صحة الكشوف. تحقق من اتصال الإنترنت ثم أعد تحميل الصفحة وحاول مرة أخرى.';
+    window.skGuardFreshPrint = async function() {
+      let ok = false;
+      try { ok = await window.skWaitForFresh(15000); } catch(e) {}
+      if (!ok) { try { alert(window.__SK_STALE_MSG); } catch(e) {} }
+      return ok;
+    };
     window.skPrintFresh = async function() {
-      try { await window.skWaitForFresh(15000); } catch(e) {}
+      if (!(await window.skGuardFreshPrint())) return;
       window.print();
     };
 
@@ -9845,7 +9852,7 @@
     }
 
     async function printSingleCertificate() {
-      await window.skWaitForFresh();
+      if (!(await window.skGuardFreshPrint())) return;
       const c = document.getElementById('certificate-preview-container');
       if (!c) return;
       const printArea = document.getElementById('batch-certificates-print-area');
@@ -9869,7 +9876,7 @@
     }
 
     async function printBatchCertificates(mode = false) {
-      await window.skWaitForFresh();
+      if (!(await window.skGuardFreshPrint())) return;
       let gradeStudents = ALL_STUDENTS.filter(s => s.grade === currentGrade);
       if (gradeStudents.length === 0) {
         alert('لا يوجد طلاب في هذا الصف للطباعة');
@@ -10972,7 +10979,7 @@ Smile Kids school ☺`;
     }
 
     async function printCurrentSubjectCertDirect() {
-      await window.skWaitForFresh();
+      if (!(await window.skGuardFreshPrint())) return;
       const student = ALL_STUDENTS.find(s => s.id === currentPreviewStudentId);
       if (!student) return;
       if (isStudentSetAside(student)) { alert('⛔ هذا الطالب من ضمن طلاب «انقطاع مؤقت» — لا تُطبع له شهادات. يظهر فقط في تقرير الموقوفين.'); return; }
@@ -10987,7 +10994,7 @@ Smile Kids school ☺`;
     }
 
     async function printAllSubjectCertsForClass() {
-      await window.skWaitForFresh();
+      if (!(await window.skGuardFreshPrint())) return;
       const students = ALL_STUDENTS.filter(s => s.grade === currentTgGrade && !isStudentSetAside(s));
       if (students.length === 0) {
         alert('لا يوجد طلاب في هذا الصف');

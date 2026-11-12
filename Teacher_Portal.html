@@ -299,7 +299,7 @@
               <span class="hidden sm:inline">إكسل</span>
             </button>
 
-            <button onclick="window.print()" class="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow" title="طباعة كشف الدرجات">
+            <button onclick="skPrintFresh()" class="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow" title="طباعة كشف الدرجات">
               <span></span>
               <span class="hidden sm:inline">طباعة الكشف</span>
             </button>
@@ -871,6 +871,29 @@
       } catch(e) {}
     })();
 
+    // ==== بوابة طباعة/تصدير آمنة (قراءة فقط): لا طباعة أو تصدير قبل اكتمال أول سحب سحابي ====
+    window.__skCloudSyncFresh = false;
+    window.skWaitForFresh = async function(maxMs) {
+      maxMs = maxMs || 15000;
+      const t0 = Date.now();
+      while (!window.__skCloudSyncFresh && Date.now() - t0 < maxMs) {
+        if (!window.SmileKidsFirebase || (typeof navigator !== 'undefined' && navigator.onLine === false)) break;
+        await new Promise(r => setTimeout(r, 250));
+      }
+      return window.__skCloudSyncFresh;
+    };
+    window.__SK_STALE_MSG = '⚠️ تعذر تأكيد تحديث البيانات من السحابة، فتم إيقاف العملية حفاظًا على صحة الكشوف. تحقق من اتصال الإنترنت ثم أعد تحميل الصفحة وحاول مرة أخرى.';
+    window.skGuardFreshPrint = async function() {
+      let ok = false;
+      try { ok = await window.skWaitForFresh(15000); } catch(e) {}
+      if (!ok) { try { alert(window.__SK_STALE_MSG); } catch(e) {} }
+      return ok;
+    };
+    window.skPrintFresh = async function() {
+      if (!(await window.skGuardFreshPrint())) return;
+      window.print();
+    };
+
     // Synchronize with Cloud Firestore (Two-way cloud synchronization)
     async function syncTeacherPortalWithFirestore() {
       if (!window.SmileKidsFirebase || typeof window.SmileKidsFirebase.fetchAllFromFirestore !== 'function') return;
@@ -942,6 +965,7 @@
           if (hasChanges && currentTeacher && activeDashboardTab === 'grades') {
             renderGradeSheetTable();
           }
+          window.__skCloudSyncFresh = true;
           console.log('[TeacherPortal] Synchronized with Cloud Firestore ');
         }
       } catch(err) {
@@ -957,10 +981,14 @@
       restoreSavedSession();
       setupKeyboardNavigation();
       syncTeacherPortalWithFirestore();
+      // سحب مؤجل (قراءة فقط) لضمان التقاط أحدث الحالات بعد اكتمال تسجيل الدخول
+      setTimeout(() => { try { syncTeacherPortalWithFirestore(); } catch(e) {} }, 4000);
+      setTimeout(() => { try { syncTeacherPortalWithFirestore(); } catch(e) {} }, 10000);
     });
 
     window.addEventListener('smilekids_firebase_ready', () => {
       syncTeacherPortalWithFirestore();
+      setTimeout(() => { try { syncTeacherPortalWithFirestore(); } catch(e) {} }, 3000);
     });
 
     window.addEventListener('smilekids_db_updated', () => {
@@ -3291,7 +3319,8 @@
       });
     }
 
-    function exportGradesToCSV() {
+    async function exportGradesToCSV() {
+      if (!(await window.skGuardFreshPrint())) return;
       if (!currentTeacher) return;
       const grade = parseInt(document.getElementById('grade-select').value);
       const subjectId = document.getElementById('subject-select').value;
