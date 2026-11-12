@@ -2282,7 +2282,7 @@
       if (monthKey === 't1_octnov') {
         const os = String(curSubj || '').toLowerCase();
         if (os.includes('math') || os.includes('حساب') || os.includes('رياض')) return 30;
-        if (os.includes('arabic') || os.includes('عرب')) return 30;
+        if (os.includes('arabic') || os.includes('عرب')) { const gn = parseInt(curGrade) || 1; return (gn >= 6 && gn <= 9) ? 50 : 30; }
         if (os.includes('religion') || os.includes('دين') || os.includes('islam')) return 20;
         return getActiveMaxScore('t1_sep', curSubj, curGrade);
       }

@@ -7304,7 +7304,8 @@
       const isMath = subjId === 'math' || nm.includes('رياض') || nm.includes('حساب') || nm.includes('math');
       const isArabic = subjId === 'arabic' || nm.includes('عربي');
       const isReligion = subjId === 'religion' || nm.includes('دينية') || nm.includes('islam');
-      if (isMath || isArabic) return 30;
+      if (isArabic) { const gn = parseInt(grade) || 1; return (gn >= 6 && gn <= 9) ? 50 : 30; }
+      if (isMath) return 30;
       if (isReligion) return 20;
       const custom = (CUSTOM_SUBJECT_MAX && CUSTOM_SUBJECT_MAX[grade] && CUSTOM_SUBJECT_MAX[grade][subjId] !== undefined)
         ? parseFloat(CUSTOM_SUBJECT_MAX[grade][subjId]) : null;
