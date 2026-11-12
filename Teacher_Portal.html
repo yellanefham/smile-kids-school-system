@@ -2288,6 +2288,7 @@
         if (os.includes('math') || os.includes('حساب') || os.includes('رياض')) return 30;
         if (os.includes('arabic') || os.includes('عرب')) { const gn = parseInt(curGrade) || 1; return (gn >= 6 && gn <= 9) ? 50 : 30; }
         if (os.includes('religion') || os.includes('دين') || os.includes('islam')) return 20;
+        if (os === 'english_ol' && parseInt(curGrade) === 2) return 25; // G2 English OL: 25 per photographed sheet header (user-approved)
         return getActiveMaxScore('t1_sep', curSubj, curGrade);
       }
 

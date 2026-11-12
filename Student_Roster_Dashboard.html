@@ -7322,7 +7322,7 @@
       if (subjId === 'arabic') return 30;
       if (subjId === 'math') return (g === 6 ? 40 : (g >= 7 ? 40 : 30));
       if (subjId === 'english_ol') return (g === 1 ? 15 : (g === 2 ? 25 : 30));
-      if (subjId === 'english_al') return (g === 1 ? 25 : (g === 2 ? 25 : 30));
+      if (subjId === 'english_al') return (g === 1 ? 25 : (g === 2 ? 20 : 30));
       if (subjId === 'social' || subjId === 'ict' || subjId === 'religion') return 20;
       return 20;
     }
@@ -7336,7 +7336,7 @@
         subs = [
           { id: 'arabic', name: 'اللغة العربية', max: 30 },
           { id: 'english_ol', name: 'English OL', max: g === 1 ? 15 : (g === 2 ? 25 : 30) },
-          { id: 'english_al', name: 'English AL', max: g === 1 ? 25 : (g === 2 ? 25 : 30) },
+          { id: 'english_al', name: 'English AL', max: g === 1 ? 25 : (g === 2 ? 20 : 30) },
           { id: 'math', name: 'الرياضيات / Math', max: 30 },
           { id: 'religion', name: 'التربية الدينية', max: 20, isNonTotal: true }
         ];
