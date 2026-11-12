@@ -23,7 +23,7 @@ service cloud.firestore {
 
     function isStaff() { return isAdmin() || isTeacher(); }
 
-    match /students/{id}   { allow read, update: if isStaff(); allow create, delete: if isAdmin(); }
+    match /students/{id} { allow read, update: if isStaff(); allow create: if isAdmin(); allow delete: if isAdmin() && id != 'SK-G3-AR-001'; }
     match /attendance/{id} { allow read, create, update: if isStaff(); allow delete: if isAdmin(); }
     match /grades/{id}     { allow read, create, update: if isStaff(); allow delete: if isAdmin(); }
     match /timetables/{id} { allow read: if isStaff(); allow write: if isAdmin(); }
@@ -45,6 +45,6 @@ service cloud.firestore {
       );
     }
 
-    match /{document=**} { allow read, write: if isAdmin(); }
+    match /{document=**} { allow read, write: if isAdmin() && (request.method != 'delete' || request.path != /databases/$(database)/documents/students/SK-G3-AR-001); }
   }
 }
