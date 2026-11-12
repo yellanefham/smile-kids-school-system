@@ -7230,7 +7230,12 @@
     function renderCertificatesModule() {
       if (currentGrade === 0) currentGrade = 1;
       syncAllTeacherGradesIntoStudents();
-      const gradeStudents = ALL_STUDENTS.filter(s => s.grade === currentGrade);
+      const gradeStudents = ALL_STUDENTS.filter(s => s.grade === currentGrade && !isStudentSetAside(s));
+
+      // Guard: a previously selected student who is now set aside must not keep a printable certificate
+      if (certCurrentStudentId && !gradeStudents.some(s => s.id === certCurrentStudentId)) {
+        certCurrentStudentId = '';
+      }
 
       const sel = document.getElementById('cert-student-select');
       if (sel) {
@@ -9773,6 +9778,10 @@
       if (!container) return;
 
       const student = ALL_STUDENTS.find(s => s.id === certCurrentStudentId);
+      if (student && isStudentSetAside(student)) {
+        container.innerHTML = `<div class="p-8 text-center text-rose-400 font-bold">هذا الطالب في حالة «انقطاع مؤقت» — الشهادات وكروت الدرجات مستبعدة له حالياً. بياناته ودرجاته محفوظة وتظهر في تقرير الموقوفين المنفصل.</div>`;
+        return;
+      }
       if (!student) {
         container.innerHTML = `<div class="p-8 text-center text-slate-500 font-bold">يرجى اختيار طالب لعرض الشهادة المدرسية</div>`;
         return;
@@ -9785,6 +9794,10 @@
     function openCertificateForStudent(studentId) {
       const st = ALL_STUDENTS.find(s => s.id === studentId);
       if (!st) return;
+      if (isStudentSetAside(st)) {
+        alert('الطالب (' + (st.nameAr || '') + ') في حالة «انقطاع مؤقت» حالياً — لا تُطبع له شهادات أو كروت درجات. بياناته ودرجاته محفوظة وتظهر في تقرير الموقوفين المنفصل فقط.');
+        return;
+      }
       currentGrade = st.grade;
       certCurrentStudentId = st.id;
       const certSel = document.getElementById('cert-period-select');
@@ -10053,6 +10066,10 @@
       const student = ALL_STUDENTS.find(s => s.id === certCurrentStudentId);
       if (!student) {
         alert('يرجى اختيار طالب أولاً');
+        return;
+      }
+      if (isStudentSetAside(student)) {
+        alert('الطالب (' + (student.nameAr || '') + ') في حالة «انقطاع مؤقت» حالياً — لا تُرسل ولا تُطبع له شهادات أو كروت درجات. بياناته محفوظة وتظهر في تقرير الموقوفين المنفصل فقط.');
         return;
       }
       const pKey = (document.getElementById('cert-period-select') && document.getElementById('cert-period-select').value) ? document.getElementById('cert-period-select').value : (currentGradesPeriod || 't1_octnov');
