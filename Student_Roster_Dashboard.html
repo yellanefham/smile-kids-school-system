@@ -1262,7 +1262,7 @@
             </select>
           </div>
 
-          <button onclick="window.print()" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow" title="طباعة كشف هذا الفصل المعروض">
+          <button onclick="skPrintFresh()" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow" title="طباعة كشف هذا الفصل المعروض">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
             <span>🖨️ طباعة هذا الفصل</span>
           </button>
@@ -1387,7 +1387,7 @@
           <button onclick="exportMonthlyAttendanceCSV()" class="px-3.5 py-1.5 bg-emerald-600/80 hover:bg-emerald-600 text-white text-xs font-bold rounded-xl transition flex items-center gap-1.5 shadow" title="تصدير كشف الغياب الشهري إلى Excel">
             <span>📊 تصدير Excel</span>
           </button>
-          <button onclick="window.print()" class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black rounded-xl transition flex items-center gap-1.5 shadow">
+          <button onclick="skPrintFresh()" class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black rounded-xl transition flex items-center gap-1.5 shadow">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
             <span>طباعة الشيت الشهري</span>
           </button>
@@ -1424,7 +1424,7 @@
             <button onclick="exportPeriodAbsenceCSV()" class="px-3.5 py-1.5 bg-emerald-600/80 hover:bg-emerald-600 text-white text-xs font-bold rounded-xl transition flex items-center gap-1.5 shadow" title="تصدير تقرير الغياب إلى Excel">
               <span>📊 تصدير Excel</span>
             </button>
-            <button onclick="window.print()" class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black rounded-xl transition flex items-center gap-1.5 shadow">
+            <button onclick="skPrintFresh()" class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black rounded-xl transition flex items-center gap-1.5 shadow">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
               <span>طباعة تقرير الغياب الرسمي</span>
             </button>
@@ -3454,12 +3454,12 @@
             currentGrade === 0 ? 'bg-amber-500 text-slate-950 shadow-md font-black' : 'text-slate-300 hover:text-white hover:bg-slate-700/60'
           }">
             <span>🌟 ملخص المدرسة الشامل</span>
-            <span class="text-[10px] ${currentGrade === 0 ? 'bg-slate-950/20 text-slate-950' : 'bg-slate-700 text-slate-300'} px-1.5 py-0.5 rounded-full">${ALL_STUDENTS.length}</span>
+            <span class="text-[10px] ${currentGrade === 0 ? 'bg-slate-950/20 text-slate-950' : 'bg-slate-700 text-slate-300'} px-1.5 py-0.5 rounded-full">${ALL_STUDENTS.filter(s => !isStudentSetAside(s)).length}</span>
           </button>
         `;
 
         for (let g = 1; g <= 9; g++) {
-          const count = ALL_STUDENTS.filter(s => s.grade === g).length;
+          const count = ALL_STUDENTS.filter(s => s.grade === g && !isStudentSetAside(s)).length;
           const isActive = currentGrade === g;
           html += `
             <button onclick="switchGrade(${g})" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black transition whitespace-nowrap flex items-center gap-1.5 ${
@@ -3478,7 +3478,7 @@
       if (attContainer) {
         let attHtml = '';
         for (let g = 1; g <= 9; g++) {
-          const count = ALL_STUDENTS.filter(s => s.grade === g).length;
+          const count = ALL_STUDENTS.filter(s => s.grade === g && !isStudentSetAside(s)).length;
           const isActive = currentGrade === g;
           const cls = isActive
             ? 'px-3.5 py-1.5 rounded-xl text-xs font-black transition whitespace-nowrap bg-emerald-600 text-white shadow-[0_0_15px_rgba(16,185,129,0.4)] border border-emerald-400/50'
@@ -3624,7 +3624,7 @@
                 <span>📝 استمارة ورقية (A4)</span>
               </a>
 
-              <button onclick="window.print()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-black rounded-xl text-xs transition flex items-center gap-1.5 shadow" title="طباعة كشف هذا الفصل المعروض">
+              <button onclick="skPrintFresh()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-black rounded-xl text-xs transition flex items-center gap-1.5 shadow" title="طباعة كشف هذا الفصل المعروض">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
                 <span>🖨️ طباعة هذا الفصل</span>
               </button>
@@ -3749,7 +3749,7 @@
 
       for (let g = 1; g <= 9; g++) {
         const gName = GRADE_CONFIG[g] ? GRADE_CONFIG[g].ar : `الصف ${g}`;
-        const totalInG = ALL_STUDENTS.filter(s => s.grade === g).length;
+        const totalInG = ALL_STUDENTS.filter(s => s.grade === g && !isStudentSetAside(s)).length;
         const staffInG = ALL_STUDENTS.filter(s => s.grade === g && s.isTeacherChild).length;
         const isSel = currentGradeFilter === String(g);
 
@@ -4182,7 +4182,8 @@
       renderStaffKidsModule();
     }
 
-    function printStaffKidsRoster() {
+    async function printStaffKidsRoster() {
+      await window.skWaitForFresh();
       refreshStudentsFromDB();
       const staffKids = ALL_STUDENTS.filter(s => s.isTeacherChild === true);
       if (staffKids.length === 0) {
@@ -4404,7 +4405,7 @@
               <span class="bg-indigo-500/20 text-indigo-200 border border-indigo-500/40 px-3.5 py-1.5 rounded-xl text-xs font-black">
                 إجمالي المدرسة: ${totalAll} طالب وطالبة
               </span>
-              <button onclick="window.print()" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow no-print" title="طباعة جدول التجميعة الشامل">
+              <button onclick="skPrintFresh()" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow no-print" title="طباعة جدول التجميعة الشامل">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
                 <span>طباعة جدول التجميعة</span>
               </button>
@@ -4740,7 +4741,7 @@
                 <p class="text-xs font-semibold opacity-90">${GRADE_CONFIG[currentGrade].ar} — ${students.length} طالب مسجل</p>
               </div>
             </div>
-            <button onclick="window.print()" class="px-3.5 py-1.5 bg-white/20 hover:bg-white/30 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 no-print">
+            <button onclick="skPrintFresh()" class="px-3.5 py-1.5 bg-white/20 hover:bg-white/30 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 no-print">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
               <span>طباعة هذا القسم</span>
             </button>
@@ -4809,7 +4810,8 @@
       `;
     }
 
-    function printAllGradeRostersConsecutively() {
+    async function printAllGradeRostersConsecutively() {
+      await window.skWaitForFresh();
       const container = document.getElementById('content-container');
       if (!container) return;
 
@@ -5559,7 +5561,7 @@
                 <button onclick="exportPeriodAbsenceCSV()" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow">
                   <span>📊 تصدير الكشف Excel</span>
                 </button>
-                <button onclick="window.print()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow">
+                <button onclick="skPrintFresh()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow">
                   <span>🖨️ طباعة التقرير الرسمي</span>
                 </button>
               </div>
@@ -5751,7 +5753,8 @@
       openModal('modal-student-absence-notice');
     }
 
-    function printStudentAbsenceNotice() {
+    async function printStudentAbsenceNotice() {
+      await window.skWaitForFresh();
       const content = document.getElementById('student-absence-notice-content');
       if (!content) return;
       const printWin = window.open('', '_blank');
@@ -6396,7 +6399,8 @@
       return { list: list, rowsHtml: rowsHtml };
     }
 
-    function printInterruptedStudentsReport() {
+    async function printInterruptedStudentsReport() {
+      await window.skWaitForFresh();
       if (typeof refreshStudentsFromDB === 'function') refreshStudentsFromDB();
       const rep = buildInterruptedStudentsReportHTML();
       if (rep.list.length === 0) {
@@ -6771,7 +6775,7 @@
       if (!c) return;
       let html = '';
       for (let g = 1; g <= 9; g++) {
-        const count = ALL_STUDENTS.filter(s => s.grade === g).length;
+        const count = ALL_STUDENTS.filter(s => s.grade === g && !isStudentSetAside(s)).length;
         const isActive = (currentGrade === g);
         const cls = isActive
           ? 'px-3.5 py-1.5 rounded-xl text-xs font-black transition whitespace-nowrap bg-purple-600 text-white shadow-[0_0_15px_rgba(147,51,234,0.4)] border border-purple-400/50'
@@ -7210,7 +7214,7 @@
       if (!c) return;
       let html = '';
       for (let g = 1; g <= 9; g++) {
-        const count = ALL_STUDENTS.filter(s => s.grade === g).length;
+        const count = ALL_STUDENTS.filter(s => s.grade === g && !isStudentSetAside(s)).length;
         const isActive = (currentGrade === g);
         const cls = isActive
           ? 'px-3.5 py-1.5 rounded-xl text-xs font-black transition whitespace-nowrap bg-amber-600 text-white shadow-[0_0_15px_rgba(245,158,11,0.4)] border border-amber-400/50'
@@ -7785,7 +7789,8 @@
       return resultHtml;
     }
 
-    function executePrintGradingSheets() {
+    async function executePrintGradingSheets() {
+      await window.skWaitForFresh();
       const scopeRadio = document.querySelector('input[name="print-scope"]:checked');
       const scope = scopeRadio ? scopeRadio.value : 'current';
       const titleInp = document.getElementById('print-sheet-exam-title');
@@ -8013,6 +8018,22 @@
       }
     }
 
+    // ==== بوابة طباعة آمنة: لا طباعة قبل اكتمال أول سحب سحابي حتى لا تُطبع حالات قديمة ====
+    window.__skCloudSyncFresh = false;
+    window.skWaitForFresh = async function(maxMs) {
+      maxMs = maxMs || 15000;
+      const t0 = Date.now();
+      while (!window.__skCloudSyncFresh && Date.now() - t0 < maxMs) {
+        if (!window.SmileKidsFirebase || (typeof navigator !== 'undefined' && navigator.onLine === false)) break;
+        await new Promise(r => setTimeout(r, 250));
+      }
+      return window.__skCloudSyncFresh;
+    };
+    window.skPrintFresh = async function() {
+      try { await window.skWaitForFresh(15000); } catch(e) {}
+      window.print();
+    };
+
     async function manualSyncFromCloud(silent = false) {
       const btn = document.getElementById('btn-manual-sync-cloud');
       const icon = document.getElementById('sync-cloud-icon');
@@ -8235,6 +8256,7 @@
         if (typeof renderCertificatePreview === 'function') renderCertificatePreview();
         if (typeof renderGradesModule === 'function') renderGradesModule();
         if (typeof updatePrintSheetsPreview === 'function') updatePrintSheetsPreview();
+        window.__skCloudSyncFresh = true;
         if (!silent) {
           alert(`✓ تم بنجاح سحب وتحديث جميع الدرجات والبيانات من سحابة Firebase Firestore! (تم تحديث سجلات ${syncedCount || ALL_STUDENTS.length} طالب وتحديث الشهادات فورياً) 🟢`);
         }
@@ -9822,7 +9844,8 @@
       switchMainTab('certificates');
     }
 
-    function printSingleCertificate() {
+    async function printSingleCertificate() {
+      await window.skWaitForFresh();
       const c = document.getElementById('certificate-preview-container');
       if (!c) return;
       const printArea = document.getElementById('batch-certificates-print-area');
@@ -9845,7 +9868,8 @@
       }
     }
 
-    function printBatchCertificates(mode = false) {
+    async function printBatchCertificates(mode = false) {
+      await window.skWaitForFresh();
       let gradeStudents = ALL_STUDENTS.filter(s => s.grade === currentGrade);
       if (gradeStudents.length === 0) {
         alert('لا يوجد طلاب في هذا الصف للطباعة');
@@ -10947,9 +10971,11 @@ Smile Kids school ☺`;
       }
     }
 
-    function printCurrentSubjectCertDirect() {
+    async function printCurrentSubjectCertDirect() {
+      await window.skWaitForFresh();
       const student = ALL_STUDENTS.find(s => s.id === currentPreviewStudentId);
       if (!student) return;
+      if (isStudentSetAside(student)) { alert('⛔ هذا الطالب من ضمن طلاب «انقطاع مؤقت» — لا تُطبع له شهادات. يظهر فقط في تقرير الموقوفين.'); return; }
       const printArea = document.getElementById('batch-certificates-print-area');
       if (!printArea) return;
 
@@ -10960,8 +10986,9 @@ Smile Kids school ☺`;
       printArea.classList.add('hidden');
     }
 
-    function printAllSubjectCertsForClass() {
-      const students = ALL_STUDENTS.filter(s => s.grade === currentTgGrade);
+    async function printAllSubjectCertsForClass() {
+      await window.skWaitForFresh();
+      const students = ALL_STUDENTS.filter(s => s.grade === currentTgGrade && !isStudentSetAside(s));
       if (students.length === 0) {
         alert('لا يوجد طلاب في هذا الصف');
         return;
