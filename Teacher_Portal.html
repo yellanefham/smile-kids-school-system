@@ -1069,6 +1069,11 @@
       }
     }
 
+    // الطلاب الموقوفون مؤقتاً (انقطاع مؤقت) أو المنسحبون: لا يظهرون في كشوف الرصد ولا الغياب ولا التصدير، وبياناتهم محفوظة
+    function isStudentSetAside(s) {
+      return !!s && (s.enrollmentStatus === 'interrupted' || s.enrollmentStatus === 'withdrawn' || s.status === 'withdrawn');
+    }
+
     function getStoredStudents() {
       try {
         if (window.SmileKidsDB && typeof window.SmileKidsDB.getAllStudents === 'function') {
@@ -2494,7 +2499,7 @@
         return;
       }
 
-      const students = getStoredStudents().filter(s => s.grade === grade);
+      const students = getStoredStudents().filter(s => s.grade === grade && !isStudentSetAside(s));
       const allGrades = getStoredGrades();
       let clearedCount = 0;
       const curMax = def.effectiveMax || def.max || 20;
@@ -2580,7 +2585,7 @@
       const students = getStoredStudents();
       const allGrades = getStoredGrades();
 
-      let rosterStudents = students.filter(s => s.grade === grade);
+      let rosterStudents = students.filter(s => s.grade === grade && !isStudentSetAside(s));
       if (track !== 'all') {
         rosterStudents = rosterStudents.filter(s => s.track === track);
       }
@@ -3298,7 +3303,7 @@
 
       const students = getStoredStudents();
       const allGrades = getStoredGrades();
-      let filtered = students.filter(s => s.grade === grade);
+      let filtered = students.filter(s => s.grade === grade && !isStudentSetAside(s));
       if (track !== 'all') filtered = filtered.filter(s => s.track === track);
 
       const currentSub = currentTeacher.subjects.find(s => s.id === subjectId) || { nameAr: 'المادة' };
@@ -3370,7 +3375,7 @@
       const container = document.getElementById('att-students-list');
       if (!date || !gradeNum) { container.innerHTML = ''; return; }
       classBadge.innerText = `Grade ${gradeNum} • غياب اليوم الكامل ${date}`;
-      const students = getStoredStudents().filter(st => st.grade === gradeNum && (track === 'all' || st.track === track));
+      const students = getStoredStudents().filter(st => st.grade === gradeNum && (track === 'all' || st.track === track) && !isStudentSetAside(st));
       currentAttendanceState = {};
 
       if (students.length === 0) {

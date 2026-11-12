@@ -3418,7 +3418,7 @@
         // Always display full 178 master enrolled count as primary big number
         elTotal.innerHTML = `<span>${total}</span>` + 
           (withdrawnCount > 0 ? `<span class="text-xs text-slate-400 font-normal mr-2">(${activeTotal} منتظم • ${withdrawnCount} منسحب)</span>` : '') +
-          (interruptedCount > 0 ? `<span class="text-xs text-rose-400 font-bold mr-1.5 cursor-pointer" onclick="toggleInterruptedStudentsFilter()" title="انقر لعرض الطلاب الموضوعين على جنب">(${interruptedCount} على جنب)</span>` : '');
+          (interruptedCount > 0 ? `<span class="text-xs text-rose-400 font-bold mr-1.5 cursor-pointer" onclick="toggleInterruptedStudentsFilter()" title="انقر لعرض الطلاب الموضوعين على جنب">(${interruptedCount} على جنب)</span><button onclick="event.stopPropagation(); printInterruptedStudentsReport()" class="text-[10px] font-black bg-rose-500/15 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 rounded-lg px-1.5 py-0.5 mr-1 no-print" title="طباعة تقرير منفصل بالطلاب الموقوفين مؤقتاً">🖨️ تقرير الموقوفين</button>` : '');
       }
 
       const ln = ALL_STUDENTS.filter(s => s.track === 'languages').length;
@@ -4317,6 +4317,8 @@
         let students = [...ALL_STUDENTS];
         if (currentInterruptedFilterOnly) {
           students = students.filter(s => s.enrollmentStatus === 'interrupted');
+        } else {
+          students = students.filter(s => !isStudentSetAside(s));
         }
         if (currentTrackFilter !== 'all') {
           students = students.filter(s => s.track === currentTrackFilter);
@@ -4354,6 +4356,12 @@
       }
 
       let students = ALL_STUDENTS.filter(s => s.grade === currentGrade);
+
+      if (currentInterruptedFilterOnly) {
+        students = students.filter(s => s.enrollmentStatus === 'interrupted');
+      } else {
+        students = students.filter(s => !isStudentSetAside(s));
+      }
 
       if (currentTrackFilter !== 'all') {
         students = students.filter(s => s.track === currentTrackFilter);
@@ -4819,7 +4827,7 @@
 
       grades.forEach((g, gIdx) => {
         const info = GRADE_CONFIG[g];
-        const gStudents = ALL_STUDENTS.filter(s => s.grade === g);
+        const gStudents = ALL_STUDENTS.filter(s => s.grade === g && !isStudentSetAside(s));
         const arStudents = gStudents.filter(s => s.track === 'arabic');
         const lnStudents = gStudents.filter(s => s.track === 'languages');
         const isLast = gIdx === grades.length - 1;
@@ -5135,7 +5143,7 @@
 
     function markAllAttendance(status) {
       const g = currentGrade;
-      let gStudents = ALL_STUDENTS.filter(s => s.grade === g);
+      let gStudents = ALL_STUDENTS.filter(s => s.grade === g && !isStudentSetAside(s));
       if (currentAttTrackFilter !== 'all') {
         gStudents = gStudents.filter(s => s.track === currentAttTrackFilter);
       }
@@ -5157,7 +5165,7 @@
       const titleBanner = document.getElementById('att-banner-grade-title');
       if (titleBanner) titleBanner.innerText = `${info.ar} (${info.en})`;
 
-      let students = ALL_STUDENTS.filter(s => s.grade === g);
+      let students = ALL_STUDENTS.filter(s => s.grade === g && !isStudentSetAside(s));
       if (currentAttTrackFilter !== 'all') {
         students = students.filter(s => s.track === currentAttTrackFilter);
       }
@@ -5769,7 +5777,7 @@
 
     function exportMonthlyAttendanceCSV() {
       const g = currentGrade || 1;
-      let students = ALL_STUDENTS.filter(s => s.grade === g);
+      let students = ALL_STUDENTS.filter(s => s.grade === g && !isStudentSetAside(s));
       if (currentAttTrackFilter !== 'all') {
         students = students.filter(s => s.track === currentAttTrackFilter);
       }
@@ -5815,7 +5823,7 @@
 
     function exportPeriodAbsenceCSV() {
       const g = currentGrade || 1;
-      let students = ALL_STUDENTS.filter(s => s.grade === g);
+      let students = ALL_STUDENTS.filter(s => s.grade === g && !isStudentSetAside(s));
       if (currentAttTrackFilter !== 'all') {
         students = students.filter(s => s.track === currentAttTrackFilter);
       }
@@ -6355,6 +6363,112 @@
     // ========================================================
     // ENROLLMENT STATUS & INTERRUPTED / SUSPENDED STUDENTS HELPERS
     // ========================================================
+    // ========================================================
+    // SET-ASIDE STUDENTS (انقطاع مؤقت / منسحب)
+    // لا يظهر هؤلاء الطلاب في أي أوراق عادية (كشوف الفصول، شيتات رصد الدرجات،
+    // الشهادات وكروت الدرجات، كشوف الحضور والغياب وتقاريرها، وملفات التصدير)،
+    // ويظهرون فقط في تقريرهم المنفصل، مع بقاء بياناتهم ودرجاتهم محفوظة بالكامل.
+    // ========================================================
+    function isStudentSetAside(s) {
+      return !!s && (s.enrollmentStatus === 'interrupted' || s.enrollmentStatus === 'withdrawn' || s.status === 'withdrawn');
+    }
+
+    function buildInterruptedStudentsReportHTML() {
+      const list = ALL_STUDENTS
+        .filter(s => s.enrollmentStatus === 'interrupted')
+        .slice()
+        .sort((a, b) => (((a.grade || 0) - (b.grade || 0)) || (a.track === b.track ? 0 : (a.track === 'languages' ? -1 : 1)) || String(a.nameAr || '').localeCompare(String(b.nameAr || ''), 'ar')));
+
+      let rowsHtml = '';
+      list.forEach((st, idx) => {
+        const gradeObj = (typeof GRADE_CONFIG !== 'undefined' && GRADE_CONFIG[st.grade]) ? GRADE_CONFIG[st.grade] : { ar: ('الصف ' + st.grade) };
+        rowsHtml += `
+          <tr style="border-bottom: 1px solid #cbd5e1; font-size: 12px;">
+            <td style="padding: 7px; text-align: center; font-weight: bold;">${idx + 1}</td>
+            <td style="padding: 7px; font-family: monospace; font-weight: bold;">${st.id || ''}</td>
+            <td style="padding: 7px; font-weight: bold;">${st.nameAr || ''}</td>
+            <td style="padding: 7px; text-align: center;">${gradeObj.ar}</td>
+            <td style="padding: 7px; text-align: center;">${st.track === 'languages' ? 'لغات' : 'عربي'}</td>
+            <td style="padding: 7px; text-align: center; color: #b91c1c; font-weight: 900;">انقطاع مؤقت 🛑</td>
+          </tr>
+        `;
+      });
+      return { list: list, rowsHtml: rowsHtml };
+    }
+
+    function printInterruptedStudentsReport() {
+      if (typeof refreshStudentsFromDB === 'function') refreshStudentsFromDB();
+      const rep = buildInterruptedStudentsReportHTML();
+      if (rep.list.length === 0) {
+        alert('لا يوجد طلاب في حالة «انقطاع مؤقت» حالياً.');
+        return;
+      }
+
+      const printWindow = window.open('', '_blank');
+      if (!printWindow) return;
+
+      const html = `
+        <!DOCTYPE html>
+        <html dir="rtl" lang="ar">
+        <head>
+          <meta charset="UTF-8">
+          <title>تقرير الطلاب الموقوفين مؤقتاً (انقطاع مؤقت) - مدرسة Smile Kids</title>
+          <style>
+            @page { size: A4 portrait; margin: 12mm; }
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; color: #0f172a; direction: rtl; }
+            table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+            th { background: #f1f5f9; color: #1e293b; padding: 8px 6px; border: 1px solid #cbd5e1; font-size: 11px; }
+            td { border: 1px solid #cbd5e1; }
+          </style>
+        </head>
+        <body>
+          <div style="border-bottom: 2px solid #0f172a; padding-bottom: 10px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <h2 style="margin: 0; font-size: 17px; color: #1e3a8a;">مدرسة Smile Kids الخاصة للغات</h2>
+              <h3 style="margin: 3px 0 0; font-size: 14px; color: #b91c1c;">تقرير منفصل: الطلاب الموقوفون مؤقتاً (انقطاع مؤقت 🛑)</h3>
+              <p style="margin: 3px 0 0; font-size: 10px; color: #64748b;">العام الدراسي 2026 / 2027 • معتمد من إدارة المدرسة</p>
+            </div>
+            <div style="text-align: left; font-size: 11px; color: #475569;">
+              <div>إجمالي الموقوفين مؤقتاً: <b>${rep.list.length} طالباً</b></div>
+              <div>تاريخ الطباعة: <b>${new Date().toLocaleDateString('ar-EG')}</b></div>
+            </div>
+          </div>
+
+          <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 8px 12px; font-size: 11px; color: #7f1d1d; font-weight: bold;">
+            أسماء هذا التقرير لا تُطبع في كشوف الفصول أو شيتات رصد الدرجات أو الشهادات أو كشوف الحضور والغياب. جميع بياناتهم ودرجاتهم محفوظة، ويُعاد قيدهم تلقائياً فور عودتهم.
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 35px;">م</th>
+                <th style="width: 90px;">كود الطالب</th>
+                <th>اسم الطالب</th>
+                <th style="width: 110px;">الصف الدراسي</th>
+                <th style="width: 60px;">المسار</th>
+                <th style="width: 100px;">الحالة</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rep.rowsHtml}
+            </tbody>
+          </table>
+
+          <div style="margin-top: 40px; display: flex; justify-content: space-between; font-size: 12px; font-weight: bold;">
+            <div>مسؤول شؤون الطلاب: ......................</div>
+            <div>اعتماد مدير المدرسة: ......................</div>
+          </div>
+          <script>
+            window.onload = function() { window.print(); };
+          <\/script>
+        </body>
+        </html>
+      `;
+
+      printWindow.document.write(html);
+      printWindow.document.close();
+    }
+
     let currentInterruptedFilterOnly = false;
 
     function toggleStudentInterruption(studentId) {
@@ -6720,6 +6834,7 @@
 
       // Filter students
       const filtered = ALL_STUDENTS.filter(s => {
+        if (isStudentSetAside(s)) return false;
         if (s.grade !== currentGrade) return false;
         if (gradesTrackFilter !== 'all' && s.track !== gradesTrackFilter) return false;
         if (gradesSearchQuery) {
@@ -7081,7 +7196,7 @@
         return;
       }
 
-      const students = ALL_STUDENTS.filter(s => s.grade === currentGrade);
+      const students = ALL_STUDENTS.filter(s => s.grade === currentGrade && !isStudentSetAside(s));
       students.forEach(st => {
         onStudentSubjectInput(st.id, selSubj.id, val, selSubj.max);
       });
@@ -7634,7 +7749,7 @@
 
     function generateManualGradingSheetHTML(gradeNum, examTitle, isBlank) {
       const g = parseInt(gradeNum) || 1;
-      const gStudents = ALL_STUDENTS.filter(s => s.grade === g && !s.isCancelled && s.status !== 'withdrawn');
+      const gStudents = ALL_STUDENTS.filter(s => s.grade === g && !s.isCancelled && !isStudentSetAside(s));
       const langStudents = gStudents.filter(s => s.track === 'languages');
       const arStudents = gStudents.filter(s => s.track === 'arabic');
 
@@ -10313,7 +10428,7 @@ Smile Kids school ☺`;
         `;
       }
 
-      let students = ALL_STUDENTS.filter(s => s.grade === currentTgGrade);
+      let students = ALL_STUDENTS.filter(s => s.grade === currentTgGrade && !isStudentSetAside(s));
       if (currentTgSearchQuery) {
         students = students.filter(s => {
           const ar = (s.nameAr || '').toLowerCase();
