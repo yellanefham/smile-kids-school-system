@@ -7311,6 +7311,11 @@
       if (isArabic) { const gn = parseInt(grade) || 1; return (gn >= 6 && gn <= 9) ? 50 : 30; }
       if (isMath) return 30;
       if (isReligion) return 20;
+      // Oct-Nov school sheets: Connect (English OL) G1 20 / G2 25 / G3 30; Connect Plus (English AL) G1 25 / G2 25 / G3 30
+      const gOn = parseInt(grade) || 1;
+      if (gOn <= 3 && (subjId === 'english_ol' || subjId === 'english_al')) {
+        return subjId === 'english_ol' ? (gOn === 1 ? 20 : (gOn === 2 ? 25 : 30)) : (gOn === 3 ? 30 : 25);
+      }
       const custom = (CUSTOM_SUBJECT_MAX && CUSTOM_SUBJECT_MAX[grade] && CUSTOM_SUBJECT_MAX[grade][subjId] !== undefined)
         ? parseFloat(CUSTOM_SUBJECT_MAX[grade][subjId]) : null;
       return (custom && custom > 0) ? custom : getDefaultSubjectMax(grade, subjId);
