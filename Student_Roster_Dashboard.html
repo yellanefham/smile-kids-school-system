@@ -8590,6 +8590,30 @@
       }
     }
 
+    // Appreciation-only pupils (owner decision): no academic certificate, so they are not part of any rank group.
+    const APPRECIATION_ONLY_IDS = ['SK-G5-AR-004', 'SK-G6-AR-005', 'SK-G2-AR-6446'];
+
+    // Place of a pupil by percentage inside the same grade and the same section (track). Dense numbering: 1,1,2.
+    function getGroupPercentPlace(st, periodKey) {
+      const members = ALL_STUDENTS.filter(s => s.grade === st.grade && s.track === st.track
+        && s.enrollmentStatus !== 'interrupted' && s.enrollmentStatus !== 'suspended'
+        && !APPRECIATION_ONLY_IDS.includes(s.id));
+      const rows = members.map(s => ({ id: s.id, tot: getStudentPeriodTotal(s, periodKey) }));
+      const complete = rows.length > 0 && rows.every(r => r.tot.totalAcademicSubjects > 0
+        && r.tot.recordedCount >= r.tot.totalAcademicSubjects && r.tot.totalMax > 0);
+      const me = rows.find(r => r.id === st.id);
+      if (!complete || !me) return { complete: false, place: 0, groupSize: rows.length };
+      // exact comparison of fractions (no float noise): score / max
+      const frac = r => r.tot.totalScore / r.tot.totalMax;
+      const eq = (a, b) => Math.abs(frac(a) - frac(b)) < 1e-9;
+      const distinct = [];
+      rows.slice().sort((a, b) => frac(b) - frac(a)).forEach(r => {
+        if (!distinct.length || !eq(distinct[distinct.length - 1], r)) distinct.push(r);
+      });
+      const place = distinct.findIndex(d => eq(d, me)) + 1;
+      return { complete: true, place: place, groupSize: rows.length };
+    }
+
     function calculateStudentClassRank(st, periodKey, plainText = false) {
       if (!st) return '';
       const config = getRanksConfig();
@@ -8609,6 +8633,31 @@
       if (config.requireFullRecording && pTot.recordedCount < totalSubjects) {
         if (plainText) return `رصد غير مكتمل (${pTot.recordedCount}/${totalSubjects})`;
         return `<span class="text-slate-400 text-xs font-bold" title="رُصد ${pronounRecorded} ${pTot.recordedCount} من ${totalSubjects} مادة">رصد غير مكتمل (${pTot.recordedCount}/${totalSubjects})</span>`;
+      }
+
+      // Oct-Nov (owner-approved 2026-11-13): real place by percentage inside the SAME grade and SAME section.
+      // Equal percentages share a place and the next percentage takes the next place (1,1,2). Shown only once every
+      // pupil of that group has all academic subjects recorded. Interrupted, suspended and appreciation-only pupils are
+      // not part of the group. Religion stays outside the total, displayed marks (halves rounded up) are used.
+      if (periodKey === 't1_octnov') {
+        const place = getGroupPercentPlace(st, periodKey);
+        if (!place.complete) {
+          const pend = 'الترتيب يظهر بعد اكتمال درجات الصف والقسم';
+          if (plainText) return pend;
+          return `<span class="text-slate-500 text-xs font-bold" style="font-size: 13px; color: #64748b; font-family: 'Cairo', Arial, sans-serif;">${pend}</span>`;
+        }
+        const rule = place.place >= 1 && place.place <= 10 ? config.ranks.find(r => r.rank === place.place) : null;
+        if (rule) {
+          if (plainText) return rule.label;
+          return `<span class="font-black text-amber-500" style="font-size: 19px; color: #b45309; letter-spacing: 0.3px; font-family: 'Cairo', Arial, sans-serif;">${rule.label}</span>`;
+        }
+        const passLabel2 = isGirlRank ? 'ناجحة' : 'ناجح';
+        if (pTot.percentage >= 50) {
+          if (plainText) return passLabel2;
+          return `<span class="text-emerald-600 font-bold" style="font-size: 17.5px; color: #059669; font-family: 'Cairo', Arial, sans-serif;">${passLabel2}</span>`;
+        }
+        if (plainText) return 'يحتاج متابعة';
+        return `<span class="text-rose-600 font-bold" style="font-size: 17.5px; color: #dc2626; font-family: 'Cairo', Arial, sans-serif;">يحتاج متابعة</span>`;
       }
 
       // Calculate lost marks: (totalMax - totalScore)
